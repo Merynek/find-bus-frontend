@@ -1,0 +1,28 @@
+@use "../../../styles/variables";
+@use "../../../styles/mediaQueries";
+@use "../../../styles/colors";
+
+.layout {
+  display: flex;
+  flex-direction: column;
+
+  .section {
+    display: flex;
+    justify-content: space-between;
+    max-width: 500px;
+  }
+
+  .trips {
+    display: flex;
+    flex-direction: row;
+    .stopsSection {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+
+      &.recommendation {
+        border: 2px solid colors.$green;
+      }
+    }
+  }
+}

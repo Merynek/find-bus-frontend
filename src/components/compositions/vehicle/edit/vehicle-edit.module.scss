@@ -1,0 +1,12 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  .line {
+    display: flex;
+
+    .photo {
+      width: 200px;
+      height: 200px;
+    }
+  }
+}

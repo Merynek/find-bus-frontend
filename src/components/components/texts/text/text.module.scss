@@ -1,0 +1,76 @@
+@use "../../../../styles/variables";
+@use "../../../../styles/colors";
+@use "../../../../styles/fonts";
+
+.text {
+  display: block;
+  line-height: fonts.$lineHeightBase;
+  &.inline {
+    display: inline;
+  }
+
+  //Size
+  &.small {
+    font-size: fonts.$fontSize12;
+  }
+  &.base {
+    font-size: fonts.$fontSizeBase14;
+  }
+  &.medium {
+    font-size: fonts.$fontSize22;
+  }
+  &.mediumLarge {
+    font-size: fonts.$fontSize24;
+  }
+  &.large {
+    font-size: fonts.$fontSize32;
+  }
+
+  //Weight
+  &.fontWeightRegular {
+    font-weight: fonts.$fontWeightRegular;
+  }
+  &.fontWeightSemibold {
+    font-weight: fonts.$fontWeightSemiBold;
+  }
+
+  //Align
+  &.textAlignLeft {
+    text-align: left;
+  }
+  &.textAlignCenter {
+    text-align: center;
+  }
+  &.textAlignRight {
+    text-align: right;
+  }
+
+  //Transform
+  &.textTransformCapitalize {
+    text-transform: capitalize;
+  }
+  &.textTransformCapitalizeFirst {
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+  &.textTransformUppercase {
+    text-transform: uppercase;
+  }
+
+  //Decoration
+  &.textDecorationUnderline {
+    text-decoration: underline;
+  }
+
+  //Color
+  &.black {
+    color: colors.$black;
+  }
+  &.white {
+    color: colors.$white;
+  }
+  &.yellow {
+    color: colors.$yellow;
+  }
+}

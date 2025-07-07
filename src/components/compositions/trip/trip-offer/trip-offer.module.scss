@@ -1,0 +1,16 @@
+@use "../../../../styles/variables";
+@use "../../../../styles/mediaQueries";
+@use "../../../../styles/colors";
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  background: colors.$green;
+  margin: variables.$itemOffset;
+  padding: variables.$itemOffset;
+  border: 1px solid colors.$borderColor;
+
+  .line {
+    display: flex;
+  }
+}

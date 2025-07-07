@@ -1,0 +1,46 @@
+@use "../../../../styles/variables";
+@use "../../../../styles/mediaQueries";
+@use "../../../../styles/colors";
+
+$size: 30px;
+$borderWidth: 6px;
+
+.circle {
+  background-color: colors.$white;
+  width: $size;
+  height: $size;
+  border: $borderWidth solid colors.$gray;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+
+  &::after {
+    content: '';
+    width: $borderWidth;
+    height: $borderWidth;
+    background-color: colors.$gray;
+    border-radius: 50%;
+  }
+
+  &.active {
+    border: $borderWidth solid colors.$blue;
+    &::after {
+      background-color: colors.$blue;
+    }
+  }
+
+  &.completed {
+    border: $borderWidth solid colors.$green;
+    &::after {
+      background-color: colors.$green;
+    }
+  }
+}
+
+.text {
+  max-width: 150px;
+  word-break: break-word;
+  word-break: break-all;
+}

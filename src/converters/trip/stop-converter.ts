@@ -1,0 +1,18 @@
+import {StopRequestDto, StopResponseDto} from "../../api/openapi";
+import {Stop} from "../../data/trip/stop";
+import {PlaceConverter} from "../place-converter";
+
+export class StopConverter {
+    public static toClient(apiStop: StopResponseDto): Stop {
+        return new Stop({
+            place: PlaceConverter.toClient(apiStop.place),
+            route: null
+        })
+    }
+
+    public static toServer(stop: Stop): StopRequestDto {
+        return {
+            place: PlaceConverter.toServer(stop.place)
+        }
+    }
+}

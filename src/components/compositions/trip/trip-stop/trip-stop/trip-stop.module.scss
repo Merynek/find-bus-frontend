@@ -1,0 +1,34 @@
+$maxInputWidth: 435px;
+
+.layout {
+  display: flex;
+  align-items: center;
+  flex: 1 1 0;
+  min-width: 0;
+
+  &:focus {
+    outline: none;
+  }
+
+  .contentWrap {
+    display: flex;
+    align-items: center;
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .middleSection {
+    display: flex;
+    align-items: center;
+    flex: 1 1 0;
+    min-width: 0;
+    .placeName {
+      min-width: 0;
+    }
+  }
+
+  .marker {
+    flex-shrink: 0;
+    margin-right: 3px;
+  }
+}

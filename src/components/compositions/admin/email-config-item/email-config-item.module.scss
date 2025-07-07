@@ -1,0 +1,16 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid gray;
+  .header {
+    font-size: 22px;
+  }
+  .templateId {
+    display: flex;
+  }
+  .params {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+  }
+}

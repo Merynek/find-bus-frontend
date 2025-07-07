@@ -1,0 +1,7 @@
+@use "../../../../styles/variables.scss";
+@use "../../../../styles/colors.scss";
+@use "../../../../styles/fonts.scss";
+
+.acceptedOffer {
+    border: 2px solid colors.$red;
+}

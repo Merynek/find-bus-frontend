@@ -1,0 +1,79 @@
+@use "../../../../styles/variables";
+@use "../../../../styles/mediaQueries";
+@use "../../../../styles/colors";
+@use "../../../../styles/fonts";
+
+@mixin textareaStyle {
+  line-height: fonts.$lineHeightBase;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  cursor: auto;
+
+  &.textareaResizeNone {
+    resize: none;
+  }
+
+  &.textareaResizeBoth {
+    resize: both;
+  }
+
+  &.textareaResizeHorizontal {
+    resize: horizontal;
+  }
+
+  &.textareaResizeVertical {
+    resize: vertical;
+  }
+}
+
+.textBox {
+  width: 100%;
+  border-radius: variables.$borderRadiusBase;
+
+  &.smallSize {
+    input, textarea {
+      @include variables.inputStyle(variables.$inputSmallHeight);
+    }
+  }
+  &.mediumSize {
+    input, textarea {
+      @include variables.inputStyle(variables.$inputMediumHeight);
+    }
+  }
+  &.largeSize {
+    input, textarea {
+      @include variables.inputStyle(variables.$inputLargeHeight);
+    }
+  }
+
+  &.smallSize, &.mediumSize, &.largeSize {
+    textarea {
+      @include textareaStyle();
+    }
+  }
+}
+
+@media (max-width: mediaQueries.$mediaQuery768) {
+  .textBox {
+    &.smallSize {
+      input, textarea {
+        @include variables.inputStyle(variables.$inputSmallHeightPhone);
+      }
+    }
+    &.mediumSize {
+      input, textarea {
+        @include variables.inputStyle(variables.$inputMediumHeightPhone);
+      }
+    }
+    &.largeSize {
+      input, textarea {
+        @include variables.inputStyle(variables.$inputLargeHeightPhone);
+      }
+    }
+    &.smallSize, &.mediumSize, &.largeSize {
+      textarea {
+        @include textareaStyle();
+      }
+    }
+  }
+}

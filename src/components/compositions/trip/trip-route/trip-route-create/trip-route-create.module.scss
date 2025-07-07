@@ -1,0 +1,20 @@
+@use "../../../../../styles/variables";
+@use "../../../../../styles/mediaQueries";
+
+.layout {
+  display: flex;
+
+  flex-direction: column;
+  .section {
+    display: flex;
+    max-width: 400px;
+    align-items: center;
+    padding: variables.$itemOffset 0;
+    .label {
+      flex: 1;
+    }
+    .date {
+      flex: 1;
+    }
+  }
+}

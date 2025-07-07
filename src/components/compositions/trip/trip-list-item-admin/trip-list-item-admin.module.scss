@@ -1,0 +1,9 @@
+@use "../../../../styles/variables";
+@use "../../../../styles/mediaQueries";
+@use "../../../../styles/colors";
+
+.item {
+  max-width: 100%;
+  border: 1px solid colors.$gray;
+  padding: variables.$itemOffset * 2;
+}

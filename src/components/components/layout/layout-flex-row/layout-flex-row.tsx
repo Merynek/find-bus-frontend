@@ -1,0 +1,29 @@
+import React from "react";
+import styles from "./layout-flex-row.module.scss"
+import {cn} from "@/src/utils/common";
+import {getClassName, ILayoutFlexProps} from "@/src/components/components/layout/layout-flex/layout-flex";
+import {observer} from "mobx-react";
+
+export interface ILayoutFlexRowProps extends ILayoutFlexProps {
+    responsive?: boolean;
+    canWrap?: boolean;
+}
+
+export const LayoutFlexRow = observer((props: ILayoutFlexRowProps) => {
+    const {gap, justifyContent,
+        alignItems, tabIndex,
+        elementRef, children, canWrap, responsive, style} = props;
+
+    return <div
+        ref={elementRef}
+        style={{
+            alignItems: alignItems,
+            justifyContent: justifyContent,
+            ...style
+        }}
+        tabIndex={tabIndex}
+        className={cn(styles.flex, gap && getClassName(gap), canWrap && styles.wrap, responsive && styles.flexResponsive)}
+    >
+        {children}
+    </div>;
+});

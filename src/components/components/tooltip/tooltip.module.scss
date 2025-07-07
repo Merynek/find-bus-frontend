@@ -1,0 +1,56 @@
+@use "../../../styles/variables";
+@use "../../../styles/colors";
+@use "../../../styles/fonts";
+
+.fake {
+  outline: none;
+}
+
+@mixin tooltipStyle($background: colors.$gray, $color: colors.$black){
+  font-size: fonts.$fontSizeBase14!important;
+  font-family: inherit!important;
+  font-weight: 400 !important;
+  background: $background !important;
+  color: $color !important;
+  padding: 5px 15px !important;
+  max-width: 333px !important;
+}
+@mixin arrow($background: colors.$gray){
+  background: $background!important;
+}
+
+.arrow {
+  &::before {
+    @include arrow(colors.$gray);
+  }
+}
+.tooltip {
+  @include tooltipStyle(colors.$gray, colors.$black);
+}
+
+.arrowError {
+   &::before {
+     @include arrow(colors.$red);
+   }
+}
+.tooltipError {
+  @include tooltipStyle(colors.$red, colors.$white);
+}
+
+.arrowSuccess {
+  &::before {
+    @include arrow(colors.$green);
+  }
+}
+.tooltipSuccess {
+  @include tooltipStyle(colors.$green, colors.$white);
+}
+
+.arrowWarning {
+  &::before {
+    @include arrow(colors.$orange);
+  }
+}
+.tooltipWarning {
+  @include tooltipStyle(colors.$orange, colors.$black);
+}

@@ -1,0 +1,30 @@
+@use "../../../styles/variables";
+
+$sidePadding: (variables.$itemOffset * 2.5);
+
+.sheetHeader {
+    padding-left: variables.$itemOffset * 2;
+    padding-bottom: variables.$itemOffset * 2;
+    border-bottom: 1px solid gray;
+    border-radius: 0;
+}
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.topLine {
+    width: variables.$itemOffset * 6;
+    height: variables.$itemOffset / 2;
+    border-radius: 80px;
+    background: gray;
+    align-self: center;
+    margin: variables.$itemOffset 0;
+}
+
+.bottomContent {
+    align-self: center;
+    padding: variables.$itemOffset $sidePadding $sidePadding $sidePadding;
+}

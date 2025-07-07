@@ -1,0 +1,77 @@
+@use "./colors.scss";
+@use "./fonts.scss";
+
+// offsets
+$itemOffset: 8px;
+
+// border radius
+$borderRadiusBase: 8px;
+
+$inputLargeHeight: 56px;
+$inputLargeHeightPhone: 48px;
+$inputLargePadding: 13px;
+
+$inputMediumHeight: 48px;
+$inputMediumHeightPhone: 40px;
+$inputMediumPadding: 12px;
+
+$inputSmallHeight: 32px;
+$inputSmallHeightPhone: 32px;
+$inputSmallPadding: 10px;
+
+@mixin inputStyle($height: $inputLargeHeight) {
+  font-size: fonts.$fontSizeBase14;
+  background: colors.$white;
+  min-height: $height;
+  border-radius: $borderRadiusBase;
+  font-family: "Inter", serif;
+  box-sizing: border-box;
+  max-width: 100%;
+
+  @if $height == $inputLargeHeight {
+    padding: 0 $inputLargePadding
+  } @else if $height == $inputMediumHeight {
+    padding: 0 $inputMediumPadding;
+  } @else if $height == $inputSmallHeight {
+    padding: 0 $inputSmallPadding
+  }
+  @else{
+    // @error "Unknown height #{$height}.";
+  }
+
+  @include ellipsis();
+
+  &:focus {
+    outline: none;
+    border-color: colors.$gray;
+  }
+
+  &::placeholder {
+    color: colors.$green;
+  }
+
+  &:disabled {
+    background: colors.$gray;
+    color: colors.$black;
+  }
+
+  input {
+    font-family: "Inter", serif;
+  }
+}
+
+@mixin ellipsis($lines: 1) {
+  @if $lines == 1 {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  } @else if $lines > 1 {
+    display: -webkit-box;
+    white-space: initial;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}

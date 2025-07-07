@@ -1,0 +1,66 @@
+@use "../../../../styles/variables";
+@use "../../../../styles/colors";
+@use "../../../../styles/fonts";
+
+$underlineLargeSize: 8px;
+$underlineMediumSize: 5px;
+
+.text {
+  display: block;
+  color: colors.$default;
+  border: 1px solid colors.$transparent;
+  border-radius: variables.$borderRadiusBase;
+  vertical-align: middle;
+  text-decoration: none;
+  padding-bottom: calc($underlineLargeSize / 2);
+  font-weight: fonts.$fontWeightSemiBold;
+  line-height: fonts.$lineHeightBase;
+  white-space: pre-line;
+  align-items: baseline;
+  cursor: inherit;
+  &.inline {
+    @include variables.ellipsis();
+  }
+}
+
+.size16 {
+  @include fonts.typoSize16;
+}
+.size14 {
+  @include fonts.typoSize14;
+}
+.size22 {
+  @include fonts.typoSize22;
+}
+.size12 {
+  @include fonts.typoSize12;
+}
+.size24 {
+  @include fonts.typoSize24;
+}
+.size28 {
+  @include fonts.typoSize28;
+}
+.size32 {
+  @include fonts.typoSize32;
+}
+.size40 {
+  @include fonts.typoSize40;
+}
+.size48 {
+  @include fonts.typoSize48;
+}
+.size72 {
+  @include fonts.typoSize72;
+}
+
+//Align
+.textAlignLeft {
+  text-align: left;
+}
+.textAlignCenter {
+  text-align: center;
+}
+.textAlignRight {
+  text-align: right;
+}

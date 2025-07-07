@@ -1,0 +1,15 @@
+@use "../../../styles/colors";
+
+.layout {
+  display: flex;
+
+  .list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .filter {
+    display: flex;
+    background: colors.$transparent;
+  }
+}

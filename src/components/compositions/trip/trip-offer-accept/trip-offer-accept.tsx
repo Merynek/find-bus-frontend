@@ -1,0 +1,76 @@
+import {Offer} from "@/src/data/offer";
+import React, {useState} from "react";
+import {Configuration} from "@/src/singletons/configuration";
+import styles from "./trip-offer-accept.module.scss";
+import {observer} from "mobx-react";
+import {Trip} from "@/src/data/trip/trip";
+import {ComboBox, IComboBoxItem} from "../../../components/inputs/combo-box/combo-box";
+import {runInAction} from "mobx";
+import {TripOfferAcceptMethod} from "@/src/api/openapi";
+import {ButtonClick, ButtonSize, ButtonType} from "../../../components/button/button";
+import {TripsOfferApi} from "@/src/api/tripsOfferApi";
+import moment from "moment";
+import {AppManager} from "@/src/singletons/app-manager";
+import {useBean} from "ironbean-react";
+
+export interface ITripOfferAcceptProps {
+    offer: Offer;
+    trip: Trip;
+    onAcceptOffer: () => void;
+}
+
+export const TripOfferAccept = observer((props: ITripOfferAcceptProps) => {
+    const {offer, onAcceptOffer, trip} = props;
+    const _configuration = useBean(Configuration);
+    const _createAcceptMethodOption = (method: TripOfferAcceptMethod): IComboBoxItem<string> => {
+        return {
+            label: method,
+            value: method
+        }
+    }
+    const _createAcceptMethodOptions = (): IComboBoxItem<string>[] => {
+        const options: IComboBoxItem<string>[] = [];
+
+        if (trip && trip.dateFrom) {
+            const start = moment(trip.dateFrom);
+            const end = moment(trip.endOrder);
+            const duration = moment.duration(start.diff(end));
+            if (duration.asHours() > _configuration.appBusinessConfig.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours) {
+                options.push(_createAcceptMethodOption(TripOfferAcceptMethod.PAY_DEPOSIT));
+            }
+        }
+        options.push(_createAcceptMethodOption(TripOfferAcceptMethod.PAY_FULL));
+
+        return options;
+    }
+    const methods = _createAcceptMethodOptions();
+    const _tripsOfferApi = useBean(TripsOfferApi);
+    const _appManager = useBean(AppManager);
+    const [acceptMethod, setAcceptMethod] = useState<TripOfferAcceptMethod>(TripOfferAcceptMethod.PAY_DEPOSIT);
+
+    return <div className={styles.layout}>
+        <ComboBox
+            items={methods}
+            value={methods.find(i => i.value === acceptMethod)}
+            onChange={(item) => {
+                runInAction(() => {
+                    setAcceptMethod(item.value as TripOfferAcceptMethod);
+                })
+            }}
+        />
+        <ButtonClick
+            onClick={async () => {
+                _appManager.loading = true;
+                await _tripsOfferApi.acceptOffer({
+                    offerId: offer.id,
+                    acceptMethod: acceptMethod
+                })
+                _appManager.loading = false;
+                onAcceptOffer();
+            }}
+            label={"Přijat nabídku"}
+            type={ButtonType.BLACK}
+            size={ButtonSize.BY_CONTENT}
+        />
+    </div>
+});

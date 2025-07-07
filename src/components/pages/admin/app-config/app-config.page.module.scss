@@ -1,0 +1,11 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  .line {
+    display: flex;
+    margin: 10px;
+    .numberInput {
+      min-width: 200px;
+    }
+  }
+}

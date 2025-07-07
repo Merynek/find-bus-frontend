@@ -1,0 +1,49 @@
+@use "../../../styles/variables.scss";
+@use "../../../styles/colors.scss";
+@use "../../../styles/fonts.scss";
+
+$buttonSizeM: 36px;
+
+@mixin button($buttonLocalSize) {
+  outline: none;
+  margin: 0;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  padding: 0 (variables.$itemOffset + (calc(variables.$itemOffset / 2)));
+  height: $buttonLocalSize;
+  cursor: pointer;
+  border: none;
+  font-weight: fonts.$fontWeightSemiBold;
+  text-decoration: none;
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+.buttonSizeByContent {
+  @include button($buttonSizeM);
+  height: unset;
+  padding: unset;
+}
+
+.buttonSizeM {
+  @include button($buttonSizeM);
+  font-size: fonts.$fontSize16;
+}
+
+.buttonBase {
+  background: transparent;
+}
+
+.buttonYellow {
+  color: colors.$black;
+  background: colors.$yellow;
+}
+
+.buttonBlack {
+  color: colors.$white;
+  background: colors.$black;
+}

@@ -1,0 +1,24 @@
+@use "../../../../styles/colors";
+
+@mixin sizeWrapper($size){
+  width: $size;
+  height: $size;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  color: colors.$blue;
+}
+
+.container {
+  &.BIG {
+    @include sizeWrapper(30px);
+  }
+  &.MEDIUM {
+    @include sizeWrapper(25px);
+  }
+  &.SMALL {
+    @include sizeWrapper(20px);
+  }
+}

@@ -1,0 +1,35 @@
+@use "../../../../styles/variables";
+@use "../../../../styles/mediaQueries";
+
+@mixin gap4    { gap: variables.$itemOffset * 0.5; }
+@mixin gap8    { gap: variables.$itemOffset; }
+@mixin gap16   { gap: variables.$itemOffset * 2; }
+@mixin gap24   { gap: variables.$itemOffset * 3; }
+@mixin gap32   { gap: variables.$itemOffset * 4; }
+@mixin gap40   { gap: variables.$itemOffset * 5; }
+
+.gap4    { @include gap4; }
+.gap8    { @include gap8; }
+.gap16   { @include gap16; }
+.gap24   { @include gap24; }
+.gap32   { @include gap32; }
+.gap40   { @include gap40; }
+
+@media (max-width: mediaQueries.$mediaQuery768) {
+  .mobileGap4    { @include gap4; }
+  .mobileGap8    { @include gap8; }
+  .mobileGap16   { @include gap16; }
+  .mobileGap24   { @include gap24; }
+  .mobileGap32   { @include gap32; }
+  .mobileGap40   { @include gap40; }
+}
+
+@media (max-width: mediaQueries.$mediaQuery1023) {
+  .desktopGap4    { @include gap4; }
+  .desktopGap8    { @include gap8; }
+  .desktopGap16   { @include gap16; }
+  .desktopGap24   { @include gap24; }
+  .desktopGap32   { @include gap32; }
+  .desktopGap40   { @include gap40; }
+}
+

@@ -1,0 +1,12 @@
+@use "../../../styles/variables";
+@use "../../../styles/mediaQueries";
+@use "../../../styles/colors";
+
+.image {
+  opacity: 1;
+  transition: opacity 300ms;
+  background: colors.$gray;
+  width: 100%;
+  height: 100%;
+  border-radius: variables.$borderRadiusBase;
+}

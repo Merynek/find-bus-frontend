@@ -1,0 +1,31 @@
+@use "../../../styles/variables";
+
+$size: 50px;
+@mixin centering(){
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  position: relative;
+  min-height: $size;
+
+  &.wrapperGray {
+    filter: grayscale(100%) opacity(50%);
+  }
+  &.wrapperOffset {
+    padding: (variables.$itemOffset * 3) 0;
+    min-height: (variables.$itemOffset * 6) + $size;
+  }
+
+  .gif {
+    @include centering();
+    width: $size;
+    height: $size;
+  }
+}

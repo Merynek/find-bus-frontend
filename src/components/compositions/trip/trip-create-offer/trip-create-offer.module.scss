@@ -1,0 +1,15 @@
+@use "../../../../styles/variables";
+@use "../../../../styles/mediaQueries";
+@use "../../../../styles/colors";
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  background: colors.$yellow;
+  padding: variables.$itemOffset;
+
+  .line {
+    display: flex;
+  }
+
+}

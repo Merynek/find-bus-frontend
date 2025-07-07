@@ -1,0 +1,68 @@
+import {
+    CreateTripRequestDto,
+    TripResponseDto,
+    TripRecommendationRequestDto,
+    TripRecommendationRouteRequestDto, TripRecommendationResponseDto
+} from "../../api/openapi";
+import {Trip} from "../../data/trip/trip";
+import {TripRecommendation, TripRecommendationRoute} from "../../data/tripRecommendation";
+import {milliSecondsToSeconds} from "../../utils/common";
+import {RouteConverter} from "./route-converter";
+
+export class TripConverter {
+    public static toClient(apiTrip: TripResponseDto): Trip {
+        return new Trip({
+            id: apiTrip.id,
+            ownerId: apiTrip.ownerId,
+            amenities: apiTrip.amenities,
+            dietForTransporter: apiTrip.dietForTransporter,
+            numberOfPersons: apiTrip.numberOfPersons,
+            routes: apiTrip.routes.map((r) => RouteConverter.toClient(r)),
+            endOrder: apiTrip.endOrder,
+            offerHasEnded: apiTrip.offerHasEnded,
+            offerState: apiTrip.offerState,
+            handicappedUserCount: apiTrip.handicappedUserCount,
+            totalDistanceInMeters: apiTrip.totalDistanceInMeters,
+            created: apiTrip.created
+        })
+    }
+
+    public static toServer(trip: Trip): CreateTripRequestDto {
+        return {
+            routes: trip.routes.map((r) => RouteConverter.toServer(r)),
+            numberOfPersons: trip.numberOfPersons,
+            dietForTransporter: trip.dietForTransporter,
+            amenities: trip.amenities,
+            endOrder: trip.endOrder,
+            handicappedUserCount: trip.handicappedUserCount
+        }
+    }
+
+    public static tripRecommendationToServer(trip: Trip): TripRecommendationRequestDto {
+        const apiRoutes: TripRecommendationRouteRequestDto[] = [];
+        trip.routes.forEach(route => {
+            apiRoutes.push({
+                directionTimeSeconds: milliSecondsToSeconds(route.directionTimeMilliSeconds),
+                previousPauseTimeSeconds: milliSecondsToSeconds(route.previousPauseInMilliSeconds)
+            })
+        });
+        return {
+            routes: apiRoutes
+        }
+    }
+
+    public static tripRecommendationToClient(apiRecommendation: TripRecommendationResponseDto): TripRecommendation {
+        return new TripRecommendation({
+            routes: apiRecommendation.routes.map(r => {
+                return new TripRecommendationRoute({
+                    mInHours: r.mInHours,
+                    dJInHours: r.dJInHours,
+                    realTimeInHours: r.realTimeInHours
+                })
+            }),
+            type: apiRecommendation.type,
+            reduceRoutesHours: apiRecommendation.reduceRoutesHours,
+            reduceTimeHours: apiRecommendation.reduceTimeHours
+        })
+    }
+}

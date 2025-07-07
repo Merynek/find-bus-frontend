@@ -1,0 +1,28 @@
+@use "../../../../styles/variables";
+@use "../../../../styles/mediaQueries";
+@use "../../../../styles/colors";
+@use "../trip-state/trip-state.module" as state;
+
+$lineHeight: 6px;
+
+.layout {
+  position: relative;
+  width: 100%;
+
+  .line {
+    position: absolute;
+    z-index: 0;
+    top: calc(state.$size / 2) - calc($lineHeight / 2);
+    left: 0;
+    height: $lineHeight;
+    width: 100%;
+    background-color: colors.$gray;
+  }
+
+  .states {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    column-gap: (variables.$itemOffset * 4);
+  }
+}

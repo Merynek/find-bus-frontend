@@ -1,0 +1,16 @@
+@use "../../../styles/variables";
+@use "../../../styles/mediaQueries";
+@use "../../../styles/colors";
+@use "../../../styles/fonts";
+
+.layout {
+  display: flex;
+  .tab {
+    display: flex;
+    color: colors.$blue;
+    &.active {
+      color: colors.$black;
+      font-weight: fonts.$fontWeightSemiBold;
+    }
+  }
+}

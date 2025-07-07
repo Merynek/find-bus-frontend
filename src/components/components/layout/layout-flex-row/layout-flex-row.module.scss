@@ -1,0 +1,26 @@
+@use "../../../../styles/variables";
+@use "../../../../styles/mediaQueries";
+
+.flex {
+    display: flex;
+    align-items: center;
+    flex-flow: row;
+    max-width: 100%;
+    min-width: 0;
+    &.clickable {
+        cursor: pointer;
+    }
+    &.wrap {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: mediaQueries.$mediaQuery768) {
+    .flexResponsive {
+        flex-flow: column;
+
+        &>* {
+            flex-basis: auto !important;
+        }
+    }
+}

@@ -1,0 +1,8 @@
+@use "../../../../styles/colors";
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    background: colors.$orange;
+    border: 1px solid colors.$blue;
+}

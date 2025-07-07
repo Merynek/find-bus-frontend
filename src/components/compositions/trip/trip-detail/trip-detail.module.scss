@@ -1,0 +1,27 @@
+@use "../../../../styles/variables";
+@use "../../../../styles/mediaQueries";
+@use "../../../../styles/colors";
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid colors.$orange;
+  padding: variables.$itemOffset * 2;
+  margin: variables.$itemOffset * 2;
+  background: colors.$transparent;
+  &.end {
+    background: colors.$red;
+  }
+
+  .line {
+    display: flex;
+  }
+
+  .stop {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid colors.$green;
+    padding: variables.$itemOffset;
+    margin: variables.$itemOffset;
+  }
+}

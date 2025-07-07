@@ -1,0 +1,49 @@
+@use "../../../../../styles/variables";
+@use "../../../../../styles/mediaQueries";
+
+$maxInputWidth: 435px;
+
+.layout {
+  display: flex;
+  align-items: center;
+  flex: 1 1 0;
+  min-width: 0;
+
+  .contentWrap {
+    display: flex;
+    align-items: center;
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .middleSection {
+    display: flex;
+    align-items: center;
+    flex: 1 1 0;
+    min-width: 0;
+    .placeName {
+      min-width: 0;
+      flex-basis: $maxInputWidth;
+    }
+  }
+
+  .marker {
+    flex-shrink: 0;
+    margin-right: 3px;
+  }
+
+  .options {
+    flex-shrink: 0;
+    display: flex;
+    visibility: hidden;
+    align-items: center;
+    padding-left: variables.$itemOffset;
+    padding-right: variables.$itemOffset * 2;
+  }
+
+  &:hover {
+    .options {
+      visibility: visible;
+    }
+  }
+}

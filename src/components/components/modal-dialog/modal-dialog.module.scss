@@ -1,0 +1,23 @@
+@use "../../../styles/variables";
+@use "../../../styles/mediaQueries";
+@use "../../../styles/colors";
+
+.layout {
+  display: flex;
+  flex-direction: column;
+}
+.content {
+  display: flex;
+}
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.footer {
+  display: flex;
+}
+
+.closeButton {
+  display: flex;
+}
