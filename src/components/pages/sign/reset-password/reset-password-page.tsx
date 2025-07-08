@@ -9,24 +9,22 @@ import {TextBox, TextBoxType} from "../../../components/inputs/text-box/text-box
 import {ButtonClick, ButtonSize, ButtonType} from "../../../components/button/button";
 import {observer} from "mobx-react";
 import ResetPasswordStore from "./reset-password.store";
-import {useNavigate, useParams} from "react-router-dom";
+import {useRouter, useSearchParams} from 'next/navigation';
 import {ROUTES} from "@/src/enums/router.enum";
 
-export interface IResetPasswordPageProps {
-}
 
-const ResetPasswordPage = observer((props: IResetPasswordPageProps) => {
-    const { token } = useParams();
-    const _storeRef = useRef<ResetPasswordStore>(new ResetPasswordStore(token + ""));
+const ResetPasswordPage = observer(() => {
+    const params = useSearchParams();
+    const _storeRef = useRef<ResetPasswordStore>(new ResetPasswordStore(params.get("token") + ""));
     const _locKey = "page.sign.resetPassword."
     const _locKeySign = "page.sign."
-    const navigate = useNavigate();
+    const router = useRouter();
     const {t} = useTranslate();
 
     const submit = async () => {
         if (_storeRef.current.changed) {
             if (await _storeRef.current.resetPassword()) {
-                navigate(ROUTES.LOGIN)
+                router.push(ROUTES.LOGIN)
             }
         }
     }

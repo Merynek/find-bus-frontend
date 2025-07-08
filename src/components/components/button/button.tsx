@@ -2,7 +2,7 @@ import React from "react";
 import {observer} from "mobx-react";
 import styles from "./button.module.scss";
 import {cn} from "@/src/utils/common";
-import {Link} from "react-router-dom";
+import Link from 'next/link'
 import {IRoute} from "@/src/enums/router.enum";
 import {IconType} from "@/src/enums/icon.enum";
 import {Icon} from "@/src/components/components/icon/icon";
@@ -79,7 +79,7 @@ export const ButtonLink = observer((props: ILinkButtonProps) => {
     const to = `${route.route}${route.param ? ("/" + route.param) : ""}`;
 
     return <Link
-        to={to}
+        href={to}
         onClick={onClick}
         className={cn(
             getClassNameForButton(type),

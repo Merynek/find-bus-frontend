@@ -13,22 +13,19 @@ import {CheckBox} from "../../../components/inputs/check-box/check-box";
 import {UserRole} from "@/src/api/openapi";
 import {ROUTES} from "@/src/enums/router.enum";
 import {CheckBoxSize} from "@/src/enums/check-box.enum";
-import {useNavigate} from "react-router-dom";
+import { useRouter } from 'next/navigation';
 
-export interface IRegistrationPageProps {
-}
-
-const RegistrationPage = observer((props: IRegistrationPageProps) => {
+const RegistrationPage = observer(() => {
     const _storeRef = useRef<RegistrationStore>(new RegistrationStore());
     const _locKey = "page.sign.registration."
     const _locKeySign = "page.sign."
-    const navigate = useNavigate();
+    const router = useRouter();
     const {t} = useTranslate();
 
     const submit = async () => {
         if (_storeRef.current.changed) {
             if (await _storeRef.current.registration()) {
-                navigate(ROUTES.LOGIN);
+                router.push(ROUTES.LOGIN);
             }
         }
     }

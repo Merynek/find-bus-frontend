@@ -5,17 +5,15 @@ import {observer} from "mobx-react";
 import {TripListItem} from "../../compositions/trip/trip-list-item/trip-list-item";
 import {TripFilter} from "../../compositions/trip/trip-filter/trip-filter";
 import {ButtonClick, ButtonSize, ButtonType} from "../../components/button/button";
-import {useSearchParams} from "react-router-dom";
+import {usePathname, useRouter, useSearchParams} from 'next/navigation';
 import {SEARCH_PARAMS} from "@/src/enums/router.enum";
 
-export interface ITripListPageProps {
-}
-
-const TripListPage = observer((props: ITripListPageProps) => {
+const TripListPage = observer(() => {
     const _storeRef = useRef<TripListPageStore>(new TripListPageStore());
-    const _locKey = "page.tripList."
     const filter = _storeRef.current.filter;
-    const [searchParams, setSearchParams] = useSearchParams();
+    const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
 
     useEffect(() => {
         const page = searchParams.get(SEARCH_PARAMS.PAGE);
@@ -38,16 +36,16 @@ const TripListPage = observer((props: ITripListPageProps) => {
     }, [searchParams]);
 
     const setUrl = () => {
-        setSearchParams(params => {
-            params.set(SEARCH_PARAMS.PAGE, filter.page.toString());
-            params.set(SEARCH_PARAMS.NUMBER_OF_PERSONS, filter.maxNumberOfPersons.toString());
-            params.set(SEARCH_PARAMS.DIET_FOR_TRANSPORTER, filter.dietForTransporter.toString());
-            params.set(SEARCH_PARAMS.ONLY_MINE, filter.onlyMine.toString());
-            params.set(SEARCH_PARAMS.ME_OFFERED, filter.meOffered.toString());
-            params.set(SEARCH_PARAMS.DISTANCE_FROM, filter.distanceToInKm.toString());
-            params.set(SEARCH_PARAMS.DISTANCE_TO, filter.distanceToInKm.toString());
-            return params;
-        })
+        const currentParams = new URLSearchParams(searchParams.toString());
+
+        currentParams.set(SEARCH_PARAMS.PAGE, filter.page.toString());
+        currentParams.set(SEARCH_PARAMS.NUMBER_OF_PERSONS, filter.maxNumberOfPersons.toString());
+        currentParams.set(SEARCH_PARAMS.DIET_FOR_TRANSPORTER, filter.dietForTransporter.toString());
+        currentParams.set(SEARCH_PARAMS.ONLY_MINE, filter.onlyMine.toString());
+        currentParams.set(SEARCH_PARAMS.ME_OFFERED, filter.meOffered.toString());
+        currentParams.set(SEARCH_PARAMS.DISTANCE_FROM, filter.distanceToInKm.toString());
+        currentParams.set(SEARCH_PARAMS.DISTANCE_TO, filter.distanceToInKm.toString());
+        router.push(`${pathname}?${currentParams.toString()}`);
     }
 
     const _renderFilter = () => {

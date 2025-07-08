@@ -9,22 +9,19 @@ import {ButtonClick, ButtonSize, ButtonType, ButtonLink} from "../../../componen
 import {observer} from "mobx-react";
 import {LoginPageStore} from "./login.page.store";
 import {ROUTES} from "@/src/enums/router.enum";
-import {useNavigate} from "react-router-dom";
+import { useRouter } from 'next/navigation';;
 
-export interface ILoginPageProps {
-}
-
-const LoginPage = observer((props: ILoginPageProps) => {
+const LoginPage = observer(() => {
     const _locKey = "page.sign.login."
     const _locKeySign = "page.sign."
     const _storeRef = useRef<LoginPageStore>(new LoginPageStore());
     const {t} = useTranslate();
-    const navigate = useNavigate();
+    const router = useRouter();
 
     const submit = async () => {
         if (_storeRef.current.changed) {
             if (await _storeRef.current.login()) {
-                navigate(ROUTES.HOME);
+                router.push(ROUTES.HOME);
             }
         }
     }

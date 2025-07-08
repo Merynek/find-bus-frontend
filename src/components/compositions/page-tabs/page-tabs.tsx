@@ -6,15 +6,12 @@ import {observer} from "mobx-react";
 import {CurrentUser} from "@/src/singletons/current-user";
 import {UserRole} from "@/src/api/openapi";
 import {useBean} from "ironbean-react";
-import {useLocation} from "react-router-dom";
+import { usePathname } from 'next/navigation';
 import {ROUTES} from "@/src/enums/router.enum";
 
-export interface IPageTabsProps {
-}
-
-export const PageTabs = observer((props: IPageTabsProps) => {
+export const PageTabs = observer(() => {
     const _currentUser = useBean(CurrentUser);
-    const { pathname } = useLocation();
+    const pathname = usePathname();
 
     return <div className={styles.layout}>
         <div className={cn(styles.tab, pathname === ROUTES.HOME && styles.active)}>

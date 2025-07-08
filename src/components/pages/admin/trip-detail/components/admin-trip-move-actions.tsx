@@ -7,7 +7,7 @@ import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/b
 import {Offer} from "@/src/data/offer";
 import {TripOfferState} from "@/src/api/openapi";
 import {Trip} from "@/src/data/trip/trip";
-import {useNavigate} from "react-router-dom";
+import { useRouter } from 'next/navigation';
 import {AppManager} from "@/src/singletons/app-manager";
 
 interface IAdminTripMoveActionsProps {
@@ -19,7 +19,7 @@ export const AdminTripMoveActions = observer((props: IAdminTripMoveActionsProps)
     const { offers, trip} = props;
     const tripsOfferApi = useBean(TripsOfferApi);
     const appManager = useBean(AppManager);
-    const navigate = useNavigate();
+    const router = useRouter();
 
     const getOfferToPay = (): Offer|null => {
         const acceptedOffer = offers.find(offer => offer.accepted);
@@ -58,7 +58,7 @@ export const AdminTripMoveActions = observer((props: IAdminTripMoveActionsProps)
                     offerId: offer.id
                 })
                 appManager.loading = false;
-                navigate(0);
+                router.refresh();
             }}
             label={"Payed Offer"}
             type={ButtonType.YELLOW}
@@ -74,7 +74,7 @@ export const AdminTripMoveActions = observer((props: IAdminTripMoveActionsProps)
                     tripId: trip.id
                 })
                 appManager.loading = false;
-                navigate(0);
+                router.refresh();
             }}
             label={"Start Trip"}
             type={ButtonType.YELLOW}
@@ -90,7 +90,7 @@ export const AdminTripMoveActions = observer((props: IAdminTripMoveActionsProps)
                     tripId: trip.id
                 })
                 appManager.loading = false;
-                navigate(0);
+                router.refresh();
             }}
             label={"Finish Trip"}
             type={ButtonType.YELLOW}

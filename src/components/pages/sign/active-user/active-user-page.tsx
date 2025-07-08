@@ -1,19 +1,18 @@
 import {observer} from "mobx-react";
 import styles from "./active-user.page.module.scss";
 import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import { useSearchParams } from 'next/navigation';
 import {useBean} from "ironbean-react";
 import {RegistrationApi} from "@/src/api/registrationApi";
 
-export interface IActiveUserPageProps  {
-}
-
-const ActiveUserPage = observer((props: IActiveUserPageProps) => {
-    const { code } = useParams();
+const ActiveUserPage = observer(() => {
+    const params = useSearchParams();
+    const code = params.get("code");
     const registrationApi = useBean(RegistrationApi);
     const [success, setSuccess] = useState<boolean|null>(null);
 
     useEffect(() => {
+
         if (code) {
             registrationApi.activeUser({token: code}).then(() => {
                 setSuccess(true)

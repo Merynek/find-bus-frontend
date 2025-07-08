@@ -9,20 +9,19 @@ import {UserAddress} from "@/src/data/users/userAddress";
 import {TransferInfo} from "@/src/data/transferInfo";
 import {VehicleDetail} from "../../../compositions/vehicle/detail-list/vehicle-detail-list";
 import {ButtonClick, ButtonSize, ButtonType} from "../../../components/button/button";
-import {useSearchParams} from "react-router-dom";
+import {useSearchParams, useRouter, usePathname} from 'next/navigation';
 import {TransportRequirements} from "@/src/data/transportRequirements";
 import {MediaElement} from "../../../components/media-element/media-element";
 import {SEARCH_PARAMS} from "@/src/enums/router.enum";
-
-export interface IAdminUsersPageProps {
-}
 
 export interface IUsersListParams {
     page?: number;
 }
 
-const AdminUsersPage = observer((props: IAdminUsersPageProps) => {
-    const [searchParams, setSearchParams] = useSearchParams();
+const AdminUsersPage = observer(() => {
+    const router = useRouter();
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
     const _storeRef = useRef(new AdminUsersPageStore());
 
     useEffect(() => {
@@ -34,10 +33,9 @@ const AdminUsersPage = observer((props: IAdminUsersPageProps) => {
     }, [searchParams]);
 
     const setUrl = () => {
-        setSearchParams(params => {
-            params.set(SEARCH_PARAMS.PAGE, _storeRef.current.page.toString());
-            return params;
-        })
+        const currentParams = new URLSearchParams(searchParams.toString());
+        currentParams.set(SEARCH_PARAMS.PAGE, _storeRef.current.page.toString());
+        router.push(`${pathname}?${currentParams.toString()}`);
     }
 
     const _renderTransferInfo = (info: TransferInfo) => {

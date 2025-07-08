@@ -3,26 +3,22 @@ import {Configuration} from "@/src/singletons/configuration";
 import styles from "./app-config.page.module.scss";
 import {observer} from "mobx-react";
 import {AppConfigPageStore} from "./app-config.page.store";
-import {useNavigate} from "react-router-dom";
+import { useRouter } from 'next/navigation';
 import {ButtonClick, ButtonSize, ButtonType} from "../../../components/button/button";
-import {ROUTES} from "@/src/enums/router.enum";
 import {useBean} from "ironbean-react";
 import {NumberBox} from "../../../components/inputs/number-box/number-box";
 
-export interface IAppConfigPageProps  {
-}
 
-const AppConfigPage = observer((props: IAppConfigPageProps) => {
+const AppConfigPage = observer(() => {
     const _storeRef = useRef<AppConfigPageStore>(new AppConfigPageStore());
-    const _locKey = "page.appconfig."
     const _configuration = useBean(Configuration);
-    const navigate = useNavigate();
+    const router = useRouter();
     const cfg = _configuration.appBusinessConfig;
 
     return <div className={styles.layout}>
         <h2>Create Trip</h2>
         <div className={styles.line}>
-            <span>minEndOrderFromNowInHours (Minimální datum vytvoření aukce od teď "24 hodin")</span>
+            <span>minEndOrderFromNowInHours (Minimální datum vytvoření aukce od teď (24 hodin))</span>
             <div className={styles.numberInput}>
                 <NumberBox
                     value={cfg.minEndOrderFromNowInHours}
@@ -36,7 +32,7 @@ const AppConfigPage = observer((props: IAppConfigPageProps) => {
             </div>
         </div>
         <div className={styles.line}>
-            <span>minDiffBetweenStartTripAndEndOrderInHours (Minimální rozdíl hodin konce aukce a odjezdem "480 hodin = 20 dní")</span>
+            <span>minDiffBetweenStartTripAndEndOrderInHours (Minimální rozdíl hodin konce aukce a odjezdem (480 hodin = 20 dní))</span>
             <div className={styles.numberInput}>
                 <NumberBox
                     value={cfg.minDiffBetweenStartTripAndEndOrderInHours}
@@ -51,7 +47,7 @@ const AppConfigPage = observer((props: IAppConfigPageProps) => {
         </div>
         <h2>Trip Offers</h2>
         <div className={styles.line}>
-            <span>minDateToAcceptOfferInHours (Jak dlouho má uživatel přijmout nabídku po té co aukce skončila a nic si zatím nevybral "24 hodin")</span>
+            <span>minDateToAcceptOfferInHours (Jak dlouho má uživatel přijmout nabídku po té co aukce skončila a nic si zatím nevybral (24 hodin))</span>
             <div className={styles.numberInput}>
                 <NumberBox
                     value={cfg.minDateToAcceptOfferInHours}
@@ -65,7 +61,7 @@ const AppConfigPage = observer((props: IAppConfigPageProps) => {
             </div>
         </div>
         <div className={styles.line}>
-            <span>minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours (Minimální rozdíl hodin konce aukce a odjezdem pro zobrazení všech method zaplacení "600 hodin = 25 dní")</span>
+            <span>minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours (Minimální rozdíl hodin konce aukce a odjezdem pro zobrazení všech method zaplacení (600 hodin = 25 dní))</span>
             <div className={styles.numberInput}>
                 <NumberBox
                     value={cfg.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours}
@@ -80,7 +76,7 @@ const AppConfigPage = observer((props: IAppConfigPageProps) => {
         </div>
         <h2>Notifications</h2>
         <div className={styles.line}>
-            <span>payRestOfPriceWarningBeforeStartTripInHours (Pouze pro doplatek 75%) - Kolik hodin před zařátkem tripu máme posilat warning email Doplatek "480 hodin = 20 dní")</span>
+            <span>payRestOfPriceWarningBeforeStartTripInHours (Pouze pro doplatek 75%) - Kolik hodin před zařátkem tripu máme posilat warning email Doplatek (480 hodin = 20 dní))</span>
             <div className={styles.numberInput}>
 
             </div>
@@ -94,7 +90,7 @@ const AppConfigPage = observer((props: IAppConfigPageProps) => {
                 }}/>
         </div>
         <div className={styles.line}>
-            <span>payInvoiceWarningAfterAcceptOfferInHours (Kolik hodin po akceptování nabídky musí prijít varování email "72 hodin = 3 dny")</span>
+            <span>payInvoiceWarningAfterAcceptOfferInHours (Kolik hodin po akceptování nabídky musí prijít varování email (72 hodin = 3 dny))</span>
             <div className={styles.numberInput}>
                 <NumberBox
                     value={cfg.payInvoiceWarningAfterAcceptOfferInHours}
@@ -247,7 +243,7 @@ const AppConfigPage = observer((props: IAppConfigPageProps) => {
         <ButtonClick
             onClick={async () => {
                 await _storeRef.current.postChanges();
-                navigate(0);
+                router.refresh();
             }}
             label={"Change"}
             type={ButtonType.BLACK}

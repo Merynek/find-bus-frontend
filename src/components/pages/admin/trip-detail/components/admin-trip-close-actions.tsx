@@ -7,7 +7,7 @@ import {AdminTripCloseReasons} from "@/src/components/pages/admin/trip-detail/co
 import {TripsOfferApi} from "@/src/api/tripsOfferApi";
 import {useBean} from "ironbean-react";
 import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
-import {useNavigate} from "react-router-dom";
+import { useRouter } from 'next/navigation';
 import {AppManager} from "@/src/singletons/app-manager";
 
 interface IAdminTripActionsProps {
@@ -19,7 +19,7 @@ export const AdminTripCloseActions = observer((props: IAdminTripActionsProps) =>
     const tripsOfferApi = useBean(TripsOfferApi);
     const appManager = useBean(AppManager);
     const [reason, setReason] = useState<CloseTripOfferReason>(CloseTripOfferReason.GENERAL);
-    const navigate = useNavigate();
+    const router = useRouter();
 
     const renderCloseButton = () => {
         switch (trip.offerState) {
@@ -35,7 +35,7 @@ export const AdminTripCloseActions = observer((props: IAdminTripActionsProps) =>
                     reasonText: ""
                 })
                 appManager.loading = false;
-                navigate(0);
+                router.refresh();
             }}
             label={"Force Close"}
             type={ButtonType.YELLOW}

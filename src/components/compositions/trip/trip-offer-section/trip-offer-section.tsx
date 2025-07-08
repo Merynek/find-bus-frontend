@@ -13,7 +13,7 @@ import {useMount} from "@/src/hooks/lifecycleHooks";
 import {TripsOfferApi} from "@/src/api/tripsOfferApi";
 import {Offer} from "@/src/data/offer";
 import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
-import {useNavigate} from "react-router-dom";
+import { useRouter } from 'next/navigation';
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {FlexGap} from "@/src/enums/layout.enum";
 
@@ -28,7 +28,7 @@ export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
     const _tripOfferApi = useBean(TripsOfferApi);
     const [offers, setOffers] = useState<Offer[]>([]);
     const _tripsOfferApi = useBean(TripsOfferApi);
-    const navigate = useNavigate();
+    const router = useRouter();
 
     const loadOffers = async () => {
         _appManager.loading = true;
@@ -106,7 +106,7 @@ export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
                     reasonText: ""
                 })
                 _appManager.loading = false;
-                navigate(0);
+                router.refresh();
             }}
             label={"Ukončit trip"}
             type={ButtonType.BLACK}

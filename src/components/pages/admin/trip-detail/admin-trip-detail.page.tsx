@@ -1,5 +1,5 @@
 import React from 'react';
-import {useParams} from 'react-router-dom';
+import {useParams} from 'next/navigation';
 import {observer} from "mobx-react";
 import {useInit, useMount} from "@/src/hooks/lifecycleHooks";
 import {AdminTripDetailPageStore} from "@/src/components/pages/admin/trip-detail/admin-trip-detail.page.store";
@@ -20,9 +20,7 @@ import {AdminTripMovements} from "@/src/components/pages/admin/trip-detail/compo
 import {TripOfferMovement} from "@/src/data/tripOfferMovement";
 import {Offer} from "@/src/data/offer";
 
-interface IAdminTripDetailPageProps {}
-
-const AdminTripDetailPage = observer((props: IAdminTripDetailPageProps ) => {
+const AdminTripDetailPage = observer(() => {
     const {id} =  useParams<{ id: string }>();
     const dateTimeManager = useBean(DateTimeManager);
     const store = useInit(() => {

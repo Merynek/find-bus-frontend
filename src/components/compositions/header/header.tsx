@@ -1,31 +1,29 @@
 import {useTranslate} from "@/src/hooks/translateHook";
-import React, {useRef} from "react";
+import React from "react";
 import styles from "./header.module.scss";
 import {ButtonClick, ButtonSize, ButtonType, ButtonLink} from "../../components/button/button";
 import {CurrentUser} from "@/src/singletons/current-user";
 import {observer} from "mobx-react";
-import {ComboBox, IComboBoxItem} from "../../components/inputs/combo-box/combo-box";
-import {languages} from "@/src/locales/locales";
-import {LOCALES} from "@/src/utils/locale";
+// import {ComboBox, IComboBoxItem} from "../../components/inputs/combo-box/combo-box";
+// import {languages} from "@/src/locales/locales";
+// import {LOCALES} from "@/src/utils/locale";
 import {useBean} from "ironbean-react";
-import {useNavigate} from "react-router-dom";
+import { useRouter } from 'next/navigation';
 import {ROUTES} from "@/src/enums/router.enum";
-import i18n from "i18next";
+// import i18n from "i18next";
 
-export interface IHeaderProps {
-}
 
-export const Header = observer((props: IHeaderProps) => {
+export const Header = observer(() => {
     const _currentUser = useBean(CurrentUser);
-    const navigate = useNavigate();
+    const router = useRouter();
     const {t} = useTranslate();
     const _locKey = "component.header.";
-    const _languageItemsRef = useRef<IComboBoxItem<LOCALES>[]>(Object.values(LOCALES).map(key => {
-        return {
-            label: languages[key],
-            value: key
-        }
-    }));
+    // const _languageItemsRef = useRef<IComboBoxItem<LOCALES>[]>(Object.values(LOCALES).map(key => {
+    //     return {
+    //         label: languages[key],
+    //         value: key
+    //     }
+    // }));
 
     const _renderLogoutButton = () => {
         return <ButtonClick
@@ -33,7 +31,7 @@ export const Header = observer((props: IHeaderProps) => {
             label={t(_locKey + "logoutButton")}
             onClick={() => {
                 _currentUser.logout();
-                navigate(ROUTES.LOGIN);
+                router.push(ROUTES.LOGIN)
             }}
             type={ButtonType.YELLOW}
         />
@@ -49,16 +47,17 @@ export const Header = observer((props: IHeaderProps) => {
     }
 
     const _renderLanguages = () => {
-        return <ComboBox
-            items={_languageItemsRef.current}
-            value={{
-                value: i18n.language as LOCALES,
-                label: languages[i18n.language as LOCALES]
-            }}
-            onChange={(item) => {
-                i18n.changeLanguage(item.value);
-            }}
-        />
+        return <></>
+        // return <></> <ComboBox
+        //     items={_languageItemsRef.current}
+        //     value={{
+        //         value: i18n.language as LOCALES,
+        //         label: languages[i18n.language as LOCALES]
+        //     }}
+        //     onChange={(item) => {
+        //         i18n.changeLanguage(item.value);
+        //     }}
+        // />
     }
 
     return <header className={styles.layout}>

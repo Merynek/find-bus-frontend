@@ -18,23 +18,19 @@ import {GeoPoint} from "@/src/data/geoPoint";
 import {useBean} from "ironbean-react";
 import {CheckBoxSize} from "@/src/enums/check-box.enum";
 import {NumberBox} from "../../components/inputs/number-box/number-box";
-import {useNavigate} from 'react-router-dom';
+import {useRouter} from 'next/navigation';
 import {ROUTES} from "@/src/enums/router.enum";
 import {AppManager} from "@/src/singletons/app-manager";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {FlexGap} from "@/src/enums/layout.enum";
 
-export interface ICreateTripPageProps {
-}
-
-const CreateTripPage = observer((props: ICreateTripPageProps) => {
-    const _locKey = "page.createTrip."
+const CreateTripPage = observer(() => {
+    const router = useRouter();
     const _storeRef = useRef<CreateTripPageStore>(new CreateTripPageStore());
     const _configuration = useBean(Configuration);
     const _appManager = useBean(AppManager);
     const {t} = useTranslate();
     const cfg = _configuration.appBusinessConfig;
-    const navigate = useNavigate();
 
     return <div className={styles.layout}>
         <div className={styles.section}>
@@ -179,7 +175,7 @@ const CreateTripPage = observer((props: ICreateTripPageProps) => {
                             _appManager.loading = true;
                             await _storeRef.current.createTrip();
                             _appManager.loading = false;
-                            navigate(ROUTES.TRIP_LIST);
+                            router.push(ROUTES.TRIP_LIST);
                         }
                         catch (e) {
                             console.log("error during create trip")
