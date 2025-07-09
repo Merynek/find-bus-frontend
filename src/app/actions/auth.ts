@@ -1,13 +1,13 @@
 'use server';
 
-import { cookies } from 'next/headers';
 import {User} from "@/src/data/users/user";
 import {HeaderCookieName} from "@/src/enums/cookies.enum";
 import {AuthorizeApi} from "@/src/api/authorizeApi";
+import {getAccessTokenServer} from "@/src/app/actions/token";
+import {cookies} from "next/headers";
 
 export async function getAuthenticatedUser(): Promise<User|null> {
-    const cookieStore = await cookies();
-    const accessToken = cookieStore.get(HeaderCookieName.sessionid)?.value;
+    const accessToken = await getAccessTokenServer();
 
     if (!accessToken) {
         return null;
@@ -18,6 +18,7 @@ export async function getAuthenticatedUser(): Promise<User|null> {
         return await authApi.checkToken();
     } catch (error) {
         console.error('Token check failed:', error);
+        const cookieStore = await cookies();
         cookieStore.delete(HeaderCookieName.sessionid);
         return null;
     }
