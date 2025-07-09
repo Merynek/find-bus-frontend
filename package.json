@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@emotion/styled": "^11.14.1",
@@ -36,6 +38,8 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@openapitools/openapi-generator-cli": "^2.21.0",
+    "@storybook/addon-docs": "^9.0.15",
+    "@storybook/nextjs": "^9.0.16",
     "@tailwindcss/postcss": "^4",
     "@types/mapbox__mapbox-sdk": "^0.16.3",
     "@types/mapbox__polyline": "^1.0.5",
@@ -45,6 +49,9 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.5",
+    "eslint-plugin-storybook": "^9.0.15",
+    "sass": "^1.89.2",
+    "storybook": "^9.0.15",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
