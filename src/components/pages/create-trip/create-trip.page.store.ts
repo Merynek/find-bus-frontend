@@ -6,7 +6,7 @@ import {TripRecommendationType} from "@/src/api/openapi";
 import {hoursToSeconds} from "@/src/utils/common";
 import {AppManager} from "@/src/singletons/app-manager";
 import {addHours} from "@/src/utils/date-time.common";
-import {Configuration} from "@/src/singletons/configuration";
+import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import moment from "moment";
 import {UsersApi} from "@/src/api/usersApi";
 import {UserSettings} from "@/src/data/users/userSettings";
@@ -20,7 +20,7 @@ export class CreateTripPageStore {
     @observable public placesAreSet: boolean = true;
     @observable public peopleCountIsValid: boolean = true;
     @observable public routesCountIsValid: boolean = true;
-    @autowired private _configuration: Configuration;
+    @autowired private _configuration: AppConfiguration;
     @autowired private _appManager: AppManager;
     @autowired private _usersApi: UsersApi;
     @observable public userSettings: UserSettings|null;

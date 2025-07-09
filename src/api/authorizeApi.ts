@@ -1,12 +1,12 @@
-import {autowired, component} from "ironbean";
+import {autowired} from "ironbean";
 import {IApiRequest} from "./toolsApi";
 import * as OpenApi from "./openapi";
-import {ApiConfiguration} from "./apiConfiguration";
 import {User} from "../data/users/user";
 import {AdminConverter} from "../converters/admin-converter";
 import {UsersConverter} from "../converters/users-converter";
-import {Configuration} from "../singletons/configuration";
+import {AppConfiguration} from "../singletons/AppConfiguration";
 import {CurrentUser} from "../singletons/current-user";
+import {ApiConfiguration} from "@/src/api/apiConfiguration";
 
 export interface IForgotPasswordRequest extends IApiRequest {
     email: string;
@@ -26,14 +26,18 @@ export interface ILoginRequest extends IApiRequest {
     password: string;
 }
 
-@component
 export class AuthorizeApi {
     @autowired private _currentUser: CurrentUser;
-    @autowired private _apiConfiguration: ApiConfiguration;
-    @autowired private _configuration: Configuration;
+    private _configuration: AppConfiguration;
+    private readonly _token: string|undefined;
+
+    constructor(token: string|undefined) {
+        this._configuration = AppConfiguration.instance;
+        this._token = token;
+    }
 
     private get _api() {
-        return new OpenApi.AuthorizeApi(this._apiConfiguration.config);
+        return new OpenApi.AuthorizeApi(ApiConfiguration.createOpenApiConfig(this._token));
     }
 
     public async checkToken(): Promise<User|null> {

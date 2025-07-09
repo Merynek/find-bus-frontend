@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./trip-route-recommendation.module.scss";
 import {observer} from "mobx-react";
 import {DatePicker} from "../../../../components/inputs/date-picker/date-picker";
-import {Configuration} from "@/src/singletons/configuration";
+import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import {Route} from "@/src/data/trip/route";
 import {Trip} from "@/src/data/trip/trip";
 import {TripStop} from "../../trip-stop/trip-stop/trip-stop";
@@ -20,7 +20,7 @@ export const TripRouteRecommendation = observer((props: ITripRouteRecommendation
     const {route, trip} = props;
     const _locKey = "component.trip.";
     const {t} = useTranslate();
-    const _configuration = useBean(Configuration);
+    const _configuration = useBean(AppConfiguration);
 
     return <div className={styles.layout}>
         <div className={styles.section}>

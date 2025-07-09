@@ -1,6 +1,6 @@
 import {Trip} from "@/src/data/trip/trip";
 import React from "react";
-import {Configuration} from "@/src/singletons/configuration";
+import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import styles from "./trip-detail.module.scss";
 import {formatDateTime} from "@/src/utils/date-time.format";
 import {cn, getFormattedDistance} from "@/src/utils/common";
@@ -18,7 +18,7 @@ export interface ITripDetailProps {
 export const TripDetail = observer((props: ITripDetailProps) => {
     const {trip} = props;
     const _locKey = "page.trip.";
-    const _configuration = useBean(Configuration);
+    const _configuration = useBean(AppConfiguration);
 
     const _renderRoute = (route: Route, index: number) => {
         return <div key={index}>

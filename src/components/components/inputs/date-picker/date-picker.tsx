@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./date-picker.module.scss"
 import {observer} from "mobx-react";
-import {Configuration} from "@/src/singletons/configuration";
+import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import {useBean} from "ironbean-react";
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -20,7 +20,7 @@ export interface IDatePickerProps {
 }
 
 export const DatePicker = observer((props: IDatePickerProps) => {
-    const configuration = useBean(Configuration);
+    const configuration = useBean(AppConfiguration);
     const {selected, placeholderText,
         minDate, disabled, maxDate, onChange,
         showTimeSelect} = props;

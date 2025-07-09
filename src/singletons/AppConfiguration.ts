@@ -1,14 +1,10 @@
-import {component} from "ironbean";
 import {AppBusinessConfig} from "../data/appBusinessConfig";
 
-@component
-export class Configuration {
-    private readonly _isDevelopment: boolean;
-    private readonly _localHost: string = "https://localhost:44359";
+export class AppConfiguration {
+    private static _instance: AppConfiguration | null = null;
     public appBusinessConfig: AppBusinessConfig;
 
     constructor() {
-        this._isDevelopment = process.env.NODE_ENV !== 'production';
         this.appBusinessConfig = new AppBusinessConfig({
             minEndOrderFromNowInHours: 24,
             minDateToAcceptOfferInHours: 24,
@@ -29,33 +25,25 @@ export class Configuration {
         });
     }
 
-    public getApiUrl(): string {
-        if (this._isDevelopment) {
-            return this._localHost //"https://www.find-bus.com" <-- production url
+    public static get instance(): AppConfiguration {
+        if (!AppConfiguration._instance) {
+            AppConfiguration._instance = new AppConfiguration();
         }
-        return this.getOriginPath();
+        return AppConfiguration._instance;
+    }
+
+    public getApiUrl(): string {
+        if (process.env.API_URL) {
+            return process.env.API_URL;
+        }
+        throw new Error('Environment variable API_URL is not defined.');
     }
 
     public getResourcePath(): string {
-        if (this._isDevelopment) {
-            return this._localHost + "/Public/";
-        }
-        return this.getOriginPath() + "/Public/";
-    }
-
-    get siteUrl() {
-        return this.getOriginPath() + this.getBasePath()
+        return this.getApiUrl() + "/Public/";
     }
 
     get locale() {
         return "cs-CZ";
-    }
-
-    public getBasePath(): string {
-        return "/";
-    }
-
-    public getOriginPath(): string {
-        return window.location.origin;
     }
 }

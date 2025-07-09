@@ -1,6 +1,6 @@
 import {Offer} from "@/src/data/offer";
 import React, {useState} from "react";
-import {Configuration} from "@/src/singletons/configuration";
+import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import styles from "./trip-offer-accept.module.scss";
 import {observer} from "mobx-react";
 import {Trip} from "@/src/data/trip/trip";
@@ -21,7 +21,7 @@ export interface ITripOfferAcceptProps {
 
 export const TripOfferAccept = observer((props: ITripOfferAcceptProps) => {
     const {offer, onAcceptOffer, trip} = props;
-    const _configuration = useBean(Configuration);
+    const _configuration = useBean(AppConfiguration);
     const _createAcceptMethodOption = (method: TripOfferAcceptMethod): IComboBoxItem<string> => {
         return {
             label: method,

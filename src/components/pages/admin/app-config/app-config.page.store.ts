@@ -1,13 +1,13 @@
 import {autowired} from "ironbean";
 import {AdminApi} from "@/src/api/adminApi";
-import {Configuration} from "@/src/singletons/configuration";
+import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 
 interface IAppConfigPageStoreParams {
 }
 
 export class AppConfigPageStore {
     @autowired private _adminApi: AdminApi;
-    @autowired private _configuration: Configuration;
+    @autowired private _configuration: AppConfiguration;
 
     constructor() {
 

@@ -5,7 +5,7 @@ import {TripOfferMovement} from "@/src/data/tripOfferMovement";
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 import {formatDateTime} from "@/src/utils/date-time.format";
 import {useBean} from "ironbean-react";
-import {Configuration} from "@/src/singletons/configuration";
+import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 
 interface IAdminTripMovementsProps {
@@ -14,7 +14,7 @@ interface IAdminTripMovementsProps {
 
 export const AdminTripMovements = observer((props: IAdminTripMovementsProps) => {
     const {movements} = props;
-    const _configuration = useBean(Configuration);
+    const _configuration = useBean(AppConfiguration);
 
     const _renderItem = (movement: TripOfferMovement) => {
         return <LayoutFlexRow gap={FlexGap.TINY_8}>

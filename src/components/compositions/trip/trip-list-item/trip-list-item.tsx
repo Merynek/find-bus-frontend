@@ -2,7 +2,7 @@ import React from "react";
 import {observer} from "mobx-react";
 import styles from "./trip-list-item.module.scss";
 import {formatDateTime} from "@/src/utils/date-time.format";
-import {Configuration} from "@/src/singletons/configuration";
+import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import {cn, getFormattedDistance} from "@/src/utils/common";
 import {Countdown} from "../../../components/countdown/countdown";
 import {CurrentUser} from "@/src/singletons/current-user";
@@ -22,7 +22,7 @@ export interface ITripListItemProps {
 export const TripListItem = observer((props: ITripListItemProps) => {
     const {tripItem} = props;
     const _locKey = "page.trip.";
-    const _configuration = useBean(Configuration);
+    const _configuration = useBean(AppConfiguration);
     const _currentUser = useBean(CurrentUser);
 
     const _renderRoute = (route: Route, index: number) => {

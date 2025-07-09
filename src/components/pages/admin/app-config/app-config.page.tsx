@@ -1,5 +1,5 @@
 import React, {useRef} from "react";
-import {Configuration} from "@/src/singletons/configuration";
+import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import styles from "./app-config.page.module.scss";
 import {observer} from "mobx-react";
 import {AppConfigPageStore} from "./app-config.page.store";
@@ -11,7 +11,7 @@ import {NumberBox} from "../../../components/inputs/number-box/number-box";
 
 const AppConfigPage = observer(() => {
     const _storeRef = useRef<AppConfigPageStore>(new AppConfigPageStore());
-    const _configuration = useBean(Configuration);
+    const _configuration = useBean(AppConfiguration);
     const router = useRouter();
     const cfg = _configuration.appBusinessConfig;
 

@@ -4,7 +4,7 @@ import styles from "./trip-offer.module.scss";
 import {Offer} from "@/src/data/offer";
 import {Vehicle} from "@/src/data/users/vehicle";
 import {formatDateTime} from "@/src/utils/date-time.format";
-import {Configuration} from "@/src/singletons/configuration";
+import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import {useBean} from "ironbean-react";
 import {VehicleDetailModal} from "../../vehicle/modal-vehicle-detail/vehicle-detail-modal";
 import {LayoutFlexColumn} from "../../../components/layout/layout-flex-column/layout-flex-column";
@@ -23,7 +23,7 @@ export interface ITripOfferProps {
 
 export const TripOffer = observer((props: ITripOfferProps) => {
     const {offer} = props;
-    const _configuration = useBean(Configuration);
+    const _configuration = useBean(AppConfiguration);
     const _appManager = useBean(AppManager);
     const _vehicleApi = useBean(VehicleApi);
     const [vehicleDetail, setVehicleDetail] = useState<Vehicle|null>(null);

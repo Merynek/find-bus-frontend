@@ -4,7 +4,7 @@ import {LayoutFlexRow} from "../../../components/layout/layout-flex-row/layout-f
 import React from "react";
 import {formatDateTime} from "@/src/utils/date-time.format";
 import {useBean} from "ironbean-react";
-import {Configuration} from "@/src/singletons/configuration";
+import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import {ButtonClick, ButtonSize, ButtonType} from "../../../components/button/button";
 import {TripsOfferApi} from "@/src/api/tripsOfferApi";
 import {AppManager} from "@/src/singletons/app-manager";
@@ -16,7 +16,7 @@ export interface IFinancialDocumentProps {
 
 export const FinancialDocumentDetail = observer((props: IFinancialDocumentProps) => {
     const {document} = props;
-    const _configuration = useBean(Configuration);
+    const _configuration = useBean(AppConfiguration);
     const _tripsOfferApi = useBean(TripsOfferApi);
     const _appManager = useBean(AppManager);
 

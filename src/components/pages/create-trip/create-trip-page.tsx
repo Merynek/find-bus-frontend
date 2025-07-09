@@ -9,7 +9,7 @@ import {Amenities, TripRecommendationType} from "@/src/api/openapi";
 import {cn, formatTimeForTrip, hoursToSeconds, removeOnIndex} from "@/src/utils/common";
 import {TripRouteCreate} from "../../compositions/trip/trip-route/trip-route-create/trip-route-create";
 import {DatePicker} from "../../components/inputs/date-picker/date-picker";
-import {Configuration} from "@/src/singletons/configuration";
+import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import {DirectionsMap} from "../../components/directions-map/directions-map";
 import {
     TripRouteRecommendation
@@ -27,7 +27,7 @@ import {FlexGap} from "@/src/enums/layout.enum";
 const CreateTripPage = observer(() => {
     const router = useRouter();
     const _storeRef = useRef<CreateTripPageStore>(new CreateTripPageStore());
-    const _configuration = useBean(Configuration);
+    const _configuration = useBean(AppConfiguration);
     const _appManager = useBean(AppManager);
     const {t} = useTranslate();
     const cfg = _configuration.appBusinessConfig;
