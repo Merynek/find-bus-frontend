@@ -7,12 +7,19 @@ const meta: Meta<typeof AdminTripDetailPage> = {
     args: {},
     argTypes: {},
     parameters: {
-        layout: 'fullscreen'
+        layout: 'fullscreen',
+        nextjs: {
+            navigation: {
+                segments: [
+                    ['id', '456']
+                ],
+            },
+        },
     }
 };
 
 export default meta;
 
 export const Default: StoryObj<typeof AdminTripDetailPage> = {
-    render: (args) => <AdminTripDetailPage {...args} />
+    render: (args) => <AdminTripDetailPage />
 };
