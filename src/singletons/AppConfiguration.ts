@@ -33,8 +33,8 @@ export class AppConfiguration {
     }
 
     public getApiUrl(): string {
-        if (process.env.API_URL) {
-            return process.env.API_URL;
+        if (process.env.NEXT_PUBLIC_API_URL) {
+            return process.env.NEXT_PUBLIC_API_URL;
         }
         throw new Error('Environment variable API_URL is not defined.');
     }

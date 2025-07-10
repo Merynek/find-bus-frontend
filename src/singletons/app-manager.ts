@@ -5,9 +5,14 @@ import {makeObservable, observable, runInAction} from "mobx";
 export class AppManager {
     @observable public loading: boolean;
     @observable private _sheetOpened: boolean;
-    public mapboxAccessToken: string = "pk.eyJ1IjoibWVyeXN5c2VsIiwiYSI6ImNsaWs4bWZhejBmdGgzZGtkbXd5bTRuYngifQ.x_UjkB37ihXIrHinZxcm4w";
+    public mapboxAccessToken: string;
 
     constructor() {
+        if (process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN) {
+            this.mapboxAccessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
+        } else {
+            throw new Error('Environment variable API_URL is not defined.');
+        }
         this.loading = false;
         makeObservable(this);
     }

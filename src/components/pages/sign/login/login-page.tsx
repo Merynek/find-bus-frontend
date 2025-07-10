@@ -1,3 +1,5 @@
+'use client'
+
 import {useTranslate} from "@/src/hooks/translateHook";
 import React, {useRef} from "react";
 import {Form} from "../../../components/form/form";
@@ -9,7 +11,10 @@ import {ButtonClick, ButtonSize, ButtonType, ButtonLink} from "../../../componen
 import {observer} from "mobx-react";
 import {LoginPageStore} from "./login.page.store";
 import {ROUTES} from "@/src/enums/router.enum";
-import { useRouter } from 'next/navigation';;
+import { useRouter } from 'next/navigation';
+import { useActionState } from "react";
+import {loginAction, signupAction} from "@/src/app/actions/auth";
+
 
 const LoginPage = observer(() => {
     const _locKey = "page.sign.login."
@@ -17,6 +22,7 @@ const LoginPage = observer(() => {
     const _storeRef = useRef<LoginPageStore>(new LoginPageStore());
     const {t} = useTranslate();
     const router = useRouter();
+    const [state, action, pending] = useActionState(loginAction, undefined)
 
     const submit = async () => {
         if (_storeRef.current.changed) {
@@ -33,45 +39,31 @@ const LoginPage = observer(() => {
             type={ButtonType.YELLOW}
             size={ButtonSize.BUTTON_SIZE_M}
         />
-        <Form onSubmit={submit}>
-            <ValidationTooltip
-                placement={'right'}
-                state={ValidationState.ERROR}
-                open={!_storeRef.current.emailIsValid}
-                message={t(_locKeySign + _storeRef.current.emailInvalidMessage)}
-            >
-                <div className={signStyles.input}>
-                    <TextBox
-                        value={_storeRef.current.email}
-                        onChange={(val) => _storeRef.current.email = val}
-                        type={TextBoxType.EMAIL}
-                        placeholder={t(_locKeySign + "emailPlaceholder")}
-                    />
+        <form action={action}>
+            <div>
+                <label htmlFor="email">Email</label>
+                <input id="email" name="email" placeholder="Email"/>
+            </div>
+            {state?.errors?.email && <p>{state.errors.email}</p>}
+
+            <div>
+                <label htmlFor="password">Password</label>
+                <input id="password" name="password" type="password"/>
+            </div>
+            {state?.errors?.password && (
+                <div>
+                    <p>Password must:</p>
+                    <ul>
+                        {state.errors.password.map((error: string) => (
+                            <li key={error}>- {error}</li>
+                        ))}
+                    </ul>
                 </div>
-            </ValidationTooltip>
-            <ValidationTooltip
-                placement={'right'}
-                state={ValidationState.ERROR}
-                open={!_storeRef.current.passwordIsValid}
-                message={t(_locKeySign + _storeRef.current.invalidPasswordMessage)}
-            >
-                <div className={signStyles.input}>
-                    <TextBox
-                        value={_storeRef.current.password}
-                        onChange={(val) => _storeRef.current.password = val}
-                        type={TextBoxType.PASSWORD}
-                        placeholder={t(_locKeySign + "passwordPlaceholder")}
-                    />
-                </div>
-            </ValidationTooltip>
-            <ButtonClick
-                size={ButtonSize.BUTTON_SIZE_M}
-                onClick={() => {}}
-                isDisabled={!_storeRef.current.changed}
-                type={ButtonType.BLACK}
-                label={t(_locKey + "loginButton")}
-            />
-        </Form>
+            )}
+            <button disabled={pending} type="submit">
+                Sign In
+            </button>
+        </form>
         <ButtonLink
             route={{route: ROUTES.FORGOT_PASSWORD}}
             label={"FORGET PASSWORD"}

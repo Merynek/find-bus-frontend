@@ -1,4 +1,3 @@
-import {autowired, component} from "ironbean";
 import {IApiRequest} from "./toolsApi";
 import * as OpenApi from "./openapi";
 import {UserRole} from "./openapi";
@@ -14,12 +13,15 @@ export interface IActiveUserRequest extends IApiRequest {
     token: string;
 }
 
-@component
 export class RegistrationApi {
-    @autowired private _apiConfiguration: ApiConfiguration;
+    private readonly _token: string|undefined;
+
+    constructor(token: string|undefined) {
+        this._token = token;
+    }
 
     private get _api() {
-        return new OpenApi.RegistrationApi(this._apiConfiguration.config);
+        return new OpenApi.RegistrationApi(ApiConfiguration.createOpenApiConfig(this._token));
     }
 
     public async registration(req: IRegistrationRequest): Promise<void> {
