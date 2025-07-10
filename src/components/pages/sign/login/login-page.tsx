@@ -13,8 +13,7 @@ import {LoginPageStore} from "./login.page.store";
 import {ROUTES} from "@/src/enums/router.enum";
 import { useRouter } from 'next/navigation';
 import { useActionState } from "react";
-import {signInAction} from "@/src/app/actions/auth/signIn/signInAction";
-
+import {signInFormAction} from "@/src/app/actions/auth/signIn/signInFormAction";
 
 const LoginPage = observer(() => {
     const _locKey = "page.sign.login."
@@ -22,7 +21,7 @@ const LoginPage = observer(() => {
     const _storeRef = useRef<LoginPageStore>(new LoginPageStore());
     const {t} = useTranslate();
     const router = useRouter();
-    const [state, action, pending] = useActionState(signInAction, undefined)
+    const [state, action, pending] = useActionState(signInFormAction, undefined)
 
     const submit = async () => {
         if (_storeRef.current.changed) {

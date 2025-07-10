@@ -3,9 +3,20 @@
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {RegistrationApi} from "@/src/api/registrationApi";
 import {redirect} from "next/navigation";
-import {SignupFormSchema, TSignUpFormState} from "@/src/app/actions/auth/signUp/signUpSchema";
+import {SignupFormSchema} from "@/src/app/actions/auth/signUp/signUpSchema";
 
-export async function signupAction(state: TSignUpFormState, formData: FormData) {
+export type TSignUpFormState = {
+    errors?: {
+        email?: string[];
+        password?: string[];
+        passwordConfirm?: string[];
+        role?: string[];
+    };
+    message?: string;
+    error?: string;
+} | undefined;
+
+export async function signupAction(state: TSignUpFormState, formData: FormData): Promise<TSignUpFormState> {
     const validatedFields = SignupFormSchema.safeParse({
         email: formData.get(FormDataEnum.email),
         password: formData.get(FormDataEnum.password),
@@ -27,8 +38,9 @@ export async function signupAction(state: TSignUpFormState, formData: FormData) 
             role: validatedFields.data.role
         });
     } catch (error: any) {
+        console.error('Chyba při registraci:', error);
         return {
-            message: 'An error occurred while creating your account.',
+            errors: error.message || 'Došlo k neočekávané chybě během přihlašování.',
         }
     }
     redirect('/sign/in');

@@ -5,9 +5,18 @@ import {AuthorizeApi} from "@/src/api/authorizeApi";
 import {cookies} from "next/headers";
 import {HeaderCookieName} from "@/src/enums/cookies.enum";
 import {redirect} from "next/navigation";
-import {SignInFormSchema, TSignInFormState} from "@/src/app/actions/auth/signIn/signInSchema";
+import {SignInFormSchema} from "@/src/app/actions/auth/signIn/signInSchema";
 
-export async function signInAction(state: TSignInFormState, formData: FormData) {
+export type TSignInFormState = {
+    errors?: {
+        email?: string[];
+        password?: string[];
+    };
+    message?: string;
+    error?: string;
+} | undefined;
+
+export async function signInFormAction(state: TSignInFormState, formData: FormData): Promise<TSignInFormState> {
     const validatedFields = SignInFormSchema.safeParse({
         email: formData.get(FormDataEnum.email),
         password: formData.get(FormDataEnum.password)

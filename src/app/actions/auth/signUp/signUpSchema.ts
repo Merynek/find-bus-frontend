@@ -2,10 +2,6 @@ import { z } from 'zod'
 import {UserRole} from "@/src/api/openapi";
 
 export const SignupFormSchema = z.object({
-    name: z
-        .string()
-        .min(2, { message: 'Name must be at least 2 characters long.' })
-        .trim(),
     email: z.string().email({ message: 'Please enter a valid email.' }).trim(),
     password: z
         .string()
@@ -19,12 +15,3 @@ export const SignupFormSchema = z.object({
     passwordConfirm: z.string().trim(),
     role: z.nativeEnum(UserRole)
 })
-
-export type TSignUpFormState = {
-    errors?: {
-        email?: string;
-        password?: string;
-        passwordConfirm?: string;
-    };
-    message?: string;
-} | undefined;

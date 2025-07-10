@@ -1,5 +1,5 @@
 import {useTranslate} from "@/src/hooks/translateHook";
-import React, {useRef} from "react";
+import React, {useActionState, useRef} from "react";
 import styles from "./registration.page.module.scss";
 import {observer} from "mobx-react";
 import {Form} from "../../../components/form/form";
@@ -14,8 +14,10 @@ import {UserRole} from "@/src/api/openapi";
 import {ROUTES} from "@/src/enums/router.enum";
 import {CheckBoxSize} from "@/src/enums/check-box.enum";
 import { useRouter } from 'next/navigation';
+import {signupAction} from "@/src/app/actions/auth/signUp/signUpAction";
 
 const RegistrationPage = observer(() => {
+    const [state, action, pending] = useActionState(signupAction, undefined)
     const _storeRef = useRef<RegistrationStore>(new RegistrationStore());
     const _locKey = "page.sign.registration."
     const _locKeySign = "page.sign."

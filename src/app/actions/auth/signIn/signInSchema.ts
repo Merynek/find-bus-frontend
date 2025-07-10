@@ -4,11 +4,3 @@ export const SignInFormSchema = z.object({
     email: z.string().email({ message: 'Please enter a valid email.' }).trim(),
     password: z.string().trim()
 })
-
-export type TSignInFormState = {
-    errors?: {
-        email?: string;
-        password?: string;
-    };
-    message?: string;
-} | undefined;
