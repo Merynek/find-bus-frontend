@@ -24,7 +24,7 @@ const ResetPasswordPage = observer(() => {
     const submit = async () => {
         if (_storeRef.current.changed) {
             if (await _storeRef.current.resetPassword()) {
-                router.push(ROUTES.LOGIN)
+                router.push(ROUTES.SIGN_IN)
             }
         }
     }

@@ -4,9 +4,9 @@ export interface IRoute {
 }
 
 export enum ROUTES {
-    HOME = "/home",
-    LOGIN = "/login",
-    REGISTRATION = "/registration",
+    HOME = "/",
+    SIGN_IN = "/sign/in",
+    SIGN_UP = "/sign/up",
     ACTIVE_USER = "/activeUser",
     RESET_PASSWORD = "/reset_password",
     FORGOT_PASSWORD = "/forgot_password",

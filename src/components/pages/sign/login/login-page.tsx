@@ -33,7 +33,7 @@ const LoginPage = observer(() => {
 
     return <div>
         <ButtonLink
-            route={{route: ROUTES.REGISTRATION}}
+            route={{route: ROUTES.SIGN_UP}}
             label={"Přejit na registraci"}
             type={ButtonType.YELLOW}
             size={ButtonSize.BUTTON_SIZE_M}

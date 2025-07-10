@@ -1,3 +1,5 @@
+'use client'
+
 import {useTranslate} from "@/src/hooks/translateHook";
 import React, {useActionState, useRef} from "react";
 import styles from "./registration.page.module.scss";
@@ -27,14 +29,14 @@ const RegistrationPage = observer(() => {
     const submit = async () => {
         if (_storeRef.current.changed) {
             if (await _storeRef.current.registration()) {
-                router.push(ROUTES.LOGIN);
+                router.push(ROUTES.SIGN_IN);
             }
         }
     }
 
     return <div className={styles.layout}>
         <ButtonLink
-            route={{route: ROUTES.LOGIN}}
+            route={{route: ROUTES.SIGN_IN}}
             label={"Přejit na přihlášení"}
             type={ButtonType.YELLOW}
             size={ButtonSize.BUTTON_SIZE_M}

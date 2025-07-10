@@ -31,7 +31,7 @@ export const Header = observer(() => {
             label={t(_locKey + "logoutButton")}
             onClick={() => {
                 _currentUser.logout();
-                router.push(ROUTES.LOGIN)
+                router.push(ROUTES.SIGN_IN)
             }}
             type={ButtonType.YELLOW}
         />
@@ -39,7 +39,7 @@ export const Header = observer(() => {
 
     const _renderLoginButton = () => {
         return <ButtonLink
-            route={{route: ROUTES.LOGIN}}
+            route={{route: ROUTES.SIGN_IN}}
             label={t(_locKey + "loginButton")}
             type={ButtonType.YELLOW}
             size={ButtonSize.BUTTON_SIZE_M}
