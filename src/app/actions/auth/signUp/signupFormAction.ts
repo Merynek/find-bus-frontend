@@ -16,7 +16,7 @@ export type TSignUpFormState = {
     error?: string;
 } | undefined;
 
-export async function signupAction(state: TSignUpFormState, formData: FormData): Promise<TSignUpFormState> {
+export async function signupFormAction(state: TSignUpFormState, formData: FormData): Promise<TSignUpFormState> {
     const validatedFields = SignupFormSchema.safeParse({
         email: formData.get(FormDataEnum.email),
         password: formData.get(FormDataEnum.password),

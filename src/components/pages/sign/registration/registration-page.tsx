@@ -14,10 +14,10 @@ import {UserRole} from "@/src/api/openapi";
 import {ROUTES} from "@/src/enums/router.enum";
 import {CheckBoxSize} from "@/src/enums/check-box.enum";
 import { useRouter } from 'next/navigation';
-import {signupAction} from "@/src/app/actions/auth/signUp/signUpAction";
+import {signupFormAction} from "@/src/app/actions/auth/signUp/signupFormAction";
 
 const RegistrationPage = observer(() => {
-    const [state, action, pending] = useActionState(signupAction, undefined)
+    const [state, action, pending] = useActionState(signupFormAction, undefined)
     const _storeRef = useRef<RegistrationStore>(new RegistrationStore());
     const _locKey = "page.sign.registration."
     const _locKeySign = "page.sign."
@@ -39,7 +39,7 @@ const RegistrationPage = observer(() => {
             type={ButtonType.YELLOW}
             size={ButtonSize.BUTTON_SIZE_M}
         />
-        <Form onSubmit={submit}>
+        <form action={action}>
             <ValidationTooltip
                 placement={'right'}
                 state={ValidationState.ERROR}
@@ -103,12 +103,13 @@ const RegistrationPage = observer(() => {
             />
             <ButtonClick
                 size={ButtonSize.BUTTON_SIZE_M}
-                onClick={() => {}}
-                isDisabled={!_storeRef.current.changed}
+                onClick={() => {
+                }}
+                isDisabled={pending}
                 type={ButtonType.BLACK}
                 label={t(_locKey + "registrationButton")}
             />
-        </Form>
+        </form>
     </div>
 });
 
