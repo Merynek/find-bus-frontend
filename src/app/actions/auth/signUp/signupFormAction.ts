@@ -4,6 +4,7 @@ import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {RegistrationApi} from "@/src/api/registrationApi";
 import {redirect} from "next/navigation";
 import {SignupFormSchema} from "@/src/app/actions/auth/signUp/signUpSchema";
+import {ROUTES} from "@/src/enums/router.enum";
 
 export type TSignUpFormState = {
     errors?: {
@@ -20,7 +21,7 @@ export async function signupFormAction(state: TSignUpFormState, formData: FormDa
     const validatedFields = SignupFormSchema.safeParse({
         email: formData.get(FormDataEnum.email),
         password: formData.get(FormDataEnum.password),
-        confirmPassword: formData.get(FormDataEnum.password_confirm),
+        passwordConfirm: formData.get(FormDataEnum.password_confirm),
         role: formData.get(FormDataEnum.role),
     })
 
@@ -43,5 +44,5 @@ export async function signupFormAction(state: TSignUpFormState, formData: FormDa
             errors: error.message || 'Došlo k neočekávané chybě během přihlašování.',
         }
     }
-    redirect('/sign/in');
+    redirect(ROUTES.SIGN_IN);
 }

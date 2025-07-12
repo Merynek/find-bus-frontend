@@ -14,6 +14,7 @@ import {ROUTES} from "@/src/enums/router.enum";
 import { useRouter } from 'next/navigation';
 import { useActionState } from "react";
 import {signInFormAction} from "@/src/app/actions/auth/signIn/signInFormAction";
+import {FormDataEnum} from "@/src/enums/form-data.enum";
 
 const LoginPage = observer(() => {
     const _locKey = "page.sign.login."
@@ -40,18 +41,18 @@ const LoginPage = observer(() => {
         />
         <form action={action}>
             <div>
-                <label htmlFor="email">Email</label>
-                <input id="email" name="email" placeholder="Email"/>
+                <label htmlFor={FormDataEnum.email}>Email</label>
+                <input id={FormDataEnum.email} name={FormDataEnum.email} placeholder="Email"/>
             </div>
             {state?.errors?.email && <p>{state.errors.email}</p>}
 
             <div>
-                <label htmlFor="password">Password</label>
-                <input id="password" name="password" type="password"/>
+                <label htmlFor={FormDataEnum.password}>Password</label>
+                <input id={FormDataEnum.password} name={FormDataEnum.password} type={"password"} placeholder="password"/>
             </div>
             {state?.errors?.password && (
                 <div>
-                    <p>Password must:</p>
+                <p>Password must:</p>
                     <ul>
                         {state.errors.password.map((error: string) => (
                             <li key={error}>- {error}</li>
