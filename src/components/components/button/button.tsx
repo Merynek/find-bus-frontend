@@ -1,5 +1,4 @@
 import React from "react";
-import {observer} from "mobx-react";
 import styles from "./button.module.scss";
 import {cn} from "@/src/utils/common";
 import Link from 'next/link'
@@ -59,7 +58,7 @@ function getClassNameForButton(buttonType: ButtonType): string {
     }
 }
 
-export const ButtonClick = observer((props: IClickButtonProps) => {
+export const ButtonClick = (props: IClickButtonProps) => {
     const {type, size, isDisabled, onClick} = props;
     return <button
         onClick={onClick}
@@ -72,9 +71,9 @@ export const ButtonClick = observer((props: IClickButtonProps) => {
     >
         <ButtonContent {...props} />
     </button>
-})
+}
 
-export const ButtonLink = observer((props: ILinkButtonProps) => {
+export const ButtonLink = (props: ILinkButtonProps) => {
     const {size, type, onClick, route, openInTab, isDisabled} = props;
     const to = `${route.route}${route.param ? ("/" + route.param) : ""}`;
 
@@ -90,9 +89,9 @@ export const ButtonLink = observer((props: ILinkButtonProps) => {
     >
         <ButtonContent {...props} />
     </Link>
-});
+};
 
-const ButtonContent = observer((props: IClickButtonProps|ILinkButtonProps) => {
+const ButtonContent = (props: IClickButtonProps|ILinkButtonProps) => {
     const {label, children, rightIcon, size} = props;
     const iconSize = size === ButtonSize.BUTTON_SIZE_M ? "14px" : "";
 
@@ -108,4 +107,4 @@ const ButtonContent = observer((props: IClickButtonProps|ILinkButtonProps) => {
             icon={rightIcon}
         />}
     </LayoutFlexRow>
-});
+}

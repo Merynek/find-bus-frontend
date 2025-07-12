@@ -1,46 +1,26 @@
-import {useTranslate} from "@/src/hooks/translateHook";
 import React from "react";
 import styles from "./header.module.scss";
-import {ButtonClick, ButtonSize, ButtonType, ButtonLink} from "../../components/button/button";
-import {CurrentUser} from "@/src/singletons/current-user";
-import {observer} from "mobx-react";
-// import {ComboBox, IComboBoxItem} from "../../components/inputs/combo-box/combo-box";
-// import {languages} from "@/src/locales/locales";
-// import {LOCALES} from "@/src/utils/locale";
-import {useBean} from "ironbean-react";
-import { useRouter } from 'next/navigation';
+import {ButtonSize, ButtonType, ButtonLink} from "../../components/button/button";
 import {ROUTES} from "@/src/enums/router.enum";
-// import i18n from "i18next";
+import {PageTabs} from "@/src/components/compositions/page-tabs/page-tabs";
+import {CheckTokenResponseDto} from "@/src/api/openapi";
+import {HeaderLogout} from "@/src/components/compositions/header/header-logout";
 
+interface IHeaderProps {
+    user: CheckTokenResponseDto|null;
+}
 
-export const Header = observer(() => {
-    const _currentUser = useBean(CurrentUser);
-    const router = useRouter();
-    const {t} = useTranslate();
-    const _locKey = "component.header.";
-    // const _languageItemsRef = useRef<IComboBoxItem<LOCALES>[]>(Object.values(LOCALES).map(key => {
-    //     return {
-    //         label: languages[key],
-    //         value: key
-    //     }
-    // }));
+export const Header = (props: IHeaderProps) => {
+    const {user} = props;
 
     const _renderLogoutButton = () => {
-        return <ButtonClick
-            size={ButtonSize.BY_CONTENT}
-            label={t(_locKey + "logoutButton")}
-            onClick={() => {
-                _currentUser.logout();
-                router.push(ROUTES.SIGN_IN)
-            }}
-            type={ButtonType.YELLOW}
-        />
+        return <HeaderLogout />
     }
 
     const _renderLoginButton = () => {
         return <ButtonLink
             route={{route: ROUTES.SIGN_IN}}
-            label={t(_locKey + "loginButton")}
+            label={"Login"}
             type={ButtonType.YELLOW}
             size={ButtonSize.BUTTON_SIZE_M}
         />
@@ -62,6 +42,7 @@ export const Header = observer(() => {
 
     return <header className={styles.layout}>
         {_renderLanguages()}
-        {_currentUser.isLoggedIn ? _renderLogoutButton() : _renderLoginButton()}
+        {user !== null ? _renderLogoutButton() : _renderLoginButton()}
+        {user !== null && <PageTabs user={user} />}
     </header>
-});
+};

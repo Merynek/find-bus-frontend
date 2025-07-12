@@ -11,6 +11,7 @@
     &.active {
       color: colors.$black;
       font-weight: fonts.$fontWeightSemiBold;
+      border-bottom: 3px solid colors.$blue;
     }
   }
 }

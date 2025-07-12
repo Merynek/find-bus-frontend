@@ -4,9 +4,9 @@ import {HeaderCookieName} from "@/src/enums/cookies.enum";
 import {AuthorizeApi} from "@/src/api/authorizeApi";
 import {getAccessToken} from "@/src/app/actions/token";
 import {cookies} from "next/headers";
-import {CheckTokenResponseDto, UserRole} from "@/src/api/openapi";
-import {FormDataEnum} from "@/src/enums/form-data.enum";
+import {CheckTokenResponseDto} from "@/src/api/openapi";
 import {redirect} from "next/navigation";
+import {ROUTES} from "@/src/enums/router.enum";
 
 export async function getUserAction(): Promise<CheckTokenResponseDto|null> {
     const accessToken = await getAccessToken();
@@ -38,6 +38,6 @@ export async function logoutAction(): Promise<void> {
     } finally {
         const cookieStore = await cookies();
         cookieStore.delete(HeaderCookieName.sessionid);
-        redirect('/login');
+        redirect(ROUTES.SIGN_IN);
     }
 }
