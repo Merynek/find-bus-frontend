@@ -4,7 +4,7 @@ import {
     activeUserAction, forgotPasswordAction,
     getUserAction,
     loginAction,
-    logoutAction,
+    logoutAction, resetPasswordAction,
     signUpAction
 } from "@/src/app/actions/auth/authActions";
 
@@ -44,5 +44,9 @@ export class AuthorizationService {
 
     public static async forgotPassword(token: string) {
         await forgotPasswordAction(token);
+    }
+
+    public static async resetPassword(token: string, password: string, confirmPassword: string) {
+        await resetPasswordAction(token, password, confirmPassword);
     }
 }

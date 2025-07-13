@@ -1,3 +1,5 @@
+'use client'
+
 import React, {useActionState} from "react";
 import styles from "./forgot-password.page.module.scss";
 import {observer} from "mobx-react";

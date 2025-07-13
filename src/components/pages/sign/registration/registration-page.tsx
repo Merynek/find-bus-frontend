@@ -6,8 +6,8 @@ import {observer} from "mobx-react";
 import {ButtonSize, ButtonType, ButtonLink} from "../../../components/button/button";
 import {UserRole} from "@/src/api/openapi";
 import {ROUTES} from "@/src/enums/router.enum";
-import {signupFormAction} from "@/src/app/actions/auth/signUp/signupFormAction";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
+import {signupFormAction} from "@/src/app/actions/forms/signUp/signupFormAction";
 
 const RegistrationPage = observer(() => {
     const [state, action, pending] = useActionState(signupFormAction, undefined)

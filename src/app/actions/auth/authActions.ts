@@ -92,3 +92,13 @@ export const forgotPasswordAction = async (email: string) => {
         email: email
     });
 }
+
+export const resetPasswordAction = async (token: string, password: string, confirmPassword: string) => {
+    const authApi = new AuthorizeApi(undefined);
+
+    await authApi.resetPassword({
+        token: token,
+        password: password,
+        confirmPassword: confirmPassword
+    });
+}
