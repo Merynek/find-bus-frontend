@@ -1,3 +1,5 @@
+"use client";
+
 import {useTranslate} from "@/src/hooks/translateHook";
 import React, {useRef} from "react";
 import styles from "./user-settings.page.module.scss";
@@ -26,15 +28,12 @@ import {CheckBoxSize} from "@/src/enums/check-box.enum";
 import {AppManager} from "@/src/singletons/app-manager";
 import {useMount} from "@/src/hooks/lifecycleHooks";
 
-export interface IUserSettingsPageProps {
-}
-
 enum PhotoType {
     ConcessionDocuments = "ConcessionDocuments",
     BusinessRiskInsurance = "BusinessRiskInsurance"
 }
 
-const UserSettingsPage = observer((props: IUserSettingsPageProps) => {
+const UserSettingsPage = observer(() => {
     const _locKey = "page.userSettings."
     const _currentUser = useBean(CurrentUser);
     const _storeRef = useRef<UserSettingsPageStore>(new UserSettingsPageStore());
