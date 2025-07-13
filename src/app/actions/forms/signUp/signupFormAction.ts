@@ -2,9 +2,9 @@
 
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {redirect} from "next/navigation";
-import {SignupFormSchema} from "@/src/app/actions/auth/signUp/signUpSchema";
 import {ROUTES} from "@/src/enums/router.enum";
 import {AuthorizationService} from "@/src/services/AuthorizationService";
+import {SignupFormSchema} from "@/src/app/actions/forms/signUp/signUpSchema";
 
 export type TSignUpFormState = {
     errors?: {

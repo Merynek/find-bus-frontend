@@ -2,8 +2,8 @@
 
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {redirect} from "next/navigation";
-import {SignInFormSchema} from "@/src/app/actions/auth/signIn/signInSchema";
 import {AuthorizationService} from "@/src/services/AuthorizationService";
+import {SignInFormSchema} from "@/src/app/actions/forms/signIn/signInSchema";
 
 export type TSignInFormState = {
     errors?: {
