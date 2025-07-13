@@ -1,10 +1,10 @@
 'use server';
 
 import {FormDataEnum} from "@/src/enums/form-data.enum";
-import {RegistrationApi} from "@/src/api/registrationApi";
 import {redirect} from "next/navigation";
 import {SignupFormSchema} from "@/src/app/actions/auth/signUp/signUpSchema";
 import {ROUTES} from "@/src/enums/router.enum";
+import {AuthorizationService} from "@/src/services/AuthorizationService";
 
 export type TSignUpFormState = {
     errors?: {
@@ -31,13 +31,8 @@ export async function signupFormAction(state: TSignUpFormState, formData: FormDa
         }
     }
 
-    const registrationApi = new RegistrationApi(undefined);
     try {
-        await registrationApi.registration({
-            email: validatedFields.data.email,
-            password: validatedFields.data.password,
-            role: validatedFields.data.role
-        });
+        await AuthorizationService.signUp(validatedFields.data.email, validatedFields.data.password, validatedFields.data.role);
     } catch (error: any) {
         console.error('Chyba při registraci:', error);
         return {

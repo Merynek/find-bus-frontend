@@ -1,7 +1,7 @@
 import {IApiRequest} from "./toolsApi";
 import * as OpenApi from "./openapi";
 import {ApiConfiguration} from "@/src/api/apiConfiguration";
-import type {CheckTokenResponseDto, LoginResponseDto} from "./openapi";
+import {CheckTokenResponseDto, LoginResponseDto} from "./openapi";
 
 export interface IForgotPasswordRequest extends IApiRequest {
     email: string;

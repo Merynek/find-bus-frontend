@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import {Header} from "@/src/components/compositions/header/header";
-import {getUserAction} from "@/src/app/actions/auth/auth";
+import {AuthProvider} from "@/src/app/contexts/AuthContext";
+import {AuthorizationService} from "@/src/services/AuthorizationService";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,15 +25,17 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-    const user = await getUserAction();
+    const user = await AuthorizationService.getUserJson();
 
       return (
         <html lang="en">
           <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
           >
-            <Header user={user} />
-            {children}
+            <AuthProvider initialUser={user}>
+                <Header user={user} />
+                {children}
+            </AuthProvider>
           </body>
         </html>
       );
