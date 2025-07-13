@@ -1,3 +1,5 @@
+"use client";
+
 import React, {useEffect, useRef} from "react";
 import {TripListPageStore} from "./trip-list.page.store";
 import styles from "./trip-list.page.module.scss";
