@@ -2,12 +2,12 @@
 
 import {HeaderCookieName} from "@/src/enums/cookies.enum";
 import {AuthorizeApi} from "@/src/api/authorizeApi";
-import {getAccessToken} from "@/src/app/actions/token";
 import {cookies} from "next/headers";
 import {CheckTokenResponseDto, UserRole} from "@/src/api/openapi";
 import {redirect} from "next/navigation";
 import {ROUTES} from "@/src/enums/router.enum";
 import {RegistrationApi} from "@/src/api/registrationApi";
+import {getAccessToken} from "@/src/app/actions/auth/accessTokenActions";
 
 export async function getUserAction(): Promise<CheckTokenResponseDto|null> {
     const accessToken = await getAccessToken();
