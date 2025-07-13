@@ -1,15 +1,21 @@
+"use client";
+
 import React, {useRef} from "react";
 import styles from "./trip-detail.page.module.scss";
 import {TripDetailPageStore} from "./trip-detail.page.store";
 import {observer} from "mobx-react";
 import {TripDetail} from "../../compositions/trip/trip-detail/trip-detail";
-import {useParams} from 'next/navigation';
 import {TripOfferSection} from "../../compositions/trip/trip-offer-section/trip-offer-section";
 
+interface TripDetailPageProps {
+    params: {
+        tripId: string;
+    };
+}
 
-const TripDetailPage = observer(() => {
-    const { id } = useParams();
-    const _storeRef = useRef<TripDetailPageStore>(new TripDetailPageStore(Number(id)));
+const TripDetailPage = observer((props: TripDetailPageProps) => {
+    const { tripId } = props.params;
+    const _storeRef = useRef<TripDetailPageStore>(new TripDetailPageStore(Number(tripId)));
 
     return <div className={styles.layout}>
         {_storeRef.current.trip && <>
