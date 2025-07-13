@@ -1,3 +1,5 @@
+"use client";
+
 import {useTranslate} from "@/src/hooks/translateHook";
 import React, {useRef, useState} from "react";
 import styles from "./vehicles.page.module.scss";
@@ -11,10 +13,7 @@ import {useBean} from "ironbean-react";
 import {AppManager} from "@/src/singletons/app-manager";
 import {Vehicle} from "@/src/data/users/vehicle";
 
-export interface IVehiclePageProps {
-}
-
-const VehiclePage = observer((props: IVehiclePageProps) => {
+const VehiclePage = observer(() => {
     const _storeRef = useRef<VehiclesPageStore>(new VehiclesPageStore());
     const store = _storeRef.current;
     const _locKey = "page.vehicles."
