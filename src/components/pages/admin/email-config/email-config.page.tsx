@@ -1,13 +1,12 @@
+"use client";
+
 import React, {useRef} from "react";
 import styles from "./email-config.page.module.scss";
 import {observer} from "mobx-react";
 import {EmailConfigPageStore} from "./email-config.page.store";
 import {EmailConfigItem} from "../../../compositions/admin/email-config-item/email-config-item";
 
-export interface IEmailConfigPageProps {
-}
-
-const EmailConfigPage = observer((props: IEmailConfigPageProps) => {
+const EmailConfigPage = observer(() => {
     const _storeRef = useRef<EmailConfigPageStore>(new EmailConfigPageStore({}));
     const _locKey = "page.emailConfig."
 

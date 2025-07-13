@@ -1,3 +1,5 @@
+"use client";
+
 import {observer} from "mobx-react";
 import React, {useEffect, useRef} from "react";
 import {LayoutFlexColumn} from "../../../components/layout/layout-flex-column/layout-flex-column";
@@ -28,7 +30,7 @@ const AdminUsersPage = observer(() => {
         const page = searchParams.get(SEARCH_PARAMS.PAGE);
 
         _storeRef.current.loadDataFromUrl({
-            page: page ? Number(page) : undefined
+            page: undefined
         })
     }, [searchParams]);
 

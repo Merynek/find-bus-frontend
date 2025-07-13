@@ -1,7 +1,7 @@
-import UserSettingsPage from "@/src/components/pages/user-settings/user-settings.page";
+import CreateTripPage from "@/src/components/pages/create-trip/create-trip-page";
 
 function PageWrapper()  {
-    return <UserSettingsPage />;
+    return <CreateTripPage />;
 }
 
 export default PageWrapper;

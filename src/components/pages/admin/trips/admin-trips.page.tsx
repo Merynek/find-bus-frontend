@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import styles from "./admin-trips.page.module.scss";
 import {observer} from "mobx-react";
@@ -8,10 +10,8 @@ import {TripItem} from "@/src/data/tripItem";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {FlexGap} from "@/src/enums/layout.enum";
 
-export interface IAdminTripsPageProps {
-}
 
-const AdminTripsPage = observer((props: IAdminTripsPageProps) => {
+const AdminTripsPage = observer(() => {
     const _locKey = "page.tripsStateOffer.";
     const store = useInit(() => {
         return new AdminTripsPageStore({})

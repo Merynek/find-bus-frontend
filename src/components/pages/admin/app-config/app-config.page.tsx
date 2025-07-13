@@ -1,3 +1,5 @@
+"use client";
+
 import React, {useRef} from "react";
 import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import styles from "./app-config.page.module.scss";
