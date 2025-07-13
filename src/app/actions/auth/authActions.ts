@@ -76,3 +76,11 @@ export const signUpAction = async (email: string, password: string, role: UserRo
         role: role
     });
 }
+
+export const activeUserAction = async (token: string) => {
+    const registrationApi = new RegistrationApi(undefined);
+
+    await registrationApi.activeUser({
+        token: token
+    });
+}
