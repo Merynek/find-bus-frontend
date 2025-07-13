@@ -84,3 +84,11 @@ export const activeUserAction = async (token: string) => {
         token: token
     });
 }
+
+export const forgotPasswordAction = async (email: string) => {
+    const authApi = new AuthorizeApi(undefined);
+
+    await authApi.forgotPassword({
+        email: email
+    });
+}

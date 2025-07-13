@@ -1,36 +1,15 @@
 'use client'
 
-import {useTranslate} from "@/src/hooks/translateHook";
-import React, {useRef} from "react";
-import {Form} from "../../../components/form/form";
-import {ValidationTooltip} from "../../../components/validation-tooltip/validation-tooltip";
-import {ValidationState} from "../../../components/inputs/inputEnum";
-import {TextBox, TextBoxType} from "../../../components/inputs/text-box/text-box";
-import signStyles from "../sign.module.scss";
-import {ButtonClick, ButtonSize, ButtonType, ButtonLink} from "../../../components/button/button";
+import React from "react";
+import {ButtonSize, ButtonType, ButtonLink} from "../../../components/button/button";
 import {observer} from "mobx-react";
-import {LoginPageStore} from "./login.page.store";
 import {ROUTES} from "@/src/enums/router.enum";
-import { useRouter } from 'next/navigation';
 import { useActionState } from "react";
-import {signInFormAction} from "@/src/app/actions/auth/signIn/signInFormAction";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
+import {signInFormAction} from "@/src/app/actions/forms/signIn/signInFormAction";
 
 const LoginPage = observer(() => {
-    const _locKey = "page.sign.login."
-    const _locKeySign = "page.sign."
-    const _storeRef = useRef<LoginPageStore>(new LoginPageStore());
-    const {t} = useTranslate();
-    const router = useRouter();
     const [state, action, pending] = useActionState(signInFormAction, undefined)
-
-    const submit = async () => {
-        if (_storeRef.current.changed) {
-            if (await _storeRef.current.login()) {
-                router.push(ROUTES.HOME);
-            }
-        }
-    }
 
     return <div>
         <ButtonLink

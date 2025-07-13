@@ -2,7 +2,7 @@
 
 import React from "react";
 import {ButtonClick, ButtonSize, ButtonType} from "../../components/button/button";
-import {logoutAction} from "@/src/app/actions/auth/auth";
+import {AuthorizationService} from "@/src/services/AuthorizationService";
 
 
 export const HeaderLogout = () => {
@@ -10,8 +10,8 @@ export const HeaderLogout = () => {
     return <ButtonClick
         size={ButtonSize.BY_CONTENT}
         label={"Logout"}
-        onClick={() => {
-            logoutAction();
+        onClick={async () => {
+            await AuthorizationService.logout();
         }}
         type={ButtonType.YELLOW}
     />

@@ -1,8 +1,7 @@
-
 import {UsersConverter} from "@/src/converters/users-converter";
 import {UserRole} from "@/src/api/openapi";
 import {
-    activeUserAction,
+    activeUserAction, forgotPasswordAction,
     getUserAction,
     loginAction,
     logoutAction,
@@ -41,5 +40,9 @@ export class AuthorizationService {
 
     public static async activeUser(token: string) {
         await activeUserAction(token);
+    }
+
+    public static async forgotPassword(token: string) {
+        await forgotPasswordAction(token);
     }
 }
