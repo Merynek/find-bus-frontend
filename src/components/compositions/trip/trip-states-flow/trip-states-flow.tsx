@@ -1,18 +1,16 @@
 import {TripOfferState} from "@/src/api/openapi";
-import {observer} from "mobx-react";
 import React from "react";
 import styles from "./trip-states-flow.module.scss";
 import {TripState} from "@/src/components/compositions/trip/trip-state/trip-state";
-import {useInit} from "@/src/hooks/lifecycleHooks";
 import {Trip} from "@/src/data/trip/trip";
 
 interface ITripStateProps {
     trip: Trip;
 }
 
-export const TripStatesFlow = observer((props: ITripStateProps) => {
+export const TripStatesFlow = (props: ITripStateProps) => {
     const {trip} = props;
-    const states = useInit(() => [
+    const states = [
         TripOfferState.CREATED,
         TripOfferState.HAS_OFFERS,
         TripOfferState.ACCEPTED_TRANSPORTER_PAY_DEPOSIT,
@@ -22,7 +20,7 @@ export const TripStatesFlow = observer((props: ITripStateProps) => {
         TripOfferState.STARTED,
         TripOfferState.FINISHED,
         TripOfferState.CLOSED
-    ])
+    ];
 
     const getStateIndex = (state: TripOfferState): number => {
         return states.indexOf(state);
@@ -55,4 +53,4 @@ export const TripStatesFlow = observer((props: ITripStateProps) => {
             })}
         </div>
     </div>
-});
+};

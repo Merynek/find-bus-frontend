@@ -1,4 +1,5 @@
 import {AppBusinessConfig} from "../data/appBusinessConfig";
+import {LOCALES} from "@/src/utils/locale";
 
 export class AppConfiguration {
     private static _instance: AppConfiguration | null = null;
@@ -44,6 +45,6 @@ export class AppConfiguration {
     }
 
     get locale() {
-        return "cs-CZ";
+        return LOCALES.cs_CZ;
     }
 }

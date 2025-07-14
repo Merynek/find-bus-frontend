@@ -1,5 +1,4 @@
 import {TripOfferState} from "@/src/api/openapi";
-import {observer} from "mobx-react";
 import React from "react";
 import styles from "./trip-state.module.scss";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
@@ -13,7 +12,7 @@ interface ITripStateProps {
     isCompleted: boolean;
 }
 
-export const TripState = observer((props: ITripStateProps) => {
+export const TripState = (props: ITripStateProps) => {
     const {state, isActive, isCompleted} = props;
 
     return <LayoutFlexColumn alignItems={"center"} gap={FlexGap.TINY_8}>
@@ -27,4 +26,4 @@ export const TripState = observer((props: ITripStateProps) => {
             />
         </div>
     </LayoutFlexColumn>
-});
+};

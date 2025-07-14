@@ -1,4 +1,3 @@
-import {observer} from "mobx-react";
 import {Trip} from "@/src/data/trip/trip";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import React from "react";
@@ -12,7 +11,7 @@ interface IAdminTripActionsProps {
     offers: Offer[];
 }
 
-export const AdminTripActions = observer((props: IAdminTripActionsProps) => {
+export const AdminTripActions = (props: IAdminTripActionsProps) => {
     const {trip, offers} = props;
 
     return <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
@@ -24,4 +23,4 @@ export const AdminTripActions = observer((props: IAdminTripActionsProps) => {
             trip={trip}
         />
     </LayoutFlexColumn>
-});
+};

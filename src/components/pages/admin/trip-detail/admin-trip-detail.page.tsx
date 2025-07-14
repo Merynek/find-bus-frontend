@@ -1,12 +1,6 @@
-"use client";
-
 import React from 'react';
-import {observer} from "mobx-react";
-import {useInit, useMount} from "@/src/hooks/lifecycleHooks";
-import {AdminTripDetailPageStore} from "@/src/components/pages/admin/trip-detail/admin-trip-detail.page.store";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {TripStatesFlow} from "@/src/components/compositions/trip/trip-states-flow/trip-states-flow";
-import {LoaderArea} from "@/src/components/components/loader-area/loader-area";
 import {FlexGap} from "@/src/enums/layout.enum";
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 import {FontSize, FontWeight, Text} from "@/src/components/components/texts/text/text";
@@ -14,7 +8,6 @@ import {DateTimeFormat} from "@/src/enums/date-time-format.enum";
 import {Trip} from "@/src/data/trip/trip";
 import {DateTimeManager} from "@/src/singletons/date-time-manager";
 import styles from "./admin-trip-detail.page.module.scss";
-import {useBean} from "ironbean-react";
 import {cn} from "@/src/utils/common";
 import {AdminTripActions} from "@/src/components/pages/admin/trip-detail/components/admin-trip-actions";
 import {AdminTripMovements} from "@/src/components/pages/admin/trip-detail/components/admin-trip-movements";
@@ -22,30 +15,15 @@ import {TripOfferMovement} from "@/src/data/tripOfferMovement";
 import {Offer} from "@/src/data/offer";
 
 interface TripDetailPageProps {
-    params: {
-        tripId: string;
-    };
+    trip: Trip;
+    offers: Offer[];
+    offerMovements: TripOfferMovement[];
 }
 
-const AdminTripDetailPage = observer((props: TripDetailPageProps) => {
-    const dateTimeManager = useBean(DateTimeManager);
-    const store = useInit(() => {
-        return new AdminTripDetailPageStore({})
-    });
+const AdminTripDetailPage = (props: TripDetailPageProps) => {
+    const {trip, offerMovements, offers} = props;
 
-    useMount(() => {
-        loadDetail();
-    })
-
-    const loadDetail = async () => {
-        if (props.params.tripId) {
-            await store.getTrip(parseInt(props.params.tripId));
-            await store.loadMovements();
-            await store.loadOffers();
-        }
-    }
-
-    const renderInfo = (trip: Trip) => {
+    const renderInfo = () => {
         return <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
             <TripStatesFlow trip={trip} />
             <LayoutFlexRow gap={FlexGap.TINY_8} alignItems={"center"}>
@@ -71,13 +49,13 @@ const AdminTripDetailPage = observer((props: TripDetailPageProps) => {
                 </LayoutFlexRow>
                 <LayoutFlexRow gap={FlexGap.SMALLEST_4}>
                     <Text text={"End offer: "} fontSize={FontSize.BASE_14} fontWeight={FontWeight.SEMIBOLD} />
-                    <Text text={dateTimeManager.dateTimeFormat(DateTimeFormat.FORMAT_DMY, trip.endOrder)} fontSize={FontSize.BASE_14} />
+                    <Text text={DateTimeManager.dateTimeFormat(DateTimeFormat.FORMAT_DMY, trip.endOrder)} fontSize={FontSize.BASE_14} />
                 </LayoutFlexRow>
             </LayoutFlexRow>
         </LayoutFlexColumn>
     }
 
-    const renderAllOffers = (offers: Offer[]) => {
+    const renderAllOffers = () => {
         return <LayoutFlexColumn gap={FlexGap.SMALL_16}>
             <Text text={"Offers: "} fontSize={FontSize.M_22} />
             {offers.map(offer => {
@@ -97,26 +75,26 @@ const AdminTripDetailPage = observer((props: TripDetailPageProps) => {
         </LayoutFlexColumn>
     }
 
-    const renderMovements = (movements: TripOfferMovement[]) => {
+    const renderMovements = () => {
         return <LayoutFlexColumn gap={FlexGap.SMALL_16}>
             <Text text={"Movements: "} fontSize={FontSize.M_22} />
-            <AdminTripMovements movements={movements} />
+            <AdminTripMovements movements={offerMovements} />
         </LayoutFlexColumn>
     }
 
     const renderActions = () => {
-        return store.trip ? <AdminTripActions
-            trip={store.trip}
-            offers={store.offers}
-        /> : null;
+        return <AdminTripActions
+            trip={trip}
+            offers={offers}
+        />
     }
 
     return <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
-        {store.trip ? renderInfo(store.trip) : <LoaderArea />}
-        {store.movements.length !== 0 && renderMovements(store.movements)}
-        {store.offers.length !== 0 && renderAllOffers(store.offers)}
+        {renderInfo()}
+        {offerMovements.length !== 0 && renderMovements()}
+        {offers.length !== 0 && renderAllOffers()}
         {renderActions()}
     </LayoutFlexColumn>
-});
+};
 
 export default AdminTripDetailPage;

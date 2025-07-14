@@ -1,4 +1,3 @@
-import {autowired, component} from "ironbean";
 import {ApiConfiguration} from "./apiConfiguration";
 import * as OpenApi from "./openapi";
 import {IApiRequest} from "./toolsApi";
@@ -7,7 +6,7 @@ import {TripConverter} from "../converters/trip/trip-converter";
 import {TripRecommendation} from "../data/tripRecommendation";
 import {TripItemConverter} from "../converters/trip-item-converter";
 import {TripItem} from "../data/tripItem";
-import {ApiTripListGetRequest} from "./openapi";
+import {ApiTripListGetRequest, type TripResponseDto} from "./openapi";
 
 export interface ICreateTripRequest extends IApiRequest {
     trip: Trip;
@@ -37,12 +36,15 @@ export interface IPostStopTripOrderRequest extends IApiRequest {
     tripId: number;
 }
 
-@component
 export class TripApi {
-    @autowired private _apiConfiguration: ApiConfiguration;
+    private readonly _token: string|undefined;
+
+    constructor(token: string|undefined) {
+        this._token = token;
+    }
 
     private get _api() {
-        return new OpenApi.TripApi(this._apiConfiguration.config);
+        return new OpenApi.TripApi(ApiConfiguration.createOpenApiConfig(this._token));
     }
 
     public async createTrip(req: ICreateTripRequest): Promise<void> {
@@ -69,12 +71,10 @@ export class TripApi {
         return response.map(TripItemConverter.toClient);
     }
 
-    public async getTrip(req: IGetTrip): Promise<Trip> {
-        const response = await this._api.apiTripTripGet({
+    public async getTrip(req: IGetTrip): Promise<TripResponseDto> {
+        return await this._api.apiTripTripGet({
             tripId: req.id
         }, req.initOverrides)
-
-        return TripConverter.toClient(response);
     }
 
     public async getTripRecommendation(req: IGetTripRecommendation): Promise<TripRecommendation> {

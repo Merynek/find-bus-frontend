@@ -1,13 +1,14 @@
-import {autowired, component} from "ironbean";
 import {ApiConfiguration} from "./apiConfiguration";
 import * as OpenApi from "./openapi";
-import {CloseTripOfferReason, type FinancialDocumentType, TripOfferAcceptMethod} from "./openapi";
+import {
+    CloseTripOfferReason,
+    type FinancialDocumentType,
+    TripOfferAcceptMethod,
+    type TripOfferMovementsResponseDto, type TripOfferResponseDto
+} from "./openapi";
 import {IApiRequest} from "./toolsApi";
 import {Price} from "../data/price";
 import {PriceConverter} from "../converters/price-converter";
-import {TripOfferMovement} from "../data/tripOfferMovement";
-import {TripOfferConverter} from "../converters/trip-offer-converter";
-import {Offer} from "../data/offer";
 
 export interface IGetTripMovementsRequest extends IApiRequest {
     tripId: number;
@@ -60,20 +61,22 @@ export interface IDeleteOfferRequest extends IApiRequest {
     tripId: number;
 }
 
-@component
 export class TripsOfferApi {
-    @autowired private _apiConfiguration: ApiConfiguration;
+    private readonly _token: string|undefined;
 
-    private get _api() {
-        return new OpenApi.TripOfferApi(this._apiConfiguration.config);
+    constructor(token: string|undefined) {
+        this._token = token;
     }
 
-    public async getTripOffers(req: IGetTripOffersRequest): Promise<Offer[]> {
-        const data = await this._api.apiTripOfferGetTripOffersGet({
+    private get _api() {
+        return new OpenApi.TripOfferApi(ApiConfiguration.createOpenApiConfig(this._token));
+    }
+
+
+    public async getTripOffers(req: IGetTripOffersRequest): Promise<TripOfferResponseDto[]> {
+        return await this._api.apiTripOfferGetTripOffersGet({
             tripId: req.tripId
         }, req.initOverrides);
-
-        return data.map(TripOfferConverter.toClient);
     }
 
     public async acceptOffer(req: IAcceptOfferRequest): Promise<void> {
@@ -127,12 +130,10 @@ export class TripsOfferApi {
         }, req.initOverrides);
     }
 
-    public async offerStateMovements(req: IGetTripMovementsRequest): Promise<TripOfferMovement[]> {
-        const response = await this._api.apiTripOfferStateMovementsGet({
+    public async offerStateMovements(req: IGetTripMovementsRequest): Promise<TripOfferMovementsResponseDto[]> {
+        return await this._api.apiTripOfferStateMovementsGet({
             tripId: req.tripId
         },req.initOverrides);
-
-        return response.map(TripOfferConverter.offerMovementToClient);
     }
 
     public async payedOffer(req: IPostPayedOfferRequest): Promise<void> {

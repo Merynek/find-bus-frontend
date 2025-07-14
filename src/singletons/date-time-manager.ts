@@ -1,5 +1,4 @@
 import {DateTimeFormat} from "../enums/date-time-format.enum";
-import {component} from "ironbean";
 import {
     capitalize,
     formatD, formatDateTime, formatDM, formatDMY,
@@ -12,9 +11,8 @@ import {
 } from "@/src/utils/date-time.format";
 import {LOCALES} from "@/src/utils/locale";
 
-@component
 export class DateTimeManager {
-    public dateTimeFormat(format: DateTimeFormat, date: Date, withDayName?: boolean): string {
+    public static dateTimeFormat(format: DateTimeFormat, date: Date, withDayName?: boolean): string {
         const locale = LOCALES.cs_CZ;
         let formattedDate = "";
         const settings: IFormatSettings = {
