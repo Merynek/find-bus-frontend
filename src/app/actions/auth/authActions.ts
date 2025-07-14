@@ -52,19 +52,9 @@ export async function loginAction(email: string, password: string) {
 }
 
 export async function logoutAction(): Promise<void> {
-    const accessToken = await getAccessToken();
-
-    try {
-        const authApi = new AuthorizeApi(accessToken);
-        await authApi.logout({});
-
-    } catch (error) {
-        console.error('Chyba při volání logout API:', error);
-    } finally {
-        const cookieStore = await cookies();
-        cookieStore.delete(HeaderCookieName.sessionid);
-        redirect(ROUTES.SIGN_IN);
-    }
+    const cookieStore = await cookies();
+    cookieStore.delete(HeaderCookieName.sessionid);
+    redirect(ROUTES.SIGN_IN);
 }
 
 export const signUpAction = async (email: string, password: string, role: UserRole) => {

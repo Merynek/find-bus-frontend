@@ -1,14 +1,8 @@
-import {autowired, component} from "ironbean";
 import {ApiConfiguration} from "./apiConfiguration";
 import * as OpenApi from "./openapi";
 import {IApiRequest} from "./toolsApi";
-import {EmailType, Language} from "./openapi";
+import {AppBusinessConfigResponseDto, type EmailConfigResponseDto, EmailType, Language} from "./openapi";
 import {AppBusinessConfig} from "../data/appBusinessConfig";
-import {AdminConverter} from "../converters/admin-converter";
-import {EmailConfig} from "../data/emailConfig";
-
-export interface IGetEmailConfigRequest extends IApiRequest {
-}
 
 export interface ISetEmailConfigRequest extends IApiRequest {
     type: EmailType;
@@ -20,17 +14,19 @@ export interface IPostChangeAppBusinessConfigRequest extends IApiRequest {
     cfg: AppBusinessConfig;
 }
 
-@component
 export class AdminApi {
-    @autowired private _apiConfiguration: ApiConfiguration;
+    private readonly _token: string|undefined;
 
-    private get _api() {
-        return new OpenApi.AdminApi(this._apiConfiguration.config);
+    constructor(token: string|undefined) {
+        this._token = token;
     }
 
-    public async getEmailConfig(req: IGetEmailConfigRequest): Promise<EmailConfig> {
-        const response = await this._api.apiAdminEmailConfigGet(req.initOverrides);
-        return AdminConverter.emailConfigToClient(response);
+    private get _api() {
+        return new OpenApi.AdminApi(ApiConfiguration.createOpenApiConfig(this._token));
+    }
+
+    public async getEmailConfig(): Promise<EmailConfigResponseDto> {
+        return await this._api.apiAdminEmailConfigGet();
     }
 
     public async setEmailConfig(req: ISetEmailConfigRequest): Promise<void> {
@@ -41,6 +37,10 @@ export class AdminApi {
                 language: req.language
             }
         }, req.initOverrides);
+    }
+
+    public async getAppBusinessConfig(): Promise<AppBusinessConfigResponseDto> {
+        return await this._api.apiAdminAppConfigGet();
     }
 
     public async changeAppBusinessConfig(req: IPostChangeAppBusinessConfigRequest): Promise<void> {

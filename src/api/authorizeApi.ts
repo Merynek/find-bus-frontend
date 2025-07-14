@@ -13,9 +13,6 @@ export interface IResetPasswordRequest extends IApiRequest {
     confirmPassword: string;
 }
 
-export interface ILogoutRequest extends IApiRequest {
-}
-
 export interface ILoginRequest extends IApiRequest {
     email: string;
     password: string;
@@ -47,10 +44,6 @@ export class AuthorizeApi {
                 password: req.password
             }
         }, req.initOverrides);
-    }
-
-    public async logout(req: ILogoutRequest): Promise<void> {
-        // this._currentUser.logout();
     }
 
     public async forgotPassword(req: IForgotPasswordRequest): Promise<void> {
