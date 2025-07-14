@@ -15,11 +15,14 @@
 
 import * as runtime from '../runtime';
 import type {
+  AppBusinessConfigResponseDto,
   EmailConfigResponseDto,
   UpdateAppBusinessConfigRequestDto,
   UpdateEmailConfig,
 } from '../models/index';
 import {
+    AppBusinessConfigResponseDtoFromJSON,
+    AppBusinessConfigResponseDtoToJSON,
     EmailConfigResponseDtoFromJSON,
     EmailConfigResponseDtoToJSON,
     UpdateAppBusinessConfigRequestDtoFromJSON,
@@ -43,6 +46,41 @@ export class AdminApi extends runtime.BaseAPI {
 
     /**
      */
+    async apiAdminAppConfigGetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppBusinessConfigResponseDto>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/Admin/appConfig`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AppBusinessConfigResponseDtoFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiAdminAppConfigGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppBusinessConfigResponseDto> {
+        const response = await this.apiAdminAppConfigGetRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
     async apiAdminAppConfigPostRaw(requestParameters: ApiAdminAppConfigPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const queryParameters: any = {};
 
@@ -58,8 +96,11 @@ export class AdminApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/Admin/appConfig`;
+
         const response = await this.request({
-            path: `/api/Admin/appConfig`,
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -90,8 +131,11 @@ export class AdminApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/Admin/emailConfig`;
+
         const response = await this.request({
-            path: `/api/Admin/emailConfig`,
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -124,8 +168,11 @@ export class AdminApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/Admin/emailConfig`;
+
         const response = await this.request({
-            path: `/api/Admin/emailConfig`,
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,

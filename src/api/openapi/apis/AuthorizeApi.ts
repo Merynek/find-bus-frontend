@@ -71,8 +71,11 @@ export class AuthorizeApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/Authorize/changePassword`;
+
         const response = await this.request({
-            path: `/api/Authorize/changePassword`,
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -103,8 +106,11 @@ export class AuthorizeApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/Authorize/checkToken`;
+
         const response = await this.request({
-            path: `/api/Authorize/checkToken`,
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -135,8 +141,11 @@ export class AuthorizeApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/Authorize/dontTouch`;
+
         const response = await this.request({
-            path: `/api/Authorize/dontTouch`,
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -168,8 +177,11 @@ export class AuthorizeApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/Authorize/forgetPassword`;
+
         const response = await this.request({
-            path: `/api/Authorize/forgetPassword`,
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -202,8 +214,11 @@ export class AuthorizeApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/Authorize/login`;
+
         const response = await this.request({
-            path: `/api/Authorize/login`,
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,

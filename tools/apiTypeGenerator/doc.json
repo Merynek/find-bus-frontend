@@ -6,6 +6,33 @@
   },
   "paths": {
     "/api/Admin/appConfig": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBusinessConfigResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBusinessConfigResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppBusinessConfigResponseDto"
+                }
+              }
+            }
+          }
+        }
+      },
       "post": {
         "tags": [
           "Admin"

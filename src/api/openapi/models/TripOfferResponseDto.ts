@@ -149,7 +149,7 @@ export function TripOfferResponseDtoToJSONTyped(value?: TripOfferResponseDto | n
         'price': PriceDtoToJSON(value['price']),
         'accepted': value['accepted'],
         'endOfferDate': ((value['endOfferDate']).toISOString()),
-        'acceptOfferDate': value['acceptOfferDate'] == null ? undefined : ((value['acceptOfferDate'] as any).toISOString()),
+        'acceptOfferDate': value['acceptOfferDate'] === null ? null : ((value['acceptOfferDate'] as any)?.toISOString()),
         'documents': value['documents'] == null ? undefined : ((value['documents'] as Array<any>).map(FinancialDocumentResponseDtoToJSON)),
     };
 }

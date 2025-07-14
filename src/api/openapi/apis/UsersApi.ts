@@ -78,8 +78,11 @@ export class UsersApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/Users/ban`;
+
         const response = await this.request({
-            path: `/api/Users/ban`,
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -110,8 +113,11 @@ export class UsersApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/Users/settings`;
+
         const response = await this.request({
-            path: `/api/Users/settings`,
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -144,8 +150,11 @@ export class UsersApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/Users/settings`;
+
         const response = await this.request({
-            path: `/api/Users/settings`,
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -202,8 +211,11 @@ export class UsersApi extends runtime.BaseAPI {
             formParams.append('BusinessRiskInsurance', requestParameters['businessRiskInsurance'] as any);
         }
 
+
+        let urlPath = `/api/Users/transportRequirementsPhotos`;
+
         const response = await this.request({
-            path: `/api/Users/transportRequirementsPhotos`,
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -236,8 +248,11 @@ export class UsersApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/Users/userTransportVerification`;
+
         const response = await this.request({
-            path: `/api/Users/userTransportVerification`,
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -290,8 +305,11 @@ export class UsersApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/Users/users`;
+
         const response = await this.request({
-            path: `/api/Users/users`,
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

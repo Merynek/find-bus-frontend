@@ -119,8 +119,11 @@ export class TripOfferApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/TripOffer/acceptOffer`;
+
         const response = await this.request({
-            path: `/api/TripOffer/acceptOffer`,
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -153,8 +156,11 @@ export class TripOfferApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/TripOffer/closeTrip`;
+
         const response = await this.request({
-            path: `/api/TripOffer/closeTrip`,
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -207,8 +213,11 @@ export class TripOfferApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/TripOffer/downloadDocument`;
+
         const response = await this.request({
-            path: `/api/TripOffer/downloadDocument`,
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -241,8 +250,11 @@ export class TripOfferApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/TripOffer/finishTrip`;
+
         const response = await this.request({
-            path: `/api/TripOffer/finishTrip`,
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -284,8 +296,11 @@ export class TripOfferApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/TripOffer/getTripOffers`;
+
         const response = await this.request({
-            path: `/api/TripOffer/getTripOffers`,
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -318,8 +333,11 @@ export class TripOfferApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/TripOffer/offer`;
+
         const response = await this.request({
-            path: `/api/TripOffer/offer`,
+            path: urlPath,
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -352,8 +370,11 @@ export class TripOfferApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/TripOffer/offer`;
+
         const response = await this.request({
-            path: `/api/TripOffer/offer`,
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -386,8 +407,11 @@ export class TripOfferApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/TripOffer/offer`;
+
         const response = await this.request({
-            path: `/api/TripOffer/offer`,
+            path: urlPath,
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -420,8 +444,11 @@ export class TripOfferApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/TripOffer/payedOffer`;
+
         const response = await this.request({
-            path: `/api/TripOffer/payedOffer`,
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -454,8 +481,11 @@ export class TripOfferApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/TripOffer/startTrip`;
+
         const response = await this.request({
-            path: `/api/TripOffer/startTrip`,
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -497,8 +527,11 @@ export class TripOfferApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/TripOffer/stateMovements`;
+
         const response = await this.request({
-            path: `/api/TripOffer/stateMovements`,
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

@@ -55,8 +55,11 @@ export class RegistrationApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/Registration/active`;
+
         const response = await this.request({
-            path: `/api/Registration/active`,
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -89,8 +92,11 @@ export class RegistrationApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/Registration/user`;
+
         const response = await this.request({
-            path: `/api/Registration/user`,
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,

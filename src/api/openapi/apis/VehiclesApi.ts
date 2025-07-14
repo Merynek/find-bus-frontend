@@ -93,8 +93,11 @@ export class VehiclesApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/Vehicles`;
+
         const response = await this.request({
-            path: `/api/Vehicles`,
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -260,8 +263,11 @@ export class VehiclesApi extends runtime.BaseAPI {
             formParams.append('Insurance', requestParameters['insurance'] as any);
         }
 
+
+        let urlPath = `/api/Vehicles/photos`;
+
         const response = await this.request({
-            path: `/api/Vehicles/photos`,
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -371,8 +377,11 @@ export class VehiclesApi extends runtime.BaseAPI {
             formParams.append('Insurance', requestParameters['insurance'] as any);
         }
 
+
+        let urlPath = `/api/Vehicles/photos`;
+
         const response = await this.request({
-            path: `/api/Vehicles/photos`,
+            path: urlPath,
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -405,8 +414,11 @@ export class VehiclesApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/Vehicles/transportVerification`;
+
         const response = await this.request({
-            path: `/api/Vehicles/transportVerification`,
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -448,8 +460,11 @@ export class VehiclesApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/Vehicles/vehicle`;
+
         const response = await this.request({
-            path: `/api/Vehicles/vehicle`,
+            path: urlPath,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -482,8 +497,11 @@ export class VehiclesApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/Vehicles/vehicle`;
+
         const response = await this.request({
-            path: `/api/Vehicles/vehicle`,
+            path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
@@ -521,8 +539,11 @@ export class VehiclesApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
+
+        let urlPath = `/api/Vehicles/vehicle`;
+
         const response = await this.request({
-            path: `/api/Vehicles/vehicle`,
+            path: urlPath,
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
