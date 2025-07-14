@@ -1,256 +1,221 @@
 "use client";
 
-import React, {useRef} from "react";
-import {AppConfiguration} from "@/src/singletons/AppConfiguration";
+import React, {useActionState} from "react";
 import styles from "./app-config.page.module.scss";
-import {observer} from "mobx-react";
-import {AppConfigPageStore} from "./app-config.page.store";
-import { useRouter } from 'next/navigation';
-import {ButtonClick, ButtonSize, ButtonType} from "../../../components/button/button";
-import {useBean} from "ironbean-react";
-import {NumberBox} from "../../../components/inputs/number-box/number-box";
+import {appConfigFormAction} from "@/src/app/actions/forms/admin/appConfig/appConfigFormAction";
+import {FormDataEnum} from "@/src/enums/form-data.enum";
 
 
-const AppConfigPage = observer(() => {
-    const _storeRef = useRef<AppConfigPageStore>(new AppConfigPageStore());
-    const _configuration = useBean(AppConfiguration);
-    const router = useRouter();
-    const cfg = _configuration.appBusinessConfig;
+const AppConfigPage = () => {
+    const [state, action, pending] = useActionState(appConfigFormAction, undefined)
 
     return <div className={styles.layout}>
-        <h2>Create Trip</h2>
-        <div className={styles.line}>
-            <span>minEndOrderFromNowInHours (Minimální datum vytvoření aukce od teď (24 hodin))</span>
-            <div className={styles.numberInput}>
-                <NumberBox
-                    value={cfg.minEndOrderFromNowInHours}
-                    decimalCount={2}
-                    onChange={(val) => {
-                        if (val) {
-                            cfg.minEndOrderFromNowInHours = val;
-                        }
-                    }}
-                />
+        <form action={action}>
+            <h2>Create Trip</h2>
+            <div className={styles.line}>
+                <div>
+                    <label htmlFor={FormDataEnum.minEndOrderFromNowInHours}>minEndOrderFromNowInHours (Minimální datum
+                        vytvoření aukce od teď (24 hodin))</label>
+                    <input id={FormDataEnum.minEndOrderFromNowInHours} name={FormDataEnum.minEndOrderFromNowInHours}
+                           placeholder="minEndOrderFromNowInHours" type={"number"}/>
+                </div>
+                {state?.errors?.minEndOrderFromNowInHours && <p>{state.errors.minEndOrderFromNowInHours}</p>}
             </div>
-        </div>
-        <div className={styles.line}>
-            <span>minDiffBetweenStartTripAndEndOrderInHours (Minimální rozdíl hodin konce aukce a odjezdem (480 hodin = 20 dní))</span>
-            <div className={styles.numberInput}>
-                <NumberBox
-                    value={cfg.minDiffBetweenStartTripAndEndOrderInHours}
-                    decimalCount={2}
-                    onChange={(val) => {
-                        if (val) {
-                            cfg.minDiffBetweenStartTripAndEndOrderInHours = val;
-                        }
-                    }}
-                />
-            </div>
-        </div>
-        <h2>Trip Offers</h2>
-        <div className={styles.line}>
-            <span>minDateToAcceptOfferInHours (Jak dlouho má uživatel přijmout nabídku po té co aukce skončila a nic si zatím nevybral (24 hodin))</span>
-            <div className={styles.numberInput}>
-                <NumberBox
-                    value={cfg.minDateToAcceptOfferInHours}
-                    decimalCount={2}
-                    onChange={(val) => {
-                        if (val) {
-                            cfg.minDateToAcceptOfferInHours = val;
-                        }
-                    }}
-                />
-            </div>
-        </div>
-        <div className={styles.line}>
-            <span>minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours (Minimální rozdíl hodin konce aukce a odjezdem pro zobrazení všech method zaplacení (600 hodin = 25 dní))</span>
-            <div className={styles.numberInput}>
-                <NumberBox
-                    value={cfg.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours}
-                    decimalCount={2}
-                    onChange={(val) => {
-                        if (val) {
-                            cfg.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours = val;
-                        }
-                    }}
-                />
-            </div>
-        </div>
-        <h2>Notifications</h2>
-        <div className={styles.line}>
-            <span>payRestOfPriceWarningBeforeStartTripInHours (Pouze pro doplatek 75%) - Kolik hodin před zařátkem tripu máme posilat warning email Doplatek (480 hodin = 20 dní))</span>
-            <div className={styles.numberInput}>
 
+            <div className={styles.line}>
+                <div>
+                    <label htmlFor={FormDataEnum.minDiffBetweenStartTripAndEndOrderInHours}>minDiffBetweenStartTripAndEndOrderInHours
+                        (Minimální rozdíl hodin konce aukce a odjezdem (480 hodin = 20 dní)</label>
+                    <input id={FormDataEnum.minDiffBetweenStartTripAndEndOrderInHours}
+                           name={FormDataEnum.minDiffBetweenStartTripAndEndOrderInHours}
+                           placeholder="minDiffBetweenStartTripAndEndOrderInHours" type={"number"}/>
+                </div>
+                {state?.errors?.minDiffBetweenStartTripAndEndOrderInHours &&
+                    <p>{state.errors.minDiffBetweenStartTripAndEndOrderInHours}</p>}
             </div>
-            <NumberBox
-                value={cfg.payRestOfPriceWarningBeforeStartTripInHours}
-                decimalCount={2}
-                onChange={(val) => {
-                    if (val) {
-                        cfg.payRestOfPriceWarningBeforeStartTripInHours = val;
-                    }
-                }}/>
-        </div>
-        <div className={styles.line}>
-            <span>payInvoiceWarningAfterAcceptOfferInHours (Kolik hodin po akceptování nabídky musí prijít varování email (72 hodin = 3 dny))</span>
-            <div className={styles.numberInput}>
-                <NumberBox
-                    value={cfg.payInvoiceWarningAfterAcceptOfferInHours}
-                    decimalCount={2}
-                    onChange={(val) => {
-                        if (val) {
-                            cfg.payInvoiceWarningAfterAcceptOfferInHours = val;
-                        }
-                    }}
-                />
-            </div>
-        </div>
-        <h2>Fee & Deposit</h2>
-        <div className={styles.line}>
-            <span>tripDepositInPercentage (Jaká je záloha na trip (25%)</span>
-            <div className={styles.numberInput}>
-                <NumberBox
-                    value={cfg.tripDepositInPercentage}
-                    onChange={(val) => {
-                        if (val) {
-                            cfg.tripDepositInPercentage = val;
-                        }
-                    }}
-                />
-            </div>
-        </div>
-        <div className={styles.line}>
-            <span>tripCancelFeePercentageForDemander (Poplatek za ukončení pro demandera (5%)</span>
-            <div className={styles.numberInput}>
-                <NumberBox
-                    value={cfg.tripCancelFeePercentageForDemander}
-                    onChange={(val) => {
-                        if (val) {
-                            cfg.tripCancelFeePercentageForDemander = val;
-                        }
-                    }}
-                />
-            </div>
-        </div>
-        <div className={styles.line}>
-            <span>tripCancelFeeAfterLimitPercentageForDemander (Poplatek za ukončení po limitu (60%)</span>
-            <div className={styles.numberInput}>
-                <NumberBox
-                    value={cfg.tripCancelFeeAfterLimitPercentageForDemander}
-                    onChange={(val) => {
-                        if (val) {
-                            cfg.tripCancelFeeAfterLimitPercentageForDemander = val;
-                        }
-                    }}
-                />
-            </div>
-        </div>
-        <div className={styles.line}>
-            <span>tripOfferCommissionPercentage (Trip provize (10%)</span>
-            <div className={styles.numberInput}>
-                <NumberBox
-                    value={cfg.tripOfferCommissionPercentage}
-                    onChange={(val) => {
-                        if (val) {
-                            cfg.tripOfferCommissionPercentage = val;
-                        }
-                    }}
-                />
-            </div>
-        </div>
-        <div className={styles.line}>
-            <span>tripCancelPenaltyPercentageForTransporterFromCompany (Pokuta za ukončení transporterovi pro firmu (10%)</span>
-            <div className={styles.numberInput}>
-                <NumberBox
-                    value={cfg.tripCancelPenaltyPercentageForTransporterFromCompany}
-                    onChange={(val) => {
-                        if (val) {
-                            cfg.tripCancelPenaltyPercentageForTransporterFromCompany = val;
-                        }
-                    }}
-                />
-            </div>
-        </div>
 
-        <div className={styles.line}>
-            <span>tripCancelPenaltyMinAmountInCzkForTransporterFromCompany (Minimalni Pokuta za ukončení transporterovi pro firmu (5000 Kč)</span>
-            <div className={styles.numberInput}>
-                <NumberBox
-                    value={cfg.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany}
-                    onChange={(val) => {
-                        if (val) {
-                            cfg.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany = val;
-                        }
-                    }}
-                />
+            <h2>Trip Offers</h2>
+            <div className={styles.line}>
+                <div>
+                    <label htmlFor={FormDataEnum.minDateToAcceptOfferInHours}>minDateToAcceptOfferInHours (Jak dlouho má
+                        uživatel přijmout nabídku po té co aukce skončila a nic si zatím nevybral (24 hodin))</label>
+                    <input id={FormDataEnum.minDateToAcceptOfferInHours}
+                           name={FormDataEnum.minDateToAcceptOfferInHours}
+                           placeholder="minDateToAcceptOfferInHours" type={"number"}/>
+                </div>
+                {state?.errors?.minDateToAcceptOfferInHours &&
+                    <p>{state.errors.minDateToAcceptOfferInHours}</p>}
             </div>
-        </div>
 
-        <div className={styles.line}>
-            <span>tripCancelPenaltyPercentageForTransporterFromDemander (Pokuta za ukončení transporterovi pro demandera (20%)</span>
-            <div className={styles.numberInput}>
-                <NumberBox
-                    value={cfg.tripCancelPenaltyPercentageForTransporterFromDemander}
-                    onChange={(val) => {
-                        if (val) {
-                            cfg.tripCancelPenaltyPercentageForTransporterFromDemander = val;
-                        }
-                    }}
-                />
+            <div className={styles.line}>
+                <div>
+                    <label htmlFor={FormDataEnum.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours}>minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours
+                        (Minimální rozdíl hodin konce aukce a odjezdem pro zobrazení všech method zaplacení (600 hodin =
+                        25 dní))</label>
+                    <input id={FormDataEnum.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours}
+                           name={FormDataEnum.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours}
+                           placeholder="minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours" type={"number"}/>
+                </div>
+                {state?.errors?.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours &&
+                    <p>{state.errors.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours}</p>}
             </div>
-        </div>
 
-        <div className={styles.line}>
-            <span>tripCancelPenaltyMinAmountInCzkForTransporterFromDemander (Minimalni Pokuta za ukončení transporterovi pro demandera (5000 Kč)</span>
-            <div className={styles.numberInput}>
-                <NumberBox
-                    value={cfg.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander}
-                    onChange={(val) => {
-                        if (val) {
-                            cfg.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander = val;
-                        }
-                    }}
-                />
+            <h2>Notifications</h2>
+
+            <div className={styles.line}>
+                <div>
+                    <label htmlFor={FormDataEnum.payRestOfPriceWarningBeforeStartTripInHours}>payRestOfPriceWarningBeforeStartTripInHours
+                        (Pouze pro doplatek 75%) - Kolik hodin před zařátkem tripu máme posilat warning email Doplatek
+                        (480 hodin = 20 dní))</label>
+                    <input id={FormDataEnum.payRestOfPriceWarningBeforeStartTripInHours}
+                           name={FormDataEnum.payRestOfPriceWarningBeforeStartTripInHours}
+                           placeholder="payRestOfPriceWarningBeforeStartTripInHours" type={"number"}/>
+                </div>
+                {state?.errors?.payRestOfPriceWarningBeforeStartTripInHours &&
+                    <p>{state.errors.payRestOfPriceWarningBeforeStartTripInHours}</p>}
             </div>
-        </div>
 
-        <div className={styles.line}>
-            <span>tripCancelPenaltyLimitInDays (Od kdy je vyší pokuta za ukončení před tripem (21 dní)</span>
-            <div className={styles.numberInput}>
-                <NumberBox
-                    value={cfg.tripCancelPenaltyLimitInDays}
-                    onChange={(val) => {
-                        if (val) {
-                            cfg.tripCancelPenaltyLimitInDays = val;
-                        }
-                    }}
-                />
+            <div className={styles.line}>
+                <div>
+                    <label htmlFor={FormDataEnum.payInvoiceWarningAfterAcceptOfferInHours}>payInvoiceWarningAfterAcceptOfferInHours
+                        (Kolik hodin po akceptování nabídky musí prijít varování email (72 hodin = 3 dny))</label>
+                    <input id={FormDataEnum.payInvoiceWarningAfterAcceptOfferInHours}
+                           name={FormDataEnum.payInvoiceWarningAfterAcceptOfferInHours}
+                           placeholder="payInvoiceWarningAfterAcceptOfferInHours" type={"number"}/>
+                </div>
+                {state?.errors?.payInvoiceWarningAfterAcceptOfferInHours &&
+                    <p>{state.errors.payInvoiceWarningAfterAcceptOfferInHours}</p>}
             </div>
-        </div>
 
-        <div className={styles.line}>
-            <span>tripCancelPenaltyAfterLimitPercentageForTransporter (Pokuta za ukončení tripu pro transportera po limitu (30 %)</span>
-            <div className={styles.numberInput}>
-                <NumberBox
-                    value={cfg.tripCancelPenaltyAfterLimitPercentageForTransporter}
-                    onChange={(val) => {
-                        if (val) {
-                            cfg.tripCancelPenaltyAfterLimitPercentageForTransporter = val;
-                        }
-                    }}
-                />
+            <h2>Fee & Deposit</h2>
+
+            <div className={styles.line}>
+                <div>
+                    <label htmlFor={FormDataEnum.tripDepositInPercentage}>tripDepositInPercentage (Jaká je záloha na
+                        trip (25%)</label>
+                    <input id={FormDataEnum.tripDepositInPercentage}
+                           name={FormDataEnum.tripDepositInPercentage}
+                           placeholder="tripDepositInPercentage" type={"number"}/>
+                </div>
+                {state?.errors?.tripDepositInPercentage &&
+                    <p>{state.errors.tripDepositInPercentage}</p>}
             </div>
-        </div>
 
-        <ButtonClick
-            onClick={async () => {
-                await _storeRef.current.postChanges();
-                router.refresh();
-            }}
-            label={"Change"}
-            type={ButtonType.BLACK}
-            size={ButtonSize.BUTTON_SIZE_M}/>
+            <div className={styles.line}>
+                <div>
+                    <label htmlFor={FormDataEnum.tripCancelFeePercentageForDemander}>tripCancelFeePercentageForDemander
+                        (Poplatek za ukončení pro demandera (5%)</label>
+                    <input id={FormDataEnum.tripCancelFeePercentageForDemander}
+                           name={FormDataEnum.tripCancelFeePercentageForDemander}
+                           placeholder="tripCancelFeePercentageForDemander" type={"number"}/>
+                </div>
+                {state?.errors?.tripCancelFeePercentageForDemander &&
+                    <p>{state.errors.tripCancelFeePercentageForDemander}</p>}
+            </div>
+
+
+            <div className={styles.line}>
+                <div>
+                    <label htmlFor={FormDataEnum.tripCancelFeeAfterLimitPercentageForDemander}>tripCancelFeeAfterLimitPercentageForDemander
+                        (Poplatek za ukončení po limitu (60%)</label>
+                    <input id={FormDataEnum.tripCancelFeeAfterLimitPercentageForDemander}
+                           name={FormDataEnum.tripCancelFeeAfterLimitPercentageForDemander}
+                           placeholder="tripCancelFeeAfterLimitPercentageForDemander" type={"number"}/>
+                </div>
+                {state?.errors?.tripCancelFeeAfterLimitPercentageForDemander &&
+                    <p>{state.errors.tripCancelFeeAfterLimitPercentageForDemander}</p>}
+            </div>
+
+            <div className={styles.line}>
+                <div>
+                    <label htmlFor={FormDataEnum.tripOfferCommissionPercentage}>tripOfferCommissionPercentage (Trip
+                        provize (10%)</label>
+                    <input id={FormDataEnum.tripOfferCommissionPercentage}
+                           name={FormDataEnum.tripOfferCommissionPercentage}
+                           placeholder="tripOfferCommissionPercentage" type={"number"}/>
+                </div>
+                {state?.errors?.tripOfferCommissionPercentage &&
+                    <p>{state.errors.tripOfferCommissionPercentage}</p>}
+            </div>
+
+            <div className={styles.line}>
+                <div>
+                    <label htmlFor={FormDataEnum.tripCancelPenaltyPercentageForTransporterFromCompany}>tripCancelPenaltyPercentageForTransporterFromCompany
+                        (Pokuta za ukončení transporterovi pro firmu (10%)</label>
+                    <input id={FormDataEnum.tripCancelPenaltyPercentageForTransporterFromCompany}
+                           name={FormDataEnum.tripCancelPenaltyPercentageForTransporterFromCompany}
+                           placeholder="tripCancelPenaltyPercentageForTransporterFromCompany" type={"number"}/>
+                </div>
+                {state?.errors?.tripCancelPenaltyPercentageForTransporterFromCompany &&
+                    <p>{state.errors.tripCancelPenaltyPercentageForTransporterFromCompany}</p>}
+            </div>
+
+            <div className={styles.line}>
+                <div>
+                    <label htmlFor={FormDataEnum.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany}>tripCancelPenaltyMinAmountInCzkForTransporterFromCompany
+                        (Minimalni Pokuta za ukončení transporterovi pro firmu (5000 Kč)</label>
+                    <input id={FormDataEnum.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany}
+                           name={FormDataEnum.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany}
+                           placeholder="tripCancelPenaltyMinAmountInCzkForTransporterFromCompany" type={"number"}/>
+                </div>
+                {state?.errors?.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany &&
+                    <p>{state.errors.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany}</p>}
+            </div>
+
+            <div className={styles.line}>
+                <div>
+                    <label htmlFor={FormDataEnum.tripCancelPenaltyPercentageForTransporterFromDemander}>tripCancelPenaltyPercentageForTransporterFromDemander
+                        (Pokuta za ukončení transporterovi pro demandera (20%)</label>
+                    <input id={FormDataEnum.tripCancelPenaltyPercentageForTransporterFromDemander}
+                           name={FormDataEnum.tripCancelPenaltyPercentageForTransporterFromDemander}
+                           placeholder="tripCancelPenaltyPercentageForTransporterFromDemander" type={"number"}/>
+                </div>
+                {state?.errors?.tripCancelPenaltyPercentageForTransporterFromDemander &&
+                    <p>{state.errors.tripCancelPenaltyPercentageForTransporterFromDemander}</p>}
+            </div>
+
+            <div className={styles.line}>
+                <div>
+                    <label htmlFor={FormDataEnum.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander}>tripCancelPenaltyMinAmountInCzkForTransporterFromDemander
+                        (Minimalni Pokuta za ukončení transporterovi pro demandera (5000 Kč)</label>
+                    <input id={FormDataEnum.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander}
+                           name={FormDataEnum.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander}
+                           placeholder="tripCancelPenaltyMinAmountInCzkForTransporterFromDemander" type={"number"}/>
+                </div>
+                {state?.errors?.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander &&
+                    <p>{state.errors.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander}</p>}
+            </div>
+
+
+            <div className={styles.line}>
+                <div>
+                    <label htmlFor={FormDataEnum.tripCancelPenaltyLimitInDays}>tripCancelPenaltyLimitInDays (Od kdy je
+                        vyší pokuta za ukončení před tripem (21 dní)</label>
+                    <input id={FormDataEnum.tripCancelPenaltyLimitInDays}
+                           name={FormDataEnum.tripCancelPenaltyLimitInDays}
+                           placeholder="tripCancelPenaltyLimitInDays" type={"number"}/>
+                </div>
+                {state?.errors?.tripCancelPenaltyLimitInDays &&
+                    <p>{state.errors.tripCancelPenaltyLimitInDays}</p>}
+            </div>
+
+            <div className={styles.line}>
+                <div>
+                    <label htmlFor={FormDataEnum.tripCancelPenaltyAfterLimitPercentageForTransporter}>tripCancelPenaltyAfterLimitPercentageForTransporter
+                        (Pokuta za ukončení tripu pro transportera po limitu (30 %)</label>
+                    <input id={FormDataEnum.tripCancelPenaltyAfterLimitPercentageForTransporter}
+                           name={FormDataEnum.tripCancelPenaltyAfterLimitPercentageForTransporter}
+                           placeholder="tripCancelPenaltyAfterLimitPercentageForTransporter" type={"number"}/>
+                </div>
+                {state?.errors?.tripCancelPenaltyAfterLimitPercentageForTransporter &&
+                    <p>{state.errors.tripCancelPenaltyAfterLimitPercentageForTransporter}</p>}
+            </div>
+
+            <button disabled={pending} type="submit">
+                Change
+            </button>
+        </form>
     </div>
-});
+};
 
 export default AppConfigPage;

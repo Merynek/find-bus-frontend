@@ -7,7 +7,7 @@ import {ROUTES} from "@/src/enums/router.enum";
 import {AdminService} from "@/src/services/AdminService";
 import {AppBusinessConfig} from "@/src/data/appBusinessConfig";
 
-export type TSignInFormState = {
+export type TAppConfigFormState = {
     errors?: {
         minEndOrderFromNowInHours?: string[];
         minDateToAcceptOfferInHours?: string[];
@@ -30,7 +30,7 @@ export type TSignInFormState = {
     error?: string;
 } | undefined;
 
-export async function appConfigFormAction(state: TSignInFormState, formData: FormData): Promise<TSignInFormState> {
+export async function appConfigFormAction(state: TAppConfigFormState, formData: FormData): Promise<TAppConfigFormState> {
     const validatedFields = AppConfigSchema.safeParse({
         minEndOrderFromNowInHours: formData.get(FormDataEnum.minEndOrderFromNowInHours),
         minDateToAcceptOfferInHours: formData.get(FormDataEnum.minDateToAcceptOfferInHours),
