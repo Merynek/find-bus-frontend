@@ -1,7 +1,10 @@
 import EmailConfigPage from "@/src/components/pages/admin/email-config/email-config.page";
+import {getEmailConfig} from "@/src/app/actions/admin/adminActions";
 
-function PageWrapper()  {
-    return <EmailConfigPage />;
+async function PageWrapper() {
+    const config = await getEmailConfig();
+
+    return <EmailConfigPage cfg={config}/>;
 }
 
 export default PageWrapper;

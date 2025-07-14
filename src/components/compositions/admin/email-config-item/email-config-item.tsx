@@ -5,15 +5,18 @@ import styles from "./email-config-item.module.scss";
 import {EmailTemplate} from "@/src/data/emailConfig";
 import {emailConfigFormAction} from "@/src/app/actions/forms/admin/emailConfig/emailConfigFormAction";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
+import type {EmailTemplateResponseDto} from "@/src/api/openapi";
+import { AdminConverter } from "@/src/converters/admin-converter";
 
 export interface IEmailConfigItemProps {
-    emailTemplate: EmailTemplate;
+    tmp: EmailTemplateResponseDto;
 }
 
 export const EmailConfigItem = (props: IEmailConfigItemProps) => {
     const [state, action, pending] = useActionState(emailConfigFormAction, undefined)
 
-    const {emailTemplate} = props;
+    const {tmp} = props;
+    const emailTemplate = AdminConverter.emailTemplateToClient(tmp);
 
     const _renderParams = (config: EmailTemplate) => {
         const params: React.ReactNode[] = [];
@@ -45,7 +48,7 @@ export const EmailConfigItem = (props: IEmailConfigItemProps) => {
                             <span>Id template:</span>
                             <div>
                                 <label htmlFor={FormDataEnum.templateId}>Id template:</label>
-                                <input id={FormDataEnum.templateId} name={FormDataEnum.templateId} type={"number"}/>
+                                <input id={FormDataEnum.templateId} name={FormDataEnum.templateId} type={"number"} defaultValue={localization.templateId}/>
                             </div>
                             {state?.errors?.templateId && <p>{state.errors.templateId}</p>}
                             <button disabled={pending} type="submit">
