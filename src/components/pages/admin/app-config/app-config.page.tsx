@@ -4,9 +4,16 @@ import React, {useActionState} from "react";
 import styles from "./app-config.page.module.scss";
 import {appConfigFormAction} from "@/src/app/actions/forms/admin/appConfig/appConfigFormAction";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
+import {AppBusinessConfigResponseDto} from "@/src/api/openapi";
+import {AdminConverter} from "@/src/converters/admin-converter";
 
+interface IAppConfigPageProps {
+    cfg: AppBusinessConfigResponseDto;
+}
 
-const AppConfigPage = () => {
+const AppConfigPage = (props: IAppConfigPageProps) => {
+    const {cfg} = props;
+    const appConfig = AdminConverter.appBusinessConfigToClient(cfg);
     const [state, action, pending] = useActionState(appConfigFormAction, undefined)
 
     return <div className={styles.layout}>
@@ -17,7 +24,7 @@ const AppConfigPage = () => {
                     <label htmlFor={FormDataEnum.minEndOrderFromNowInHours}>minEndOrderFromNowInHours (Minimální datum
                         vytvoření aukce od teď (24 hodin))</label>
                     <input id={FormDataEnum.minEndOrderFromNowInHours} name={FormDataEnum.minEndOrderFromNowInHours}
-                           placeholder="minEndOrderFromNowInHours" type={"number"}/>
+                           placeholder="minEndOrderFromNowInHours" type={"number"} defaultValue={appConfig.minEndOrderFromNowInHours}/>
                 </div>
                 {state?.errors?.minEndOrderFromNowInHours && <p>{state.errors.minEndOrderFromNowInHours}</p>}
             </div>
@@ -28,7 +35,7 @@ const AppConfigPage = () => {
                         (Minimální rozdíl hodin konce aukce a odjezdem (480 hodin = 20 dní)</label>
                     <input id={FormDataEnum.minDiffBetweenStartTripAndEndOrderInHours}
                            name={FormDataEnum.minDiffBetweenStartTripAndEndOrderInHours}
-                           placeholder="minDiffBetweenStartTripAndEndOrderInHours" type={"number"}/>
+                           placeholder="minDiffBetweenStartTripAndEndOrderInHours" type={"number"} defaultValue={appConfig.minDiffBetweenStartTripAndEndOrderInHours}/>
                 </div>
                 {state?.errors?.minDiffBetweenStartTripAndEndOrderInHours &&
                     <p>{state.errors.minDiffBetweenStartTripAndEndOrderInHours}</p>}
@@ -41,7 +48,7 @@ const AppConfigPage = () => {
                         uživatel přijmout nabídku po té co aukce skončila a nic si zatím nevybral (24 hodin))</label>
                     <input id={FormDataEnum.minDateToAcceptOfferInHours}
                            name={FormDataEnum.minDateToAcceptOfferInHours}
-                           placeholder="minDateToAcceptOfferInHours" type={"number"}/>
+                           placeholder="minDateToAcceptOfferInHours" type={"number"} defaultValue={appConfig.minDateToAcceptOfferInHours}/>
                 </div>
                 {state?.errors?.minDateToAcceptOfferInHours &&
                     <p>{state.errors.minDateToAcceptOfferInHours}</p>}
@@ -54,7 +61,7 @@ const AppConfigPage = () => {
                         25 dní))</label>
                     <input id={FormDataEnum.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours}
                            name={FormDataEnum.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours}
-                           placeholder="minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours" type={"number"}/>
+                           placeholder="minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours" type={"number"} defaultValue={appConfig.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours}/>
                 </div>
                 {state?.errors?.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours &&
                     <p>{state.errors.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours}</p>}
@@ -69,7 +76,7 @@ const AppConfigPage = () => {
                         (480 hodin = 20 dní))</label>
                     <input id={FormDataEnum.payRestOfPriceWarningBeforeStartTripInHours}
                            name={FormDataEnum.payRestOfPriceWarningBeforeStartTripInHours}
-                           placeholder="payRestOfPriceWarningBeforeStartTripInHours" type={"number"}/>
+                           placeholder="payRestOfPriceWarningBeforeStartTripInHours" type={"number"} defaultValue={appConfig.payRestOfPriceWarningBeforeStartTripInHours}/>
                 </div>
                 {state?.errors?.payRestOfPriceWarningBeforeStartTripInHours &&
                     <p>{state.errors.payRestOfPriceWarningBeforeStartTripInHours}</p>}
@@ -81,7 +88,7 @@ const AppConfigPage = () => {
                         (Kolik hodin po akceptování nabídky musí prijít varování email (72 hodin = 3 dny))</label>
                     <input id={FormDataEnum.payInvoiceWarningAfterAcceptOfferInHours}
                            name={FormDataEnum.payInvoiceWarningAfterAcceptOfferInHours}
-                           placeholder="payInvoiceWarningAfterAcceptOfferInHours" type={"number"}/>
+                           placeholder="payInvoiceWarningAfterAcceptOfferInHours" type={"number"} defaultValue={appConfig.payInvoiceWarningAfterAcceptOfferInHours}/>
                 </div>
                 {state?.errors?.payInvoiceWarningAfterAcceptOfferInHours &&
                     <p>{state.errors.payInvoiceWarningAfterAcceptOfferInHours}</p>}
@@ -95,7 +102,7 @@ const AppConfigPage = () => {
                         trip (25%)</label>
                     <input id={FormDataEnum.tripDepositInPercentage}
                            name={FormDataEnum.tripDepositInPercentage}
-                           placeholder="tripDepositInPercentage" type={"number"}/>
+                           placeholder="tripDepositInPercentage" type={"number"} defaultValue={appConfig.tripDepositInPercentage}/>
                 </div>
                 {state?.errors?.tripDepositInPercentage &&
                     <p>{state.errors.tripDepositInPercentage}</p>}
@@ -107,7 +114,7 @@ const AppConfigPage = () => {
                         (Poplatek za ukončení pro demandera (5%)</label>
                     <input id={FormDataEnum.tripCancelFeePercentageForDemander}
                            name={FormDataEnum.tripCancelFeePercentageForDemander}
-                           placeholder="tripCancelFeePercentageForDemander" type={"number"}/>
+                           placeholder="tripCancelFeePercentageForDemander" type={"number"} defaultValue={appConfig.tripCancelFeePercentageForDemander}/>
                 </div>
                 {state?.errors?.tripCancelFeePercentageForDemander &&
                     <p>{state.errors.tripCancelFeePercentageForDemander}</p>}
@@ -120,7 +127,7 @@ const AppConfigPage = () => {
                         (Poplatek za ukončení po limitu (60%)</label>
                     <input id={FormDataEnum.tripCancelFeeAfterLimitPercentageForDemander}
                            name={FormDataEnum.tripCancelFeeAfterLimitPercentageForDemander}
-                           placeholder="tripCancelFeeAfterLimitPercentageForDemander" type={"number"}/>
+                           placeholder="tripCancelFeeAfterLimitPercentageForDemander" type={"number"} defaultValue={appConfig.tripCancelFeeAfterLimitPercentageForDemander}/>
                 </div>
                 {state?.errors?.tripCancelFeeAfterLimitPercentageForDemander &&
                     <p>{state.errors.tripCancelFeeAfterLimitPercentageForDemander}</p>}
@@ -132,7 +139,7 @@ const AppConfigPage = () => {
                         provize (10%)</label>
                     <input id={FormDataEnum.tripOfferCommissionPercentage}
                            name={FormDataEnum.tripOfferCommissionPercentage}
-                           placeholder="tripOfferCommissionPercentage" type={"number"}/>
+                           placeholder="tripOfferCommissionPercentage" type={"number"} defaultValue={appConfig.tripOfferCommissionPercentage}/>
                 </div>
                 {state?.errors?.tripOfferCommissionPercentage &&
                     <p>{state.errors.tripOfferCommissionPercentage}</p>}
@@ -144,7 +151,7 @@ const AppConfigPage = () => {
                         (Pokuta za ukončení transporterovi pro firmu (10%)</label>
                     <input id={FormDataEnum.tripCancelPenaltyPercentageForTransporterFromCompany}
                            name={FormDataEnum.tripCancelPenaltyPercentageForTransporterFromCompany}
-                           placeholder="tripCancelPenaltyPercentageForTransporterFromCompany" type={"number"}/>
+                           placeholder="tripCancelPenaltyPercentageForTransporterFromCompany" type={"number"} defaultValue={appConfig.tripCancelPenaltyPercentageForTransporterFromCompany}/>
                 </div>
                 {state?.errors?.tripCancelPenaltyPercentageForTransporterFromCompany &&
                     <p>{state.errors.tripCancelPenaltyPercentageForTransporterFromCompany}</p>}
@@ -156,7 +163,7 @@ const AppConfigPage = () => {
                         (Minimalni Pokuta za ukončení transporterovi pro firmu (5000 Kč)</label>
                     <input id={FormDataEnum.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany}
                            name={FormDataEnum.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany}
-                           placeholder="tripCancelPenaltyMinAmountInCzkForTransporterFromCompany" type={"number"}/>
+                           placeholder="tripCancelPenaltyMinAmountInCzkForTransporterFromCompany" type={"number"} defaultValue={appConfig.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany}/>
                 </div>
                 {state?.errors?.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany &&
                     <p>{state.errors.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany}</p>}
@@ -168,7 +175,7 @@ const AppConfigPage = () => {
                         (Pokuta za ukončení transporterovi pro demandera (20%)</label>
                     <input id={FormDataEnum.tripCancelPenaltyPercentageForTransporterFromDemander}
                            name={FormDataEnum.tripCancelPenaltyPercentageForTransporterFromDemander}
-                           placeholder="tripCancelPenaltyPercentageForTransporterFromDemander" type={"number"}/>
+                           placeholder="tripCancelPenaltyPercentageForTransporterFromDemander" type={"number"} defaultValue={appConfig.tripCancelPenaltyPercentageForTransporterFromDemander}/>
                 </div>
                 {state?.errors?.tripCancelPenaltyPercentageForTransporterFromDemander &&
                     <p>{state.errors.tripCancelPenaltyPercentageForTransporterFromDemander}</p>}
@@ -180,7 +187,7 @@ const AppConfigPage = () => {
                         (Minimalni Pokuta za ukončení transporterovi pro demandera (5000 Kč)</label>
                     <input id={FormDataEnum.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander}
                            name={FormDataEnum.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander}
-                           placeholder="tripCancelPenaltyMinAmountInCzkForTransporterFromDemander" type={"number"}/>
+                           placeholder="tripCancelPenaltyMinAmountInCzkForTransporterFromDemander" type={"number"} defaultValue={appConfig.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander}/>
                 </div>
                 {state?.errors?.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander &&
                     <p>{state.errors.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander}</p>}
@@ -193,7 +200,7 @@ const AppConfigPage = () => {
                         vyší pokuta za ukončení před tripem (21 dní)</label>
                     <input id={FormDataEnum.tripCancelPenaltyLimitInDays}
                            name={FormDataEnum.tripCancelPenaltyLimitInDays}
-                           placeholder="tripCancelPenaltyLimitInDays" type={"number"}/>
+                           placeholder="tripCancelPenaltyLimitInDays" type={"number"} defaultValue={appConfig.tripCancelPenaltyLimitInDays}/>
                 </div>
                 {state?.errors?.tripCancelPenaltyLimitInDays &&
                     <p>{state.errors.tripCancelPenaltyLimitInDays}</p>}
@@ -205,7 +212,7 @@ const AppConfigPage = () => {
                         (Pokuta za ukončení tripu pro transportera po limitu (30 %)</label>
                     <input id={FormDataEnum.tripCancelPenaltyAfterLimitPercentageForTransporter}
                            name={FormDataEnum.tripCancelPenaltyAfterLimitPercentageForTransporter}
-                           placeholder="tripCancelPenaltyAfterLimitPercentageForTransporter" type={"number"}/>
+                           placeholder="tripCancelPenaltyAfterLimitPercentageForTransporter" type={"number"} defaultValue={appConfig.tripCancelPenaltyAfterLimitPercentageForTransporter}/>
                 </div>
                 {state?.errors?.tripCancelPenaltyAfterLimitPercentageForTransporter &&
                     <p>{state.errors.tripCancelPenaltyAfterLimitPercentageForTransporter}</p>}
