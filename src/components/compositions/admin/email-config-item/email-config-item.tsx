@@ -1,22 +1,22 @@
-import React from "react";
+"use client";
+
+import React, {useActionState} from "react";
 import styles from "./email-config-item.module.scss";
-import {observer} from "mobx-react";
-import {EmailConfigLocalization, EmailTemplate} from "@/src/data/emailConfig";
-import {ButtonClick, ButtonSize, ButtonType} from "../../../components/button/button";
-import {runInAction} from "mobx";
-import {InputSize} from "../../../components/inputs/inputEnum";
-import {NumberBox} from "../../../components/inputs/number-box/number-box";
+import {EmailTemplate} from "@/src/data/emailConfig";
+import {emailConfigFormAction} from "@/src/app/actions/forms/admin/emailConfig/emailConfigFormAction";
+import {FormDataEnum} from "@/src/enums/form-data.enum";
 
 export interface IEmailConfigItemProps {
     emailTemplate: EmailTemplate;
-    onSubmitTemplate: (localization: EmailConfigLocalization) => void;
 }
 
-export const EmailConfigItem = observer((props: IEmailConfigItemProps) => {
-    const {emailTemplate, onSubmitTemplate} = props;
+export const EmailConfigItem = (props: IEmailConfigItemProps) => {
+    const [state, action, pending] = useActionState(emailConfigFormAction, undefined)
+
+    const {emailTemplate} = props;
 
     const _renderParams = (config: EmailTemplate) => {
-        let params: React.ReactNode[] = [];
+        const params: React.ReactNode[] = [];
         config.params.forEach((value: string, key: string) => {
             params.push(<div key={key}>
                 <span>{key}: </span>
@@ -34,38 +34,27 @@ export const EmailConfigItem = observer((props: IEmailConfigItemProps) => {
         <div>
             {emailTemplate.localizations.map((localization, i) => {
                 return <React.Fragment key={i}>
-                    <div>
-                        <span>Language:</span>
-                        <span>{localization.language}</span>
-                    </div>
-                    <div className={styles.templateId}>
-                        <span>Id template:</span>
-                        <NumberBox
-                            value={localization.templateId}
-                            minValue={0}
-                            onChange={(val) => {
-                                runInAction(() => {
-                                    if (val !== undefined) {
-                                        localization.templateId = val
-                                    } else {
-                                        localization.templateId = 0;
-                                    }
-                                })
-                            }}
-                            size={InputSize.MEDIUM}
-                            hideSpinButtons
-                        />
-                        <ButtonClick
-                            onClick={() => {
-                                onSubmitTemplate(localization);
-                            }}
-                            label={"Change"}
-                            type={ButtonType.YELLOW}
-                            size={ButtonSize.BY_CONTENT}
-                        />
-                    </div>
+                    <form action={action}>
+                        <input type="hidden" name={FormDataEnum.language} value={localization.language}/>
+                        <input type="hidden" name={FormDataEnum.template} value={emailTemplate.type}/>
+                        <div>
+                            <span>Language:</span>
+                            <span>{localization.language}</span>
+                        </div>
+                        <div className={styles.templateId}>
+                            <span>Id template:</span>
+                            <div>
+                                <label htmlFor={FormDataEnum.templateId}>Id template:</label>
+                                <input id={FormDataEnum.templateId} name={FormDataEnum.templateId} type={"number"}/>
+                            </div>
+                            {state?.errors?.templateId && <p>{state.errors.templateId}</p>}
+                            <button disabled={pending} type="submit">
+                                Change
+                            </button>
+                        </div>
+                    </form>
                 </React.Fragment>
             })}
         </div>
     </div>
-});
+};
