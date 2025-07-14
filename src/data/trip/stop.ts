@@ -3,6 +3,7 @@ import {computed, makeObservable, observable, runInAction} from "mobx";
 import {Route} from "./route";
 import {autowired} from "ironbean";
 import {IdGenerator, IdType} from "../../singletons/id-generator";
+import {StopResponseDto} from "@/src/api/openapi";
 
 interface IStop {
     id?: number;
@@ -63,5 +64,11 @@ export class Stop {
             }
         }
         return undefined;
+    }
+
+    public toJson(): StopResponseDto {
+        return {
+            place: this.place.toJson()
+        }
     }
 }

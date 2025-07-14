@@ -1,3 +1,5 @@
+"use client";
+
 import {observer} from "mobx-react";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import React from "react";
@@ -5,18 +7,20 @@ import {TripsOfferApi} from "@/src/api/tripsOfferApi";
 import {useBean} from "ironbean-react";
 import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
 import {Offer} from "@/src/data/offer";
-import {TripOfferState} from "@/src/api/openapi";
-import {Trip} from "@/src/data/trip/trip";
+import {TripOfferResponseDto, TripOfferState, TripResponseDto} from "@/src/api/openapi";
 import { useRouter } from 'next/navigation';
 import {AppManager} from "@/src/singletons/app-manager";
+import {TripOfferConverter} from "@/src/converters/trip-offer-converter";
+import {TripConverter} from "@/src/converters/trip/trip-converter";
 
 interface IAdminTripMoveActionsProps {
-    trip: Trip;
-    offers: Offer[];
+    trip: TripResponseDto;
+    offers: TripOfferResponseDto[];
 }
 
 export const AdminTripMoveActions = observer((props: IAdminTripMoveActionsProps) => {
-    const { offers, trip} = props;
+    const offers = props.offers.map(o => TripOfferConverter.toClient(o));
+    const trip = TripConverter.toClient(props.trip);
     const tripsOfferApi = useBean(TripsOfferApi);
     const appManager = useBean(AppManager);
     const router = useRouter();

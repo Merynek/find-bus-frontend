@@ -1,21 +1,23 @@
+"use client";
+
 import {observer} from "mobx-react";
-import {Trip} from "@/src/data/trip/trip";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import React, {useState} from "react";
-import {CloseTripOfferReason, TripOfferState} from "@/src/api/openapi";
+import {CloseTripOfferReason, TripOfferState, TripResponseDto} from "@/src/api/openapi";
 import {AdminTripCloseReasons} from "@/src/components/pages/admin/trip-detail/components/admin-trip-close-reasons";
 import {TripsOfferApi} from "@/src/api/tripsOfferApi";
 import {useBean} from "ironbean-react";
 import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
 import { useRouter } from 'next/navigation';
 import {AppManager} from "@/src/singletons/app-manager";
+import {TripConverter} from "@/src/converters/trip/trip-converter";
 
 interface IAdminTripActionsProps {
-    trip: Trip;
+    trip: TripResponseDto;
 }
 
 export const AdminTripCloseActions = observer((props: IAdminTripActionsProps) => {
-    const {trip} = props;
+    const trip = TripConverter.toClient(props.trip);
     const tripsOfferApi = useBean(TripsOfferApi);
     const appManager = useBean(AppManager);
     const [reason, setReason] = useState<CloseTripOfferReason>(CloseTripOfferReason.GENERAL);

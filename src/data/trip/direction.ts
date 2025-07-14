@@ -1,4 +1,5 @@
 import {action, makeObservable, observable, runInAction} from "mobx";
+import {DirectionResponseDto} from "@/src/api/openapi";
 
 export class IDirectionData {
     polyline?: string;
@@ -49,5 +50,13 @@ export class Direction {
         runInAction(() => {
             this._polyline = value;
         })
+    }
+
+    public toJson(): DirectionResponseDto {
+        return {
+            polyline: this.polyline,
+            distance: this.distance,
+            time: this.timeInSeconds
+        }
     }
 }

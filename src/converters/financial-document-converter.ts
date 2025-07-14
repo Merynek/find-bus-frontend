@@ -11,7 +11,8 @@ export class FinancialDocumentConverter {
             dateOfIssue: response.dateOfIssue,
             payed: response.payed,
             type: response.type,
-            variableSymbol: response.variableSymbol
+            variableSymbol: response.variableSymbol,
+            internalDocumentNumber: response.internalDocumentNumber
         })
     }
 }

@@ -3,6 +3,7 @@ import {Vehicle} from "./users/vehicle";
 import {makeObservable, observable} from "mobx";
 import {Price} from "./price";
 import {FinancialDocument} from "@/src/data/documents/financialDocument";
+import {TripOfferResponseDto} from "@/src/api/openapi";
 
 export interface IOfferSettings {
     id: number;
@@ -35,5 +36,18 @@ export class Offer {
         this.acceptOfferDate = settings.acceptOfferDate;
         this.documents = settings.documents;
         makeObservable(this);
+    }
+
+    public toJson(): TripOfferResponseDto {
+        return {
+            id: this.id,
+            user: this.user.toJson(),
+            vehicle: this.vehicle.toJson(),
+            price: this.price.toJson(),
+            accepted: this.accepted,
+            endOfferDate: this.endOfferDate,
+            acceptOfferDate: this.acceptOfferDate,
+            documents: this.documents.map(d => d.toJson())
+        }
     }
 }

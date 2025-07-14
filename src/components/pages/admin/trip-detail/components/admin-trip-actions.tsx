@@ -16,11 +16,11 @@ export const AdminTripActions = (props: IAdminTripActionsProps) => {
 
     return <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
         <AdminTripMoveActions
-            trip={trip}
-            offers={offers}
+            trip={trip.toJson()}
+            offers={offers.map(o => o.toJson())}
         />
         <AdminTripCloseActions
-            trip={trip}
+            trip={trip.toJson()}
         />
     </LayoutFlexColumn>
 };

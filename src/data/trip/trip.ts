@@ -1,4 +1,4 @@
-import {Amenities, TripOfferState} from "../../api/openapi";
+import {Amenities, TripOfferState, TripResponseDto} from "../../api/openapi";
 import {action, computed, makeObservable, observable} from "mobx";
 import {Direction} from "./direction";
 import {Route} from "./route";
@@ -185,5 +185,22 @@ export class Trip {
             observeChanges: tripSettings.observeChanges || false,
             created: tripSettings.created || new Date()
         })
+    }
+
+    public toJson(): TripResponseDto {
+        return {
+            id: this.id,
+            ownerId: this.ownerId,
+            routes: this.routes.map(r => r.toJson()),
+            numberOfPersons: this.numberOfPersons,
+            amenities: this.amenities,
+            dietForTransporter: this.dietForTransporter,
+            endOrder: this.endOrder,
+            offerHasEnded: this.offerHasEnded,
+            offerState: this.offerState,
+            handicappedUserCount: this.handicappedUserCount,
+            totalDistanceInMeters: this.totalDistanceInMeters,
+            created: this.created
+        }
     }
 }

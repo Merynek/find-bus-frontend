@@ -1,4 +1,4 @@
-import {Amenities, EuroStandard} from "../../api/openapi";
+import {Amenities, EuroStandard, VehicleResponseDto} from "../../api/openapi";
 import {makeObservable, observable} from "mobx";
 import {Photo} from "../media/photo";
 import {Place} from "../place";
@@ -99,5 +99,31 @@ export class Vehicle {
             departureStation: null,
             isVerifiedForTransporting: false
         });
+    }
+
+    public toJson(): VehicleResponseDto {
+        return {
+            id: this.id,
+            name: this.name,
+            registrationSign: this.registrationSign,
+            vin: this.VIN,
+            stkExpired: this.stkExpired,
+            yearOfManufacture: this.yearOfManufacture,
+            personsCapacity: this.personsCapacity,
+            euro: this.euro,
+            amenities: this.amenities,
+            handicappedUserCount: this.handicappedUserCount,
+            frontPhoto: this.frontPhoto ? {id: this.frontPhoto.id, path: this.frontPhoto.path || ""}: undefined,
+            rearPhoto: this.rearPhoto ? {id: this.rearPhoto.id, path: this.rearPhoto.path || ""}: undefined,
+            leftSidePhoto: this.leftSidePhoto ? {id: this.leftSidePhoto.id, path: this.leftSidePhoto.path || ""}: undefined,
+            rightSidePhoto: this.rightSidePhoto ? {id: this.rightSidePhoto.id, path: this.rightSidePhoto.path || ""}: undefined,
+            interierPhoto1: this.interierPhoto1 ? {id: this.interierPhoto1.id, path: this.interierPhoto1.path || ""}: undefined,
+            interierPhoto2: this.interierPhoto2 ? {id: this.interierPhoto2.id, path: this.interierPhoto2.path || ""}: undefined,
+            technicalCertificate1: this.technicalCertificate1 ? {id: this.technicalCertificate1.id, path: this.technicalCertificate1.path || ""}: undefined,
+            technicalCertificate2: this.technicalCertificate2 ? {id: this.technicalCertificate2.id, path: this.technicalCertificate2.path || ""}: undefined,
+            insurance: this.insurancePhoto ? {id: this.insurancePhoto.id, path: this.insurancePhoto.path || ""}: undefined,
+            departureStation: this.departureStation ? this.departureStation.toJson() : undefined,
+            isVerifiedForTransporting: this.isVerifiedForTransporting
+        }
     }
 }

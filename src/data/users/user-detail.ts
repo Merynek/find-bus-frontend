@@ -1,3 +1,5 @@
+import {UserDetailResponseDto} from "@/src/api/openapi";
+
 export interface IUserDetailSettings {
     id: number;
 }
@@ -7,5 +9,11 @@ export class UserDetail {
 
     constructor(settings: IUserDetailSettings) {
         this.id = settings.id;
+    }
+
+    public toJson(): UserDetailResponseDto {
+        return {
+            id: this.id
+        }
     }
 }
