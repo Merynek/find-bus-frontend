@@ -9,9 +9,9 @@ import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/b
 import {Offer} from "@/src/data/offer";
 import {TripOfferResponseDto, TripOfferState, TripResponseDto} from "@/src/api/openapi";
 import { useRouter } from 'next/navigation';
-import {AppManager} from "@/src/singletons/app-manager";
 import {TripOfferConverter} from "@/src/converters/trip-offer-converter";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
+import {useLoader} from "@/src/app/contexts/AppContext";
 
 interface IAdminTripMoveActionsProps {
     trip: TripResponseDto;
@@ -22,7 +22,7 @@ export const AdminTripMoveActions = observer((props: IAdminTripMoveActionsProps)
     const offers = props.offers.map(o => TripOfferConverter.toClient(o));
     const trip = TripConverter.toClient(props.trip);
     const tripsOfferApi = useBean(TripsOfferApi);
-    const appManager = useBean(AppManager);
+    const { showLoader, hideLoader } = useLoader();
     const router = useRouter();
 
     const getOfferToPay = (): Offer|null => {
@@ -57,11 +57,11 @@ export const AdminTripMoveActions = observer((props: IAdminTripMoveActionsProps)
     const renderPayButton = (offer: Offer) => {
         return <ButtonClick
             onClick={async () => {
-                appManager.loading = true;
+                showLoader();
                 await tripsOfferApi.payedOffer({
                     offerId: offer.id
                 })
-                appManager.loading = false;
+                hideLoader();
                 router.refresh();
             }}
             label={"Payed Offer"}
@@ -73,11 +73,11 @@ export const AdminTripMoveActions = observer((props: IAdminTripMoveActionsProps)
     const renderStartButton = () => {
         return <ButtonClick
             onClick={async () => {
-                appManager.loading = true;
+                showLoader();
                 await tripsOfferApi.startTrip({
                     tripId: trip.id
                 })
-                appManager.loading = false;
+                hideLoader();
                 router.refresh();
             }}
             label={"Start Trip"}
@@ -89,11 +89,11 @@ export const AdminTripMoveActions = observer((props: IAdminTripMoveActionsProps)
     const renderFinishButton = () => {
         return <ButtonClick
             onClick={async () => {
-                appManager.loading = true;
+                showLoader();
                 await tripsOfferApi.finishTrip({
                     tripId: trip.id
                 })
-                appManager.loading = false;
+                hideLoader();
                 router.refresh();
             }}
             label={"Finish Trip"}

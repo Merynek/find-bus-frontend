@@ -1,11 +1,12 @@
-import React from "react";
-import {observer} from "mobx-react";
-import styles from "./app-loader.module.scss";
+"use client";
 
-export const AppLoader = observer(() => {
-    return (
-        <div className={styles.layout}>
+import React from "react";
+import styles from "./app-loader.module.scss";
+import {useLoader} from "@/src/app/contexts/AppContext";
+
+export const AppLoader = () => {
+    const {isLoading} = useLoader();
+    return isLoading ? <div className={styles.layout}>
             <span className={styles.label}>Loading...</span>
-        </div>
-    );
-});
+        </div> : null;
+};
