@@ -20,3 +20,29 @@ export async function getOfferStateMovements(tripId: number): Promise<TripOfferM
     });
 }
 
+export async function payedOffer(offerId: number) {
+    const accessToken = await getAccessToken();
+    const tripsOfferApi = new TripsOfferApi(accessToken);
+    return await tripsOfferApi.payedOffer({
+        offerId: offerId
+    });
+}
+
+export async function startTrip(tripId: number) {
+    const accessToken = await getAccessToken();
+    const tripsOfferApi = new TripsOfferApi(accessToken);
+    return await tripsOfferApi.startTrip({
+        tripId: tripId
+    });
+}
+
+export async function finishTrip(tripId: number) {
+    const accessToken = await getAccessToken();
+    const tripsOfferApi = new TripsOfferApi(accessToken);
+    return await tripsOfferApi.finishTrip({
+        tripId: tripId
+    });
+}
+
+
+

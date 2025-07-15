@@ -1,10 +1,7 @@
 "use client";
 
-import {observer} from "mobx-react";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import React from "react";
-import {TripsOfferApi} from "@/src/api/tripsOfferApi";
-import {useBean} from "ironbean-react";
 import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
 import {Offer} from "@/src/data/offer";
 import {TripOfferResponseDto, TripOfferState, TripResponseDto} from "@/src/api/openapi";
@@ -12,16 +9,16 @@ import { useRouter } from 'next/navigation';
 import {TripOfferConverter} from "@/src/converters/trip-offer-converter";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
 import {useLoader} from "@/src/app/contexts/AppContext";
+import {TripOfferService} from "@/src/services/TripOfferService";
 
 interface IAdminTripMoveActionsProps {
     trip: TripResponseDto;
     offers: TripOfferResponseDto[];
 }
 
-export const AdminTripMoveActions = observer((props: IAdminTripMoveActionsProps) => {
+export const AdminTripMoveActions = (props: IAdminTripMoveActionsProps) => {
     const offers = props.offers.map(o => TripOfferConverter.toClient(o));
     const trip = TripConverter.toClient(props.trip);
-    const tripsOfferApi = useBean(TripsOfferApi);
     const { showLoader, hideLoader } = useLoader();
     const router = useRouter();
 
@@ -58,9 +55,7 @@ export const AdminTripMoveActions = observer((props: IAdminTripMoveActionsProps)
         return <ButtonClick
             onClick={async () => {
                 showLoader();
-                await tripsOfferApi.payedOffer({
-                    offerId: offer.id
-                })
+                await TripOfferService.payedOffer(offer.id);
                 hideLoader();
                 router.refresh();
             }}
@@ -74,9 +69,7 @@ export const AdminTripMoveActions = observer((props: IAdminTripMoveActionsProps)
         return <ButtonClick
             onClick={async () => {
                 showLoader();
-                await tripsOfferApi.startTrip({
-                    tripId: trip.id
-                })
+                await TripOfferService.startTrip(trip.id);
                 hideLoader();
                 router.refresh();
             }}
@@ -90,9 +83,7 @@ export const AdminTripMoveActions = observer((props: IAdminTripMoveActionsProps)
         return <ButtonClick
             onClick={async () => {
                 showLoader();
-                await tripsOfferApi.finishTrip({
-                    tripId: trip.id
-                })
+                await TripOfferService.finishTrip(trip.id);
                 hideLoader();
                 router.refresh();
             }}
@@ -109,4 +100,4 @@ export const AdminTripMoveActions = observer((props: IAdminTripMoveActionsProps)
         {canStartTrip() && renderStartButton()}
         {canFinishTrip() && renderFinishButton()}
     </LayoutFlexColumn>
-})
+};
