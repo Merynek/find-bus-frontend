@@ -8,7 +8,7 @@ import {TripOfferResponseDto, TripOfferState, TripResponseDto} from "@/src/api/o
 import { useRouter } from 'next/navigation';
 import {TripOfferConverter} from "@/src/converters/trip-offer-converter";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
-import {useLoader} from "@/src/app/contexts/AppContext";
+import {useApp} from "@/src/app/contexts/AppContext";
 import {TripOfferService} from "@/src/services/TripOfferService";
 
 interface IAdminTripMoveActionsProps {
@@ -19,7 +19,7 @@ interface IAdminTripMoveActionsProps {
 export const AdminTripMoveActions = (props: IAdminTripMoveActionsProps) => {
     const offers = props.offers.map(o => TripOfferConverter.toClient(o));
     const trip = TripConverter.toClient(props.trip);
-    const { showLoader, hideLoader } = useLoader();
+    const { showLoader, hideLoader } = useApp();
     const router = useRouter();
 
     const getOfferToPay = (): Offer|null => {

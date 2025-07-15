@@ -1,7 +1,8 @@
-import {getOfferStateMovements, getTripOffers, payedOffer, startTrip, finishTrip} from "@/src/app/actions/trips/tripsOfferActions";
+import {getOfferStateMovements, getTripOffers, payedOffer, startTrip, finishTrip, forceCloseTrip} from "@/src/app/actions/trips/tripsOfferActions";
 import {TripOfferConverter} from "@/src/converters/trip-offer-converter";
 import {TripOfferMovement} from "@/src/data/tripOfferMovement";
 import {Offer} from "@/src/data/offer";
+import type {CloseTripOfferReason} from "@/src/api/openapi";
 
 export class TripOfferService {
     public static async getTripOffers(tripId: number): Promise<Offer[]> {
@@ -26,5 +27,9 @@ export class TripOfferService {
 
     public static async finishTrip(tripId: number) {
         await finishTrip(tripId);
+    }
+
+    public static async forceCloseTrip(tripId: number, reason: CloseTripOfferReason, reasonText: string) {
+        await forceCloseTrip(tripId, reason, reasonText);
     }
 }

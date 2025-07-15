@@ -2,10 +2,10 @@
 
 import React from "react";
 import styles from "./app-loader.module.scss";
-import {useLoader} from "@/src/app/contexts/AppContext";
+import {useApp} from "@/src/app/contexts/AppContext";
 
 export const AppLoader = () => {
-    const {isLoading} = useLoader();
+    const {isLoading} = useApp();
     return isLoading ? <div className={styles.layout}>
             <span className={styles.label}>Loading...</span>
         </div> : null;
