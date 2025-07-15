@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./text.module.scss";
-import {observer} from "mobx-react";
 import {cn} from "@/src/utils/common";
 
 export enum FontSize {
@@ -50,7 +49,7 @@ export interface ITextProps {
     refProp?: (ref: HTMLSpanElement|null) => void;
 }
 
-export const Text = observer((props: ITextProps) => {
+export const Text = (props: ITextProps) => {
     const {text, refProp, inline, fontSize, fontWeight,
         textAlign, textTransform, textDecoration, color} = props;
 
@@ -133,4 +132,4 @@ export const Text = observer((props: ITextProps) => {
     >
         {text}
     </span>;
-});
+};

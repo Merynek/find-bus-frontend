@@ -1,8 +1,6 @@
 import React from "react";
 import styles from "./trip-list-item-admin.module.scss";
-import {observer} from "mobx-react";
 import {TripItem} from "@/src/data/tripItem";
-import {useBean} from "ironbean-react";
 import {ROUTES} from "@/src/enums/router.enum";
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 import {FontSize, FontWeight, Text} from "@/src/components/components/texts/text/text";
@@ -15,9 +13,8 @@ export interface ITripListItemAdminProps {
     tripItem: TripItem;
 }
 
-export const TripListItemAdmin = observer((props: ITripListItemAdminProps) => {
+export const TripListItemAdmin = (props: ITripListItemAdminProps) => {
     const {tripItem} = props;
-    const dateTimeManager = useBean(DateTimeManager);
 
     return <div className={styles.item}>
         <LayoutFlexRow gap={FlexGap.TINY_8} justifyContent={"space-between"} alignItems={"center"}>
@@ -27,11 +24,11 @@ export const TripListItemAdmin = observer((props: ITripListItemAdminProps) => {
             </LayoutFlexRow>
             <LayoutFlexRow gap={FlexGap.SMALLEST_4}>
                 <Text text={"Created: "} fontSize={FontSize.BASE_14} fontWeight={FontWeight.SEMIBOLD} />
-                <Text text={dateTimeManager.dateTimeFormat(DateTimeFormat.FORMAT_DATE_TIME, tripItem.created)} fontSize={FontSize.BASE_14} />
+                <Text text={DateTimeManager.dateTimeFormat(DateTimeFormat.FORMAT_DATE_TIME, tripItem.created)} fontSize={FontSize.BASE_14} />
             </LayoutFlexRow>
             <LayoutFlexRow gap={FlexGap.SMALLEST_4}>
                 <Text text={"End offer: "} fontSize={FontSize.BASE_14} fontWeight={FontWeight.SEMIBOLD} />
-                <Text text={dateTimeManager.dateTimeFormat(DateTimeFormat.FORMAT_DMY, tripItem.endOffer)} fontSize={FontSize.BASE_14} />
+                <Text text={DateTimeManager.dateTimeFormat(DateTimeFormat.FORMAT_DMY, tripItem.endOffer)} fontSize={FontSize.BASE_14} />
             </LayoutFlexRow>
             <LayoutFlexRow gap={FlexGap.SMALLEST_4}>
                 <Text text={"State: "} fontSize={FontSize.BASE_14} fontWeight={FontWeight.SEMIBOLD} />
@@ -47,4 +44,4 @@ export const TripListItemAdmin = observer((props: ITripListItemAdminProps) => {
             </div>
         </LayoutFlexRow>
     </div>
-});
+};
