@@ -1,9 +1,5 @@
-"use client";
-
-import {observer} from "mobx-react";
-import React, {useEffect, useRef} from "react";
+import React from "react";
 import {LayoutFlexColumn} from "../../../components/layout/layout-flex-column/layout-flex-column";
-import {AdminUsersPageStore} from "./admin-users.page.store";
 import styles from "./admin-users.page.module.scss";
 import {UserAdminDetail} from "@/src/data/users/user-admin-detail";
 import {LayoutFlexRow} from "../../../components/layout/layout-flex-row/layout-flex-row";
@@ -11,34 +7,17 @@ import {UserAddress} from "@/src/data/users/userAddress";
 import {TransferInfo} from "@/src/data/transferInfo";
 import {VehicleDetail} from "../../../compositions/vehicle/detail-list/vehicle-detail-list";
 import {ButtonClick, ButtonSize, ButtonType} from "../../../components/button/button";
-import {useSearchParams, useRouter, usePathname} from 'next/navigation';
 import {TransportRequirements} from "@/src/data/transportRequirements";
 import {MediaElement} from "../../../components/media-element/media-element";
-import {SEARCH_PARAMS} from "@/src/enums/router.enum";
+import {VehicleService} from "@/src/services/VehicleService";
+import {UsersService} from "@/src/services/UsersService";
 
 export interface IUsersListParams {
-    page?: number;
+    users: UserAdminDetail[];
 }
 
-const AdminUsersPage = observer(() => {
-    const router = useRouter();
-    const pathname = usePathname();
-    const searchParams = useSearchParams();
-    const _storeRef = useRef(new AdminUsersPageStore());
-
-    useEffect(() => {
-        const page = searchParams.get(SEARCH_PARAMS.PAGE);
-
-        _storeRef.current.loadDataFromUrl({
-            page: undefined
-        })
-    }, [searchParams]);
-
-    const setUrl = () => {
-        const currentParams = new URLSearchParams(searchParams.toString());
-        currentParams.set(SEARCH_PARAMS.PAGE, _storeRef.current.page.toString());
-        router.push(`${pathname}?${currentParams.toString()}`);
-    }
+const AdminUsersPage = (props: IUsersListParams) => {
+    const {users} = props;
 
     const _renderTransferInfo = (info: TransferInfo) => {
         return <LayoutFlexColumn>
@@ -146,7 +125,7 @@ const AdminUsersPage = observer(() => {
                             size={ButtonSize.BY_CONTENT}
                             label={v.isVerifiedForTransporting ? "Označit Vehicle jako neoveřený" : "Označit Vehicle jako oveřený"}
                             onClick={async () => {
-                                await _storeRef.current.setVehicleVerification(v.id, !v.isVerifiedForTransporting);
+                                await VehicleService.setVehicleVerification(v.id, !v.isVerifiedForTransporting);
                             }}
                             type={ButtonType.YELLOW}
                         />
@@ -159,7 +138,7 @@ const AdminUsersPage = observer(() => {
                     size={ButtonSize.BY_CONTENT}
                     label={user.isVerifiedForTransporting ? "Označit USERA jako neoveřený" : "Označit USERA jako oveřený"}
                     onClick={async () => {
-                        await _storeRef.current.setUserTransportVerification(user.id, !user.isVerifiedForTransporting);
+                        await UsersService.setUserVerification(user.id, !user.isVerifiedForTransporting);
                     }}
                     type={ButtonType.YELLOW}
                 />
@@ -168,23 +147,13 @@ const AdminUsersPage = observer(() => {
     }
 
     return <div className={styles.layout}>
-        {_storeRef.current.users.map((user, index) => {
+        {users.map((user, index) => {
             return <LayoutFlexColumn key={user.id}>
                 <h1>{(index + 1) + "."}</h1>
                 {_renderUser(user)}
             </LayoutFlexColumn>
         })}
-        <LayoutFlexRow>
-            <ButtonClick size={ButtonSize.BY_CONTENT} label={"Back"} onClick={async () => {
-                await _storeRef.current.setPage(false);
-                setUrl();
-            }} type={ButtonType.BLACK} />
-            <ButtonClick size={ButtonSize.BY_CONTENT} label={"Next"} onClick={async () => {
-                await _storeRef.current.setPage(true);
-                setUrl();
-            }} type={ButtonType.BLACK} />
-        </LayoutFlexRow>
     </div>
-});
+};
 
 export default AdminUsersPage;

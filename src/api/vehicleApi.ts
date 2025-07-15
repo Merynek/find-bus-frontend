@@ -1,4 +1,3 @@
-import {autowired, component} from "ironbean";
 import {ApiConfiguration} from "./apiConfiguration";
 import * as OpenApi from "./openapi";
 import {IApiRequest} from "./toolsApi";
@@ -6,7 +5,6 @@ import {Vehicle} from "../data/users/vehicle";
 import {VehicleConverter} from "../converters/vehicle-converter";
 import {VehicleEditStore} from "../components/compositions/vehicle/edit/vehicle-edit.store";
 import {PlaceConverter} from "../converters/place-converter";
-import {Place} from "../data/place";
 
 export interface IAddVehiclePhotosRequest extends IApiRequest {
     idVehicle: number;
@@ -28,12 +26,15 @@ export interface IGetVehicleRequest extends IApiRequest {
 export interface IGetVehiclesRequest extends IApiRequest {
 }
 
-@component
 export class VehicleApi {
-    @autowired private _apiConfiguration: ApiConfiguration;
+    private readonly _token: string|undefined;
+
+    constructor(token: string|undefined) {
+        this._token = token;
+    }
 
     private get _api() {
-        return new OpenApi.VehiclesApi(this._apiConfiguration.config);
+        return new OpenApi.VehiclesApi(ApiConfiguration.createOpenApiConfig(this._token));
     }
 
     public async getVehicle(req: IGetVehicleRequest): Promise<Vehicle> {
