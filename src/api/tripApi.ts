@@ -4,9 +4,7 @@ import {IApiRequest} from "./toolsApi";
 import {Trip} from "../data/trip/trip";
 import {TripConverter} from "../converters/trip/trip-converter";
 import {TripRecommendation} from "../data/tripRecommendation";
-import {TripItemConverter} from "../converters/trip-item-converter";
-import {TripItem} from "../data/tripItem";
-import {ApiTripListGetRequest, type TripResponseDto} from "./openapi";
+import {ApiTripListGetRequest, type TripItemResponseDto, type TripResponseDto} from "./openapi";
 
 export interface ICreateTripRequest extends IApiRequest {
     trip: Trip;
@@ -54,7 +52,7 @@ export class TripApi {
         }, req.initOverrides)
     }
 
-    public async getTrips(req: IGetTripsRequest): Promise<TripItem[]> {
+    public async getTrips(req: IGetTripsRequest): Promise<TripItemResponseDto[]> {
         const params: ApiTripListGetRequest = {
             dietForTransporter: req.dietForTransporter,
             limit: req.limit,
@@ -66,9 +64,7 @@ export class TripApi {
             onlyMine: req.onlyMine,
             meOffered: req.meOffered
         }
-        const response = await this._api.apiTripListGet(params, req.initOverrides);
-
-        return response.map(TripItemConverter.toClient);
+        return await this._api.apiTripListGet(params, req.initOverrides);
     }
 
     public async getTrip(req: IGetTrip): Promise<TripResponseDto> {
