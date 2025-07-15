@@ -1,12 +1,10 @@
-import {autowired, component} from "ironbean";
 import {IApiRequest} from "./toolsApi";
 import * as OpenApi from "./openapi";
 import {ApiConfiguration} from "./apiConfiguration";
 import {UsersConverter} from "../converters/users-converter";
 import {UserSettings} from "../data/users/userSettings";
 import {Photo} from "../data/media/photo";
-import {UserAdminDetail} from "../data/users/user-admin-detail";
-import {AdminConverter} from "../converters/admin-converter";
+import type {AdminUserDetailResponseDto} from "./openapi";
 
 export interface IUpdateTransportRequirementsPhotosRequest extends IApiRequest {
     concessionDocuments: Photo|null;
@@ -34,12 +32,15 @@ export interface ISetUserVerificationRequest extends IApiRequest {
     verified: boolean;
 }
 
-@component
 export class UsersApi {
-    @autowired private _apiConfiguration: ApiConfiguration;
+    private readonly _token: string|undefined;
+
+    constructor(token: string|undefined) {
+        this._token = token;
+    }
 
     private get _api() {
-        return new OpenApi.UsersApi(this._apiConfiguration.config);
+        return new OpenApi.UsersApi(ApiConfiguration.createOpenApiConfig(this._token));
     }
 
     public async changeSettings(req: IChangeSettingsRequest): Promise<void> {
@@ -71,12 +72,10 @@ export class UsersApi {
         }, req.initOverrides)
     }
 
-    public async getAllUsers(req: IGetAdminUsersRequest): Promise<UserAdminDetail[]> {
-        const response = await this._api.apiUsersUsersGet({
+    public async getAllUsers(req: IGetAdminUsersRequest): Promise<AdminUserDetailResponseDto[]> {
+        return await this._api.apiUsersUsersGet({
             limit: req.limit,
             offset: req.offset
         }, req.initOverrides);
-
-        return response.map(AdminConverter.userAdminDetailToClient);
     }
 }
