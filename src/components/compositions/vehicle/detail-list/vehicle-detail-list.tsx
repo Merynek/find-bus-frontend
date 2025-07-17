@@ -1,5 +1,4 @@
 import React from "react";
-import {observer} from "mobx-react";
 import styles from "./vehicle-detail-list.module.scss";
 import {Vehicle} from "@/src/data/users/vehicle";
 import {MediaElement} from "../../../components/media-element/media-element";
@@ -10,7 +9,7 @@ export interface IVehicleDetailListProps {
     vehicle: Vehicle;
 }
 
-export const VehicleDetail = observer((props: IVehicleDetailListProps) => {
+export const VehicleDetail = (props: IVehicleDetailListProps) => {
     const {vehicle} = props;
 
     return <div className={styles.layout}>
@@ -123,4 +122,4 @@ export const VehicleDetail = observer((props: IVehicleDetailListProps) => {
             </LayoutFlexRow>
         </LayoutFlexColumn>
     </div>
-});
+};

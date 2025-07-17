@@ -6,11 +6,10 @@ import {LayoutFlexRow} from "../../../components/layout/layout-flex-row/layout-f
 import {UserAddress} from "@/src/data/users/userAddress";
 import {TransferInfo} from "@/src/data/transferInfo";
 import {VehicleDetail} from "../../../compositions/vehicle/detail-list/vehicle-detail-list";
-import {ButtonClick, ButtonSize, ButtonType} from "../../../components/button/button";
 import {TransportRequirements} from "@/src/data/transportRequirements";
 import {MediaElement} from "../../../components/media-element/media-element";
-import {VehicleService} from "@/src/services/VehicleService";
-import {UsersService} from "@/src/services/UsersService";
+import {VehicleVerifyButton} from "@/src/components/pages/admin/users/vehicle-verify-button";
+import {UserVerifyButton} from "@/src/components/pages/admin/users/user-verify-button";
 
 export interface IUsersListParams {
     users: UserAdminDetail[];
@@ -121,27 +120,13 @@ const AdminUsersPage = (props: IUsersListParams) => {
                 {user.vehicles.map(v => {
                     return <LayoutFlexColumn key={v.id}>
                         <VehicleDetail vehicle={v} />
-                        <ButtonClick
-                            size={ButtonSize.BY_CONTENT}
-                            label={v.isVerifiedForTransporting ? "Označit Vehicle jako neoveřený" : "Označit Vehicle jako oveřený"}
-                            onClick={async () => {
-                                await VehicleService.setVehicleVerification(v.id, !v.isVerifiedForTransporting);
-                            }}
-                            type={ButtonType.YELLOW}
-                        />
+                        <VehicleVerifyButton vehicle={v.toJson()} />
                     </LayoutFlexColumn>
                 })}
             </LayoutFlexColumn>
             <LayoutFlexColumn>
                 <h2>{user.isVerifiedForTransporting ? "USER IS Verified" : "USER NOT Verified"}</h2>
-                <ButtonClick
-                    size={ButtonSize.BY_CONTENT}
-                    label={user.isVerifiedForTransporting ? "Označit USERA jako neoveřený" : "Označit USERA jako oveřený"}
-                    onClick={async () => {
-                        await UsersService.setUserVerification(user.id, !user.isVerifiedForTransporting);
-                    }}
-                    type={ButtonType.YELLOW}
-                />
+                <UserVerifyButton user={user.toJson()} />
             </LayoutFlexColumn>
         </LayoutFlexColumn>
     }

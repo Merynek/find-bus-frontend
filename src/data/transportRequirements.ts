@@ -1,5 +1,6 @@
 import {computed, makeObservable, observable} from "mobx";
 import {Photo} from "./media/photo";
+import {TransporterRequirementsResponseDto} from "@/src/api/openapi";
 
 export interface ITransportRequirementsSettings {
     concessionNumber: string;
@@ -30,5 +31,13 @@ export class TransportRequirements {
             businessRiskInsurance: null,
             concessionDocuments: null
         })
+    }
+
+    public toJson(): TransporterRequirementsResponseDto {
+        return {
+            concessionNumber: this.concessionNumber,
+            businessRiskInsurance: this.businessRiskInsurance ? this.businessRiskInsurance.toJson() : undefined,
+            concessionDocuments: this.concessionDocuments ? this.concessionDocuments.toJson() : undefined
+        }
     }
 }

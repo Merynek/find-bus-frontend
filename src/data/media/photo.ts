@@ -4,6 +4,7 @@ import {autowired} from "ironbean";
 import {PhotoLoadManager} from "../../singletons/photo-load-manager";
 import {AppConfiguration} from "../../singletons/AppConfiguration";
 import {Video} from "./video";
+import {PhotoResponseDto} from "@/src/api/openapi";
 
 export interface IPhoto extends IMediaItem {
     path?: string;
@@ -40,5 +41,12 @@ export class Photo extends MediaItem {
 
     isVideo(): this is Video {
         return false;
+    }
+
+    public toJson(): PhotoResponseDto {
+        return {
+            id: this.id,
+            path: this.path || ""
+        }
     }
 }

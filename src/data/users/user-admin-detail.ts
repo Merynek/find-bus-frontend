@@ -3,6 +3,7 @@ import {UserAddress} from "./userAddress";
 import {TransferInfo} from "../transferInfo";
 import {Vehicle} from "./vehicle";
 import {TransportRequirements} from "../transportRequirements";
+import type {AdminUserDetailResponseDto} from "@/src/api/openapi";
 
 export interface IUserAdminDetailSettings extends IUserDetailSettings {
     email: string;
@@ -56,5 +57,26 @@ export class UserAdminDetail extends UserDetail {
         this.transferInfo = settings.transferInfo;
         this.vehicles = settings.vehicles;
         this.transportRequirements = settings.transportRequirements;
+    }
+
+    public toJson(): AdminUserDetailResponseDto {
+        return {
+            id: this.id,
+            email: this.email,
+            active: this.isActive,
+            banned: this.isBanned,
+            isVerifiedForTransporting: this.isVerifiedForTransporting,
+            name: this.name,
+            surname: this.surname,
+            phoneNumber: this.phoneNumber,
+            ico: this.ico,
+            dic: this.dic,
+            isCompany: this.isCompany,
+            address: this.address.toJson(),
+            mailingAddress: this.mailingAddress.toJson(),
+            transferInfo: this.transferInfo.toJson(),
+            vehicles: this.vehicles.map(v => v.toJson()),
+            transporterRequirements: this.transportRequirements.toJson()
+        }
     }
 }
