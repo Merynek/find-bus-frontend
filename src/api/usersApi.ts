@@ -4,7 +4,7 @@ import {ApiConfiguration} from "./apiConfiguration";
 import {UsersConverter} from "../converters/users-converter";
 import {UserSettings} from "../data/users/userSettings";
 import {Photo} from "../data/media/photo";
-import type {AdminUserDetailResponseDto} from "./openapi";
+import {AdminUserDetailResponseDto, UserSettingsRequestDto, type UserSettingsResponseDto} from "./openapi";
 
 export interface IUpdateTransportRequirementsPhotosRequest extends IApiRequest {
     concessionDocuments: Photo|null;
@@ -12,7 +12,7 @@ export interface IUpdateTransportRequirementsPhotosRequest extends IApiRequest {
 }
 
 export interface IChangeSettingsRequest extends IApiRequest {
-    settings: UserSettings;
+    settings: UserSettingsRequestDto;
 }
 
 export interface IGetSettingsRequest extends IApiRequest {
@@ -45,13 +45,12 @@ export class UsersApi {
 
     public async changeSettings(req: IChangeSettingsRequest): Promise<void> {
         await this._api.apiUsersSettingsPost({
-            userSettingsRequestDto: UsersConverter.userSettingsToServer(req.settings)
+            userSettingsRequestDto: req.settings
         }, req.initOverrides);
     }
 
-    public async getSettings(req: IGetSettingsRequest): Promise<UserSettings> {
-        const response = await this._api.apiUsersSettingsGet(req.initOverrides)
-        return UsersConverter.userSettingsToClient(response);
+    public async getSettings(req: IGetSettingsRequest): Promise<UserSettingsResponseDto> {
+        return await this._api.apiUsersSettingsGet(req.initOverrides);
     }
 
     public async updateTransportRequirementsPhotos(req: IUpdateTransportRequirementsPhotosRequest): Promise<void> {

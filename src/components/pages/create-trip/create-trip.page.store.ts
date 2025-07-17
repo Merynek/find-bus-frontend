@@ -7,10 +7,10 @@ import {AppManager} from "@/src/singletons/app-manager";
 import {addHours} from "@/src/utils/date-time.common";
 import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import moment from "moment";
-import {UsersApi} from "@/src/api/usersApi";
 import {UserSettings} from "@/src/data/users/userSettings";
 import {TripService} from "@/src/services/TripService";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
+import {UsersService} from "@/src/services/UsersService";
 
 export class CreateTripPageStore {
     public trip: Trip;
@@ -22,7 +22,6 @@ export class CreateTripPageStore {
     @observable public routesCountIsValid: boolean = true;
     @autowired private _configuration: AppConfiguration;
     @autowired private _appManager: AppManager;
-    @autowired private _usersApi: UsersApi;
     @observable public userSettings: UserSettings|null;
 
     constructor() {
@@ -44,7 +43,7 @@ export class CreateTripPageStore {
         reaction(() => this.trip.routes.length, () => {
             this.routesCountIsValid = true;
         });
-        this.userSettings = await this._usersApi.getSettings({})
+        this.userSettings = await UsersService.getSettings();
     }
 
     public destroy() {

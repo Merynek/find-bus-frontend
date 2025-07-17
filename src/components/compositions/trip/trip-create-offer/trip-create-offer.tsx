@@ -19,6 +19,7 @@ import {AppManager} from "@/src/singletons/app-manager";
 import {Offer} from "@/src/data/offer";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {TripOfferService} from "@/src/services/TripOfferService";
+import {UsersService} from "@/src/services/UsersService";
 
 export interface ITripCreateOfferProps {
     trip: Trip;
@@ -34,7 +35,6 @@ interface IBusComboItem {
 export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
     const {trip, onMakeOffer, offers} = props;
     const _currentUser = useBean(CurrentUser);
-    const _usersApi = useBean(UsersApi);
     const _vehicleApi = useBean(VehicleApi);
     const _appManager = useBean(AppManager);
 
@@ -53,7 +53,7 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
     })
 
     const _init = async () => {
-        setUserSettings(await _usersApi.getSettings({}));
+        setUserSettings(await UsersService.getSettings());
         if (_currentUser.role === UserRole.TRANSPORTER) {
             _currentUser.vehicles = await _vehicleApi.getVehicles({});
         }
