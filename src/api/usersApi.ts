@@ -1,8 +1,6 @@
 import {IApiRequest} from "./toolsApi";
 import * as OpenApi from "./openapi";
 import {ApiConfiguration} from "./apiConfiguration";
-import {UsersConverter} from "../converters/users-converter";
-import {UserSettings} from "../data/users/userSettings";
 import {Photo} from "../data/media/photo";
 import {AdminUserDetailResponseDto, UserSettingsRequestDto, type UserSettingsResponseDto} from "./openapi";
 
