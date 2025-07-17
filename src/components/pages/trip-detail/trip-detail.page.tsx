@@ -1,28 +1,20 @@
-"use client";
-
-import React, {useRef} from "react";
+import React from "react";
 import styles from "./trip-detail.page.module.scss";
-import {TripDetailPageStore} from "./trip-detail.page.store";
-import {observer} from "mobx-react";
 import {TripDetail} from "../../compositions/trip/trip-detail/trip-detail";
 import {TripOfferSection} from "../../compositions/trip/trip-offer-section/trip-offer-section";
+import {Trip} from "@/src/data/trip/trip";
 
 interface TripDetailPageProps {
-    params: {
-        tripId: string;
-    };
+    trip: Trip;
 }
 
-const TripDetailPage = observer((props: TripDetailPageProps) => {
-    const { tripId } = props.params;
-    const _storeRef = useRef<TripDetailPageStore>(new TripDetailPageStore(Number(tripId)));
+const TripDetailPage = (props: TripDetailPageProps) => {
+    const { trip } = props;
 
     return <div className={styles.layout}>
-        {_storeRef.current.trip && <>
-            <TripDetail trip={_storeRef.current.trip} />
-            <TripOfferSection trip={_storeRef.current.trip} />
-        </>}
+        <TripDetail trip={trip} />
+        <TripOfferSection trip={trip} />
     </div>
-});
+};
 
 export default TripDetailPage;

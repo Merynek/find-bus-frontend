@@ -5,20 +5,17 @@ import styles from "./trip-detail.module.scss";
 import {formatDateTime} from "@/src/utils/date-time.format";
 import {cn, getFormattedDistance} from "@/src/utils/common";
 import {Countdown} from "../../../components/countdown/countdown";
-import {observer} from "mobx-react";
 import {Route} from "@/src/data/trip/route";
 import {Icon} from "../../../components/icon/icon";
 import {IconType} from "@/src/enums/icon.enum";
-import {useBean} from "ironbean-react";
 
 export interface ITripDetailProps {
     trip: Trip;
 }
 
-export const TripDetail = observer((props: ITripDetailProps) => {
+export const TripDetail = (props: ITripDetailProps) => {
     const {trip} = props;
-    const _locKey = "page.trip.";
-    const _configuration = useBean(AppConfiguration);
+    const configuration = AppConfiguration.instance;
 
     const _renderRoute = (route: Route, index: number) => {
         return <div key={index}>
@@ -26,7 +23,7 @@ export const TripDetail = observer((props: ITripDetailProps) => {
                 <div className={styles.line}>
                     <span>Odjezd - {formatDateTime({
                         date: route.start,
-                        locale: _configuration.locale
+                        locale: configuration.locale
                     })}</span>
                 </div>
                 <div className={styles.line}>
@@ -39,7 +36,7 @@ export const TripDetail = observer((props: ITripDetailProps) => {
 
                     <span>Přijezd - {formatDateTime({
                         date: route.end,
-                        locale: _configuration.locale
+                        locale: configuration.locale
                     })}</span>
                 </div>
             </div>
@@ -64,7 +61,7 @@ export const TripDetail = observer((props: ITripDetailProps) => {
             <span>Nabídka končí:</span>
             <span>{formatDateTime({
                 date: trip.endOrder,
-                locale: _configuration.locale
+                locale: configuration.locale
             })}</span>
         </div>
         <div className={styles.line}>
@@ -86,4 +83,4 @@ export const TripDetail = observer((props: ITripDetailProps) => {
             {trip.routes.map(_renderRoute)}
         </div>
     </div>
-});
+};
