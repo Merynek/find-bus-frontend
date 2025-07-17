@@ -12,6 +12,7 @@ import {TripsOfferApi} from "@/src/api/tripsOfferApi";
 import moment from "moment";
 import {AppManager} from "@/src/singletons/app-manager";
 import {useBean} from "ironbean-react";
+import {TripOfferService} from "@/src/services/TripOfferService";
 
 export interface ITripOfferAcceptProps {
     offer: Offer;
@@ -44,7 +45,6 @@ export const TripOfferAccept = observer((props: ITripOfferAcceptProps) => {
         return options;
     }
     const methods = _createAcceptMethodOptions();
-    const _tripsOfferApi = useBean(TripsOfferApi);
     const _appManager = useBean(AppManager);
     const [acceptMethod, setAcceptMethod] = useState<TripOfferAcceptMethod>(TripOfferAcceptMethod.PAY_DEPOSIT);
 
@@ -61,10 +61,7 @@ export const TripOfferAccept = observer((props: ITripOfferAcceptProps) => {
         <ButtonClick
             onClick={async () => {
                 _appManager.loading = true;
-                await _tripsOfferApi.acceptOffer({
-                    offerId: offer.id,
-                    acceptMethod: acceptMethod
-                })
+                TripOfferService.acceptOffer(offer.id, acceptMethod);
                 _appManager.loading = false;
                 onAcceptOffer();
             }}

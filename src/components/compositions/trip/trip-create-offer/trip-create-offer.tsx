@@ -7,7 +7,6 @@ import {InputSize} from "../../../components/inputs/inputEnum";
 import {ButtonClick, ButtonSize, ButtonType} from "../../../components/button/button";
 import {CurrentUser} from "@/src/singletons/current-user";
 import {DatePicker} from "../../../components/inputs/date-picker/date-picker";
-import {TripsOfferApi} from "@/src/api/tripsOfferApi";
 import {Price} from "@/src/data/price";
 import {NumberBox} from "../../../components/inputs/number-box/number-box";
 import {UserSettings} from "@/src/data/users/userSettings";
@@ -19,6 +18,7 @@ import {useMount} from "@/src/hooks/lifecycleHooks";
 import {AppManager} from "@/src/singletons/app-manager";
 import {Offer} from "@/src/data/offer";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
+import {TripOfferService} from "@/src/services/TripOfferService";
 
 export interface ITripCreateOfferProps {
     trip: Trip;
@@ -34,7 +34,6 @@ interface IBusComboItem {
 export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
     const {trip, onMakeOffer, offers} = props;
     const _currentUser = useBean(CurrentUser);
-    const _tripsOfferApi = useBean(TripsOfferApi);
     const _usersApi = useBean(UsersApi);
     const _vehicleApi = useBean(VehicleApi);
     const _appManager = useBean(AppManager);
@@ -112,10 +111,7 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
                         const isValid = validate();
                         if (selectedEndOfferDate && isValid) {
                             _appManager.loading = true;
-                            await _tripsOfferApi.updateOffer({
-                                offerId: offers[0].id,
-                                endOfferDate: selectedEndOfferDate
-                            })
+                            TripOfferService.updateOffer(offers[0].id, selectedEndOfferDate);
                             _appManager.loading = false;
                             onMakeOffer();
                         } else {
@@ -130,9 +126,7 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
                 <ButtonClick
                     onClick={async () => {
                         _appManager.loading = true;
-                        await _tripsOfferApi.deleteOffer({
-                            tripId: trip.id
-                        })
+                        await TripOfferService.deleteOffer(trip.id);
                         _appManager.loading = false;
                         onMakeOffer();
                     }}
@@ -183,12 +177,12 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
                     const isValid = validate();
                     if (isValid && selectedEndOfferDate) {
                         _appManager.loading = true;
-                        await _tripsOfferApi.createOffer({
+                        await TripOfferService.createOffer({
                             tripId: trip.id,
                             vehicleId: currentBus ? Number(currentBus.value) : 0,
                             price: price.current,
                             endOfferDate: selectedEndOfferDate
-                        })
+                        });
                         _appManager.loading = false;
                         onMakeOffer();
                     } else {

@@ -1,8 +1,18 @@
-import {getOfferStateMovements, getTripOffers, payedOffer, startTrip, finishTrip, forceCloseTrip, deleteOffer} from "@/src/app/actions/trips/tripsOfferActions";
+import {
+    getOfferStateMovements,
+    getTripOffers,
+    payedOffer,
+    startTrip,
+    finishTrip,
+    forceCloseTrip,
+    deleteOffer,
+    acceptOffer, updateOffer, createOffer
+} from "@/src/app/actions/trips/tripsOfferActions";
 import {TripOfferConverter} from "@/src/converters/trip-offer-converter";
 import {TripOfferMovement} from "@/src/data/tripOfferMovement";
 import {Offer} from "@/src/data/offer";
-import type {CloseTripOfferReason} from "@/src/api/openapi";
+import {CloseTripOfferReason, TripOfferAcceptMethod} from "@/src/api/openapi";
+import {ICreateOfferRequest} from "@/src/api/tripsOfferApi";
 
 export class TripOfferService {
     public static async getTripOffers(tripId: number): Promise<Offer[]> {
@@ -36,4 +46,17 @@ export class TripOfferService {
     public static async deleteOffer(tripId: number) {
         await deleteOffer(tripId);
     }
+
+    public static async acceptOffer(offerId: number, acceptMethod: TripOfferAcceptMethod) {
+        await acceptOffer(offerId, acceptMethod);
+    }
+
+    public static async updateOffer(offerId: number, endOfferDate: Date) {
+        await updateOffer(offerId, endOfferDate);
+    }
+
+    public static async createOffer(req: ICreateOfferRequest) {
+        await createOffer(req);
+    }
+
 }
