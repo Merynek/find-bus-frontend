@@ -9,13 +9,14 @@ import { useRouter } from 'next/navigation';
 import {TripConverter} from "@/src/converters/trip/trip-converter";
 import {useApp} from "@/src/app/contexts/AppContext";
 import {TripOfferService} from "@/src/services/TripOfferService";
+import {useInit} from "@/src/hooks/lifecycleHooks";
 
 interface IAdminTripActionsProps {
     trip: TripResponseDto;
 }
 
 export const AdminTripCloseActions = (props: IAdminTripActionsProps) => {
-    const trip = TripConverter.toClient(props.trip);
+    const trip = useInit(() => TripConverter.toClient(props.trip));
     const { showLoader, hideLoader } = useApp();
     const [reason, setReason] = useState<CloseTripOfferReason>(CloseTripOfferReason.GENERAL);
     const router = useRouter();

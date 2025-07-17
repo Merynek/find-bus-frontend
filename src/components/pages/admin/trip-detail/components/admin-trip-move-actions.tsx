@@ -10,6 +10,7 @@ import {TripOfferConverter} from "@/src/converters/trip-offer-converter";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
 import {useApp} from "@/src/app/contexts/AppContext";
 import {TripOfferService} from "@/src/services/TripOfferService";
+import {useInit} from "@/src/hooks/lifecycleHooks";
 
 interface IAdminTripMoveActionsProps {
     trip: TripResponseDto;
@@ -18,7 +19,7 @@ interface IAdminTripMoveActionsProps {
 
 export const AdminTripMoveActions = (props: IAdminTripMoveActionsProps) => {
     const offers = props.offers.map(o => TripOfferConverter.toClient(o));
-    const trip = TripConverter.toClient(props.trip);
+    const trip = useInit(() => TripConverter.toClient(props.trip));
     const { showLoader, hideLoader } = useApp();
     const router = useRouter();
 

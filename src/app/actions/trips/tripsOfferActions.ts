@@ -53,3 +53,11 @@ export async function forceCloseTrip(tripId: number, reason: CloseTripOfferReaso
         reasonText: reasonText
     });
 }
+
+export async function deleteOffer(tripId: number) {
+    const accessToken = await getAccessToken();
+    const tripsOfferApi = new TripsOfferApi(accessToken);
+    return await tripsOfferApi.deleteOffer({
+        tripId: tripId
+    });
+}

@@ -1,42 +1,40 @@
+"use client";
+
 import {observer} from "mobx-react";
 import React, {useState} from "react";
-import {CloseTripOfferReason, TripOfferState, UserRole} from "@/src/api/openapi";
-import {Trip} from "@/src/data/trip/trip";
+import {CloseTripOfferReason, TripOfferState, TripResponseDto, UserRole} from "@/src/api/openapi";
 import {useBean} from "ironbean-react";
 import {CurrentUser} from "@/src/singletons/current-user";
 import {TripOfferResult} from "../trip-offer-result/trip-offer-result";
 import {TripCreateOffer} from "../trip-create-offer/trip-create-offer";
 import {TripOffer} from "../trip-offer/trip-offer";
 import {TripOfferAccept} from "../trip-offer-accept/trip-offer-accept";
-import {AppManager} from "@/src/singletons/app-manager";
-import {useMount} from "@/src/hooks/lifecycleHooks";
-import {TripsOfferApi} from "@/src/api/tripsOfferApi";
+import {useInit, useMount} from "@/src/hooks/lifecycleHooks";
 import {Offer} from "@/src/data/offer";
 import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
 import { useRouter } from 'next/navigation';
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {FlexGap} from "@/src/enums/layout.enum";
+import {TripConverter} from "@/src/converters/trip/trip-converter";
+import {TripOfferService} from "@/src/services/TripOfferService";
+import {useApp} from "@/src/app/contexts/AppContext";
 
 export interface ITripOfferSectionProps {
-    trip: Trip;
+    trip: TripResponseDto;
 }
 
 export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
-    const {trip} = props;
+    const trip = useInit(() =>TripConverter.toClient(props.trip));
     const _currentUser = useBean(CurrentUser);
-    const _appManager = useBean(AppManager);
-    const _tripOfferApi = useBean(TripsOfferApi);
+    const {showLoader, hideLoader} = useApp();
     const [offers, setOffers] = useState<Offer[]>([]);
-    const _tripsOfferApi = useBean(TripsOfferApi);
     const router = useRouter();
 
     const loadOffers = async () => {
-        _appManager.loading = true;
-        const _offers = await _tripOfferApi.getTripOffers({
-            tripId: trip.id
-        })
+        showLoader();
+        const _offers = await TripOfferService.getTripOffers(trip.id);
         setOffers(_offers);
-        _appManager.loading = false;
+        hideLoader();
     }
 
 
@@ -84,11 +82,9 @@ export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
     const _transporterCloseButton = () => {
         return <ButtonClick
             onClick={async () => {
-                _appManager.loading = true;
-                await _tripsOfferApi.deleteOffer({
-                    tripId: trip.id
-                })
-                _appManager.loading = false;
+                showLoader();
+                await TripOfferService.deleteOffer(trip.id);
+                hideLoader();
             }}
             label={"Zrušit nabídku"}
             type={ButtonType.BLACK}
@@ -99,13 +95,9 @@ export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
     const _demanderCloseButton = () => {
         return <ButtonClick
             onClick={async () => {
-                _appManager.loading = true;
-                await _tripsOfferApi.forceCloseTrip({
-                    tripId: trip.id,
-                    reason: CloseTripOfferReason.DEMANDER_GENERAL,
-                    reasonText: ""
-                })
-                _appManager.loading = false;
+                showLoader();
+                await TripOfferService.forceCloseTrip(trip.id, CloseTripOfferReason.DEMANDER_GENERAL, "");
+                hideLoader();
                 router.refresh();
             }}
             label={"Ukončit trip"}
