@@ -10,9 +10,7 @@ import {DatePicker} from "../../../components/inputs/date-picker/date-picker";
 import {Price} from "@/src/data/price";
 import {NumberBox} from "../../../components/inputs/number-box/number-box";
 import {UserSettings} from "@/src/data/users/userSettings";
-import {UsersApi} from "@/src/api/usersApi";
 import {UserRole} from "@/src/api/openapi";
-import {VehicleApi} from "@/src/api/vehicleApi";
 import {useBean} from "ironbean-react";
 import {useMount} from "@/src/hooks/lifecycleHooks";
 import {AppManager} from "@/src/singletons/app-manager";
@@ -20,6 +18,7 @@ import {Offer} from "@/src/data/offer";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {TripOfferService} from "@/src/services/TripOfferService";
 import {UsersService} from "@/src/services/UsersService";
+import {VehicleService} from "@/src/services/VehicleService";
 
 export interface ITripCreateOfferProps {
     trip: Trip;
@@ -35,7 +34,6 @@ interface IBusComboItem {
 export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
     const {trip, onMakeOffer, offers} = props;
     const _currentUser = useBean(CurrentUser);
-    const _vehicleApi = useBean(VehicleApi);
     const _appManager = useBean(AppManager);
 
     const alreadyOffered = () => {
@@ -55,7 +53,7 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
     const _init = async () => {
         setUserSettings(await UsersService.getSettings());
         if (_currentUser.role === UserRole.TRANSPORTER) {
-            _currentUser.vehicles = await _vehicleApi.getVehicles({});
+            _currentUser.vehicles = await VehicleService.getVehicles();
         }
     }
 

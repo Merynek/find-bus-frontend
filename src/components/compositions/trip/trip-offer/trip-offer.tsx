@@ -10,12 +10,12 @@ import {VehicleDetailModal} from "../../vehicle/modal-vehicle-detail/vehicle-det
 import {LayoutFlexColumn} from "../../../components/layout/layout-flex-column/layout-flex-column";
 import {LayoutFlexRow} from "../../../components/layout/layout-flex-row/layout-flex-row";
 import {ButtonClick, ButtonSize, ButtonType} from "../../../components/button/button";
-import {VehicleApi} from "@/src/api/vehicleApi";
 import {AppManager} from "@/src/singletons/app-manager";
 import {FinancialDocument} from "@/src/data/documents/financialDocument";
 import {
     FinancialDocumentDetail
 } from "@/src/components/compositions/invoices/financial-document/financial-document-detail";
+import {VehicleService} from "@/src/services/VehicleService";
 
 export interface ITripOfferProps {
     offer: Offer;
@@ -25,10 +25,9 @@ export const TripOffer = observer((props: ITripOfferProps) => {
     const {offer} = props;
     const _configuration = useBean(AppConfiguration);
     const _appManager = useBean(AppManager);
-    const _vehicleApi = useBean(VehicleApi);
     const [vehicleDetail, setVehicleDetail] = useState<Vehicle|null>(null);
 
-    const renderVehicleModal = (vehicle: Vehicle) => {
+    const renderVehicleModal = () => {
         return vehicleDetail && <VehicleDetailModal
             open={Boolean(vehicleDetail)}
             vehicle={vehicleDetail}
@@ -49,9 +48,7 @@ export const TripOffer = observer((props: ITripOfferProps) => {
             <ButtonClick
                 onClick={async () => {
                     _appManager.loading = true;
-                    const detailVehicle = await _vehicleApi.getVehicle({
-                        vehicleId: vehicle.id
-                    })
+                    const detailVehicle = await VehicleService.getVehicle(vehicle.id)
                     _appManager.loading = false;
                     setVehicleDetail(detailVehicle);
                 }}
@@ -67,7 +64,7 @@ export const TripOffer = observer((props: ITripOfferProps) => {
     }
 
     return <div className={styles.layout}>
-        {renderVehicleModal(offer.vehicle)}
+        {renderVehicleModal()}
         <div className={styles.line}>
             <span>User: </span>
             <div>{offer.user.id}</div>

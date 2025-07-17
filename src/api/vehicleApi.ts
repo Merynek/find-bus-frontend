@@ -1,10 +1,9 @@
 import {ApiConfiguration} from "./apiConfiguration";
 import * as OpenApi from "./openapi";
 import {IApiRequest} from "./toolsApi";
-import {Vehicle} from "../data/users/vehicle";
-import {VehicleConverter} from "../converters/vehicle-converter";
 import {VehicleEditStore} from "../components/compositions/vehicle/edit/vehicle-edit.store";
 import {PlaceConverter} from "../converters/place-converter";
+import type {VehicleResponseDto} from "./openapi";
 
 export interface IAddVehiclePhotosRequest extends IApiRequest {
     idVehicle: number;
@@ -37,17 +36,14 @@ export class VehicleApi {
         return new OpenApi.VehiclesApi(ApiConfiguration.createOpenApiConfig(this._token));
     }
 
-    public async getVehicle(req: IGetVehicleRequest): Promise<Vehicle> {
-        const response = await this._api.apiVehiclesVehicleGet({
+    public async getVehicle(req: IGetVehicleRequest): Promise<VehicleResponseDto> {
+        return await this._api.apiVehiclesVehicleGet({
             idVehicle: req.vehicleId
         }, req.initOverrides);
-
-        return VehicleConverter.toClient(response);
     }
 
-    public async getVehicles(req: IGetVehiclesRequest): Promise<Vehicle[]> {
-        const response = await this._api.apiVehiclesGet(req.initOverrides);
-        return response.map(VehicleConverter.toClient);
+    public async getVehicles(req: IGetVehiclesRequest): Promise<VehicleResponseDto[]> {
+        return await this._api.apiVehiclesGet(req.initOverrides);
     }
 
     public async addVehicle(req: IAddVehicleRequest): Promise<number> {
