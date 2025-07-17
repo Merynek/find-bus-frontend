@@ -1,11 +1,11 @@
 import {autowired} from "ironbean";
-import {TripApi} from "@/src/api/tripApi";
 import {makeObservable, observable} from "mobx";
 import {TripFilterStore} from "../../compositions/trip/trip-filter/trip-filter.store";
 import {CurrentUser} from "@/src/singletons/current-user";
 import {UserRole} from "@/src/api/openapi";
 import {TripItem} from "@/src/data/tripItem";
 import {VehicleApi} from "@/src/api/vehicleApi";
+import {TripService} from "@/src/services/TripService";
 
 interface ITripListParams {
     page?: number;
@@ -18,7 +18,6 @@ interface ITripListParams {
 }
 
 export class TripListPageStore {
-    @autowired private _tripApi: TripApi;
     @autowired private _vehicleApi: VehicleApi;
     @autowired private _currentUser: CurrentUser;
     @observable public tripItems: TripItem[];
@@ -45,7 +44,7 @@ export class TripListPageStore {
     }
 
     private _loadTrips = async () => {
-        this.tripItems = await this._tripApi.getTrips({
+        this.tripItems = await TripService.getTrips({
             limit: 5,
             offset: (this.filter.page - 1) * 5,
             maxNumberOfPersons: this.filter.maxNumberOfPersons || undefined,

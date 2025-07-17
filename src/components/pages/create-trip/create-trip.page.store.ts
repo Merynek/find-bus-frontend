@@ -1,6 +1,5 @@
 import {Trip} from "@/src/data/trip/trip";
 import {autowired} from "ironbean";
-import {TripApi} from "@/src/api/tripApi";
 import {action, computed, makeObservable, observable, reaction} from "mobx";
 import {TripRecommendationType} from "@/src/api/openapi";
 import {hoursToSeconds} from "@/src/utils/common";
@@ -10,10 +9,11 @@ import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import moment from "moment";
 import {UsersApi} from "@/src/api/usersApi";
 import {UserSettings} from "@/src/data/users/userSettings";
+import {TripService} from "@/src/services/TripService";
+import {TripConverter} from "@/src/converters/trip/trip-converter";
 
 export class CreateTripPageStore {
     public trip: Trip;
-    @autowired private _tripApi: TripApi;
     @observable public tripRecommendation: TripRecommendationType;
     @observable public reduceRoutesHours: number;
     @observable public reduceTimeHours: number;
@@ -52,9 +52,7 @@ export class CreateTripPageStore {
     }
 
     private async _computeDirectionTimesApi() {
-        const recommendation = await this._tripApi.getTripRecommendation({
-            trip: this.trip
-        })
+        const recommendation = await TripService.getTripRecommendation(TripConverter.tripRecommendationToServer(this.trip));
         this.tripRecommendation = recommendation.type;
         recommendation.routes.forEach((route, index) => {
             const currentRoute = this.trip.routes[index];
@@ -112,8 +110,8 @@ export class CreateTripPageStore {
     public async createTrip() {
         this._appManager.loading = true;
         try {
-            await this._tripApi.createTrip({
-                trip: this.trip
+            await TripService.createTrip({
+                trip: TripConverter.toServer(this.trip)
             });
         } catch (e) {
             throw e;

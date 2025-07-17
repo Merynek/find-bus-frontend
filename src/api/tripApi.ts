@@ -1,13 +1,16 @@
 import {ApiConfiguration} from "./apiConfiguration";
 import * as OpenApi from "./openapi";
 import {IApiRequest} from "./toolsApi";
-import {Trip} from "../data/trip/trip";
-import {TripConverter} from "../converters/trip/trip-converter";
-import {TripRecommendation} from "../data/tripRecommendation";
-import {ApiTripListGetRequest, type TripItemResponseDto, type TripResponseDto} from "./openapi";
+import {
+    ApiTripListGetRequest,
+    CreateTripRequestDto,
+    type TripItemResponseDto,
+    TripRecommendationRequestDto, type TripRecommendationResponseDto,
+    type TripResponseDto
+} from "./openapi";
 
 export interface ICreateTripRequest extends IApiRequest {
-    trip: Trip;
+    trip: CreateTripRequestDto;
 }
 
 export interface IGetTripsRequest extends IApiRequest {
@@ -27,7 +30,7 @@ export interface IGetTrip extends IApiRequest {
 }
 
 export interface IGetTripRecommendation extends IApiRequest {
-    trip: Trip;
+    trip: TripRecommendationRequestDto;
 }
 
 export interface IPostStopTripOrderRequest extends IApiRequest {
@@ -46,9 +49,8 @@ export class TripApi {
     }
 
     public async createTrip(req: ICreateTripRequest): Promise<void> {
-        const data = TripConverter.toServer(req.trip);
         await this._api.apiTripPost({
-            createTripRequestDto: data
+            createTripRequestDto: req.trip
         }, req.initOverrides)
     }
 
@@ -73,10 +75,9 @@ export class TripApi {
         }, req.initOverrides)
     }
 
-    public async getTripRecommendation(req: IGetTripRecommendation): Promise<TripRecommendation> {
-        const response = await this._api.apiTripRecommendationPost({
-            tripRecommendationRequestDto: TripConverter.tripRecommendationToServer(req.trip)
+    public async getTripRecommendation(req: IGetTripRecommendation): Promise<TripRecommendationResponseDto> {
+        return await this._api.apiTripRecommendationPost({
+            tripRecommendationRequestDto: req.trip
         });
-        return TripConverter.tripRecommendationToClient(response);
     }
 }

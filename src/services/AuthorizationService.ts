@@ -18,9 +18,9 @@ export class AuthorizationService {
     }
 
     public static async getUser() {
-        const response = await getUserAction();
-        if (response) {
-            return UsersConverter.currentUserToClient(response.user);
+        const data = await AuthorizationService.getUserJson();
+        if (data) {
+            return UsersConverter.currentUserToClient(data.user);
         }
         return null;
     }
