@@ -115,5 +115,5 @@ export async function userSettingsFormAction(state: TUserSettingsFormState, form
             errors: error.message || 'Došlo k neočekávané chybě během přidání vozidla.',
         }
     }
-    redirect(ROUTES.VEHICLES);
+    redirect(ROUTES.USER_SETTINGS);
 }
