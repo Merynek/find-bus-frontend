@@ -29,7 +29,7 @@ export class VehicleService {
     }
 
     public static async addVehicle(req: IAddVehicleRequest) {
-        await addVehicle(req);
+        return await addVehicle(req);
     }
 
     public static async addVehiclePhotos(req: IAddVehiclePhotosRequest) {
