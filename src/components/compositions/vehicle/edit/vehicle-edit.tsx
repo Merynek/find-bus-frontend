@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import styles from "./vehicle-edit.module.scss";
 import {observer} from "mobx-react";
 import {TextBox} from "../../../components/inputs/text-box/text-box";
-import {Amenities, EuroStandard} from "@/src/api/openapi";
+import {Amenities, Country, EuroStandard} from "@/src/api/openapi";
 import {CheckBox} from "../../../components/inputs/check-box/check-box";
 import {removeOnIndex} from "@/src/utils/common";
 import {ButtonClick, ButtonSize, ButtonType} from "../../../components/button/button";
@@ -13,9 +13,7 @@ import {Photo} from "@/src/data/media/photo";
 import {VehicleEditStore} from "./vehicle-edit.store";
 import {ValidationTooltip} from "../../../components/validation-tooltip/validation-tooltip";
 import {ValidationState} from "../../../components/inputs/inputEnum";
-import {AppManager} from "@/src/singletons/app-manager";
 import {DatePicker} from "../../../components/inputs/date-picker/date-picker";
-import {VehicleApi} from "@/src/api/vehicleApi";
 import {Icon} from "../../../components/icon/icon";
 import {IconType} from "@/src/enums/icon.enum";
 import {DropFileType} from "@/src/enums/file-drop-type.enum";
@@ -28,6 +26,8 @@ import {runInAction} from "mobx";
 import {PlaceManager} from "@/src/singletons/place-manager";
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 import {FontSize, Text} from "@/src/components/components/texts/text/text";
+import {useApp} from "@/src/app/contexts/AppContext";
+import {addVehicleFormAction} from "@/src/app/actions/forms/vehicle/add/addVehicleFormAction";
 
 export interface IVehicleEditProps {
     store: VehicleEditStore;
@@ -48,8 +48,7 @@ enum VehiclePhotoType {
 
 export const VehicleEdit = observer((props: IVehicleEditProps) => {
     const {store, onClose} = props;
-    const _vehiclesApi = useBean(VehicleApi);
-    const _appManager = useBean(AppManager);
+    const {showLoader, hideLoader} = useApp();
     const [ensureModalOpen, setEnsureModalOpen] = useState(false);
     const _placeManager = useBean(PlaceManager);
 
@@ -162,24 +161,56 @@ export const VehicleEdit = observer((props: IVehicleEditProps) => {
     }
 
     const submit = async () => {
-        _appManager.loading = true;
+        showLoader();
         if (store.id) {
-            await _vehiclesApi.updateVehicle({
-                vehicle: store
-            })
-            await _vehiclesApi.updateVehiclePhotos({
-                vehicle: store
-            })
+
         } else {
-            const id = await _vehiclesApi.addVehicle({
-                vehicle: store
-            })
-            await _vehiclesApi.addVehiclePhotos({
-                idVehicle: id,
-                vehicle: store
-            })
+            const formData = new FormData();
+            formData.append('name', store.name);
+            formData.append('registrationSign', store.registrationSign);
+            formData.append('vin', store.VIN);
+            formData.append('stkExpired', store.stkExpired?.toISOString() || ''); // Convert Date to ISO string
+            formData.append('yearOfManufacture', store.yearOfManufacture?.toString() || '');
+            formData.append('personsCapacity', store.personsCapacity?.toString() || '');
+            formData.append('handicappedUserCount', store.handicappedUserCount?.toString() || '');
+            formData.append('euro', store.euro || '');
+
+            store.amenities.forEach(amenity => {
+                formData.append('amenities', amenity);
+            });
+
+            if (store.frontPhoto && store.frontPhoto.file) formData.append('frontPhoto', store.frontPhoto.file);
+            if (store.rearPhoto && store.rearPhoto.file) formData.append('rearPhoto', store.rearPhoto.file);
+            if (store.leftSidePhoto && store.leftSidePhoto.file) formData.append('leftSidePhoto', store.leftSidePhoto.file);
+            if (store.rightSidePhoto && store.rightSidePhoto.file) formData.append('rightSidePhoto', store.rightSidePhoto.file);
+            if (store.interierPhoto1 && store.interierPhoto1.file) formData.append('interierPhoto1', store.interierPhoto1.file);
+            if (store.interierPhoto2 && store.interierPhoto2.file) formData.append('interierPhoto2', store.interierPhoto2.file);
+            if (store.technicalCertificate1 && store.technicalCertificate1.file) formData.append('technicalCertificate1', store.technicalCertificate1.file);
+            if (store.technicalCertificate2 && store.technicalCertificate2.file) formData.append('technicalCertificate2', store.technicalCertificate2.file);
+            if (store.insurancePhoto && store.insurancePhoto.file) formData.append('insurance', store.insurancePhoto.file);
+
+            // Append departureStation data
+            if (store.departureStation) {
+                formData.append('departureStation.placeId', store.departureStation.placeId || "");
+                formData.append('departureStation.point.lat', store.departureStation.point?.lat.toString() || "");
+                formData.append('departureStation.point.lng', store.departureStation.point?.lng.toString() || "");
+                formData.append('departureStation.country', store.departureStation?.country || Country.CZ);
+                formData.append('departureStation.name', store.departureStation.name || "");
+                formData.append('departureStation.placeFormatted', store.departureStation.placeFormatted || "");
+            }
+
+            const response = await addVehicleFormAction(undefined, formData); // Pass undefined as the initial state
+            if (response?.errors) {
+                // Handle validation errors from the server action
+                console.error("Server-side validation errors:", response.errors);
+                // You might want to update your MobX store with these errors
+                // For example: store.setErrors(response.errors);
+            } else if (response?.error) {
+                // Handle generic error message from the server action
+                console.error("Server-side error:", response.error);
+            }
         }
-        _appManager.loading = false;
+        hideLoader();
         onClose();
     }
 

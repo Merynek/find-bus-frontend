@@ -38,15 +38,15 @@ export async function addVehicleFormAction(state: TAddVehicleFormState, formData
         departureStation: ((): PlaceRequestDto|undefined => {
             const placeId = formData.get('departureStation.placeId');
             const lat = formData.get('departureStation.point.lat');
-            const lon = formData.get('departureStation.point.lon');
+            const lng = formData.get('departureStation.point.lng');
             const country = formData.get('departureStation.country');
             const name = formData.get('departureStation.name');
             const placeFormatted = formData.get('departureStation.placeFormatted');
 
-            if (placeId && lat && lon && country && name && placeFormatted) {
+            if (placeId && lat && lng && country && name && placeFormatted) {
                 return {
                     placeId: placeId as string,
-                    point: { lat: Number(lat), lng: Number(lon) },
+                    point: { lat: Number(lat), lng: Number(lng) },
                     country: country as Country,
                     name: name as string,
                     placeFormatted: placeFormatted as string,

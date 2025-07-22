@@ -1,35 +1,29 @@
 "use client";
 
-import {useTranslate} from "@/src/hooks/translateHook";
-import React, {useRef, useState} from "react";
-import styles from "./vehicles.page.module.scss";
-import {observer} from "mobx-react";
-import {VehiclesPageStore} from "./vehicles.page.store";
+import React, {useState} from "react";
+import {observer} from "mobx-react";;
 import {VehicleDetail} from "../../compositions/vehicle/detail-list/vehicle-detail-list";
 import {VehicleEdit} from "../../compositions/vehicle/edit/vehicle-edit";
 import {ButtonClick, ButtonSize, ButtonType} from "../../components/button/button";
 import {VehicleEditStore} from "../../compositions/vehicle/edit/vehicle-edit.store";
-import {useBean} from "ironbean-react";
-import {AppManager} from "@/src/singletons/app-manager";
 import {Vehicle} from "@/src/data/users/vehicle";
+import {VehicleService} from "@/src/services/VehicleService";
+import {useApp} from "@/src/app/contexts/AppContext";
 
 const VehiclePage = observer(() => {
-    const _storeRef = useRef<VehiclesPageStore>(new VehiclesPageStore());
-    const store = _storeRef.current;
-    const _locKey = "page.vehicles."
-    const {t} = useTranslate();
-    const _appManager = useBean(AppManager);
+    const [vehicles, setVehicles] = useState<Vehicle[]>([]);
+    const {showLoader, hideLoader} = useApp();
     const [vehicleEdit, setVehicleEdit] = useState<VehicleEditStore|null>(null);
 
     const _renderEdit = (editVehicle: VehicleEditStore) => {
         return <VehicleEdit
             store={editVehicle}
             onClose={async () => {
-                _appManager.loading = true;
+                showLoader();
                 setVehicleEdit(null);
-                store.vehicles = [];
-                await store.load();
-                _appManager.loading = false;
+                const vehicles = await VehicleService.getVehicles();
+                setVehicles(vehicles);
+                hideLoader();
             }}
         />
     }
@@ -46,7 +40,7 @@ const VehiclePage = observer(() => {
                 type={ButtonType.YELLOW}
                 size={ButtonSize.BY_CONTENT}
             />
-            {store.vehicles.map((vehicle => {
+            {vehicles.map((vehicle => {
                 return <div key={vehicle.id}>
                     <VehicleDetail
                         vehicle={vehicle}
