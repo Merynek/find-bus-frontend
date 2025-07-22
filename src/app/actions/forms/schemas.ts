@@ -26,3 +26,17 @@ export const imageFileSchema = z.instanceof(File, { message: "Soubor je vyžadov
     .refine((file) => ACCEPTED_IMAGE_TYPES.includes(file.type), {
         message: "Podporovány jsou pouze formáty .jpg, .png a .webp.",
     });
+
+
+export const UserAddressSchema = z.object({
+    country: z.nativeEnum(Country),
+    city: z.string().nullable(),
+    psc: z.string().nullable(),
+    street: z.string().nullable(),
+    houseNumber: z.string().nullable()
+});
+
+export const TransferInfoSchema = z.object({
+    iban: z.string().nullable(),
+    swift: z.string().nullable()
+});
