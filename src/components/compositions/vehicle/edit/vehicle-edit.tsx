@@ -15,7 +15,6 @@ import {ValidationTooltip} from "../../../components/validation-tooltip/validati
 import {ValidationState} from "../../../components/inputs/inputEnum";
 import {AppManager} from "@/src/singletons/app-manager";
 import {DatePicker} from "../../../components/inputs/date-picker/date-picker";
-import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import {VehicleApi} from "@/src/api/vehicleApi";
 import {Icon} from "../../../components/icon/icon";
 import {IconType} from "@/src/enums/icon.enum";
@@ -51,7 +50,6 @@ export const VehicleEdit = observer((props: IVehicleEditProps) => {
     const {store, onClose} = props;
     const _vehiclesApi = useBean(VehicleApi);
     const _appManager = useBean(AppManager);
-    const _configuration = useBean(AppConfiguration);
     const [ensureModalOpen, setEnsureModalOpen] = useState(false);
     const _placeManager = useBean(PlaceManager);
 

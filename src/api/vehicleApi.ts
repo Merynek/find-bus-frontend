@@ -1,23 +1,62 @@
 import {ApiConfiguration} from "./apiConfiguration";
 import * as OpenApi from "./openapi";
 import {IApiRequest} from "./toolsApi";
-import {VehicleEditStore} from "../components/compositions/vehicle/edit/vehicle-edit.store";
-import {PlaceConverter} from "../converters/place-converter";
-import type {VehicleResponseDto} from "./openapi";
+import {Amenities, EuroStandard, PlaceRequestDto, VehicleResponseDto} from "./openapi";
 
 export interface IAddVehiclePhotosRequest extends IApiRequest {
-    idVehicle: number;
-    vehicle: VehicleEditStore;
+    vehicleId: number;
+    frontPhoto: File;
+    rearPhoto: File;
+    leftSidePhoto: File;
+    rightSidePhoto: File;
+    interierPhoto1: File;
+    interierPhoto2: File;
+    technicalCertificate1: File;
+    technicalCertificate2: File;
+    insurance: File;
 }
 export interface IUpdateVehicleRequest extends IApiRequest {
-    vehicle: VehicleEditStore;
+    vehicleId: number;
+    name: string;
+    personsCapacity: number;
+    euro: EuroStandard;
+    amenities: Amenities[];
+    handicappedUserCount: number;
+    vin: string;
+    registrationSign: string;
+    stkExpired: Date;
+    yearOfManufacture: number;
+    departureStation: PlaceRequestDto|undefined;
 }
+
+export interface IUpdateVehiclePhotosRequest extends IApiRequest {
+    vehicleId: number;
+    frontPhoto: File|undefined;
+    rearPhoto: File|undefined;
+    leftSidePhoto: File|undefined;
+    rightSidePhoto: File|undefined;
+    interierPhoto1: File|undefined;
+    interierPhoto2: File|undefined;
+    technicalCertificate1: File|undefined;
+    technicalCertificate2: File|undefined;
+    insurance: File|undefined;
+}
+
 export interface ISetVehicleVerificationRequest extends IApiRequest {
     vehicleId: number;
     verified: boolean;
 }
 export interface IAddVehicleRequest extends IApiRequest {
-    vehicle: VehicleEditStore;
+    name: string;
+    personsCapacity: number;
+    euro: EuroStandard;
+    amenities: Amenities[];
+    handicappedUserCount: number;
+    vin: string;
+    registrationSign: string;
+    stkExpired: Date;
+    yearOfManufacture: number;
+    departureStation: PlaceRequestDto|undefined;
 }
 export interface IGetVehicleRequest extends IApiRequest {
     vehicleId: number;
@@ -49,65 +88,65 @@ export class VehicleApi {
     public async addVehicle(req: IAddVehicleRequest): Promise<number> {
         return await this._api.apiVehiclesVehiclePost({
             addVehicleRequestDto: {
-                name: req.vehicle.name,
-                euro: req.vehicle.euro,
-                handicappedUserCount: req.vehicle.handicappedUserCount,
-                amenities: req.vehicle.amenities,
-                personsCapacity: req.vehicle.personsCapacity,
-                vin: req.vehicle.VIN,
-                registrationSign: req.vehicle.registrationSign,
-                stkExpired: req.vehicle.stkExpired || new Date(),
-                yearOfManufacture: req.vehicle.yearOfManufacture,
-                departureStation: req.vehicle.departureStation ? PlaceConverter.toServer(req.vehicle.departureStation) : undefined
+                name: req.name,
+                personsCapacity: req.personsCapacity,
+                euro: req.euro,
+                amenities: req.amenities,
+                handicappedUserCount: req.handicappedUserCount,
+                vin: req.vin,
+                registrationSign: req.registrationSign,
+                stkExpired: req.stkExpired || new Date(),
+                yearOfManufacture: req.yearOfManufacture,
+                departureStation: req.departureStation
             }
         }, req.initOverrides);
     }
 
     public async addVehiclePhotos(req: IAddVehiclePhotosRequest): Promise<void> {
         await this._api.apiVehiclesPhotosPost({
-            id: req.idVehicle,
-            frontPhoto: req.vehicle.frontPhoto!.file,
-            rearPhoto: req.vehicle.rearPhoto!.file,
-            leftSidePhoto: req.vehicle.leftSidePhoto!.file,
-            rightSidePhoto: req.vehicle.rightSidePhoto!.file,
-            interierPhoto1: req.vehicle.interierPhoto1!.file,
-            interierPhoto2: req.vehicle.interierPhoto2!.file,
-            technicalCertificate1: req.vehicle.technicalCertificate1!.file,
-            technicalCertificate2: req.vehicle.technicalCertificate2!.file,
-            insurance: req.vehicle.insurancePhoto!.file
+            id: req.vehicleId,
+            frontPhoto: req.frontPhoto,
+            rearPhoto: req.rearPhoto,
+            leftSidePhoto: req.leftSidePhoto,
+            rightSidePhoto: req.rightSidePhoto,
+            interierPhoto1: req.interierPhoto1,
+            interierPhoto2: req.interierPhoto2,
+            technicalCertificate1: req.technicalCertificate1,
+            technicalCertificate2: req.technicalCertificate2,
+            insurance: req.insurance
         }, req.initOverrides);
     }
 
     public async updateVehicle(req: IUpdateVehicleRequest): Promise<void> {
         await this._api.apiVehiclesVehiclePut({
             updateVehicleRequestDto: {
-                id: req.vehicle.id,
-                name: req.vehicle.name,
-                personsCapacity: req.vehicle.personsCapacity,
-                euro: req.vehicle.euro,
-                amenities: req.vehicle.amenities,
-                handicappedUserCount: req.vehicle.handicappedUserCount,
-                vin: req.vehicle.VIN,
-                registrationSign: req.vehicle.registrationSign,
-                stkExpired: req.vehicle.stkExpired || new Date(),
-                yearOfManufacture: req.vehicle.yearOfManufacture,
-                departureStation: req.vehicle.departureStation ? PlaceConverter.toServer(req.vehicle.departureStation) : undefined
+                id: req.vehicleId,
+                name: req.name,
+                personsCapacity: req.personsCapacity,
+                euro: req.euro,
+                amenities: req.amenities,
+                handicappedUserCount: req.handicappedUserCount,
+                vin: req.vin,
+                registrationSign: req.registrationSign,
+                stkExpired: req.stkExpired || new Date(),
+                yearOfManufacture: req.yearOfManufacture,
+                departureStation: req.departureStation
             },
         }, req.initOverrides);
     }
 
-    public async updateVehiclePhotos(req: IUpdateVehicleRequest): Promise<void> {
+    public async updateVehiclePhotos(req: IUpdateVehiclePhotosRequest): Promise<void> {
         return await this._api.apiVehiclesPhotosPut({
-            id: req.vehicle.id,
-            frontPhoto: req.vehicle.frontPhoto ? (req.vehicle.frontPhoto.path ? undefined : req.vehicle.frontPhoto.file) : undefined,
-            rearPhoto: req.vehicle.rearPhoto ? (req.vehicle.rearPhoto.path ? undefined : req.vehicle.rearPhoto.file) : undefined,
-            leftSidePhoto: req.vehicle.leftSidePhoto ? (req.vehicle.leftSidePhoto.path ? undefined : req.vehicle.leftSidePhoto.file) : undefined,
-            rightSidePhoto: req.vehicle.rightSidePhoto ? (req.vehicle.rightSidePhoto.path ? undefined : req.vehicle.rightSidePhoto.file) : undefined,
-            interierPhoto1: req.vehicle.interierPhoto1 ? (req.vehicle.interierPhoto1.path ? undefined : req.vehicle.interierPhoto1.file) : undefined,
-            interierPhoto2: req.vehicle.interierPhoto2 ? (req.vehicle.interierPhoto2.path ? undefined : req.vehicle.interierPhoto2.file) : undefined,
-            technicalCertificate1: req.vehicle.technicalCertificate1 ? (req.vehicle.technicalCertificate1.path ? undefined : req.vehicle.technicalCertificate1.file) : undefined,
-            technicalCertificate2: req.vehicle.technicalCertificate2 ? (req.vehicle.technicalCertificate2.path ? undefined : req.vehicle.technicalCertificate2.file) : undefined,
-            insurance: req.vehicle.insurancePhoto ? (req.vehicle.insurancePhoto.path ? undefined : req.vehicle.insurancePhoto.file) : undefined,
+            id: req.vehicleId,
+            frontPhoto: req.frontPhoto,
+            rearPhoto: req.rearPhoto,
+            leftSidePhoto: req.leftSidePhoto,
+            rightSidePhoto: req.rightSidePhoto,
+            interierPhoto1: req.interierPhoto1,
+            interierPhoto2: req.interierPhoto2,
+            technicalCertificate1: req.technicalCertificate1,
+            technicalCertificate2: req.technicalCertificate2,
+            insurance: req.insurance
         }, req.initOverrides);
     }
 

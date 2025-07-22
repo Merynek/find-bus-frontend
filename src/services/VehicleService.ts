@@ -1,4 +1,4 @@
-import {getVehicle, getVehicles, setVehicleVerification} from "../app/actions/users/vehicleActions";
+import {getVehicle, getVehicles, setVehicleVerification} from "../app/actions/vehicle/vehicleActions";
 import {VehicleConverter} from "@/src/converters/vehicle-converter";
 
 export class VehicleService {
