@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import {NotificationsEnum} from "@/src/api/openapi";
-import {TransferInfoSchema, UserAddressSchema} from "@/src/app/actions/forms/schemas";
+import {imageFileSchema, TransferInfoSchema, UserAddressSchema} from "@/src/app/actions/forms/schemas";
 
 export const UserSettingsSchema = z.object({
     name: z.string().nullable().optional(),
@@ -15,4 +15,6 @@ export const UserSettingsSchema = z.object({
     mailingAddress: UserAddressSchema.partial().optional(),
     transferInfo: TransferInfoSchema.partial().optional(),
     concessionNumber: z.string().nullable().optional(),
+    businessRiskInsurance: imageFileSchema.optional(),
+    concessionDocuments: imageFileSchema.optional(),
 });

@@ -1,12 +1,11 @@
 import {IApiRequest} from "./toolsApi";
 import * as OpenApi from "./openapi";
 import {ApiConfiguration} from "./apiConfiguration";
-import {Photo} from "../data/media/photo";
 import {AdminUserDetailResponseDto, UserSettingsRequestDto, type UserSettingsResponseDto} from "./openapi";
 
 export interface IUpdateTransportRequirementsPhotosRequest extends IApiRequest {
-    concessionDocuments: Photo|null;
-    businessRiskInsurance: Photo|null;
+    concessionDocuments: File|undefined;
+    businessRiskInsurance: File|undefined;
 }
 
 export interface IChangeSettingsRequest extends IApiRequest {
@@ -55,8 +54,8 @@ export class UsersApi {
         const businessRiskInsurance = req.businessRiskInsurance;
         const concessionDocuments = req.concessionDocuments;
         await this._api.apiUsersTransportRequirementsPhotosPost({
-            businessRiskInsurance: businessRiskInsurance ? (businessRiskInsurance.path ? undefined : businessRiskInsurance.file) : undefined,
-            concessionDocuments: concessionDocuments ? (concessionDocuments.path ? undefined : concessionDocuments.file) : undefined
+            businessRiskInsurance: businessRiskInsurance || undefined,
+            concessionDocuments: concessionDocuments || undefined
         }, req.initOverrides);
     }
 

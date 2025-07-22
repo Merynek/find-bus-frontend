@@ -75,6 +75,8 @@ export async function userSettingsFormAction(state: TUserSettingsFormState, form
             }
             return undefined;
         })(),
+        businessRiskInsurance: formData.get('businessRiskInsurance'),
+        concessionDocuments: formData.get('concessionDocuments'),
     };
 
     const validatedFields = UserSettingsSchema.safeParse(dataToValidate);
@@ -101,6 +103,12 @@ export async function userSettingsFormAction(state: TUserSettingsFormState, form
             transferInfo: validatedFields.data.transferInfo,
             concessionNumber: validatedFields.data.concessionNumber
         });
+        if (validatedFields.data.businessRiskInsurance || validatedFields.data.concessionDocuments) {
+            await UsersService.updateTransportRequirementsPhotos({
+                businessRiskInsurance: validatedFields.data.businessRiskInsurance,
+                concessionDocuments: validatedFields.data.concessionDocuments
+            });
+        }
     } catch (error: any) {
         console.error('Chyba při pridani vozidla:', error);
         return {
