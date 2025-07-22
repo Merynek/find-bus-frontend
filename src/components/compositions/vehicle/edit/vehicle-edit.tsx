@@ -28,6 +28,7 @@ import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/
 import {FontSize, Text} from "@/src/components/components/texts/text/text";
 import {useApp} from "@/src/app/contexts/AppContext";
 import {addVehicleFormAction} from "@/src/app/actions/forms/vehicle/add/addVehicleFormAction";
+import {editVehicleFormAction} from "@/src/app/actions/forms/vehicle/edit/editVehicleFormAction";
 
 export interface IVehicleEditProps {
     store: VehicleEditStore;
@@ -162,22 +163,38 @@ export const VehicleEdit = observer((props: IVehicleEditProps) => {
 
     const submit = async () => {
         showLoader();
+        let response: any; // Pro uložení odpovědi z akce
+
+        const formData = new FormData();
+        formData.append('name', store.name);
+        formData.append('registrationSign', store.registrationSign);
+        formData.append('vin', store.VIN);
+        formData.append('stkExpired', store.stkExpired?.toISOString() || '');
+        formData.append('yearOfManufacture', store.yearOfManufacture?.toString() || '');
+        formData.append('personsCapacity', store.personsCapacity?.toString() || '');
+        formData.append('handicappedUserCount', store.handicappedUserCount?.toString() || '');
+        formData.append('euro', store.euro || '');
+
+        store.amenities.forEach(amenity => {
+            formData.append('amenities', amenity);
+        });
+
+        // Append departureStation data
+        // Jelikož je departureStation v VehicleCoreSchema optional(), nemusíme striktně kontrolovat
+        if (store.departureStation) {
+            // Zde můžete přidat další kontrolu, pokud jsou PlaceRequestDto pole optional
+            // Váš stávající kód to řeší prázdnými stringy, což je OK, pokud to API akceptuje
+            formData.append('departureStation.placeId', store.departureStation.placeId || "");
+            formData.append('departureStation.point.lat', store.departureStation.point?.lat.toString() || "");
+            formData.append('departureStation.point.lng', store.departureStation.point?.lng.toString() || "");
+            formData.append('departureStation.country', store.departureStation?.country || Country.CZ);
+            formData.append('departureStation.name', store.departureStation.name || "");
+            formData.append('departureStation.placeFormatted', store.departureStation.placeFormatted || "");
+        }
+
+
         if (store.id) {
-
-        } else {
-            const formData = new FormData();
-            formData.append('name', store.name);
-            formData.append('registrationSign', store.registrationSign);
-            formData.append('vin', store.VIN);
-            formData.append('stkExpired', store.stkExpired?.toISOString() || ''); // Convert Date to ISO string
-            formData.append('yearOfManufacture', store.yearOfManufacture?.toString() || '');
-            formData.append('personsCapacity', store.personsCapacity?.toString() || '');
-            formData.append('handicappedUserCount', store.handicappedUserCount?.toString() || '');
-            formData.append('euro', store.euro || '');
-
-            store.amenities.forEach(amenity => {
-                formData.append('amenities', amenity);
-            });
+            formData.append('vehicleId', store.id.toString()); // Klíčové: Předáme ID vozidla!
 
             if (store.frontPhoto && store.frontPhoto.file) formData.append('frontPhoto', store.frontPhoto.file);
             if (store.rearPhoto && store.rearPhoto.file) formData.append('rearPhoto', store.rearPhoto.file);
@@ -189,30 +206,36 @@ export const VehicleEdit = observer((props: IVehicleEditProps) => {
             if (store.technicalCertificate2 && store.technicalCertificate2.file) formData.append('technicalCertificate2', store.technicalCertificate2.file);
             if (store.insurancePhoto && store.insurancePhoto.file) formData.append('insurance', store.insurancePhoto.file);
 
-            // Append departureStation data
-            if (store.departureStation) {
-                formData.append('departureStation.placeId', store.departureStation.placeId || "");
-                formData.append('departureStation.point.lat', store.departureStation.point?.lat.toString() || "");
-                formData.append('departureStation.point.lng', store.departureStation.point?.lng.toString() || "");
-                formData.append('departureStation.country', store.departureStation?.country || Country.CZ);
-                formData.append('departureStation.name', store.departureStation.name || "");
-                formData.append('departureStation.placeFormatted', store.departureStation.placeFormatted || "");
-            }
+            response = await editVehicleFormAction(undefined, formData);
 
-            const response = await addVehicleFormAction(undefined, formData); // Pass undefined as the initial state
-            if (response?.errors) {
-                // Handle validation errors from the server action
-                console.error("Server-side validation errors:", response.errors);
-                // You might want to update your MobX store with these errors
-                // For example: store.setErrors(response.errors);
-            } else if (response?.error) {
-                // Handle generic error message from the server action
-                console.error("Server-side error:", response.error);
-            }
+        } else {
+            if (store.frontPhoto && store.frontPhoto.file) formData.append('frontPhoto', store.frontPhoto.file);
+            if (store.rearPhoto && store.rearPhoto.file) formData.append('rearPhoto', store.rearPhoto.file);
+            if (store.leftSidePhoto && store.leftSidePhoto.file) formData.append('leftSidePhoto', store.leftSidePhoto.file);
+            if (store.rightSidePhoto && store.rightSidePhoto.file) formData.append('rightSidePhoto', store.rightSidePhoto.file);
+            if (store.interierPhoto1 && store.interierPhoto1.file) formData.append('interierPhoto1', store.interierPhoto1.file);
+            if (store.interierPhoto2 && store.interierPhoto2.file) formData.append('interierPhoto2', store.interierPhoto2.file);
+            if (store.technicalCertificate1 && store.technicalCertificate1.file) formData.append('technicalCertificate1', store.technicalCertificate1.file);
+            if (store.technicalCertificate2 && store.technicalCertificate2.file) formData.append('technicalCertificate2', store.technicalCertificate2.file);
+            if (store.insurancePhoto && store.insurancePhoto.file) formData.append('insurance', store.insurancePhoto.file);
+
+            response = await addVehicleFormAction(undefined, formData);
+        }
+
+        if (response?.errors) {
+            // Handle validation errors from the server action
+            console.error("Server-side validation errors:", response.errors);
+            // You might want to update your MobX store with these errors
+            // For example: store.setErrors(response.errors);
+        } else if (response?.error) {
+            // Handle generic error message from the server action
+            console.error("Server-side error:", response.error);
+        } else {
+            // Úspěch:
+            onClose(); // Zavřít formulář, pokud je vše v pořádku
         }
         hideLoader();
-        onClose();
-    }
+    };
 
     const ensureDialog = () => {
         return <ConfirmDialog

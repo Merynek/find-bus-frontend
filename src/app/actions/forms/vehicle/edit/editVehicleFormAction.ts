@@ -3,20 +3,21 @@
 import {redirect} from "next/navigation";
 import {ROUTES} from "@/src/enums/router.enum";
 import { z } from 'zod';
-import {AddVehicleSchema} from "@/src/app/actions/forms/vehicle/add/addVehicleSchema";
+import {EditVehicleSchema} from "@/src/app/actions/forms/vehicle/edit/editVehicleSchema";
 import {VehicleService} from "@/src/services/VehicleService";
 import {Country, PlaceRequestDto} from "@/src/api/openapi";
 
-type AddVehicleSchemaFieldErrors = z.inferFlattenedErrors<typeof AddVehicleSchema>['fieldErrors'];
+type EditVehicleSchemaFieldErrors = z.inferFlattenedErrors<typeof EditVehicleSchema>['fieldErrors'];
 
-export type TAddVehicleFormState = {
-    errors?: AddVehicleSchemaFieldErrors;
+export type TEditVehicleFormState = {
+    errors?: EditVehicleSchemaFieldErrors;
     message?: string;
     error?: string;
 } | undefined;
 
-export async function addVehicleFormAction(state: TAddVehicleFormState, formData: FormData): Promise<TAddVehicleFormState> {
+export async function editVehicleFormAction(state: TEditVehicleFormState, formData: FormData): Promise<TEditVehicleFormState> {
     const dataToValidate = {
+        vehicleId: Number(formData.get('vehicleId')),
         frontPhoto: formData.get('frontPhoto'),
         rearPhoto: formData.get('rearPhoto'),
         leftSidePhoto: formData.get('leftSidePhoto'),
@@ -56,7 +57,7 @@ export async function addVehicleFormAction(state: TAddVehicleFormState, formData
         })(),
     };
 
-    const validatedFields = AddVehicleSchema.safeParse(dataToValidate);
+    const validatedFields = EditVehicleSchema.safeParse(dataToValidate);
 
     if (!validatedFields.success) {
         console.error(validatedFields.error.flatten().fieldErrors);
@@ -66,7 +67,8 @@ export async function addVehicleFormAction(state: TAddVehicleFormState, formData
     }
 
     try {
-        const vehicleId = await VehicleService.addVehicle({
+         await VehicleService.updateVehicle({
+            vehicleId: validatedFields.data.vehicleId,
             name: validatedFields.data.name,
             personsCapacity: validatedFields.data.personsCapacity,
             euro: validatedFields.data.euro,
@@ -78,8 +80,8 @@ export async function addVehicleFormAction(state: TAddVehicleFormState, formData
             yearOfManufacture: validatedFields.data.yearOfManufacture,
             departureStation: validatedFields.data.departureStation
         });
-        await VehicleService.addVehiclePhotos({
-            vehicleId: vehicleId,
+        await VehicleService.updateVehiclePhotos({
+            vehicleId: validatedFields.data.vehicleId,
             frontPhoto: validatedFields.data.frontPhoto,
             rearPhoto: validatedFields.data.rearPhoto,
             leftSidePhoto: validatedFields.data.leftSidePhoto,
@@ -91,9 +93,9 @@ export async function addVehicleFormAction(state: TAddVehicleFormState, formData
             insurance: validatedFields.data.insurance
         })
     } catch (error: any) {
-        console.error('Chyba při pridani vozidla:', error);
+        console.error('Chyba při updateu busu:', error);
         return {
-            errors: error.message || 'Došlo k neočekávané chybě během přidání vozidla.',
+            errors: error.message || 'Došlo k neočekávané chybě během updatu busu.',
         }
     }
     redirect(ROUTES.VEHICLES);
