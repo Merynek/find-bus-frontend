@@ -1,6 +1,6 @@
 'use server';
 
-import {UsersApi} from "@/src/api/usersApi";
+import {IUpdateTransportRequirementsPhotosRequest, UsersApi} from "@/src/api/usersApi";
 import {AdminUserDetailResponseDto, UserSettingsRequestDto, type UserSettingsResponseDto} from "@/src/api/openapi";
 import {getAccessToken} from "@/src/app/actions/auth/accessTokenActions";
 
@@ -38,4 +38,11 @@ export async function getSettings(): Promise<UserSettingsResponseDto> {
     const usersApi = new UsersApi(accessToken);
 
     return await usersApi.getSettings({});
+}
+
+export async function updateTransportRequirementsPhotos(req: IUpdateTransportRequirementsPhotosRequest) {
+    const accessToken = await getAccessToken();
+    const usersApi = new UsersApi(accessToken);
+
+    await usersApi.updateTransportRequirementsPhotos(req);
 }
