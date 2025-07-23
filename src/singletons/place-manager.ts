@@ -1,11 +1,17 @@
-import {component} from "ironbean";
 import {action, observable} from "mobx";
 import {Place} from "../data/place";
 
-@component
 export class PlaceManager {
+    private static _instance: PlaceManager | null = null;
     @observable public placeIds: Map<string, Place> = new Map<string, Place>();
     @observable public geoPoints: Map<string, Place> = new Map<string, Place>();
+
+    public static get instance(): PlaceManager {
+        if (!PlaceManager._instance) {
+            PlaceManager._instance = new PlaceManager();
+        }
+        return PlaceManager._instance;
+    }
 
     public initPlaces(places: Place[]) {
         places.forEach(place => {

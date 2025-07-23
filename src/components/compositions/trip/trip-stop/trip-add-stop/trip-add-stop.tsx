@@ -1,4 +1,3 @@
-import {useTranslate} from "@/src/hooks/translateHook";
 import {Place} from "@/src/data/place";
 import {GeoPoint} from "@/src/data/geoPoint";
 import React from "react";
@@ -10,7 +9,7 @@ import {ButtonClick, ButtonSize, ButtonType} from "../../../../components/button
 import {Icon} from "../../../../components/icon/icon";
 import {IconType} from "@/src/enums/icon.enum";
 import {PlaceAutocomplete} from "../../../../components/inputs/place-autocomplete/place-autocomplete";
-import {useBean} from "ironbean-react";
+import {useInit} from "@/src/hooks/lifecycleHooks";
 
 export interface IStopAddPlaceProps {
     onAddTripPlace: (place: Place) => void;
@@ -20,10 +19,8 @@ export interface IStopAddPlaceProps {
 }
 
 export const TripAddStop = observer((props: IStopAddPlaceProps) => {
-    const { placeholder, onHide, onAddTripPlace, allGeoPoints} = props;
-    const _placeManager = useBean(PlaceManager);
-    const _translationKey = "component.addStop.";
-    const {t} = useTranslate();
+    const { onHide, onAddTripPlace} = props;
+    const _placeManager = useInit(() => PlaceManager.instance);
 
     const handleAddPlace = (place: Place|undefined) => {
         if (place) {

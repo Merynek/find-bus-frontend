@@ -3,7 +3,6 @@ import {useTranslate} from "@/src/hooks/translateHook";
 import styles from "./trip-route-create.module.scss";
 import {observer} from "mobx-react";
 import {DatePicker} from "../../../../components/inputs/date-picker/date-picker";
-import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import {Route} from "@/src/data/trip/route";
 import {Trip} from "@/src/data/trip/trip";
 import {TripStop} from "../../trip-stop/trip-stop/trip-stop";
@@ -11,7 +10,7 @@ import {formatTimeForTrip, getFormattedDistance} from "@/src/utils/common";
 import {formatDateTime} from "@/src/utils/date-time.format";
 import {ValidationState} from "../../../../components/inputs/inputEnum";
 import {ValidationTooltip} from "../../../../components/validation-tooltip/validation-tooltip";
-import {useBean} from "ironbean-react";
+import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 
 export interface ITripRouteCreateProps {
     trip: Trip;
@@ -22,7 +21,6 @@ export const TripRouteCreate = observer((props: ITripRouteCreateProps) => {
     const {route, trip} = props;
     const _locKey = "component.trip.";
     const {t} = useTranslate();
-    const _configuration = useBean(AppConfiguration);
 
     return <div className={styles.layout}>
         <div className={styles.section}>
@@ -51,6 +49,7 @@ export const TripRouteCreate = observer((props: ITripRouteCreateProps) => {
                         }}
                         placeholderText={t(_locKey + "timeFromPlaceHolder")}
                         showTimeSelect={true}
+                        locale={AppConfiguration.instance.locale}
                     />
                 </ValidationTooltip>
             </div>
@@ -71,7 +70,7 @@ export const TripRouteCreate = observer((props: ITripRouteCreateProps) => {
             <span className={styles.label}>{t(_locKey + "computedTimeToLabel")}: </span>
             <span className={styles.date}>{formatDateTime({
                 date: route.endTime,
-                locale: _configuration.locale
+                locale: AppConfiguration.instance.locale
             })}</span>
         </div>
     </div>
