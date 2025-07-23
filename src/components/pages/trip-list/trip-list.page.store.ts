@@ -1,11 +1,7 @@
-import {autowired} from "ironbean";
 import {makeObservable, observable} from "mobx";
 import {TripFilterStore} from "../../compositions/trip/trip-filter/trip-filter.store";
-import {CurrentUser} from "@/src/singletons/current-user";
-import {UserRole} from "@/src/api/openapi";
 import {TripItem} from "@/src/data/tripItem";
 import {TripService} from "@/src/services/TripService";
-import {VehicleService} from "@/src/services/VehicleService";
 
 interface ITripListParams {
     page?: number;
@@ -18,7 +14,6 @@ interface ITripListParams {
 }
 
 export class TripListPageStore {
-    @autowired private _currentUser: CurrentUser;
     @observable public tripItems: TripItem[];
     public filter: TripFilterStore;
 
@@ -36,9 +31,6 @@ export class TripListPageStore {
         this.filter.meOffered = params.meOffered || false;
         this.filter.distanceFromInKm = params.distanceFrom || 0;
         this.filter.distanceToInKm = params.distanceTo || 0;
-        if (this._currentUser.role === UserRole.TRANSPORTER) {
-            this._currentUser.vehicles = await VehicleService.getVehicles();
-        }
         await this._loadTrips();
     }
 
