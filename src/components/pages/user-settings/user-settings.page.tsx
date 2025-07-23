@@ -14,7 +14,6 @@ import {LayoutFlexColumn} from "../../components/layout/layout-flex-column/layou
 import {UserAddress} from "@/src/data/users/userAddress";
 import {ComboBox} from "../../components/inputs/combo-box/combo-box";
 import {TransferInfo} from "@/src/data/transferInfo";
-import {CurrentUser} from "@/src/singletons/current-user";
 import {TransportRequirements} from "@/src/data/transportRequirements";
 import {MediaElement} from "../../components/media-element/media-element";
 import {FileUploadInput} from "../../components/file-upload-input/file-upload-input";
@@ -22,11 +21,11 @@ import {getPhotosFromFiles} from "@/src/utils/file/file";
 import {Photo} from "@/src/data/media/photo";
 import {Icon} from "../../components/icon/icon";
 import {IconType} from "@/src/enums/icon.enum";
-import {useBean} from "ironbean-react";
 import {DropFileType} from "@/src/enums/file-drop-type.enum";
 import {CheckBoxSize} from "@/src/enums/check-box.enum";
-import {AppManager} from "@/src/singletons/app-manager";
 import {useMount} from "@/src/hooks/lifecycleHooks";
+import {useAuth} from "@/src/app/contexts/AuthContext";
+import {useApp} from "@/src/app/contexts/AppContext";
 
 enum PhotoType {
     ConcessionDocuments = "ConcessionDocuments",
@@ -35,9 +34,9 @@ enum PhotoType {
 
 const UserSettingsPage = observer(() => {
     const _locKey = "page.userSettings."
-    const _currentUser = useBean(CurrentUser);
+    const {user} = useAuth();
+    const {showLoader, hideLoader} = useApp();
     const _storeRef = useRef<UserSettingsPageStore>(new UserSettingsPageStore());
-    const _appManager = useBean(AppManager);
     const store = _storeRef.current;
     const settings = store.userSettings;
     const {t}= useTranslate();
@@ -54,9 +53,9 @@ const UserSettingsPage = observer(() => {
     });
 
     const submit = async () => {
-        _appManager.loading = true;
+        showLoader();
         await store.save();
-        _appManager.loading = false;
+        hideLoader();
     }
 
     const allNotifications = (): NotificationsEnum[] => {
@@ -261,11 +260,11 @@ const UserSettingsPage = observer(() => {
                         size={CheckBoxSize.MEDIUM} />
                 </div>
             })}
-            {_currentUser.role === UserRole.TRANSPORTER && <>
+            {user?.role === UserRole.TRANSPORTER && <>
                 <h2>Bankovní udaje</h2>
                 {_renderTransferInfoForm(settings.transferInfo)}
             </>}
-            {_currentUser.role === UserRole.TRANSPORTER && <>
+            {user?.role === UserRole.TRANSPORTER && <>
                 <h2>Požadavky na transportera</h2>
                 {_renderTransportRequirementsForm(settings.transportRequirements)}
             </>}
