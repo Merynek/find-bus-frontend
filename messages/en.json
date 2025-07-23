@@ -1,0 +1,54 @@
+{
+  "page": {
+    "sign": {
+      "emailPlaceholder": "Fill your e-mail",
+      "passwordPlaceholder": "Password",
+      "passwordConfirmPlaceholder": "Confirm Password",
+      "enterEmail": "Enter Email",
+      "enterPassword": "Enter Password",
+      "invalidEmail": "Invalid e-mail",
+      "shortPassword": "The password is too short",
+      "invalidPasswordConfirm": "Passwords are not same",
+      "registration": {
+        "registrationButton": "Register"
+      },
+      "forgotPassword": {
+        "sendForgotPasswordButton": "Renew password",
+        "textRequestSent": "Your request is processing. Just check your email."
+      },
+      "resetPassword": {
+        "tokenInvalid": "Token is not valid",
+        "submit": "Save password"
+      }
+    },
+    "userSettings": {
+      "name": "Name",
+      "surname": "Surname",
+      "phoneNumber": "Phone number",
+      "ico": "ID",
+      "dic": "VAT number",
+      "save": "save"
+    }
+  },
+  "component":  {
+    "button": "test in EN",
+    "placeName": {
+      "loadingPlace": "Loading",
+      "fillPlace": "Type place"
+    },
+    "trip": {
+      "stopFromLabel": "Boarding place",
+      "timeFromLabel": "Boarding time",
+      "stopToLabel": "Exit place",
+      "computedTimeToLabel": "Estimated exit time",
+      "timeFromPlaceHolder": "Time and date",
+      "directionKm": "km",
+      "directionHours":  "h",
+      "directionMinutes": "m"
+    },
+    "header": {
+      "logoutButton": "Logout",
+      "loginButton": "Login"
+    }
+  }
+}
