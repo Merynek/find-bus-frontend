@@ -17,21 +17,20 @@ import {
     TripRouteRecommendation
 } from "../../compositions/trip/trip-route/trip-route-recommendation/trip-route-recommendation";
 import {GeoPoint} from "@/src/data/geoPoint";
-import {useBean} from "ironbean-react";
 import {CheckBoxSize} from "@/src/enums/check-box.enum";
 import {NumberBox} from "../../components/inputs/number-box/number-box";
 import {useRouter} from 'next/navigation';
 import {ROUTES} from "@/src/enums/router.enum";
-import {AppManager} from "@/src/singletons/app-manager";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {FlexGap} from "@/src/enums/layout.enum";
 import {useInit} from "@/src/hooks/lifecycleHooks";
+import {useApp} from "@/src/app/contexts/AppContext";
 
 const CreateTripPage = observer(() => {
     const router = useRouter();
+    const {showLoader, hideLoader} = useApp();
     const _store = useInit(() => new CreateTripPageStore());
-    const _configuration = useBean(AppConfiguration);
-    const _appManager = useBean(AppManager);
+    const _configuration = AppConfiguration.instance;
     const {t} = useTranslate();
     const cfg = _configuration.appBusinessConfig;
 
@@ -59,6 +58,7 @@ const CreateTripPage = observer(() => {
                 }}
                 placeholderText={"End"}
                 showTimeSelect={true}
+                locale={AppConfiguration.instance.locale}
             />
         </div>
         <div>
@@ -175,9 +175,9 @@ const CreateTripPage = observer(() => {
                         alert(errors);
                     } else {
                         try {
-                            _appManager.loading = true;
+                            showLoader();
                             await _store.createTrip();
-                            _appManager.loading = false;
+                            hideLoader();
                             router.push(ROUTES.TRIP_LIST);
                         }
                         catch (e) {
