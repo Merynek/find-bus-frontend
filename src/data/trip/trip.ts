@@ -6,8 +6,6 @@ import {Stop} from "./stop";
 import {getTripMarkers} from "../../utils/map-markers";
 import {Place} from "../place";
 import {GeoPoint} from "../geoPoint";
-import {autowired} from "ironbean";
-import {CurrentUser} from "../../singletons/current-user";
 
 interface ITrip {
     id: number;
@@ -38,7 +36,6 @@ export class Trip {
     public totalDistanceInMeters: number;
     public offerState: TripOfferState;
     private readonly _observeChanges: boolean;
-    @autowired private _currentUser: CurrentUser;
     public created: Date;
 
     constructor(settings: ITrip) {
@@ -63,11 +60,6 @@ export class Trip {
         }
         makeObservable(this);
     }
-
-    @computed
-    get isOwner() {
-        return this._currentUser.id === this.ownerId;
-    };
 
     @computed
     get dateFrom(): Date|null {

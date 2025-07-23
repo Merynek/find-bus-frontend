@@ -105,8 +105,12 @@ export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
         />
     }
 
+    const isOwner = () => {
+        return user?.id === trip.ownerId;
+    }
+
     const _actionsForDemander = () => {
-        if (trip && trip.isOwner) {
+        if (trip && isOwner()) {
             if (offerAccepted()) {
                 return <TripOfferResult trip={trip} offers={offers} />;
             } else {

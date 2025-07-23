@@ -1,9 +1,8 @@
 import {Place} from "../place";
 import {computed, makeObservable, observable, runInAction} from "mobx";
 import {Route} from "./route";
-import {autowired} from "ironbean";
-import {IdGenerator, IdType} from "../../singletons/id-generator";
 import {StopResponseDto} from "@/src/api/openapi";
+import {IdGenerator, IdType} from "@/src/singletons/id-generator";
 
 interface IStop {
     id?: number;
@@ -15,11 +14,10 @@ export class Stop {
     public readonly id: number;
     @observable public place: Place;
     @observable private _route: Route | null;
-    @autowired private _idGenerator: IdGenerator;
 
     constructor(settings: IStop) {
         this.place = settings.place;
-        this.id = settings.id || this._idGenerator.getId(IdType.STOP);
+        this.id = settings.id || IdGenerator.instance.getId(IdType.STOP);
         this._route = settings.route;
         makeObservable(this);
     }
