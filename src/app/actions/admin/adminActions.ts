@@ -1,9 +1,8 @@
 'use server';
 
-import {type EmailConfigResponseDto, EmailType, Language} from "@/src/api/openapi";
+import {type EmailConfigResponseDto, EmailType, Language, UpdateAppBusinessConfigRequestDto} from "@/src/api/openapi";
 import {getAccessToken} from "@/src/app/actions/auth/accessTokenActions";
 import {AdminApi} from "@/src/api/adminApi";
-import {AppBusinessConfig} from "@/src/data/appBusinessConfig";
 
 export async function getEmailConfig(): Promise<EmailConfigResponseDto> {
     const accessToken = await getAccessToken();
@@ -30,7 +29,7 @@ export async function getAppBusinessConfig() {
     return await adminApi.getAppBusinessConfig();
 }
 
-export async function changeAppBusinessConfig(cfg: AppBusinessConfig) {
+export async function changeAppBusinessConfig(cfg: UpdateAppBusinessConfigRequestDto) {
     const accessToken = await getAccessToken();
     const adminApi = new AdminApi(accessToken);
 

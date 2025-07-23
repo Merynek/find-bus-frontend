@@ -72,7 +72,6 @@ export class TripsOfferApi {
         return new OpenApi.TripOfferApi(ApiConfiguration.createOpenApiConfig(this._token));
     }
 
-
     public async getTripOffers(req: IGetTripOffersRequest): Promise<TripOfferResponseDto[]> {
         return await this._api.apiTripOfferGetTripOffersGet({
             tripId: req.tripId

@@ -1,8 +1,13 @@
 import {ApiConfiguration} from "./apiConfiguration";
 import * as OpenApi from "./openapi";
 import {IApiRequest} from "./toolsApi";
-import {AppBusinessConfigResponseDto, type EmailConfigResponseDto, EmailType, Language} from "./openapi";
-import {AppBusinessConfig} from "../data/appBusinessConfig";
+import {
+    AppBusinessConfigResponseDto,
+    type EmailConfigResponseDto,
+    EmailType,
+    Language,
+    UpdateAppBusinessConfigRequestDto
+} from "./openapi";
 
 export interface ISetEmailConfigRequest extends IApiRequest {
     type: EmailType;
@@ -11,7 +16,7 @@ export interface ISetEmailConfigRequest extends IApiRequest {
 }
 
 export interface IPostChangeAppBusinessConfigRequest extends IApiRequest {
-    cfg: AppBusinessConfig;
+    cfg: UpdateAppBusinessConfigRequestDto;
 }
 
 export class AdminApi {
