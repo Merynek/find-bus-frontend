@@ -7,8 +7,6 @@ import {GeoPoint} from "@/src/data/geoPoint";
 import {getCountriesBounds, getPointsBounds} from "./tools/map-box-tools";
 import {MapBoxApi} from "./tools/map-box-api";
 import {Country} from "@/src/api/openapi";
-import {useBean} from "ironbean-react";
-import {AppManager} from "@/src/singletons/app-manager";
 import {IMapMarker} from "./map-box-types";
 
 type TInitView = {
@@ -31,7 +29,7 @@ export const MapBox = (props: IMapBoxProps) => {
     return <InnerMapBox {...props} />
 }
 
-const InnerMapBox = observer((props: IMapBoxProps) => {
+const InnerMapBox = (props: IMapBoxProps) => {
     const _mapContainerRef = useRef<HTMLDivElement>(null);
     const _mapRef = useRef<Map|null>(null);
     const {markers, polyLines, flyTo, disableScrollZoom, initialView, center, onClick} = props;
@@ -125,4 +123,4 @@ const InnerMapBox = observer((props: IMapBoxProps) => {
             width: "100%"
         }}
     />
-});
+};
