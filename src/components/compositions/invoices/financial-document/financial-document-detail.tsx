@@ -3,7 +3,6 @@ import styles from "./financial-document-detail.module.scss";
 import {LayoutFlexRow} from "../../../components/layout/layout-flex-row/layout-flex-row";
 import React from "react";
 import {formatDateTime} from "@/src/utils/date-time.format";
-import {useBean} from "ironbean-react";
 import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import {ButtonClick, ButtonSize, ButtonType} from "../../../components/button/button";
 import {FinancialDocument} from "@/src/data/documents/financialDocument";
@@ -16,7 +15,7 @@ export interface IFinancialDocumentProps {
 
 export const FinancialDocumentDetail = observer((props: IFinancialDocumentProps) => {
     const {document} = props;
-    const _configuration = useBean(AppConfiguration);
+    const locale = AppConfiguration.instance.locale
     const {showLoader, hideLoader} = useApp();
 
     return <div className={styles.layout}>
@@ -31,14 +30,14 @@ export const FinancialDocumentDetail = observer((props: IFinancialDocumentProps)
         <LayoutFlexRow>
             <span>dateOfIssue: </span>
             <span>{formatDateTime({
-                locale: _configuration.locale,
+                locale: locale,
                 date: document.dateOfIssue
             })}</span>
         </LayoutFlexRow>
         <LayoutFlexRow>
             <span>dueDate: </span>
             <span>{formatDateTime({
-                locale: _configuration.locale,
+                locale: locale,
                 date: document.dueDate
             })}</span>
         </LayoutFlexRow>

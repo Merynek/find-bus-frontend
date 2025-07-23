@@ -1,13 +1,11 @@
 import React from "react";
-import styles from "./date-picker.module.scss"
 import {observer} from "mobx-react";
-import {AppConfiguration} from "@/src/singletons/AppConfiguration";
-import {useBean} from "ironbean-react";
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { DateTimePicker as NativeDateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { DatePicker as NativeDatePicker } from '@mui/x-date-pickers/DatePicker';
 import moment from "moment";
+import {LOCALES} from "@/src/utils/locale";
 
 export interface IDatePickerProps {
     selected?: Date | null;
@@ -17,15 +15,15 @@ export interface IDatePickerProps {
     disabled?: boolean;
     onChange: (date: Date|null) => void,
     showTimeSelect?: boolean;
+    locale: LOCALES;
 }
 
 export const DatePicker = observer((props: IDatePickerProps) => {
-    const configuration = useBean(AppConfiguration);
-    const {selected, placeholderText,
+    const {selected, locale,
         minDate, disabled, maxDate, onChange,
         showTimeSelect} = props;
 
-    return <LocalizationProvider dateAdapter={AdapterMoment} adapterLocale={configuration.locale}>
+    return <LocalizationProvider dateAdapter={AdapterMoment} adapterLocale={locale}>
         {showTimeSelect ? <NativeDateTimePicker
             value={selected ? moment(selected) : undefined}
             minDate={minDate ? moment(minDate) : undefined}

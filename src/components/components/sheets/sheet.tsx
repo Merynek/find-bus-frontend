@@ -1,11 +1,8 @@
-import {observer} from "mobx-react";
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import styles from "./sheet.module.scss";
-import React, {useEffect} from "react";
-import {useBean} from "ironbean-react";
-import {DeviceManager} from "@/src/singletons/device-manager";
-import {AppManager} from "@/src/singletons/app-manager";
+import React from "react";
 import {FontSize, Text} from "../texts/text/text";
+import {isIOS} from "react-device-detect";
 
 export interface ISheetComponentProps {
     open: boolean;
@@ -17,13 +14,8 @@ export interface ISheetComponentProps {
     bottomContent?: React.ReactNode;
 }
 
-export const SheetComponent = observer((props: ISheetComponentProps) => {
+export const SheetComponent = (props: ISheetComponentProps) => {
     const {open, onClose, label, children, isFullScreen, bottomContent, onOpen} = props;
-    const _deviceManager = useBean(DeviceManager);
-    const _appManager = useBean(AppManager);
-    useEffect(() => {
-        _appManager.sheetOpened = open;
-    }, [open])
 
     return <SwipeableDrawer
         anchor={"bottom"}
@@ -32,7 +24,7 @@ export const SheetComponent = observer((props: ISheetComponentProps) => {
         }}
         disableSwipeToOpen={true}
         disableBackdropTransition={true}
-        disableDiscovery={_deviceManager.isIOSDevice}
+        disableDiscovery={isIOS}
         open={open}
         onClose={onClose}
         PaperProps={{
@@ -53,4 +45,4 @@ export const SheetComponent = observer((props: ISheetComponentProps) => {
             {bottomContent && <div className={styles.bottomContent}>{bottomContent}</div>}
         </div>
     </SwipeableDrawer>
-});
+};
