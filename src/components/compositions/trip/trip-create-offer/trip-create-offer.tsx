@@ -5,20 +5,21 @@ import {observer} from "mobx-react";
 import {ComboBox} from "../../../components/inputs/combo-box/combo-box";
 import {InputSize} from "../../../components/inputs/inputEnum";
 import {ButtonClick, ButtonSize, ButtonType} from "../../../components/button/button";
-import {CurrentUser} from "@/src/singletons/current-user";
 import {DatePicker} from "../../../components/inputs/date-picker/date-picker";
 import {Price} from "@/src/data/price";
 import {NumberBox} from "../../../components/inputs/number-box/number-box";
 import {UserSettings} from "@/src/data/users/userSettings";
 import {UserRole} from "@/src/api/openapi";
-import {useBean} from "ironbean-react";
 import {useMount} from "@/src/hooks/lifecycleHooks";
-import {AppManager} from "@/src/singletons/app-manager";
 import {Offer} from "@/src/data/offer";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {TripOfferService} from "@/src/services/TripOfferService";
 import {UsersService} from "@/src/services/UsersService";
 import {VehicleService} from "@/src/services/VehicleService";
+import {useApp} from "@/src/app/contexts/AppContext";
+import { useAuth } from "@/src/app/contexts/AuthContext";
+import {AppConfiguration} from "@/src/singletons/AppConfiguration";
+import {Vehicle} from "@/src/data/users/vehicle";
 
 export interface ITripCreateOfferProps {
     trip: Trip;
@@ -33,11 +34,12 @@ interface IBusComboItem {
 
 export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
     const {trip, onMakeOffer, offers} = props;
-    const _currentUser = useBean(CurrentUser);
-    const _appManager = useBean(AppManager);
+    const {showLoader, hideLoader} = useApp();
+    const {user} = useAuth();
+    const [vehicles, setVehicles] = useState<Vehicle[]>([]);
 
     const alreadyOffered = () => {
-        return Boolean(offers.find(o => o.user.id === _currentUser.id));
+        return Boolean(offers.find(o => o.user.id === user?.id));
     }
 
     const price = useRef(Price.create());
@@ -52,13 +54,13 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
 
     const _init = async () => {
         setUserSettings(await UsersService.getSettings());
-        if (_currentUser.role === UserRole.TRANSPORTER) {
-            _currentUser.vehicles = await VehicleService.getVehicles();
+        if (user?.role === UserRole.TRANSPORTER) {
+            setVehicles(await VehicleService.getVehicles());
         }
     }
 
     const getBusItems = () => {
-        return _currentUser.vehicles.map(vehicle => {
+        return vehicles.map(vehicle => {
             return {
                 value: vehicle.id.toString(),
                 label: vehicle.name
@@ -96,6 +98,7 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
                     setSelectedEndOfferDate(val)
                 }
             }}
+            locale={AppConfiguration.instance.locale}
         />
     }
 
@@ -108,9 +111,9 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
                     onClick={async () => {
                         const isValid = validate();
                         if (selectedEndOfferDate && isValid) {
-                            _appManager.loading = true;
-                            TripOfferService.updateOffer(offers[0].id, selectedEndOfferDate);
-                            _appManager.loading = false;
+                            showLoader();
+                            await TripOfferService.updateOffer(offers[0].id, selectedEndOfferDate);
+                            hideLoader();
                             onMakeOffer();
                         } else {
                             alert("User settings is not valid");
@@ -123,9 +126,9 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
                 />
                 <ButtonClick
                     onClick={async () => {
-                        _appManager.loading = true;
+                        showLoader();
                         await TripOfferService.deleteOffer(trip.id);
-                        _appManager.loading = false;
+                        hideLoader();
                         onMakeOffer();
                     }}
                     isDisabled={selectedEndOfferDate === null}
@@ -174,14 +177,14 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
                 onClick={async () => {
                     const isValid = validate();
                     if (isValid && selectedEndOfferDate) {
-                        _appManager.loading = true;
+                        showLoader();
                         await TripOfferService.createOffer({
                             tripId: trip.id,
                             vehicleId: currentBus ? Number(currentBus.value) : 0,
                             price: price.current,
                             endOfferDate: selectedEndOfferDate
                         });
-                        _appManager.loading = false;
+                        hideLoader();
                         onMakeOffer();
                     } else {
                         alert("User settings is not valid");

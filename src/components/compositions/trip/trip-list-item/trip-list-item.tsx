@@ -4,7 +4,6 @@ import styles from "./trip-list-item.module.scss";
 import {formatDateTime} from "@/src/utils/date-time.format";
 import {cn, getFormattedDistance} from "@/src/utils/common";
 import {Countdown} from "../../../components/countdown/countdown";
-import {CurrentUser} from "@/src/singletons/current-user";
 import {TripOfferState, UserRole} from "@/src/api/openapi";
 import {ButtonSize, ButtonType, ButtonLink} from "../../../components/button/button";
 import {Route} from "@/src/data/trip/route";
@@ -12,8 +11,8 @@ import {TripItem} from "@/src/data/tripItem";
 import {ROUTES} from "@/src/enums/router.enum";
 import {IconType} from "@/src/enums/icon.enum";
 import {Icon} from "../../../components/icon/icon";
-import {useBean} from "ironbean-react";
 import { AppConfiguration } from "@/src/singletons/AppConfiguration";
+import {useAuth} from "@/src/app/contexts/AuthContext";
 
 export interface ITripListItemProps {
     tripItem: TripItem;
@@ -21,7 +20,7 @@ export interface ITripListItemProps {
 
 export const TripListItem = observer((props: ITripListItemProps) => {
     const {tripItem} = props;
-    const _currentUser = useBean(CurrentUser);
+    const {user} = useAuth();
 
     const _renderRoute = (route: Route, index: number) => {
         return <div key={index}>
@@ -55,7 +54,7 @@ export const TripListItem = observer((props: ITripListItemProps) => {
     }
 
     const hasOffersForAccept = (): boolean => {
-        if (_currentUser.role === UserRole.TRANSPORTER) {
+        if (user?.role === UserRole.TRANSPORTER) {
             return tripItem.alreadyOffered && tripItem.offerState === TripOfferState.CREATED;
         }
         return tripItem.isMine && tripItem.hasOffers && tripItem.offerState === TripOfferState.CREATED;
@@ -81,7 +80,7 @@ export const TripListItem = observer((props: ITripListItemProps) => {
                 }}
             />
         </div>}
-        {_currentUser.role === UserRole.TRANSPORTER && _renderForTransporter()}
+        {user?.role === UserRole.TRANSPORTER && _renderForTransporter()}
         <div className={styles.line}>
             <span>Nabídka končí:</span>
             <span>{formatDateTime({

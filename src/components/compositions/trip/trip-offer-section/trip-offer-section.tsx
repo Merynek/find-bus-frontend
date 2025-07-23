@@ -3,8 +3,6 @@
 import {observer} from "mobx-react";
 import React, {useState} from "react";
 import {CloseTripOfferReason, TripOfferState, TripResponseDto, UserRole} from "@/src/api/openapi";
-import {useBean} from "ironbean-react";
-import {CurrentUser} from "@/src/singletons/current-user";
 import {TripOfferResult} from "../trip-offer-result/trip-offer-result";
 import {TripCreateOffer} from "../trip-create-offer/trip-create-offer";
 import {TripOffer} from "../trip-offer/trip-offer";
@@ -18,14 +16,15 @@ import {FlexGap} from "@/src/enums/layout.enum";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
 import {TripOfferService} from "@/src/services/TripOfferService";
 import {useApp} from "@/src/app/contexts/AppContext";
+import {useAuth} from "@/src/app/contexts/AuthContext";
 
 export interface ITripOfferSectionProps {
     trip: TripResponseDto;
 }
 
 export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
-    const trip = useInit(() =>TripConverter.toClient(props.trip));
-    const _currentUser = useBean(CurrentUser);
+    const trip = useInit(() => TripConverter.toClient(props.trip));
+    const {user} = useAuth();
     const {showLoader, hideLoader} = useApp();
     const [offers, setOffers] = useState<Offer[]>([]);
     const router = useRouter();
@@ -68,12 +67,12 @@ export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
             case TripOfferState.STARTED:
                 return null;
         }
-        if (_currentUser.role === UserRole.TRANSPORTER) {
+        if (user?.role === UserRole.TRANSPORTER) {
             if (offers.length) {
                 return _transporterCloseButton();
             }
         }
-        if (_currentUser.role === UserRole.DEMANDER) {
+        if (user?.role === UserRole.DEMANDER) {
             return _demanderCloseButton();
         }
         return null;
