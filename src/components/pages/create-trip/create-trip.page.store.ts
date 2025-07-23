@@ -1,16 +1,14 @@
 import {Trip} from "@/src/data/trip/trip";
-import {autowired} from "ironbean";
 import {action, computed, makeObservable, observable, reaction} from "mobx";
 import {TripRecommendationType} from "@/src/api/openapi";
 import {hoursToSeconds} from "@/src/utils/common";
-import {AppManager} from "@/src/singletons/app-manager";
 import {addHours} from "@/src/utils/date-time.common";
-import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import moment from "moment";
 import {UserSettings} from "@/src/data/users/userSettings";
 import {TripService} from "@/src/services/TripService";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
 import {UsersService} from "@/src/services/UsersService";
+import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 
 export class CreateTripPageStore {
     public trip: Trip;
@@ -20,8 +18,6 @@ export class CreateTripPageStore {
     @observable public placesAreSet: boolean = true;
     @observable public peopleCountIsValid: boolean = true;
     @observable public routesCountIsValid: boolean = true;
-    @autowired private _configuration: AppConfiguration;
-    @autowired private _appManager: AppManager;
     @observable public userSettings: UserSettings|null;
 
     constructor() {
@@ -65,7 +61,7 @@ export class CreateTripPageStore {
 
     @computed
     get endOrderIsValid() {
-        return this.trip.endOrder >= addHours(new Date(), this._configuration.appBusinessConfig.minEndOrderFromNowInHours);
+        return this.trip.endOrder >= addHours(new Date(), AppConfiguration.instance.appBusinessConfig.minEndOrderFromNowInHours);
     }
 
     @computed
@@ -74,7 +70,7 @@ export class CreateTripPageStore {
             const start = moment(this.trip.dateFrom);
             const end = moment(this.trip.endOrder);
             const duration = moment.duration(start.diff(end));
-            return duration.asHours() >= this._configuration.appBusinessConfig.minDiffBetweenStartTripAndEndOrderInHours;
+            return duration.asHours() >= AppConfiguration.instance.appBusinessConfig.minDiffBetweenStartTripAndEndOrderInHours;
         }
         return true;
     }
@@ -107,7 +103,6 @@ export class CreateTripPageStore {
 
     @action
     public async createTrip() {
-        this._appManager.loading = true;
         try {
             await TripService.createTrip({
                 trip: TripConverter.toServer(this.trip)
@@ -115,6 +110,5 @@ export class CreateTripPageStore {
         } catch (e) {
             throw e;
         }
-        this._appManager.loading = false;
     }
 }

@@ -1,4 +1,3 @@
-import {component} from "ironbean";
 import {INT_32_MAX_VALUE} from "../utils/common";
 
 export enum IdType {
@@ -30,8 +29,8 @@ class IdSet {
     }
 }
 
-@component
 export class IdGenerator {
+    private static _instance: IdGenerator | null = null;
     private readonly customItems: IdSet;
     private readonly stops: IdSet;
     private readonly media: IdSet;
@@ -40,6 +39,13 @@ export class IdGenerator {
         this.customItems = new IdSet();
         this.stops = new IdSet();
         this.media = new IdSet();
+    }
+
+    public static get instance(): IdGenerator {
+        if (!IdGenerator._instance) {
+            IdGenerator._instance = new IdGenerator();
+        }
+        return IdGenerator._instance;
     }
 
     public getId(type: IdType): number {

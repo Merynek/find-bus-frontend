@@ -2,7 +2,6 @@ import {makeObservable} from "mobx";
 import {Photo} from "./photo";
 import {Video} from "./video";
 import {ISFile, SFile} from "./SFile";
-import {autowired} from "ironbean";
 import {IdGenerator, IdType} from "../../singletons/id-generator";
 
 export interface IMediaItem extends Omit<ISFile, "id"> {
@@ -10,8 +9,6 @@ export interface IMediaItem extends Omit<ISFile, "id"> {
 }
 
 export abstract class MediaItem extends SFile {
-    @autowired private _idGenerator: IdGenerator;
-
     protected constructor(settings: IMediaItem) {
         super({
             id: settings.id || 0,
@@ -19,7 +16,7 @@ export abstract class MediaItem extends SFile {
         });
         makeObservable(this);
         if (!settings.id) {
-            this.id = this._idGenerator.getId(IdType.MEDIA)
+            this.id = IdGenerator.instance.getId(IdType.MEDIA)
         }
     }
 
