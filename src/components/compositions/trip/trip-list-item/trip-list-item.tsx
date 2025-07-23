@@ -2,7 +2,6 @@ import React from "react";
 import {observer} from "mobx-react";
 import styles from "./trip-list-item.module.scss";
 import {formatDateTime} from "@/src/utils/date-time.format";
-import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import {cn, getFormattedDistance} from "@/src/utils/common";
 import {Countdown} from "../../../components/countdown/countdown";
 import {CurrentUser} from "@/src/singletons/current-user";
@@ -14,6 +13,7 @@ import {ROUTES} from "@/src/enums/router.enum";
 import {IconType} from "@/src/enums/icon.enum";
 import {Icon} from "../../../components/icon/icon";
 import {useBean} from "ironbean-react";
+import { AppConfiguration } from "@/src/singletons/AppConfiguration";
 
 export interface ITripListItemProps {
     tripItem: TripItem;
@@ -21,8 +21,6 @@ export interface ITripListItemProps {
 
 export const TripListItem = observer((props: ITripListItemProps) => {
     const {tripItem} = props;
-    const _locKey = "page.trip.";
-    const _configuration = useBean(AppConfiguration);
     const _currentUser = useBean(CurrentUser);
 
     const _renderRoute = (route: Route, index: number) => {
@@ -31,7 +29,7 @@ export const TripListItem = observer((props: ITripListItemProps) => {
                 <div className={styles.line}>
                     <span>Odjezd - {formatDateTime({
                         date: route.start,
-                        locale: _configuration.locale
+                        locale: AppConfiguration.instance.locale
                     })}</span>
                 </div>
                 <div className={styles.line}>
@@ -43,7 +41,7 @@ export const TripListItem = observer((props: ITripListItemProps) => {
                 <div className={styles.line}>
                     <span>Přijezd - {formatDateTime({
                         date: route.end,
-                        locale: _configuration.locale
+                        locale: AppConfiguration.instance.locale
                     })}</span>
                 </div>
             </div>
@@ -88,7 +86,7 @@ export const TripListItem = observer((props: ITripListItemProps) => {
             <span>Nabídka končí:</span>
             <span>{formatDateTime({
                 date: tripItem.endOffer,
-                locale: _configuration.locale
+                locale: AppConfiguration.instance.locale
             })}</span>
         </div>
         <div className={styles.line}>

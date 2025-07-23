@@ -7,8 +7,7 @@ import {Stop} from "@/src/data/trip/stop";
 import {Trip} from "@/src/data/trip/trip";
 import {PlaceManager} from "@/src/singletons/place-manager";
 import {PlaceAutocomplete} from "../../../../components/inputs/place-autocomplete/place-autocomplete";
-import {useBean} from "ironbean-react";
-import {useTranslate} from "@/src/hooks/translateHook";
+import {useInit} from "@/src/hooks/lifecycleHooks";
 
 export interface ITripPlaceNameProps {
     stop: Stop;
@@ -16,10 +15,8 @@ export interface ITripPlaceNameProps {
 }
 
 export const TripPlaceName = observer((props: ITripPlaceNameProps) => {
-    const {stop, trip} = props;
-    const _placeManager = useBean(PlaceManager);
-    const {t} = useTranslate();
-    const _locKey = "component.placeName.";
+    const {stop} = props;
+    const _placeManager = useInit(() => PlaceManager.instance);
 
     return <div className={cn(styles.placeName, styles.autocomplete)}>
         <PlaceAutocomplete

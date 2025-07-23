@@ -8,7 +8,6 @@ import {Trip} from "@/src/data/trip/trip";
 import {TripStop} from "../../trip-stop/trip-stop/trip-stop";
 import {formatTimeForTrip, getFormattedDistance} from "@/src/utils/common";
 import {formatDateTime} from "@/src/utils/date-time.format";
-import {useBean} from "ironbean-react";
 import {useTranslate} from "@/src/hooks/translateHook";
 
 export interface ITripRouteRecommendationProps {
@@ -20,7 +19,6 @@ export const TripRouteRecommendation = observer((props: ITripRouteRecommendation
     const {route, trip} = props;
     const _locKey = "component.trip.";
     const {t} = useTranslate();
-    const _configuration = useBean(AppConfiguration);
 
     return <div className={styles.layout}>
         <div className={styles.section}>
@@ -44,6 +42,7 @@ export const TripRouteRecommendation = observer((props: ITripRouteRecommendation
                     }}
                     placeholderText={t(_locKey + "timeFromPlaceHolder")}
                     showTimeSelect={true}
+                    locale={AppConfiguration.instance.locale}
                 />
             </div>
         </div>
@@ -62,7 +61,7 @@ export const TripRouteRecommendation = observer((props: ITripRouteRecommendation
         <div className={styles.section}>
             <span className={styles.label}>{t(_locKey + "computedTimeToLabel")}: </span>
             <span className={styles.date}>{formatDateTime({
-                locale: _configuration.locale,
+                locale: AppConfiguration.instance.locale,
                 date: route.computedEndTime
             })}
             </span>
