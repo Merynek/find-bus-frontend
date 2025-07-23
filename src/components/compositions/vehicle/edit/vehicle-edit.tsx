@@ -19,7 +19,6 @@ import {IconType} from "@/src/enums/icon.enum";
 import {DropFileType} from "@/src/enums/file-drop-type.enum";
 import {CheckBoxSize} from "@/src/enums/check-box.enum";
 import {NumberBox} from "../../../components/inputs/number-box/number-box";
-import {useBean} from "ironbean-react";
 import {ConfirmDialog} from "../../modals/confirm-dialog/confirm-dialog";
 import {PlaceAutocomplete} from "@/src/components/components/inputs/place-autocomplete/place-autocomplete";
 import {runInAction} from "mobx";
@@ -29,6 +28,7 @@ import {FontSize, Text} from "@/src/components/components/texts/text/text";
 import {useApp} from "@/src/app/contexts/AppContext";
 import {addVehicleFormAction} from "@/src/app/actions/forms/vehicle/add/addVehicleFormAction";
 import {editVehicleFormAction} from "@/src/app/actions/forms/vehicle/edit/editVehicleFormAction";
+import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 
 export interface IVehicleEditProps {
     store: VehicleEditStore;
@@ -50,8 +50,8 @@ enum VehiclePhotoType {
 export const VehicleEdit = observer((props: IVehicleEditProps) => {
     const {store, onClose} = props;
     const {showLoader, hideLoader} = useApp();
+    const _placeManager = PlaceManager.instance;
     const [ensureModalOpen, setEnsureModalOpen] = useState(false);
-    const _placeManager = useBean(PlaceManager);
 
     const _handleAddMedia = async (files: File[], type: VehiclePhotoType) => {
         const photos = await getPhotosFromFiles(files);
@@ -291,6 +291,7 @@ export const VehicleEdit = observer((props: IVehicleEditProps) => {
                             }
                         }}
                         placeholderText={"Expired"}
+                        locale={AppConfiguration.instance.locale}
                     />
                 </div>
             </ValidationTooltip>
