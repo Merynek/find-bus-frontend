@@ -104,18 +104,11 @@ export class TripsOfferApi {
         }, req.initOverrides);
     }
 
-    public async downloadFinancialDocument(req: IDownloadDocumentRequest): Promise<void> {
-        const blob = await this._api.apiTripOfferDownloadDocumentGet({
+    public async downloadFinancialDocument(req: IDownloadDocumentRequest) {
+        return await this._api.apiTripOfferDownloadDocumentGet({
             documentId: req.documentId,
             type: req.type
         }, req.initOverrides);
-        const aElement = document.createElement("a");
-        aElement.setAttribute("download", "document" + req.documentId);
-        const href = URL.createObjectURL(blob);
-        aElement.href = href;
-        aElement.setAttribute("target", "_blank");
-        aElement.click();
-        URL.revokeObjectURL(href);
     }
 
     public async createOffer(req: ICreateOfferRequest): Promise<void> {

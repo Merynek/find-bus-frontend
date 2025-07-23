@@ -1,7 +1,7 @@
 'use server';
 
 import {getAccessToken} from "@/src/app/actions/auth/accessTokenActions";
-import {ICreateOfferRequest, TripsOfferApi} from "@/src/api/tripsOfferApi";
+import {ICreateOfferRequest, IDownloadDocumentRequest, TripsOfferApi} from "@/src/api/tripsOfferApi";
 import {
     CloseTripOfferReason,
     TripOfferAcceptMethod,
@@ -93,6 +93,24 @@ export async function createOffer(req: ICreateOfferRequest) {
     return await tripsOfferApi.createOffer(req);
 }
 
+export async function downloadFinancialDocument(req: IDownloadDocumentRequest): Promise<Response> {
+    const accessToken = await getAccessToken();
+    const tripsOfferApi = new TripsOfferApi(accessToken);
 
+    try {
+        const blob = await tripsOfferApi.downloadFinancialDocument({
+            documentId: req.documentId,
+            type: req.type
+        });
 
+        const headers = new Headers();
+        headers.set('Content-Type', blob.type);
+        headers.set('Content-Disposition', `attachment; filename="document_${req.documentId}.${blob.type.split('/')[1] || 'bin'}"`);
 
+        return new Response(blob, { headers });
+    } catch (error) {
+        console.error('Chyba při stahování dokumentu:', error);
+        // Zpracujte chyby, např. vraťte status 500
+        return new Response('Chyba při stahování dokumentu', { status: 500 });
+    }
+}

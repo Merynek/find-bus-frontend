@@ -6,9 +6,9 @@ import {formatDateTime} from "@/src/utils/date-time.format";
 import {useBean} from "ironbean-react";
 import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import {ButtonClick, ButtonSize, ButtonType} from "../../../components/button/button";
-import {TripsOfferApi} from "@/src/api/tripsOfferApi";
-import {AppManager} from "@/src/singletons/app-manager";
 import {FinancialDocument} from "@/src/data/documents/financialDocument";
+import {TripOfferService} from "@/src/services/TripOfferService";
+import {useApp} from "@/src/app/contexts/AppContext";
 
 export interface IFinancialDocumentProps {
     document: FinancialDocument;
@@ -17,8 +17,7 @@ export interface IFinancialDocumentProps {
 export const FinancialDocumentDetail = observer((props: IFinancialDocumentProps) => {
     const {document} = props;
     const _configuration = useBean(AppConfiguration);
-    const _tripsOfferApi = useBean(TripsOfferApi);
-    const _appManager = useBean(AppManager);
+    const {showLoader, hideLoader} = useApp();
 
     return <div className={styles.layout}>
         <LayoutFlexRow>
@@ -57,12 +56,12 @@ export const FinancialDocumentDetail = observer((props: IFinancialDocumentProps)
         </LayoutFlexRow>
         <ButtonClick
             onClick={async () => {
-                _appManager.loading = true;
-                await _tripsOfferApi.downloadFinancialDocument({
+                showLoader();
+                await TripOfferService.downloadFinancialDocument({
                     documentId: document.id,
                     type: document.type
                 })
-                _appManager.loading = false;
+                hideLoader();
             }}
             label={"Download"}
             type={ButtonType.BLACK}

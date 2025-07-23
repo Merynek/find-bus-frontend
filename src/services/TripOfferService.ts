@@ -6,13 +6,13 @@ import {
     finishTrip,
     forceCloseTrip,
     deleteOffer,
-    acceptOffer, updateOffer, createOffer
+    acceptOffer, updateOffer, createOffer, downloadFinancialDocument
 } from "@/src/app/actions/trips/tripsOfferActions";
 import {TripOfferConverter} from "@/src/converters/trip-offer-converter";
 import {TripOfferMovement} from "@/src/data/tripOfferMovement";
 import {Offer} from "@/src/data/offer";
 import {CloseTripOfferReason, TripOfferAcceptMethod} from "@/src/api/openapi";
-import {ICreateOfferRequest} from "@/src/api/tripsOfferApi";
+import {ICreateOfferRequest, IDownloadDocumentRequest} from "@/src/api/tripsOfferApi";
 
 export class TripOfferService {
     public static async getTripOffers(tripId: number): Promise<Offer[]> {
@@ -59,4 +59,7 @@ export class TripOfferService {
         await createOffer(req);
     }
 
+    public static async downloadFinancialDocument(req: IDownloadDocumentRequest) {
+        return await downloadFinancialDocument(req);
+    }
 }
