@@ -1,9 +1,9 @@
 import {observer} from "mobx-react";
 import React, {useCallback} from "react";
 import {AutoComplete, IAutoCompleteItem} from "../autocomplete/auto-complete";
-import {useBean} from "ironbean-react";
 import {Place} from "@/src/data/place";
 import {LocationService} from "@/src/singletons/location-service";
+import {useInit} from "@/src/hooks/lifecycleHooks";
 
 export interface IPlaceAutocompleteProps {
    place?: Place;
@@ -14,7 +14,7 @@ export interface IPlaceAutocompleteProps {
 
 export const PlaceAutocomplete = observer((props: IPlaceAutocompleteProps) => {
    const {onChange, place, placeHolder, disabled} = props;
-   const _locationService = useBean(LocationService);
+   const _locationService = useInit(() => new LocationService());
 
    const getFilteredItems = useCallback(async (filter: string): Promise<IAutoCompleteItem<Place>[]> => {
       if (filter.length < 3) {

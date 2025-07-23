@@ -1,25 +1,29 @@
 import {GeoPoint} from "../data/geoPoint";
 import Direction, { DirectionsService } from "@mapbox/mapbox-sdk/services/directions";
 import GeocodingV6, {GeocodeService}  from "@mapbox/mapbox-sdk/services/geocoding-v6";
-import {autowired, component} from "ironbean";
-import {AppManager} from "./app-manager";
 import {Place} from "../data/place";
 import {Country} from "../api/openapi";
 import {IDirectionData} from "../data/trip/direction";
 
-@component
 export class MapboxUtils {
-    @autowired private _appManager: AppManager;
     private _directionService: DirectionsService;
     private _geocodeService: GeocodeService;
 
     constructor() {
+        const token = this._getAccessToken();
         this._directionService = Direction({
-            accessToken: this._appManager.mapboxAccessToken
+            accessToken: token
         })
         this._geocodeService = GeocodingV6({
-            accessToken: this._appManager.mapboxAccessToken,
+            accessToken: token
         })
+    }
+
+    private _getAccessToken() {
+        if (process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN) {
+            return process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
+        }
+        throw new Error('Environment variable NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN is not defined.');
     }
 
     public async searchPlaces(searchText: string): Promise<Place[]> {

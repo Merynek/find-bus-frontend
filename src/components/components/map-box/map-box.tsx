@@ -33,7 +33,6 @@ export const MapBox = (props: IMapBoxProps) => {
 
 const InnerMapBox = observer((props: IMapBoxProps) => {
     const _mapContainerRef = useRef<HTMLDivElement>(null);
-    const _appManager = useBean(AppManager);
     const _mapRef = useRef<Map|null>(null);
     const {markers, polyLines, flyTo, disableScrollZoom, initialView, center, onClick} = props;
     const _markersToUpdateRef = useRef<IMapMarker[]>(markers);
@@ -46,7 +45,11 @@ const InnerMapBox = observer((props: IMapBoxProps) => {
     }, []);
 
     const initMap = () => {
-        mapboxgl.accessToken = _appManager.mapboxAccessToken;
+        if (process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN) {
+            mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
+        } else {
+            throw new Error('Environment variable NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN is not defined.');
+        }
         let initBounds: LngLatBoundsLike|undefined = undefined;
         let initCenter: LngLatLike|undefined = undefined;
         if (initialView && initialView.countries?.length) {

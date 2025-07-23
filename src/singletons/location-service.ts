@@ -1,19 +1,18 @@
-import {autowired, component} from "ironbean";
 import {Priority, Semaphore} from "../utils/semaphore";
 import {debouncedFn} from "../utils/common";
 import {Place} from "../data/place";
 import {MapboxUtils} from "./mapbox-utils";
 import {IDirectionData} from "../data/trip/direction";
 
-@component
 export class LocationService {
-    @autowired private _mapboxUtils: MapboxUtils;
+    private readonly _mapboxUtils: MapboxUtils;
     private _semaphore: Semaphore;
     private readonly _timeout: number;
     private _directionsMap: Map<string, IDirectionData>;
 
     constructor() {
         this._timeout = 200;
+        this._mapboxUtils = new MapboxUtils();
         this._semaphore = new Semaphore(1);
         this._directionsMap = new Map<string, IDirectionData>();
     }
