@@ -8,11 +8,9 @@ import {ComboBox, IComboBoxItem} from "../../../components/inputs/combo-box/comb
 import {runInAction} from "mobx";
 import {TripOfferAcceptMethod} from "@/src/api/openapi";
 import {ButtonClick, ButtonSize, ButtonType} from "../../../components/button/button";
-import {TripsOfferApi} from "@/src/api/tripsOfferApi";
 import moment from "moment";
-import {AppManager} from "@/src/singletons/app-manager";
-import {useBean} from "ironbean-react";
 import {TripOfferService} from "@/src/services/TripOfferService";
+import {useApp} from "@/src/app/contexts/AppContext";
 
 export interface ITripOfferAcceptProps {
     offer: Offer;
@@ -22,7 +20,7 @@ export interface ITripOfferAcceptProps {
 
 export const TripOfferAccept = observer((props: ITripOfferAcceptProps) => {
     const {offer, onAcceptOffer, trip} = props;
-    const _configuration = useBean(AppConfiguration);
+    const {showLoader, hideLoader} = useApp();
     const _createAcceptMethodOption = (method: TripOfferAcceptMethod): IComboBoxItem<string> => {
         return {
             label: method,
@@ -36,7 +34,7 @@ export const TripOfferAccept = observer((props: ITripOfferAcceptProps) => {
             const start = moment(trip.dateFrom);
             const end = moment(trip.endOrder);
             const duration = moment.duration(start.diff(end));
-            if (duration.asHours() > _configuration.appBusinessConfig.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours) {
+            if (duration.asHours() > AppConfiguration.instance.appBusinessConfig.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours) {
                 options.push(_createAcceptMethodOption(TripOfferAcceptMethod.PAY_DEPOSIT));
             }
         }
@@ -45,7 +43,6 @@ export const TripOfferAccept = observer((props: ITripOfferAcceptProps) => {
         return options;
     }
     const methods = _createAcceptMethodOptions();
-    const _appManager = useBean(AppManager);
     const [acceptMethod, setAcceptMethod] = useState<TripOfferAcceptMethod>(TripOfferAcceptMethod.PAY_DEPOSIT);
 
     return <div className={styles.layout}>
@@ -60,9 +57,9 @@ export const TripOfferAccept = observer((props: ITripOfferAcceptProps) => {
         />
         <ButtonClick
             onClick={async () => {
-                _appManager.loading = true;
-                TripOfferService.acceptOffer(offer.id, acceptMethod);
-                _appManager.loading = false;
+                showLoader();
+                await TripOfferService.acceptOffer(offer.id, acceptMethod);
+                hideLoader();
                 onAcceptOffer();
             }}
             label={"Přijat nabídku"}
