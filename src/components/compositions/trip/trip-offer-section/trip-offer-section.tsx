@@ -135,8 +135,8 @@ export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
     }
 
     return <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
-        {_currentUser.role === UserRole.DEMANDER && _actionsForDemander()}
-        {_currentUser.role === UserRole.TRANSPORTER && _actionsForTransporter()}
+        {user?.role === UserRole.DEMANDER && _actionsForDemander()}
+        {user?.role === UserRole.TRANSPORTER && _actionsForTransporter()}
         {_renderCloseButton()}
     </LayoutFlexColumn>
 });

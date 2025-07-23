@@ -5,17 +5,16 @@ import {Offer} from "@/src/data/offer";
 import {Vehicle} from "@/src/data/users/vehicle";
 import {formatDateTime} from "@/src/utils/date-time.format";
 import {AppConfiguration} from "@/src/singletons/AppConfiguration";
-import {useBean} from "ironbean-react";
 import {VehicleDetailModal} from "../../vehicle/modal-vehicle-detail/vehicle-detail-modal";
 import {LayoutFlexColumn} from "../../../components/layout/layout-flex-column/layout-flex-column";
 import {LayoutFlexRow} from "../../../components/layout/layout-flex-row/layout-flex-row";
 import {ButtonClick, ButtonSize, ButtonType} from "../../../components/button/button";
-import {AppManager} from "@/src/singletons/app-manager";
 import {FinancialDocument} from "@/src/data/documents/financialDocument";
 import {
     FinancialDocumentDetail
 } from "@/src/components/compositions/invoices/financial-document/financial-document-detail";
 import {VehicleService} from "@/src/services/VehicleService";
+import {useApp} from "@/src/app/contexts/AppContext";
 
 export interface ITripOfferProps {
     offer: Offer;
@@ -23,8 +22,8 @@ export interface ITripOfferProps {
 
 export const TripOffer = observer((props: ITripOfferProps) => {
     const {offer} = props;
-    const _configuration = useBean(AppConfiguration);
-    const _appManager = useBean(AppManager);
+    const _configuration = AppConfiguration.instance;
+    const {showLoader, hideLoader} = useApp();
     const [vehicleDetail, setVehicleDetail] = useState<Vehicle|null>(null);
 
     const renderVehicleModal = () => {
@@ -47,9 +46,9 @@ export const TripOffer = observer((props: ITripOfferProps) => {
             </div>
             <ButtonClick
                 onClick={async () => {
-                    _appManager.loading = true;
+                    showLoader();
                     const detailVehicle = await VehicleService.getVehicle(vehicle.id)
-                    _appManager.loading = false;
+                    hideLoader();
                     setVehicleDetail(detailVehicle);
                 }}
                 label={"Vehicle Detail"}
