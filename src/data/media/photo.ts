@@ -1,6 +1,5 @@
 import {IMediaItem, MediaItem} from "./mediaItem";
 import {makeObservable, observable} from "mobx";
-import {autowired} from "ironbean";
 import {PhotoLoadManager} from "../../singletons/photo-load-manager";
 import {AppConfiguration} from "../../singletons/AppConfiguration";
 import {Video} from "./video";
@@ -12,8 +11,6 @@ export interface IPhoto extends IMediaItem {
 
 export class Photo extends MediaItem {
     public readonly path?: string;
-    @autowired private _photoLoadManager: PhotoLoadManager;
-    @autowired private _configuration: AppConfiguration;
     @observable public displayPath: string = "";
     @observable public photoLoaded: boolean;
 
@@ -26,9 +23,9 @@ export class Photo extends MediaItem {
     public async loadItem() {
         if (this.path) {
             // convert
-            this.displayPath = this._configuration.getResourcePath() +  this.path;
+            this.displayPath = AppConfiguration.instance.getResourcePath() +  this.path;
         } else if (this.file) {
-            this.displayPath = await this._photoLoadManager.loadPhotoFile(this.file, 640);
+            this.displayPath = await PhotoLoadManager.instance.loadPhotoFile(this.file, 640);
         } else {
             throw new Error(`Photo without data.`);
         }

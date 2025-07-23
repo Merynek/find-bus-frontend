@@ -3,7 +3,6 @@ import {Stop} from "./stop";
 import {Direction} from "./direction";
 import {Trip} from "./trip";
 import {milliSecondsToHours, secondsToMilliSeconds} from "../../utils/common";
-import {autowired} from "ironbean";
 import {LocationService} from "../../singletons/location-service";
 import {Priority} from "../../utils/semaphore";
 import {RouteResponseDto} from "@/src/api/openapi";
@@ -27,7 +26,7 @@ export class Route {
     @observable public computedDirectionInSeconds: number = 0;
     @observable public currentDJ: number = 0;
     @observable public currentM: number = 0;
-    @autowired private _locationService: LocationService;
+    private _locationService: LocationService;
     private _polyLineComputeDisposer: IReactionDisposer|null = null;
 
     constructor(settings: IRoute) {
@@ -37,6 +36,7 @@ export class Route {
         this._trip = settings.trip || null;
         this.start = settings.start;
         this.end = settings.end;
+        this._locationService = new LocationService();
         this.updateStops();
         makeObservable(this);
     }
