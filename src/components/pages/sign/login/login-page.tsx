@@ -7,16 +7,16 @@ import {ROUTES} from "@/src/enums/router.enum";
 import { useActionState } from "react";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {signInFormAction} from "@/src/app/actions/forms/signIn/signInFormAction";
-import {useTranslations} from "next-intl";
+import {useTranslate} from "@/src/hooks/translateHook";
 
 const LoginPage = observer(() => {
-    const t = useTranslations("page.sign");
+    const {t} = useTranslate("page.sign");
     const [state, action, pending] = useActionState(signInFormAction, undefined)
 
     return <div>
         <ButtonLink
             route={{route: ROUTES.SIGN_UP}}
-            label={t("registration.registrationButton")}
+            label={t("registration.registrationButton") as string}
             type={ButtonType.YELLOW}
             size={ButtonSize.BUTTON_SIZE_M}
         />
