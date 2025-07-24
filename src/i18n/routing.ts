@@ -1,76 +1,58 @@
 import {defineRouting} from 'next-intl/routing';
-
-export enum ROUTES {
-    HOME = "/",
-    SIGN_IN = "/sign/in",
-    SIGN_UP = "/sign/up",
-    ACTIVE_USER = "/active-user",
-    RESET_PASSWORD = "/reset-password",
-    FORGOT_PASSWORD = "/forgot-password",
-    USER_SETTINGS = "/user-settings",
-    VEHICLES = "/vehicles",
-    CREATE_TRIP = "/create-trip",
-    TRIPS = "/trips",
-    TRIP = "/trip",
-    ADMIN_TRIPS = "/admin/trips",
-    ADMIN_CONFIG = "/admin/config",
-    ADMIN_EMAILS = "/admin/emails",
-    ADMIN_USERS = "/admin/users",
-    ADMIN_TRIP = "/admin/trip"
-}
+import {LOCALES} from "@/src/utils/locale";
 
 export const routing = defineRouting({
-    locales: ['cs', 'en'],
-    defaultLocale: 'cs',
+    locales: [LOCALES.cs_CZ, LOCALES.en_US],
+    defaultLocale: LOCALES.cs_CZ,
     localePrefix: {
         mode: 'always'
     },
     pathnames: {
         '/': '/',
         '/sign/in': {
-            cs: '/prihlaseni'
+            [LOCALES.cs_CZ]: '/prihlaseni'
         },
         '/sign/up': {
-            cs: '/registrace'
+            [LOCALES.cs_CZ]: '/registrace'
         },
         '/active-user': {
-            cs: '/aktivace-uctu'
+            [LOCALES.cs_CZ]: '/aktivace-uctu'
         },
         '/reset-password': {
-            cs: '/obnoveni-hesla'
+            [LOCALES.cs_CZ]: '/obnoveni-hesla'
         },
         '/forgot-password': {
-            cs: '/zapomenute-heslo'
+            [LOCALES.cs_CZ]: '/zapomenute-heslo'
         },
         '/user-settings': {
-            cs: '/nastaveni-uzivatele'
+            [LOCALES.cs_CZ]: '/nastaveni-uzivatele'
         },
         '/vehicles': {
-            cs: '/vozidla'
+            [LOCALES.cs_CZ]: '/vozidla'
         },
         '/create-trip': {
-            cs: '/nova-cesta'
+            [LOCALES.cs_CZ]: '/nova-cesta'
         },
         '/trips': {
-            cs: '/cesty'
+            [LOCALES.cs_CZ]: '/cesty'
         },
         '/trip/[tripId]': {
-            cs: '/cesta/[tripId]'
+            [LOCALES.cs_CZ]: '/cesta/[tripId]'
         },
         '/admin/trips': {
-            cs: '/admin/cesty'
+            [LOCALES.cs_CZ]: '/admin/cesty'
         },
         '/admin/config': {
-            cs: '/admin/nastaveni'
+            [LOCALES.cs_CZ]: '/admin/nastaveni'
         },
         '/admin/emails': {
-            cs: '/admin/emaily'
+            [LOCALES.cs_CZ]: '/admin/emaily'
         },
         '/admin/users': {
-            cs: '/admin/uzivatele'
+            [LOCALES.cs_CZ]: '/admin/uzivatele'
         },
         '/admin/trip/[tripId]': {
-            cs: '/admin/cesta/[tripId]'
+            [LOCALES.cs_CZ]: '/admin/cesta/[tripId]'
         }
     }
 });
