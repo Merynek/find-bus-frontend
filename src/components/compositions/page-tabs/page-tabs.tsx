@@ -12,7 +12,6 @@ interface IPageTabsProps {
 
 export const PageTabs = async (props: IPageTabsProps) => {
     const {user} = props;
-    // const pathname = usePathname();
     const headerList = await headers();
     const pathname = headerList.get("x-current-path");
 

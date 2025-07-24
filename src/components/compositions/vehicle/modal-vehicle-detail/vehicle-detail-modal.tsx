@@ -1,6 +1,5 @@
 import {observer} from "mobx-react";
 import React from "react";
-import styles from "./modal-vehicle-detail.module.scss"
 import {ModalDialog} from "../../../components/modal-dialog/modal-dialog";
 import {Vehicle} from "@/src/data/users/vehicle";
 import {VehicleDetail} from "../detail-list/vehicle-detail-list";

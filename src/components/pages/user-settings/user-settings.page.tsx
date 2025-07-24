@@ -33,13 +33,12 @@ enum PhotoType {
 }
 
 const UserSettingsPage = observer(() => {
-    const _locKey = "page.userSettings."
+    const {t} = useTranslate("page.userSettings");
     const {user} = useAuth();
     const {showLoader, hideLoader} = useApp();
     const _storeRef = useRef<UserSettingsPageStore>(new UserSettingsPageStore());
     const store = _storeRef.current;
     const settings = store.userSettings;
-    const {t}= useTranslate();
 
     useMount(() => {
         _storeRef.current.loadData();
@@ -70,13 +69,13 @@ const UserSettingsPage = observer(() => {
                 value={transfer.iban}
                 onChange={(val) => transfer.iban = val}
                 type={TextBoxType.TEXT}
-                placeholder={t(_locKey + "iban")}
+                placeholder={t("iban")}
             />
             <TextBox
                 value={transfer.swift}
                 onChange={(val) => transfer.swift = val}
                 type={TextBoxType.TEXT}
-                placeholder={t(_locKey + "¨swift")}
+                placeholder={t("swift")}
             />
         </LayoutFlexColumn>
     }
@@ -90,7 +89,7 @@ const UserSettingsPage = observer(() => {
                 value={requirements.concessionNumber}
                 onChange={(val) => requirements.concessionNumber = val}
                 type={TextBoxType.TEXT}
-                placeholder={t(_locKey + "concessionNumber")}
+                placeholder={t("concessionNumber")}
             />
             {_renderPhoto(PhotoType.BusinessRiskInsurance)}
             {_renderPhoto(PhotoType.ConcessionDocuments)}
@@ -169,25 +168,25 @@ const UserSettingsPage = observer(() => {
                 value={address.city}
                 onChange={(val) => address.city = val}
                 type={TextBoxType.TEXT}
-                placeholder={t(_locKey + "city")}
+                placeholder={t("city")}
             />
             <TextBox
                 value={address.psc}
                 onChange={(val) => address.psc = val}
                 type={TextBoxType.TEXT}
-                placeholder={t(_locKey + "psc")}
+                placeholder={t("psc")}
             />
             <TextBox
                 value={address.street}
                 onChange={(val) => address.street = val}
                 type={TextBoxType.TEXT}
-                placeholder={t(_locKey + "street")}
+                placeholder={t("street")}
             />
             <TextBox
                 value={address.houseNumber}
                 onChange={(val) => address.houseNumber = val}
                 type={TextBoxType.TEXT}
-                placeholder={t(_locKey + "houseNumber")}
+                placeholder={t("houseNumber")}
             />
         </LayoutFlexColumn>
     }
@@ -198,37 +197,37 @@ const UserSettingsPage = observer(() => {
                 value={settings.name}
                 onChange={(val) => settings.name = val}
                 type={TextBoxType.TEXT}
-                placeholder={t(_locKey + "name")}
+                placeholder={t("name")}
             />
             <TextBox
                 value={settings.surname}
                 onChange={(val) => settings.surname = val}
                 type={TextBoxType.TEXT}
-                placeholder={t(_locKey + "surname")}
+                placeholder={t("surname")}
             />
             <TextBox
                 value={settings.phoneNumber}
                 onChange={(val) => settings.phoneNumber = val}
                 type={TextBoxType.TEXT}
-                placeholder={t(_locKey + "phoneNumber")}
+                placeholder={t("phoneNumber")}
             />
             <TextBox
                 value={settings.ico}
                 onChange={(val) => settings.ico = val}
                 type={TextBoxType.TEXT}
-                placeholder={t(_locKey + "ico")}
+                placeholder={t("ico")}
             />
             <TextBox
                 value={settings.dic}
                 onChange={(val) => settings.dic = val}
                 type={TextBoxType.TEXT}
-                placeholder={t(_locKey + "dic")}
+                placeholder={t("dic")}
             />
             <TextBox
                 value={settings.companyName}
                 onChange={(val) => settings.companyName = val}
                 type={TextBoxType.TEXT}
-                placeholder={t(_locKey + "companyName")}
+                placeholder={t("companyName")}
             />
             <h2>Jsi firma?:</h2>
             <CheckBox
@@ -272,7 +271,7 @@ const UserSettingsPage = observer(() => {
                 size={ButtonSize.BUTTON_SIZE_M}
                 onClick={() => {}}
                 type={ButtonType.BLACK}
-                label={t(_locKey + "save")}
+                label={t("save")}
             />
         </Form>
     </div> : <div>LOADER</div>

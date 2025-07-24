@@ -27,7 +27,15 @@
       "phoneNumber": "Phone number",
       "ico": "ID",
       "dic": "VAT number",
-      "save": "save"
+      "save": "save",
+      "iban": "IBAN",
+      "swift": "SWIFT",
+      "concessionNumber": "Concession Number",
+      "companyName": "Company Name",
+      "city": "City",
+      "psc": "PSC",
+      "street": "Street",
+      "houseNumber": "House Number"
     }
   },
   "component":  {

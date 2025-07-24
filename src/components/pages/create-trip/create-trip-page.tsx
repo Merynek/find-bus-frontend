@@ -31,7 +31,7 @@ const CreateTripPage = observer(() => {
     const {showLoader, hideLoader} = useApp();
     const _store = useInit(() => new CreateTripPageStore());
     const _configuration = AppConfiguration.instance;
-    const {t} = useTranslate();
+    const {t} = useTranslate("component.trip");
     const cfg = _configuration.appBusinessConfig;
 
     return <div className={styles.layout}>
@@ -131,9 +131,9 @@ const CreateTripPage = observer(() => {
                             trip={_store.trip}
                         />
                         <div>
-                            <p>DJ: {formatTimeForTrip(hoursToSeconds(route.currentDJ), t("component.trip.directionHours"), t("component.trip.directionMinutes"))}</p>
-                            <p>M: {formatTimeForTrip(hoursToSeconds(route.currentM), t("component.trip.directionHours"), t("component.trip.directionMinutes"))}</p>
-                            <p>REAL: {formatTimeForTrip(route.computedDirectionInSeconds, t("component.trip.directionHours"), t("component.trip.directionMinutes"))}</p>
+                            <p>DJ: {formatTimeForTrip(hoursToSeconds(route.currentDJ), t("directionHours"), t("directionMinutes"))}</p>
+                            <p>M: {formatTimeForTrip(hoursToSeconds(route.currentM), t("directionHours"), t("directionMinutes"))}</p>
+                            <p>REAL: {formatTimeForTrip(route.computedDirectionInSeconds, t("directionHours"), t("directionMinutes"))}</p>
                         </div>
                     </div>
                 })}</>}

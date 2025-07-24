@@ -27,7 +27,15 @@
       "phoneNumber": "Telefoní číslo",
       "ico": "IČO",
       "dic": "DIČ",
-      "save": "Uložit"
+      "save": "Uložit",
+      "iban": "IBAN",
+      "swift": "SWIFT",
+      "concessionNumber": "Koncesialni cislo",
+      "companyName": "Nazev firmy",
+      "city": "Mesto",
+      "psc": "PSč",
+      "street": "Ulice",
+      "houseNumber": "Cislo domu"
     }
   },
   "component":  {

@@ -13,7 +13,6 @@ export interface ITripFilterProps {
 }
 
 export const TripFilter = observer((props: ITripFilterProps) => {
-    const _locKey = "page.createTrip.filter.";
     const {filter, onSubmit} = props;
 
     return <div className={styles.layout}>

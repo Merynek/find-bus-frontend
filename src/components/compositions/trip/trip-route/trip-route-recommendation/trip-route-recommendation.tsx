@@ -17,19 +17,18 @@ export interface ITripRouteRecommendationProps {
 
 export const TripRouteRecommendation = observer((props: ITripRouteRecommendationProps) => {
     const {route, trip} = props;
-    const _locKey = "component.trip.";
-    const {t} = useTranslate();
+    const {t} = useTranslate("component.trip");
 
     return <div className={styles.layout}>
         <div className={styles.section}>
-            <span className={styles.label}>{t(_locKey + "stopFromLabel")}: </span>
+            <span className={styles.label}>{t("stopFromLabel")}: </span>
             <TripStop
                 trip={trip}
                 stop={route.from}
             />
         </div>
         <div className={styles.section}>
-            <span className={styles.label}>{t(_locKey + "timeFromLabel")}:</span>
+            <span className={styles.label}>{t("timeFromLabel")}:</span>
             <div className={styles.date}>
                 <DatePicker
                     selected={route.computedDate}
@@ -40,7 +39,7 @@ export const TripRouteRecommendation = observer((props: ITripRouteRecommendation
                             route.start = val;
                         }
                     }}
-                    placeholderText={t(_locKey + "timeFromPlaceHolder")}
+                    placeholderText={t("timeFromPlaceHolder")}
                     showTimeSelect={true}
                     locale={AppConfiguration.instance.locale}
                 />
@@ -49,17 +48,17 @@ export const TripRouteRecommendation = observer((props: ITripRouteRecommendation
         <div className={styles.section}>
             <span className={styles.label}>Vzdálenost / Čas (mapbox):</span>
             <span>{getFormattedDistance(route.direction.distance)}
-                / {formatTimeForTrip(route.computedDirectionInSeconds, t("component.trip.directionHours"), t("component.trip.directionMinutes"))}</span>
+                / {formatTimeForTrip(route.computedDirectionInSeconds, t("directionHours"), t("directionMinutes"))}</span>
         </div>
         <div className={styles.section}>
-            <span className={styles.label}>{t(_locKey + "stopToLabel")}: </span>
+            <span className={styles.label}>{t("stopToLabel")}: </span>
             <TripStop
                 trip={trip}
                 stop={route.to}
             />
         </div>
         <div className={styles.section}>
-            <span className={styles.label}>{t(_locKey + "computedTimeToLabel")}: </span>
+            <span className={styles.label}>{t("computedTimeToLabel")}: </span>
             <span className={styles.date}>{formatDateTime({
                 locale: AppConfiguration.instance.locale,
                 date: route.computedEndTime
