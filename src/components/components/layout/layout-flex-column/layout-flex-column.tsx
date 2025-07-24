@@ -8,7 +8,7 @@ export interface ILayoutFlexColumnProps extends ILayoutFlexProps {}
 export const LayoutFlexColumn = (props: ILayoutFlexColumnProps) => {
     const {gap, justifyContent,
         alignItems, tabIndex,
-        elementRef, children, style} = props;
+        children, style} = props;
 
     return <div
         tabIndex={tabIndex}
@@ -17,7 +17,6 @@ export const LayoutFlexColumn = (props: ILayoutFlexColumnProps) => {
             justifyContent: justifyContent,
             ...style,
         }}
-        ref={elementRef}
         className={cn(styles.flex, gap && getClassName(gap))}
     >
         {children}

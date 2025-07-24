@@ -35,5 +35,5 @@ export async function signInFormAction(state: TSignInFormState, formData: FormDa
             errors: error.message || 'Došlo k neočekávané chybě během přihlašování.',
         }
     }
-    redirect(ROUTES.HOME);
+    redirect(ROUTES.SIGN_UP);
 }

@@ -63,7 +63,7 @@ export class Place {
     public toJson(): PlaceResponseDto {
         return {
             placeId: this.placeId || "",
-            point: this.point || {lat: 0, lng: 0},
+            point: this.point ? this.point.toJson() : {lat: 0, lng: 0},
             name: this.name || "",
             placeFormatted: this.placeFormatted || "",
             country: this.country || Country.CZ

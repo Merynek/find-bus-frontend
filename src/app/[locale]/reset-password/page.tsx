@@ -6,8 +6,10 @@ interface ResetPasswordPageProps {
     };
 }
 
-function PageWrapper(props: ResetPasswordPageProps)  {
-    return <ResetPasswordPage {...props} />;
+async function PageWrapper(props: ResetPasswordPageProps) {
+    const {searchParams} = props;
+    const {token} = await searchParams;
+    return <ResetPasswordPage token={token || ""}/>;
 }
 
 export default PageWrapper;

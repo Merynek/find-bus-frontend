@@ -2,6 +2,7 @@ import {Amenities, EuroStandard, VehicleResponseDto} from "../../api/openapi";
 import {makeObservable, observable} from "mobx";
 import {Photo} from "../media/photo";
 import {Place} from "../place";
+import { toJS } from 'mobx'
 
 export interface IVehicleSettings {
     id: number;
@@ -111,7 +112,7 @@ export class Vehicle {
             yearOfManufacture: this.yearOfManufacture,
             personsCapacity: this.personsCapacity,
             euro: this.euro,
-            amenities: this.amenities,
+            amenities: toJS(this.amenities),
             handicappedUserCount: this.handicappedUserCount,
             frontPhoto: this.frontPhoto ? {id: this.frontPhoto.id, path: this.frontPhoto.path || ""}: undefined,
             rearPhoto: this.rearPhoto ? {id: this.rearPhoto.id, path: this.rearPhoto.path || ""}: undefined,

@@ -1,10 +1,8 @@
 import React from "react";
 import {Photo} from "@/src/data/media/photo";
-import {observer} from "mobx-react";
 import styles from "./media-element.module.scss";
 import {MediaItem} from "@/src/data/media/mediaItem";
 import {cn} from "@/src/utils/common";
-import {useMount} from "@/src/hooks/lifecycleHooks";
 
 interface IMediaElementProps {
     mediaItem: MediaItem;
@@ -13,14 +11,8 @@ interface IMediaElementProps {
     alt?: string;
 }
 
-export const MediaElement = observer((props: IMediaElementProps) => {
+export const MediaElement = (props: IMediaElementProps) => {
     const {mediaItem, width, height, alt} = props;
-
-    useMount(() => {
-        if (mediaItem.isPhoto() && !mediaItem.photoLoaded) {
-            mediaItem.loadItem();
-        }
-    })
 
     const renderPhoto = (photo: Photo) => {
         return <img
@@ -35,4 +27,4 @@ export const MediaElement = observer((props: IMediaElementProps) => {
         return renderPhoto(mediaItem);
     }
     return <div>TODO</div>
-});
+};

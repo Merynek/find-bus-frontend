@@ -46,11 +46,10 @@ export interface ITextProps {
     textTransform?: TextTransform;
     textDecoration?: TextDecoration;
     color?: Color;
-    refProp?: (ref: HTMLSpanElement|null) => void;
 }
 
 export const Text = (props: ITextProps) => {
-    const {text, refProp, inline, fontSize, fontWeight,
+    const {text, inline, fontSize, fontWeight,
         textAlign, textTransform, textDecoration, color} = props;
 
     const getClassNames = () => {
@@ -127,7 +126,6 @@ export const Text = (props: ITextProps) => {
     }
 
     return <span
-        ref={(ref) => refProp && refProp(ref)}
         className={cn(styles.text, getClassNames())}
     >
         {text}

@@ -6,18 +6,16 @@ import {resetPasswordFormAction} from "@/src/app/actions/forms/resetPassword/res
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 
 interface ResetPasswordPageProps {
-    searchParams: {
-        token?: string;
-    };
+    token: string;
 }
 
 const ResetPasswordPage = (props: ResetPasswordPageProps) => {
-    const {searchParams} = props;
+    const {token} = props;
     const [state, action, pending] = useActionState(resetPasswordFormAction, undefined);
 
     return <div className={styles.layout}>
         <form action={action}>
-            <input type="hidden" name={FormDataEnum.token} value={searchParams.token + ""}/>
+            <input type="hidden" name={FormDataEnum.token} value={token + ""}/>
             {state?.errors?.token && <p>{state.errors.token}</p>}
             <div>
                 <label htmlFor={FormDataEnum.password}>Password</label>

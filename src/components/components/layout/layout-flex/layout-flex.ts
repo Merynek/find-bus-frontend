@@ -1,4 +1,4 @@
-import React, {CSSProperties, LegacyRef} from "react";
+import React, {CSSProperties} from "react";
 import {Property} from "csstype";
 import styles from "./layout-flex.module.scss";
 import {FlexGap} from "@/src/enums/layout.enum";
@@ -10,7 +10,6 @@ export interface ILayoutFlexProps {
     alignItems?: Property.AlignItems;
     justifyContent?: Property.JustifyContent;
     tabIndex?: number;
-    elementRef?: LegacyRef<HTMLDivElement>;
     gap?: FlexGap | IResponsiveFlex;
     style?: CSSProperties | undefined;
 }

@@ -11,10 +11,9 @@ export interface ILayoutFlexRowProps extends ILayoutFlexProps {
 export const LayoutFlexRow = (props: ILayoutFlexRowProps) => {
     const {gap, justifyContent,
         alignItems, tabIndex,
-        elementRef, children, canWrap, responsive, style} = props;
+        children, canWrap, responsive, style} = props;
 
     return <div
-        ref={elementRef}
         style={{
             alignItems: alignItems,
             justifyContent: justifyContent,
