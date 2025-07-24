@@ -1,3 +1,5 @@
+"use client"
+
 import {User} from "@/src/data/users/user";
 import {createContext, ReactNode, useContext, useMemo, useState} from "react";
 import {CheckTokenResponseDto} from "@/src/api/openapi";
