@@ -1,7 +1,5 @@
-import {
-    UserAddressResponseDto
-} from "../api/openapi";
-import {UserAddress} from "../data/users/userAddress";
+import {UserAddressResponseDto} from "@/src/api/openapi";
+import {UserAddress} from "@/src/data/users/userAddress";
 
 export class UserAddressConverter {
     public static toInstance(response: UserAddressResponseDto): UserAddress {

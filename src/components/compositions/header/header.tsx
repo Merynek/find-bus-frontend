@@ -42,7 +42,7 @@ export const Header = (props: IHeaderProps) => {
 
     return <header className={styles.layout}>
         {_renderLanguages()}
-        {user !== null ? _renderLogoutButton() : _renderLoginButton()}
+        {user === null ? _renderLoginButton() : _renderLogoutButton()}
         {user !== null && <PageTabs user={user} />}
     </header>
 };
