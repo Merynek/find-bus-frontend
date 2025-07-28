@@ -2,9 +2,8 @@
 
 import {getAccessToken} from "@/src/app/actions/auth/accessTokenActions";
 import {
-    IAddVehiclePhotosRequest,
     IAddVehicleRequest,
-    IUpdateVehiclePhotosRequest,
+    IUploadVehicleFilesRequest,
     IUpdateVehicleRequest,
     VehicleApi
 } from "@/src/api/vehicleApi";
@@ -43,13 +42,6 @@ export async function addVehicle(req: IAddVehicleRequest) {
     return await vehicleApi.addVehicle(req);
 }
 
-export async function addVehiclePhotos(req: IAddVehiclePhotosRequest) {
-    const accessToken = await getAccessToken();
-    const vehicleApi = new VehicleApi(accessToken);
-
-    return await vehicleApi.addVehiclePhotos(req);
-}
-
 export async function updateVehicle(req: IUpdateVehicleRequest) {
     const accessToken = await getAccessToken();
     const vehicleApi = new VehicleApi(accessToken);
@@ -57,9 +49,9 @@ export async function updateVehicle(req: IUpdateVehicleRequest) {
     return await vehicleApi.updateVehicle(req);
 }
 
-export async function updateVehiclePhotos(req: IUpdateVehiclePhotosRequest) {
+export async function updateVehicleFiles(req: IUploadVehicleFilesRequest) {
     const accessToken = await getAccessToken();
     const vehicleApi = new VehicleApi(accessToken);
 
-    return await vehicleApi.updateVehiclePhotos(req);
+    return await vehicleApi.uploadVehicleFiles(req);
 }

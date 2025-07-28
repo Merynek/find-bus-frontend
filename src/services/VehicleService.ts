@@ -1,15 +1,13 @@
 import {
     addVehicle,
-    addVehiclePhotos,
     getVehicle,
     getVehicles,
-    setVehicleVerification, updateVehicle, updateVehiclePhotos
+    setVehicleVerification, updateVehicle, updateVehicleFiles
 } from "../app/actions/vehicle/vehicleActions";
 import {VehicleConverter} from "@/src/converters/vehicle-converter";
 import {
-    IAddVehiclePhotosRequest,
     IAddVehicleRequest,
-    IUpdateVehiclePhotosRequest,
+    IUploadVehicleFilesRequest,
     IUpdateVehicleRequest
 } from "@/src/api/vehicleApi";
 
@@ -32,15 +30,11 @@ export class VehicleService {
         return await addVehicle(req);
     }
 
-    public static async addVehiclePhotos(req: IAddVehiclePhotosRequest) {
-        await addVehiclePhotos(req);
-    }
-
     public static async updateVehicle(req: IUpdateVehicleRequest) {
         await updateVehicle(req);
     }
 
-    public static async updateVehiclePhotos(req: IUpdateVehiclePhotosRequest) {
-        await updateVehiclePhotos(req);
+    public static async uploadVehicleFiles(req: IUploadVehicleFilesRequest) {
+        await updateVehicleFiles(req);
     }
 }

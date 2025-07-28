@@ -78,7 +78,7 @@ export async function addVehicleFormAction(state: TAddVehicleFormState, formData
             yearOfManufacture: validatedFields.data.yearOfManufacture,
             departureStation: validatedFields.data.departureStation
         });
-        await VehicleService.addVehiclePhotos({
+        await VehicleService.uploadVehicleFiles({
             vehicleId: vehicleId,
             frontPhoto: validatedFields.data.frontPhoto,
             rearPhoto: validatedFields.data.rearPhoto,

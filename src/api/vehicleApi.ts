@@ -3,18 +3,6 @@ import * as OpenApi from "./openapi";
 import {IApiRequest} from "./toolsApi";
 import {Amenities, EuroStandard, PlaceRequestDto, VehicleResponseDto} from "./openapi";
 
-export interface IAddVehiclePhotosRequest extends IApiRequest {
-    vehicleId: number;
-    frontPhoto: File;
-    rearPhoto: File;
-    leftSidePhoto: File;
-    rightSidePhoto: File;
-    interierPhoto1: File;
-    interierPhoto2: File;
-    technicalCertificate1: File;
-    technicalCertificate2: File;
-    insurance: File;
-}
 export interface IUpdateVehicleRequest extends IApiRequest {
     vehicleId: number;
     name: string;
@@ -29,7 +17,7 @@ export interface IUpdateVehicleRequest extends IApiRequest {
     departureStation: PlaceRequestDto|undefined;
 }
 
-export interface IUpdateVehiclePhotosRequest extends IApiRequest {
+export interface IUploadVehicleFilesRequest extends IApiRequest {
     vehicleId: number;
     frontPhoto: File|undefined;
     rearPhoto: File|undefined;
@@ -88,32 +76,19 @@ export class VehicleApi {
     public async addVehicle(req: IAddVehicleRequest): Promise<number> {
         return await this._api.apiVehiclesVehiclePost({
             addVehicleRequestDto: {
-                name: req.name,
-                personsCapacity: req.personsCapacity,
-                euro: req.euro,
-                amenities: req.amenities,
-                handicappedUserCount: req.handicappedUserCount,
-                vin: req.vin,
-                registrationSign: req.registrationSign,
-                stkExpired: req.stkExpired || new Date(),
-                yearOfManufacture: req.yearOfManufacture,
-                departureStation: req.departureStation
+                info: {
+                    name: req.name,
+                    personsCapacity: req.personsCapacity,
+                    euro: req.euro,
+                    amenities: req.amenities,
+                    handicappedUserCount: req.handicappedUserCount,
+                    vin: req.vin,
+                    registrationSign: req.registrationSign,
+                    stkExpired: req.stkExpired || new Date(),
+                    yearOfManufacture: req.yearOfManufacture,
+                    departureStation: req.departureStation
+                }
             }
-        }, req.initOverrides);
-    }
-
-    public async addVehiclePhotos(req: IAddVehiclePhotosRequest): Promise<void> {
-        await this._api.apiVehiclesPhotosPost({
-            id: req.vehicleId,
-            frontPhoto: req.frontPhoto,
-            rearPhoto: req.rearPhoto,
-            leftSidePhoto: req.leftSidePhoto,
-            rightSidePhoto: req.rightSidePhoto,
-            interierPhoto1: req.interierPhoto1,
-            interierPhoto2: req.interierPhoto2,
-            technicalCertificate1: req.technicalCertificate1,
-            technicalCertificate2: req.technicalCertificate2,
-            insurance: req.insurance
         }, req.initOverrides);
     }
 
@@ -121,22 +96,24 @@ export class VehicleApi {
         await this._api.apiVehiclesVehiclePut({
             updateVehicleRequestDto: {
                 id: req.vehicleId,
-                name: req.name,
-                personsCapacity: req.personsCapacity,
-                euro: req.euro,
-                amenities: req.amenities,
-                handicappedUserCount: req.handicappedUserCount,
-                vin: req.vin,
-                registrationSign: req.registrationSign,
-                stkExpired: req.stkExpired || new Date(),
-                yearOfManufacture: req.yearOfManufacture,
-                departureStation: req.departureStation
+                info: {
+                    name: req.name,
+                    personsCapacity: req.personsCapacity,
+                    euro: req.euro,
+                    amenities: req.amenities,
+                    handicappedUserCount: req.handicappedUserCount,
+                    vin: req.vin,
+                    registrationSign: req.registrationSign,
+                    stkExpired: req.stkExpired || new Date(),
+                    yearOfManufacture: req.yearOfManufacture,
+                    departureStation: req.departureStation
+                }
             },
         }, req.initOverrides);
     }
 
-    public async updateVehiclePhotos(req: IUpdateVehiclePhotosRequest): Promise<void> {
-        return await this._api.apiVehiclesPhotosPut({
+    public async uploadVehicleFiles(req: IUploadVehicleFilesRequest): Promise<void> {
+        return await this._api.apiVehiclesFilesPost({
             id: req.vehicleId,
             frontPhoto: req.frontPhoto,
             rearPhoto: req.rearPhoto,
@@ -149,6 +126,7 @@ export class VehicleApi {
             insurance: req.insurance
         }, req.initOverrides);
     }
+
 
     public async setVehicleVerification(req: ISetVehicleVerificationRequest): Promise<void> {
         await this._api.apiVehiclesTransportVerificationPost({

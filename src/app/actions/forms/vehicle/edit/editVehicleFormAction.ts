@@ -80,7 +80,7 @@ export async function editVehicleFormAction(state: TEditVehicleFormState, formDa
             yearOfManufacture: validatedFields.data.yearOfManufacture,
             departureStation: validatedFields.data.departureStation
         });
-        await VehicleService.updateVehiclePhotos({
+        await VehicleService.uploadVehicleFiles({
             vehicleId: validatedFields.data.vehicleId,
             frontPhoto: validatedFields.data.frontPhoto,
             rearPhoto: validatedFields.data.rearPhoto,
