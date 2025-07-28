@@ -10,6 +10,8 @@ import {TransportRequirements} from "@/src/data/transportRequirements";
 import {MediaElement} from "../../../components/media-element/media-element";
 import {VehicleVerifyButton} from "@/src/components/pages/admin/users/vehicle-verify-button";
 import {UserVerifyButton} from "@/src/components/pages/admin/users/user-verify-button";
+import {VehicleConverter} from "@/src/converters/vehicle-converter";
+import {UserAdminDetailConverter} from "@/src/converters/user-admin-detail-converter";
 
 export interface IUsersListParams {
     users: UserAdminDetail[];
@@ -120,13 +122,13 @@ const AdminUsersPage = (props: IUsersListParams) => {
                 {user.vehicles.map(v => {
                     return <LayoutFlexColumn key={v.id}>
                         <VehicleDetail vehicle={v} />
-                        <VehicleVerifyButton vehicle={v.toJson()} />
+                        <VehicleVerifyButton vehicle={VehicleConverter.toJson(v)} />
                     </LayoutFlexColumn>
                 })}
             </LayoutFlexColumn>
             <LayoutFlexColumn>
                 <h2>{user.isVerifiedForTransporting ? "USER IS Verified" : "USER NOT Verified"}</h2>
-                <UserVerifyButton user={user.toJson()} />
+                <UserVerifyButton user={UserAdminDetailConverter.toJson(user)} />
             </LayoutFlexColumn>
         </LayoutFlexColumn>
     }

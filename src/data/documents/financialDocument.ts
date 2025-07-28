@@ -1,4 +1,4 @@
-import {FinancialDocumentResponseDto, FinancialDocumentType} from "../../api/openapi";
+import {FinancialDocumentType} from "../../api/openapi";
 import {Price} from "../price";
 
 export interface IFinancialDocumentSettings {
@@ -31,18 +31,5 @@ export class FinancialDocument {
         this.type = settings.type;
         this.price = settings.price;
         this.payed = settings.payed;
-    }
-
-    public toJson(): FinancialDocumentResponseDto {
-        return {
-            id: this.id,
-            variableSymbol: this.variableSymbol,
-            dateOfIssue: this.dateOfIssue,
-            dueDate: this.dueDate,
-            type: this.type,
-            price: this.price.toJson(),
-            payed: this.payed,
-            internalDocumentNumber: this.internalDocumentNumber
-        }
     }
 }

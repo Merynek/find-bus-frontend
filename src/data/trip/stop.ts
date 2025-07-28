@@ -63,10 +63,4 @@ export class Stop {
         }
         return undefined;
     }
-
-    public toJson(): StopResponseDto {
-        return {
-            place: this.place.toJson()
-        }
-    }
 }

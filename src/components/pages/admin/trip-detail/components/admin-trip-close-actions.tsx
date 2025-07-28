@@ -16,7 +16,7 @@ interface IAdminTripActionsProps {
 }
 
 export const AdminTripCloseActions = (props: IAdminTripActionsProps) => {
-    const trip = useInit(() => TripConverter.toClient(props.trip));
+    const trip = useInit(() => TripConverter.toInstance(props.trip));
     const { showLoader, hideLoader } = useApp();
     const [reason, setReason] = useState<CloseTripOfferReason>(CloseTripOfferReason.GENERAL);
     const router = useRouter();

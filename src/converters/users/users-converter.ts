@@ -1,8 +1,7 @@
 import {UserSettings} from "../data/users/userSettings";
 import {
-    CurrentUserDto, TransferInfoRequestDto, TransferInfoResponseDto, TransporterRequirementsResponseDto,
+    CurrentUserDto, TransferInfoRequestDto,
     UserAddressRequestDto,
-    UserAddressResponseDto,
     UserDetailResponseDto,
     UserSettingsResponseDto
 } from "../api/openapi";
@@ -12,11 +11,11 @@ import {UserDetail} from "../data/users/user-detail";
 import {UserAddress} from "../data/users/userAddress";
 import {TransferInfo} from "../data/transferInfo";
 import {TransportRequirements} from "../data/transportRequirements";
-import {Photo} from "../data/media/photo";
+import {TransportRequirementsConverter} from "@/src/converters/transport-requirements-converter";
+import {TransferInfoConverter} from "@/src/converters/transfer-info-converter";
+import {UserAddressConverter} from "@/src/converters/user-address-converter";
 
 export class UsersConverter {
-    private static concessionDocumentsPath = "ConcessionDocument/";
-    private static businessRiskInsurancePath = "BusinessRiskInsurance/";
 
     public static currentUserToClient(currentUserDto: CurrentUserDto): User {
         return new User({
@@ -36,42 +35,11 @@ export class UsersConverter {
             companyName: settings.companyName || "",
             notifications: settings.notifications || [],
             isCompany: settings.isCompany,
-            address: settings.address ? UsersConverter.userAddressToClient(settings.address) : UserAddress.create(),
-            mailingAddress: settings.mailingAddress ? UsersConverter.userAddressToClient(settings.mailingAddress) : UserAddress.create(),
-            transferInfo: settings.transferInfo ? UsersConverter.transferInfoToClient(settings.transferInfo) : TransferInfo.create(),
-            transportRequirements: settings.transporterRequirements ? UsersConverter.transportRequirementsToClient(settings.transporterRequirements) : TransportRequirements.create(),
+            address: settings.address ? UserAddressConverter.toInstance(settings.address) : UserAddress.create(),
+            mailingAddress: settings.mailingAddress ? UserAddressConverter.toInstance(settings.mailingAddress) : UserAddress.create(),
+            transferInfo: settings.transferInfo ? TransferInfoConverter.toInstance(settings.transferInfo) : TransferInfo.create(),
+            transportRequirements: settings.transporterRequirements ? TransportRequirementsConverter.toInstance(settings.transporterRequirements) : TransportRequirements.create(),
             isVerifiedForTransporting: settings.isVerifiedForTransporting
-        })
-    }
-
-    public static transferInfoToClient(response: TransferInfoResponseDto): TransferInfo {
-        return new TransferInfo({
-            iban: response.iban,
-            swift: response.swift
-        });
-    }
-
-    public static userAddressToClient(response: UserAddressResponseDto): UserAddress {
-        return new UserAddress({
-            country: response.country || null,
-            houseNumber: response.houseNumber,
-            psc: response.psc,
-            city: response.city,
-            street: response.street
-        })
-    }
-
-    public static transportRequirementsToClient(response: TransporterRequirementsResponseDto): TransportRequirements {
-        return new TransportRequirements({
-            concessionNumber: response.concessionNumber || "",
-            businessRiskInsurance: response.businessRiskInsurance ? new Photo({
-                id: response.businessRiskInsurance.id,
-                path: UsersConverter.businessRiskInsurancePath + response.businessRiskInsurance.path
-            }) : null,
-            concessionDocuments: response.concessionDocuments ? new Photo({
-                id: response.concessionDocuments.id,
-                path: UsersConverter.concessionDocumentsPath + response.concessionDocuments.path
-            }) : null,
         })
     }
 
@@ -89,6 +57,12 @@ export class UsersConverter {
             mailingAddress: UsersConverter.userAddressToServer(settings.mailingAddress),
             transferInfo: UsersConverter.transferInfoToServer(settings.transferInfo),
             concessionNumber: settings.transportRequirements.concessionNumber
+        }
+    }
+
+    public static userDetailToJson(userDetail: UserDetail): UserDetailResponseDto {
+        return {
+            id: userDetail.id
         }
     }
 

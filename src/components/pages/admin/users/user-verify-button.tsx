@@ -4,7 +4,7 @@ import React from "react";
 import {ButtonClick, ButtonSize, ButtonType} from "../../../components/button/button";
 import {UsersService} from "@/src/services/UsersService";
 import type {AdminUserDetailResponseDto} from "@/src/api/openapi";
-import {AdminConverter} from "@/src/converters/admin-converter";
+import {UserAdminDetailConverter} from "@/src/converters/user-admin-detail-converter";
 import {useInit} from "@/src/hooks/lifecycleHooks";
 
 interface IUserVerifyButtonProps {
@@ -12,7 +12,7 @@ interface IUserVerifyButtonProps {
 }
 
 export const UserVerifyButton = (props: IUserVerifyButtonProps) => {
-    const user = useInit(() => AdminConverter.userAdminDetailToClient(props.user));
+    const user = useInit(() => UserAdminDetailConverter.toInstance(props.user));
 
     return  <ButtonClick
         size={ButtonSize.BY_CONTENT}

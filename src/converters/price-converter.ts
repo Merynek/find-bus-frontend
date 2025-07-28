@@ -9,7 +9,7 @@ export class PriceConverter {
         })
     }
 
-    public static toServer(price: Price): PriceDto {
+    public static toJson(price: Price): PriceDto {
         return {
             amount: price.amount,
             currency: price.currency

@@ -5,7 +5,6 @@ import {Trip} from "./trip";
 import {milliSecondsToHours, secondsToMilliSeconds} from "../../utils/common";
 import {LocationService} from "../../singletons/location-service";
 import {Priority} from "../../utils/semaphore";
-import {RouteResponseDto} from "@/src/api/openapi";
 
 interface IRoute {
     from: Stop;
@@ -153,15 +152,5 @@ export class Route {
     private updateStops() {
         this.from.route = this;
         this.to.route = this;
-    }
-
-    public toJson(): RouteResponseDto {
-        return {
-            start: this.start,
-            from: this.from.toJson(),
-            to: this.to.toJson(),
-            end: this.end,
-            direction: this.direction.toJson()
-        }
     }
 }

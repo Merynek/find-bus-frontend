@@ -6,7 +6,7 @@ import {EmailTemplate} from "@/src/data/emailConfig";
 import {emailConfigFormAction} from "@/src/app/actions/forms/admin/emailConfig/emailConfigFormAction";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import type {EmailTemplateResponseDto} from "@/src/api/openapi";
-import { AdminConverter } from "@/src/converters/admin-converter";
+import { UserAdminDetailConverter } from "@/src/converters/user-admin-detail-converter";
 
 export interface IEmailConfigItemProps {
     tmp: EmailTemplateResponseDto;
@@ -16,7 +16,7 @@ export const EmailConfigItem = (props: IEmailConfigItemProps) => {
     const [state, action, pending] = useActionState(emailConfigFormAction, undefined)
 
     const {tmp} = props;
-    const emailTemplate = AdminConverter.emailTemplateToClient(tmp);
+    const emailTemplate = UserAdminDetailConverter.emailTemplateToClient(tmp);
 
     const _renderParams = (config: EmailTemplate) => {
         const params: React.ReactNode[] = [];

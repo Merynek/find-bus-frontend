@@ -15,4 +15,17 @@ export class FinancialDocumentConverter {
             internalDocumentNumber: response.internalDocumentNumber
         })
     }
+
+    public static toJson(document: FinancialDocument): FinancialDocumentResponseDto {
+        return {
+            id: document.id,
+            variableSymbol: document.variableSymbol,
+            dateOfIssue: document.dateOfIssue,
+            dueDate: document.dueDate,
+            type: document.type,
+            price: PriceConverter.toJson(document.price),
+            payed: document.payed,
+            internalDocumentNumber: document.internalDocumentNumber
+        }
+    }
 }

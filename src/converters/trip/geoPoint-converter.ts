@@ -9,7 +9,7 @@ export class GeoPointConverter {
         })
     }
 
-    public static toServer(geoPoint: GeoPoint): ApiGeoPoint {
+    public static toJson(geoPoint: GeoPoint): ApiGeoPoint {
         return {
             lng: geoPoint.lng,
             lat: geoPoint.lat

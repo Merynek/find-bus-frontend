@@ -5,6 +5,8 @@ import {AdminTripCloseActions} from "@/src/components/pages/admin/trip-detail/co
 import {AdminTripMoveActions} from "@/src/components/pages/admin/trip-detail/components/admin-trip-move-actions";
 import {Offer} from "@/src/data/offer";
 import {FlexGap} from "@/src/enums/layout.enum";
+import {TripConverter} from "@/src/converters/trip/trip-converter";
+import {TripOfferConverter} from "@/src/converters/trip-offer-converter";
 
 interface IAdminTripActionsProps {
     trip: Trip;
@@ -16,11 +18,11 @@ export const AdminTripActions = (props: IAdminTripActionsProps) => {
 
     return <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
         <AdminTripMoveActions
-            trip={trip.toJson()}
-            offers={offers.map(o => o.toJson())}
+            trip={TripConverter.toJson(trip)}
+            offers={offers.map(o => TripOfferConverter.toJson(o))}
         />
         <AdminTripCloseActions
-            trip={trip.toJson()}
+            trip={TripConverter.toJson(trip)}
         />
     </LayoutFlexColumn>
 };

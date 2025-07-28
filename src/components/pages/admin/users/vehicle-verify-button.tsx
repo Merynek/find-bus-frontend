@@ -12,7 +12,7 @@ interface IVehicleVerifyButtonProps {
 }
 
 export const VehicleVerifyButton = (props: IVehicleVerifyButtonProps) => {
-    const vehicle = useInit(() => VehicleConverter.toClient(props.vehicle));
+    const vehicle = useInit(() => VehicleConverter.toInstance(props.vehicle));
 
     return <ButtonClick
         size={ButtonSize.BY_CONTENT}

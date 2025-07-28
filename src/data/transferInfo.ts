@@ -1,5 +1,4 @@
 import {computed, makeObservable, observable} from "mobx";
-import type {TransferInfoResponseDto} from "@/src/api/openapi";
 
 export interface ITransferInfoSettings {
     iban: string;
@@ -26,12 +25,5 @@ export class TransferInfo {
             iban: "",
             swift: ""
         })
-    }
-
-    public toJson(): TransferInfoResponseDto {
-        return {
-            iban: this.iban,
-            swift: this.swift
-        }
     }
 }

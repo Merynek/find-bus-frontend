@@ -25,4 +25,14 @@ export class RouteConverter {
             direction: DirectionConverter.toServer(route.direction)
         }
     }
+
+    public static toJson(route: Route): RouteRequestDto {
+        return {
+            start: route.start,
+            from: StopConverter.toServer(route.from),
+            to: StopConverter.toServer(route.to),
+            end: route.endTime,
+            direction: DirectionConverter.toServer(route.direction)
+        }
+    }
 }

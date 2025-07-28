@@ -1,5 +1,5 @@
 import {computed, makeObservable, observable} from "mobx";
-import {Country, UserAddressResponseDto} from "../../api/openapi";
+import {Country} from "../../api/openapi";
 
 export interface IUserAddress {
     country: Country|null;
@@ -38,15 +38,5 @@ export class UserAddress {
             houseNumber: "",
             country: null
         })
-    }
-
-    public toJson(): UserAddressResponseDto {
-        return {
-            street: this.street,
-            city: this.city,
-            psc: this.psc,
-            houseNumber: this.houseNumber,
-            country: this.country || undefined
-        }
     }
 }

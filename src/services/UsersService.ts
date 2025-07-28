@@ -1,4 +1,4 @@
-import {AdminConverter} from "@/src/converters/admin-converter";
+import {UserAdminDetailConverter} from "@/src/converters/user-admin-detail-converter";
 import {UserAdminDetail} from "@/src/data/users/user-admin-detail";
 import {
     changeSettings,
@@ -16,7 +16,7 @@ export class UsersService {
     public static async getAllUsers(offset: number, limit: number): Promise<UserAdminDetail[]> {
         const data = await getAllUsers(offset, limit);
 
-        return data.map(AdminConverter.userAdminDetailToClient);
+        return data.map(UserAdminDetailConverter.toInstance);
     }
 
     public static async setUserVerification(userId: number, verified: boolean) {

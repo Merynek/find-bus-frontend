@@ -10,7 +10,7 @@ import {milliSecondsToSeconds} from "../../utils/common";
 import {RouteConverter} from "./route-converter";
 
 export class TripConverter {
-    public static toClient(apiTrip: TripResponseDto): Trip {
+    public static toInstance(apiTrip: TripResponseDto): Trip {
         return new Trip({
             id: apiTrip.id,
             ownerId: apiTrip.ownerId,
@@ -64,5 +64,22 @@ export class TripConverter {
             reduceRoutesHours: apiRecommendation.reduceRoutesHours,
             reduceTimeHours: apiRecommendation.reduceTimeHours
         })
+    }
+
+    public static toJson(trip: Trip): TripResponseDto {
+        return {
+            id: trip.id,
+            ownerId: trip.ownerId,
+            routes: trip.routes.map(r => RouteConverter.toJson(r)),
+            numberOfPersons: trip.numberOfPersons,
+            amenities: trip.amenities,
+            dietForTransporter: trip.dietForTransporter,
+            endOrder: trip.endOrder,
+            offerHasEnded: trip.offerHasEnded,
+            offerState: trip.offerState,
+            handicappedUserCount: trip.handicappedUserCount,
+            totalDistanceInMeters: trip.totalDistanceInMeters,
+            created: trip.created
+        }
     }
 }

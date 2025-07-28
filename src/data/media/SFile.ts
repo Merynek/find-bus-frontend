@@ -1,4 +1,5 @@
 import { computed, observable, makeObservable } from "mobx";
+import type {FileCategory, FileType} from "@/src/api/openapi";
 
 export enum FileUploadState {
     PENDING = "PENDING",
@@ -14,11 +15,13 @@ export interface ISFile {
     uploadState?: FileUploadState;
     onChange?: () => void;
     onUploadDone?: () => void;
+    category: FileCategory;
 }
 
 export abstract class SFile {
     public id: number;
     public file: File;
+    public fileCategory: FileCategory;
     @observable public uploadState: FileUploadState;
     @observable public isLoaded: boolean;
     private _uploadFnc: () => void;
@@ -30,6 +33,7 @@ export abstract class SFile {
         this.id = settings.id;
         this.file = settings.file || new File([""], this.id.toString());
         this.uploadState = settings.uploadState || FileUploadState.PENDING;
+        this.fileCategory = settings.category;
         this.isLoaded = false;
         this._uploadFnc = () => {};
         this._abortUploadFnc = () => {};

@@ -15,4 +15,10 @@ export class StopConverter {
             place: PlaceConverter.toServer(stop.place)
         }
     }
+
+    public static toJson(stop: Stop): StopResponseDto {
+        return {
+            place: PlaceConverter.toServer(stop.place)
+        }
+    }
 }

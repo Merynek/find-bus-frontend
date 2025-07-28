@@ -10,7 +10,7 @@ import {TripRecommendationRequestDto} from "@/src/api/openapi";
 export class TripService {
     public static async getTrip(id: number): Promise<Trip> {
         const data = await getTrip(id);
-        return TripConverter.toClient(data);
+        return TripConverter.toInstance(data);
     }
 
     public static async getTrips(req: IGetTripsRequest): Promise<TripItem[]> {

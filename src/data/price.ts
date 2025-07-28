@@ -1,5 +1,5 @@
 import {computed, makeObservable, observable, runInAction} from "mobx";
-import {Currency, PriceDto} from "../api/openapi";
+import {Currency} from "../api/openapi";
 
 interface IPrice {
     amount: number;
@@ -60,12 +60,5 @@ export class Price {
 
     public toString(): string {
         return this._amount.toString()
-    }
-
-    public toJson(): PriceDto {
-        return {
-            amount: this._amount,
-            currency: this._currency
-        }
     }
 }

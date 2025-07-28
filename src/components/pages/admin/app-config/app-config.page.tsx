@@ -5,7 +5,7 @@ import styles from "./app-config.page.module.scss";
 import {appConfigFormAction} from "@/src/app/actions/forms/admin/appConfig/appConfigFormAction";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {AppBusinessConfigResponseDto} from "@/src/api/openapi";
-import {AdminConverter} from "@/src/converters/admin-converter";
+import {UserAdminDetailConverter} from "@/src/converters/user-admin-detail-converter";
 
 interface IAppConfigPageProps {
     cfg: AppBusinessConfigResponseDto;
@@ -13,7 +13,7 @@ interface IAppConfigPageProps {
 
 const AppConfigPage = (props: IAppConfigPageProps) => {
     const {cfg} = props;
-    const appConfig = AdminConverter.appBusinessConfigToClient(cfg);
+    const appConfig = UserAdminDetailConverter.appBusinessConfigToClient(cfg);
     const [state, action, pending] = useActionState(appConfigFormAction, undefined)
 
     return <div className={styles.layout}>

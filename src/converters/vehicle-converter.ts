@@ -1,14 +1,11 @@
 import {VehicleResponseDto} from "../api/openapi";
 import {Vehicle} from "../data/users/vehicle";
-import {Photo} from "../data/media/photo";
 import {PlaceConverter} from "./place-converter";
+import {toJS} from "mobx";
+import {FileConverter} from "@/src/converters/file-converter";
 
 export class VehicleConverter {
-    private static vehiclePath = "Vehicles/";
-    private static insurancePath = "VehiclesInsurance/";
-    private static certificatePath = "VehiclesCertificate/";
-
-    public static toClient(vehicleDto: VehicleResponseDto): Vehicle {
+    public static toInstance(vehicleDto: VehicleResponseDto): Vehicle {
         return new Vehicle({
             id: vehicleDto.id,
             isVerifiedForTransporting: vehicleDto.isVerifiedForTransporting,
@@ -21,43 +18,42 @@ export class VehicleConverter {
             stkExpired: vehicleDto.stkExpired,
             yearOfManufacture: vehicleDto.yearOfManufacture,
             handicappedUserCount: vehicleDto.handicappedUserCount,
-            frontPhoto: vehicleDto.frontPhoto ? new Photo({
-                id: vehicleDto.frontPhoto.id,
-                path: VehicleConverter.vehiclePath + vehicleDto.frontPhoto.path
-            }) : null,
-            rearPhoto: vehicleDto.rearPhoto ? new Photo({
-                id: vehicleDto.rearPhoto.id,
-                path: VehicleConverter.vehiclePath + vehicleDto.rearPhoto.path
-            }) : null,
-            leftSidePhoto: vehicleDto.leftSidePhoto ? new Photo({
-                id: vehicleDto.leftSidePhoto.id,
-                path: VehicleConverter.vehiclePath + vehicleDto.leftSidePhoto.path
-            }) : null,
-            rightSidePhoto: vehicleDto.rightSidePhoto ? new Photo({
-                id: vehicleDto.rightSidePhoto.id,
-                path: VehicleConverter.vehiclePath + vehicleDto.rightSidePhoto.path
-            }) : null,
-            interierPhoto1: vehicleDto.interierPhoto1 ? new Photo({
-                id: vehicleDto.interierPhoto1.id,
-                path: VehicleConverter.vehiclePath + vehicleDto.interierPhoto1.path
-            }) : null,
-            interierPhoto2: vehicleDto.interierPhoto2 ? new Photo({
-                id: vehicleDto.interierPhoto2.id,
-                path: VehicleConverter.vehiclePath + vehicleDto.interierPhoto2.path
-            }) : null,
-            technicalCertificate1: vehicleDto.technicalCertificate1 ? new Photo({
-                id: vehicleDto.technicalCertificate1.id,
-                path: VehicleConverter.certificatePath + vehicleDto.technicalCertificate1.path
-            }) : null,
-            technicalCertificate2: vehicleDto.technicalCertificate2 ? new Photo({
-                id: vehicleDto.technicalCertificate2.id,
-                path: VehicleConverter.certificatePath + vehicleDto.technicalCertificate2.path
-            }) : null,
-            insurance: vehicleDto.insurance ? new Photo({
-                id: vehicleDto.insurance.id,
-                path: VehicleConverter.insurancePath + vehicleDto.insurance.path
-            }) : null,
+            frontPhoto: vehicleDto.frontPhoto ? FileConverter.toPhotoInstance(vehicleDto.frontPhoto): null,
+            rearPhoto: vehicleDto.rearPhoto ? FileConverter.toPhotoInstance(vehicleDto.rearPhoto) : null,
+            leftSidePhoto: vehicleDto.leftSidePhoto ? FileConverter.toPhotoInstance(vehicleDto.leftSidePhoto) : null,
+            rightSidePhoto: vehicleDto.rightSidePhoto ? FileConverter.toPhotoInstance(vehicleDto.rightSidePhoto) : null,
+            interierPhoto1: vehicleDto.interierPhoto1 ? FileConverter.toPhotoInstance(vehicleDto.interierPhoto1) : null,
+            interierPhoto2: vehicleDto.interierPhoto2 ? FileConverter.toPhotoInstance(vehicleDto.interierPhoto2): null,
+            technicalCertificate1: vehicleDto.technicalCertificate1 ? FileConverter.toPhotoInstance(vehicleDto.technicalCertificate1) : null,
+            technicalCertificate2: vehicleDto.technicalCertificate2 ? FileConverter.toPhotoInstance(vehicleDto.technicalCertificate2) : null,
+            insurance: vehicleDto.insurance ? FileConverter.toPhotoInstance(vehicleDto.insurance) : null,
             departureStation: vehicleDto.departureStation ? PlaceConverter.toInstance(vehicleDto.departureStation) : null
         })
+    }
+
+    public static toJson(vehicle: Vehicle): VehicleResponseDto {
+        return {
+            id: vehicle.id,
+            name: vehicle.name,
+            registrationSign: vehicle.registrationSign,
+            vin: vehicle.VIN,
+            stkExpired: vehicle.stkExpired,
+            yearOfManufacture: vehicle.yearOfManufacture,
+            personsCapacity: vehicle.personsCapacity,
+            euro: vehicle.euro,
+            amenities: toJS(vehicle.amenities),
+            handicappedUserCount: vehicle.handicappedUserCount,
+            frontPhoto: vehicle.frontPhoto ? FileConverter.photoToJson(vehicle.frontPhoto) : undefined,
+            rearPhoto: vehicle.rearPhoto ? FileConverter.photoToJson(vehicle.rearPhoto) : undefined,
+            leftSidePhoto: vehicle.leftSidePhoto ? FileConverter.photoToJson(vehicle.leftSidePhoto) : undefined,
+            rightSidePhoto: vehicle.rightSidePhoto ? FileConverter.photoToJson(vehicle.rightSidePhoto) : undefined,
+            interierPhoto1: vehicle.interierPhoto1 ? FileConverter.photoToJson(vehicle.interierPhoto1) : undefined,
+            interierPhoto2: vehicle.interierPhoto2 ? FileConverter.photoToJson(vehicle.interierPhoto2) : undefined,
+            technicalCertificate1: vehicle.technicalCertificate1 ? FileConverter.photoToJson(vehicle.technicalCertificate1) : undefined,
+            technicalCertificate2: vehicle.technicalCertificate2 ? FileConverter.photoToJson(vehicle.technicalCertificate2) : undefined,
+            insurance: vehicle.insurancePhoto ? FileConverter.photoToJson(vehicle.insurancePhoto) : undefined,
+            departureStation: vehicle.departureStation ? PlaceConverter.toJson(vehicle.departureStation) : undefined,
+            isVerifiedForTransporting: vehicle.isVerifiedForTransporting
+        }
     }
 }

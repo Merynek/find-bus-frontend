@@ -1,5 +1,3 @@
-import {GeoPoint as ApiGeoPoint} from "@/src/api/openapi";
-
 interface IGeoPoint {
     lat: number;
     lng: number;
@@ -20,12 +18,5 @@ export class GeoPoint {
 
     equals(point: GeoPoint): boolean {
         return this.toString() === point.toString();
-    }
-
-    public toJson(): ApiGeoPoint {
-        return {
-            lat: this.lat,
-            lng: this.lng
-        }
     }
 }

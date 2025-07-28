@@ -10,17 +10,27 @@ export class PlaceConverter {
             name: apiPlace.name,
             placeFormatted: apiPlace.placeFormatted || undefined,
             country: apiPlace.country ? apiPlace.country : undefined,
-            point: PointsConverter.toClient(apiPlace.point)
+            point: PointsConverter.toInstance(apiPlace.point)
         });
     }
 
     public static toServer(place: Place): PlaceRequestDto {
         return {
             placeId: place.placeId || "",
-            point: place.point ? GeoPointConverter.toServer(place.point) : {lat: 0, lng: 0},
+            point: place.point ? GeoPointConverter.toJson(place.point) : {lat: 0, lng: 0},
             country: place.country || Country.CZ,
             name: place.name || "",
             placeFormatted: place.placeFormatted || ""
+        }
+    }
+
+    public static toJson(place: Place): PlaceResponseDto {
+        return {
+            placeId: place.placeId || "",
+            point: place.point ? PointsConverter.toJson(place.point) : {lat: 0, lng: 0},
+            name: place.name || "",
+            placeFormatted: place.placeFormatted || "",
+            country: place.country || Country.CZ
         }
     }
 }

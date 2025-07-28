@@ -114,7 +114,7 @@ export class TripsOfferApi {
     public async createOffer(req: ICreateOfferRequest): Promise<void> {
         await this._api.apiTripOfferOfferPost({
             createOfferRequestDto: {
-                price: PriceConverter.toServer(req.price),
+                price: PriceConverter.toJson(req.price),
                 tripId: req.tripId,
                 vehicleId: req.vehicleId,
                 endOfferDate: req.endOfferDate

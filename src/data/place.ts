@@ -1,6 +1,6 @@
 import {computed, makeObservable, observable} from "mobx";
 import {GeoPoint} from "./geoPoint";
-import {Country, PlaceResponseDto} from "../api/openapi";
+import {Country} from "../api/openapi";
 
 export interface IPlace {
     placeId?: string;
@@ -58,15 +58,5 @@ export class Place {
 
     public static create(): Place {
         return new Place({})
-    }
-
-    public toJson(): PlaceResponseDto {
-        return {
-            placeId: this.placeId || "",
-            point: this.point ? this.point.toJson() : {lat: 0, lng: 0},
-            name: this.name || "",
-            placeFormatted: this.placeFormatted || "",
-            country: this.country || Country.CZ
-        }
     }
 }

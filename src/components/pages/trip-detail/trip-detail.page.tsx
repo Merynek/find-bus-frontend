@@ -3,6 +3,7 @@ import styles from "./trip-detail.page.module.scss";
 import {TripDetail} from "../../compositions/trip/trip-detail/trip-detail";
 import {TripOfferSection} from "../../compositions/trip/trip-offer-section/trip-offer-section";
 import {Trip} from "@/src/data/trip/trip";
+import {TripConverter} from "@/src/converters/trip/trip-converter";
 
 interface TripDetailPageProps {
     trip: Trip;
@@ -13,7 +14,7 @@ const TripDetailPage = (props: TripDetailPageProps) => {
 
     return <div className={styles.layout}>
         <TripDetail trip={trip} />
-        <TripOfferSection trip={trip.toJson()} />
+        <TripOfferSection trip={TripConverter.toJson(trip)} />
     </div>
 };
 

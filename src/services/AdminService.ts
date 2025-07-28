@@ -1,6 +1,6 @@
 import {EmailConfig} from "@/src/data/emailConfig";
 import {AppBusinessConfig} from "@/src/data/appBusinessConfig";
-import {AdminConverter} from "@/src/converters/admin-converter";
+import {UserAdminDetailConverter} from "@/src/converters/user-admin-detail-converter";
 import {
     changeAppBusinessConfig,
     getAppBusinessConfig,
@@ -12,7 +12,7 @@ import {EmailType, Language} from "@/src/api/openapi";
 export class AdminService {
     public static async getEmailConfig(): Promise<EmailConfig> {
         const data = await getEmailConfig();
-        return AdminConverter.emailConfigToClient(data);
+        return UserAdminDetailConverter.emailConfigToClient(data);
     }
 
     public static async setEmailConfig(type: EmailType, language: Language, templateId: number) {
@@ -21,7 +21,7 @@ export class AdminService {
 
     public static async getAppBusinessConfig(): Promise<AppBusinessConfig> {
         const config = await getAppBusinessConfig();
-        return AdminConverter.appBusinessConfigToClient(config);
+        return UserAdminDetailConverter.appBusinessConfigToClient(config);
     }
 
     public static async updateAppBusinessConfig(config: AppBusinessConfig) {

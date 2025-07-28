@@ -18,12 +18,12 @@ export class VehicleService {
 
     public static async getVehicle(vehicleId: number) {
         const data = await getVehicle(vehicleId);
-        return VehicleConverter.toClient(data);
+        return VehicleConverter.toInstance(data);
     }
 
     public static async getVehicles() {
         const data = await getVehicles();
-        return data.map(VehicleConverter.toClient);
+        return data.map(VehicleConverter.toInstance);
     }
 
     public static async addVehicle(req: IAddVehicleRequest) {

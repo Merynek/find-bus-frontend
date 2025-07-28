@@ -17,4 +17,12 @@ export class DirectionConverter {
             polyline: direction.polyline
         }
     }
+
+    public static toJson(direction: Direction): DirectionResponseDto {
+        return {
+            polyline: direction.polyline,
+            distance: direction.distance,
+            time: direction.timeInSeconds
+        }
+    }
 }

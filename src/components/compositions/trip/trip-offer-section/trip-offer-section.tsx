@@ -23,7 +23,7 @@ export interface ITripOfferSectionProps {
 }
 
 export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
-    const trip = useInit(() => TripConverter.toClient(props.trip));
+    const trip = useInit(() => TripConverter.toInstance(props.trip));
     const {user} = useAuth();
     const {showLoader, hideLoader} = useApp();
     const [offers, setOffers] = useState<Offer[]>([]);
