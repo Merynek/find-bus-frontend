@@ -13,27 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
-import type { EuroStandard } from './EuroStandard';
+import type { VehicleRequestDto } from './VehicleRequestDto';
 import {
-    EuroStandardFromJSON,
-    EuroStandardFromJSONTyped,
-    EuroStandardToJSON,
-    EuroStandardToJSONTyped,
-} from './EuroStandard';
-import type { PlaceRequestDto } from './PlaceRequestDto';
-import {
-    PlaceRequestDtoFromJSON,
-    PlaceRequestDtoFromJSONTyped,
-    PlaceRequestDtoToJSON,
-    PlaceRequestDtoToJSONTyped,
-} from './PlaceRequestDto';
-import type { Amenities } from './Amenities';
-import {
-    AmenitiesFromJSON,
-    AmenitiesFromJSONTyped,
-    AmenitiesToJSON,
-    AmenitiesToJSONTyped,
-} from './Amenities';
+    VehicleRequestDtoFromJSON,
+    VehicleRequestDtoFromJSONTyped,
+    VehicleRequestDtoToJSON,
+    VehicleRequestDtoToJSONTyped,
+} from './VehicleRequestDto';
 
 /**
  * 
@@ -43,81 +29,16 @@ import {
 export interface AddVehicleRequestDto {
     /**
      * 
-     * @type {string}
+     * @type {VehicleRequestDto}
      * @memberof AddVehicleRequestDto
      */
-    name: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AddVehicleRequestDto
-     */
-    registrationSign: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AddVehicleRequestDto
-     */
-    vin: string;
-    /**
-     * 
-     * @type {Date}
-     * @memberof AddVehicleRequestDto
-     */
-    stkExpired: Date;
-    /**
-     * 
-     * @type {number}
-     * @memberof AddVehicleRequestDto
-     */
-    yearOfManufacture: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof AddVehicleRequestDto
-     */
-    personsCapacity: number;
-    /**
-     * 
-     * @type {EuroStandard}
-     * @memberof AddVehicleRequestDto
-     */
-    euro: EuroStandard;
-    /**
-     * 
-     * @type {Array<Amenities>}
-     * @memberof AddVehicleRequestDto
-     */
-    amenities: Array<Amenities>;
-    /**
-     * 
-     * @type {number}
-     * @memberof AddVehicleRequestDto
-     */
-    handicappedUserCount: number;
-    /**
-     * 
-     * @type {PlaceRequestDto}
-     * @memberof AddVehicleRequestDto
-     */
-    departureStation?: PlaceRequestDto;
+    info?: VehicleRequestDto;
 }
-
-
 
 /**
  * Check if a given object implements the AddVehicleRequestDto interface.
  */
 export function instanceOfAddVehicleRequestDto(value: object): value is AddVehicleRequestDto {
-    if (!('name' in value) || value['name'] === undefined) return false;
-    if (!('registrationSign' in value) || value['registrationSign'] === undefined) return false;
-    if (!('vin' in value) || value['vin'] === undefined) return false;
-    if (!('stkExpired' in value) || value['stkExpired'] === undefined) return false;
-    if (!('yearOfManufacture' in value) || value['yearOfManufacture'] === undefined) return false;
-    if (!('personsCapacity' in value) || value['personsCapacity'] === undefined) return false;
-    if (!('euro' in value) || value['euro'] === undefined) return false;
-    if (!('amenities' in value) || value['amenities'] === undefined) return false;
-    if (!('handicappedUserCount' in value) || value['handicappedUserCount'] === undefined) return false;
     return true;
 }
 
@@ -131,16 +52,7 @@ export function AddVehicleRequestDtoFromJSONTyped(json: any, ignoreDiscriminator
     }
     return {
         
-        'name': json['name'],
-        'registrationSign': json['registrationSign'],
-        'vin': json['vin'],
-        'stkExpired': (new Date(json['stkExpired'])),
-        'yearOfManufacture': json['yearOfManufacture'],
-        'personsCapacity': json['personsCapacity'],
-        'euro': EuroStandardFromJSON(json['euro']),
-        'amenities': ((json['amenities'] as Array<any>).map(AmenitiesFromJSON)),
-        'handicappedUserCount': json['handicappedUserCount'],
-        'departureStation': json['departureStation'] == null ? undefined : PlaceRequestDtoFromJSON(json['departureStation']),
+        'info': json['info'] == null ? undefined : VehicleRequestDtoFromJSON(json['info']),
     };
 }
 
@@ -155,16 +67,7 @@ export function AddVehicleRequestDtoToJSONTyped(value?: AddVehicleRequestDto | n
 
     return {
         
-        'name': value['name'],
-        'registrationSign': value['registrationSign'],
-        'vin': value['vin'],
-        'stkExpired': ((value['stkExpired']).toISOString()),
-        'yearOfManufacture': value['yearOfManufacture'],
-        'personsCapacity': value['personsCapacity'],
-        'euro': EuroStandardToJSON(value['euro']),
-        'amenities': ((value['amenities'] as Array<any>).map(AmenitiesToJSON)),
-        'handicappedUserCount': value['handicappedUserCount'],
-        'departureStation': PlaceRequestDtoToJSON(value['departureStation']),
+        'info': VehicleRequestDtoToJSON(value['info']),
     };
 }
 

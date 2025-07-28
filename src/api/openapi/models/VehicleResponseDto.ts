@@ -20,13 +20,13 @@ import {
     EuroStandardToJSON,
     EuroStandardToJSONTyped,
 } from './EuroStandard';
-import type { PhotoResponseDto } from './PhotoResponseDto';
+import type { FileResponseDto } from './FileResponseDto';
 import {
-    PhotoResponseDtoFromJSON,
-    PhotoResponseDtoFromJSONTyped,
-    PhotoResponseDtoToJSON,
-    PhotoResponseDtoToJSONTyped,
-} from './PhotoResponseDto';
+    FileResponseDtoFromJSON,
+    FileResponseDtoFromJSONTyped,
+    FileResponseDtoToJSON,
+    FileResponseDtoToJSONTyped,
+} from './FileResponseDto';
 import type { PlaceResponseDto } from './PlaceResponseDto';
 import {
     PlaceResponseDtoFromJSON,
@@ -116,58 +116,58 @@ export interface VehicleResponseDto {
     handicappedUserCount: number;
     /**
      * 
-     * @type {PhotoResponseDto}
+     * @type {FileResponseDto}
      * @memberof VehicleResponseDto
      */
-    frontPhoto?: PhotoResponseDto;
+    frontPhoto?: FileResponseDto;
     /**
      * 
-     * @type {PhotoResponseDto}
+     * @type {FileResponseDto}
      * @memberof VehicleResponseDto
      */
-    rearPhoto?: PhotoResponseDto;
+    rearPhoto?: FileResponseDto;
     /**
      * 
-     * @type {PhotoResponseDto}
+     * @type {FileResponseDto}
      * @memberof VehicleResponseDto
      */
-    leftSidePhoto?: PhotoResponseDto;
+    leftSidePhoto?: FileResponseDto;
     /**
      * 
-     * @type {PhotoResponseDto}
+     * @type {FileResponseDto}
      * @memberof VehicleResponseDto
      */
-    rightSidePhoto?: PhotoResponseDto;
+    rightSidePhoto?: FileResponseDto;
     /**
      * 
-     * @type {PhotoResponseDto}
+     * @type {FileResponseDto}
      * @memberof VehicleResponseDto
      */
-    interierPhoto1?: PhotoResponseDto;
+    interierPhoto1?: FileResponseDto;
     /**
      * 
-     * @type {PhotoResponseDto}
+     * @type {FileResponseDto}
      * @memberof VehicleResponseDto
      */
-    interierPhoto2?: PhotoResponseDto;
+    interierPhoto2?: FileResponseDto;
     /**
      * 
-     * @type {PhotoResponseDto}
+     * @type {FileResponseDto}
      * @memberof VehicleResponseDto
      */
-    technicalCertificate1?: PhotoResponseDto;
+    technicalCertificate1?: FileResponseDto;
     /**
      * 
-     * @type {PhotoResponseDto}
+     * @type {FileResponseDto}
      * @memberof VehicleResponseDto
      */
-    technicalCertificate2?: PhotoResponseDto;
+    technicalCertificate2?: FileResponseDto;
     /**
      * 
-     * @type {PhotoResponseDto}
+     * @type {FileResponseDto}
      * @memberof VehicleResponseDto
      */
-    insurance?: PhotoResponseDto;
+    insurance?: FileResponseDto;
     /**
      * 
      * @type {PlaceResponseDto}
@@ -217,15 +217,15 @@ export function VehicleResponseDtoFromJSONTyped(json: any, ignoreDiscriminator: 
         'euro': EuroStandardFromJSON(json['euro']),
         'amenities': ((json['amenities'] as Array<any>).map(AmenitiesFromJSON)),
         'handicappedUserCount': json['handicappedUserCount'],
-        'frontPhoto': json['frontPhoto'] == null ? undefined : PhotoResponseDtoFromJSON(json['frontPhoto']),
-        'rearPhoto': json['rearPhoto'] == null ? undefined : PhotoResponseDtoFromJSON(json['rearPhoto']),
-        'leftSidePhoto': json['leftSidePhoto'] == null ? undefined : PhotoResponseDtoFromJSON(json['leftSidePhoto']),
-        'rightSidePhoto': json['rightSidePhoto'] == null ? undefined : PhotoResponseDtoFromJSON(json['rightSidePhoto']),
-        'interierPhoto1': json['interierPhoto1'] == null ? undefined : PhotoResponseDtoFromJSON(json['interierPhoto1']),
-        'interierPhoto2': json['interierPhoto2'] == null ? undefined : PhotoResponseDtoFromJSON(json['interierPhoto2']),
-        'technicalCertificate1': json['technicalCertificate1'] == null ? undefined : PhotoResponseDtoFromJSON(json['technicalCertificate1']),
-        'technicalCertificate2': json['technicalCertificate2'] == null ? undefined : PhotoResponseDtoFromJSON(json['technicalCertificate2']),
-        'insurance': json['insurance'] == null ? undefined : PhotoResponseDtoFromJSON(json['insurance']),
+        'frontPhoto': json['frontPhoto'] == null ? undefined : FileResponseDtoFromJSON(json['frontPhoto']),
+        'rearPhoto': json['rearPhoto'] == null ? undefined : FileResponseDtoFromJSON(json['rearPhoto']),
+        'leftSidePhoto': json['leftSidePhoto'] == null ? undefined : FileResponseDtoFromJSON(json['leftSidePhoto']),
+        'rightSidePhoto': json['rightSidePhoto'] == null ? undefined : FileResponseDtoFromJSON(json['rightSidePhoto']),
+        'interierPhoto1': json['interierPhoto1'] == null ? undefined : FileResponseDtoFromJSON(json['interierPhoto1']),
+        'interierPhoto2': json['interierPhoto2'] == null ? undefined : FileResponseDtoFromJSON(json['interierPhoto2']),
+        'technicalCertificate1': json['technicalCertificate1'] == null ? undefined : FileResponseDtoFromJSON(json['technicalCertificate1']),
+        'technicalCertificate2': json['technicalCertificate2'] == null ? undefined : FileResponseDtoFromJSON(json['technicalCertificate2']),
+        'insurance': json['insurance'] == null ? undefined : FileResponseDtoFromJSON(json['insurance']),
         'departureStation': json['departureStation'] == null ? undefined : PlaceResponseDtoFromJSON(json['departureStation']),
     };
 }
@@ -252,15 +252,15 @@ export function VehicleResponseDtoToJSONTyped(value?: VehicleResponseDto | null,
         'euro': EuroStandardToJSON(value['euro']),
         'amenities': ((value['amenities'] as Array<any>).map(AmenitiesToJSON)),
         'handicappedUserCount': value['handicappedUserCount'],
-        'frontPhoto': PhotoResponseDtoToJSON(value['frontPhoto']),
-        'rearPhoto': PhotoResponseDtoToJSON(value['rearPhoto']),
-        'leftSidePhoto': PhotoResponseDtoToJSON(value['leftSidePhoto']),
-        'rightSidePhoto': PhotoResponseDtoToJSON(value['rightSidePhoto']),
-        'interierPhoto1': PhotoResponseDtoToJSON(value['interierPhoto1']),
-        'interierPhoto2': PhotoResponseDtoToJSON(value['interierPhoto2']),
-        'technicalCertificate1': PhotoResponseDtoToJSON(value['technicalCertificate1']),
-        'technicalCertificate2': PhotoResponseDtoToJSON(value['technicalCertificate2']),
-        'insurance': PhotoResponseDtoToJSON(value['insurance']),
+        'frontPhoto': FileResponseDtoToJSON(value['frontPhoto']),
+        'rearPhoto': FileResponseDtoToJSON(value['rearPhoto']),
+        'leftSidePhoto': FileResponseDtoToJSON(value['leftSidePhoto']),
+        'rightSidePhoto': FileResponseDtoToJSON(value['rightSidePhoto']),
+        'interierPhoto1': FileResponseDtoToJSON(value['interierPhoto1']),
+        'interierPhoto2': FileResponseDtoToJSON(value['interierPhoto2']),
+        'technicalCertificate1': FileResponseDtoToJSON(value['technicalCertificate1']),
+        'technicalCertificate2': FileResponseDtoToJSON(value['technicalCertificate2']),
+        'insurance': FileResponseDtoToJSON(value['insurance']),
         'departureStation': PlaceResponseDtoToJSON(value['departureStation']),
     };
 }

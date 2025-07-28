@@ -13,13 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
-import type { PhotoResponseDto } from './PhotoResponseDto';
+import type { FileResponseDto } from './FileResponseDto';
 import {
-    PhotoResponseDtoFromJSON,
-    PhotoResponseDtoFromJSONTyped,
-    PhotoResponseDtoToJSON,
-    PhotoResponseDtoToJSONTyped,
-} from './PhotoResponseDto';
+    FileResponseDtoFromJSON,
+    FileResponseDtoFromJSONTyped,
+    FileResponseDtoToJSON,
+    FileResponseDtoToJSONTyped,
+} from './FileResponseDto';
 
 /**
  * 
@@ -35,16 +35,16 @@ export interface TransporterRequirementsResponseDto {
     concessionNumber?: string | null;
     /**
      * 
-     * @type {PhotoResponseDto}
+     * @type {FileResponseDto}
      * @memberof TransporterRequirementsResponseDto
      */
-    concessionDocuments?: PhotoResponseDto;
+    concessionDocuments?: FileResponseDto;
     /**
      * 
-     * @type {PhotoResponseDto}
+     * @type {FileResponseDto}
      * @memberof TransporterRequirementsResponseDto
      */
-    businessRiskInsurance?: PhotoResponseDto;
+    businessRiskInsurance?: FileResponseDto;
 }
 
 /**
@@ -65,8 +65,8 @@ export function TransporterRequirementsResponseDtoFromJSONTyped(json: any, ignor
     return {
         
         'concessionNumber': json['concessionNumber'] == null ? undefined : json['concessionNumber'],
-        'concessionDocuments': json['concessionDocuments'] == null ? undefined : PhotoResponseDtoFromJSON(json['concessionDocuments']),
-        'businessRiskInsurance': json['businessRiskInsurance'] == null ? undefined : PhotoResponseDtoFromJSON(json['businessRiskInsurance']),
+        'concessionDocuments': json['concessionDocuments'] == null ? undefined : FileResponseDtoFromJSON(json['concessionDocuments']),
+        'businessRiskInsurance': json['businessRiskInsurance'] == null ? undefined : FileResponseDtoFromJSON(json['businessRiskInsurance']),
     };
 }
 
@@ -82,8 +82,8 @@ export function TransporterRequirementsResponseDtoToJSONTyped(value?: Transporte
     return {
         
         'concessionNumber': value['concessionNumber'],
-        'concessionDocuments': PhotoResponseDtoToJSON(value['concessionDocuments']),
-        'businessRiskInsurance': PhotoResponseDtoToJSON(value['businessRiskInsurance']),
+        'concessionDocuments': FileResponseDtoToJSON(value['concessionDocuments']),
+        'businessRiskInsurance': FileResponseDtoToJSON(value['businessRiskInsurance']),
     };
 }
 

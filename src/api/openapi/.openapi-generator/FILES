@@ -35,6 +35,9 @@ models/EmailType.ts
 models/ErrorCode.ts
 models/ErrorResponseDto.ts
 models/EuroStandard.ts
+models/FileCategory.ts
+models/FileResponseDto.ts
+models/FileType.ts
 models/FinancialDocumentResponseDto.ts
 models/FinancialDocumentType.ts
 models/FinishTripRequestDto.ts
@@ -45,7 +48,6 @@ models/LoginRequestDto.ts
 models/LoginResponseDto.ts
 models/NotificationsEnum.ts
 models/PayedOfferRequestDto.ts
-models/PhotoResponseDto.ts
 models/PlaceRequestDto.ts
 models/PlaceResponseDto.ts
 models/PriceDto.ts
@@ -81,6 +83,7 @@ models/UserRole.ts
 models/UserSettingsRequestDto.ts
 models/UserSettingsResponseDto.ts
 models/UserTransportVerificationRequestDto.ts
+models/VehicleRequestDto.ts
 models/VehicleResponseDto.ts
 models/VehicleTransportVerificationRequestDto.ts
 models/index.ts

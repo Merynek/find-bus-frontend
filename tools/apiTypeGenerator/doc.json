@@ -1457,112 +1457,8 @@
         }
       }
     },
-    "/api/Vehicles/photos": {
+    "/api/Vehicles/files": {
       "post": {
-        "tags": [
-          "Vehicles"
-        ],
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "required": [
-                  "FrontPhoto",
-                  "Id",
-                  "Insurance",
-                  "InterierPhoto1",
-                  "InterierPhoto2",
-                  "LeftSidePhoto",
-                  "RearPhoto",
-                  "RightSidePhoto",
-                  "TechnicalCertificate1"
-                ],
-                "type": "object",
-                "properties": {
-                  "Id": {
-                    "type": "integer",
-                    "format": "int32"
-                  },
-                  "FrontPhoto": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "RearPhoto": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "LeftSidePhoto": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "RightSidePhoto": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "InterierPhoto1": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "InterierPhoto2": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "TechnicalCertificate1": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "TechnicalCertificate2": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "Insurance": {
-                    "type": "string",
-                    "format": "binary"
-                  }
-                }
-              },
-              "encoding": {
-                "Id": {
-                  "style": "form"
-                },
-                "FrontPhoto": {
-                  "style": "form"
-                },
-                "RearPhoto": {
-                  "style": "form"
-                },
-                "LeftSidePhoto": {
-                  "style": "form"
-                },
-                "RightSidePhoto": {
-                  "style": "form"
-                },
-                "InterierPhoto1": {
-                  "style": "form"
-                },
-                "InterierPhoto2": {
-                  "style": "form"
-                },
-                "TechnicalCertificate1": {
-                  "style": "form"
-                },
-                "TechnicalCertificate2": {
-                  "style": "form"
-                },
-                "Insurance": {
-                  "style": "form"
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "put": {
         "tags": [
           "Vehicles"
         ],
@@ -1734,62 +1630,10 @@
         "additionalProperties": false
       },
       "AddVehicleRequestDto": {
-        "required": [
-          "amenities",
-          "euro",
-          "handicappedUserCount",
-          "name",
-          "personsCapacity",
-          "registrationSign",
-          "stkExpired",
-          "vin",
-          "yearOfManufacture"
-        ],
         "type": "object",
         "properties": {
-          "name": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "registrationSign": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "vin": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "stkExpired": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "yearOfManufacture": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "personsCapacity": {
-            "maximum": 2147483647,
-            "minimum": 1,
-            "type": "integer",
-            "format": "int32"
-          },
-          "euro": {
-            "$ref": "#/components/schemas/EuroStandard"
-          },
-          "amenities": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Amenities"
-            }
-          },
-          "handicappedUserCount": {
-            "maximum": 2147483647,
-            "minimum": 0,
-            "type": "integer",
-            "format": "int32"
-          },
-          "departureStation": {
-            "$ref": "#/components/schemas/PlaceRequestDto"
+          "info": {
+            "$ref": "#/components/schemas/VehicleRequestDto"
           }
         },
         "additionalProperties": false
@@ -2796,6 +2640,51 @@
         ],
         "type": "string"
       },
+      "FileCategory": {
+        "enum": [
+          "IMAGE",
+          "DOCUMENT",
+          "OTHER",
+          "UNKNOWN"
+        ],
+        "type": "string"
+      },
+      "FileResponseDto": {
+        "required": [
+          "category",
+          "id",
+          "path",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "path": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/FileType"
+          },
+          "category": {
+            "$ref": "#/components/schemas/FileCategory"
+          }
+        },
+        "additionalProperties": false
+      },
+      "FileType": {
+        "enum": [
+          "VEHICLE_PHOTO",
+          "VEHICLE_INSURANCE",
+          "VEHICLE_TECHNICAL_CERTIFICATE",
+          "CONCESSION_DOCUMENT",
+          "BUSINESS_RISK_INSURANCE"
+        ],
+        "type": "string"
+      },
       "FinancialDocumentResponseDto": {
         "required": [
           "dateOfIssue",
@@ -3038,24 +2927,6 @@
           "offerId": {
             "type": "integer",
             "format": "int32"
-          }
-        },
-        "additionalProperties": false
-      },
-      "PhotoResponseDto": {
-        "required": [
-          "id",
-          "path"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "path": {
-            "minLength": 1,
-            "type": "string"
           }
         },
         "additionalProperties": false
@@ -3308,10 +3179,10 @@
             "nullable": true
           },
           "concessionDocuments": {
-            "$ref": "#/components/schemas/PhotoResponseDto"
+            "$ref": "#/components/schemas/FileResponseDto"
           },
           "businessRiskInsurance": {
-            "$ref": "#/components/schemas/PhotoResponseDto"
+            "$ref": "#/components/schemas/FileResponseDto"
           }
         },
         "additionalProperties": false
@@ -3788,11 +3659,7 @@
       },
       "UpdateVehicleRequestDto": {
         "required": [
-          "id",
-          "registrationSign",
-          "stkExpired",
-          "vin",
-          "yearOfManufacture"
+          "id"
         ],
         "type": "object",
         "properties": {
@@ -3800,50 +3667,8 @@
             "type": "integer",
             "format": "int32"
           },
-          "name": {
-            "type": "string",
-            "nullable": true
-          },
-          "registrationSign": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "vin": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "stkExpired": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "yearOfManufacture": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "personsCapacity": {
-            "maximum": 2147483647,
-            "minimum": 1,
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "euro": {
-            "$ref": "#/components/schemas/EuroStandard"
-          },
-          "amenities": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Amenities"
-            },
-            "nullable": true
-          },
-          "handicappedUserCount": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "departureStation": {
-            "$ref": "#/components/schemas/PlaceRequestDto"
+          "info": {
+            "$ref": "#/components/schemas/VehicleRequestDto"
           }
         },
         "additionalProperties": false
@@ -4073,6 +3898,61 @@
         },
         "additionalProperties": false
       },
+      "VehicleRequestDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "registrationSign": {
+            "type": "string",
+            "nullable": true
+          },
+          "vin": {
+            "type": "string",
+            "nullable": true
+          },
+          "stkExpired": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "yearOfManufacture": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "personsCapacity": {
+            "maximum": 2147483647,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "euro": {
+            "$ref": "#/components/schemas/EuroStandard"
+          },
+          "amenities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Amenities"
+            },
+            "nullable": true
+          },
+          "handicappedUserCount": {
+            "maximum": 2147483647,
+            "minimum": 0,
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "departureStation": {
+            "$ref": "#/components/schemas/PlaceRequestDto"
+          }
+        },
+        "additionalProperties": false
+      },
       "VehicleResponseDto": {
         "required": [
           "amenities",
@@ -4134,31 +4014,31 @@
             "format": "int32"
           },
           "frontPhoto": {
-            "$ref": "#/components/schemas/PhotoResponseDto"
+            "$ref": "#/components/schemas/FileResponseDto"
           },
           "rearPhoto": {
-            "$ref": "#/components/schemas/PhotoResponseDto"
+            "$ref": "#/components/schemas/FileResponseDto"
           },
           "leftSidePhoto": {
-            "$ref": "#/components/schemas/PhotoResponseDto"
+            "$ref": "#/components/schemas/FileResponseDto"
           },
           "rightSidePhoto": {
-            "$ref": "#/components/schemas/PhotoResponseDto"
+            "$ref": "#/components/schemas/FileResponseDto"
           },
           "interierPhoto1": {
-            "$ref": "#/components/schemas/PhotoResponseDto"
+            "$ref": "#/components/schemas/FileResponseDto"
           },
           "interierPhoto2": {
-            "$ref": "#/components/schemas/PhotoResponseDto"
+            "$ref": "#/components/schemas/FileResponseDto"
           },
           "technicalCertificate1": {
-            "$ref": "#/components/schemas/PhotoResponseDto"
+            "$ref": "#/components/schemas/FileResponseDto"
           },
           "technicalCertificate2": {
-            "$ref": "#/components/schemas/PhotoResponseDto"
+            "$ref": "#/components/schemas/FileResponseDto"
           },
           "insurance": {
-            "$ref": "#/components/schemas/PhotoResponseDto"
+            "$ref": "#/components/schemas/FileResponseDto"
           },
           "departureStation": {
             "$ref": "#/components/schemas/PlaceResponseDto"

@@ -31,20 +31,7 @@ import {
     VehicleTransportVerificationRequestDtoToJSON,
 } from '../models/index';
 
-export interface ApiVehiclesPhotosPostRequest {
-    id: number;
-    frontPhoto: Blob;
-    rearPhoto: Blob;
-    leftSidePhoto: Blob;
-    rightSidePhoto: Blob;
-    interierPhoto1: Blob;
-    interierPhoto2: Blob;
-    technicalCertificate1: Blob;
-    insurance: Blob;
-    technicalCertificate2?: Blob;
-}
-
-export interface ApiVehiclesPhotosPutRequest {
+export interface ApiVehiclesFilesPostRequest {
     id: number;
     frontPhoto?: Blob;
     rearPhoto?: Blob;
@@ -80,6 +67,120 @@ export class VehiclesApi extends runtime.BaseAPI {
 
     /**
      */
+    async apiVehiclesFilesPostRaw(requestParameters: ApiVehiclesFilesPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling apiVehiclesFilesPost().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const consumes: runtime.Consume[] = [
+            { contentType: 'multipart/form-data' },
+        ];
+        // @ts-ignore: canConsumeForm may be unused
+        const canConsumeForm = runtime.canConsumeForm(consumes);
+
+        let formParams: { append(param: string, value: any): any };
+        let useForm = false;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        useForm = canConsumeForm;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        useForm = canConsumeForm;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        useForm = canConsumeForm;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        useForm = canConsumeForm;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        useForm = canConsumeForm;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        useForm = canConsumeForm;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        useForm = canConsumeForm;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        useForm = canConsumeForm;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        useForm = canConsumeForm;
+        if (useForm) {
+            formParams = new FormData();
+        } else {
+            formParams = new URLSearchParams();
+        }
+
+        if (requestParameters['id'] != null) {
+            formParams.append('Id', requestParameters['id'] as any);
+        }
+
+        if (requestParameters['frontPhoto'] != null) {
+            formParams.append('FrontPhoto', requestParameters['frontPhoto'] as any);
+        }
+
+        if (requestParameters['rearPhoto'] != null) {
+            formParams.append('RearPhoto', requestParameters['rearPhoto'] as any);
+        }
+
+        if (requestParameters['leftSidePhoto'] != null) {
+            formParams.append('LeftSidePhoto', requestParameters['leftSidePhoto'] as any);
+        }
+
+        if (requestParameters['rightSidePhoto'] != null) {
+            formParams.append('RightSidePhoto', requestParameters['rightSidePhoto'] as any);
+        }
+
+        if (requestParameters['interierPhoto1'] != null) {
+            formParams.append('InterierPhoto1', requestParameters['interierPhoto1'] as any);
+        }
+
+        if (requestParameters['interierPhoto2'] != null) {
+            formParams.append('InterierPhoto2', requestParameters['interierPhoto2'] as any);
+        }
+
+        if (requestParameters['technicalCertificate1'] != null) {
+            formParams.append('TechnicalCertificate1', requestParameters['technicalCertificate1'] as any);
+        }
+
+        if (requestParameters['technicalCertificate2'] != null) {
+            formParams.append('TechnicalCertificate2', requestParameters['technicalCertificate2'] as any);
+        }
+
+        if (requestParameters['insurance'] != null) {
+            formParams.append('Insurance', requestParameters['insurance'] as any);
+        }
+
+
+        let urlPath = `/api/Vehicles/files`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async apiVehiclesFilesPost(requestParameters: ApiVehiclesFilesPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.apiVehiclesFilesPostRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     */
     async apiVehiclesGetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<VehicleResponseDto>>> {
         const queryParameters: any = {};
 
@@ -111,290 +212,6 @@ export class VehiclesApi extends runtime.BaseAPI {
     async apiVehiclesGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<VehicleResponseDto>> {
         const response = await this.apiVehiclesGetRaw(initOverrides);
         return await response.value();
-    }
-
-    /**
-     */
-    async apiVehiclesPhotosPostRaw(requestParameters: ApiVehiclesPhotosPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['id'] == null) {
-            throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling apiVehiclesPhotosPost().'
-            );
-        }
-
-        if (requestParameters['frontPhoto'] == null) {
-            throw new runtime.RequiredError(
-                'frontPhoto',
-                'Required parameter "frontPhoto" was null or undefined when calling apiVehiclesPhotosPost().'
-            );
-        }
-
-        if (requestParameters['rearPhoto'] == null) {
-            throw new runtime.RequiredError(
-                'rearPhoto',
-                'Required parameter "rearPhoto" was null or undefined when calling apiVehiclesPhotosPost().'
-            );
-        }
-
-        if (requestParameters['leftSidePhoto'] == null) {
-            throw new runtime.RequiredError(
-                'leftSidePhoto',
-                'Required parameter "leftSidePhoto" was null or undefined when calling apiVehiclesPhotosPost().'
-            );
-        }
-
-        if (requestParameters['rightSidePhoto'] == null) {
-            throw new runtime.RequiredError(
-                'rightSidePhoto',
-                'Required parameter "rightSidePhoto" was null or undefined when calling apiVehiclesPhotosPost().'
-            );
-        }
-
-        if (requestParameters['interierPhoto1'] == null) {
-            throw new runtime.RequiredError(
-                'interierPhoto1',
-                'Required parameter "interierPhoto1" was null or undefined when calling apiVehiclesPhotosPost().'
-            );
-        }
-
-        if (requestParameters['interierPhoto2'] == null) {
-            throw new runtime.RequiredError(
-                'interierPhoto2',
-                'Required parameter "interierPhoto2" was null or undefined when calling apiVehiclesPhotosPost().'
-            );
-        }
-
-        if (requestParameters['technicalCertificate1'] == null) {
-            throw new runtime.RequiredError(
-                'technicalCertificate1',
-                'Required parameter "technicalCertificate1" was null or undefined when calling apiVehiclesPhotosPost().'
-            );
-        }
-
-        if (requestParameters['insurance'] == null) {
-            throw new runtime.RequiredError(
-                'insurance',
-                'Required parameter "insurance" was null or undefined when calling apiVehiclesPhotosPost().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("Bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const consumes: runtime.Consume[] = [
-            { contentType: 'multipart/form-data' },
-        ];
-        // @ts-ignore: canConsumeForm may be unused
-        const canConsumeForm = runtime.canConsumeForm(consumes);
-
-        let formParams: { append(param: string, value: any): any };
-        let useForm = false;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        if (useForm) {
-            formParams = new FormData();
-        } else {
-            formParams = new URLSearchParams();
-        }
-
-        if (requestParameters['id'] != null) {
-            formParams.append('Id', requestParameters['id'] as any);
-        }
-
-        if (requestParameters['frontPhoto'] != null) {
-            formParams.append('FrontPhoto', requestParameters['frontPhoto'] as any);
-        }
-
-        if (requestParameters['rearPhoto'] != null) {
-            formParams.append('RearPhoto', requestParameters['rearPhoto'] as any);
-        }
-
-        if (requestParameters['leftSidePhoto'] != null) {
-            formParams.append('LeftSidePhoto', requestParameters['leftSidePhoto'] as any);
-        }
-
-        if (requestParameters['rightSidePhoto'] != null) {
-            formParams.append('RightSidePhoto', requestParameters['rightSidePhoto'] as any);
-        }
-
-        if (requestParameters['interierPhoto1'] != null) {
-            formParams.append('InterierPhoto1', requestParameters['interierPhoto1'] as any);
-        }
-
-        if (requestParameters['interierPhoto2'] != null) {
-            formParams.append('InterierPhoto2', requestParameters['interierPhoto2'] as any);
-        }
-
-        if (requestParameters['technicalCertificate1'] != null) {
-            formParams.append('TechnicalCertificate1', requestParameters['technicalCertificate1'] as any);
-        }
-
-        if (requestParameters['technicalCertificate2'] != null) {
-            formParams.append('TechnicalCertificate2', requestParameters['technicalCertificate2'] as any);
-        }
-
-        if (requestParameters['insurance'] != null) {
-            formParams.append('Insurance', requestParameters['insurance'] as any);
-        }
-
-
-        let urlPath = `/api/Vehicles/photos`;
-
-        const response = await this.request({
-            path: urlPath,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: formParams,
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     */
-    async apiVehiclesPhotosPost(requestParameters: ApiVehiclesPhotosPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.apiVehiclesPhotosPostRaw(requestParameters, initOverrides);
-    }
-
-    /**
-     */
-    async apiVehiclesPhotosPutRaw(requestParameters: ApiVehiclesPhotosPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['id'] == null) {
-            throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling apiVehiclesPhotosPut().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("Bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const consumes: runtime.Consume[] = [
-            { contentType: 'multipart/form-data' },
-        ];
-        // @ts-ignore: canConsumeForm may be unused
-        const canConsumeForm = runtime.canConsumeForm(consumes);
-
-        let formParams: { append(param: string, value: any): any };
-        let useForm = false;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        if (useForm) {
-            formParams = new FormData();
-        } else {
-            formParams = new URLSearchParams();
-        }
-
-        if (requestParameters['id'] != null) {
-            formParams.append('Id', requestParameters['id'] as any);
-        }
-
-        if (requestParameters['frontPhoto'] != null) {
-            formParams.append('FrontPhoto', requestParameters['frontPhoto'] as any);
-        }
-
-        if (requestParameters['rearPhoto'] != null) {
-            formParams.append('RearPhoto', requestParameters['rearPhoto'] as any);
-        }
-
-        if (requestParameters['leftSidePhoto'] != null) {
-            formParams.append('LeftSidePhoto', requestParameters['leftSidePhoto'] as any);
-        }
-
-        if (requestParameters['rightSidePhoto'] != null) {
-            formParams.append('RightSidePhoto', requestParameters['rightSidePhoto'] as any);
-        }
-
-        if (requestParameters['interierPhoto1'] != null) {
-            formParams.append('InterierPhoto1', requestParameters['interierPhoto1'] as any);
-        }
-
-        if (requestParameters['interierPhoto2'] != null) {
-            formParams.append('InterierPhoto2', requestParameters['interierPhoto2'] as any);
-        }
-
-        if (requestParameters['technicalCertificate1'] != null) {
-            formParams.append('TechnicalCertificate1', requestParameters['technicalCertificate1'] as any);
-        }
-
-        if (requestParameters['technicalCertificate2'] != null) {
-            formParams.append('TechnicalCertificate2', requestParameters['technicalCertificate2'] as any);
-        }
-
-        if (requestParameters['insurance'] != null) {
-            formParams.append('Insurance', requestParameters['insurance'] as any);
-        }
-
-
-        let urlPath = `/api/Vehicles/photos`;
-
-        const response = await this.request({
-            path: urlPath,
-            method: 'PUT',
-            headers: headerParameters,
-            query: queryParameters,
-            body: formParams,
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     */
-    async apiVehiclesPhotosPut(requestParameters: ApiVehiclesPhotosPutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.apiVehiclesPhotosPutRaw(requestParameters, initOverrides);
     }
 
     /**
