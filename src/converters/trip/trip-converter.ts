@@ -51,7 +51,7 @@ export class TripConverter {
         }
     }
 
-    public static tripRecommendationToClient(apiRecommendation: TripRecommendationResponseDto): TripRecommendation {
+    public static tripRecommendationToInstance(apiRecommendation: TripRecommendationResponseDto): TripRecommendation {
         return new TripRecommendation({
             routes: apiRecommendation.routes.map(r => {
                 return new TripRecommendationRoute({

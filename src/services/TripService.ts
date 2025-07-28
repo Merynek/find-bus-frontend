@@ -15,7 +15,7 @@ export class TripService {
 
     public static async getTrips(req: IGetTripsRequest): Promise<TripItem[]> {
         const data = await getTrips(req);
-        return data.map(TripItemConverter.toClient);
+        return data.map(TripItemConverter.toInstance);
     }
 
     public static async createTrip(req: ICreateTripRequest): Promise<void> {
@@ -24,6 +24,6 @@ export class TripService {
 
     public static async getTripRecommendation(trip: TripRecommendationRequestDto): Promise<TripRecommendation> {
         const data = await getTripRecommendation(trip);
-        return TripConverter.tripRecommendationToClient(data);
+        return TripConverter.tripRecommendationToInstance(data);
     }
 }

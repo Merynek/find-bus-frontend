@@ -1,4 +1,3 @@
-import {UserAdminDetailConverter} from "@/src/converters/user-admin-detail-converter";
 import {UserAdminDetail} from "@/src/data/users/user-admin-detail";
 import {
     changeSettings,
@@ -8,9 +7,10 @@ import {
     updateTransportRequirementsPhotos
 } from "@/src/app/actions/users/usersActions";
 import {UserSettingsRequestDto} from "@/src/api/openapi";
-import {UsersConverter} from "@/src/converters/users-converter";
 import {UserSettings} from "@/src/data/users/userSettings";
 import {IUpdateTransportRequirementsPhotosRequest} from "@/src/api/usersApi";
+import {UserAdminDetailConverter} from "@/src/converters/admin/user-admin-detail-converter";
+import {UsersConverter} from "@/src/converters/users/users-converter";
 
 export class UsersService {
     public static async getAllUsers(offset: number, limit: number): Promise<UserAdminDetail[]> {
@@ -29,7 +29,7 @@ export class UsersService {
 
     public static async getSettings(): Promise<UserSettings> {
         const data = await getSettings();
-        return UsersConverter.userSettingsToClient(data);
+        return UsersConverter.userSettingsToInstance(data);
     }
 
     public static async updateTransportRequirementsPhotos(req: IUpdateTransportRequirementsPhotosRequest) {

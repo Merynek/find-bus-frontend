@@ -2,7 +2,7 @@ import {GeoPoint as ApiGeoPoint} from "../../api/openapi";
 import {GeoPoint} from "../../data/geoPoint";
 
 export class GeoPointConverter {
-    public static toClient(apiGeoPoint: ApiGeoPoint): GeoPoint {
+    public static toInstance(apiGeoPoint: ApiGeoPoint): GeoPoint {
         return new GeoPoint({
             lat: apiGeoPoint.lat,
             lng: apiGeoPoint.lng

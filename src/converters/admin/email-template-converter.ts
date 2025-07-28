@@ -1,8 +1,6 @@
-import {
-    EmailTemplateResponseDto
-} from "../api/openapi";
-import {EmailTemplate} from "../data/emailConfig";
-import {EmailConfigLocalizationConverter} from "@/src/converters/email-config-localization-converter";
+import {EmailTemplateResponseDto} from "@/src/api/openapi";
+import {EmailTemplate} from "@/src/data/emailConfig";
+import {EmailConfigLocalizationConverter} from "@/src/converters/admin/email-config-localization-converter";
 
 export class EmailTemplateConverter {
     public static toInstance(apiTemplate: EmailTemplateResponseDto): EmailTemplate {

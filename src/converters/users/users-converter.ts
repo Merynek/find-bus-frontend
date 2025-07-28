@@ -1,23 +1,22 @@
-import {UserSettings} from "../data/users/userSettings";
+import {User} from "@/src/data/users/user";
 import {
-    CurrentUserDto, TransferInfoRequestDto,
-    UserAddressRequestDto,
+    CurrentUserDto, TransferInfoRequestDto, UserAddressRequestDto,
     UserDetailResponseDto,
+    UserSettingsRequestDto,
     UserSettingsResponseDto
-} from "../api/openapi";
-import {UserSettingsRequestDto} from "../api/openapi";
-import {User} from "../data/users/user";
-import {UserDetail} from "../data/users/user-detail";
-import {UserAddress} from "../data/users/userAddress";
-import {TransferInfo} from "../data/transferInfo";
-import {TransportRequirements} from "../data/transportRequirements";
-import {TransportRequirementsConverter} from "@/src/converters/transport-requirements-converter";
-import {TransferInfoConverter} from "@/src/converters/transfer-info-converter";
-import {UserAddressConverter} from "@/src/converters/user-address-converter";
+} from "@/src/api/openapi";
+import { UserSettings } from "@/src/data/users/userSettings";
+import {UserAddress} from "@/src/data/users/userAddress";
+import {UserAddressConverter} from "@/src/converters/users/user-address-converter";
+import {TransferInfoConverter} from "@/src/converters/users/transfer-info-converter";
+import {TransferInfo} from "@/src/data/transferInfo";
+import {TransportRequirementsConverter} from "@/src/converters/users/transport-requirements-converter";
+import {TransportRequirements} from "@/src/data/transportRequirements";
+import {UserDetail} from "@/src/data/users/user-detail";
 
 export class UsersConverter {
 
-    public static currentUserToClient(currentUserDto: CurrentUserDto): User {
+    public static currentUserToInstance(currentUserDto: CurrentUserDto): User {
         return new User({
             id: currentUserDto.id,
             role: currentUserDto.role,
@@ -25,7 +24,7 @@ export class UsersConverter {
         })
     }
 
-    public static userSettingsToClient(settings: UserSettingsResponseDto): UserSettings {
+    public static userSettingsToInstance(settings: UserSettingsResponseDto): UserSettings {
         return new UserSettings({
             name: settings.name || "",
             surname: settings.surname || "",
@@ -83,7 +82,7 @@ export class UsersConverter {
         }
     }
 
-    public static userDetailToClient(response: UserDetailResponseDto): UserDetail {
+    public static userDetailToInstance(response: UserDetailResponseDto): UserDetail {
         return new UserDetail({
             id: response.id
         });

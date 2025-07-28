@@ -1,4 +1,3 @@
-import {UsersConverter} from "@/src/converters/users-converter";
 import {UserRole} from "@/src/api/openapi";
 import {
     activeUserAction, forgotPasswordAction,
@@ -7,6 +6,7 @@ import {
     logoutAction, resetPasswordAction,
     signUpAction
 } from "@/src/app/actions/auth/authActions";
+import {UsersConverter} from "@/src/converters/users/users-converter";
 
 export class AuthorizationService {
     public static async getUserJson() {
@@ -20,14 +20,14 @@ export class AuthorizationService {
     public static async getUser() {
         const data = await AuthorizationService.getUserJson();
         if (data) {
-            return UsersConverter.currentUserToClient(data.user);
+            return UsersConverter.currentUserToInstance(data.user);
         }
         return null;
     }
 
     public static async login(email: string, password: string) {
         const response = await loginAction(email, password);
-        return UsersConverter.currentUserToClient(response.user);
+        return UsersConverter.currentUserToInstance(response.user);
     }
 
     public static async logout() {

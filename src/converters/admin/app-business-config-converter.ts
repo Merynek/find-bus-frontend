@@ -1,7 +1,5 @@
-import {
-    AppBusinessConfigResponseDto
-} from "../api/openapi";
-import {AppBusinessConfig} from "../data/appBusinessConfig";
+import {AppBusinessConfigResponseDto} from "@/src/api/openapi";
+import {AppBusinessConfig} from "@/src/data/appBusinessConfig";
 
 export class AppBusinessConfigConverter {
     public static toInstance(response: AppBusinessConfigResponseDto): AppBusinessConfig {

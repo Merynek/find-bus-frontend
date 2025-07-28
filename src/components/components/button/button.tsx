@@ -75,7 +75,7 @@ export const ButtonClick = (props: IClickButtonProps) => {
 
 export const ButtonLink = (props: ILinkButtonProps) => {
     const {size, type, onClick, route, openInTab, isDisabled} = props;
-    const to = `${route.route}${route.param ? ("/" + route.param) : ""}`;
+    const to = `${route.route}${route.param ? ("/" + route.param) : ""}` as any
 
     return <Link
         href={to}

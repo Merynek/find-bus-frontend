@@ -18,13 +18,13 @@ export class TripOfferService {
     public static async getTripOffers(tripId: number): Promise<Offer[]> {
         const data = await getTripOffers(tripId);
 
-        return data.map(TripOfferConverter.toClient);
+        return data.map(TripOfferConverter.toInstance);
     }
 
     public static async getOfferStateMovements(tripId: number): Promise<TripOfferMovement[]> {
         const data = await getOfferStateMovements(tripId);
 
-        return data.map(TripOfferConverter.offerMovementToClient);
+        return data.map(TripOfferConverter.offerMovementToInstance);
     }
 
     public static async payedOffer(offerId: number) {

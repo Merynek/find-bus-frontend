@@ -18,7 +18,7 @@ interface IAdminTripMoveActionsProps {
 }
 
 export const AdminTripMoveActions = (props: IAdminTripMoveActionsProps) => {
-    const offers = props.offers.map(o => TripOfferConverter.toClient(o));
+    const offers = props.offers.map(o => TripOfferConverter.toInstance(o));
     const trip = useInit(() => TripConverter.toInstance(props.trip));
     const { showLoader, hideLoader } = useApp();
     const router = useRouter();

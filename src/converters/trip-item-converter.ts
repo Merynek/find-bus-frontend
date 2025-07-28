@@ -10,7 +10,7 @@ import {TripItem} from "../data/tripItem";
 import {Direction} from "../data/trip/direction";
 
 export class TripItemConverter {
-    public static toClient(apiTrip: TripItemResponseDto): TripItem {
+    public static toInstance(apiTrip: TripItemResponseDto): TripItem {
         return new TripItem({
             id: apiTrip.id,
             amenities: apiTrip.amenities,

@@ -1,8 +1,6 @@
-import {
-    EmailConfigResponseDto
-} from "../api/openapi";
-import {EmailConfig} from "../data/emailConfig";
-import {UserAdminDetailConverter} from "@/src/converters/user-admin-detail-converter";
+import {EmailConfigResponseDto} from "@/src/api/openapi";
+import {EmailConfig} from "@/src/data/emailConfig";
+import {EmailTemplateConverter} from "@/src/converters/admin/email-template-converter";
 
 export class EmailConfigConverter {
     public static toInstance(response: EmailConfigResponseDto): EmailConfig {
@@ -13,7 +11,7 @@ export class EmailConfigConverter {
             }
         }
         return new EmailConfig({
-            templates: response.templates.map(UserAdminDetailConverter.emailTemplateToClient),
+            templates: response.templates.map(EmailTemplateConverter.toInstance),
             userParams: userParams
         })
     }

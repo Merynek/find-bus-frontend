@@ -1,7 +1,5 @@
-import {
-    EmailConfigLocalizationResponseDto
-} from "../api/openapi";
-import {EmailConfigLocalization} from "../data/emailConfig";
+import {EmailConfigLocalizationResponseDto} from "@/src/api/openapi";
+import {EmailConfigLocalization} from "@/src/data/emailConfig";
 
 export class EmailConfigLocalizationConverter {
     public static toInstance(response: EmailConfigLocalizationResponseDto): EmailConfigLocalization {

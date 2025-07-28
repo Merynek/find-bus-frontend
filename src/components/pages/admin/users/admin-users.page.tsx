@@ -11,7 +11,7 @@ import {MediaElement} from "../../../components/media-element/media-element";
 import {VehicleVerifyButton} from "@/src/components/pages/admin/users/vehicle-verify-button";
 import {UserVerifyButton} from "@/src/components/pages/admin/users/user-verify-button";
 import {VehicleConverter} from "@/src/converters/vehicle-converter";
-import {UserAdminDetailConverter} from "@/src/converters/user-admin-detail-converter";
+import {UserAdminDetailConverter} from "@/src/converters/admin/user-admin-detail-converter";
 
 export interface IUsersListParams {
     users: UserAdminDetail[];

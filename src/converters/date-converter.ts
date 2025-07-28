@@ -7,7 +7,7 @@ export class DateConverter {
         return date.toISOString();
     }
 
-    public static dateTimeToClient(date: string): Date {
+    public static dateTimeToInstance(date: string): Date {
         return new Date(date)
     }
 }

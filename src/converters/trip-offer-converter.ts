@@ -7,20 +7,20 @@ import {FinancialDocumentConverter} from "./financial-document-converter";
 import {UsersConverter} from "@/src/converters/users/users-converter";
 
 export class TripOfferConverter {
-    public static toClient(response: TripOfferResponseDto): Offer {
+    public static toInstance(response: TripOfferResponseDto): Offer {
         return new Offer({
-            price: PriceConverter.toClient(response.price),
+            price: PriceConverter.toInstance(response.price),
             id: response.id,
-            user: UsersConverter.userDetailToClient(response.user),
+            user: UsersConverter.userDetailToInstance(response.user),
             vehicle: VehicleConverter.toInstance(response.vehicle),
             accepted: response.accepted,
             endOfferDate: response.endOfferDate,
             acceptOfferDate: response.acceptOfferDate || null,
-            documents: response.documents ? response.documents.map(FinancialDocumentConverter.toClient) : []
+            documents: response.documents ? response.documents.map(FinancialDocumentConverter.toInstance) : []
         })
     }
 
-    public static offerMovementToClient(response: TripOfferMovementsResponseDto): TripOfferMovement {
+    public static offerMovementToInstance(response: TripOfferMovementsResponseDto): TripOfferMovement {
         return new TripOfferMovement({
             id: response.id,
             tripId: response.tripId,

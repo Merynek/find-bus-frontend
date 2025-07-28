@@ -2,7 +2,7 @@ import {PriceDto} from "../api/openapi";
 import {Price} from "../data/price";
 
 export class PriceConverter {
-    public static toClient(price: PriceDto): Price {
+    public static toInstance(price: PriceDto): Price {
         return new Price({
             amount: price.amount,
             currency: price.currency
