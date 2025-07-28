@@ -4,7 +4,7 @@ import {Photo} from "../media/photo";
 import {Place} from "../place";
 
 export interface IVehicleSettings {
-    id: number;
+    id?: number;
     name: string;
     registrationSign: string;
     VIN: string;
@@ -28,7 +28,7 @@ export interface IVehicleSettings {
 }
 
 export class Vehicle {
-    public id: number;
+    public id?: number;
     @observable public name: string;
     @observable public registrationSign: string;
     @observable public VIN: string;
@@ -77,7 +77,6 @@ export class Vehicle {
 
     public static create() {
         return new Vehicle({
-            id: 0,
             name: "",
             euroStandard: EuroStandard.EURO3,
             amenities: [],

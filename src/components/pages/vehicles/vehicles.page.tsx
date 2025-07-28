@@ -3,12 +3,12 @@
 import React, {useState} from "react";
 import {observer} from "mobx-react";;
 import {VehicleDetail} from "../../compositions/vehicle/detail-list/vehicle-detail-list";
-import {VehicleEdit} from "../../compositions/vehicle/edit/vehicle-edit";
 import {ButtonClick, ButtonSize, ButtonType} from "../../components/button/button";
 import {VehicleEditStore} from "../../compositions/vehicle/edit/vehicle-edit.store";
 import {Vehicle} from "@/src/data/users/vehicle";
 import {VehicleService} from "@/src/services/VehicleService";
 import {useApp} from "@/src/app/contexts/AppContext";
+import VehicleForm from "@/src/components/compositions/vehicle/edit/vehicle-edit";
 
 const VehiclePage = observer(() => {
     const [vehicles, setVehicles] = useState<Vehicle[]>([]);
@@ -16,7 +16,7 @@ const VehiclePage = observer(() => {
     const [vehicleEdit, setVehicleEdit] = useState<VehicleEditStore|null>(null);
 
     const _renderEdit = (editVehicle: VehicleEditStore) => {
-        return <VehicleEdit
+        return <VehicleForm
             store={editVehicle}
             onClose={async () => {
                 showLoader();

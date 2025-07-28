@@ -6,6 +6,7 @@ import { z } from 'zod';
 import {AddVehicleSchema} from "@/src/app/actions/forms/vehicle/add/addVehicleSchema";
 import {VehicleService} from "@/src/services/VehicleService";
 import {Country, PlaceRequestDto} from "@/src/api/openapi";
+import {FormDataEnum} from "@/src/enums/form-data.enum";
 
 type AddVehicleSchemaFieldErrors = z.inferFlattenedErrors<typeof AddVehicleSchema>['fieldErrors'];
 
@@ -17,31 +18,31 @@ export type TAddVehicleFormState = {
 
 export async function addVehicleFormAction(state: TAddVehicleFormState, formData: FormData): Promise<TAddVehicleFormState> {
     const dataToValidate = {
-        frontPhoto: formData.get('frontPhoto'),
-        rearPhoto: formData.get('rearPhoto'),
-        leftSidePhoto: formData.get('leftSidePhoto'),
-        rightSidePhoto: formData.get('rightSidePhoto'),
-        interierPhoto1: formData.get('interierPhoto1'),
-        interierPhoto2: formData.get('interierPhoto2'),
-        technicalCertificate1: formData.get('technicalCertificate1'),
-        technicalCertificate2: formData.get('technicalCertificate2'),
-        insurance: formData.get('insurance'),
-        name: formData.get('name'),
-        vin: formData.get('vin'),
-        registrationSign: formData.get('registrationSign'),
-        personsCapacity: Number(formData.get('personsCapacity')),
-        handicappedUserCount: Number(formData.get('handicappedUserCount')),
-        yearOfManufacture: Number(formData.get('yearOfManufacture')),
-        euro: formData.get('euro'),
-        amenities: formData.getAll('amenities'),
-        stkExpired: formData.get('stkExpired'),
+        frontPhoto: formData.get(FormDataEnum.frontPhoto),
+        rearPhoto: formData.get(FormDataEnum.rearPhoto),
+        leftSidePhoto: formData.get(FormDataEnum.leftSidePhoto),
+        rightSidePhoto: formData.get(FormDataEnum.rightSidePhoto),
+        interierPhoto1: formData.get(FormDataEnum.interierPhoto1),
+        interierPhoto2: formData.get(FormDataEnum.interierPhoto2),
+        technicalCertificate1: formData.get(FormDataEnum.technicalCertificate1),
+        technicalCertificate2: formData.get(FormDataEnum.technicalCertificate2),
+        insurance: formData.get(FormDataEnum.insurance),
+        name: formData.get(FormDataEnum.name),
+        vin: formData.get(FormDataEnum.vin),
+        registrationSign: formData.get(FormDataEnum.registrationSign),
+        personsCapacity: Number(formData.get(FormDataEnum.personsCapacity)),
+        handicappedUserCount: Number(formData.get(FormDataEnum.handicappedUserCount)),
+        yearOfManufacture: Number(formData.get(FormDataEnum.yearOfManufacture)),
+        euro: formData.get(FormDataEnum.euro),
+        amenities: formData.getAll(FormDataEnum.amenities),
+        stkExpired: formData.get(FormDataEnum.stkExpired),
         departureStation: ((): PlaceRequestDto|undefined => {
-            const placeId = formData.get('departureStation.placeId');
-            const lat = formData.get('departureStation.point.lat');
-            const lng = formData.get('departureStation.point.lng');
-            const country = formData.get('departureStation.country');
-            const name = formData.get('departureStation.name');
-            const placeFormatted = formData.get('departureStation.placeFormatted');
+            const placeId = formData.get(FormDataEnum.departureStation_placeId);
+            const lat = formData.get(FormDataEnum.departureStation_point_lat);
+            const lng = formData.get(FormDataEnum.departureStation_point_lng);
+            const country = formData.get(FormDataEnum.departureStation_country);
+            const name = formData.get(FormDataEnum.departureStation_name);
+            const placeFormatted = formData.get(FormDataEnum.departureStation_placeFormatted);
 
             if (placeId && lat && lng && country && name && placeFormatted) {
                 return {

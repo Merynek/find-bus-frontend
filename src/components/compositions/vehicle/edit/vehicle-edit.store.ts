@@ -9,7 +9,7 @@ interface IVehicleStore {
 }
 
 export class VehicleEditStore {
-    public id: number;
+    @observable public id?: number;
     @observable private _name: string;
     @observable private _registrationSign: string;
     @observable private _VIN: string;
