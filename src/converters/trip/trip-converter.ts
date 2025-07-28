@@ -17,7 +17,7 @@ export class TripConverter {
             amenities: apiTrip.amenities,
             dietForTransporter: apiTrip.dietForTransporter,
             numberOfPersons: apiTrip.numberOfPersons,
-            routes: apiTrip.routes.map((r) => RouteConverter.toClient(r)),
+            routes: apiTrip.routes.map((r) => RouteConverter.toInstance(r)),
             endOrder: apiTrip.endOrder,
             offerHasEnded: apiTrip.offerHasEnded,
             offerState: apiTrip.offerState,

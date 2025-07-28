@@ -3,9 +3,9 @@ import {Stop} from "../../data/trip/stop";
 import {PlaceConverter} from "../place-converter";
 
 export class StopConverter {
-    public static toClient(apiStop: StopResponseDto): Stop {
+    public static toInstance(apiStop: StopResponseDto): Stop {
         return new Stop({
-            place: PlaceConverter.toClient(apiStop.place),
+            place: PlaceConverter.toInstance(apiStop.place),
             route: null
         })
     }

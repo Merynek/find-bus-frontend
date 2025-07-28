@@ -57,7 +57,7 @@ export class VehicleConverter {
                 id: vehicleDto.insurance.id,
                 path: VehicleConverter.insurancePath + vehicleDto.insurance.path
             }) : null,
-            departureStation: vehicleDto.departureStation ? PlaceConverter.toClient(vehicleDto.departureStation) : null
+            departureStation: vehicleDto.departureStation ? PlaceConverter.toInstance(vehicleDto.departureStation) : null
         })
     }
 }

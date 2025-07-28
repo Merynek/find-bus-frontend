@@ -5,10 +5,10 @@ import {DirectionConverter} from "./direction-converter";
 import {StopConverter} from "./stop-converter";
 
 export class RouteConverter {
-    public static toClient(apiRoute: RouteResponseDto): Route {
+    public static toInstance(apiRoute: RouteResponseDto): Route {
         return new Route({
-            from: StopConverter.toClient(apiRoute.from),
-            to: StopConverter.toClient(apiRoute.to),
+            from: StopConverter.toInstance(apiRoute.from),
+            to: StopConverter.toInstance(apiRoute.to),
             trip: null,
             end: apiRoute.end,
             start: apiRoute.start,

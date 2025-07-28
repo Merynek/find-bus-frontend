@@ -3,7 +3,6 @@ import {
     RouteResponseDto,
     TripItemResponseDto
 } from "../api/openapi";
-import {DateConverter} from "./date-converter";
 import {PlaceConverter} from "./place-converter";
 import {Stop} from "../data/trip/stop";
 import {Route} from "../data/trip/route";
@@ -42,7 +41,7 @@ export class TripItemConverter {
     }
 
     private static _createStop(stop: StopResponseDto): Stop {
-        const place = PlaceConverter.toClient(stop.place);
+        const place = PlaceConverter.toInstance(stop.place);
         return new Stop({
             place: place,
             route: null

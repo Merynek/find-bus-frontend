@@ -4,7 +4,7 @@ import {PointsConverter} from "./points-converter";
 import {GeoPointConverter} from "./trip/geoPoint-converter";
 
 export class PlaceConverter {
-    public static toClient(apiPlace: PlaceResponseDto): Place {
+    public static toInstance(apiPlace: PlaceResponseDto): Place {
         return new Place({
             placeId: apiPlace.placeId,
             name: apiPlace.name,
