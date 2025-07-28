@@ -79,29 +79,97 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                     />
                 </div>
 
-                <AddressFormSection
-                    prefix="address"
-                    title="Adresa"
-                    defaultValues={{
-                        country: settings.address.country || Country.CZ,
-                        city: settings.address.city,
-                        psc: settings.address.psc,
-                        street: settings.address.street,
-                        houseNumber: settings.address.houseNumber,
-                    }}
-                />
+                <fieldset className="space-y-2">
+                    <legend className="text-sm font-medium text-gray-700">Adresa</legend>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-sm font-medium">Země</label>
+                            <input
+                                type="text"
+                                name={FormDataEnum.address_country}
+                                defaultValue={settings.address.country ?? Country.CZ}
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium">Město</label>
+                            <input
+                                type="text"
+                                name={FormDataEnum.address_city}
+                                defaultValue={settings.address.city}
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium">PSČ</label>
+                            <input
+                                type="text"
+                                name={FormDataEnum.address_psc}
+                                defaultValue={settings.address.psc}
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium">Ulice</label>
+                            <input
+                                type="text"
+                                name={FormDataEnum.address_street}
+                                defaultValue={settings.address.street}
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium">Číslo popisné</label>
+                            <input
+                                type="text"
+                                name={FormDataEnum.address_houseNumber}
+                                defaultValue={settings.address.houseNumber}
+                            />
+                        </div>
+                    </div>
+                </fieldset>
 
-                <AddressFormSection
-                    prefix="mailingAddress"
-                    title="Korespondenční adresa"
-                    defaultValues={{
-                        country: settings.mailingAddress.country || Country.CZ,
-                        city: settings.mailingAddress.city,
-                        psc: settings.mailingAddress.psc,
-                        street: settings.mailingAddress.street,
-                        houseNumber: settings.mailingAddress.houseNumber,
-                    }}
-                />
+                <fieldset className="space-y-2">
+                    <legend className="text-sm font-medium text-gray-700">Adresa</legend>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-sm font-medium">Země</label>
+                            <input
+                                type="text"
+                                name={FormDataEnum.mailingAddress_country}
+                                defaultValue={settings.mailingAddress.country ?? Country.CZ}
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium">Město</label>
+                            <input
+                                type="text"
+                                name={FormDataEnum.mailingAddress_city}
+                                defaultValue={settings.mailingAddress.city}
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium">PSČ</label>
+                            <input
+                                type="text"
+                                name={FormDataEnum.mailingAddress_psc}
+                                defaultValue={settings.mailingAddress.psc}
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium">Ulice</label>
+                            <input
+                                type="text"
+                                name={FormDataEnum.mailingAddress_street}
+                                defaultValue={settings.mailingAddress.street}
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium">Číslo popisné</label>
+                            <input
+                                type="text"
+                                name={FormDataEnum.mailingAddress_houseNumber}
+                                defaultValue={settings.mailingAddress.houseNumber}
+                            />
+                        </div>
+                    </div>
+                </fieldset>
 
                 <h2>Notifications</h2>
                 <fieldset>
@@ -197,70 +265,3 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
 };
 
 export default UserSettingsPage;
-
-type AddressFormSectionProps = {
-    prefix: 'address' | 'mailingAddress';
-    defaultValues?: Partial<{
-        country: string;
-        city: string;
-        psc: string;
-        street: string;
-        houseNumber: string;
-    }>;
-    title?: string;
-};
-
-function AddressFormSection({prefix, defaultValues = {}, title}: AddressFormSectionProps) {
-    return (
-        <fieldset className="space-y-2">
-            {title && <legend className="text-sm font-medium text-gray-700">{title}</legend>}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                    <label className="block text-sm font-medium">Země</label>
-                    <input
-                        type="text"
-                        name={`${prefix}.country`}
-                        defaultValue={defaultValues.country ?? ''}
-                        className="mt-1 w-full border rounded px-3 py-2"
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-medium">Město</label>
-                    <input
-                        type="text"
-                        name={`${prefix}.city`}
-                        defaultValue={defaultValues.city ?? ''}
-                        className="mt-1 w-full border rounded px-3 py-2"
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-medium">PSČ</label>
-                    <input
-                        type="text"
-                        name={`${prefix}.psc`}
-                        defaultValue={defaultValues.psc ?? ''}
-                        className="mt-1 w-full border rounded px-3 py-2"
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-medium">Ulice</label>
-                    <input
-                        type="text"
-                        name={`${prefix}.street`}
-                        defaultValue={defaultValues.street ?? ''}
-                        className="mt-1 w-full border rounded px-3 py-2"
-                    />
-                </div>
-                <div>
-                    <label className="block text-sm font-medium">Číslo popisné</label>
-                    <input
-                        type="text"
-                        name={`${prefix}.houseNumber`}
-                        defaultValue={defaultValues.houseNumber ?? ''}
-                        className="mt-1 w-full border rounded px-3 py-2"
-                    />
-                </div>
-            </div>
-        </fieldset>
-    );
-}

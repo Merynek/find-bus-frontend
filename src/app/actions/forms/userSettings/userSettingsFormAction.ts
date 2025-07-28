@@ -7,6 +7,7 @@ import {Country} from "@/src/api/openapi";
 import {UserSettingsSchema} from "@/src/app/actions/forms/userSettings/userSettingsSchema";
 import {TransferInfoSchema, UserAddressSchema} from "@/src/app/actions/forms/schemas";
 import {UsersService} from "@/src/services/UsersService";
+import {FormDataEnum} from "@/src/enums/form-data.enum";
 
 type UserSettingsSchemaFieldErrors = z.inferFlattenedErrors<typeof UserSettingsSchema>['fieldErrors'];
 
@@ -18,21 +19,21 @@ export type TUserSettingsFormState = {
 
 export async function userSettingsFormAction(state: TUserSettingsFormState, formData: FormData): Promise<TUserSettingsFormState> {
     const dataToValidate = {
-        name: formData.get('name'),
-        surname: formData.get('surname'),
-        phoneNumber: formData.get('phoneNumber'),
-        ico: formData.get('ico'),
-        dic: formData.get('dic'),
-        companyName: formData.get('companyName'),
-        isCompany: formData.get('isCompany') === 'on' || formData.get('isCompany') === 'true',
-        notifications: formData.getAll('notifications'),
-        concessionNumber: formData.get('concessionNumber'),
+        name: formData.get(FormDataEnum.name),
+        surname: formData.get(FormDataEnum.surname),
+        phoneNumber: formData.get(FormDataEnum.phoneNumber),
+        ico: formData.get(FormDataEnum.ico),
+        dic: formData.get(FormDataEnum.ico),
+        companyName: formData.get(FormDataEnum.companyName),
+        isCompany: formData.get(FormDataEnum.isCompany) === 'on' || formData.get(FormDataEnum.isCompany) === 'true',
+        notifications: formData.getAll(FormDataEnum.notifications),
+        concessionNumber: formData.get(FormDataEnum.concessionNumber),
         address: ((): z.infer<typeof UserAddressSchema> | undefined => {
-            const country = formData.get('address.country');
-            const city = formData.get('address.city');
-            const psc = formData.get('address.psc');
-            const street = formData.get('address.street');
-            const houseNumber = formData.get('address.houseNumber');
+            const country = formData.get(FormDataEnum.address_country);
+            const city = formData.get(FormDataEnum.address_city);
+            const psc = formData.get(FormDataEnum.address_psc);
+            const street = formData.get(FormDataEnum.address_street);
+            const houseNumber = formData.get(FormDataEnum.address_houseNumber);
 
             if (country || city || psc || street || houseNumber) {
                 return {
@@ -46,11 +47,11 @@ export async function userSettingsFormAction(state: TUserSettingsFormState, form
             return undefined;
         })(),
         mailingAddress: ((): z.infer<typeof UserAddressSchema> | undefined => {
-            const country = formData.get('mailingAddress.country');
-            const city = formData.get('mailingAddress.city');
-            const psc = formData.get('mailingAddress.psc');
-            const street = formData.get('mailingAddress.street');
-            const houseNumber = formData.get('mailingAddress.houseNumber');
+            const country = formData.get(FormDataEnum.mailingAddress_country);
+            const city = formData.get(FormDataEnum.mailingAddress_city);
+            const psc = formData.get(FormDataEnum.mailingAddress_psc);
+            const street = formData.get(FormDataEnum.mailingAddress_street);
+            const houseNumber = formData.get(FormDataEnum.mailingAddress_houseNumber);
 
             if (country || city || psc || street || houseNumber) {
                 return {
@@ -64,8 +65,8 @@ export async function userSettingsFormAction(state: TUserSettingsFormState, form
             return undefined;
         })(),
         transferInfo: ((): z.infer<typeof TransferInfoSchema> | undefined => {
-            const iban = formData.get('transferInfo.iban');
-            const swift = formData.get('transferInfo.swift');
+            const iban = formData.get(FormDataEnum.transferInfo_iban);
+            const swift = formData.get(FormDataEnum.transferInfo_swift);
 
             if (iban || swift) {
                 return {
@@ -75,8 +76,8 @@ export async function userSettingsFormAction(state: TUserSettingsFormState, form
             }
             return undefined;
         })(),
-        businessRiskInsurance: formData.get('businessRiskInsurance'),
-        concessionDocuments: formData.get('concessionDocuments'),
+        businessRiskInsurance: formData.get(FormDataEnum.businessRiskInsurance),
+        concessionDocuments: formData.get(FormDataEnum.concessionDocuments),
     };
 
     const validatedFields = UserSettingsSchema.safeParse(dataToValidate);
