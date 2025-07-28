@@ -59,6 +59,24 @@ export class UsersConverter {
         }
     }
 
+    public static userSettingsToJson(settings: UserSettings): UserSettingsResponseDto {
+        return {
+            name: settings.name || "",
+            surname: settings.surname || "",
+            phoneNumber: settings.phoneNumber || "",
+            ico: settings.ico || "",
+            dic: settings.dic || "",
+            companyName: settings.companyName || "",
+            notifications: settings.notifications || [],
+            address: UserAddressConverter.toJson(settings.address),
+            isCompany: settings.isCompany,
+            mailingAddress: UserAddressConverter.toJson(settings.mailingAddress),
+            transferInfo: TransferInfoConverter.toJson(settings.transferInfo),
+            transporterRequirements: TransportRequirementsConverter.toJson(settings.transportRequirements),
+            isVerifiedForTransporting: settings.isVerifiedForTransporting
+        }
+    }
+
     public static userDetailToJson(userDetail: UserDetail): UserDetailResponseDto {
         return {
             id: userDetail.id

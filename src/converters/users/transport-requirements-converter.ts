@@ -1,8 +1,7 @@
-import {
-    TransporterRequirementsResponseDto
-} from "../api/openapi";
-import {TransportRequirements} from "../data/transportRequirements";
+
 import {FileConverter} from "@/src/converters/file-converter";
+import {TransporterRequirementsResponseDto} from "@/src/api/openapi";
+import {TransportRequirements} from "@/src/data/transportRequirements";
 
 export class TransportRequirementsConverter {
     public static toInstance(response: TransporterRequirementsResponseDto): TransportRequirements {

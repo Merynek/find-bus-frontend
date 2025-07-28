@@ -18,7 +18,7 @@ export const MediaElement = (props: IMediaElementProps) => {
         return <img
             className={cn(styles.image)}
             style={{width: width, height: height}}
-            src={photo.displayPath}
+            src={photo.path}
             alt={alt || photo.id.toString()}
         />
     }

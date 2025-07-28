@@ -8,6 +8,8 @@ export const UserSettingsSchema = z.object({
     phoneNumber: z.string().nullable().optional(),
     ico: z.string().nullable().optional(),
     dic: z.string().nullable().optional(),
+    iban: z.string().nullable().optional(),
+    swift: z.string().nullable().optional(),
     companyName: z.string().nullable().optional(),
     isCompany: z.boolean().optional(),
     notifications: z.array(z.nativeEnum(NotificationsEnum)).nullable().optional(),

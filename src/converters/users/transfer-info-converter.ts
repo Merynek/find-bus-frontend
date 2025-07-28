@@ -1,7 +1,5 @@
-import {
-    TransferInfoResponseDto
-} from "../api/openapi";
 import {TransferInfo} from "@/src/data/transferInfo";
+import {TransferInfoResponseDto} from "@/src/api/openapi";
 
 export class TransferInfoConverter {
     public static toInstance(response: TransferInfoResponseDto): TransferInfo {
