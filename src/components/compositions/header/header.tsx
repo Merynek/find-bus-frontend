@@ -3,18 +3,16 @@ import styles from "./header.module.scss";
 import {ButtonSize, ButtonType, ButtonLink} from "../../components/button/button";
 import {ROUTES} from "@/src/enums/router.enum";
 import {PageTabs} from "@/src/components/compositions/page-tabs/page-tabs";
-import {CheckTokenResponseDto} from "@/src/api/openapi";
 import {HeaderLogout} from "@/src/components/compositions/header/header-logout";
+import {CurrentUserDto} from "@/src/api/openapi";
+import {auth} from "@/src/auth/auth";
 
-interface IHeaderProps {
-    user: CheckTokenResponseDto|null;
-}
-
-export const Header = (props: IHeaderProps) => {
-    const {user} = props;
+export const Header = async () => {
+    const session = await auth();
+    const userDto: CurrentUserDto|null = session?.user || null;
 
     const _renderLogoutButton = () => {
-        return <HeaderLogout />
+        return <HeaderLogout/>
     }
 
     const _renderLoginButton = () => {
@@ -42,7 +40,7 @@ export const Header = (props: IHeaderProps) => {
 
     return <header className={styles.layout}>
         {_renderLanguages()}
-        {user === null ? _renderLoginButton() : _renderLogoutButton()}
-        {user !== null && <PageTabs user={user} />}
+        {userDto === null ? _renderLoginButton() : _renderLogoutButton()}
+        {userDto !== null && <PageTabs userDto={userDto}/>}
     </header>
 };

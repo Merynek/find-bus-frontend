@@ -2,7 +2,7 @@
 
 import {User} from "@/src/data/users/user";
 import {createContext, ReactNode, useContext, useMemo, useState} from "react";
-import {CheckTokenResponseDto} from "@/src/api/openapi";
+import {type CurrentUserDto} from "@/src/api/openapi";
 import {UsersConverter} from "@/src/converters/users/users-converter";
 
 interface AuthContextType {
@@ -13,12 +13,12 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 interface AuthProviderProps {
     children: ReactNode;
-    initialUser: CheckTokenResponseDto|null;
+    userDto: CurrentUserDto|null;
 }
 
 export const AuthProvider = (props: AuthProviderProps) => {
-    const {children, initialUser} = props;
-    const [user] = useState<User | null>(initialUser ? UsersConverter.currentUserToInstance(initialUser.user) : null);
+    const {children, userDto} = props;
+    const [user] = useState<User | null>(userDto ? UsersConverter.currentUserToInstance(userDto) : null);
 
     const value = useMemo(() => ({
         user

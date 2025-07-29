@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import {Header} from "@/src/components/compositions/header/header";
-import {AuthProvider} from "@/src/app/contexts/AuthContext";
-import {AuthorizationService} from "@/src/services/AuthorizationService";
 import {AppProvider} from "@/src/app/contexts/AppContext";
 import {AppLoader} from "@/src/components/components/app-loader/app-loader";
 import {NextIntlClientProvider, hasLocale} from 'next-intl';
@@ -31,7 +29,6 @@ interface IRootLayoutProps {
 
 export default async function RootLayout(props: IRootLayoutProps) {
     const {params, children} = props;
-    const user = await AuthorizationService.getUserJson();
     const {locale} = await params;
     if (!hasLocale(routing.locales, locale)) {
         notFound();
@@ -40,13 +37,11 @@ export default async function RootLayout(props: IRootLayoutProps) {
     return <html lang="cs">
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
             <NextIntlClientProvider>
-                <AuthProvider initialUser={user}>
-                    <AppProvider>
-                        <AppLoader />
-                        <Header user={user} />
-                        {children}
-                    </AppProvider>
-                </AuthProvider>
+                <AppProvider>
+                    <AppLoader />
+                    <Header />
+                    {children}
+                </AppProvider>
             </NextIntlClientProvider>
         </body>
     </html>

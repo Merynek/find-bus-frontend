@@ -1,9 +1,8 @@
 'use server';
 
-import { cookies } from 'next/headers';
-import { HeaderCookieName } from "@/src/enums/cookies.enum";
+import {getUserSession} from "@/src/app/actions/auth/authActions";
 
 export async function getAccessToken(): Promise<string|undefined> {
-    const cookieStore = await cookies();
-    return cookieStore.get(HeaderCookieName.sessionid)?.value;
+    const session = await getUserSession();
+    return session?.accessToken;
 }

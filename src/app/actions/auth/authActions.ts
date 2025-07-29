@@ -1,60 +1,47 @@
 'use server';
 
-import {HeaderCookieName} from "@/src/enums/cookies.enum";
 import {AuthorizeApi} from "@/src/api/authorizeApi";
-import {cookies} from "next/headers";
-import {CheckTokenResponseDto, UserRole} from "@/src/api/openapi";
-import {redirect} from "next/navigation";
-import {ROUTES} from "@/src/enums/router.enum";
+import {type CurrentUserDto, UserRole} from "@/src/api/openapi";
 import {RegistrationApi} from "@/src/api/registrationApi";
-import {getAccessToken} from "@/src/app/actions/auth/accessTokenActions";
+import {signIn, signOut, auth} from "@/src/auth/auth";
 
-export async function getUserAction(): Promise<CheckTokenResponseDto|null> {
-    const accessToken = await getAccessToken();
+interface CustomSession {
+    user?: CurrentUserDto;
+    accessToken?: string;
+}
 
-    if (!accessToken) {
+export async function getUserSession(): Promise<CustomSession|null> {
+    const session = await auth();
+
+    if (!session?.user || !session?.token.token) {
         return null;
     }
 
     try {
-        const authApi = new AuthorizeApi(accessToken);
-        return await authApi.checkToken();
+        return {
+            user: {
+                id: session.user.id,
+                email: session.user.email,
+                role: session.user.role
+            },
+            accessToken: session.token.token,
+
+        };
     } catch (error) {
-        console.error('Token check failed:', error);
-        const cookieStore = await cookies();
-        cookieStore.delete(HeaderCookieName.sessionid);
+        console.error("Failed to retrieve user session data:", error);
         return null;
     }
 }
 
 export async function loginAction(email: string, password: string) {
-    const authApi = new AuthorizeApi(undefined);
-    const response = await authApi.login({
+    await signIn('credentials', {
         email: email,
-        password: password
+        password: password,
     });
-    const cookieStore = await cookies();
-
-    if (!response || !response.token || !response.token.token) {
-        throw new Error('Přihlášení se nezdařilo: Chybí token v odpovědi z API.');
-    }
-
-    const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-
-    cookieStore.set(HeaderCookieName.sessionid, response.token.token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        expires: expiresAt,
-        path: '/',
-        sameSite: 'lax'
-    });
-    return response;
 }
 
 export async function logoutAction(): Promise<void> {
-    const cookieStore = await cookies();
-    cookieStore.delete(HeaderCookieName.sessionid);
-    redirect(ROUTES.SIGN_IN);
+    await signOut();
 }
 
 export const signUpAction = async (email: string, password: string, role: UserRole) => {

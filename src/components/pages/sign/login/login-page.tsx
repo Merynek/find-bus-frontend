@@ -1,17 +1,28 @@
 'use client'
 
-import React from "react";
+import React, {useEffect} from "react";
 import {ButtonSize, ButtonType, ButtonLink} from "../../../components/button/button";
-import {observer} from "mobx-react";
 import {ROUTES} from "@/src/enums/router.enum";
 import { useActionState } from "react";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {signInFormAction} from "@/src/app/actions/forms/signIn/signInFormAction";
 import {useTranslate} from "@/src/hooks/translateHook";
+import {useRouter} from "next/navigation";
 
-const LoginPage = observer(() => {
+const LoginPage = () => {
     const {t} = useTranslate("page.sign");
     const [state, action, pending] = useActionState(signInFormAction, undefined)
+    const {push} = useRouter();
+
+    useEffect(() => {
+        console.log("state", state)
+        debugger;
+        if (state && state.success) {
+            push(ROUTES.HOME);
+        } else if (state && state.errors) {
+            console.error("Chyby z akce:", state.errors);
+        }
+    }, [state]);
 
     return <div>
         <ButtonLink
@@ -52,6 +63,6 @@ const LoginPage = observer(() => {
             size={ButtonSize.BUTTON_SIZE_M}
         />
     </div>
-});
+};
 
 export default LoginPage;

@@ -2,16 +2,16 @@ import React from "react";
 import styles from "./page-tabs.module.scss";
 import {ButtonSize, ButtonType, ButtonLink} from "../../components/button/button";
 import {cn} from "@/src/utils/common";
-import {CheckTokenResponseDto, UserRole} from "@/src/api/openapi";
+import {type CurrentUserDto, UserRole} from "@/src/api/openapi";
 import {ROUTES} from "@/src/enums/router.enum";
 import {headers} from "next/headers";
 
 interface IPageTabsProps {
-    user: CheckTokenResponseDto|null;
+    userDto: CurrentUserDto|null;
 }
 
 export const PageTabs = async (props: IPageTabsProps) => {
-    const {user} = props;
+    const {userDto} = props;
     const headerList = await headers();
     const pathname = headerList.get("x-current-path");
 
@@ -32,7 +32,7 @@ export const PageTabs = async (props: IPageTabsProps) => {
                 size={ButtonSize.BUTTON_SIZE_M}
             />
         </div>
-        {user?.user.role === UserRole.DEMANDER &&
+        {userDto?.role === UserRole.DEMANDER &&
             <div className={cn(styles.tab, pathname === ROUTES.CREATE_TRIP && styles.active)}>
                 <ButtonLink
                     route={{route: ROUTES.CREATE_TRIP}}
@@ -49,7 +49,7 @@ export const PageTabs = async (props: IPageTabsProps) => {
                 size={ButtonSize.BUTTON_SIZE_M}
             />
         </div>
-        {user?.user.role === UserRole.TRANSPORTER &&
+        {userDto?.role === UserRole.TRANSPORTER &&
             <div className={cn(styles.tab, pathname === ROUTES.VEHICLES && styles.active)}>
                 <ButtonLink
                     route={{route: ROUTES.VEHICLES}}
@@ -66,7 +66,7 @@ export const PageTabs = async (props: IPageTabsProps) => {
                 size={ButtonSize.BUTTON_SIZE_M}
             />
         </div>
-        {user?.user.role === UserRole.ADMIN &&
+        {userDto?.role === UserRole.ADMIN &&
             <div className={cn(styles.tab, pathname === ROUTES.ADMIN_TRIPS && styles.active)}>
                 <ButtonLink
                     route={{route: ROUTES.ADMIN_TRIPS}}
@@ -75,7 +75,7 @@ export const PageTabs = async (props: IPageTabsProps) => {
                     size={ButtonSize.BUTTON_SIZE_M}
                 />
             </div>}
-        {user?.user.role === UserRole.ADMIN &&
+        {userDto?.role === UserRole.ADMIN &&
             <div className={cn(styles.tab, pathname === ROUTES.APP_CONFIG && styles.active)}>
                 <ButtonLink
                     route={{route: ROUTES.APP_CONFIG}}
@@ -84,7 +84,7 @@ export const PageTabs = async (props: IPageTabsProps) => {
                     size={ButtonSize.BUTTON_SIZE_M}
                 />
             </div>}
-        {user?.user.role === UserRole.ADMIN &&
+        {userDto?.role === UserRole.ADMIN &&
             <div className={cn(styles.tab, pathname === ROUTES.EMAIL_CONFIG && styles.active)}>
                 <ButtonLink
                     route={{route: ROUTES.EMAIL_CONFIG}}
@@ -93,7 +93,7 @@ export const PageTabs = async (props: IPageTabsProps) => {
                     size={ButtonSize.BUTTON_SIZE_M}
                 />
             </div>}
-        {user?.user.role === UserRole.ADMIN &&
+        {userDto?.role === UserRole.ADMIN &&
             <div className={cn(styles.tab, pathname === ROUTES.ADMIN_USERS && styles.active)}>
                 <ButtonLink
                     route={{route: ROUTES.ADMIN_USERS}}
@@ -102,6 +102,6 @@ export const PageTabs = async (props: IPageTabsProps) => {
                     size={ButtonSize.BUTTON_SIZE_M}
                 />
             </div>}
-        <div>Logged user: {user?.user.email} as a {user?.user.role.toString()}</div>
+        <div>Logged user: {userDto?.email} as a {userDto?.role.toString()}</div>
     </div>
 };
