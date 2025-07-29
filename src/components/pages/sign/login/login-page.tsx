@@ -1,28 +1,18 @@
 'use client'
 
-import React, {useEffect} from "react";
+import React from "react";
 import {ButtonSize, ButtonType, ButtonLink} from "../../../components/button/button";
 import {ROUTES} from "@/src/enums/router.enum";
 import { useActionState } from "react";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {signInFormAction} from "@/src/app/actions/forms/signIn/signInFormAction";
 import {useTranslate} from "@/src/hooks/translateHook";
-import {useRouter} from "next/navigation";
+import {useLocale} from "use-intl";
 
 const LoginPage = () => {
     const {t} = useTranslate("page.sign");
-    const [state, action, pending] = useActionState(signInFormAction, undefined)
-    const {push} = useRouter();
-
-    useEffect(() => {
-        console.log("state", state)
-        debugger;
-        if (state && state.success) {
-            push(ROUTES.HOME);
-        } else if (state && state.errors) {
-            console.error("Chyby z akce:", state.errors);
-        }
-    }, [state]);
+    const [state, action, pending] = useActionState(signInFormAction, undefined);
+    const locale = useLocale();
 
     return <div>
         <ButtonLink
@@ -32,6 +22,8 @@ const LoginPage = () => {
             size={ButtonSize.BUTTON_SIZE_M}
         />
         <form action={action}>
+            <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale} />
+
             <div>
                 <label htmlFor={FormDataEnum.email}>Email</label>
                 <input id={FormDataEnum.email} name={FormDataEnum.email} placeholder="Email"/>
@@ -40,11 +32,12 @@ const LoginPage = () => {
 
             <div>
                 <label htmlFor={FormDataEnum.password}>Password</label>
-                <input id={FormDataEnum.password} name={FormDataEnum.password} type={"password"} placeholder="password"/>
+                <input id={FormDataEnum.password} name={FormDataEnum.password} type={"password"}
+                       placeholder="password"/>
             </div>
             {state?.errors?.password && (
                 <div>
-                <p>Password must:</p>
+                    <p>Password must:</p>
                     <ul>
                         {state.errors.password.map((error: string) => (
                             <li key={error}>- {error}</li>

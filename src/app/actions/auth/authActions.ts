@@ -37,11 +37,14 @@ export async function loginAction(email: string, password: string) {
     await signIn('credentials', {
         email: email,
         password: password,
+        redirect: false
     });
 }
 
 export async function logoutAction(): Promise<void> {
-    await signOut();
+    await signOut({
+        redirect: false
+    });
 }
 
 export const signUpAction = async (email: string, password: string, role: UserRole) => {

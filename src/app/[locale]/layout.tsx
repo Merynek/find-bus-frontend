@@ -34,7 +34,7 @@ export default async function RootLayout(props: IRootLayoutProps) {
         notFound();
     }
 
-    return <html lang="cs">
+    return <html lang={locale}>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
             <NextIntlClientProvider>
                 <AppProvider>

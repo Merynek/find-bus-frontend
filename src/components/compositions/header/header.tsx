@@ -6,6 +6,7 @@ import {PageTabs} from "@/src/components/compositions/page-tabs/page-tabs";
 import {HeaderLogout} from "@/src/components/compositions/header/header-logout";
 import {CurrentUserDto} from "@/src/api/openapi";
 import {auth} from "@/src/auth/auth";
+import {LocaleSwitcherSelect} from "@/src/components/components/locale-switcher-select/LocaleSwitcherSelect";
 
 export const Header = async () => {
     const session = await auth();
@@ -24,22 +25,8 @@ export const Header = async () => {
         />
     }
 
-    const _renderLanguages = () => {
-        return <></>
-        // return <></> <ComboBox
-        //     items={_languageItemsRef.current}
-        //     value={{
-        //         value: i18n.language as LOCALES,
-        //         label: languages[i18n.language as LOCALES]
-        //     }}
-        //     onChange={(item) => {
-        //         i18n.changeLanguage(item.value);
-        //     }}
-        // />
-    }
-
     return <header className={styles.layout}>
-        {_renderLanguages()}
+        <LocaleSwitcherSelect />
         {userDto === null ? _renderLoginButton() : _renderLogoutButton()}
         {userDto !== null && <PageTabs userDto={userDto}/>}
     </header>

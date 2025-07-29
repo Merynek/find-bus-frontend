@@ -3,6 +3,9 @@
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {AuthorizationService} from "@/src/services/AuthorizationService";
 import {SignInFormSchema} from "@/src/app/actions/forms/signIn/signInSchema";
+import { redirect } from "@/src/i18n/navigation";
+import {ROUTES} from "@/src/enums/router.enum";
+import { Locale } from "next-intl";
 
 export type TSignInFormState = {
     errors?: {
@@ -17,7 +20,8 @@ export type TSignInFormState = {
 export async function signInFormAction(state: TSignInFormState, formData: FormData): Promise<TSignInFormState> {
     const validatedFields = SignInFormSchema.safeParse({
         email: formData.get(FormDataEnum.email),
-        password: formData.get(FormDataEnum.password)
+        password: formData.get(FormDataEnum.password),
+        locale: formData.get(FormDataEnum.locale)
     })
 
     if (!validatedFields.success) {
@@ -34,5 +38,10 @@ export async function signInFormAction(state: TSignInFormState, formData: FormDa
         return {
             errors: error.message || 'Došlo k neočekávané chybě během přihlašování.',
         }
+    } finally {
+        redirect({
+            locale: validatedFields.data.locale as Locale,
+            href: ROUTES.HOME
+        });
     }
 }

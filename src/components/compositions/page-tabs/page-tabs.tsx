@@ -5,6 +5,7 @@ import {cn} from "@/src/utils/common";
 import {type CurrentUserDto, UserRole} from "@/src/api/openapi";
 import {ROUTES} from "@/src/enums/router.enum";
 import {headers} from "next/headers";
+import {getTranslations} from "next-intl/server";
 
 interface IPageTabsProps {
     userDto: CurrentUserDto|null;
@@ -13,6 +14,7 @@ interface IPageTabsProps {
 export const PageTabs = async (props: IPageTabsProps) => {
     const {userDto} = props;
     const headerList = await headers();
+    const messages = await getTranslations("page");
     const pathname = headerList.get("x-current-path");
 
     return <div className={styles.layout}>
@@ -102,6 +104,6 @@ export const PageTabs = async (props: IPageTabsProps) => {
                     size={ButtonSize.BUTTON_SIZE_M}
                 />
             </div>}
-        <div>Logged user: {userDto?.email} as a {userDto?.role.toString()}</div>
+        <div>{messages("sign.emailPlaceholder")}: {userDto?.email} as a {userDto?.role.toString()}</div>
     </div>
 };
