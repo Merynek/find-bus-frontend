@@ -14,6 +14,7 @@ export const HeaderLogout = () => {
         onClick={async () => {
             await AuthorizationService.logout();
             router.push(ROUTES.SIGN_IN);
+            router.refresh();
         }}
         type={ButtonType.YELLOW}
     />
