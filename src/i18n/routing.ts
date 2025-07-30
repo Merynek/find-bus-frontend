@@ -1,5 +1,6 @@
 import {defineRouting} from 'next-intl/routing';
 import {LOCALES} from "@/src/utils/locale";
+import {ROUTES} from "@/src/enums/router.enum";
 
 export const routing = defineRouting({
     locales: [LOCALES.cs_CZ, LOCALES.en_US],
@@ -8,51 +9,66 @@ export const routing = defineRouting({
         mode: 'always'
     },
     pathnames: {
-        '/': '/',
-        '/sign/in': {
-            [LOCALES.cs_CZ]: '/prihlaseni'
+        [ROUTES.HOME]: '/',
+        [ROUTES.SIGN_IN]: {
+            [LOCALES.cs_CZ]: '/prihlaseni',
+            [LOCALES.en_US]: ROUTES.SIGN_IN
         },
-        '/sign/up': {
-            [LOCALES.cs_CZ]: '/registrace'
+        [ROUTES.SIGN_UP]: {
+            [LOCALES.cs_CZ]: '/registrace',
+            [LOCALES.en_US]: ROUTES.SIGN_UP
         },
-        '/active-user': {
-            [LOCALES.cs_CZ]: '/aktivace-uctu'
+        [ROUTES.ACTIVE_USER]: {
+            [LOCALES.cs_CZ]: '/aktivace-uctu',
+            [LOCALES.en_US]: ROUTES.ACTIVE_USER
         },
-        '/reset-password': {
-            [LOCALES.cs_CZ]: '/obnoveni-hesla'
+        [ROUTES.RESET_PASSWORD]: {
+            [LOCALES.cs_CZ]: '/obnoveni-hesla',
+            [LOCALES.en_US]: ROUTES.RESET_PASSWORD
         },
-        '/forgot-password': {
-            [LOCALES.cs_CZ]: '/zapomenute-heslo'
+        [ROUTES.FORGOT_PASSWORD]: {
+            [LOCALES.cs_CZ]: '/zapomenute-heslo',
+            [LOCALES.en_US]: ROUTES.FORGOT_PASSWORD
         },
-        '/user-settings': {
-            [LOCALES.cs_CZ]: '/nastaveni-uzivatele'
+        [ROUTES.USER_SETTINGS]: {
+            [LOCALES.cs_CZ]: '/nastaveni-uzivatele',
+            [LOCALES.en_US]: ROUTES.USER_SETTINGS
         },
-        '/vehicles': {
-            [LOCALES.cs_CZ]: '/vozidla'
+        [ROUTES.VEHICLES]: {
+            [LOCALES.cs_CZ]: '/vozidla',
+            [LOCALES.en_US]: ROUTES.VEHICLES
         },
-        '/create-trip': {
-            [LOCALES.cs_CZ]: '/nova-cesta'
+        [ROUTES.CREATE_TRIP]: {
+            [LOCALES.cs_CZ]: '/nova-cesta',
+            [LOCALES.en_US]: ROUTES.CREATE_TRIP
         },
-        '/trips': {
-            [LOCALES.cs_CZ]: '/cesty'
+        [ROUTES.TRIP_LIST]: {
+            [LOCALES.cs_CZ]: '/cesty',
+            [LOCALES.en_US]: ROUTES.TRIP_LIST
         },
-        '/trip/[tripId]': {
-            [LOCALES.cs_CZ]: '/cesta/[tripId]'
+        [ROUTES.TRIP]: {
+            [LOCALES.cs_CZ]: '/cesta/[tripId]',
+            [LOCALES.en_US]: `${ROUTES.ADMIN_TRIP_DETAIL}/[tripId]`
         },
-        '/admin/trips': {
-            [LOCALES.cs_CZ]: '/admin/cesty'
+        [ROUTES.ADMIN_TRIPS]: {
+            [LOCALES.cs_CZ]: '/admin/cesty',
+            [LOCALES.en_US]: ROUTES.ADMIN_TRIPS
         },
-        '/admin/config': {
-            [LOCALES.cs_CZ]: '/admin/nastaveni'
+        [ROUTES.APP_CONFIG]: {
+            [LOCALES.cs_CZ]: '/admin/nastaveni',
+            [LOCALES.en_US]: ROUTES.APP_CONFIG
         },
-        '/admin/emails': {
-            [LOCALES.cs_CZ]: '/admin/emaily'
+        [ROUTES.EMAIL_CONFIG]: {
+            [LOCALES.cs_CZ]: '/admin/emaily',
+            [LOCALES.en_US]: ROUTES.EMAIL_CONFIG
         },
-        '/admin/users': {
-            [LOCALES.cs_CZ]: '/admin/uzivatele'
+        [ROUTES.ADMIN_USERS]: {
+            [LOCALES.cs_CZ]: '/admin/uzivatele',
+            [LOCALES.en_US]: ROUTES.ADMIN_USERS
         },
-        '/admin/trip/[tripId]': {
-            [LOCALES.cs_CZ]: '/admin/cesta/[tripId]'
+        [ROUTES.ADMIN_TRIP_DETAIL]: {
+            [LOCALES.cs_CZ]: '/admin/cesta/[tripId]',
+            [LOCALES.en_US]: `${ROUTES.ADMIN_TRIP_DETAIL}/[tripId]`
         }
     }
 });

@@ -4,8 +4,8 @@ import React from "react";
 import {ButtonClick, ButtonSize, ButtonType} from "../../../components/button/button";
 import {UsersService} from "@/src/services/UsersService";
 import type {AdminUserDetailResponseDto} from "@/src/api/openapi";
-import {UserAdminDetailConverter} from "@/src/converters/user-admin-detail-converter";
 import {useInit} from "@/src/hooks/lifecycleHooks";
+import {UserAdminDetailConverter} from "@/src/converters/admin/user-admin-detail-converter";
 
 interface IUserVerifyButtonProps {
     user: AdminUserDetailResponseDto;
