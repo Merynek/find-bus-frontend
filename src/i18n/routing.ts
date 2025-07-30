@@ -9,7 +9,10 @@ export const routing = defineRouting({
         mode: 'always'
     },
     pathnames: {
-        [ROUTES.HOME]: '/',
+        [ROUTES.HOME]: {
+            [LOCALES.cs_CZ]: ROUTES.HOME,
+            [LOCALES.en_US]: ROUTES.HOME
+        },
         [ROUTES.SIGN_IN]: {
             [LOCALES.cs_CZ]: '/prihlaseni',
             [LOCALES.en_US]: ROUTES.SIGN_IN
