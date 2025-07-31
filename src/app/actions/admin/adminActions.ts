@@ -1,14 +1,25 @@
 'use server';
 
-import {type EmailConfigResponseDto, EmailType, Language, UpdateAppBusinessConfigRequestDto} from "@/src/api/openapi";
+import {
+    type EmailConfigResponseDto,
+    EmailType,
+    Language,
+    UpdateAppBusinessConfigRequestDto
+} from "@/src/api/openapi";
 import {getAccessToken} from "@/src/app/actions/auth/accessTokenActions";
 import {AdminApi} from "@/src/api/adminApi";
+import {LOCALES} from "@/src/utils/locale";
+import {handleApiUnauthorizedError} from "@/src/utils/handleApiUnauthorizedError";
 
-export async function getEmailConfig(): Promise<EmailConfigResponseDto> {
+export async function getEmailConfig(locale: LOCALES): Promise<EmailConfigResponseDto> {
     const accessToken = await getAccessToken();
     const adminApi = new AdminApi(accessToken);
 
-    return await adminApi.getEmailConfig();
+    try {
+        return await adminApi.getEmailConfig();
+    } catch (e: unknown) {
+         handleApiUnauthorizedError(e, locale);
+    }
 }
 
 export async function setEmailConfig(type: EmailType, language: Language, templateId: number) {

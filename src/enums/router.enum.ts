@@ -31,5 +31,6 @@ export enum SEARCH_PARAMS {
     DISTANCE_FROM = "distanceFrom",
     DISTANCE_TO = "distanceTo",
     ME_OFFERED = "meOffered",
-    ID = "id"
+    ID = "id",
+    UNAUTHORIZED = "unauthorized"
 }

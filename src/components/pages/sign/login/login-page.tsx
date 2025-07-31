@@ -1,17 +1,36 @@
 'use client'
 
-import React from "react";
+import React, {useCallback, useEffect} from "react";
 import {ButtonSize, ButtonType, ButtonLink} from "../../../components/button/button";
-import {ROUTES} from "@/src/enums/router.enum";
+import {ROUTES, SEARCH_PARAMS} from "@/src/enums/router.enum";
 import { useActionState } from "react";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {signInFormAction} from "@/src/app/actions/forms/signIn/signInFormAction";
 import {useTranslate} from "@/src/hooks/translateHook";
 import {useLocale} from "use-intl";
+import {logoutAction} from "@/src/app/actions/auth/authActions";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/src/i18n/navigation";
 
 const LoginPage = () => {
     const {t} = useTranslate("page.sign");
     const [state, action, pending] = useActionState(signInFormAction, undefined);
+    const searchParams = useSearchParams();
+    const router = useRouter();
+
+    const handleUnauthorizedLogout = useCallback(async () => {
+        await logoutAction();
+        router.push(ROUTES.SIGN_IN);
+    }, [router]);
+
+    useEffect(() => {
+        const unauthorized = searchParams.get(SEARCH_PARAMS.UNAUTHORIZED);
+        if (unauthorized) {
+            handleUnauthorizedLogout();
+        }
+    }, [searchParams, handleUnauthorizedLogout]);
+
+
     const locale = useLocale();
 
     return <div>
