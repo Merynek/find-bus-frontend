@@ -12,7 +12,7 @@ interface IAppConfigPageProps {
 }
 
 const AppConfigPage = (props: IAppConfigPageProps) => {
-    const {cfg} = props;
+    const cfg = AppBusinessConfigConverter.toInstance(props.cfg);
     const appConfig = AppBusinessConfigConverter.toInstance(cfg);
     const [state, action, pending] = useActionState(appConfigFormAction, undefined)
 

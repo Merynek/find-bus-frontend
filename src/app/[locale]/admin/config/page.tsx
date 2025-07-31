@@ -1,8 +1,8 @@
 import AppConfigPage from "@/src/components/pages/admin/app-config/app-config.page";
-import {getAppBusinessConfig} from "@/src/app/actions/admin/adminActions";
+import {AdminService} from "@/src/services/AdminService";
 
 async function PageWrapper() {
-    const appConfig = await getAppBusinessConfig();
+    const appConfig = await AdminService.getAppBusinessConfig();
     return <AppConfigPage cfg={appConfig} />;
 }
 
