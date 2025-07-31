@@ -21,8 +21,8 @@ export class AdminService {
         await setEmailConfig(type, language, templateId);
     }
 
-    public static async getAppBusinessConfig(): Promise<AppBusinessConfig> {
-        const config = await getAppBusinessConfig();
+    public static async getAppBusinessConfig(locale: LOCALES): Promise<AppBusinessConfig> {
+        const config = await getAppBusinessConfig(locale);
         return AppBusinessConfigConverter.toInstance(config);
     }
 

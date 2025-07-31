@@ -33,11 +33,15 @@ export async function setEmailConfig(type: EmailType, language: Language, templa
     });
 }
 
-export async function getAppBusinessConfig() {
+export async function getAppBusinessConfig(locale: LOCALES) {
     const accessToken = await getAccessToken();
     const adminApi = new AdminApi(accessToken);
 
-    return await adminApi.getAppBusinessConfig();
+    try {
+        return await adminApi.getAppBusinessConfig();
+    } catch (e: unknown) {
+        handleApiUnauthorizedError(e, locale);
+    }
 }
 
 export async function changeAppBusinessConfig(cfg: UpdateAppBusinessConfigRequestDto) {

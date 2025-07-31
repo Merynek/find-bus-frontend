@@ -16,21 +16,10 @@ export async function getUserSession(): Promise<CustomSession|null> {
     if (!session?.user || !session?.token.token) {
         return null;
     }
-
-    try {
-        return {
-            user: {
-                id: session.user.id,
-                email: session.user.email,
-                role: session.user.role
-            },
-            accessToken: session.token.token,
-
-        };
-    } catch (error) {
-        console.error("Failed to retrieve user session data:", error);
-        return null;
-    }
+    return {
+        user: session.user,
+        accessToken: session.token.token
+    };
 }
 
 export async function loginAction(email: string, password: string) {
