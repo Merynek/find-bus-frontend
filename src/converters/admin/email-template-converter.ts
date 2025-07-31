@@ -16,4 +16,16 @@ export class EmailTemplateConverter {
             params: params
         })
     }
+
+    public static toJson(template: EmailTemplate): EmailTemplateResponseDto {
+        const paramsObject: { [key: string]: string | undefined } = {};
+        template.params.forEach((value, key) => {
+            paramsObject[key.toLowerCase()] = value;
+        });
+        return {
+            type: template.type,
+            localizations: template.localizations.map(EmailConfigLocalizationConverter.toJson),
+            params: paramsObject
+        }
+    }
 }

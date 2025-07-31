@@ -14,7 +14,6 @@ export interface IEmailConfigItemProps {
 
 export const EmailConfigItem = (props: IEmailConfigItemProps) => {
     const [state, action, pending] = useActionState(emailConfigFormAction, undefined)
-
     const {tmp} = props;
     const emailTemplate = EmailTemplateConverter.toInstance(tmp);
 

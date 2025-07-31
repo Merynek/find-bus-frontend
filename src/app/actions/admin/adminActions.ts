@@ -9,7 +9,7 @@ import {
 import {getAccessToken} from "@/src/app/actions/auth/accessTokenActions";
 import {AdminApi} from "@/src/api/adminApi";
 import {LOCALES} from "@/src/utils/locale";
-import {handleApiUnauthorizedError} from "@/src/utils/handleApiUnauthorizedError";
+import {handleApiUnauthorizedError} from "@/src/utils/handleApiErrors";
 
 export async function getEmailConfig(locale: LOCALES): Promise<EmailConfigResponseDto> {
     const accessToken = await getAccessToken();
@@ -18,7 +18,7 @@ export async function getEmailConfig(locale: LOCALES): Promise<EmailConfigRespon
     try {
         return await adminApi.getEmailConfig();
     } catch (e: unknown) {
-         handleApiUnauthorizedError(e, locale);
+        handleApiUnauthorizedError(e, locale);
     }
 }
 

@@ -1,10 +1,11 @@
 import React from "react";
 import styles from "./email-config.page.module.scss";
 import {EmailConfigItem} from "../../../compositions/admin/email-config-item/email-config-item";
-import type {EmailConfigResponseDto} from "@/src/api/openapi";
+import {EmailConfig} from "@/src/data/emailConfig";
+import {EmailTemplateConverter} from "@/src/converters/admin/email-template-converter";
 
 interface IEmailConfigPageProps {
-    cfg: EmailConfigResponseDto;
+    cfg: EmailConfig;
 }
 
 const EmailConfigPage = async (props: IEmailConfigPageProps) => {
@@ -15,7 +16,7 @@ const EmailConfigPage = async (props: IEmailConfigPageProps) => {
             className={styles.item} key={i}>
             <EmailConfigItem
                 key={i}
-                tmp={e}
+                tmp={EmailTemplateConverter.toJson(e)}
             />
         </div>)}
     </div>

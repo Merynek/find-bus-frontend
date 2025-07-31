@@ -9,10 +9,11 @@ import {
 import {EmailType, Language} from "@/src/api/openapi";
 import {EmailConfigConverter} from "@/src/converters/admin/email-config-converter";
 import {AppBusinessConfigConverter} from "@/src/converters/admin/app-business-config-converter";
+import {LOCALES} from "@/src/utils/locale";
 
 export class AdminService {
-    public static async getEmailConfig(): Promise<EmailConfig> {
-        const data = await getEmailConfig();
+    public static async getEmailConfig(locale: LOCALES): Promise<EmailConfig> {
+        const data = await getEmailConfig(locale);
         return EmailConfigConverter.toInstance(data);
     }
 

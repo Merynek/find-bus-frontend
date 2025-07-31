@@ -8,4 +8,11 @@ export class EmailConfigLocalizationConverter {
             templateId: response.templateId
         })
     }
+
+    public static toJson(localization: EmailConfigLocalization): EmailConfigLocalizationResponseDto {
+        return {
+            language: localization.language,
+            templateId: localization.templateId
+        }
+    }
 }

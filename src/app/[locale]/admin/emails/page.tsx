@@ -1,15 +1,9 @@
 import EmailConfigPage from "@/src/components/pages/admin/email-config/email-config.page";
-import {getEmailConfig} from "@/src/app/actions/admin/adminActions";
-import {LOCALES} from "@/src/utils/locale";
+import {AdminService} from "@/src/services/AdminService";
+import {BasePageProps} from "@/types/page.types";
 
-interface PageProps {
-    params: {
-        locale: string;
-    };
-}
-
-async function PageWrapper(props: PageProps) {
-    const config = await getEmailConfig(props.params.locale as LOCALES);
+async function PageWrapper(props: BasePageProps) {
+    const config = await AdminService.getEmailConfig(props.params.locale);
 
     return <EmailConfigPage cfg={config}/>;
 }
