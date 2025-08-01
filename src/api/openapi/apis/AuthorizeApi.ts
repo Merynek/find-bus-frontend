@@ -15,18 +15,19 @@
 
 import * as runtime from '../runtime';
 import type {
+  AccessTokenDto,
   ChangePasswordRequestDto,
-  CheckTokenResponseDto,
   ErrorResponseDto,
   ForgetPasswordRequestDto,
   LoginRequestDto,
   LoginResponseDto,
+  RefreshTokenRequestDto,
 } from '../models/index';
 import {
+    AccessTokenDtoFromJSON,
+    AccessTokenDtoToJSON,
     ChangePasswordRequestDtoFromJSON,
     ChangePasswordRequestDtoToJSON,
-    CheckTokenResponseDtoFromJSON,
-    CheckTokenResponseDtoToJSON,
     ErrorResponseDtoFromJSON,
     ErrorResponseDtoToJSON,
     ForgetPasswordRequestDtoFromJSON,
@@ -35,6 +36,8 @@ import {
     LoginRequestDtoToJSON,
     LoginResponseDtoFromJSON,
     LoginResponseDtoToJSON,
+    RefreshTokenRequestDtoFromJSON,
+    RefreshTokenRequestDtoToJSON,
 } from '../models/index';
 
 export interface ApiAuthorizeChangePasswordPostRequest {
@@ -47,6 +50,10 @@ export interface ApiAuthorizeForgetPasswordPostRequest {
 
 export interface ApiAuthorizeLoginPostRequest {
     loginRequestDto?: LoginRequestDto;
+}
+
+export interface ApiAuthorizeRefreshPostRequest {
+    refreshTokenRequestDto?: RefreshTokenRequestDto;
 }
 
 /**
@@ -89,41 +96,6 @@ export class AuthorizeApi extends runtime.BaseAPI {
      */
     async apiAuthorizeChangePasswordPost(requestParameters: ApiAuthorizeChangePasswordPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.apiAuthorizeChangePasswordPostRaw(requestParameters, initOverrides);
-    }
-
-    /**
-     */
-    async apiAuthorizeCheckTokenPostRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CheckTokenResponseDto>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("Bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/api/Authorize/checkToken`;
-
-        const response = await this.request({
-            path: urlPath,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => CheckTokenResponseDtoFromJSON(jsonValue));
-    }
-
-    /**
-     */
-    async apiAuthorizeCheckTokenPost(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CheckTokenResponseDto> {
-        const response = await this.apiAuthorizeCheckTokenPostRaw(initOverrides);
-        return await response.value();
     }
 
     /**
@@ -232,6 +204,44 @@ export class AuthorizeApi extends runtime.BaseAPI {
      */
     async apiAuthorizeLoginPost(requestParameters: ApiAuthorizeLoginPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LoginResponseDto> {
         const response = await this.apiAuthorizeLoginPostRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiAuthorizeRefreshPostRaw(requestParameters: ApiAuthorizeRefreshPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AccessTokenDto>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json-patch+json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/Authorize/refresh`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: RefreshTokenRequestDtoToJSON(requestParameters['refreshTokenRequestDto']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AccessTokenDtoFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiAuthorizeRefreshPost(requestParameters: ApiAuthorizeRefreshPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AccessTokenDto> {
+        const response = await this.apiAuthorizeRefreshPostRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

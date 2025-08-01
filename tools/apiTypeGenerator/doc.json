@@ -160,35 +160,6 @@
         }
       }
     },
-    "/api/Authorize/checkToken": {
-      "post": {
-        "tags": [
-          "Authorize"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/CheckTokenResponseDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CheckTokenResponseDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/CheckTokenResponseDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/Authorize/login": {
       "post": {
         "tags": [
@@ -235,6 +206,59 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/LoginResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Authorize/refresh": {
+      "post": {
+        "tags": [
+          "Authorize"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshTokenRequestDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshTokenRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshTokenRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshTokenRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessTokenDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessTokenDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessTokenDto"
                 }
               }
             }
@@ -1865,22 +1889,6 @@
         },
         "additionalProperties": false
       },
-      "CheckTokenResponseDto": {
-        "required": [
-          "appBusinessConfig",
-          "user"
-        ],
-        "type": "object",
-        "properties": {
-          "user": {
-            "$ref": "#/components/schemas/CurrentUserDto"
-          },
-          "appBusinessConfig": {
-            "$ref": "#/components/schemas/AppBusinessConfigResponseDto"
-          }
-        },
-        "additionalProperties": false
-      },
       "CloseTripOfferReason": {
         "enum": [
           "DEMANDER_GENERAL",
@@ -2895,6 +2903,7 @@
       "LoginResponseDto": {
         "required": [
           "appBusinessConfig",
+          "refreshToken",
           "token",
           "user"
         ],
@@ -2908,6 +2917,9 @@
           },
           "appBusinessConfig": {
             "$ref": "#/components/schemas/AppBusinessConfigResponseDto"
+          },
+          "refreshToken": {
+            "$ref": "#/components/schemas/AccessTokenDto"
           }
         },
         "additionalProperties": false
@@ -3007,6 +3019,19 @@
           },
           "currency": {
             "$ref": "#/components/schemas/Currency"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RefreshTokenRequestDto": {
+        "required": [
+          "refreshToken"
+        ],
+        "type": "object",
+        "properties": {
+          "refreshToken": {
+            "minLength": 1,
+            "type": "string"
           }
         },
         "additionalProperties": false

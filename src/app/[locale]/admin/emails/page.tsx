@@ -3,7 +3,8 @@ import {AdminService} from "@/src/services/AdminService";
 import {PageProps} from "@/types/page.types";
 
 async function PageWrapper(props: PageProps) {
-    const config = await AdminService.getEmailConfig(props.params.locale);
+    const params = await props.params;
+    const config = await AdminService.getEmailConfig(params.locale);
 
     return <EmailConfigPage cfg={config}/>;
 }

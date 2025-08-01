@@ -15,7 +15,6 @@ models/Amenities.ts
 models/AppBusinessConfigResponseDto.ts
 models/BanUserRequestDto.ts
 models/ChangePasswordRequestDto.ts
-models/CheckTokenResponseDto.ts
 models/CloseTripOfferReason.ts
 models/CloseTripRequestDto.ts
 models/Country.ts
@@ -51,6 +50,7 @@ models/PayedOfferRequestDto.ts
 models/PlaceRequestDto.ts
 models/PlaceResponseDto.ts
 models/PriceDto.ts
+models/RefreshTokenRequestDto.ts
 models/RegistrationUserRequestDto.ts
 models/RouteRequestDto.ts
 models/RouteResponseDto.ts

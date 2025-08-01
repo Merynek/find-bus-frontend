@@ -5,6 +5,7 @@ declare module "next-auth" {
     export interface User extends NextAuthUser {
         user: CurrentUserDto;
         token: AccessTokenDto;
+        refreshToken: AccessTokenDto;
     }
 
     export interface Session {
@@ -18,6 +19,7 @@ declare module "next-auth/jwt" {
         data: {
             user: CurrentUserDto;
             token: AccessTokenDto;
+            refreshToken: AccessTokenDto;
         };
     }
 }

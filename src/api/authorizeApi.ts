@@ -1,7 +1,7 @@
 import {IApiRequest} from "./toolsApi";
 import * as OpenApi from "./openapi";
 import {ApiConfiguration} from "@/src/api/apiConfiguration";
-import {CheckTokenResponseDto, LoginResponseDto} from "./openapi";
+import {AccessTokenDto, LoginResponseDto} from "./openapi";
 
 export interface IForgotPasswordRequest extends IApiRequest {
     email: string;
@@ -18,6 +18,10 @@ export interface ILoginRequest extends IApiRequest {
     password: string;
 }
 
+export interface IRefreshTokenRequest extends IApiRequest {
+    token: string;
+}
+
 export class AuthorizeApi {
     private readonly _token: string|undefined;
 
@@ -29,19 +33,19 @@ export class AuthorizeApi {
         return new OpenApi.AuthorizeApi(ApiConfiguration.createOpenApiConfig(this._token));
     }
 
-    public async checkToken(): Promise<CheckTokenResponseDto|null> {
-        try {
-            return await this._api.apiAuthorizeCheckTokenPost({});
-        } catch (e) {
-            return null;
-        }
-    }
-
     public async login(req: ILoginRequest): Promise<LoginResponseDto> {
         return await this._api.apiAuthorizeLoginPost({
             loginRequestDto: {
                 email: req.email,
                 password: req.password
+            }
+        }, req.initOverrides);
+    }
+
+    public async refreshToken(req: IRefreshTokenRequest): Promise<AccessTokenDto> {
+        return await this._api.apiAuthorizeRefreshPost({
+            refreshTokenRequestDto: {
+                refreshToken: req.token
             }
         }, req.initOverrides);
     }

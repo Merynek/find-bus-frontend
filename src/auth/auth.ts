@@ -22,7 +22,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
                     return {
                         token: loginResponse.token,
-                        user: loginResponse.user
+                        user: loginResponse.user,
+                        refreshToken: loginResponse.refreshToken
                     };
                 } catch (error) {
                     return null;
@@ -37,10 +38,25 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             if (user) {
                 token.data = {
                     user: user.user,
-                    token: user.token
+                    token: user.token,
+                    refreshToken: user.refreshToken
                 };
+                return token;
             }
-            return token;
+            if (Date.now() < new Date(token.data.token.expireDate).getTime()) {
+                return token;
+            }
+
+            try {
+                const api = new AuthorizeApi(undefined);
+                const newTokens = await api.refreshToken({ token: token.data.refreshToken.token });
+
+                token.data.token.token = newTokens.token;
+                token.data.token.expireDate = newTokens.expireDate;
+                return token;
+            } catch (error) {
+                return null;
+            }
         },
         session: async ({ session, token }: { session: Session; token: JWT }): Promise<Session> => {
             if (token.data && token.data.user && token.data.token) {

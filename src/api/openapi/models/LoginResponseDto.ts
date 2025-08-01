@@ -59,6 +59,12 @@ export interface LoginResponseDto {
      * @memberof LoginResponseDto
      */
     appBusinessConfig: AppBusinessConfigResponseDto;
+    /**
+     * 
+     * @type {AccessTokenDto}
+     * @memberof LoginResponseDto
+     */
+    refreshToken: AccessTokenDto;
 }
 
 /**
@@ -68,6 +74,7 @@ export function instanceOfLoginResponseDto(value: object): value is LoginRespons
     if (!('user' in value) || value['user'] === undefined) return false;
     if (!('token' in value) || value['token'] === undefined) return false;
     if (!('appBusinessConfig' in value) || value['appBusinessConfig'] === undefined) return false;
+    if (!('refreshToken' in value) || value['refreshToken'] === undefined) return false;
     return true;
 }
 
@@ -84,6 +91,7 @@ export function LoginResponseDtoFromJSONTyped(json: any, ignoreDiscriminator: bo
         'user': CurrentUserDtoFromJSON(json['user']),
         'token': AccessTokenDtoFromJSON(json['token']),
         'appBusinessConfig': AppBusinessConfigResponseDtoFromJSON(json['appBusinessConfig']),
+        'refreshToken': AccessTokenDtoFromJSON(json['refreshToken']),
     };
 }
 
@@ -101,6 +109,7 @@ export function LoginResponseDtoToJSONTyped(value?: LoginResponseDto | null, ign
         'user': CurrentUserDtoToJSON(value['user']),
         'token': AccessTokenDtoToJSON(value['token']),
         'appBusinessConfig': AppBusinessConfigResponseDtoToJSON(value['appBusinessConfig']),
+        'refreshToken': AccessTokenDtoToJSON(value['refreshToken']),
     };
 }
 
