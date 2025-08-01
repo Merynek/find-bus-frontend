@@ -3,15 +3,21 @@
 import {IUpdateTransportRequirementsPhotosRequest, UsersApi} from "@/src/api/usersApi";
 import {AdminUserDetailResponseDto, UserSettingsRequestDto, type UserSettingsResponseDto} from "@/src/api/openapi";
 import {getAccessToken} from "@/src/app/actions/auth/accessTokenActions";
+import {LOCALES} from "@/src/utils/locale";
+import {handleApiUnauthorizedError} from "@/src/utils/handleApiErrors";
 
-export async function getAllUsers(offset: number, limit: number): Promise<AdminUserDetailResponseDto[]> {
+export async function getAllUsers(offset: number, limit: number, locale: LOCALES): Promise<AdminUserDetailResponseDto[]> {
     const accessToken = await getAccessToken();
     const usersApi = new UsersApi(accessToken);
 
-    return await usersApi.getAllUsers({
-        limit: limit,
-        offset: offset
-    });
+    try {
+        return await usersApi.getAllUsers({
+            limit: limit,
+            offset: offset
+        });
+    } catch (e: unknown) {
+        handleApiUnauthorizedError(e, locale);
+    }
 }
 
 export async function setUserVerification(userId: number, verified: boolean) {
@@ -33,11 +39,15 @@ export async function changeSettings(settings: UserSettingsRequestDto) {
     });
 }
 
-export async function getSettings(): Promise<UserSettingsResponseDto> {
+export async function getSettings(locale: LOCALES): Promise<UserSettingsResponseDto> {
     const accessToken = await getAccessToken();
     const usersApi = new UsersApi(accessToken);
 
-    return await usersApi.getSettings({});
+    try {
+        return await usersApi.getSettings({});
+    } catch (e: unknown) {
+        handleApiUnauthorizedError(e, locale);
+    }
 }
 
 export async function updateTransportRequirementsPhotos(req: IUpdateTransportRequirementsPhotosRequest) {

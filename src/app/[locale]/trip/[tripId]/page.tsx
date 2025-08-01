@@ -1,14 +1,13 @@
 import TripDetailPage from "@/src/components/pages/trip-detail/trip-detail.page";
 import {TripService} from "@/src/services/TripService";
+import {PageProps} from "@/types/page.types";
 
-interface TripDetailPageProps {
-    params: {
-        tripId: string;
-    };
+interface IParams {
+    tripId: string;
 }
 
-async function PageWrapper(props: TripDetailPageProps) {
-    const trip = await TripService.getTrip(Number(props.params.tripId));
+async function PageWrapper(props: PageProps<IParams>) {
+    const trip = await TripService.getTrip(Number(props.params.tripId), props.params.locale);
     return <TripDetailPage trip={trip} />;
 }
 

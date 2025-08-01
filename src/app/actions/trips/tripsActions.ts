@@ -24,11 +24,15 @@ export async function getTrip(id: number, locale: LOCALES): Promise<TripResponse
     }
 }
 
-export async function getTrips(req: IGetTripsRequest): Promise<TripItemResponseDto[]> {
+export async function getTrips(req: IGetTripsRequest, locale: LOCALES): Promise<TripItemResponseDto[]> {
     const accessToken = await getAccessToken();
     const tripApi = new TripApi(accessToken);
 
-    return await tripApi.getTrips(req);
+    try {
+        return await tripApi.getTrips(req);
+    } catch (e: unknown) {
+        handleApiUnauthorizedError(e, locale);
+    }
 }
 
 export async function createTrip(trip: CreateTripRequestDto) {

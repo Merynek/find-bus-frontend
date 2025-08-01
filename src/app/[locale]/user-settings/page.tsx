@@ -1,9 +1,10 @@
 import UserSettingsPage from "@/src/components/pages/user-settings/user-settings.page";
 import {UsersService} from "@/src/services/UsersService";
 import {UsersConverter} from "@/src/converters/users/users-converter";
+import {PageProps} from "@/types/page.types";
 
-async function PageWrapper() {
-    const userSettings = await UsersService.getSettings();
+async function PageWrapper(props: PageProps) {
+    const userSettings = await UsersService.getSettings(props.params.locale);
     return <UserSettingsPage settings={UsersConverter.userSettingsToJson(userSettings)} />;
 }
 

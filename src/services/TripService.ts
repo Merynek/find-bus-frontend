@@ -14,8 +14,8 @@ export class TripService {
         return TripConverter.toInstance(data);
     }
 
-    public static async getTrips(req: IGetTripsRequest): Promise<TripItem[]> {
-        const data = await getTrips(req);
+    public static async getTrips(req: IGetTripsRequest, locale: LOCALES): Promise<TripItem[]> {
+        const data = await getTrips(req, locale) ;
         return data.map(TripItemConverter.toInstance);
     }
 

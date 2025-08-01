@@ -1,20 +1,18 @@
 import AdminTripsPage from "@/src/components/pages/admin/trips/admin-trips.page";
 import {TripService} from "@/src/services/TripService";
+import {PageProps} from "@/types/page.types";
 
-interface IAdminTripsPageProps {
-    searchParams: {
-        offset?: string;
-        limit?: string;
-    };
+interface ISearchParams {
+    offset?: string;
+    limit?: string;
 }
 
-async function PageWrapper(props: IAdminTripsPageProps) {
+async function PageWrapper(props: PageProps<Record<string, never>, ISearchParams>) {
     const {searchParams} = props;
-    const {offset, limit} = await searchParams;
     const trips = await TripService.getTrips({
-        offset: offset ? Number(offset) : 0,
-        limit: limit ? Number(limit) : 200
-    });
+        offset: searchParams?.offset ? Number(searchParams?.offset) : 0,
+        limit: searchParams?.limit ? Number(searchParams?.limit) : 200
+    }, props.params.locale);
     return <AdminTripsPage trips={trips} />
 }
 
