@@ -6,10 +6,11 @@ import {TripItem} from "@/src/data/tripItem";
 import {ICreateTripRequest, IGetTripsRequest} from "@/src/api/tripApi";
 import {TripRecommendation} from "@/src/data/tripRecommendation";
 import {TripRecommendationRequestDto} from "@/src/api/openapi";
+import {LOCALES} from "@/src/utils/locale";
 
 export class TripService {
-    public static async getTrip(id: number): Promise<Trip> {
-        const data = await getTrip(id);
+    public static async getTrip(id: number, locale: LOCALES): Promise<Trip> {
+        const data = await getTrip(id, locale);
         return TripConverter.toInstance(data);
     }
 

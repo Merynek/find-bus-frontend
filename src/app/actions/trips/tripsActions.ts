@@ -8,14 +8,20 @@ import {
 } from "@/src/api/openapi";
 import {getAccessToken} from "@/src/app/actions/auth/accessTokenActions";
 import {IGetTripsRequest, TripApi} from "@/src/api/tripApi";
+import {handleApiUnauthorizedError} from "@/src/utils/handleApiErrors";
+import {LOCALES} from "@/src/utils/locale";
 
-export async function getTrip(id: number): Promise<TripResponseDto> {
+export async function getTrip(id: number, locale: LOCALES): Promise<TripResponseDto> {
     const accessToken = await getAccessToken();
     const tripApi = new TripApi(accessToken);
 
-    return await tripApi.getTrip({
-        id
-    })
+    try {
+        return await tripApi.getTrip({
+            id
+        })
+    } catch (e: unknown) {
+        handleApiUnauthorizedError(e, locale);
+    }
 }
 
 export async function getTrips(req: IGetTripsRequest): Promise<TripItemResponseDto[]> {

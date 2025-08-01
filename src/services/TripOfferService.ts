@@ -13,16 +13,17 @@ import {TripOfferMovement} from "@/src/data/tripOfferMovement";
 import {Offer} from "@/src/data/offer";
 import {CloseTripOfferReason, TripOfferAcceptMethod} from "@/src/api/openapi";
 import {ICreateOfferRequest, IDownloadDocumentRequest} from "@/src/api/tripsOfferApi";
+import {LOCALES} from "@/src/utils/locale";
 
 export class TripOfferService {
-    public static async getTripOffers(tripId: number): Promise<Offer[]> {
-        const data = await getTripOffers(tripId);
+    public static async getTripOffers(tripId: number, locale: LOCALES): Promise<Offer[]> {
+        const data = await getTripOffers(tripId, locale);
 
         return data.map(TripOfferConverter.toInstance);
     }
 
-    public static async getOfferStateMovements(tripId: number): Promise<TripOfferMovement[]> {
-        const data = await getOfferStateMovements(tripId);
+    public static async getOfferStateMovements(tripId: number, locale: LOCALES): Promise<TripOfferMovement[]> {
+        const data = await getOfferStateMovements(tripId, locale);
 
         return data.map(TripOfferConverter.offerMovementToInstance);
     }

@@ -8,21 +8,33 @@ import {
     TripOfferMovementsResponseDto,
     TripOfferResponseDto
 } from "@/src/api/openapi";
+import {LOCALES} from "@/src/utils/locale";
+import {handleApiUnauthorizedError} from "@/src/utils/handleApiErrors";
 
-export async function getTripOffers(tripId: number): Promise<TripOfferResponseDto[]> {
+export async function getTripOffers(tripId: number, locale: LOCALES): Promise<TripOfferResponseDto[]> {
     const accessToken = await getAccessToken();
     const tripsOfferApi = new TripsOfferApi(accessToken);
-    return await tripsOfferApi.getTripOffers({
-        tripId
-    });
+
+    try {
+        return await tripsOfferApi.getTripOffers({
+            tripId
+        });
+    } catch (e: unknown) {
+        handleApiUnauthorizedError(e, locale);
+    }
 }
 
-export async function getOfferStateMovements(tripId: number): Promise<TripOfferMovementsResponseDto[]> {
+export async function getOfferStateMovements(tripId: number, locale: LOCALES): Promise<TripOfferMovementsResponseDto[]> {
     const accessToken = await getAccessToken();
     const tripsOfferApi = new TripsOfferApi(accessToken);
-    return await tripsOfferApi.offerStateMovements({
-        tripId
-    });
+
+    try {
+        return await tripsOfferApi.offerStateMovements({
+            tripId
+        });
+    } catch (e: unknown) {
+        handleApiUnauthorizedError(e, locale);
+    }
 }
 
 export async function payedOffer(offerId: number) {
