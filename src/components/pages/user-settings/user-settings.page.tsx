@@ -210,7 +210,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                         <span>{"User => " + (settings.isVerifiedForTransporting ? "Verified" : "Not Verified")}</span>
                     </LayoutFlexColumn>
                     <div>
-                        <label htmlFor={FormDataEnum.concessionNumber}>swift</label>
+                        <label htmlFor={FormDataEnum.concessionNumber}>concessionNumber</label>
                         <input id={FormDataEnum.concessionNumber} name={FormDataEnum.concessionNumber} type={"text"}
                                placeholder="concessionNumber" defaultValue={state?.data?.concessionNumber || settings.transportRequirements.concessionNumber}/>
                     </div>
