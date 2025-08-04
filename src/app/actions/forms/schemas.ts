@@ -1,6 +1,32 @@
 import {z} from "zod";
 import {Country} from "@/src/api/openapi";
 
+export const parseAndNormalizeFormData = (formData: FormData, arrayFields: string[] = []): Record<string, string | File | (string | File)[] | undefined> => {
+    const data: Record<string, string | File | (string | File)[] | undefined> = {};
+    const processedKeys = new Set<string>();
+
+    for (const key of arrayFields) {
+        data[key] = formData.getAll(key);
+        processedKeys.add(key);
+    }
+
+    for (const [key, value] of formData.entries()) {
+        if (processedKeys.has(key)) {
+            continue;
+        }
+
+        if (value === null || (typeof value === 'string' && value.trim() === '')) {
+            data[key] = undefined;
+        } else if (value instanceof File && value.size === 0) {
+            data[key] = undefined;
+        } else {
+            data[key] = value;
+        }
+    }
+
+    return data;
+};
+
 export const geoPointSchema = z.object({
     lat: z.number(),
     lng: z.number(),

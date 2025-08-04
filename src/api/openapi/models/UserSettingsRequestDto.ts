@@ -82,7 +82,7 @@ export interface UserSettingsRequestDto {
      * @type {boolean}
      * @memberof UserSettingsRequestDto
      */
-    isCompany?: boolean;
+    isCompany?: boolean | null;
     /**
      * 
      * @type {Array<NotificationsEnum>}

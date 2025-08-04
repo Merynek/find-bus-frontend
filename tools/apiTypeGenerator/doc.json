@@ -3816,7 +3816,8 @@
             "nullable": true
           },
           "isCompany": {
-            "type": "boolean"
+            "type": "boolean",
+            "nullable": true
           },
           "notifications": {
             "type": "array",

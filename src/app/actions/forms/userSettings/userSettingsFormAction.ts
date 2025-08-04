@@ -1,11 +1,11 @@
 'use server';
 
-import {redirect} from "next/navigation";
-import {ROUTES} from "@/src/enums/router.enum";
 import { z } from 'zod';
-import {Country} from "@/src/api/openapi";
+import {Country, NotificationsEnum} from "@/src/api/openapi";
 import {UserSettingsSchema} from "@/src/app/actions/forms/userSettings/userSettingsSchema";
-import {TransferInfoSchema, UserAddressSchema} from "@/src/app/actions/forms/schemas";
+import {
+    parseAndNormalizeFormData
+} from "@/src/app/actions/forms/schemas";
 import {UsersService} from "@/src/services/UsersService";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 
@@ -15,69 +15,43 @@ export type TUserSettingsFormState = {
     errors?: UserSettingsSchemaFieldErrors;
     message?: string;
     error?: string;
+    data?: Partial<z.infer<typeof UserSettingsSchema>>;
 } | undefined;
 
 export async function userSettingsFormAction(state: TUserSettingsFormState, formData: FormData): Promise<TUserSettingsFormState> {
-    const dataToValidate = {
-        name: formData.get(FormDataEnum.name),
-        surname: formData.get(FormDataEnum.surname),
-        phoneNumber: formData.get(FormDataEnum.phoneNumber),
-        ico: formData.get(FormDataEnum.ico),
-        dic: formData.get(FormDataEnum.ico),
-        companyName: formData.get(FormDataEnum.companyName),
-        isCompany: formData.get(FormDataEnum.isCompany) === 'on' || formData.get(FormDataEnum.isCompany) === 'true',
-        notifications: formData.getAll(FormDataEnum.notifications),
-        concessionNumber: formData.get(FormDataEnum.concessionNumber),
-        address: ((): z.infer<typeof UserAddressSchema> | undefined => {
-            const country = formData.get(FormDataEnum.address_country);
-            const city = formData.get(FormDataEnum.address_city);
-            const psc = formData.get(FormDataEnum.address_psc);
-            const street = formData.get(FormDataEnum.address_street);
-            const houseNumber = formData.get(FormDataEnum.address_houseNumber);
+    const normalizedData = parseAndNormalizeFormData(formData, [FormDataEnum.notifications]);
+    const dataToValidate: Partial<z.infer<typeof UserSettingsSchema>> = {
+        name: normalizedData[FormDataEnum.name] as string,
+        surname: normalizedData[FormDataEnum.surname] as string,
+        phoneNumber: normalizedData[FormDataEnum.phoneNumber] as string,
+        ico: normalizedData[FormDataEnum.ico] as string,
+        dic: normalizedData[FormDataEnum.dic] as string,
+        companyName: normalizedData[FormDataEnum.companyName] as string,
+        concessionNumber: normalizedData[FormDataEnum.concessionNumber] as string,
 
-            if (country || city || psc || street || houseNumber) {
-                return {
-                    country: country ? (country as Country) : Country.CZ,
-                    city: city ? (city as string) : null,
-                    psc: psc ? (psc as string) : null,
-                    street: street ? (street as string) : null,
-                    houseNumber: houseNumber ? (houseNumber as string) : null,
-                };
-            }
-            return undefined;
-        })(),
-        mailingAddress: ((): z.infer<typeof UserAddressSchema> | undefined => {
-            const country = formData.get(FormDataEnum.mailingAddress_country);
-            const city = formData.get(FormDataEnum.mailingAddress_city);
-            const psc = formData.get(FormDataEnum.mailingAddress_psc);
-            const street = formData.get(FormDataEnum.mailingAddress_street);
-            const houseNumber = formData.get(FormDataEnum.mailingAddress_houseNumber);
+        isCompany: (normalizedData[FormDataEnum.isCompany] === 'on' || normalizedData[FormDataEnum.isCompany] === 'true'),
+        notifications: normalizedData.notifications as NotificationsEnum[],
+        businessRiskInsurance: normalizedData[FormDataEnum.businessRiskInsurance] as File,
+        concessionDocuments: normalizedData[FormDataEnum.concessionDocuments] as File,
 
-            if (country || city || psc || street || houseNumber) {
-                return {
-                    country: country ? (country as Country) : Country.CZ,
-                    city: city ? (city as string) : null,
-                    psc: psc ? (psc as string) : null,
-                    street: street ? (street as string) : null,
-                    houseNumber: houseNumber ? (houseNumber as string) : null,
-                };
-            }
-            return undefined;
-        })(),
-        transferInfo: ((): z.infer<typeof TransferInfoSchema> | undefined => {
-            const iban = formData.get(FormDataEnum.transferInfo_iban);
-            const swift = formData.get(FormDataEnum.transferInfo_swift);
-
-            if (iban || swift) {
-                return {
-                    iban: iban ? (iban as string) : null,
-                    swift: swift ? (swift as string) : null,
-                };
-            }
-            return undefined;
-        })(),
-        businessRiskInsurance: formData.get(FormDataEnum.businessRiskInsurance),
-        concessionDocuments: formData.get(FormDataEnum.concessionDocuments),
+        address: {
+            country: normalizedData[FormDataEnum.address_country] as Country,
+            city: normalizedData[FormDataEnum.address_city] as string,
+            psc: normalizedData[FormDataEnum.address_psc] as string,
+            street: normalizedData[FormDataEnum.address_street] as string,
+            houseNumber: normalizedData[FormDataEnum.address_houseNumber] as string,
+        },
+        mailingAddress: {
+            country: normalizedData[FormDataEnum.mailingAddress_country] as Country,
+            city: normalizedData[FormDataEnum.mailingAddress_city] as string,
+            psc: normalizedData[FormDataEnum.mailingAddress_psc] as string,
+            street: normalizedData[FormDataEnum.mailingAddress_street] as string,
+            houseNumber: normalizedData[FormDataEnum.mailingAddress_houseNumber] as string,
+        },
+        transferInfo: {
+            iban: normalizedData[FormDataEnum.transferInfo_iban] as string,
+            swift: normalizedData[FormDataEnum.transferInfo_swift] as string,
+        },
     };
 
     const validatedFields = UserSettingsSchema.safeParse(dataToValidate);
@@ -87,6 +61,7 @@ export async function userSettingsFormAction(state: TUserSettingsFormState, form
         return {
             errors: validatedFields.error.flatten().fieldErrors,
             message: 'Některá zadaná data nejsou platná.',
+            data: dataToValidate as Partial<z.infer<typeof UserSettingsSchema>>,
         };
     }
     try {
@@ -110,11 +85,15 @@ export async function userSettingsFormAction(state: TUserSettingsFormState, form
                 concessionDocuments: validatedFields.data.concessionDocuments
             });
         }
+        return {
+            message: 'cajk',
+            data: dataToValidate as Partial<z.infer<typeof UserSettingsSchema>>,
+        };
     } catch (error: any) {
         console.error('Chyba při pridani vozidla:', error);
+        const xx = await error.response.json();
         return {
             errors: error.message || 'Došlo k neočekávané chybě během přidání vozidla.',
         }
     }
-    redirect(ROUTES.USER_SETTINGS);
 }

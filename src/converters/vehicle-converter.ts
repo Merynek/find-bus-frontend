@@ -33,7 +33,7 @@ export class VehicleConverter {
 
     public static toJson(vehicle: Vehicle): VehicleResponseDto {
         return {
-            id: vehicle.id,
+            id: vehicle.id || 0,
             name: vehicle.name,
             registrationSign: vehicle.registrationSign,
             vin: vehicle.VIN,

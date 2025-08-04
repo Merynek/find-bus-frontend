@@ -13,6 +13,7 @@ import {TransferInfo} from "@/src/data/transferInfo";
 import {TransportRequirementsConverter} from "@/src/converters/users/transport-requirements-converter";
 import {TransportRequirements} from "@/src/data/transportRequirements";
 import {UserDetail} from "@/src/data/users/user-detail";
+import {toJS} from "mobx";
 
 export class UsersConverter {
 
@@ -50,7 +51,7 @@ export class UsersConverter {
             ico: settings.ico || "",
             dic: settings.dic || "",
             companyName: settings.companyName || "",
-            notifications: settings.notifications || [],
+            notifications: toJS(settings.notifications),
             address: UsersConverter.userAddressToServer(settings.address),
             isCompany: settings.isCompany,
             mailingAddress: UsersConverter.userAddressToServer(settings.mailingAddress),
@@ -67,7 +68,7 @@ export class UsersConverter {
             ico: settings.ico || "",
             dic: settings.dic || "",
             companyName: settings.companyName || "",
-            notifications: settings.notifications || [],
+            notifications: toJS(settings.notifications) || [],
             address: UserAddressConverter.toJson(settings.address),
             isCompany: settings.isCompany,
             mailingAddress: UserAddressConverter.toJson(settings.mailingAddress),
