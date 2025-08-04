@@ -1,20 +1,21 @@
 "use client";
 
 import { routing } from '@/src/i18n/routing';
-import {Locale, useLocale} from "use-intl";
 import {ChangeEvent, useTransition} from "react";
 import { usePathname, useRouter } from '@/src/i18n/navigation';
 import {useParams} from "next/navigation";
+import {useCurrentLocale} from "@/src/hooks/translateHook";
+import {LOCALES} from "@/src/utils/locale";
 
 export const LocaleSwitcherSelect = () => {
-    const locale = useLocale();
+    const locale = useCurrentLocale();
     const router = useRouter();
     const [isPending, startTransition] = useTransition();
     const pathname = usePathname();
     const params = useParams();
 
     function onSelectChange(event: ChangeEvent<HTMLSelectElement>) {
-        const nextLocale = event.target.value as Locale;
+        const nextLocale = event.target.value as LOCALES;
         startTransition(() => {
             router.replace(
                 // @ts-expect-error -- TypeScript will validate that only known `params`

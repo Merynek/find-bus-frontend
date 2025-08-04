@@ -5,7 +5,7 @@ import {TripOffer} from "../trip-offer/trip-offer";
 import {UserRole} from "@/src/api/openapi";
 import {Offer} from "@/src/data/offer";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
-import {useAuth} from "@/src/app/contexts/AuthContext";
+import {useLoggedUser} from "@/src/hooks/authenticationHook";
 
 export interface ITripOfferResultProps {
     trip: Trip;
@@ -14,7 +14,7 @@ export interface ITripOfferResultProps {
 
 export const TripOfferResult = observer((props: ITripOfferResultProps) => {
     const {trip, offers} = props;
-    const {user} = useAuth();
+    const {user} = useLoggedUser();
 
     const _renderLabel = () => {
         return user?.role === UserRole.TRANSPORTER ? <h2>Vyhraná nabídka</h2> : <h2>Přijatá nabídka</h2>;

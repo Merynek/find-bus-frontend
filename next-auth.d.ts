@@ -3,12 +3,6 @@ import {DefaultJWT} from "@auth/core/jwt";
 import {DefaultSession} from "next-auth";
 import {DefaultUser} from "@auth/core/types";
 
-interface CurrentUserDto {
-    id: number;
-    email: string;
-    role: string;
-}
-
 interface AccessTokenDto {
     token: string;
     expireDate: string;

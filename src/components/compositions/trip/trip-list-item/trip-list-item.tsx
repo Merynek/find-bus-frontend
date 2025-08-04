@@ -12,7 +12,7 @@ import {ROUTES} from "@/src/enums/router.enum";
 import {IconType} from "@/src/enums/icon.enum";
 import {Icon} from "../../../components/icon/icon";
 import { AppConfiguration } from "@/src/singletons/AppConfiguration";
-import {useAuth} from "@/src/app/contexts/AuthContext";
+import {useLoggedUser} from "@/src/hooks/authenticationHook";
 
 export interface ITripListItemProps {
     tripItem: TripItem;
@@ -20,7 +20,7 @@ export interface ITripListItemProps {
 
 export const TripListItem = observer((props: ITripListItemProps) => {
     const {tripItem} = props;
-    const {user} = useAuth();
+    const {user} = useLoggedUser();
 
     const _renderRoute = (route: Route, index: number) => {
         return <div key={index}>

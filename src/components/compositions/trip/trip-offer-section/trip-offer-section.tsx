@@ -16,7 +16,8 @@ import {FlexGap} from "@/src/enums/layout.enum";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
 import {TripOfferService} from "@/src/services/TripOfferService";
 import {useApp} from "@/src/app/contexts/AppContext";
-import {useAuth} from "@/src/app/contexts/AuthContext";
+import {useLoggedUser} from "@/src/hooks/authenticationHook";
+import {useCurrentLocale} from "@/src/hooks/translateHook";
 
 export interface ITripOfferSectionProps {
     trip: TripResponseDto;
@@ -24,14 +25,15 @@ export interface ITripOfferSectionProps {
 
 export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
     const trip = useInit(() => TripConverter.toInstance(props.trip));
-    const {user} = useAuth();
+    const {user} = useLoggedUser();
     const {showLoader, hideLoader} = useApp();
+    const locale = useCurrentLocale();
     const [offers, setOffers] = useState<Offer[]>([]);
     const router = useRouter();
 
     const loadOffers = async () => {
         showLoader();
-        const _offers = await TripOfferService.getTripOffers(trip.id);
+        const _offers = await TripOfferService.getTripOffers(trip.id, locale);
         setOffers(_offers);
         hideLoader();
     }

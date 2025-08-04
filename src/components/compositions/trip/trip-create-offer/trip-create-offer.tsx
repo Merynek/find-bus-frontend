@@ -17,9 +17,10 @@ import {TripOfferService} from "@/src/services/TripOfferService";
 import {UsersService} from "@/src/services/UsersService";
 import {VehicleService} from "@/src/services/VehicleService";
 import {useApp} from "@/src/app/contexts/AppContext";
-import { useAuth } from "@/src/app/contexts/AuthContext";
 import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import {Vehicle} from "@/src/data/users/vehicle";
+import {useLoggedUser} from "@/src/hooks/authenticationHook";
+import {useCurrentLocale} from "@/src/hooks/translateHook";
 
 export interface ITripCreateOfferProps {
     trip: Trip;
@@ -35,7 +36,8 @@ interface IBusComboItem {
 export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
     const {trip, onMakeOffer, offers} = props;
     const {showLoader, hideLoader} = useApp();
-    const {user} = useAuth();
+    const {user} = useLoggedUser();
+    const locale = useCurrentLocale();
     const [vehicles, setVehicles] = useState<Vehicle[]>([]);
 
     const alreadyOffered = () => {
@@ -53,7 +55,7 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
     })
 
     const _init = async () => {
-        setUserSettings(await UsersService.getSettings());
+        setUserSettings(await UsersService.getSettings(locale));
         if (user?.role === UserRole.TRANSPORTER) {
             setVehicles(await VehicleService.getVehicles());
         }
@@ -62,7 +64,7 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
     const getBusItems = () => {
         return vehicles.map(vehicle => {
             return {
-                value: vehicle.id.toString(),
+                value: vehicle.id?.toString(),
                 label: vehicle.name
             }
         });

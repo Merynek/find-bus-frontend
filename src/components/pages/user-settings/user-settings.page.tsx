@@ -7,11 +7,11 @@ import {UserSettingsPageStore} from "./user-settings.page.store";
 import {ButtonClick, ButtonSize, ButtonType} from "../../components/button/button";
 import {Country, NotificationsEnum, UserRole, UserSettingsResponseDto} from "@/src/api/openapi";
 import {LayoutFlexColumn} from "../../components/layout/layout-flex-column/layout-flex-column";
-import {useAuth} from "@/src/app/contexts/AuthContext";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {userSettingsFormAction} from "@/src/app/actions/forms/userSettings/userSettingsFormAction";
 import {useInit} from "@/src/hooks/lifecycleHooks";
 import {UsersConverter} from "@/src/converters/users/users-converter";
+import {useLoggedUser} from "@/src/hooks/authenticationHook";
 
 interface IUserSettingsPageProps {
     settings: UserSettingsResponseDto;
@@ -20,7 +20,7 @@ interface IUserSettingsPageProps {
 const UserSettingsPage = (props: IUserSettingsPageProps) => {
     const settings = useInit(() => UsersConverter.userSettingsToInstance(props.settings));
     const {t} = useTranslate("page.userSettings");
-    const {user} = useAuth();
+    const {user} = useLoggedUser();
     const [state, action, pending] = useActionState(userSettingsFormAction, undefined)
     const _storeRef = useRef<UserSettingsPageStore>(new UserSettingsPageStore());
     const store = _storeRef.current;

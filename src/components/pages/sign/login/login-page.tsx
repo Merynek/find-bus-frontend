@@ -6,8 +6,7 @@ import {ROUTES, SEARCH_PARAMS} from "@/src/enums/router.enum";
 import { useActionState } from "react";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {signInFormAction} from "@/src/app/actions/forms/signIn/signInFormAction";
-import {useTranslate} from "@/src/hooks/translateHook";
-import {useLocale} from "use-intl";
+import {useCurrentLocale, useTranslate} from "@/src/hooks/translateHook";
 import {logoutAction} from "@/src/app/actions/auth/authActions";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/src/i18n/navigation";
@@ -31,7 +30,7 @@ const LoginPage = () => {
     }, [searchParams, handleUnauthorizedLogout]);
 
 
-    const locale = useLocale();
+    const locale = useCurrentLocale();
 
     return <div>
         <ButtonLink

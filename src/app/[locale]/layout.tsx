@@ -6,6 +6,7 @@ import {AppLoader} from "@/src/components/components/app-loader/app-loader";
 import {NextIntlClientProvider, hasLocale} from 'next-intl';
 import {notFound} from 'next/navigation';
 import {routing} from "@/src/i18n/routing";
+import NextAuthProvider from "@/src/app/contexts/NextAuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,11 +38,13 @@ export default async function RootLayout(props: IRootLayoutProps) {
     return <html lang={locale}>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
             <NextIntlClientProvider>
-                <AppProvider>
-                    <AppLoader />
-                    <Header />
-                    {children}
-                </AppProvider>
+                <NextAuthProvider>
+                    <AppProvider>
+                        <AppLoader />
+                        <Header />
+                        {children}
+                    </AppProvider>
+                </NextAuthProvider>
             </NextIntlClientProvider>
         </body>
     </html>
