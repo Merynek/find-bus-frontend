@@ -34,7 +34,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     callbacks: {
         jwt: async (params: { token: JWT; user?: User | AdapterUser }): Promise<JWT | null> => {
             const { token, user } = params;
-
             if (user) {
                 token.data = {
                     user: user.user,
