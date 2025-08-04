@@ -2,7 +2,7 @@ import { z } from 'zod'
 import {Amenities, EuroStandard} from "@/src/api/openapi";
 import {imageFileSchema, placeSchema} from "@/src/app/actions/forms/schemas";
 
-export const VehiclePhotoSchema = z.object({
+const vehiclePhotoSchema = z.object({
     frontPhoto: imageFileSchema,
     rearPhoto: imageFileSchema,
     leftSidePhoto: imageFileSchema,
@@ -14,21 +14,24 @@ export const VehiclePhotoSchema = z.object({
     insurance: imageFileSchema,
 }).strict();
 
-export const VehicleCoreSchema = z.object({
+const vehicleCoreSchema = z.object({
     name: z.string().min(2, "Název vozidla musí mít alespoň 2 znaky."),
-    personsCapacity: z.number().int().min(1, "Kapacita osob musí být alespoň 1."),
+    personsCapacity: z.coerce.number().int().min(1, "Kapacita osob musí být alespoň 1."),
     euro: z.nativeEnum(EuroStandard, { message: "Neplatný Euro standard." }),
     amenities: z.array(z.nativeEnum(Amenities, { message: "Neplatné vybavení." })).default([]),
-    handicappedUserCount: z.number().int().min(0, "Počet handicapovaných uživatelů nesmí být záporný."),
+    handicappedUserCount: z.coerce.number().int().min(0, "Počet handicapovaných uživatelů nesmí být záporný."),
     vin: z.string().length(17, "VIN musí mít přesně 17 znaků.").regex(/^[A-HJ-NPR-Z0-9]{17}$/, "Neplatný formát VIN."),
     registrationSign: z.string().min(5, "Registrační značka je vyžadována.").max(10, "Registrační značka je příliš dlouhá."),
-    stkExpired: z.preprocess((arg) => {
-        if (typeof arg === "string" || arg instanceof Date) return new Date(arg);
-    }, z.date({ message: "Datum expirace STK je vyžadováno." }).min(new Date(), "Datum expirace STK nesmí být v minulosti.")),
-    yearOfManufacture: z.number().int().min(1900, "Neplatný rok výroby.").max(new Date().getFullYear() + 1, "Rok výroby nesmí být v budoucnosti."),
-    departureStation: placeSchema.optional()
+    // Zod umí sám převést string na Date
+    stkExpired: z.coerce.date({ message: "Datum expirace STK je vyžadováno." }).min(new Date(), "Datum expirace STK nesmí být v minulosti."),
+    yearOfManufacture: z.coerce.number().int().min(1900, "Neplatný rok výroby.").max(new Date().getFullYear() + 1, "Rok výroby nesmí být v budoucnosti."),
+    departureStation: placeSchema
 }).strict();
 
-export const AddVehicleSchema = VehicleCoreSchema.extend(
-    VehiclePhotoSchema.shape
-).strict();
+export const VehicleSchema = z.object({}).extend(vehicleCoreSchema.partial().shape)
+    .extend(vehiclePhotoSchema.partial().shape)
+    .strict();
+
+export const EditVehicleSchema = VehicleSchema.extend({
+    vehicleId: z.coerce.number().int().min(1, "ID vozidla je vyžadováno."),
+}).strict();

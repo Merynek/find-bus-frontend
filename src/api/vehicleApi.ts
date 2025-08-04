@@ -1,20 +1,11 @@
 import {ApiConfiguration} from "./apiConfiguration";
 import * as OpenApi from "./openapi";
 import {IApiRequest} from "./toolsApi";
-import {Amenities, EuroStandard, PlaceRequestDto, VehicleResponseDto} from "./openapi";
+import {Amenities, EuroStandard, PlaceRequestDto, type VehicleRequestDto, VehicleResponseDto} from "./openapi";
 
 export interface IUpdateVehicleRequest extends IApiRequest {
     vehicleId: number;
-    name: string;
-    personsCapacity: number;
-    euro: EuroStandard;
-    amenities: Amenities[];
-    handicappedUserCount: number;
-    vin: string;
-    registrationSign: string;
-    stkExpired: Date;
-    yearOfManufacture: number;
-    departureStation: PlaceRequestDto|undefined;
+    vehicle: IVehicleRequest;
 }
 
 export interface IUploadVehicleFilesRequest extends IApiRequest {
@@ -35,17 +26,22 @@ export interface ISetVehicleVerificationRequest extends IApiRequest {
     verified: boolean;
 }
 export interface IAddVehicleRequest extends IApiRequest {
-    name: string;
-    personsCapacity: number;
-    euro: EuroStandard;
-    amenities: Amenities[];
-    handicappedUserCount: number;
-    vin: string;
-    registrationSign: string;
-    stkExpired: Date;
-    yearOfManufacture: number;
-    departureStation: PlaceRequestDto|undefined;
+    vehicle: IVehicleRequest;
 }
+
+interface IVehicleRequest {
+    name?: string;
+    personsCapacity?: number;
+    euro?: EuroStandard;
+    amenities?: Amenities[];
+    handicappedUserCount?: number;
+    vin?: string;
+    registrationSign?: string;
+    stkExpired?: Date;
+    yearOfManufacture?: number;
+    departureStation?: PlaceRequestDto;
+}
+
 export interface IGetVehicleRequest extends IApiRequest {
     vehicleId: number;
 }
@@ -76,18 +72,7 @@ export class VehicleApi {
     public async addVehicle(req: IAddVehicleRequest): Promise<number> {
         return await this._api.apiVehiclesVehiclePost({
             addVehicleRequestDto: {
-                info: {
-                    name: req.name,
-                    personsCapacity: req.personsCapacity,
-                    euro: req.euro,
-                    amenities: req.amenities,
-                    handicappedUserCount: req.handicappedUserCount,
-                    vin: req.vin,
-                    registrationSign: req.registrationSign,
-                    stkExpired: req.stkExpired || new Date(),
-                    yearOfManufacture: req.yearOfManufacture,
-                    departureStation: req.departureStation
-                }
+                info: this._createVehicleRequest(req.vehicle)
             }
         }, req.initOverrides);
     }
@@ -96,20 +81,24 @@ export class VehicleApi {
         await this._api.apiVehiclesVehiclePut({
             updateVehicleRequestDto: {
                 id: req.vehicleId,
-                info: {
-                    name: req.name,
-                    personsCapacity: req.personsCapacity,
-                    euro: req.euro,
-                    amenities: req.amenities,
-                    handicappedUserCount: req.handicappedUserCount,
-                    vin: req.vin,
-                    registrationSign: req.registrationSign,
-                    stkExpired: req.stkExpired || new Date(),
-                    yearOfManufacture: req.yearOfManufacture,
-                    departureStation: req.departureStation
-                }
+                info: this._createVehicleRequest(req.vehicle)
             },
         }, req.initOverrides);
+    }
+
+    private _createVehicleRequest(req: IVehicleRequest): VehicleRequestDto {
+        return {
+            name: req.name,
+            personsCapacity: req.personsCapacity,
+            euro: req.euro,
+            amenities: req.amenities,
+            handicappedUserCount: req.handicappedUserCount,
+            vin: req.vin,
+            registrationSign: req.registrationSign,
+            stkExpired: req.stkExpired,
+            yearOfManufacture: req.yearOfManufacture,
+            departureStation: req.departureStation
+        }
     }
 
     public async uploadVehicleFiles(req: IUploadVehicleFilesRequest): Promise<void> {
