@@ -22,6 +22,12 @@ export async function getUserSession(): Promise<CustomSession|null> {
     };
 }
 
+export async function getLoggerUserSession(): Promise<CurrentUserDto|null> {
+    const session = await auth();
+
+    return session?.user || null;
+}
+
 export async function loginAction(email: string, password: string) {
     await signIn('credentials', {
         email: email,

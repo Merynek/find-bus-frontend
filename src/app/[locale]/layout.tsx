@@ -7,6 +7,7 @@ import {NextIntlClientProvider, hasLocale} from 'next-intl';
 import {notFound} from 'next/navigation';
 import {routing} from "@/src/i18n/routing";
 import NextAuthProvider from "@/src/app/contexts/NextAuthContext";
+import {AuthorizationService} from "@/src/services/AuthorizationService";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,6 +32,7 @@ interface IRootLayoutProps {
 export default async function RootLayout(props: IRootLayoutProps) {
     const {params, children} = props;
     const {locale} = await params;
+    const user = await AuthorizationService.getLoggerUser();
     if (!hasLocale(routing.locales, locale)) {
         notFound();
     }
@@ -38,7 +40,7 @@ export default async function RootLayout(props: IRootLayoutProps) {
     return <html lang={locale}>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
             <NextIntlClientProvider>
-                <NextAuthProvider>
+                <NextAuthProvider userId={user?.id || 0}>
                     <AppProvider>
                         <AppLoader />
                         <Header />

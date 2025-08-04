@@ -1,12 +1,18 @@
 import {UserRole} from "@/src/api/openapi";
 import {
-    activeUserAction, forgotPasswordAction,
+    activeUserAction, forgotPasswordAction, getLoggerUserSession,
     loginAction,
     logoutAction, resetPasswordAction,
     signUpAction
 } from "@/src/app/actions/auth/authActions";
+import {UsersConverter} from "@/src/converters/users/users-converter";
 
 export class AuthorizationService {
+    public static async getLoggerUser() {
+        const user = await getLoggerUserSession();
+        return user ? UsersConverter.currentUserToInstance(user) : null;
+    }
+
     public static async login(email: string, password: string) {
         await loginAction(email, password);
     }

@@ -25,6 +25,14 @@ export class UsersConverter {
         })
     }
 
+    public static currentUserToJson(user: User): CurrentUserDto {
+        return {
+            id: user.id,
+            role: user.role,
+            email: user.email
+        }
+    }
+
     public static userSettingsToInstance(settings: UserSettingsResponseDto): UserSettings {
         return new UserSettings({
             name: settings.name || "",
