@@ -12,6 +12,7 @@ import {userSettingsFormAction} from "@/src/app/actions/forms/userSettings/userS
 import {useInit} from "@/src/hooks/lifecycleHooks";
 import {UsersConverter} from "@/src/converters/users/users-converter";
 import {useLoggedUser} from "@/src/hooks/authenticationHook";
+import {ImageUploader} from "@/src/components/components/image-uploader/image-uploader";
 
 interface IUserSettingsPageProps {
     settings: UserSettingsResponseDto;
@@ -217,31 +218,21 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                     </LayoutFlexColumn>
                     <fieldset className="space-y-4">
                         <legend className="text-sm font-medium text-gray-700">Dokumenty</legend>
-
-                        {/* Pojištění podnikatelských rizik */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700">
-                                Pojištění podnikatelských rizik
-                            </label>
-                            <input
-                                type="file"
-                                name={FormDataEnum.businessRiskInsurance}
-                                accept=".jpg,.jpeg,.png,.webp"
-                                className="mt-1 block w-full"
+                            <ImageUploader
+                                label={"Pojištění podnikatelských rizik"}
+                                inputName={FormDataEnum.businessRiskInsurance}
+                                initialImage={settings.transportRequirements.businessRiskInsurance?.path}
                             />
                             {state?.errors?.businessRiskInsurance && (
                                 <p className="text-sm text-red-600 mt-1">{state.errors.businessRiskInsurance}</p>
                             )}
                         </div>
-
-                        {/* Koncesní listina */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700">Koncesní listina</label>
-                            <input
-                                type="file"
-                                name={FormDataEnum.concessionDocuments}
-                                accept=".jpg,.jpeg,.png,.webp"
-                                className="mt-1 block w-full"
+                            <ImageUploader
+                                label={"Koncesní listina"}
+                                inputName={FormDataEnum.concessionDocuments}
+                                initialImage={settings.transportRequirements.concessionDocuments?.path}
                             />
                             {state?.errors?.concessionDocuments && (
                                 <p className="text-sm text-red-600 mt-1">{state.errors.concessionDocuments}</p>
