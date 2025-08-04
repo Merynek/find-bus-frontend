@@ -8,11 +8,11 @@ interface ITripParams {
 }
 
 async function PageWrapper(props: PageProps<ITripParams>) {
-    const locale = props.params.locale;
-    const tripId = parseInt(props.params.tripId);
-    const trip = await TripService.getTrip(tripId, locale);
-    const offerMovements = await TripOfferService.getOfferStateMovements(tripId, locale);
-    const offers = await TripOfferService.getTripOffers(tripId, locale);
+    const params = await props.params;
+    const tripId = parseInt(params.tripId);
+    const trip = await TripService.getTrip(tripId, params.locale);
+    const offerMovements = await TripOfferService.getOfferStateMovements(tripId, params.locale);
+    const offers = await TripOfferService.getTripOffers(tripId, params.locale);
 
     return <AdminTripDetailPage
         trip={trip}

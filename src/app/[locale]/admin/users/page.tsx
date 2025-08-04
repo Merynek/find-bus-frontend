@@ -8,7 +8,8 @@ interface ISearchParams {
 }
 
 async function PageWrapper(props: PageProps<Record<string, never>, ISearchParams>) {
-    const users = await UsersService.getAllUsers(0, 50, props.params.locale);
+    const params = await props.params;
+    const users = await UsersService.getAllUsers(0, 50, params.locale);
     return <AdminUsersPage users={users} />;
 }
 

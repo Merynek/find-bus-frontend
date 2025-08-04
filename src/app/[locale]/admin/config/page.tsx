@@ -3,7 +3,8 @@ import {AdminService} from "@/src/services/AdminService";
 import {PageProps} from "@/types/page.types";
 
 async function PageWrapper(props: PageProps) {
-    const appConfig = await AdminService.getAppBusinessConfig(props.params.locale);
+    const params = await props.params;
+    const appConfig = await AdminService.getAppBusinessConfig(params.locale);
     return <AppConfigPage cfg={appConfig} />;
 }
 

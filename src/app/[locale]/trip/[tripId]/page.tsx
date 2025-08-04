@@ -7,7 +7,8 @@ interface IParams {
 }
 
 async function PageWrapper(props: PageProps<IParams>) {
-    const trip = await TripService.getTrip(Number(props.params.tripId), props.params.locale);
+    const params = await props.params;
+    const trip = await TripService.getTrip(Number(params.tripId), params.locale);
     return <TripDetailPage trip={trip} />;
 }
 

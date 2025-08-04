@@ -1,13 +1,14 @@
 import ActiveUserPage from "@/src/components/pages/sign/active-user/active-user-page";
+import {PageProps} from "@/types/page.types";
 
-interface ActiveUserPageProps {
-    searchParams: {
-        code?: string;
-    };
+interface ISearchParams {
+    code?: string;
 }
 
-function PageWrapper(props: ActiveUserPageProps)  {
-    return <ActiveUserPage {...props} />;
+async function PageWrapper(props: PageProps<undefined, ISearchParams>) {
+    const searchParams = await props.searchParams;
+
+    return <ActiveUserPage code={searchParams?.code} />;
 }
 
 export default PageWrapper;

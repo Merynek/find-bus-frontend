@@ -2,21 +2,18 @@ import React from "react";
 import {AuthorizationService} from "@/src/services/AuthorizationService";
 
 interface ActiveUserPageProps {
-    searchParams: {
-        code?: string;
-    };
+    code?: string;
 }
 
 export default async function ActiveUserPage(props: ActiveUserPageProps) {
-    const {searchParams} = props;
-    const activationCode = searchParams.code;
+    const {code} = props;
 
     let activationResult: boolean | null = null;
     let message: string = '';
 
-    if (activationCode) {
+    if (code) {
         try {
-            await AuthorizationService.activeUser(activationCode);
+            await AuthorizationService.activeUser(code);
             activationResult = true;
             message = 'Váš účet byl úspěšně aktivován!';
         } catch (error) {

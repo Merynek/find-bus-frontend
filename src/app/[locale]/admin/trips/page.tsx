@@ -8,11 +8,12 @@ interface ISearchParams {
 }
 
 async function PageWrapper(props: PageProps<Record<string, never>, ISearchParams>) {
-    const {searchParams} = props;
+    const searchParams = await props.searchParams;
+    const params = await props.params;
     const trips = await TripService.getTrips({
         offset: searchParams?.offset ? Number(searchParams?.offset) : 0,
         limit: searchParams?.limit ? Number(searchParams?.limit) : 200
-    }, props.params.locale);
+    }, params.locale);
     return <AdminTripsPage trips={trips} />
 }
 
