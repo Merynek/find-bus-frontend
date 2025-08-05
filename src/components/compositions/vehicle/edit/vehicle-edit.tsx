@@ -22,11 +22,7 @@ export default function VehicleForm(props: IVehicleEditProps) {
     }, [state, onClose]);
 
     return (
-        <form
-            action={action}
-            encType="multipart/form-data"
-            className="space-y-6"
-        >
+        <form action={action} className="space-y-6">
             {store.id && (
                 <input type="hidden" name={FormDataEnum.vehicleId} value={store.id} />
             )}
