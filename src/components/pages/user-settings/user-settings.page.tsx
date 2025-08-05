@@ -187,7 +187,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                             return <label key={option}>
                                 <input
                                     type="checkbox"
-                                    name="notifications"
+                                    name={FormDataEnum.notifications}
                                     value={option}
                                     defaultChecked={notifications.includes(option)}
                                 />

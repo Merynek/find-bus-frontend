@@ -28,7 +28,8 @@ const vehicleCoreSchema = z.object({
     departureStation: placeSchema
 }).strict();
 
-export const VehicleSchema = z.object({}).extend(vehicleCoreSchema.partial().shape)
+export const VehicleSchema = z.object({})
+    .extend(vehicleCoreSchema.partial().shape)
     .extend(vehiclePhotoSchema.partial().shape)
     .strict();
 

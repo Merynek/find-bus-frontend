@@ -1,28 +1,29 @@
 'use server';
 
 import { z } from 'zod';
-import {GetNormalizedData, UserSettingsSchema} from "@/src/app/actions/forms/userSettings/userSettingsSchema";
 import {UsersService} from "@/src/services/UsersService";
+import {OptionalUserSettingsSchema} from "@/src/app/actions/forms/userSettings/userSettingsSchema";
+import {formDataToObject} from "@/src/app/actions/forms/schemas";
 
-type UserSettingsSchemaFieldErrors = z.inferFlattenedErrors<typeof UserSettingsSchema>['fieldErrors'];
+type UserSettingsSchemaFieldErrors = z.inferFlattenedErrors<typeof OptionalUserSettingsSchema>['fieldErrors'];
 
 export type TUserSettingsFormState = {
     errors?: UserSettingsSchemaFieldErrors;
     message?: string;
     error?: string;
-    data?: Partial<z.infer<typeof UserSettingsSchema>>;
+    data?: Partial<z.infer<typeof OptionalUserSettingsSchema>>;
 } | undefined;
 
 export async function userSettingsFormAction(state: TUserSettingsFormState, formData: FormData): Promise<TUserSettingsFormState> {
-    const dataToValidate = GetNormalizedData(formData);
-    const validatedFields = UserSettingsSchema.safeParse(dataToValidate);
+    const dataToValidate = formDataToObject(formData);
+    const validatedFields = OptionalUserSettingsSchema.partial().safeParse(dataToValidate);
 
     if (!validatedFields.success) {
         console.error('Chyby validace:', validatedFields.error.flatten().fieldErrors);
         return {
             errors: validatedFields.error.flatten().fieldErrors,
             message: 'Některá zadaná data nejsou platná.',
-            data: dataToValidate as Partial<z.infer<typeof UserSettingsSchema>>,
+            data: dataToValidate as Partial<z.infer<typeof OptionalUserSettingsSchema>>,
         };
     }
     try {
@@ -48,7 +49,7 @@ export async function userSettingsFormAction(state: TUserSettingsFormState, form
         }
         return {
             message: 'cajk',
-            data: dataToValidate as Partial<z.infer<typeof UserSettingsSchema>>,
+            data: dataToValidate as Partial<z.infer<typeof OptionalUserSettingsSchema>>,
         };
     } catch (error: any) {
         console.error('Chyba při pridani vozidla:', error);
