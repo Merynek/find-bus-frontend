@@ -17,22 +17,22 @@ export class AppConfigFormAction extends BaseFormAction<typeof AppConfigSchema, 
 
     protected createDataFromFormData(formData: FormData): AppConfigData {
         return {
-            minEndOrderFromNowInHours: this.getNumberFormValue(formData, FormDataEnum.password),
-            minDateToAcceptOfferInHours: this.getNumberFormValue(formData, FormDataEnum.password),
-            minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours: this.getNumberFormValue(formData, FormDataEnum.password),
-            minDiffBetweenStartTripAndEndOrderInHours: this.getNumberFormValue(formData, FormDataEnum.password),
-            payRestOfPriceWarningBeforeStartTripInHours: this.getNumberFormValue(formData, FormDataEnum.password),
-            payInvoiceWarningAfterAcceptOfferInHours: this.getNumberFormValue(formData, FormDataEnum.password),
-            tripDepositInPercentage: this.getNumberFormValue(formData, FormDataEnum.password),
-            tripCancelFeePercentageForDemander: this.getNumberFormValue(formData, FormDataEnum.password),
-            tripCancelFeeAfterLimitPercentageForDemander: this.getNumberFormValue(formData, FormDataEnum.password),
-            tripOfferCommissionPercentage: this.getNumberFormValue(formData, FormDataEnum.password),
-            tripCancelPenaltyPercentageForTransporterFromCompany: this.getNumberFormValue(formData, FormDataEnum.password),
-            tripCancelPenaltyMinAmountInCzkForTransporterFromCompany: this.getNumberFormValue(formData, FormDataEnum.password),
-            tripCancelPenaltyPercentageForTransporterFromDemander: this.getNumberFormValue(formData, FormDataEnum.password),
-            tripCancelPenaltyMinAmountInCzkForTransporterFromDemander: this.getNumberFormValue(formData, FormDataEnum.password),
-            tripCancelPenaltyLimitInDays: this.getNumberFormValue(formData, FormDataEnum.password),
-            tripCancelPenaltyAfterLimitPercentageForTransporter: this.getNumberFormValue(formData, FormDataEnum.password)
+            minEndOrderFromNowInHours: this.getNumberFormValue(formData, FormDataEnum.minEndOrderFromNowInHours),
+            minDateToAcceptOfferInHours: this.getNumberFormValue(formData, FormDataEnum.minDateToAcceptOfferInHours),
+            minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours: this.getNumberFormValue(formData, FormDataEnum.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours),
+            minDiffBetweenStartTripAndEndOrderInHours: this.getNumberFormValue(formData, FormDataEnum.minDiffBetweenStartTripAndEndOrderInHours),
+            payRestOfPriceWarningBeforeStartTripInHours: this.getNumberFormValue(formData, FormDataEnum.payRestOfPriceWarningBeforeStartTripInHours),
+            payInvoiceWarningAfterAcceptOfferInHours: this.getNumberFormValue(formData, FormDataEnum.payInvoiceWarningAfterAcceptOfferInHours),
+            tripDepositInPercentage: this.getNumberFormValue(formData, FormDataEnum.tripDepositInPercentage),
+            tripCancelFeePercentageForDemander: this.getNumberFormValue(formData, FormDataEnum.tripCancelFeePercentageForDemander),
+            tripCancelFeeAfterLimitPercentageForDemander: this.getNumberFormValue(formData, FormDataEnum.tripCancelFeeAfterLimitPercentageForDemander),
+            tripOfferCommissionPercentage: this.getNumberFormValue(formData, FormDataEnum.tripOfferCommissionPercentage),
+            tripCancelPenaltyPercentageForTransporterFromCompany: this.getNumberFormValue(formData, FormDataEnum.tripCancelPenaltyPercentageForTransporterFromCompany),
+            tripCancelPenaltyMinAmountInCzkForTransporterFromCompany: this.getNumberFormValue(formData, FormDataEnum.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany),
+            tripCancelPenaltyPercentageForTransporterFromDemander: this.getNumberFormValue(formData, FormDataEnum.tripCancelPenaltyPercentageForTransporterFromDemander),
+            tripCancelPenaltyMinAmountInCzkForTransporterFromDemander: this.getNumberFormValue(formData, FormDataEnum.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander),
+            tripCancelPenaltyLimitInDays: this.getNumberFormValue(formData, FormDataEnum.tripCancelPenaltyLimitInDays),
+            tripCancelPenaltyAfterLimitPercentageForTransporter: this.getNumberFormValue(formData, FormDataEnum.tripCancelPenaltyAfterLimitPercentageForTransporter)
         };
     }
 
