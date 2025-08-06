@@ -12,7 +12,7 @@ export interface IPlaceAutocompleteProps {
    onChange: (place: Place) => void;
 }
 
-export const PlaceAutocomplete = observer((props: IPlaceAutocompleteProps) => {
+export const PlaceAutocomplete = (props: IPlaceAutocompleteProps) => {
    const {onChange, place, placeHolder, disabled} = props;
    const _locationService = useInit(() => new LocationService());
 
@@ -43,4 +43,4 @@ export const PlaceAutocomplete = observer((props: IPlaceAutocompleteProps) => {
           onChange(value.value);
        }}
    />
-});
+}
