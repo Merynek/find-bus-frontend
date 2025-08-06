@@ -1,4 +1,3 @@
-import {observer} from "mobx-react";
 import React, {useCallback} from "react";
 import {AutoComplete, IAutoCompleteItem} from "../autocomplete/auto-complete";
 import {Place} from "@/src/data/place";

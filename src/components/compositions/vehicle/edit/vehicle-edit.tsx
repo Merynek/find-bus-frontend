@@ -1,9 +1,11 @@
-import React, {useActionState, useEffect} from "react";
+import React, {useActionState, useEffect, useState} from "react";
 import {Amenities, EuroStandard} from "@/src/api/openapi";
 import {VehicleEditStore} from "./vehicle-edit.store";
 import { FormDataEnum } from "@/src/enums/form-data.enum";
 import {vehicleFormAction} from "@/src/app/actions/forms/vehicle/vehicleFormAction";
 import {ImageUploader} from "@/src/components/components/image-uploader/image-uploader";
+import {Place} from "@/src/data/place";
+import {PlaceAutocomplete} from "@/src/components/components/inputs/place-autocomplete/place-autocomplete";
 
 export interface IVehicleEditProps {
     store: VehicleEditStore;
@@ -13,7 +15,8 @@ export interface IVehicleEditProps {
 export default function VehicleForm(props: IVehicleEditProps) {
     const {store, onClose} = props;
     const isEdit = store.id !== undefined;
-    const [state, action, pending] = useActionState(vehicleFormAction, undefined)
+    const [state, action, pending] = useActionState(vehicleFormAction, undefined);
+    const [departureStation, setDepartureStation] = useState<Place|undefined>(store.departureStation || undefined);
 
     useEffect(() => {
         if (state && !state?.errors) {
@@ -24,7 +27,7 @@ export default function VehicleForm(props: IVehicleEditProps) {
     return (
         <form action={action} className="space-y-6">
             {store.id && (
-                <input type="hidden" name={FormDataEnum.vehicleId} value={store.id} />
+                <input type="hidden" name={FormDataEnum.vehicleId} value={store.id}/>
             )}
 
             <div>
@@ -160,45 +163,44 @@ export default function VehicleForm(props: IVehicleEditProps) {
                 />
             </div>
 
-            {/* Departure station (simplified version, ideally handled by map UI) */}
-            <div>
-                <label>Stanice odjezdu (ID místa)</label>
-                <input
-                    name={FormDataEnum.departureStation_placeId}
-                    defaultValue={store.departureStation?.placeId}
-                    className="input"
+            <div className="flex flex-col">
+                <label className="text-sm font-medium text-gray-700 mb-1">Stanice odjezdu</label>
+                <PlaceAutocomplete
+                    place={departureStation}
+                    onChange={setDepartureStation}
+                    placeHolder="Vyhledejte stanici odjezdu"
                 />
             </div>
 
             <input
                 type="hidden"
+                name={FormDataEnum.departureStation_placeId}
+                value={departureStation?.placeId || ''}
+            />
+            <input
+                type="hidden"
                 name={FormDataEnum.departureStation_point_lat}
-                defaultValue={store.departureStation?.point?.lat}
-                value={store.departureStation?.point?.lat}
+                value={departureStation?.point?.lat || ''}
             />
             <input
                 type="hidden"
                 name={FormDataEnum.departureStation_point_lng}
-                defaultValue={store.departureStation?.point?.lng}
-                value={store.departureStation?.point?.lng}
+                value={departureStation?.point?.lng || ''}
             />
             <input
                 type="hidden"
                 name={FormDataEnum.departureStation_country}
-                defaultValue={store.departureStation?.country}
-                value={store.departureStation?.country}
+                value={departureStation?.country || ''}
             />
             <input
                 type="hidden"
                 name={FormDataEnum.departureStation_name}
-                defaultValue={store.departureStation?.name}
-                value={store.departureStation?.name}
+                value={departureStation?.name || ''}
             />
             <input
                 type="hidden"
                 name={FormDataEnum.departureStation_placeFormatted}
-                defaultValue={store.departureStation?.placeFormatted}
-                value={store.departureStation?.placeFormatted}
+                value={departureStation?.placeFormatted || ''}
             />
 
             <button type="submit" className="btn btn-primary">
