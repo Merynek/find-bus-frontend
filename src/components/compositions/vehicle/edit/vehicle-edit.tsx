@@ -3,6 +3,7 @@ import {Amenities, EuroStandard} from "@/src/api/openapi";
 import {VehicleEditStore} from "./vehicle-edit.store";
 import { FormDataEnum } from "@/src/enums/form-data.enum";
 import {vehicleFormAction} from "@/src/app/actions/forms/vehicle/vehicleFormAction";
+import {ImageUploader} from "@/src/components/components/image-uploader/image-uploader";
 
 export interface IVehicleEditProps {
     store: VehicleEditStore;
@@ -121,12 +122,42 @@ export default function VehicleForm(props: IVehicleEditProps) {
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-                {[FormDataEnum.frontPhoto, FormDataEnum.rearPhoto, FormDataEnum.leftSidePhoto, FormDataEnum.rightSidePhoto, FormDataEnum.interierPhoto1, FormDataEnum.interierPhoto2, FormDataEnum.technicalCertificate1, FormDataEnum.technicalCertificate2, FormDataEnum.insurance].map((field) => (
-                    <div key={field}>
-                        <label>{field}</label>
-                        <input type="file" name={field} accept="image/*" className="input" />
-                    </div>
-                ))}
+                <ImageUploader
+                    label={"frontPhoto"}
+                    inputName={FormDataEnum.frontPhoto}
+                />
+                <ImageUploader
+                    label={"rearPhoto"}
+                    inputName={FormDataEnum.rearPhoto}
+                />
+                <ImageUploader
+                    label={"leftSidePhoto"}
+                    inputName={FormDataEnum.leftSidePhoto}
+                />
+                <ImageUploader
+                    label={"rightSidePhoto"}
+                    inputName={FormDataEnum.rightSidePhoto}
+                />
+                <ImageUploader
+                    label={"interierPhoto1"}
+                    inputName={FormDataEnum.interierPhoto1}
+                />
+                <ImageUploader
+                    label={"interierPhoto2"}
+                    inputName={FormDataEnum.interierPhoto2}
+                />
+                <ImageUploader
+                    label={"technicalCertificate1"}
+                    inputName={FormDataEnum.technicalCertificate1}
+                />
+                <ImageUploader
+                    label={"technicalCertificate2"}
+                    inputName={FormDataEnum.technicalCertificate2}
+                />
+                <ImageUploader
+                    label={"insurance"}
+                    inputName={FormDataEnum.insurance}
+                />
             </div>
 
             {/* Departure station (simplified version, ideally handled by map UI) */}
