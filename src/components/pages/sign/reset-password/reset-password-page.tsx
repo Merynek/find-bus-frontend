@@ -16,19 +16,19 @@ const ResetPasswordPage = (props: ResetPasswordPageProps) => {
     return <div className={styles.layout}>
         <form action={action}>
             <input type="hidden" name={FormDataEnum.token} value={token + ""}/>
-            {state?.errors?.token && <p>{state.errors.token}</p>}
+            {state?.errors?.token && <p>{state.errors.token._errors}</p>}
             <div>
                 <label htmlFor={FormDataEnum.password}>Password</label>
                 <input id={FormDataEnum.password} name={FormDataEnum.password} placeholder="Password"
                        type={"password"}/>
             </div>
-            {state?.errors?.password && <p>{state.errors.password}</p>}
+            {state?.errors?.password && <p>{state.errors.password._errors}</p>}
             <div>
                 <label htmlFor={FormDataEnum.password_confirm}>Password</label>
                 <input id={FormDataEnum.password_confirm} name={FormDataEnum.password_confirm}
                        placeholder="Confirm Password" type={"password"}/>
             </div>
-            {state?.errors?.passwordConfirm && <p>{state.errors.passwordConfirm}</p>}
+            {state?.errors?.passwordConfirm && <p>{state.errors.passwordConfirm._errors}</p>}
             <button disabled={pending} type="submit">
                 Reset Password
             </button>
