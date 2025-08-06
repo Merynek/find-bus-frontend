@@ -38,11 +38,14 @@ export abstract class BaseFormAction<Schema extends AnyZodObject, Data, ApiResul
                 message: 'Formulář byl úspěšně odeslán.',
                 data: data as Partial<z.infer<Schema>>,
             };
-        } catch (error: any) {
+        } catch (error) {
             let errorMessage = 'Došlo k neočekávané chybě.';
-            if (error.response?.json) {
-                const apiError = await error.response.json();
-                errorMessage = apiError.message || errorMessage;
+            if (error && typeof error === 'object' && 'response' in error) {
+                const apiError = (error as { response: { json: () => Promise<{ message?: string }> } });
+                if (apiError.response?.json) {
+                    const jsonError = await apiError.response.json();
+                    errorMessage = jsonError.message || errorMessage;
+                }
             }
             return {
                 success: false,

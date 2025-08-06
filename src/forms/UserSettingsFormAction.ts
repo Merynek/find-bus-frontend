@@ -5,7 +5,9 @@ import {z} from "zod";
 
 type UserSettingsData = ReturnType<typeof CreateUserSettingsData>;
 
-export class UserSettingsFormAction extends BaseFormAction<typeof UserSettingsSchema, UserSettingsData, any> {
+type UserSettingsApiResult = void;
+
+export class UserSettingsFormAction extends BaseFormAction<typeof UserSettingsSchema, UserSettingsData, UserSettingsApiResult> {
 
     constructor() {
         super(UserSettingsSchema);
@@ -15,7 +17,7 @@ export class UserSettingsFormAction extends BaseFormAction<typeof UserSettingsSc
         return CreateUserSettingsData(formData);
     }
 
-    protected async callApi(validatedData: z.infer<typeof UserSettingsSchema>): Promise<any> {
+    protected async callApi(validatedData: z.infer<typeof UserSettingsSchema>): Promise<UserSettingsApiResult> {
         await UsersService.changeSettings({
             name: validatedData.name,
             surname: validatedData.surname,
@@ -37,6 +39,5 @@ export class UserSettingsFormAction extends BaseFormAction<typeof UserSettingsSc
                 concessionDocuments: validatedData.concessionDocuments || undefined
             });
         }
-        return validatedData;
     }
 }
