@@ -3,11 +3,12 @@ import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {z} from "zod";
 import {AuthorizationService} from "@/src/services/AuthorizationService";
 import {SignInFormSchema} from "@/src/forms/sign-in/SignInSchema";
+import {LOCALES} from "@/src/utils/locale";
 
 type SignInData = {
     email?: string;
     password?: string;
-    locale?: string;
+    locale?: LOCALES;
 }
 
 type SignInApiResult = void;
@@ -22,7 +23,7 @@ export class SignInFormAction extends BaseFormAction<typeof SignInFormSchema, Si
         return {
             email: this.getStringFormValue(formData, FormDataEnum.email),
             password: this.getStringFormValue(formData, FormDataEnum.password),
-            locale: this.getStringFormValue(formData, FormDataEnum.locale)
+            locale: this.getEnumFormValue(formData, FormDataEnum.locale)
         };
     }
 

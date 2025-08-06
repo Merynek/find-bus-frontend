@@ -1,43 +1,26 @@
 'use server';
 
-import {FormDataEnum} from "@/src/enums/form-data.enum";
-import {redirect} from "next/navigation";
+import { redirect } from "@/src/i18n/navigation";
 import {ROUTES} from "@/src/enums/router.enum";
-import {AuthorizationService} from "@/src/services/AuthorizationService";
-import {SignupFormSchema} from "@/src/app/actions/forms/signUp/signUpSchema";
+import {TFormActionState} from "@/src/forms/BaseFormAction";
+import {Locale} from "next-intl";
+import {SignUpFormAction} from "@/src/forms/sign-up/SignUpFormAction";
+import {SignupFormSchema} from "@/src/forms/sign-up/SignUpSchema";
 
-export type TSignUpFormState = {
-    errors?: {
-        email?: string[];
-        password?: string[];
-        passwordConfirm?: string[];
-        role?: string[];
-    };
-    message?: string;
-    error?: string;
-} | undefined;
+const signUpFormActionHandler = new SignUpFormAction();
 
-export async function signupFormAction(state: TSignUpFormState, formData: FormData): Promise<TSignUpFormState> {
-    const validatedFields = SignupFormSchema.safeParse({
-        email: formData.get(FormDataEnum.email),
-        password: formData.get(FormDataEnum.password),
-        passwordConfirm: formData.get(FormDataEnum.password_confirm),
-        role: formData.get(FormDataEnum.role),
-    })
+export async function signupFormAction(
+    state: TFormActionState<typeof SignupFormSchema>,
+    formData: FormData
+): Promise<TFormActionState<typeof SignupFormSchema>> {
+    const result = await signUpFormActionHandler.handle(formData);
 
-    if (!validatedFields.success) {
-        return {
-            errors: validatedFields.error.flatten().fieldErrors,
-        }
+    if (result?.success && result?.data) {
+        redirect({
+            locale: result.data.locale as Locale,
+            href: ROUTES.SIGN_IN
+        });
     }
 
-    try {
-        await AuthorizationService.signUp(validatedFields.data.email, validatedFields.data.password, validatedFields.data.role);
-    } catch (error: any) {
-        console.error('Chyba při registraci:', error);
-        return {
-            errors: error.message || 'Došlo k neočekávané chybě během přihlašování.',
-        }
-    }
-    redirect(ROUTES.SIGN_IN);
+    return result;
 }

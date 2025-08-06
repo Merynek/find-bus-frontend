@@ -24,20 +24,20 @@ const RegistrationPage = observer(() => {
                 <label htmlFor={FormDataEnum.email}>Email</label>
                 <input id={FormDataEnum.email} name={FormDataEnum.email} type={"email"} placeholder="Email"/>
             </div>
-            {state?.errors?.email && <p>{state.errors.email}</p>}
+            {state?.errors?.email && <p>{state.errors.email._errors}</p>}
 
             <div>
                 <label htmlFor={FormDataEnum.password}>Password</label>
                 <input id={FormDataEnum.password} name={FormDataEnum.password} type={"password"} placeholder="password"/>
             </div>
-            {state?.errors?.password && <p>{state.errors.password}</p>}
+            {state?.errors?.password && <p>{state.errors.password._errors}</p>}
 
 
             <div>
                 <label htmlFor={FormDataEnum.password_confirm}>Password Confirm</label>
                 <input id={FormDataEnum.password_confirm} name={FormDataEnum.password_confirm} type={"password"} placeholder="password confirm"/>
             </div>
-            {state?.errors?.passwordConfirm && <p>{state.errors.passwordConfirm}</p>}
+            {state?.errors?.passwordConfirm && <p>{state.errors.passwordConfirm._errors}</p>}
 
             <div>
                 <label htmlFor={UserRole.TRANSPORTER}>Transporter</label>

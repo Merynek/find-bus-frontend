@@ -1,14 +1,14 @@
-import {AnyZodObject, z} from 'zod';
+import {z, ZodSchema} from 'zod';
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 
-export type TFormActionState<T extends AnyZodObject> = {
+export type TFormActionState<Schema extends ZodSchema> = {
     success?: boolean;
     message?: string;
-    errors?: z.ZodFormattedError<z.infer<T>>;
-    data?: Partial<z.infer<T>>;
+    errors?: z.ZodFormattedError<z.infer<Schema>>;
+    data?: Partial<z.infer<Schema>>;
 } | undefined;
 
-export abstract class BaseFormAction<Schema extends AnyZodObject, Data, ApiResult> {
+export abstract class BaseFormAction<Schema extends ZodSchema, Data, ApiResult> {
 
     protected constructor(protected readonly schema: Schema) {}
 
@@ -18,12 +18,10 @@ export abstract class BaseFormAction<Schema extends AnyZodObject, Data, ApiResul
 
     public async handle(formData: FormData): Promise<TFormActionState<Schema>> {
         const data = this.createDataFromFormData(formData);
-
-        const validatedFields = this.schema.partial().safeParse(data);
+        const validatedFields = this.schema.safeParse(data);
 
         if (!validatedFields.success) {
             const errors = validatedFields.error.format() as z.ZodFormattedError<z.infer<Schema>>;
-
             return {
                 success: false,
                 errors: errors,
@@ -33,7 +31,7 @@ export abstract class BaseFormAction<Schema extends AnyZodObject, Data, ApiResul
         }
 
         try {
-            await this.callApi(validatedFields.data as z.infer<Schema>);
+            await this.callApi(validatedFields.data);
             return {
                 success: true,
                 message: 'Formulář byl úspěšně odeslán.',
