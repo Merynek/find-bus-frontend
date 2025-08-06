@@ -53,13 +53,6 @@ export const imageFileSchema = z.instanceof(File, { message: "Soubor je vyžadov
         message: "Podporovány jsou pouze formáty .jpg, .png a .webp.",
     });
 
-export const optionalImageFileSchema = z.preprocess((val) => {
-    if (val instanceof File && val.size === 0) {
-        return undefined;
-    }
-    return val;
-}, imageFileSchema.optional());
-
 export const UserAddressSchema = z.object({
     country: z.nativeEnum(Country),
     city: z.string(),
@@ -72,19 +65,3 @@ export const TransferInfoSchema = z.object({
     iban: z.string(),
     swift: z.string()
 });
-
-export const formDataToObject = (formData: FormData) => {
-    const data: Record<string, unknown> = {};
-
-    for (const [key, value] of formData.entries()) {
-        const isArray = key.endsWith('[]');
-        const sanitizedKey = isArray ? key.slice(0, -2) : key;
-
-        if (isArray) {
-            data[sanitizedKey] = formData.getAll(key);
-        } else {
-            data[sanitizedKey] = value;
-        }
-    }
-    return data;
-}

@@ -28,7 +28,7 @@ export class UserSettings {
     @observable public ico: string;
     @observable public dic: string;
     @observable public companyName: string;
-    @observable public notifications: NotificationsEnum[];
+    public notifications: NotificationsEnum[];
     @observable public address: UserAddress;
     @observable public mailingAddress: UserAddress;
     @observable public transferInfo: TransferInfo;

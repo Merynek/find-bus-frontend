@@ -21,7 +21,37 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
     const settings = useInit(() => UsersConverter.userSettingsToInstance(props.settings));
     const {t} = useTranslate("page.userSettings");
     const {user} = useLoggedUser();
-    const [state, action, pending] = useActionState(userSettingsFormAction, undefined);
+    const [state, action, pending] = useActionState(userSettingsFormAction, {
+        data: {
+            name: settings.name,
+            surname: settings.surname,
+            phoneNumber: settings.phoneNumber,
+            ico: settings.ico,
+            dic: settings.dic,
+            companyName: settings.companyName,
+            isCompany: settings.isCompany,
+            notifications: settings.notifications,
+            address: {
+                country: settings.address.country || undefined,
+                city: settings.address.city,
+                psc: settings.address.psc,
+                street: settings.address.street,
+                houseNumber: settings.address.houseNumber,
+            },
+            mailingAddress: {
+                country: settings.mailingAddress.country || undefined,
+                city: settings.mailingAddress.city,
+                psc: settings.mailingAddress.psc,
+                street: settings.mailingAddress.street,
+                houseNumber: settings.mailingAddress.houseNumber
+            },
+            concessionNumber: settings.transportRequirements.concessionNumber,
+            transferInfo: {
+                iban: settings.transferInfo.iban,
+                swift: settings.transferInfo.swift
+            }
+        }
+    });
 
     const allNotifications = (): NotificationsEnum[] => {
         return Object.values(NotificationsEnum).map(key => {
@@ -36,19 +66,19 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                 <div>
                     <label htmlFor={FormDataEnum.name}>Name</label>
                     <input id={FormDataEnum.name} name={FormDataEnum.name} type={"text"} placeholder="Name"
-                           defaultValue={state?.data?.name || settings.name}/>
+                           defaultValue={state?.data?.name || ""}/>
                 </div>
                 {state?.errors?.name && <p>{state.errors.name}</p>}
                 <div>
                     <label htmlFor={FormDataEnum.surname}>Surname</label>
                     <input id={FormDataEnum.surname} name={FormDataEnum.surname} type={"text"} placeholder="Surname"
-                           defaultValue={state?.data?.surname || settings.surname}/>
+                           defaultValue={state?.data?.surname || ""}/>
                 </div>
                 {state?.errors?.surname && <p>{state.errors.surname}</p>}
                 <div>
                     <label htmlFor={FormDataEnum.phoneNumber}>PhoneNumber</label>
                     <input id={FormDataEnum.phoneNumber} name={FormDataEnum.phoneNumber} type={"tel"}
-                           defaultValue={state?.data?.phoneNumber || settings.phoneNumber}
+                           defaultValue={state?.data?.phoneNumber || ""}
                            placeholder="PhoneNumber"/>
                 </div>
                 {state?.errors?.phoneNumber && <p>{state.errors.phoneNumber}</p>}
@@ -56,21 +86,21 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                 <div>
                     <label htmlFor={FormDataEnum.ico}>ico</label>
                     <input id={FormDataEnum.ico} name={FormDataEnum.ico} type={"text"} placeholder="Ico"
-                           defaultValue={state?.data?.ico || settings.ico}/>
+                           defaultValue={state?.data?.ico || ""}/>
                 </div>
                 {state?.errors?.ico && <p>{state.errors.ico}</p>}
 
                 <div>
                     <label htmlFor={FormDataEnum.dic}>dic</label>
                     <input id={FormDataEnum.dic} name={FormDataEnum.dic} type={"text"} placeholder="Dic"
-                           defaultValue={state?.data?.dic || settings.dic}/>
+                           defaultValue={state?.data?.dic || ""}/>
                 </div>
                 {state?.errors?.dic && <p>{state.errors.dic}</p>}
 
                 <div>
                     <label htmlFor={FormDataEnum.companyName}>companyName</label>
                     <input id={FormDataEnum.companyName} name={FormDataEnum.companyName} type={"text"}
-                           placeholder="CompanyName" defaultValue={state?.data?.companyName || settings.companyName}/>
+                           placeholder="CompanyName" defaultValue={state?.data?.companyName || ""}/>
                 </div>
                 {state?.errors?.companyName && <p>{state.errors.companyName}</p>}
             </fieldset>
@@ -82,7 +112,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                         name={FormDataEnum.isCompany}
                         type={"checkbox"}
                         placeholder="isCompany"
-                        defaultChecked={state?.data?.isCompany || settings.isCompany}
+                        defaultChecked={state?.data?.isCompany || false}
                     />
                 </div>
 
@@ -90,19 +120,27 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                     <legend className="text-sm font-medium text-gray-700">Adresa</legend>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-sm font-medium">Země</label>
-                            <input
-                                type="text"
+                            <label htmlFor={FormDataEnum.address_country}>Země</label>
+                            <select
+                                id={FormDataEnum.address_country}
                                 name={FormDataEnum.address_country}
-                                defaultValue={state?.data?.address?.country || settings.address.country || Country.CZ}
-                            />
+                                defaultValue={state?.data?.address?.country}
+                                key={state?.data?.address?.country}
+                            >
+                                <option value="">- Vyberte zemi -</option>
+                                {Object.values(Country).map((country) => (
+                                    <option key={country} value={country}>
+                                        {country}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
                         <div>
                             <label className="block text-sm font-medium">Město</label>
                             <input
                                 type="text"
                                 name={FormDataEnum.address_city}
-                                defaultValue={state?.data?.address?.city || settings.address.city}
+                                defaultValue={state?.data?.address?.city || ""}
                             />
                         </div>
                         <div>
@@ -110,7 +148,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                             <input
                                 type="text"
                                 name={FormDataEnum.address_psc}
-                                defaultValue={state?.data?.address?.psc || settings.address.psc}
+                                defaultValue={state?.data?.address?.psc || ""}
                             />
                         </div>
                         <div>
@@ -118,7 +156,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                             <input
                                 type="text"
                                 name={FormDataEnum.address_street}
-                                defaultValue={state?.data?.address?.street || settings.address.street}
+                                defaultValue={state?.data?.address?.street || ""}
                             />
                         </div>
                         <div>
@@ -126,7 +164,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                             <input
                                 type="text"
                                 name={FormDataEnum.address_houseNumber}
-                                defaultValue={state?.data?.address?.houseNumber || settings.address.houseNumber}
+                                defaultValue={state?.data?.address?.houseNumber || ""}
                             />
                         </div>
                     </div>
@@ -136,19 +174,27 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                     <legend className="text-sm font-medium text-gray-700">Poštovní Adresa</legend>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-sm font-medium">Země</label>
-                            <input
-                                type="text"
+                            <label htmlFor={FormDataEnum.mailingAddress_country}>Země</label>
+                            <select
+                                id={FormDataEnum.mailingAddress_country}
                                 name={FormDataEnum.mailingAddress_country}
-                                defaultValue={state?.data?.mailingAddress?.country || settings.mailingAddress.country || Country.CZ}
-                            />
+                                defaultValue={state?.data?.mailingAddress?.country}
+                                key={state?.data?.mailingAddress?.country}
+                            >
+                                <option value="">- Vyberte zemi -</option>
+                                {Object.values(Country).map((country) => (
+                                    <option key={country} value={country}>
+                                        {country}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
                         <div>
                             <label className="block text-sm font-medium">Město</label>
                             <input
                                 type="text"
                                 name={FormDataEnum.mailingAddress_city}
-                                defaultValue={state?.data?.mailingAddress?.city || settings.mailingAddress.city}
+                                defaultValue={state?.data?.mailingAddress?.city || ""}
                             />
                         </div>
                         <div>
@@ -156,7 +202,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                             <input
                                 type="text"
                                 name={FormDataEnum.mailingAddress_psc}
-                                defaultValue={state?.data?.mailingAddress?.psc || settings.mailingAddress.psc}
+                                defaultValue={state?.data?.mailingAddress?.psc || ""}
                             />
                         </div>
                         <div>
@@ -164,7 +210,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                             <input
                                 type="text"
                                 name={FormDataEnum.mailingAddress_street}
-                                defaultValue={state?.data?.mailingAddress?.street || settings.mailingAddress.street}
+                                defaultValue={state?.data?.mailingAddress?.street || ""}
                             />
                         </div>
                         <div>
@@ -172,7 +218,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                             <input
                                 type="text"
                                 name={FormDataEnum.mailingAddress_houseNumber}
-                                defaultValue={state?.data?.mailingAddress?.houseNumber || settings.mailingAddress.houseNumber}
+                                defaultValue={state?.data?.mailingAddress?.houseNumber || ""}
                             />
                         </div>
                     </div>
@@ -183,7 +229,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                     <legend className="text-sm font-medium text-gray-700">Notifikace</legend>
                     <div className="mt-2 space-y-2">
                         {allNotifications().map((option) => {
-                            const notifications = state?.data?.notifications || settings.notifications;
+                            const notifications = state?.data?.notifications || [];
                             return <label key={option}>
                                 <input
                                     type="checkbox"
@@ -200,17 +246,15 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                     <h2>Bankovní udaje</h2>
                     <LayoutFlexColumn>
                         <div>
-                            <label htmlFor={FormDataEnum.iban}>iban</label>
-                            <input id={FormDataEnum.iban} name={FormDataEnum.iban} type={"text"} placeholder="Iban"
-                                   defaultValue={state?.data?.iban || settings.transferInfo.iban}/>
+                            <label htmlFor={FormDataEnum.transferInfo_iban}>iban</label>
+                            <input id={FormDataEnum.transferInfo_iban} name={FormDataEnum.transferInfo_iban} type={"text"} placeholder="Iban"
+                                   defaultValue={state?.data?.transferInfo?.iban || ""}/>
                         </div>
-                        {state?.errors?.iban && <p>{state.errors.iban}</p>}
                         <div>
-                            <label htmlFor={FormDataEnum.swift}>swift</label>
-                            <input id={FormDataEnum.swift} name={FormDataEnum.swift} type={"text"} placeholder="swift"
-                                   defaultValue={state?.data?.swift || settings.transferInfo.swift}/>
+                            <label htmlFor={FormDataEnum.transferInfo_swift}>swift</label>
+                            <input id={FormDataEnum.transferInfo_swift} name={FormDataEnum.transferInfo_swift} type={"text"} placeholder="swift"
+                                   defaultValue={state?.data?.transferInfo?.swift || ""}/>
                         </div>
-                        {state?.errors?.swift && <p>{state.errors.swift}</p>}
                     </LayoutFlexColumn>
                 </>}
                 {user?.role === UserRole.TRANSPORTER && <>
@@ -223,7 +267,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                             <label htmlFor={FormDataEnum.concessionNumber}>concessionNumber</label>
                             <input id={FormDataEnum.concessionNumber} name={FormDataEnum.concessionNumber} type={"text"}
                                    placeholder="concessionNumber"
-                                   defaultValue={state?.data?.concessionNumber || settings.transportRequirements.concessionNumber}/>
+                                   defaultValue={state?.data?.concessionNumber || ""}/>
                         </div>
                     </LayoutFlexColumn>
                     <fieldset className="space-y-4">
