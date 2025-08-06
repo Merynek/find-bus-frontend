@@ -1,8 +1,8 @@
 'use server';
 
-import {UserSettingsFormAction} from "@/src/forms/UserSettingsFormAction";
-import {UserSettingsSchema} from "@/src/app/actions/forms/userSettings/userSettingsSchema";
 import {TFormActionState} from "@/src/forms/BaseFormAction";
+import { UserSettingsFormAction } from "@/src/forms/user-settings/UserSettingsFormAction";
+import {UserSettingsSchema} from "@/src/forms/user-settings/UserSettingsSchema";
 
 const userSettingsFormActionHandler = new UserSettingsFormAction();
 
