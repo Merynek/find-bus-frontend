@@ -5,15 +5,15 @@ import {ButtonSize, ButtonType, ButtonLink} from "../../../components/button/but
 import {ROUTES, SEARCH_PARAMS} from "@/src/enums/router.enum";
 import { useActionState } from "react";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
-import {signInFormAction} from "@/src/app/actions/forms/signIn/signInFormAction";
 import {useCurrentLocale, useTranslate} from "@/src/hooks/translateHook";
 import {logoutAction} from "@/src/app/actions/auth/authActions";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/src/i18n/navigation";
+import {userSettingsFormAction} from "@/src/app/actions/forms/signIn/signInFormAction";
 
 const LoginPage = () => {
     const {t} = useTranslate("page.sign");
-    const [state, action, pending] = useActionState(signInFormAction, undefined);
+    const [state, action, pending] = useActionState(userSettingsFormAction, undefined);
     const searchParams = useSearchParams();
     const router = useRouter();
 
@@ -46,7 +46,7 @@ const LoginPage = () => {
                 <label htmlFor={FormDataEnum.email}>Email</label>
                 <input id={FormDataEnum.email} name={FormDataEnum.email} placeholder="Email"/>
             </div>
-            {state?.errors?.email && <p>{state.errors.email}</p>}
+            {state?.errors?.email && <p>{state.errors.email._errors}</p>}
 
             <div>
                 <label htmlFor={FormDataEnum.password}>Password</label>
@@ -57,9 +57,7 @@ const LoginPage = () => {
                 <div>
                     <p>Password must:</p>
                     <ul>
-                        {state.errors.password.map((error: string) => (
-                            <li key={error}>- {error}</li>
-                        ))}
+                        {state.errors.password._errors}
                     </ul>
                 </div>
             )}

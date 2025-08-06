@@ -1,47 +1,27 @@
 'use server';
 
-import {FormDataEnum} from "@/src/enums/form-data.enum";
-import {AuthorizationService} from "@/src/services/AuthorizationService";
-import {SignInFormSchema} from "@/src/app/actions/forms/signIn/signInSchema";
 import { redirect } from "@/src/i18n/navigation";
 import {ROUTES} from "@/src/enums/router.enum";
 import { Locale } from "next-intl";
+import {TFormActionState} from "@/src/forms/BaseFormAction";
+import {SignInFormAction} from "@/src/forms/sign-in/SignInFormAction";
+import {SignInFormSchema} from "@/src/forms/sign-in/SignInSchema";
 
-export type TSignInFormState = {
-    errors?: {
-        email?: string[];
-        password?: string[];
-    };
-    message?: string;
-    error?: string;
-    success?: boolean
-} | undefined;
 
-export async function signInFormAction(state: TSignInFormState, formData: FormData): Promise<TSignInFormState> {
-    const validatedFields = SignInFormSchema.safeParse({
-        email: formData.get(FormDataEnum.email),
-        password: formData.get(FormDataEnum.password),
-        locale: formData.get(FormDataEnum.locale)
-    })
+const signInFormActionHandler = new SignInFormAction();
 
-    if (!validatedFields.success) {
-        return {
-            errors: validatedFields.error.flatten().fieldErrors,
-        }
-    }
+export async function userSettingsFormAction(
+    state: TFormActionState<typeof SignInFormSchema>,
+    formData: FormData
+): Promise<TFormActionState<typeof SignInFormSchema>> {
+    const result = await signInFormActionHandler.handle(formData);
 
-    try {
-        await AuthorizationService.login(validatedFields.data.email, validatedFields.data.password);
-        return { success: true };
-    } catch (error: any) {
-        console.error('Chyba při přihlášení:', error);
-        return {
-            errors: error.message || 'Došlo k neočekávané chybě během přihlašování.',
-        }
-    } finally {
+    if (result?.success && result?.data) {
         redirect({
-            locale: validatedFields.data.locale as Locale,
+            locale: result.data.locale as Locale,
             href: ROUTES.HOME
         });
     }
+
+    return result;
 }
