@@ -29,7 +29,7 @@ export interface IAddVehicleRequest extends IApiRequest {
     vehicle: IVehicleRequest;
 }
 
-interface IVehicleRequest {
+export interface IVehicleRequest {
     name?: string;
     personsCapacity?: number;
     euro?: EuroStandard;

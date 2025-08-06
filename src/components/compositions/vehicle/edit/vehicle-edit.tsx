@@ -1,9 +1,8 @@
 import React, {useActionState, useEffect} from "react";
 import {Amenities, EuroStandard} from "@/src/api/openapi";
 import {VehicleEditStore} from "./vehicle-edit.store";
-import {addVehicleFormAction} from "@/src/app/actions/forms/vehicle/add/addVehicleFormAction";
-import {editVehicleFormAction} from "@/src/app/actions/forms/vehicle/edit/editVehicleFormAction";
 import { FormDataEnum } from "@/src/enums/form-data.enum";
+import {vehicleFormAction} from "@/src/app/actions/forms/vehicle/vehicleFormAction";
 
 export interface IVehicleEditProps {
     store: VehicleEditStore;
@@ -13,10 +12,10 @@ export interface IVehicleEditProps {
 export default function VehicleForm(props: IVehicleEditProps) {
     const {store, onClose} = props;
     const isEdit = store.id !== undefined;
-    const [state, action, pending] = useActionState(isEdit ? editVehicleFormAction : addVehicleFormAction, undefined)
+    const [state, action, pending] = useActionState(vehicleFormAction, undefined)
 
     useEffect(() => {
-        if (state && !state?.errors && !state?.error) {
+        if (state && !state?.errors) {
             onClose?.();
         }
     }, [state, onClose]);
