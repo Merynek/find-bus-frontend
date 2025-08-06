@@ -16,7 +16,7 @@ const ForgotPasswordPage = observer(() => {
                     <label htmlFor={FormDataEnum.email}>Email</label>
                     <input id={FormDataEnum.email} name={FormDataEnum.email} placeholder="Email"/>
                 </div>
-                {state?.errors?.email && <p>{state.errors.email}</p>}
+                {state?.errors?.email && <p>{state.errors.email._errors}</p>}
                 <button disabled={pending} type="submit">
                     Send Forgot Password
                 </button>
