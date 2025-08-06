@@ -10,6 +10,12 @@ import {
     UserAddressSchema
 } from "@/src/app/actions/forms/schemas";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
+import {
+    getBooleanFormValue,
+    getEnumArrayFormValue,
+    getEnumFormValue, getFileFormValue,
+    getStringFormValue
+} from "@/src/app/actions/forms/formGetters";
 
 export const UserSettingsSchema = z.object({
     name: z.string().nullable().optional(),
@@ -61,52 +67,4 @@ export const CreateUserSettingsData = (formData: FormData): Partial<UserSettings
         businessRiskInsurance: getFileFormValue(formData, FormDataEnum.businessRiskInsurance),
         concessionDocuments: getFileFormValue(formData, FormDataEnum.concessionDocuments),
     };
-};
-
-const getBooleanFormValue = (formData: FormData, key: FormDataEnum): boolean => {
-    return getStringFormValue(formData, key) === 'on';
-};
-
-const getFileFormValue = (formData: FormData, key: FormDataEnum): File|undefined => {
-    const value = formData.get(key);
-    if (!(value instanceof File)) {
-        throw new Error("Only file is allowed.");
-    }
-    if (value.size === 0) {
-        return undefined;
-    }
-    return value;
-};
-
-const getStringFormValue = (formData: FormData, key: FormDataEnum): string|undefined => {
-    const value = formData.get(key);
-    if (value instanceof File) {
-        throw new Error("File is not allowed.");
-    }
-    if (value === null) {
-        return undefined;
-    }
-    return value;
-};
-
-const getEnumFormValue = <T>(formData: FormData, key: FormDataEnum): T|undefined => {
-    const value = formData.get(key);
-    if (value instanceof File) {
-        throw new Error("File is not allowed.");
-    }
-    if (value === null) {
-        return undefined;
-    }
-    return value as T;
-};
-
-const getEnumArrayFormValue = <T>(formData: FormData, key: FormDataEnum): T[]|undefined => {
-    const values = formData.getAll(key);
-    if (values instanceof File) {
-        throw new Error("File is not allowed.");
-    }
-    if (values === null) {
-        return undefined;
-    }
-    return values as T[];
 };
