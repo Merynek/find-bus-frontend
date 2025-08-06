@@ -94,4 +94,16 @@ export abstract class BaseFormAction<Schema extends ZodSchema, Data, ApiResult> 
         }
         return value;
     }
+
+    protected getNumberFormValue(formData: FormData, key: FormDataEnum): number | undefined {
+        const stringValue = this.getStringFormValue(formData, key);
+        if (stringValue === undefined) {
+            return undefined;
+        }
+        const numberValue = parseFloat(stringValue);
+        if (isNaN(numberValue)) {
+            return undefined;
+        }
+        return numberValue;
+    }
 }

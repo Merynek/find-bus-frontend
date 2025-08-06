@@ -3,16 +3,10 @@ import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {z} from "zod";
 import {AuthorizationService} from "@/src/services/AuthorizationService";
 import {SignupFormSchema} from "@/src/forms/sign-up/SignUpSchema";
-import {UserRole} from "@/src/api/openapi";
 import {LOCALES} from "@/src/utils/locale";
+import {IRegistrationRequest} from "@/src/api/registrationApi";
 
-type SignUpData = {
-    email?: string;
-    password?: string;
-    passwordConfirm?: string;
-    role?: UserRole;
-    locale?: LOCALES;
-}
+type SignUpData = Partial<IRegistrationRequest & {passwordConfirm: string, locale: LOCALES}>;
 
 type SignUpApiResult = void;
 

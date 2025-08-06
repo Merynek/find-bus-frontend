@@ -16,5 +16,5 @@ export const AppConfigSchema = z.object({
     tripCancelPenaltyPercentageForTransporterFromDemander: z.number().min(0),
     tripCancelPenaltyMinAmountInCzkForTransporterFromDemander: z.number().min(0),
     tripCancelPenaltyLimitInDays: z.number().min(0),
-    tripCancelPenaltyAfterLimitPercentageForTransporter: z.number().min(0),
+    tripCancelPenaltyAfterLimitPercentageForTransporter: z.number().min(0)
 })
