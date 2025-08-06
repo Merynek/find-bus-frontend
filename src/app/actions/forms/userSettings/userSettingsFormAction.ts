@@ -6,7 +6,7 @@ import {
     CreateUserSettingsData, UserSettingsSchema
 } from "@/src/app/actions/forms/userSettings/userSettingsSchema";
 
-type UserSettingsSchemaFieldErrors = z.inferFlattenedErrors<typeof UserSettingsSchema>['fieldErrors'];
+type UserSettingsSchemaFieldErrors = z.ZodFormattedError<z.infer<typeof UserSettingsSchema>>;
 
 export type TUserSettingsFormState = {
     success?: boolean;
@@ -20,10 +20,11 @@ export async function userSettingsFormAction(state: TUserSettingsFormState, form
     const validatedFields = UserSettingsSchema.partial().safeParse(data);
 
     if (!validatedFields.success) {
-        console.error('Chyby validace:', validatedFields.error.flatten().fieldErrors);
+        const nestedErrors = validatedFields.error.format();
+        console.error('Chyby validace:', nestedErrors);
         return {
             success: false,
-            errors: validatedFields.error.flatten().fieldErrors,
+            errors: nestedErrors,
             message: 'Některá zadaná data nejsou platná.',
             data: data as Partial<z.infer<typeof UserSettingsSchema>>,
         };

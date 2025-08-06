@@ -18,7 +18,7 @@ import {
 } from "@/src/app/actions/forms/formGetters";
 
 export const UserSettingsSchema = z.object({
-    name: z.string().nullable().optional(),
+    name: z.string().min(2, "Name je vyžadováno.").nullable().optional(),
     surname: z.string().nullable().optional(),
     phoneNumber: z.string().nullable().optional(),
     ico: z.string().nullable().optional(),

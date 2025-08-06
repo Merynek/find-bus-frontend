@@ -68,41 +68,41 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                     <input id={FormDataEnum.name} name={FormDataEnum.name} type={"text"} placeholder="Name"
                            defaultValue={state?.data?.name || ""}/>
                 </div>
-                {state?.errors?.name && <p>{state.errors.name}</p>}
+                {state?.errors?.name && <p>{state.errors.name._errors}</p>}
                 <div>
                     <label htmlFor={FormDataEnum.surname}>Surname</label>
                     <input id={FormDataEnum.surname} name={FormDataEnum.surname} type={"text"} placeholder="Surname"
                            defaultValue={state?.data?.surname || ""}/>
                 </div>
-                {state?.errors?.surname && <p>{state.errors.surname}</p>}
+                {state?.errors?.surname && <p>{state.errors.surname._errors}</p>}
                 <div>
                     <label htmlFor={FormDataEnum.phoneNumber}>PhoneNumber</label>
                     <input id={FormDataEnum.phoneNumber} name={FormDataEnum.phoneNumber} type={"tel"}
                            defaultValue={state?.data?.phoneNumber || ""}
                            placeholder="PhoneNumber"/>
                 </div>
-                {state?.errors?.phoneNumber && <p>{state.errors.phoneNumber}</p>}
+                {state?.errors?.phoneNumber && <p>{state.errors.phoneNumber._errors}</p>}
 
                 <div>
                     <label htmlFor={FormDataEnum.ico}>ico</label>
                     <input id={FormDataEnum.ico} name={FormDataEnum.ico} type={"text"} placeholder="Ico"
                            defaultValue={state?.data?.ico || ""}/>
                 </div>
-                {state?.errors?.ico && <p>{state.errors.ico}</p>}
+                {state?.errors?.ico && <p>{state.errors.ico._errors}</p>}
 
                 <div>
                     <label htmlFor={FormDataEnum.dic}>dic</label>
                     <input id={FormDataEnum.dic} name={FormDataEnum.dic} type={"text"} placeholder="Dic"
                            defaultValue={state?.data?.dic || ""}/>
                 </div>
-                {state?.errors?.dic && <p>{state.errors.dic}</p>}
+                {state?.errors?.dic && <p>{state.errors.dic._errors}</p>}
 
                 <div>
                     <label htmlFor={FormDataEnum.companyName}>companyName</label>
                     <input id={FormDataEnum.companyName} name={FormDataEnum.companyName} type={"text"}
                            placeholder="CompanyName" defaultValue={state?.data?.companyName || ""}/>
                 </div>
-                {state?.errors?.companyName && <p>{state.errors.companyName}</p>}
+                {state?.errors?.companyName && <p>{state.errors.companyName._errors}</p>}
             </fieldset>
                 <h2>Jsi firma?:</h2>
                 <div>
@@ -279,7 +279,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                                 initialImage={settings.transportRequirements.businessRiskInsurance?.path}
                             />
                             {state?.errors?.businessRiskInsurance && (
-                                <p className="text-sm text-red-600 mt-1">{state.errors.businessRiskInsurance}</p>
+                                <p className="text-sm text-red-600 mt-1">{state.errors.businessRiskInsurance._errors}</p>
                             )}
                         </div>
                         <div>
@@ -289,7 +289,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                                 initialImage={settings.transportRequirements.concessionDocuments?.path}
                             />
                             {state?.errors?.concessionDocuments && (
-                                <p className="text-sm text-red-600 mt-1">{state.errors.concessionDocuments}</p>
+                                <p className="text-sm text-red-600 mt-1">{state.errors.concessionDocuments._errors}</p>
                             )}
                         </div>
                     </fieldset>
