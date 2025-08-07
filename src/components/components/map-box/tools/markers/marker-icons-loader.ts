@@ -1,6 +1,5 @@
 import {Map} from "mapbox-gl";
 import {MarkerImages} from "@/src/enums/map-box.enum";
-import placePng from "../../images/place.png";
 
 export const loadMarkersIcons = async (map: Map): Promise<void> => {
     for (const type in MarkerImages) {
@@ -12,7 +11,7 @@ const addMarkerIcon = async (map: Map, image: MarkerImages): Promise<void> => {
     let imageSrc = "";
     switch (image) {
         case MarkerImages.PLACE:
-            imageSrc = placePng;
+            imageSrc = "/map/place.png";
             break;
     }
     await loadAndAddImage(map, image, imageSrc)

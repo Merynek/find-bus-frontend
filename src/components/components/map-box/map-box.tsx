@@ -1,5 +1,4 @@
 import React, {useEffect, useRef} from "react";
-import {observer} from "mobx-react";
 import "./map-box-styles.scss";
 import {useChangePropsAfterMount} from "@/src/hooks/lifecycleHooks";
 import mapboxgl, {LngLat, LngLatBoundsLike, LngLatLike, Map} from "mapbox-gl";
@@ -80,7 +79,9 @@ const InnerMapBox = (props: IMapBoxProps) => {
             _mapRef.current = map;
         })
         map.on("click", (e) => {
-            onClick && onClick(e.lngLat);
+            if (onClick) {
+                onClick(e.lngLat);
+            }
         })
     }
 
