@@ -9,6 +9,7 @@ import {TripService} from "@/src/services/TripService";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
 import {UsersService} from "@/src/services/UsersService";
 import {AppConfiguration} from "@/src/singletons/AppConfiguration";
+import {LOCALES} from "@/src/utils/locale";
 
 export class CreateTripPageStore {
     public trip: Trip;
@@ -18,7 +19,7 @@ export class CreateTripPageStore {
     @observable public placesAreSet: boolean = true;
     @observable public peopleCountIsValid: boolean = true;
     @observable public routesCountIsValid: boolean = true;
-    @observable public userSettings: UserSettings|null;
+    @observable public userSettings: UserSettings|null = null;
 
     constructor() {
         this._initStore();
@@ -39,7 +40,10 @@ export class CreateTripPageStore {
         reaction(() => this.trip.routes.length, () => {
             this.routesCountIsValid = true;
         });
-        this.userSettings = await UsersService.getSettings();
+    }
+
+    public async init(locales: LOCALES) {
+        this.userSettings = await UsersService.getSettings(locales);
     }
 
     public destroy() {

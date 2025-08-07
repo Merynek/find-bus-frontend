@@ -23,7 +23,7 @@ import {useRouter} from 'next/navigation';
 import {ROUTES} from "@/src/enums/router.enum";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {FlexGap} from "@/src/enums/layout.enum";
-import {useInit} from "@/src/hooks/lifecycleHooks";
+import {useInit, useMount} from "@/src/hooks/lifecycleHooks";
 import {useApp} from "@/src/app/contexts/AppContext";
 
 const CreateTripPage = observer(() => {
@@ -34,6 +34,10 @@ const CreateTripPage = observer(() => {
     const _configuration = AppConfiguration.instance;
     const {t} = useTranslate("component.trip");
     const cfg = _configuration.appBusinessConfig;
+
+    useMount(() => {
+        _store.init(locale);
+    })
 
     return <div className={styles.layout}>
         <div className={styles.section}>
