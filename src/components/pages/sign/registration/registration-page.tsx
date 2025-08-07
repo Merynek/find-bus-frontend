@@ -1,6 +1,6 @@
 'use client'
 
-import React, {useActionState} from "react";
+import React from "react";
 import styles from "./registration.page.module.scss";
 import {observer} from "mobx-react";
 import {ButtonSize, ButtonType, ButtonLink} from "../../../components/button/button";
@@ -9,9 +9,11 @@ import {ROUTES} from "@/src/enums/router.enum";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {signupFormAction} from "@/src/app/actions/forms/signUp/signupFormAction";
 import {useCurrentLocale} from "@/src/hooks/translateHook";
+import {useFormActionState} from "@/src/hooks/formHook";
+import {FormStatus} from "@/src/components/components/form-status/form-status";
 
 const RegistrationPage = observer(() => {
-    const [state, action, pending] = useActionState(signupFormAction, undefined)
+    const [state, action, pending] = useFormActionState(signupFormAction, undefined)
     const locale = useCurrentLocale();
 
     return <div className={styles.layout}>
@@ -22,28 +24,23 @@ const RegistrationPage = observer(() => {
             size={ButtonSize.BUTTON_SIZE_M}
         />
         <form action={action}>
+            <FormStatus state={state} />
             <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale}/>
             <div>
                 <label htmlFor={FormDataEnum.email}>Email</label>
                 <input id={FormDataEnum.email} name={FormDataEnum.email} type={"email"} placeholder="Email"/>
             </div>
-            {state?.errors?.email && <p>{state.errors.email._errors}</p>}
 
             <div>
                 <label htmlFor={FormDataEnum.password}>Password</label>
                 <input id={FormDataEnum.password} name={FormDataEnum.password} type={"password"}
                        placeholder="password"/>
             </div>
-            {state?.errors?.password && <p>{state.errors.password._errors}</p>}
-
-
             <div>
                 <label htmlFor={FormDataEnum.password_confirm}>Password Confirm</label>
                 <input id={FormDataEnum.password_confirm} name={FormDataEnum.password_confirm} type={"password"}
                        placeholder="password confirm"/>
             </div>
-            {state?.errors?.passwordConfirm && <p>{state.errors.passwordConfirm._errors}</p>}
-
             <div>
                 <label htmlFor={UserRole.TRANSPORTER}>Transporter</label>
                 <input

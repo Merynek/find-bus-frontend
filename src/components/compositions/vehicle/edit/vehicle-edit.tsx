@@ -1,4 +1,4 @@
-import React, {useActionState, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Amenities, EuroStandard} from "@/src/api/openapi";
 import {VehicleEditStore} from "./vehicle-edit.store";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
@@ -7,6 +7,8 @@ import {ImageUploader} from "@/src/components/components/image-uploader/image-up
 import {Place} from "@/src/data/place";
 import {PlaceAutocomplete} from "@/src/components/components/inputs/place-autocomplete/place-autocomplete";
 import {useCurrentLocale} from "@/src/hooks/translateHook";
+import {useFormActionState} from "@/src/hooks/formHook";
+import {FormStatus} from "@/src/components/components/form-status/form-status";
 
 export interface IVehicleEditProps {
     store: VehicleEditStore;
@@ -16,7 +18,7 @@ export interface IVehicleEditProps {
 export default function VehicleForm(props: IVehicleEditProps) {
     const {store, onClose} = props;
     const isEdit = store.id !== undefined;
-    const [state, action, pending] = useActionState(vehicleFormAction, {
+    const [state, action, pending] = useFormActionState(vehicleFormAction, {
         data: {
             name: store.name,
             personsCapacity: store.personsCapacity,
@@ -66,6 +68,7 @@ export default function VehicleForm(props: IVehicleEditProps) {
 
     return (
         <form action={action} className="space-y-6">
+            <FormStatus state={state} />
             {store.id && (
                 <input type="hidden" name={FormDataEnum.vehicleId} value={store.id}/>
             )}
@@ -252,7 +255,7 @@ export default function VehicleForm(props: IVehicleEditProps) {
                 value={departureStation?.placeFormatted || ''}
             />
 
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btn btn-primary" disabled={pending}>
                 {isEdit ? 'Upravit vozidlo' : 'Přidat vozidlo'}
             </button>
         </form>

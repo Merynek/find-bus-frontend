@@ -3,17 +3,18 @@
 import React, {useCallback, useEffect} from "react";
 import {ButtonSize, ButtonType, ButtonLink} from "../../../components/button/button";
 import {ROUTES, SEARCH_PARAMS} from "@/src/enums/router.enum";
-import { useActionState } from "react";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {useCurrentLocale, useTranslate} from "@/src/hooks/translateHook";
 import {logoutAction} from "@/src/app/actions/auth/authActions";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/src/i18n/navigation";
 import {userSettingsFormAction} from "@/src/app/actions/forms/signIn/signInFormAction";
+import {useFormActionState} from "@/src/hooks/formHook";
+import {FormStatus} from "@/src/components/components/form-status/form-status";
 
 const LoginPage = () => {
     const {t} = useTranslate("page.sign");
-    const [state, action, pending] = useActionState(userSettingsFormAction, undefined);
+    const [state, action, pending] = useFormActionState(userSettingsFormAction, undefined);
     const searchParams = useSearchParams();
     const router = useRouter();
 
@@ -40,27 +41,19 @@ const LoginPage = () => {
             size={ButtonSize.BUTTON_SIZE_M}
         />
         <form action={action}>
+            <FormStatus state={state} />
             <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale} />
 
             <div>
                 <label htmlFor={FormDataEnum.email}>Email</label>
                 <input id={FormDataEnum.email} name={FormDataEnum.email} placeholder="Email"/>
             </div>
-            {state?.errors?.email && <p>{state.errors.email._errors}</p>}
 
             <div>
                 <label htmlFor={FormDataEnum.password}>Password</label>
                 <input id={FormDataEnum.password} name={FormDataEnum.password} type={"password"}
                        placeholder="password"/>
             </div>
-            {state?.errors?.password && (
-                <div>
-                    <p>Password must:</p>
-                    <ul>
-                        {state.errors.password._errors}
-                    </ul>
-                </div>
-            )}
             <button disabled={pending} type="submit">
                 Sign In
             </button>

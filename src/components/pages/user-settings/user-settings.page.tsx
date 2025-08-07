@@ -1,7 +1,7 @@
 "use client";
 
 import {useTranslate} from "@/src/hooks/translateHook";
-import React, {useActionState} from "react";
+import React from "react";
 import styles from "./user-settings.page.module.scss";
 import {ButtonClick, ButtonSize, ButtonType} from "../../components/button/button";
 import {Country, NotificationsEnum, UserRole, UserSettingsResponseDto} from "@/src/api/openapi";
@@ -12,6 +12,8 @@ import {useInit} from "@/src/hooks/lifecycleHooks";
 import {UsersConverter} from "@/src/converters/users/users-converter";
 import {useLoggedUser} from "@/src/hooks/authenticationHook";
 import {ImageUploader} from "@/src/components/components/image-uploader/image-uploader";
+import {useFormActionState} from "@/src/hooks/formHook";
+import {FormStatus} from "@/src/components/components/form-status/form-status";
 
 interface IUserSettingsPageProps {
     settings: UserSettingsResponseDto;
@@ -21,7 +23,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
     const settings = useInit(() => UsersConverter.userSettingsToInstance(props.settings));
     const {t} = useTranslate("page.userSettings");
     const {user} = useLoggedUser();
-    const [state, action, pending] = useActionState(userSettingsFormAction, {
+    const [state, action, pending] = useFormActionState(userSettingsFormAction, {
         data: {
             name: settings.name,
             surname: settings.surname,
@@ -51,7 +53,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                 swift: settings.transferInfo.swift
             }
         }
-    });
+    })
 
     const allNotifications = (): NotificationsEnum[] => {
         return Object.values(NotificationsEnum).map(key => {
@@ -61,6 +63,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
 
     return <div className={styles.layout}>
         <form action={action}>
+            <FormStatus state={state} />
             <fieldset className="space-y-2">
                 <legend className="text-sm font-medium text-gray-700">Obecné</legend>
                 <div>
@@ -68,41 +71,33 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                     <input id={FormDataEnum.name} name={FormDataEnum.name} type={"text"} placeholder="Name"
                            defaultValue={state?.data?.name || ""}/>
                 </div>
-                {state?.errors?.name && <p>{state.errors.name._errors}</p>}
                 <div>
                     <label htmlFor={FormDataEnum.surname}>Surname</label>
                     <input id={FormDataEnum.surname} name={FormDataEnum.surname} type={"text"} placeholder="Surname"
                            defaultValue={state?.data?.surname || ""}/>
                 </div>
-                {state?.errors?.surname && <p>{state.errors.surname._errors}</p>}
                 <div>
                     <label htmlFor={FormDataEnum.phoneNumber}>PhoneNumber</label>
                     <input id={FormDataEnum.phoneNumber} name={FormDataEnum.phoneNumber} type={"tel"}
                            defaultValue={state?.data?.phoneNumber || ""}
                            placeholder="PhoneNumber"/>
                 </div>
-                {state?.errors?.phoneNumber && <p>{state.errors.phoneNumber._errors}</p>}
-
                 <div>
                     <label htmlFor={FormDataEnum.ico}>ico</label>
                     <input id={FormDataEnum.ico} name={FormDataEnum.ico} type={"text"} placeholder="Ico"
                            defaultValue={state?.data?.ico || ""}/>
                 </div>
-                {state?.errors?.ico && <p>{state.errors.ico._errors}</p>}
-
                 <div>
                     <label htmlFor={FormDataEnum.dic}>dic</label>
                     <input id={FormDataEnum.dic} name={FormDataEnum.dic} type={"text"} placeholder="Dic"
                            defaultValue={state?.data?.dic || ""}/>
                 </div>
-                {state?.errors?.dic && <p>{state.errors.dic._errors}</p>}
 
                 <div>
                     <label htmlFor={FormDataEnum.companyName}>companyName</label>
                     <input id={FormDataEnum.companyName} name={FormDataEnum.companyName} type={"text"}
                            placeholder="CompanyName" defaultValue={state?.data?.companyName || ""}/>
                 </div>
-                {state?.errors?.companyName && <p>{state.errors.companyName._errors}</p>}
             </fieldset>
                 <h2>Jsi firma?:</h2>
                 <div>
@@ -278,9 +273,6 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                                 inputName={FormDataEnum.businessRiskInsurance}
                                 initialImage={settings.transportRequirements.businessRiskInsurance?.path}
                             />
-                            {state?.errors?.businessRiskInsurance && (
-                                <p className="text-sm text-red-600 mt-1">{state.errors.businessRiskInsurance._errors}</p>
-                            )}
                         </div>
                         <div>
                             <ImageUploader
@@ -288,9 +280,6 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                                 inputName={FormDataEnum.concessionDocuments}
                                 initialImage={settings.transportRequirements.concessionDocuments?.path}
                             />
-                            {state?.errors?.concessionDocuments && (
-                                <p className="text-sm text-red-600 mt-1">{state.errors.concessionDocuments._errors}</p>
-                            )}
                         </div>
                     </fieldset>
 
@@ -299,6 +288,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                     size={ButtonSize.BUTTON_SIZE_M}
                     onClick={() => {
                     }}
+                    isDisabled={pending}
                     type={ButtonType.BLACK}
                     label={t("save")}
                 />

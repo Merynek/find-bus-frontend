@@ -1,11 +1,13 @@
 "use client";
 
-import React, {useActionState} from "react";
+import React from "react";
 import styles from "./app-config.page.module.scss";
 import {appConfigFormAction} from "@/src/app/actions/forms/admin/appConfig/appConfigFormAction";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {AppBusinessConfigResponseDto} from "@/src/api/openapi";
 import {AppBusinessConfigConverter} from "@/src/converters/admin/app-business-config-converter";
+import {useFormActionState} from "@/src/hooks/formHook";
+import {FormStatus} from "@/src/components/components/form-status/form-status";
 
 interface IAppConfigPageProps {
     cfg: AppBusinessConfigResponseDto;
@@ -14,10 +16,11 @@ interface IAppConfigPageProps {
 const AppConfigPage = (props: IAppConfigPageProps) => {
     const cfg = AppBusinessConfigConverter.toInstance(props.cfg);
     const appConfig = AppBusinessConfigConverter.toInstance(cfg);
-    const [state, action, pending] = useActionState(appConfigFormAction, undefined)
+    const [state, action, pending] = useFormActionState(appConfigFormAction, undefined)
 
     return <div className={styles.layout}>
         <form action={action}>
+            <FormStatus state={state} />
             <h2>Create Trip</h2>
             <div className={styles.line}>
                 <div>

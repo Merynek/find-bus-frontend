@@ -1,19 +1,21 @@
 "use client";
 
-import React, {useActionState} from "react";
+import React from "react";
 import styles from "./email-config-item.module.scss";
 import {EmailTemplate} from "@/src/data/emailConfig";
 import {emailConfigFormAction} from "@/src/app/actions/forms/admin/emailConfig/emailConfigFormAction";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import type {EmailTemplateResponseDto} from "@/src/api/openapi";
 import {EmailTemplateConverter} from "@/src/converters/admin/email-template-converter";
+import {FormStatus} from "@/src/components/components/form-status/form-status";
+import {useFormActionState} from "@/src/hooks/formHook";
 
 export interface IEmailConfigItemProps {
     tmp: EmailTemplateResponseDto;
 }
 
 export const EmailConfigItem = (props: IEmailConfigItemProps) => {
-    const [state, action, pending] = useActionState(emailConfigFormAction, undefined)
+    const [state, action, pending] = useFormActionState(emailConfigFormAction, undefined)
     const {tmp} = props;
     const emailTemplate = EmailTemplateConverter.toInstance(tmp);
 
@@ -37,6 +39,7 @@ export const EmailConfigItem = (props: IEmailConfigItemProps) => {
             {emailTemplate.localizations.map((localization, i) => {
                 return <React.Fragment key={i}>
                     <form action={action}>
+                        <FormStatus state={state} />
                         <input type="hidden" name={FormDataEnum.language} value={localization.language}/>
                         <input type="hidden" name={FormDataEnum.template} value={emailTemplate.type}/>
                         <div>
@@ -49,7 +52,6 @@ export const EmailConfigItem = (props: IEmailConfigItemProps) => {
                                 <label htmlFor={FormDataEnum.templateId}>Id template:</label>
                                 <input id={FormDataEnum.templateId} name={FormDataEnum.templateId} type={"number"} defaultValue={localization.templateId}/>
                             </div>
-                            {state?.errors?.templateId && <p>{state.errors.templateId}</p>}
                             <button disabled={pending} type="submit">
                                 Change
                             </button>
