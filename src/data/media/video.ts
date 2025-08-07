@@ -20,10 +20,10 @@ export class Video extends MediaItem {
 
     constructor(settings: IVideo) {
         super(settings);
-        makeObservable(this);
         this._youtubeId = settings.youtubeId;
         this._path = settings.path;
         this.type = settings.type;
+        makeObservable(this);
     }
 
     get youtubeId(): string|undefined {

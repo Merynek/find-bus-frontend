@@ -5,6 +5,7 @@ import {MapboxUtils} from "./mapbox-utils";
 import {IDirectionData} from "../data/trip/direction";
 
 export class LocationService {
+    private static _instance: LocationService | null = null;
     private readonly _mapboxUtils: MapboxUtils;
     private _semaphore: Semaphore;
     private readonly _timeout: number;
@@ -15,6 +16,13 @@ export class LocationService {
         this._mapboxUtils = new MapboxUtils();
         this._semaphore = new Semaphore(1);
         this._directionsMap = new Map<string, IDirectionData>();
+    }
+
+    public static get instance(): LocationService {
+        if (!LocationService._instance) {
+            LocationService._instance = new LocationService();
+        }
+        return LocationService._instance;
     }
 
     public async searchPlace(searchText: string): Promise<Place[]> {

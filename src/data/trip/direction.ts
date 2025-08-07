@@ -12,10 +12,10 @@ export class Direction {
     @observable private _timeInSeconds: number;
 
     constructor(settings: IDirectionData) {
-        makeObservable(this);
         this._polyline = settings.polyline || "";
         this._distance = settings.distance || 0;
         this._timeInSeconds = settings.timeInSeconds || 0;
+        makeObservable(this);
     }
 
     @action

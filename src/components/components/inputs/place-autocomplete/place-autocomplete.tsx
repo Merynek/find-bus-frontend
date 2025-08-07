@@ -2,7 +2,6 @@ import React, {useCallback} from "react";
 import {AutoComplete, IAutoCompleteItem} from "../autocomplete/auto-complete";
 import {Place} from "@/src/data/place";
 import {LocationService} from "@/src/singletons/location-service";
-import {useInit} from "@/src/hooks/lifecycleHooks";
 
 export interface IPlaceAutocompleteProps {
    place?: Place;
@@ -13,13 +12,12 @@ export interface IPlaceAutocompleteProps {
 
 export const PlaceAutocomplete = (props: IPlaceAutocompleteProps) => {
    const {onChange, place, placeHolder, disabled} = props;
-   const _locationService = useInit(() => new LocationService());
 
    const getFilteredItems = useCallback(async (filter: string): Promise<IAutoCompleteItem<Place>[]> => {
       if (filter.length < 3) {
          return [];
       }
-      const places = await _locationService.searchPlace(filter);
+      const places = await LocationService.instance.searchPlace(filter);
 
       return places.map((place) => {
          return getValue(place);

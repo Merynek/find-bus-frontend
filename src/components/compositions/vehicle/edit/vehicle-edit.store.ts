@@ -49,7 +49,6 @@ export class VehicleEditStore {
     public isVerifiedForTransporting: boolean = false;
 
     constructor(settings: IVehicleStore) {
-        makeObservable(this);
         this.id = settings.vehicle.id;
         this._name = settings.vehicle.name;
         this.isVerifiedForTransporting = settings.vehicle.isVerifiedForTransporting;
@@ -71,6 +70,7 @@ export class VehicleEditStore {
         this._technicalCertificate2 = settings.vehicle.technicalCertificate2;
         this._insurancePhoto = settings.vehicle.insurancePhoto;
         this._departureStation = settings.vehicle.departureStation;
+        makeObservable(this);
     }
 
     get yearOfManufacture(): number {

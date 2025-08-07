@@ -1,7 +1,6 @@
 import {Place} from "../place";
 import {computed, makeObservable, observable, runInAction} from "mobx";
 import {Route} from "./route";
-import {StopResponseDto} from "@/src/api/openapi";
 import {IdGenerator, IdType} from "@/src/singletons/id-generator";
 
 interface IStop {

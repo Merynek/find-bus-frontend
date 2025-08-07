@@ -25,7 +25,6 @@ export class Route {
     @observable public computedDirectionInSeconds: number = 0;
     @observable public currentDJ: number = 0;
     @observable public currentM: number = 0;
-    private _locationService: LocationService;
     private _polyLineComputeDisposer: IReactionDisposer|null = null;
 
     constructor(settings: IRoute) {
@@ -35,7 +34,6 @@ export class Route {
         this._trip = settings.trip || null;
         this.start = settings.start;
         this.end = settings.end;
-        this._locationService = new LocationService();
         this.updateStops();
         makeObservable(this);
     }
@@ -43,7 +41,7 @@ export class Route {
     public observePlaceChanges() {
         if (!this._polyLineComputeDisposer) {
             this._polyLineComputeDisposer = reaction(() => this.from.place.point?.toString() + "-" + this.to.place.point?.toString(), async () => {
-                this._direction.setData(await this._locationService.getDirectionData(this.from.place, this.to.place, Priority.HIGH));
+                this._direction.setData(await LocationService.instance.getDirectionData(this.from.place, this.to.place, Priority.HIGH));
             });
         } else {
             console.warn("This route is already observed");
@@ -51,7 +49,9 @@ export class Route {
     }
 
     public destroy() {
-        this._polyLineComputeDisposer && this._polyLineComputeDisposer();
+        if (this._polyLineComputeDisposer) {
+            this._polyLineComputeDisposer();
+        }
     }
 
     get direction() {

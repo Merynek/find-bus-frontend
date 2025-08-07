@@ -14,10 +14,10 @@ export abstract class MediaItem extends SFile {
             id: settings.id || 0,
             ...settings,
         });
-        makeObservable(this);
         if (!settings.id) {
             this.id = IdGenerator.instance.getId(IdType.MEDIA)
         }
+        makeObservable(this);
     }
 
     abstract isPhoto(): this is Photo;

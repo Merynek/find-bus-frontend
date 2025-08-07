@@ -18,12 +18,12 @@ export class Place {
     @observable public country?: Country;
 
     constructor(settings: IPlace) {
-        makeObservable(this);
         this.placeId = settings.placeId;
         this.point = settings.point || undefined;
         this.name = settings.name;
         this.placeFormatted = settings.placeFormatted;
         this.country = settings.country;
+        makeObservable(this);
     }
 
     @computed

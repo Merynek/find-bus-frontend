@@ -29,7 +29,6 @@ export abstract class SFile {
     private _onUploadDone: () => void;
 
     protected constructor(settings: ISFile) {
-        makeObservable(this);
         this.id = settings.id;
         this.file = settings.file || new File([""], this.id.toString());
         this.uploadState = settings.uploadState || FileUploadState.PENDING;
@@ -38,6 +37,7 @@ export abstract class SFile {
         this._uploadFnc = () => {};
         this._abortUploadFnc = () => {};
         this._onUploadDone = () => {};
+        makeObservable(this);
     }
 
     @computed
