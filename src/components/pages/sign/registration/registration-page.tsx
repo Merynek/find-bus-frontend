@@ -8,9 +8,11 @@ import {UserRole} from "@/src/api/openapi";
 import {ROUTES} from "@/src/enums/router.enum";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {signupFormAction} from "@/src/app/actions/forms/signUp/signupFormAction";
+import {useCurrentLocale} from "@/src/hooks/translateHook";
 
 const RegistrationPage = observer(() => {
     const [state, action, pending] = useActionState(signupFormAction, undefined)
+    const locale = useCurrentLocale();
 
     return <div className={styles.layout}>
         <ButtonLink
@@ -20,6 +22,7 @@ const RegistrationPage = observer(() => {
             size={ButtonSize.BUTTON_SIZE_M}
         />
         <form action={action}>
+            <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale}/>
             <div>
                 <label htmlFor={FormDataEnum.email}>Email</label>
                 <input id={FormDataEnum.email} name={FormDataEnum.email} type={"email"} placeholder="Email"/>
@@ -28,14 +31,16 @@ const RegistrationPage = observer(() => {
 
             <div>
                 <label htmlFor={FormDataEnum.password}>Password</label>
-                <input id={FormDataEnum.password} name={FormDataEnum.password} type={"password"} placeholder="password"/>
+                <input id={FormDataEnum.password} name={FormDataEnum.password} type={"password"}
+                       placeholder="password"/>
             </div>
             {state?.errors?.password && <p>{state.errors.password._errors}</p>}
 
 
             <div>
                 <label htmlFor={FormDataEnum.password_confirm}>Password Confirm</label>
-                <input id={FormDataEnum.password_confirm} name={FormDataEnum.password_confirm} type={"password"} placeholder="password confirm"/>
+                <input id={FormDataEnum.password_confirm} name={FormDataEnum.password_confirm} type={"password"}
+                       placeholder="password confirm"/>
             </div>
             {state?.errors?.passwordConfirm && <p>{state.errors.passwordConfirm._errors}</p>}
 

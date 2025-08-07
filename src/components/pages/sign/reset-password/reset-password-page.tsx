@@ -4,6 +4,7 @@ import React, {useActionState} from "react";
 import styles from "./reset-password.page.module.scss";
 import {resetPasswordFormAction} from "@/src/app/actions/forms/resetPassword/resetPasswordFormAction";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
+import {useCurrentLocale} from "@/src/hooks/translateHook";
 
 interface ResetPasswordPageProps {
     token: string;
@@ -12,9 +13,11 @@ interface ResetPasswordPageProps {
 const ResetPasswordPage = (props: ResetPasswordPageProps) => {
     const {token} = props;
     const [state, action, pending] = useActionState(resetPasswordFormAction, undefined);
+    const locale = useCurrentLocale();
 
     return <div className={styles.layout}>
         <form action={action}>
+            <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale}/>
             <input type="hidden" name={FormDataEnum.token} value={token + ""}/>
             {state?.errors?.token && <p>{state.errors.token._errors}</p>}
             <div>

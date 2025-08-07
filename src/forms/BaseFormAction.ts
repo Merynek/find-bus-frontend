@@ -60,6 +60,9 @@ export abstract class BaseFormAction<Schema extends ZodSchema, Data, ApiResult> 
 
     protected getFileFormValue(formData: FormData, key: FormDataEnum): File|undefined {
         const value = formData.get(key);
+        if (value === null) {
+            return undefined;
+        }
         if (!(value instanceof File)) {
             throw new Error("Only file is allowed.");
         }
@@ -71,11 +74,11 @@ export abstract class BaseFormAction<Schema extends ZodSchema, Data, ApiResult> 
 
     protected getEnumArrayFormValue<T>(formData: FormData, key: FormDataEnum): T[]|undefined {
         const values = formData.getAll(key);
-        if (values instanceof File) {
-            throw new Error("File is not allowed.");
-        }
         if (values === null) {
             return undefined;
+        }
+        if (values instanceof File) {
+            throw new Error("File is not allowed.");
         }
         return values as T[];
     }
@@ -86,11 +89,11 @@ export abstract class BaseFormAction<Schema extends ZodSchema, Data, ApiResult> 
 
     protected getStringFormValue(formData: FormData, key: FormDataEnum): string|undefined {
         const value = formData.get(key);
-        if (value instanceof File) {
-            throw new Error("File is not allowed.");
-        }
         if (value === null) {
             return undefined;
+        }
+        if (value instanceof File) {
+            throw new Error("File is not allowed.");
         }
         return value;
     }

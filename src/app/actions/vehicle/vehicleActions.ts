@@ -8,6 +8,8 @@ import {
     VehicleApi
 } from "@/src/api/vehicleApi";
 import type {VehicleResponseDto} from "@/src/api/openapi";
+import {LOCALES} from "@/src/utils/locale";
+import {handleApiUnauthorizedError} from "@/src/utils/handleApiErrors";
 
 export async function setVehicleVerification(vehicleId: number, verified: boolean) {
     const accessToken = await getAccessToken();
@@ -28,11 +30,15 @@ export async function getVehicle(vehicleId: number): Promise<VehicleResponseDto>
     });
 }
 
-export async function getVehicles(): Promise<VehicleResponseDto[]> {
+export async function getVehicles(locale: LOCALES): Promise<VehicleResponseDto[]> {
     const accessToken = await getAccessToken();
     const vehicleApi = new VehicleApi(accessToken);
 
-    return await vehicleApi.getVehicles({});
+    try {
+        return await vehicleApi.getVehicles({});
+    } catch (e: unknown) {
+        handleApiUnauthorizedError(e, locale);
+    }
 }
 
 export async function addVehicle(req: IAddVehicleRequest) {

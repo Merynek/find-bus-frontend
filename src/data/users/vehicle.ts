@@ -36,7 +36,7 @@ export class Vehicle {
     @observable public yearOfManufacture: number;
     @observable public personsCapacity: number;
     @observable public euro: EuroStandard;
-    @observable public amenities: Amenities[];
+    public amenities: Amenities[];
     @observable public handicappedUserCount: number;
     @observable public frontPhoto: Photo|null;
     @observable public rearPhoto: Photo|null;

@@ -10,6 +10,7 @@ import {
     IUploadVehicleFilesRequest,
     IUpdateVehicleRequest
 } from "@/src/api/vehicleApi";
+import {LOCALES} from "@/src/utils/locale";
 
 export class VehicleService {
     public static async setVehicleVerification(vehicleId: number, verified: boolean) {
@@ -21,8 +22,8 @@ export class VehicleService {
         return VehicleConverter.toInstance(data);
     }
 
-    public static async getVehicles() {
-        const data = await getVehicles();
+    public static async getVehicles(locale: LOCALES) {
+        const data = await getVehicles(locale);
         return data.map(VehicleConverter.toInstance);
     }
 

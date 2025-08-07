@@ -1,11 +1,12 @@
 import React, {useActionState, useEffect, useState} from "react";
 import {Amenities, EuroStandard} from "@/src/api/openapi";
 import {VehicleEditStore} from "./vehicle-edit.store";
-import { FormDataEnum } from "@/src/enums/form-data.enum";
+import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {vehicleFormAction} from "@/src/app/actions/forms/vehicle/vehicleFormAction";
 import {ImageUploader} from "@/src/components/components/image-uploader/image-uploader";
 import {Place} from "@/src/data/place";
 import {PlaceAutocomplete} from "@/src/components/components/inputs/place-autocomplete/place-autocomplete";
+import {useCurrentLocale} from "@/src/hooks/translateHook";
 
 export interface IVehicleEditProps {
     store: VehicleEditStore;
@@ -15,11 +16,50 @@ export interface IVehicleEditProps {
 export default function VehicleForm(props: IVehicleEditProps) {
     const {store, onClose} = props;
     const isEdit = store.id !== undefined;
-    const [state, action, pending] = useActionState(vehicleFormAction, undefined);
+    const [state, action, pending] = useActionState(vehicleFormAction, {
+        data: {
+            name: store.name,
+            personsCapacity: store.personsCapacity,
+            euro: store.euro,
+            amenities: store.amenities,
+            handicappedUserCount: store.handicappedUserCount,
+            vin: store.VIN,
+            registrationSign: store.registrationSign,
+            stkExpired: store.stkExpired || undefined,
+            yearOfManufacture: store.yearOfManufacture,
+            departureStation: (store.departureStation && store.departureStation.placeFormatted && store.departureStation.name && store.departureStation.placeId && store.departureStation.point && store.departureStation.country) ? {
+                name: store.departureStation.name,
+                placeId: store.departureStation.placeId,
+                point: {
+                    lat: store.departureStation.point.lat,
+                    lng: store.departureStation.point.lng
+                },
+                country: store.departureStation.country,
+                placeFormatted: store.departureStation.placeFormatted
+            }: undefined,
+            vehicleId: store.id
+        }
+    });
     const [departureStation, setDepartureStation] = useState<Place|undefined>(store.departureStation || undefined);
+    const locale = useCurrentLocale();
+
+
+    const formatDateToYYYYMMDD = (date: Date | undefined): string => {
+        if (!date) {
+            return "";
+        }
+        // Zajištění, že máme objekt Date, pokud by přišel jako string
+        const d = date instanceof Date ? date : new Date(date);
+        const year = d.getFullYear();
+        const month = (d.getMonth() + 1).toString().padStart(2, '0'); // Měsíce jsou 0-11
+        const day = d.getDate().toString().padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
+    const formattedStkExpired = formatDateToYYYYMMDD(state?.data?.stkExpired);
 
     useEffect(() => {
-        if (state && !state?.errors) {
+        if (state && !state?.errors && state.success === true) {
             onClose?.();
         }
     }, [state, onClose]);
@@ -29,12 +69,12 @@ export default function VehicleForm(props: IVehicleEditProps) {
             {store.id && (
                 <input type="hidden" name={FormDataEnum.vehicleId} value={store.id}/>
             )}
-
+            <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale}/>
             <div>
                 <label>Název vozidla</label>
                 <input
                     name={FormDataEnum.name}
-                    defaultValue={store.name}
+                    defaultValue={state?.data?.name || ""}
                     className="input"
                 />
             </div>
@@ -44,7 +84,7 @@ export default function VehicleForm(props: IVehicleEditProps) {
                 <input
                     type="number"
                     name={FormDataEnum.personsCapacity}
-                    defaultValue={store.personsCapacity}
+                    defaultValue={state?.data?.personsCapacity || ""}
                     className="input"
                 />
             </div>
@@ -54,7 +94,7 @@ export default function VehicleForm(props: IVehicleEditProps) {
                 <input
                     type="number"
                     name={FormDataEnum.handicappedUserCount}
-                    defaultValue={store.handicappedUserCount}
+                    defaultValue={state?.data?.handicappedUserCount || ""}
                     className="input"
                 />
             </div>
@@ -64,7 +104,7 @@ export default function VehicleForm(props: IVehicleEditProps) {
                 <input
                     type="number"
                     name={FormDataEnum.yearOfManufacture}
-                    defaultValue={store.yearOfManufacture}
+                    defaultValue={state?.data?.yearOfManufacture || ""}
                     className="input"
                 />
             </div>
@@ -73,7 +113,7 @@ export default function VehicleForm(props: IVehicleEditProps) {
                 <label>VIN</label>
                 <input
                     name={FormDataEnum.vin}
-                    defaultValue={store.VIN}
+                    defaultValue={state?.data?.vin || ""}
                     className="input"
                 />
             </div>
@@ -82,7 +122,7 @@ export default function VehicleForm(props: IVehicleEditProps) {
                 <label>SPZ</label>
                 <input
                     name={FormDataEnum.registrationSign}
-                    defaultValue={store.registrationSign}
+                    defaultValue={state?.data?.registrationSign || ""}
                     className="input"
                 />
             </div>
@@ -92,7 +132,7 @@ export default function VehicleForm(props: IVehicleEditProps) {
                 <input
                     type="date"
                     name={FormDataEnum.stkExpired}
-                    defaultValue={store.stkExpired?.toString()}
+                    defaultValue={formattedStkExpired}
                     className="input"
                 />
             </div>
@@ -101,7 +141,7 @@ export default function VehicleForm(props: IVehicleEditProps) {
                 <label>Euro norma</label>
                 <select
                     name={FormDataEnum.euro}
-                    defaultValue={store.euro}
+                    defaultValue={state?.data?.euro}
                     className="input"
                 >
                     {Object.values(EuroStandard).map((euro) => (
@@ -118,7 +158,7 @@ export default function VehicleForm(props: IVehicleEditProps) {
                             type="checkbox"
                             name={FormDataEnum.amenities}
                             value={amenity}
-                            defaultChecked={store.amenities.includes(amenity)}
+                            defaultChecked={state?.data?.amenities?.includes(amenity)}
                         /> {amenity}
                     </label>
                 ))}
@@ -128,38 +168,47 @@ export default function VehicleForm(props: IVehicleEditProps) {
                 <ImageUploader
                     label={"frontPhoto"}
                     inputName={FormDataEnum.frontPhoto}
+                    initialImage={store.frontPhoto?.path}
                 />
                 <ImageUploader
                     label={"rearPhoto"}
                     inputName={FormDataEnum.rearPhoto}
+                    initialImage={store.rearPhoto?.path}
                 />
                 <ImageUploader
                     label={"leftSidePhoto"}
                     inputName={FormDataEnum.leftSidePhoto}
+                    initialImage={store.leftSidePhoto?.path}
                 />
                 <ImageUploader
                     label={"rightSidePhoto"}
                     inputName={FormDataEnum.rightSidePhoto}
+                    initialImage={store.rightSidePhoto?.path}
                 />
                 <ImageUploader
                     label={"interierPhoto1"}
                     inputName={FormDataEnum.interierPhoto1}
+                    initialImage={store.interierPhoto1?.path}
                 />
                 <ImageUploader
                     label={"interierPhoto2"}
                     inputName={FormDataEnum.interierPhoto2}
+                    initialImage={store.interierPhoto2?.path}
                 />
                 <ImageUploader
                     label={"technicalCertificate1"}
                     inputName={FormDataEnum.technicalCertificate1}
+                    initialImage={store.technicalCertificate1?.path}
                 />
                 <ImageUploader
                     label={"technicalCertificate2"}
                     inputName={FormDataEnum.technicalCertificate2}
+                    initialImage={store.technicalCertificate2?.path}
                 />
                 <ImageUploader
                     label={"insurance"}
                     inputName={FormDataEnum.insurance}
+                    initialImage={store.insurancePhoto?.path}
                 />
             </div>
 

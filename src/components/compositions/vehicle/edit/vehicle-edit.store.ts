@@ -17,7 +17,7 @@ export class VehicleEditStore {
     @observable private _yearOfManufacture: number;
     @observable private _personsCapacity: number;
     @observable private _euro: EuroStandard;
-    @observable private _amenities: Amenities[];
+    private _amenities: Amenities[];
     @observable private _handicappedUserCount: number;
     @observable private _frontPhoto: Photo|null;
     @observable private _rearPhoto: Photo|null;
