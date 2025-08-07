@@ -1,5 +1,5 @@
 import React from "react";
-import {useTranslate} from "@/src/hooks/translateHook";
+import {useCurrentLocale, useTranslate} from "@/src/hooks/translateHook";
 import styles from "./trip-route-create.module.scss";
 import {observer} from "mobx-react";
 import {DatePicker} from "../../../../components/inputs/date-picker/date-picker";
@@ -10,7 +10,6 @@ import {formatTimeForTrip, getFormattedDistance} from "@/src/utils/common";
 import {formatDateTime} from "@/src/utils/date-time.format";
 import {ValidationState} from "../../../../components/inputs/inputEnum";
 import {ValidationTooltip} from "../../../../components/validation-tooltip/validation-tooltip";
-import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 
 export interface ITripRouteCreateProps {
     trip: Trip;
@@ -19,6 +18,7 @@ export interface ITripRouteCreateProps {
 
 export const TripRouteCreate = observer((props: ITripRouteCreateProps) => {
     const {route, trip} = props;
+    const locale = useCurrentLocale();
     const {t} = useTranslate("component.trip");
 
     return <div className={styles.layout}>
@@ -48,7 +48,7 @@ export const TripRouteCreate = observer((props: ITripRouteCreateProps) => {
                         }}
                         placeholderText={t("timeFromPlaceHolder")}
                         showTimeSelect={true}
-                        locale={AppConfiguration.instance.locale}
+                        locale={locale}
                     />
                 </ValidationTooltip>
             </div>
@@ -69,7 +69,7 @@ export const TripRouteCreate = observer((props: ITripRouteCreateProps) => {
             <span className={styles.label}>{t("computedTimeToLabel")}: </span>
             <span className={styles.date}>{formatDateTime({
                 date: route.endTime,
-                locale: AppConfiguration.instance.locale
+                locale: locale
             })}</span>
         </div>
     </div>

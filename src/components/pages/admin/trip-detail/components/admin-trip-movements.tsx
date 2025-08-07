@@ -3,8 +3,8 @@ import {FlexGap} from "@/src/enums/layout.enum";
 import {TripOfferMovement} from "@/src/data/tripOfferMovement";
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 import {formatDateTime} from "@/src/utils/date-time.format";
-import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
+import {useCurrentLocale} from "@/src/hooks/translateHook";
 
 interface IAdminTripMovementsProps {
     movements: TripOfferMovement[];
@@ -12,7 +12,7 @@ interface IAdminTripMovementsProps {
 
 export const AdminTripMovements = (props: IAdminTripMovementsProps) => {
     const {movements} = props;
-    const _configuration = AppConfiguration.instance;
+    const locale = useCurrentLocale();
 
     const _renderItem = (movement: TripOfferMovement) => {
         return <LayoutFlexRow gap={FlexGap.TINY_8}>
@@ -21,7 +21,7 @@ export const AdminTripMovements = (props: IAdminTripMovementsProps) => {
             {movement.reason && <div>Reason: <b>{movement.reason?.toString()}</b></div>}
             {movement.customReason && <div>Custom Reason: <b>{movement.customReason}</b></div>}
             <div>Date: {formatDateTime({
-                locale: _configuration.locale,
+                locale: locale,
                 date: movement.datetime
             })}</div>
         </LayoutFlexRow>

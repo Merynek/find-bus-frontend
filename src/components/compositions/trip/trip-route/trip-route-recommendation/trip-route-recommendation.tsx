@@ -2,13 +2,12 @@ import React from "react";
 import styles from "./trip-route-recommendation.module.scss";
 import {observer} from "mobx-react";
 import {DatePicker} from "../../../../components/inputs/date-picker/date-picker";
-import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import {Route} from "@/src/data/trip/route";
 import {Trip} from "@/src/data/trip/trip";
 import {TripStop} from "../../trip-stop/trip-stop/trip-stop";
 import {formatTimeForTrip, getFormattedDistance} from "@/src/utils/common";
 import {formatDateTime} from "@/src/utils/date-time.format";
-import {useTranslate} from "@/src/hooks/translateHook";
+import {useCurrentLocale, useTranslate} from "@/src/hooks/translateHook";
 
 export interface ITripRouteRecommendationProps {
     trip: Trip;
@@ -17,6 +16,7 @@ export interface ITripRouteRecommendationProps {
 
 export const TripRouteRecommendation = observer((props: ITripRouteRecommendationProps) => {
     const {route, trip} = props;
+    const locale = useCurrentLocale();
     const {t} = useTranslate("component.trip");
 
     return <div className={styles.layout}>
@@ -41,7 +41,7 @@ export const TripRouteRecommendation = observer((props: ITripRouteRecommendation
                     }}
                     placeholderText={t("timeFromPlaceHolder")}
                     showTimeSelect={true}
-                    locale={AppConfiguration.instance.locale}
+                    locale={locale}
                 />
             </div>
         </div>
@@ -60,7 +60,7 @@ export const TripRouteRecommendation = observer((props: ITripRouteRecommendation
         <div className={styles.section}>
             <span className={styles.label}>{t("computedTimeToLabel")}: </span>
             <span className={styles.date}>{formatDateTime({
-                locale: AppConfiguration.instance.locale,
+                locale: locale,
                 date: route.computedEndTime
             })}
             </span>

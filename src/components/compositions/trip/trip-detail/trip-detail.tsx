@@ -1,6 +1,5 @@
 import {Trip} from "@/src/data/trip/trip";
 import React from "react";
-import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import styles from "./trip-detail.module.scss";
 import {formatDateTime} from "@/src/utils/date-time.format";
 import {cn, getFormattedDistance} from "@/src/utils/common";
@@ -8,6 +7,7 @@ import {Countdown} from "../../../components/countdown/countdown";
 import {Route} from "@/src/data/trip/route";
 import {Icon} from "../../../components/icon/icon";
 import {IconType} from "@/src/enums/icon.enum";
+import {useCurrentLocale} from "@/src/hooks/translateHook";
 
 export interface ITripDetailProps {
     trip: Trip;
@@ -15,7 +15,7 @@ export interface ITripDetailProps {
 
 export const TripDetail = (props: ITripDetailProps) => {
     const {trip} = props;
-    const configuration = AppConfiguration.instance;
+    const locale = useCurrentLocale();
 
     const _renderRoute = (route: Route, index: number) => {
         return <div key={index}>
@@ -23,7 +23,7 @@ export const TripDetail = (props: ITripDetailProps) => {
                 <div className={styles.line}>
                     <span>Odjezd - {formatDateTime({
                         date: route.start,
-                        locale: configuration.locale
+                        locale: locale
                     })}</span>
                 </div>
                 <div className={styles.line}>
@@ -36,7 +36,7 @@ export const TripDetail = (props: ITripDetailProps) => {
 
                     <span>Přijezd - {formatDateTime({
                         date: route.end,
-                        locale: configuration.locale
+                        locale: locale
                     })}</span>
                 </div>
             </div>
@@ -61,7 +61,7 @@ export const TripDetail = (props: ITripDetailProps) => {
             <span>Nabídka končí:</span>
             <span>{formatDateTime({
                 date: trip.endOrder,
-                locale: configuration.locale
+                locale: locale
             })}</span>
         </div>
         <div className={styles.line}>

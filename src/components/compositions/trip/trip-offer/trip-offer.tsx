@@ -4,7 +4,6 @@ import styles from "./trip-offer.module.scss";
 import {Offer} from "@/src/data/offer";
 import {Vehicle} from "@/src/data/users/vehicle";
 import {formatDateTime} from "@/src/utils/date-time.format";
-import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import {VehicleDetailModal} from "../../vehicle/modal-vehicle-detail/vehicle-detail-modal";
 import {LayoutFlexColumn} from "../../../components/layout/layout-flex-column/layout-flex-column";
 import {LayoutFlexRow} from "../../../components/layout/layout-flex-row/layout-flex-row";
@@ -15,6 +14,7 @@ import {
 } from "@/src/components/compositions/invoices/financial-document/financial-document-detail";
 import {VehicleService} from "@/src/services/VehicleService";
 import {useApp} from "@/src/app/contexts/AppContext";
+import {useCurrentLocale} from "@/src/hooks/translateHook";
 
 export interface ITripOfferProps {
     offer: Offer;
@@ -22,7 +22,7 @@ export interface ITripOfferProps {
 
 export const TripOffer = observer((props: ITripOfferProps) => {
     const {offer} = props;
-    const _configuration = AppConfiguration.instance;
+    const locale = useCurrentLocale();
     const {showLoader, hideLoader} = useApp();
     const [vehicleDetail, setVehicleDetail] = useState<Vehicle|null>(null);
 
@@ -46,10 +46,12 @@ export const TripOffer = observer((props: ITripOfferProps) => {
             </div>
             <ButtonClick
                 onClick={async () => {
-                    showLoader();
-                    const detailVehicle = await VehicleService.getVehicle(vehicle.id)
-                    hideLoader();
-                    setVehicleDetail(detailVehicle);
+                    if (vehicle.id) {
+                        showLoader();
+                        const detailVehicle = await VehicleService.getVehicle(vehicle.id)
+                        hideLoader();
+                        setVehicleDetail(detailVehicle);
+                    }
                 }}
                 label={"Vehicle Detail"}
                 type={ButtonType.YELLOW}
@@ -76,7 +78,7 @@ export const TripOffer = observer((props: ITripOfferProps) => {
             <span>End Offer: </span>
             <div>{formatDateTime({
                 date: offer.endOfferDate,
-                locale: _configuration.locale
+                locale: locale
             })}</div>
         </div>
         <div className={styles.line}>

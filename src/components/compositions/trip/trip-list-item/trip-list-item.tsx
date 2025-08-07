@@ -13,6 +13,7 @@ import {IconType} from "@/src/enums/icon.enum";
 import {Icon} from "../../../components/icon/icon";
 import { AppConfiguration } from "@/src/singletons/AppConfiguration";
 import {useLoggedUser} from "@/src/hooks/authenticationHook";
+import {useCurrentLocale} from "@/src/hooks/translateHook";
 
 export interface ITripListItemProps {
     tripItem: TripItem;
@@ -21,6 +22,7 @@ export interface ITripListItemProps {
 export const TripListItem = observer((props: ITripListItemProps) => {
     const {tripItem} = props;
     const {user} = useLoggedUser();
+    const locale = useCurrentLocale();
 
     const _renderRoute = (route: Route, index: number) => {
         return <div key={index}>
@@ -28,7 +30,7 @@ export const TripListItem = observer((props: ITripListItemProps) => {
                 <div className={styles.line}>
                     <span>Odjezd - {formatDateTime({
                         date: route.start,
-                        locale: AppConfiguration.instance.locale
+                        locale: locale
                     })}</span>
                 </div>
                 <div className={styles.line}>
@@ -40,7 +42,7 @@ export const TripListItem = observer((props: ITripListItemProps) => {
                 <div className={styles.line}>
                     <span>Přijezd - {formatDateTime({
                         date: route.end,
-                        locale: AppConfiguration.instance.locale
+                        locale: locale
                     })}</span>
                 </div>
             </div>
@@ -85,7 +87,7 @@ export const TripListItem = observer((props: ITripListItemProps) => {
             <span>Nabídka končí:</span>
             <span>{formatDateTime({
                 date: tripItem.endOffer,
-                locale: AppConfiguration.instance.locale
+                locale: locale
             })}</span>
         </div>
         <div className={styles.line}>

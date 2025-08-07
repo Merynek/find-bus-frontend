@@ -1,22 +1,21 @@
-import {observer} from "mobx-react";
 import styles from "./financial-document-detail.module.scss";
 import {LayoutFlexRow} from "../../../components/layout/layout-flex-row/layout-flex-row";
 import React from "react";
 import {formatDateTime} from "@/src/utils/date-time.format";
-import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import {ButtonClick, ButtonSize, ButtonType} from "../../../components/button/button";
 import {FinancialDocument} from "@/src/data/documents/financialDocument";
 import {TripOfferService} from "@/src/services/TripOfferService";
 import {useApp} from "@/src/app/contexts/AppContext";
+import {useCurrentLocale} from "@/src/hooks/translateHook";
 
 export interface IFinancialDocumentProps {
     document: FinancialDocument;
 }
 
-export const FinancialDocumentDetail = observer((props: IFinancialDocumentProps) => {
+export const FinancialDocumentDetail = (props: IFinancialDocumentProps) => {
     const {document} = props;
-    const locale = AppConfiguration.instance.locale
     const {showLoader, hideLoader} = useApp();
+    const locale = useCurrentLocale();
 
     return <div className={styles.layout}>
         <LayoutFlexRow>
@@ -67,4 +66,4 @@ export const FinancialDocumentDetail = observer((props: IFinancialDocumentProps)
             size={ButtonSize.BUTTON_SIZE_M}
         />
     </div>
-});
+};

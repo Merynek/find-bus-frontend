@@ -1,6 +1,6 @@
 "use client";
 
-import {useTranslate} from "@/src/hooks/translateHook";
+import {useCurrentLocale, useTranslate} from "@/src/hooks/translateHook";
 import React from "react";
 import {observer} from "mobx-react";
 import {CreateTripPageStore} from "./create-trip.page.store";
@@ -30,6 +30,7 @@ const CreateTripPage = observer(() => {
     const router = useRouter();
     const {showLoader, hideLoader} = useApp();
     const _store = useInit(() => new CreateTripPageStore());
+    const locale = useCurrentLocale();
     const _configuration = AppConfiguration.instance;
     const {t} = useTranslate("component.trip");
     const cfg = _configuration.appBusinessConfig;
@@ -58,7 +59,7 @@ const CreateTripPage = observer(() => {
                 }}
                 placeholderText={"End"}
                 showTimeSelect={true}
-                locale={AppConfiguration.instance.locale}
+                locale={locale}
             />
         </div>
         <div>

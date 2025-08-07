@@ -17,7 +17,6 @@ import {TripOfferService} from "@/src/services/TripOfferService";
 import {UsersService} from "@/src/services/UsersService";
 import {VehicleService} from "@/src/services/VehicleService";
 import {useApp} from "@/src/app/contexts/AppContext";
-import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import {Vehicle} from "@/src/data/users/vehicle";
 import {useLoggedUser} from "@/src/hooks/authenticationHook";
 import {useCurrentLocale} from "@/src/hooks/translateHook";
@@ -57,7 +56,7 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
     const _init = async () => {
         setUserSettings(await UsersService.getSettings(locale));
         if (user?.role === UserRole.TRANSPORTER) {
-            setVehicles(await VehicleService.getVehicles());
+            setVehicles(await VehicleService.getVehicles(locale));
         }
     }
 
@@ -100,7 +99,7 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
                     setSelectedEndOfferDate(val)
                 }
             }}
-            locale={AppConfiguration.instance.locale}
+            locale={locale}
         />
     }
 

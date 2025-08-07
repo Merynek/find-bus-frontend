@@ -1,5 +1,4 @@
 import {AppBusinessConfig} from "../data/appBusinessConfig";
-import {LOCALES} from "@/src/utils/locale";
 
 export class AppConfiguration {
     private static _instance: AppConfiguration | null = null;
@@ -38,13 +37,5 @@ export class AppConfiguration {
             return process.env.NEXT_PUBLIC_API_URL;
         }
         throw new Error('Environment variable API_URL is not defined.');
-    }
-
-    public getResourcePath(): string {
-        return this.getApiUrl() + "/Public/";
-    }
-
-    get locale() {
-        return LOCALES.cs_CZ;
     }
 }
