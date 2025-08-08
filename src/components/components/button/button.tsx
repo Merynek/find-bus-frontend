@@ -75,10 +75,13 @@ export const ButtonClick = (props: IClickButtonProps) => {
 
 export const ButtonLink = (props: ILinkButtonProps) => {
     const {size, type, onClick, route, openInTab, isDisabled} = props;
-    const to = `${route.route}${route.param ? ("/" + route.param) : ""}` as any
+    const href = {
+        pathname: route.route,
+        params: route.params,
+    };
 
     return <Link
-        href={to}
+        href={href}
         onClick={onClick}
         className={cn(
             getClassNameForButton(type),

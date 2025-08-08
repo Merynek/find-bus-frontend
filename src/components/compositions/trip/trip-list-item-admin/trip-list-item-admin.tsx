@@ -36,7 +36,10 @@ export const TripListItemAdmin = (props: ITripListItemAdminProps) => {
             </LayoutFlexRow>
             <div style={{maxWidth: "250px"}}>
                 <ButtonLink
-                    route={{route: ROUTES.ADMIN_TRIP_DETAIL, param: tripItem.id.toString()}}
+                    route={{
+                        route: ROUTES.ADMIN_TRIP_DETAIL,
+                        params: { tripId: tripItem.id.toString() }
+                    }}
                     label={"Detail"}
                     type={ButtonType.BLACK}
                     size={ButtonSize.BUTTON_SIZE_M}

@@ -13,15 +13,17 @@ import {AdminTripActions} from "@/src/components/pages/admin/trip-detail/compone
 import {AdminTripMovements} from "@/src/components/pages/admin/trip-detail/components/admin-trip-movements";
 import {TripOfferMovement} from "@/src/data/tripOfferMovement";
 import {Offer} from "@/src/data/offer";
+import {LOCALES} from "@/src/utils/locale";
 
 interface TripDetailPageProps {
     trip: Trip;
     offers: Offer[];
     offerMovements: TripOfferMovement[];
+    locale: LOCALES;
 }
 
 const AdminTripDetailPage = (props: TripDetailPageProps) => {
-    const {trip, offerMovements, offers} = props;
+    const {trip, offerMovements, offers, locale} = props;
 
     const renderInfo = () => {
         return <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
@@ -78,7 +80,7 @@ const AdminTripDetailPage = (props: TripDetailPageProps) => {
     const renderMovements = () => {
         return <LayoutFlexColumn gap={FlexGap.SMALL_16}>
             <Text text={"Movements: "} fontSize={FontSize.M_22} />
-            <AdminTripMovements movements={offerMovements} />
+            <AdminTripMovements movements={offerMovements} locale={locale} />
         </LayoutFlexColumn>
     }
 

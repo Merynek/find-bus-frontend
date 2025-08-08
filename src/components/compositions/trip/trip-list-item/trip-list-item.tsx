@@ -63,7 +63,10 @@ export const TripListItem = observer((props: ITripListItemProps) => {
 
     return <div className={cn(styles.layout, tripItem.offerHasEnded && styles.end, hasOffersForAccept() && styles.offers)}>
         <ButtonLink
-            route={{route: ROUTES.TRIP, param: tripItem.id.toString()}}
+            route={{
+                route: ROUTES.TRIP,
+                params: { tripId: tripItem.id.toString() }
+            }}
             label={"Zobrazit detail"}
             type={ButtonType.YELLOW}
             size={ButtonSize.BUTTON_SIZE_M}

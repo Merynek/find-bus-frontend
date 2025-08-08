@@ -1,7 +1,6 @@
 import React, {useCallback} from "react";
 import Select from "react-select"
 import styles from "./combo-box.module.scss";
-import {getPortalRootElement} from "@/src/utils/common";
 
 export interface IComboBoxItem<T> {
     value: T;
@@ -14,13 +13,12 @@ export interface IComboBoxProps<T> {
     items: IComboBoxItem<T>[];
     onChange: (value: IComboBoxItem<T>) => void;
     disabled?: boolean;
-    disablePortal?: boolean;
     isSearchable?: boolean;
 }
 
 export function ComboBox<T>(props: IComboBoxProps<T>) {
     const locKey = "component.comboBox.";
-    const {items, onChange, value,  isSearchable, disabled, disablePortal,  placeHolder } = props;
+    const {items, onChange, value,  isSearchable, disabled,  placeHolder } = props;
 
     const handleChange = useCallback((value: IComboBoxItem<T>|null) => {
         value && onChange(value);
@@ -37,7 +35,6 @@ export function ComboBox<T>(props: IComboBoxProps<T>) {
             onChange={handleChange}
             options={items}
             isSearchable={isSearchable === undefined ? false : isSearchable}
-            menuPortalTarget={disablePortal ? undefined : getPortalRootElement()}
         />
     </div>
 }

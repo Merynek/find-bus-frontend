@@ -18,6 +18,7 @@ async function PageWrapper(props: PageProps<ITripParams>) {
         trip={trip}
         offerMovements={offerMovements}
         offers={offers}
+        locale={params.locale}
     />;
 }
 

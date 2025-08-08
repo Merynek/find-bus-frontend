@@ -4,15 +4,15 @@ import {TripOfferMovement} from "@/src/data/tripOfferMovement";
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 import {formatDateTime} from "@/src/utils/date-time.format";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
-import {useCurrentLocale} from "@/src/hooks/translateHook";
+import {LOCALES} from "@/src/utils/locale";
 
 interface IAdminTripMovementsProps {
     movements: TripOfferMovement[];
+    locale: LOCALES;
 }
 
 export const AdminTripMovements = (props: IAdminTripMovementsProps) => {
-    const {movements} = props;
-    const locale = useCurrentLocale();
+    const {movements, locale} = props;
 
     const _renderItem = (movement: TripOfferMovement) => {
         return <LayoutFlexRow gap={FlexGap.TINY_8}>

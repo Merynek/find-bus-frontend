@@ -1,6 +1,7 @@
+
 export interface IRoute {
     route: ROUTES;
-    param?: string;
+    params?: Record<string, string>;
 }
 
 export enum ROUTES {
@@ -14,12 +15,12 @@ export enum ROUTES {
     VEHICLES = "/vehicles",
     CREATE_TRIP = "/create-trip",
     TRIP_LIST = "/trips",
-    TRIP = "/trip",
+    TRIP = "/trip[tripId]",
     ADMIN_TRIPS = "/admin/trips",
     APP_CONFIG = "/admin/config",
     EMAIL_CONFIG = "/admin/emails",
     ADMIN_USERS = "/admin/users",
-    ADMIN_TRIP_DETAIL = "/admin/trip"
+    ADMIN_TRIP_DETAIL = "/admin/trip/[tripId]"
 }
 
 export enum SEARCH_PARAMS {

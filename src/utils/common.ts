@@ -7,22 +7,6 @@ export const setWindowScrolling = (enable: boolean) => {
     document.body.style.overflowY = enable ? "auto" : "hidden";
 }
 
-export const getPortalRootElement = (): HTMLElement => {
-    let portalRoot: HTMLElement;
-    const portalRootId = "portal-root";
-    const modalRoot = document.getElementById(portalRootId);
-    if (modalRoot === null) {
-        portalRoot = document.createElement("div");
-        portalRoot.classList.add("react-content");
-        portalRoot.classList.add("react-tooltip");
-        portalRoot.id = portalRootId;
-        document.body.appendChild(portalRoot)
-    } else {
-        portalRoot = modalRoot;
-    }
-    return portalRoot;
-}
-
 export function getRandomNumber(min: number, max: number) {
     if (max > INT_32_MAX_VALUE) {
         max = INT_32_MAX_VALUE;
