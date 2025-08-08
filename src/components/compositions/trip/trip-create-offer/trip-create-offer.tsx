@@ -20,6 +20,7 @@ import {useApp} from "@/src/app/contexts/AppContext";
 import {Vehicle} from "@/src/data/users/vehicle";
 import {useLoggedUser} from "@/src/hooks/authenticationHook";
 import {useCurrentLocale} from "@/src/hooks/translateHook";
+import {PriceConverter} from "@/src/converters/price-converter";
 
 export interface ITripCreateOfferProps {
     trip: Trip;
@@ -182,7 +183,7 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
                         await TripOfferService.createOffer({
                             tripId: trip.id,
                             vehicleId: currentBus ? Number(currentBus.value) : 0,
-                            price: price.current,
+                            price: PriceConverter.toJson(price.current),
                             endOfferDate: selectedEndOfferDate
                         });
                         hideLoader();

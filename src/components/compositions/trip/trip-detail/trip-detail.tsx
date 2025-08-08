@@ -1,4 +1,8 @@
-import {Trip} from "@/src/data/trip/trip";
+"use client"
+
+import {useInit} from "@/src/hooks/lifecycleHooks";
+import {useCurrentLocale} from "@/src/hooks/translateHook";
+import {TripResponseDto} from "@/src/api/openapi";
 import React from "react";
 import styles from "./trip-detail.module.scss";
 import {formatDateTime} from "@/src/utils/date-time.format";
@@ -7,14 +11,15 @@ import {Countdown} from "../../../components/countdown/countdown";
 import {Route} from "@/src/data/trip/route";
 import {Icon} from "../../../components/icon/icon";
 import {IconType} from "@/src/enums/icon.enum";
-import {useCurrentLocale} from "@/src/hooks/translateHook";
+import {TripConverter} from "@/src/converters/trip/trip-converter";
+import {observer} from "mobx-react";
 
 export interface ITripDetailProps {
-    trip: Trip;
+    trip: TripResponseDto;
 }
 
-export const TripDetail = (props: ITripDetailProps) => {
-    const {trip} = props;
+export const TripDetail = observer((props: ITripDetailProps) => {
+    const trip = useInit(() => TripConverter.toInstance(props.trip));
     const locale = useCurrentLocale();
 
     const _renderRoute = (route: Route, index: number) => {
@@ -83,4 +88,4 @@ export const TripDetail = (props: ITripDetailProps) => {
             {trip.routes.map(_renderRoute)}
         </div>
     </div>
-};
+});

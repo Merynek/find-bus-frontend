@@ -8,6 +8,7 @@ import {Trip} from "../../data/trip/trip";
 import {TripRecommendation, TripRecommendationRoute} from "../../data/tripRecommendation";
 import {milliSecondsToSeconds} from "../../utils/common";
 import {RouteConverter} from "./route-converter";
+import {toJS} from "mobx";
 
 export class TripConverter {
     public static toInstance(apiTrip: TripResponseDto): Trip {
@@ -32,7 +33,7 @@ export class TripConverter {
             routes: trip.routes.map((r) => RouteConverter.toServer(r)),
             numberOfPersons: trip.numberOfPersons,
             dietForTransporter: trip.dietForTransporter,
-            amenities: trip.amenities,
+            amenities: toJS(trip.amenities),
             endOrder: trip.endOrder,
             handicappedUserCount: trip.handicappedUserCount
         }
@@ -72,7 +73,7 @@ export class TripConverter {
             ownerId: trip.ownerId,
             routes: trip.routes.map(r => RouteConverter.toJson(r)),
             numberOfPersons: trip.numberOfPersons,
-            amenities: trip.amenities,
+            amenities: toJS(trip.amenities),
             dietForTransporter: trip.dietForTransporter,
             endOrder: trip.endOrder,
             offerHasEnded: trip.offerHasEnded,

@@ -2,13 +2,11 @@ import {ApiConfiguration} from "./apiConfiguration";
 import * as OpenApi from "./openapi";
 import {
     CloseTripOfferReason,
-    type FinancialDocumentType,
+    type FinancialDocumentType, PriceDto,
     TripOfferAcceptMethod,
     type TripOfferMovementsResponseDto, type TripOfferResponseDto
 } from "./openapi";
 import {IApiRequest} from "./toolsApi";
-import {Price} from "../data/price";
-import {PriceConverter} from "../converters/price-converter";
 
 export interface IGetTripMovementsRequest extends IApiRequest {
     tripId: number;
@@ -34,7 +32,7 @@ export interface IPostFinishTripRequest extends IApiRequest {
 export interface ICreateOfferRequest extends IApiRequest {
     tripId: number;
     vehicleId: number;
-    price: Price;
+    price: PriceDto;
     endOfferDate: Date;
 }
 
@@ -114,7 +112,7 @@ export class TripsOfferApi {
     public async createOffer(req: ICreateOfferRequest): Promise<void> {
         await this._api.apiTripOfferOfferPost({
             createOfferRequestDto: {
-                price: PriceConverter.toJson(req.price),
+                price: req.price,
                 tripId: req.tripId,
                 vehicleId: req.vehicleId,
                 endOfferDate: req.endOfferDate

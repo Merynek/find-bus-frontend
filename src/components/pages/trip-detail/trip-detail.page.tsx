@@ -13,7 +13,7 @@ const TripDetailPage = (props: TripDetailPageProps) => {
     const { trip } = props;
 
     return <div className={styles.layout}>
-        <TripDetail trip={trip} />
+        <TripDetail trip={TripConverter.toJson(trip)} />
         <TripOfferSection trip={TripConverter.toJson(trip)} />
     </div>
 };

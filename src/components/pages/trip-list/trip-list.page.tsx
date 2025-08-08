@@ -9,6 +9,7 @@ import {TripFilter} from "../../compositions/trip/trip-filter/trip-filter";
 import {ButtonClick, ButtonSize, ButtonType} from "../../components/button/button";
 import {usePathname, useRouter, useSearchParams} from 'next/navigation';
 import {SEARCH_PARAMS} from "@/src/enums/router.enum";
+import {useCurrentLocale} from "@/src/hooks/translateHook";
 
 const TripListPage = observer(() => {
     const _storeRef = useRef<TripListPageStore>(new TripListPageStore());
@@ -16,6 +17,7 @@ const TripListPage = observer(() => {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
+    const locale = useCurrentLocale();
 
     useEffect(() => {
         const page = searchParams.get(SEARCH_PARAMS.PAGE);
@@ -33,7 +35,8 @@ const TripListPage = observer(() => {
             onlyMine: onlyMine === "true",
             meOffered: meOffered === "true",
             distanceFrom: distanceFrom ? Number(distanceFrom) : undefined,
-            distanceTo: distanceTo ? Number(distanceTo) : undefined
+            distanceTo: distanceTo ? Number(distanceTo) : undefined,
+            locale: locale
         })
     }, [searchParams]);
 

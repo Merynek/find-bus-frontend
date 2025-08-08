@@ -1,7 +1,7 @@
 import {computed, makeObservable, observable, runInAction} from "mobx";
 import {Currency} from "../api/openapi";
 
-interface IPrice {
+export interface IPrice {
     amount: number;
     currency: Currency;
 }

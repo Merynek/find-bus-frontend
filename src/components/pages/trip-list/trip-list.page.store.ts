@@ -2,6 +2,7 @@ import {makeObservable, observable} from "mobx";
 import {TripFilterStore} from "../../compositions/trip/trip-filter/trip-filter.store";
 import {TripItem} from "@/src/data/tripItem";
 import {TripService} from "@/src/services/TripService";
+import {LOCALES} from "@/src/utils/locale";
 
 interface ITripListParams {
     page?: number;
@@ -11,6 +12,7 @@ interface ITripListParams {
     meOffered?: boolean;
     distanceFrom?: number;
     distanceTo?: number;
+    locale: LOCALES;
 }
 
 export class TripListPageStore {
@@ -31,10 +33,10 @@ export class TripListPageStore {
         this.filter.meOffered = params.meOffered || false;
         this.filter.distanceFromInKm = params.distanceFrom || 0;
         this.filter.distanceToInKm = params.distanceTo || 0;
-        await this._loadTrips();
+        await this._loadTrips(params.locale);
     }
 
-    private _loadTrips = async () => {
+    private _loadTrips = async (locale: LOCALES) => {
         this.tripItems = await TripService.getTrips({
             limit: 5,
             offset: (this.filter.page - 1) * 5,
@@ -43,8 +45,8 @@ export class TripListPageStore {
             onlyMine: this.filter.onlyMine || undefined,
             meOffered: this.filter.meOffered || undefined,
             distanceFromInKm: this.filter.distanceFromInKm > 0 ? this.filter.distanceFromInKm : undefined,
-            distanceToInKm: this.filter.distanceToInKm > 0 ? this.filter.distanceToInKm : undefined
-        });
+            distanceToInKm: this.filter.distanceToInKm > 0 ? this.filter.distanceToInKm : undefined,
+        }, locale);
     }
 
     public async setPage(next: boolean) {

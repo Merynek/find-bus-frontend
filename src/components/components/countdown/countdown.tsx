@@ -1,5 +1,6 @@
+"use client"
+
 import React, {useRef, useState} from "react";
-import {observer} from "mobx-react";
 import styles from "./countdown.module.scss";
 import {useUnmount, useMount} from "@/src/hooks/lifecycleHooks";
 
@@ -8,7 +9,7 @@ export interface ICountdownProps {
     onDone: () => void;
 }
 
-export const Countdown = observer((props: ICountdownProps) => {
+export const Countdown = (props: ICountdownProps) => {
     const {onDone, deadLine} = props;
     const [days, setDays] = useState(0);
     const [hours, setHours] = useState(0);
@@ -30,7 +31,9 @@ export const Countdown = observer((props: ICountdownProps) => {
         const updateClock = () => {
             const total = _computeTimeRemaining();
             if (total <= 0) {
-                timeIntervalRef.current && clearInterval(timeIntervalRef.current);
+                if (timeIntervalRef.current) {
+                    clearInterval(timeIntervalRef.current);
+                }
                 onDone();
             }
         }
@@ -48,4 +51,4 @@ export const Countdown = observer((props: ICountdownProps) => {
         <span><b>Minutes: </b> {('0' + minutes).slice(-2)}</span>
         <span><b>Seconds: </b>{('0' + seconds).slice(-2)}</span>
     </div>
-});
+};

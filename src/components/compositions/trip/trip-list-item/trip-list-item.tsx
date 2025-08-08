@@ -11,7 +11,6 @@ import {TripItem} from "@/src/data/tripItem";
 import {ROUTES} from "@/src/enums/router.enum";
 import {IconType} from "@/src/enums/icon.enum";
 import {Icon} from "../../../components/icon/icon";
-import { AppConfiguration } from "@/src/singletons/AppConfiguration";
 import {useLoggedUser} from "@/src/hooks/authenticationHook";
 import {useCurrentLocale} from "@/src/hooks/translateHook";
 
