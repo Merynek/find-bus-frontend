@@ -7,6 +7,10 @@ export const setWindowScrolling = (enable: boolean) => {
     document.body.style.overflowY = enable ? "auto" : "hidden";
 }
 
+export const resetPage = () => {
+    window.location.reload();
+}
+
 export function getRandomNumber(min: number, max: number) {
     if (max > INT_32_MAX_VALUE) {
         max = INT_32_MAX_VALUE;

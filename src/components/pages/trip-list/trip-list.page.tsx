@@ -7,15 +7,15 @@ import {observer} from "mobx-react";
 import {TripListItem} from "../../compositions/trip/trip-list-item/trip-list-item";
 import {TripFilter} from "../../compositions/trip/trip-filter/trip-filter";
 import {ButtonClick, ButtonSize, ButtonType} from "../../components/button/button";
-import {usePathname, useRouter, useSearchParams} from 'next/navigation';
-import {SEARCH_PARAMS} from "@/src/enums/router.enum";
+import { useSearchParams} from 'next/navigation';
+import {ROUTES, SEARCH_PARAMS} from "@/src/enums/router.enum";
 import {useCurrentLocale} from "@/src/hooks/translateHook";
+import { useRouter } from '@/src/i18n/navigation';
 
 const TripListPage = observer(() => {
     const _storeRef = useRef<TripListPageStore>(new TripListPageStore());
     const filter = _storeRef.current.filter;
     const router = useRouter();
-    const pathname = usePathname();
     const searchParams = useSearchParams();
     const locale = useCurrentLocale();
 
@@ -50,7 +50,12 @@ const TripListPage = observer(() => {
         currentParams.set(SEARCH_PARAMS.ME_OFFERED, filter.meOffered.toString());
         currentParams.set(SEARCH_PARAMS.DISTANCE_FROM, filter.distanceToInKm.toString());
         currentParams.set(SEARCH_PARAMS.DISTANCE_TO, filter.distanceToInKm.toString());
-        router.push(`${pathname}?${currentParams.toString()}`);
+        const newQuery = Object.fromEntries(currentParams.entries());
+
+        router.push({
+            pathname: ROUTES.TRIP_LIST,
+            query: newQuery
+        });
     }
 
     const _renderFilter = () => {

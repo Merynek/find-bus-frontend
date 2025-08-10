@@ -10,7 +10,7 @@ import {TripOfferAccept} from "../trip-offer-accept/trip-offer-accept";
 import {useInit, useMount} from "@/src/hooks/lifecycleHooks";
 import {Offer} from "@/src/data/offer";
 import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/src/i18n/navigation';
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {FlexGap} from "@/src/enums/layout.enum";
 import {TripConverter} from "@/src/converters/trip/trip-converter";

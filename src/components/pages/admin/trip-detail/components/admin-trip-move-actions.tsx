@@ -5,12 +5,12 @@ import React from "react";
 import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
 import {Offer} from "@/src/data/offer";
 import {TripOfferResponseDto, TripOfferState, TripResponseDto} from "@/src/api/openapi";
-import { useRouter } from 'next/navigation';
 import {TripOfferConverter} from "@/src/converters/trip-offer-converter";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
 import {useApp} from "@/src/app/contexts/AppContext";
 import {TripOfferService} from "@/src/services/TripOfferService";
 import {useInit} from "@/src/hooks/lifecycleHooks";
+import {resetPage} from "@/src/utils/common";
 
 interface IAdminTripMoveActionsProps {
     trip: TripResponseDto;
@@ -21,7 +21,7 @@ export const AdminTripMoveActions = (props: IAdminTripMoveActionsProps) => {
     const offers = props.offers.map(o => TripOfferConverter.toInstance(o));
     const trip = useInit(() => TripConverter.toInstance(props.trip));
     const { showLoader, hideLoader } = useApp();
-    const router = useRouter();
+
 
     const getOfferToPay = (): Offer|null => {
         const acceptedOffer = offers.find(offer => offer.accepted);
@@ -58,7 +58,7 @@ export const AdminTripMoveActions = (props: IAdminTripMoveActionsProps) => {
                 showLoader();
                 await TripOfferService.payedOffer(offer.id);
                 hideLoader();
-                router.refresh();
+                resetPage();
             }}
             label={"Payed Offer"}
             type={ButtonType.YELLOW}
@@ -72,7 +72,7 @@ export const AdminTripMoveActions = (props: IAdminTripMoveActionsProps) => {
                 showLoader();
                 await TripOfferService.startTrip(trip.id);
                 hideLoader();
-                router.refresh();
+                resetPage();
             }}
             label={"Start Trip"}
             type={ButtonType.YELLOW}
@@ -86,7 +86,7 @@ export const AdminTripMoveActions = (props: IAdminTripMoveActionsProps) => {
                 showLoader();
                 await TripOfferService.finishTrip(trip.id);
                 hideLoader();
-                router.refresh();
+                resetPage();
             }}
             label={"Finish Trip"}
             type={ButtonType.YELLOW}

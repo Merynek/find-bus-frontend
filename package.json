@@ -34,7 +34,7 @@
     "react-dom": "^19.0.0",
     "react-file-drop": "^3.1.6",
     "react-resize-detector": "^12.1.0",
-    "react-select": "^5.10.1",
+    "react-select": "^5.10.2",
     "zod": "^3.25.76"
   },
   "devDependencies": {
