@@ -1,5 +1,3 @@
-/* tslint:disable */
-/* eslint-disable */
 export * from './AcceptOfferRequestDto';
 export * from './AccessTokenDto';
 export * from './AddVehicleRequestDto';

@@ -1,13 +1,13 @@
 import {Meta, StoryObj} from "@storybook/react";
 import React from "react";
-import HomePage, {IHomePageProps} from "./home-page";
+import HomePage from "./home-page";
 
 export default {
     component: HomePage,
     args: {}
-} as Meta<IHomePageProps>;
+};
 
-export const HomePageStory: StoryObj<IHomePageProps> = {
+export const HomePageStory: StoryObj = {
     render: (args) => <HomePage {...args} />,
     args: {}
 };

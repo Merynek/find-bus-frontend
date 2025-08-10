@@ -16,5 +16,6 @@ export function getRandomFinancialDocument(): FinancialDocument {
         payed: getRandomBoolean(),
         dueDate: getRandomDate(),
         dateOfIssue: getRandomDate(),
+        internalDocumentNumber: getRandomText(10)
     })
 }

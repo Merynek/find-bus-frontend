@@ -2,6 +2,7 @@ import {getRandomTrip} from "@/dataGenerator/trip";
 import React from "react";
 import {ITripDetailProps, TripDetail} from "./trip-detail";
 import {Meta, StoryObj} from "@storybook/react";
+import {TripConverter} from "@/src/converters/trip/trip-converter";
 
 export default {
     component: TripDetail,
@@ -12,7 +13,7 @@ export default {
 export const TripDetailStory: StoryObj<ITripDetailProps> = {
     render: (args) => <TripDetail
         {...args}
-        trip={getRandomTrip()}
+        trip={TripConverter.toJson(getRandomTrip())}
     />,
     args: {}
 };

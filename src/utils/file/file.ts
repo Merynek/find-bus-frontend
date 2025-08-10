@@ -1,5 +1,6 @@
 import {Photo} from "../../data/media/photo";
 import {Video, VideoType} from "../../data/media/video";
+import {FileCategory, FileType} from "@/src/api/openapi";
 
 export async function getPhotosFromFiles(files: File[]): Promise<Photo[]> {
     return new Promise<Photo[]>(async (resolve, reject) => {
@@ -8,7 +9,9 @@ export async function getPhotosFromFiles(files: File[]): Promise<Photo[]> {
 
         for (const f of imageFiles) {
             photos.push(new Photo({
-                file: f
+                path: "",
+                type: FileType.VEHICLE_PHOTO,
+                category: FileCategory.IMAGE
             }));
         }
         resolve(photos);
@@ -22,7 +25,8 @@ export async function getVideosFromFiles(files: File[]): Promise<Video[]> {
             if (fileIsVideo(file)) {
                 videos.push(new Video({
                     file: file,
-                    type: VideoType.VIDEO
+                    type: VideoType.VIDEO,
+                    category: FileCategory.DOCUMENT
                 }));
             }
         }

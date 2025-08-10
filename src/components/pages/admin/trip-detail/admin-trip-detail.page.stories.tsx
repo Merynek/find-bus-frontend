@@ -1,6 +1,8 @@
 import {Meta, StoryObj} from "@storybook/react";
 import React from "react";
 import AdminTripDetailPage from "@/src/components/pages/admin/trip-detail/admin-trip-detail.page";
+import {getRandomOffer, getRandomOfferMovement, getRandomTrip} from "@/dataGenerator/trip";
+import {LOCALES} from "@/src/utils/locale";
 
 const meta: Meta<typeof AdminTripDetailPage> = {
     component: AdminTripDetailPage,
@@ -21,5 +23,10 @@ const meta: Meta<typeof AdminTripDetailPage> = {
 export default meta;
 
 export const Default: StoryObj<typeof AdminTripDetailPage> = {
-    render: (args) => <AdminTripDetailPage />
+    render: () => <AdminTripDetailPage
+        trip={getRandomTrip()}
+        offerMovements={[getRandomOfferMovement()]}
+        offers={[getRandomOffer()]}
+        locale={LOCALES.cs_CZ}
+    />
 };

@@ -8,11 +8,11 @@ import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
-import {SvgIconOwnProps} from "@mui/material/SvgIcon/SvgIcon";
+import {SvgIconProps} from "@mui/material";
 
 interface IIconFromEnumProps {
     icon: IconType;
-    options?: SvgIconOwnProps;
+    options?: SvgIconProps;
 }
 
 export const IconFromEnum = (props: IIconFromEnumProps) => {

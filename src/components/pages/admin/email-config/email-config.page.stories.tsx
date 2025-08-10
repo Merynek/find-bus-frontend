@@ -1,13 +1,16 @@
 import React from "react";
-import EmailConfigPage, {IEmailConfigPageProps} from "./email-config.page";
+import EmailConfigPage from "./email-config.page";
 import {Meta, StoryObj} from "@storybook/react";
+import {getRandomEmailConfig} from "@/dataGenerator/email";
 
 export default {
     component: EmailConfigPage,
     args: {}
-} as Meta<IEmailConfigPageProps>;
+};
 
-export const EmailConfigPageStory: StoryObj<IEmailConfigPageProps> = {
-    render: (args) => <EmailConfigPage {...args} />,
+export const EmailConfigPageStory: StoryObj = {
+    render: () => <EmailConfigPage
+        cfg={getRandomEmailConfig()}
+    />,
     args: {}
 };

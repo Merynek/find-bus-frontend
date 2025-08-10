@@ -81,7 +81,7 @@ export const ButtonLink = (props: ILinkButtonProps) => {
     };
 
     return <Link
-        href={href}
+        href={href as never}
         onClick={onClick}
         className={cn(
             getClassNameForButton(type),

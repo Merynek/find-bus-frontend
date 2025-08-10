@@ -1,13 +1,13 @@
 import React from "react";
-import TripListPage, {ITripListPageProps} from "./trip-list.page";
+import TripListPage from "./trip-list.page";
 import {Meta, StoryObj} from "@storybook/react";
 
 export default {
     component: TripListPage,
     args: {}
-} as Meta<ITripListPageProps>;
+};
 
-export const TripListPageStory: StoryObj<ITripListPageProps> = {
+export const TripListPageStory: StoryObj = {
     render: (args) => <TripListPage {...args} />,
     args: {}
 };

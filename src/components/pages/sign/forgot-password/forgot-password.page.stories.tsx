@@ -1,13 +1,13 @@
 import React from "react";
-import ForgotPasswordPage, {IForgotPasswordPageProps} from "./forgot-password-page";
+import ForgotPasswordPage from "./forgot-password-page";
 import {Meta, StoryObj} from "@storybook/react";
 
 export default {
     component: ForgotPasswordPage,
     args: {}
-} as Meta<IForgotPasswordPageProps>;
+};
 
-export const ForgotPasswordPageStory: StoryObj<IForgotPasswordPageProps> = {
+export const ForgotPasswordPageStory: StoryObj = {
     render: (args) => <ForgotPasswordPage {...args} />,
     args: {}
 };

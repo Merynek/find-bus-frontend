@@ -1,6 +1,7 @@
 import React from "react";
-import {IPageTabsProps, PageTabs} from "./page-tabs";
+import {PageTabs} from "./page-tabs";
 import {Meta, StoryObj} from "@storybook/react";
+import {UserRole} from "@/src/api/openapi";
 
 export default {
     component: PageTabs,
@@ -11,9 +12,13 @@ export default {
         title: "Confirm Dialog",
         submitButtonDisabled: false
     }
-} as Meta<IPageTabsProps>;
+};
 
-export const PageTabsStory: StoryObj<IPageTabsProps> = {
-    render: (args) => <PageTabs {...args} />,
+export const PageTabsStory: StoryObj = {
+    render: () => <PageTabs userDto={{
+        id: 1,
+        email: "test@test.cz",
+        role: UserRole.ADMIN
+    }} />,
     args: {}
 };

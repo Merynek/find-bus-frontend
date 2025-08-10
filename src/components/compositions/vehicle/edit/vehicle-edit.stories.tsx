@@ -1,16 +1,16 @@
 import {getRandomEditVehicleStore} from "@/dataGenerator/vehicle";
 import React from "react";
-import {IVehicleEditProps, VehicleEdit} from "./vehicle-edit";
+import VehicleForm, {IVehicleEditProps} from "./vehicle-edit";
 import {Meta, StoryObj} from "@storybook/react";
 
 export default {
-    component: VehicleEdit,
+    component: VehicleForm,
     args: {
     }
 } as Meta<IVehicleEditProps>;
 
 export const VehicleEditStory: StoryObj<IVehicleEditProps> = {
-    render: (args) => <VehicleEdit
+    render: (args) => <VehicleForm
         {...args}
         store={getRandomEditVehicleStore()}
     />,

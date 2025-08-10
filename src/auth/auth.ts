@@ -25,7 +25,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                         user: loginResponse.user,
                         refreshToken: loginResponse.refreshToken
                     };
-                } catch (error) {
+                } catch (error: unknown) {
+                    if (error instanceof Error) {
+                        console.error("Došlo k chybě:", error.message);
+                    } else {
+                        console.error("Došlo k neznámé chybě:", error);
+                    }
                     return null;
                 }
             },
@@ -53,7 +58,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                 token.data.token.token = newTokens.token;
                 token.data.token.expireDate = newTokens.expireDate;
                 return token;
-            } catch (error) {
+            } catch (error: unknown) {
+                if (error instanceof Error) {
+                    console.error("Došlo k chybě:", error.message);
+                } else {
+                    console.error("Došlo k neznámé chybě:", error);
+                }
                 return null;
             }
         },

@@ -12,9 +12,6 @@ export interface IChangeSettingsRequest extends IApiRequest {
     settings: UserSettingsRequestDto;
 }
 
-export interface IGetSettingsRequest extends IApiRequest {
-}
-
 export interface ISendEmailRequest extends IApiRequest {
     email: string;
 }
@@ -46,8 +43,8 @@ export class UsersApi {
         }, req.initOverrides);
     }
 
-    public async getSettings(req: IGetSettingsRequest): Promise<UserSettingsResponseDto> {
-        return await this._api.apiUsersSettingsGet(req.initOverrides);
+    public async getSettings(): Promise<UserSettingsResponseDto> {
+        return await this._api.apiUsersSettingsGet();
     }
 
     public async updateTransportRequirementsPhotos(req: IUpdateTransportRequirementsPhotosRequest): Promise<void> {

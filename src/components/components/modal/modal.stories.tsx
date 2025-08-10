@@ -1,6 +1,6 @@
 import React from "react";
 import {IModalProps, Modal, ModalSize} from "./modal";
-import {Meta, StoryObj} from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react";
 
 export default {
     component: Modal,

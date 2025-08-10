@@ -1,11 +1,11 @@
 import {IconType} from "@/src/enums/icon.enum";
 import {IconFromEnum} from "./iconFromEnum";
-import {SvgIconOwnProps} from "@mui/material/SvgIcon/SvgIcon";
 import React from "react";
+import {SvgIconProps} from "@mui/material";
 
 export interface IIconProps {
     icon: IconType;
-    options?: SvgIconOwnProps;
+    options?: SvgIconProps;
 }
 
 export const Icon = (props: IIconProps) => {

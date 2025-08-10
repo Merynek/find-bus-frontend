@@ -12,7 +12,7 @@ import {useCurrentLocale} from "@/src/hooks/translateHook";
 import {VehicleResponseDto} from "@/src/api/openapi";
 import {VehicleConverter} from "@/src/converters/vehicle-converter";
 
-interface IVehiclePageProps {
+export interface IVehiclePageProps {
     vehicles: VehicleResponseDto[];
 }
 

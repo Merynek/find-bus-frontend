@@ -18,7 +18,9 @@ export const VehicleVerifyButton = (props: IVehicleVerifyButtonProps) => {
         size={ButtonSize.BY_CONTENT}
         label={vehicle.isVerifiedForTransporting ? "Označit Vehicle jako neoveřený" : "Označit Vehicle jako oveřený"}
         onClick={async () => {
-            await VehicleService.setVehicleVerification(vehicle.id, !vehicle.isVerifiedForTransporting);
+            if (vehicle.id) {
+                await VehicleService.setVehicleVerification(vehicle.id, !vehicle.isVerifiedForTransporting);
+            }
         }}
         type={ButtonType.YELLOW}
     />

@@ -1,7 +1,7 @@
 import React from "react";
 import {AppLoader} from "./app-loader";
-import {Meta, StoryObj} from "@storybook/react";
 import {FlexGap} from "@/src/enums/layout.enum";
+import type {Meta, StoryObj} from "@storybook/react";
 
 const meta: Meta<typeof AppLoader> = {
     component: AppLoader,
@@ -14,7 +14,7 @@ const meta: Meta<typeof AppLoader> = {
 export default meta;
 
 export const Default: StoryObj<typeof AppLoader> = {
-    render: (args) => <AppLoader {...args} />,
+    render: () => <AppLoader />,
     parameters: {
         layout: 'fullscreen'
     }

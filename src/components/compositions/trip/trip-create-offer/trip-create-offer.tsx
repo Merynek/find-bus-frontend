@@ -61,10 +61,10 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
         }
     }
 
-    const getBusItems = () => {
+    const getBusItems = (): IBusComboItem[] => {
         return vehicles.map(vehicle => {
             return {
-                value: vehicle.id?.toString(),
+                value: vehicle.id?.toString() || "",
                 label: vehicle.name
             }
         });

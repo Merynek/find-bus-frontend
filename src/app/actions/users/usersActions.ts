@@ -44,7 +44,7 @@ export async function getSettings(locale: LOCALES): Promise<UserSettingsResponse
     const usersApi = new UsersApi(accessToken);
 
     try {
-        return await usersApi.getSettings({});
+        return await usersApi.getSettings();
     } catch (e: unknown) {
         handleApiUnauthorizedError(e, locale);
     }
