@@ -26,6 +26,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                         refreshToken: loginResponse.refreshToken
                     };
                 } catch (error: unknown) {
+                    const errorMessage = 'AUTH: authorize.';
+                    if (error && typeof error === 'object' && 'response' in error) {
+                        const apiError = (error as { response: { json: () => Promise<{ message?: string }> } });
+                        if (apiError.response?.json) {
+                            const jsonError = await apiError.response.json();
+                            console.error("Došlo k chybě:", jsonError.message || errorMessage);
+                        }
+                    }
                     if (error instanceof Error) {
                         console.error("Došlo k chybě:", error.message);
                     } else {
@@ -59,6 +67,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                 token.data.token.expireDate = newTokens.expireDate;
                 return token;
             } catch (error: unknown) {
+                const errorMessage = 'AUTH: jwt.';
+                if (error && typeof error === 'object' && 'response' in error) {
+                    const apiError = (error as { response: { json: () => Promise<{ message?: string }> } });
+                    if (apiError.response?.json) {
+                        const jsonError = await apiError.response.json();
+                        console.error("Došlo k chybě:", jsonError.message || errorMessage);
+                    }
+                }
                 if (error instanceof Error) {
                     console.error("Došlo k chybě:", error.message);
                 } else {
