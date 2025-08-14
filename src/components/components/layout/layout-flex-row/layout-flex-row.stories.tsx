@@ -1,4 +1,4 @@
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 import React from "react";
 import {LayoutFlexRow} from "./layout-flex-row";
 import {FlexGap} from "@/src/enums/layout.enum";

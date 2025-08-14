@@ -1,6 +1,6 @@
 import React from "react";
 import {Icon} from "./icon";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 import {IconType} from "@/src/enums/icon.enum";
 import {getRandomEnum} from "@/dataGenerator/tools";
 

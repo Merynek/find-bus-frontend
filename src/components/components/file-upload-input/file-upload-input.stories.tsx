@@ -1,5 +1,5 @@
 import React from "react";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 import {FileUploadInput} from "./file-upload-input";
 import {DropFileType} from "@/src/enums/file-drop-type.enum";
 

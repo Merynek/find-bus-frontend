@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {INumberBoxProps, NumberBox} from "./number-box";
 import {InputSize} from "../inputEnum";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
 export default {
     component: NumberBox,

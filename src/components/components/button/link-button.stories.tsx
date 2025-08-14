@@ -5,7 +5,7 @@ import {
     ButtonType,
 } from "./button";
 import {ROUTES} from "@/src/enums/router.enum";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 import {getRandomText} from "@/dataGenerator/texts/texts";
 import {IconType} from "@/src/enums/icon.enum";
 

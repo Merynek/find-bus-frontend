@@ -1,7 +1,7 @@
 import React from "react";
 import {EmailConfigItem, IEmailConfigItemProps} from "./email-config-item";
 import {getRandomEmailTemplate} from "@/dataGenerator/email";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
 export default {
     component: EmailConfigItem,

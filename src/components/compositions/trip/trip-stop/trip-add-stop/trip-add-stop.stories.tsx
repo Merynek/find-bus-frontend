@@ -1,6 +1,6 @@
 import React from "react";
 import {IStopAddPlaceProps, TripAddStop} from "./trip-add-stop";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
 export default {
     component: TripAddStop,

@@ -1,6 +1,6 @@
 import React from "react";
 import CreateTripPage from "./create-trip-page";
-import {Meta, StoryObj} from "@storybook/react";
+import {StoryObj} from "@storybook/nextjs";
 
 export default {
     component: CreateTripPage,

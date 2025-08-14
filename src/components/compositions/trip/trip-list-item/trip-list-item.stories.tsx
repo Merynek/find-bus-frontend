@@ -1,7 +1,7 @@
 import React from "react";
 import {ITripListItemProps, TripListItem} from "./trip-list-item";
 import {getRandomTripItem} from "@/dataGenerator/trip";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
 export default {
     component: TripListItem,

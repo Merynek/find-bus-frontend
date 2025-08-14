@@ -1,6 +1,6 @@
 import React from "react";
 import {AutoComplete, IAutoCompleteItem, IAutoCompleteProps} from "./auto-complete";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
 export default {
     component: AutoComplete,

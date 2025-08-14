@@ -1,4 +1,4 @@
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 import React from "react";
 import AdminTripDetailPage from "@/src/components/pages/admin/trip-detail/admin-trip-detail.page";
 import {getRandomOffer, getRandomOfferMovement, getRandomTrip} from "@/dataGenerator/trip";

@@ -1,4 +1,4 @@
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 import React from "react";
 import {IModalButtonsProps, ModalButton, ModalButtons} from "./modal-dialog-buttons";
 import {ButtonSize, ButtonType} from "../../../button/button";
@@ -9,7 +9,7 @@ export default {
 } as Meta<IModalButtonsProps>;
 
 export const ModalButtonsStory: StoryObj<IModalButtonsProps> = {
-    render: (args) =>  <ModalButtons>
+    render: () =>  <ModalButtons>
         <ModalButton
             isLink={false}
             buttonProps={{

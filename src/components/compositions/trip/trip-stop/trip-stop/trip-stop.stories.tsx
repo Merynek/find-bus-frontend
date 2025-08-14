@@ -2,7 +2,7 @@ import {InputSize} from "../../../../components/inputs/inputEnum";
 import {getRandomTrip} from "@/dataGenerator/trip";
 import React from "react";
 import {ITripStopProps, TripStop} from "./trip-stop";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
 export default {
     component: TripStop,

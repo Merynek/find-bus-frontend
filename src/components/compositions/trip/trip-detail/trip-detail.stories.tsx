@@ -1,7 +1,7 @@
 import {getRandomTrip} from "@/dataGenerator/trip";
 import React from "react";
 import {ITripDetailProps, TripDetail} from "./trip-detail";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
 
 export default {

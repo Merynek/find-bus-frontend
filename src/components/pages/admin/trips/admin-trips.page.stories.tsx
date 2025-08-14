@@ -1,6 +1,6 @@
 import React from "react";
 import AdminTripsPage from "./admin-trips.page";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
 const meta: Meta<typeof AdminTripsPage> = {
     component: AdminTripsPage,

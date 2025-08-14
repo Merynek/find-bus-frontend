@@ -1,6 +1,6 @@
 import React from "react";
 import {Form} from "./form";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
 const meta: Meta<typeof Form> = {
     component: Form,

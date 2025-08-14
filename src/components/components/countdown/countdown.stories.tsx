@@ -1,6 +1,6 @@
 import React from "react";
 import {Countdown} from "./countdown";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 import {addMinutes} from "@/src/utils/date-time.common";
 
 const meta: Meta<typeof Countdown> = {

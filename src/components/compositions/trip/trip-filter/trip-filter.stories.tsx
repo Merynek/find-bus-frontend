@@ -1,7 +1,7 @@
 import {TripFilter, ITripFilterProps} from "./trip-filter";
 import React from "react";
 import {TripFilterStore} from "./trip-filter.store";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
 export default {
     component: TripFilter,

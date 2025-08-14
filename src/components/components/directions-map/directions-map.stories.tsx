@@ -1,7 +1,7 @@
 import React from "react";
 import {DirectionsMap} from "./directions-map";
 import {getRandomDirection} from "@/dataGenerator/direction";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
 const meta: Meta<typeof DirectionsMap> = {
     component: DirectionsMap,

@@ -1,6 +1,6 @@
 import React, {useRef} from "react";
 import {ComboBox, IComboBoxItem, IComboBoxProps} from "./combo-box";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 import {getRandomText} from "@/dataGenerator/texts/texts";
 
 interface IData extends IComboBoxItem<string> {

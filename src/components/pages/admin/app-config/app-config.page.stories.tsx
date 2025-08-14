@@ -1,6 +1,6 @@
 import React from "react";
 import AppConfigPage from "./app-config.page";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
 export default {
     component: AppConfigPage,

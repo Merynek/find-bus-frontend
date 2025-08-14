@@ -1,7 +1,7 @@
 import React from "react";
 import {IVehicleDetailListProps, VehicleDetail} from "./vehicle-detail-list";
 import {getRandomVehicle} from "@/dataGenerator/vehicle";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
 export default {
     component: VehicleDetail,

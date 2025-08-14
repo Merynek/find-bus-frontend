@@ -1,6 +1,6 @@
 import React from "react";
 import ResetPasswordPage from "./reset-password-page";
-import {Meta, StoryObj} from "@storybook/react";
+import {StoryObj} from "@storybook/nextjs";
 
 export default {
     component: ResetPasswordPage,

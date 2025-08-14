@@ -3,9 +3,6 @@ import createNextIntlPlugin from 'next-intl/plugin';
 import {LOCALES} from "@/src/utils/locale";
 
 const nextConfig: NextConfig = {
-    eslint: {
-        ignoreDuringBuilds: true,
-    },
     experimental: {
         serverActions: {
             bodySizeLimit: "40mb"

@@ -1,14 +1,13 @@
 import React from "react";
 import {DatePicker, IDatePickerProps} from "./date-picker";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 import {addDays, minusDays} from "@/src/utils/date-time.common";
 
 export default {
     component: DatePicker,
     args: {
         disabled: false,
-        onChange: (dates: Date|null) => {
-        },
+        onChange: () => {},
         placeholderText: "Date Picker",
         showTimeSelect: false,
         maxDate: addDays(new Date(), 20),

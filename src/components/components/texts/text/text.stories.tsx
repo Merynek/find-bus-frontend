@@ -2,7 +2,7 @@ import React from "react";
 import {FontSize, FontWeight, Text, TextTransform, TextAlign, Color} from "./text";
 import {getRandomText} from "@/dataGenerator/texts/texts";
 import {getRandomNumber} from "@/src/utils/common";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
 const meta: Meta<typeof Text> = {
     component: Text,

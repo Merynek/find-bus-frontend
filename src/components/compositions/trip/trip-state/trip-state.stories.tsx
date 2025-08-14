@@ -1,4 +1,4 @@
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 import React from "react";
 import {TripState} from "@/src/components/compositions/trip/trip-state/trip-state";
 import {TripOfferState} from "@/src/api/openapi";

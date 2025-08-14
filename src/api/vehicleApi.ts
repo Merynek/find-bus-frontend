@@ -45,8 +45,6 @@ export interface IVehicleRequest {
 export interface IGetVehicleRequest extends IApiRequest {
     vehicleId: number;
 }
-export interface IGetVehiclesRequest extends IApiRequest {
-}
 
 export class VehicleApi {
     private readonly _token: string|undefined;
@@ -65,8 +63,8 @@ export class VehicleApi {
         }, req.initOverrides);
     }
 
-    public async getVehicles(req: IGetVehiclesRequest): Promise<VehicleResponseDto[]> {
-        return await this._api.apiVehiclesGet(req.initOverrides);
+    public async getVehicles(): Promise<VehicleResponseDto[]> {
+        return await this._api.apiVehiclesGet();
     }
 
     public async addVehicle(req: IAddVehicleRequest): Promise<number> {

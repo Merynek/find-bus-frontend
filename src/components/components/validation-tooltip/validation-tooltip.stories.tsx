@@ -1,7 +1,7 @@
 import React from "react";
 import {IValidationTooltipProps, ValidationTooltip} from "./validation-tooltip";
 import {ValidationState} from "../inputs/inputEnum";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
 export default {
     component: ValidationTooltip,

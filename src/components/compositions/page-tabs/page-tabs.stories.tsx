@@ -1,6 +1,6 @@
 import React from "react";
 import {PageTabs} from "./page-tabs";
-import {Meta, StoryObj} from "@storybook/react";
+import {StoryObj} from "@storybook/nextjs";
 import {UserRole} from "@/src/api/openapi";
 
 export default {

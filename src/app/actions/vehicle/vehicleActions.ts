@@ -35,7 +35,7 @@ export async function getVehicles(locale: LOCALES): Promise<VehicleResponseDto[]
     const vehicleApi = new VehicleApi(accessToken);
 
     try {
-        return await vehicleApi.getVehicles({});
+        return await vehicleApi.getVehicles();
     } catch (e: unknown) {
         handleApiUnauthorizedError(e, locale);
     }

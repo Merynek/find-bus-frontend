@@ -1,7 +1,7 @@
 import {getRandomOffer} from "@/dataGenerator/trip";
 import React from "react";
 import {TripOffer, ITripOfferProps} from "./trip-offer";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
 export default {
     component: TripOffer,

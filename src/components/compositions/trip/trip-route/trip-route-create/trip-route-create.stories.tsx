@@ -1,7 +1,7 @@
 import React from "react";
 import {ITripRouteCreateProps, TripRouteCreate} from "./trip-route-create";
 import {getRandomTrip} from "@/dataGenerator/trip";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
 export default {
     component: TripRouteCreate,

@@ -1,6 +1,6 @@
 import React from "react";
 import {IFinancialDocumentProps, FinancialDocumentDetail} from "./financial-document-detail";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 import {getRandomFinancialDocument} from "@/dataGenerator/financialDocuments";
 
 export default {

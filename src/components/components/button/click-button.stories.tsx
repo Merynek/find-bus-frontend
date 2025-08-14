@@ -1,6 +1,6 @@
 import React from "react";
 import {ButtonClick, ButtonSize, ButtonType} from "./button";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 import {getRandomText} from "@/dataGenerator/texts/texts";
 import {Icon} from "../icon/icon";
 import {IconType} from "@/src/enums/icon.enum";

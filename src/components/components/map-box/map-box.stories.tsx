@@ -3,7 +3,7 @@ import {IMapBoxProps, MapBox} from "./map-box";
 import {GeoPoint} from "@/src/data/geoPoint";
 import {getRandomPlace} from "@/dataGenerator/places/place";
 import {IMapMarker} from "./map-box-types";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
 export default {
     component: MapBox,
@@ -13,7 +13,7 @@ export default {
 } as Meta<IMapBoxProps>;
 
 export const LoaderAreaStory: StoryObj<IMapBoxProps> = {
-    render: (args) => {
+    render: () => {
         const startLat = 49.7012;
         const startLng = 17.0762;
         const markers = useRef<IMapMarker[]>([

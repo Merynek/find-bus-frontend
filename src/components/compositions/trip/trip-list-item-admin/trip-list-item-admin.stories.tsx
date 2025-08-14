@@ -1,7 +1,7 @@
 import {getRandomTripItem} from "@/dataGenerator/trip";
 import React from "react";
 import {TripListItemAdmin} from "./trip-list-item-admin";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
 const meta: Meta<typeof TripListItemAdmin> = {
     component: TripListItemAdmin,

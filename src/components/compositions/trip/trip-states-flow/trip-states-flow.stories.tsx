@@ -1,4 +1,4 @@
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 import React from "react";
 import {TripStatesFlow} from "@/src/components/compositions/trip/trip-states-flow/trip-states-flow";
 import {getRandomTrip} from "@/dataGenerator/trip";

@@ -1,7 +1,7 @@
 import React from "react";
 import {CheckBox, ICheckBoxProps} from "./check-box";
 import {getRandomEnum} from "@/dataGenerator/tools";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 import {getRandomText} from "@/dataGenerator/texts/texts";
 import {CheckBoxSize} from "@/src/enums/check-box.enum";
 

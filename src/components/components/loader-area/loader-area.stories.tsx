@@ -1,6 +1,6 @@
 import React from "react";
 import {LoaderArea, ILoaderAreaProps} from "./loader-area";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
 export default {
     component: LoaderArea,

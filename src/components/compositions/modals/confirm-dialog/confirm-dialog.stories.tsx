@@ -1,6 +1,6 @@
 import React from "react";
 import {ConfirmDialog, IConfirmDialogProps} from "./confirm-dialog";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
 export default {
     component: ConfirmDialog,

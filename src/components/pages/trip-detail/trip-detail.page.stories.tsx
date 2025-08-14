@@ -1,6 +1,6 @@
 import React from "react";
 import TripDetailPage from "./trip-detail.page";
-import {Meta, StoryObj} from "@storybook/react";
+import {StoryObj} from "@storybook/nextjs";
 import {getRandomTrip} from "@/dataGenerator/trip";
 
 export default {
@@ -9,7 +9,7 @@ export default {
 };
 
 export const TripDetailPageStory: StoryObj= {
-    render: (args) => <TripDetailPage
+    render: () => <TripDetailPage
         trip={getRandomTrip()}
     />,
     args: {}

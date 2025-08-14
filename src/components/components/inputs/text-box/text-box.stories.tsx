@@ -1,7 +1,7 @@
 import {IMultiLineResize, TextBox, TextBoxType, ITextBoxProps} from "./text-box";
 import React, {useState} from "react";
 import {InputSize} from "../inputEnum";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
 export default {
     component: TextBox,

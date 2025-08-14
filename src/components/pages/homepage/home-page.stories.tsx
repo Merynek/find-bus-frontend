@@ -1,4 +1,4 @@
-import {Meta, StoryObj} from "@storybook/react";
+import {StoryObj} from "@storybook/nextjs";
 import React from "react";
 import HomePage from "./home-page";
 

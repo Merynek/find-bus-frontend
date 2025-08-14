@@ -1,4 +1,4 @@
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 import React from "react";
 import {IModalVehicleDetailProps, VehicleDetailModal} from "./vehicle-detail-modal";
 import {getRandomVehicle} from "@/dataGenerator/vehicle";

@@ -1,6 +1,6 @@
 import React from "react";
 import UserSettingsPage from "./user-settings.page";
-import {Meta, StoryObj} from "@storybook/react";
+import {StoryObj} from "@storybook/nextjs";
 import {getRandomUserSettings} from "@/dataGenerator/userSettings";
 import {UsersConverter} from "@/src/converters/users/users-converter";
 

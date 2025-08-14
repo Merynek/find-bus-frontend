@@ -1,7 +1,7 @@
 import {getRandomEditVehicleStore} from "@/dataGenerator/vehicle";
 import React from "react";
 import VehicleForm, {IVehicleEditProps} from "./vehicle-edit";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
 export default {
     component: VehicleForm,
