@@ -15,7 +15,9 @@ export const FileUploadInput = observer((props: IFileUploadInputProps) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const onTargetClick = useCallback(() => {
-        fileInputRef.current && fileInputRef.current.click();
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
+        }
     }, []);
 
     const extensionIsSupported = (extension: string) => {

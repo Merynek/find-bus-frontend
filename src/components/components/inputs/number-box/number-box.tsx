@@ -30,11 +30,15 @@ export const NumberBox = observer((props: INumberBoxProps) => {
 
     const handleBlur = () => {
         setInputType(InputType.TEXT);
-        onBlur && onBlur();
+        if (onBlur) {
+            onBlur();
+        }
     }
     const handleFocus = () => {
         setInputType(InputType.NUMBER);
-        onFocus && onFocus();
+        if (onFocus) {
+            onFocus();
+        }
     }
 
     const valueIsTooBig = (val: number) => {

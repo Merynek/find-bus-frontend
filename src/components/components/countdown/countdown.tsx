@@ -42,7 +42,9 @@ export const Countdown = (props: ICountdownProps) => {
     })
 
     useUnmount(() => {
-        timeIntervalRef.current && clearInterval(timeIntervalRef.current);
+        if (timeIntervalRef.current) {
+            clearInterval(timeIntervalRef.current);
+        }
     })
 
     return <div className={styles.layout}>

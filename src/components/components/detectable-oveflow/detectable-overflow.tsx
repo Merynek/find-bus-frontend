@@ -33,8 +33,9 @@ export const DetectableOverflow = (props: IDetectableOverflowProps) => {
             return;
         }
         isOverFlowedRef.current = newState;
-
-        onChange && onChange(newState);
+        if (onChange) {
+            onChange(newState);
+        }
     }, [])
 
     const { ref } = useResizeDetector({

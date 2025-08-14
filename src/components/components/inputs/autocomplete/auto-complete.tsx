@@ -26,7 +26,9 @@ export function AutoComplete<T>(props: IAutoCompleteProps<T>) {
     const {autoFocus, isDisabled, placeholder, value, emptyMessage, noOptionsMessage, loadingMessage, onChange, getFilteredItems} = props;
 
     const handleChange = useCallback((value: IAutoCompleteItem<T>|null) => {
-        value && onChange(value);
+        if (value) {
+            onChange(value);
+        }
     }, []);
 
     return <AsyncSelect

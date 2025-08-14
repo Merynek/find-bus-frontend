@@ -17,11 +17,12 @@ export interface IComboBoxProps<T> {
 }
 
 export function ComboBox<T>(props: IComboBoxProps<T>) {
-    const locKey = "component.comboBox.";
     const {items, onChange, value,  isSearchable, disabled,  placeHolder } = props;
 
     const handleChange = useCallback((value: IComboBoxItem<T>|null) => {
-        value && onChange(value);
+        if (value) {
+            onChange(value);
+        }
     }, []);
 
     return <div className={styles.layout}>

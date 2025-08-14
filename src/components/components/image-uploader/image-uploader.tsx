@@ -9,15 +9,12 @@ interface ImageUploaderProps {
 export const ImageUploader = (props: ImageUploaderProps) => {
     const { label, inputName, initialImage } = props;
     const [preview, setPreview] = useState<string | null>(initialImage || null);
-    const [file, setFile] = useState<File | null>(null);
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         const selectedFile = e.target.files?.[0];
         if (selectedFile) {
-            setFile(selectedFile);
             setPreview(URL.createObjectURL(selectedFile));
         } else {
-            setFile(null);
             setPreview(initialImage || null);
         }
     };

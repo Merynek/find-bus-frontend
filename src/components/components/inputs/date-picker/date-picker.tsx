@@ -29,7 +29,9 @@ export const DatePicker = observer((props: IDatePickerProps) => {
             minDate={minDate ? moment(minDate) : undefined}
             maxDate={maxDate ? moment(maxDate) : undefined}
             onChange={(date) => {
-                date && onChange(date.toDate())
+                if (date) {
+                    onChange(date.toDate())
+                }
             }}
             disabled={disabled}
         /> : <NativeDatePicker
@@ -37,7 +39,9 @@ export const DatePicker = observer((props: IDatePickerProps) => {
             minDate={minDate ? moment(minDate) : undefined}
             maxDate={maxDate ? moment(maxDate) : undefined}
             onChange={(date) => {
-                date && onChange(date.toDate())
+                if (date) {
+                    onChange(date.toDate())
+                }
             }}
             disabled={disabled}
         />}
