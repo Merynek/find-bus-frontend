@@ -13,20 +13,18 @@ import {LOCALES} from "@/src/utils/locale";
 
 export class CreateTripPageStore {
     public trip: Trip;
-    @observable public tripRecommendation: TripRecommendationType;
-    @observable public reduceRoutesHours: number;
-    @observable public reduceTimeHours: number;
+    @observable public tripRecommendation: TripRecommendationType|null;
+    @observable public reduceRoutesHours: number|null;
+    @observable public reduceTimeHours: number|null;
     @observable public placesAreSet: boolean = true;
     @observable public peopleCountIsValid: boolean = true;
     @observable public routesCountIsValid: boolean = true;
     @observable public userSettings: UserSettings|null = null;
 
     constructor() {
-        this._initStore();
-        makeObservable(this);
-    }
-
-    private async _initStore() {
+        this.tripRecommendation = null;
+        this.reduceRoutesHours = null;
+        this.reduceTimeHours = null;
         this.trip = Trip.create({
             observeChanges: true
         });
@@ -40,6 +38,7 @@ export class CreateTripPageStore {
         reaction(() => this.trip.routes.length, () => {
             this.routesCountIsValid = true;
         });
+        makeObservable(this);
     }
 
     public async init(locales: LOCALES) {
