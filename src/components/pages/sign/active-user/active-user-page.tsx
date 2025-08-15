@@ -1,5 +1,7 @@
 import React from "react";
 import {AuthorizationService} from "@/src/services/AuthorizationService";
+import {ButtonLink, ButtonSize, ButtonType} from "@/src/components/components/button/button";
+import {ROUTES} from "@/src/enums/router.enum";
 
 interface ActiveUserPageProps {
     code?: string;
@@ -35,11 +37,14 @@ export default async function ActiveUserPage(props: ActiveUserPageProps) {
                             <h1 style={{color: '#28a745'}}>✅ Účet Aktivován!</h1>
                             <p style={{fontSize: '1.1em', lineHeight: '1.6'}}>{message}</p>
                             <p style={{marginTop: '20px'}}>
-                                Nyní se můžete <a href="/login" style={{
-                                color: '#007bff',
-                                textDecoration: 'none',
-                                fontWeight: 'bold'
-                            }}>přihlásit</a>.
+                                <ButtonLink
+                                    route={{
+                                        route: ROUTES.SIGN_IN
+                                    }}
+                                    label={"Nyní se můžete přihlásit"}
+                                    type={ButtonType.YELLOW}
+                                    size={ButtonSize.BUTTON_SIZE_M}
+                                />
                             </p>
                         </>
                     ) : (
@@ -47,11 +52,14 @@ export default async function ActiveUserPage(props: ActiveUserPageProps) {
                             <h1 style={{color: '#dc3545'}}>❌ Chyba při Aktivaci</h1>
                             <p style={{fontSize: '1.1em', lineHeight: '1.6'}}>{message}</p>
                             <p style={{marginTop: '20px'}}>
-                                Pokud problémy přetrvávají, <a href="/contact" style={{
-                                color: '#007bff',
-                                textDecoration: 'none',
-                                fontWeight: 'bold'
-                            }}>kontaktujte nás</a>.
+                                <ButtonLink
+                                    route={{
+                                        route: ROUTES.SIGN_IN
+                                    }}
+                                    label={"Nyní se můžete přihlásit"}
+                                    type={ButtonType.YELLOW}
+                                    size={ButtonSize.BUTTON_SIZE_M}
+                                />
                             </p>
                         </>
                     )}

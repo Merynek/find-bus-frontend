@@ -3,7 +3,7 @@ import {ButtonClick, ButtonSize, ButtonType} from "../button/button";
 import {IModalDialogProps, ModalDialog} from "./modal-dialog";
 import {ModalButtons} from "./components/modal-dialog-buttons/modal-dialog-buttons";
 import {Modal, ModalSize} from "../modal/modal";
-import {Meta, StoryObj} from "@storybook/react";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
 export default {
     component: Modal,

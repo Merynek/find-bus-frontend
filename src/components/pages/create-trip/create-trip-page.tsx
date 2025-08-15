@@ -186,7 +186,7 @@ const CreateTripPage = observer(() => {
                             router.push(ROUTES.TRIP_LIST);
                         }
                         catch (e) {
-                            console.log("error during create trip")
+                            console.log("error during create trip", JSON.stringify(e));
                         }
                     }
                 }}

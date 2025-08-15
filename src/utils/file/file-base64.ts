@@ -13,10 +13,10 @@ export async function fileToBlob(file: File, size: number): Promise<string> {
 
 async function fileToBlobThumbnail(file: File, maxWidth: number = 400, maxHeight: number = 400): Promise<string> {
     return new Promise((resolve) => {
-        let img = new Image()
+        const img = new Image()
         img.src = URL.createObjectURL(file);
         img.onload = () => {
-            let canvas = document.createElement('canvas');
+            const canvas = document.createElement('canvas');
             let width = img.width;
             let height = img.height;
 
@@ -33,7 +33,7 @@ async function fileToBlobThumbnail(file: File, maxWidth: number = 400, maxHeight
             }
             canvas.width = width;
             canvas.height = height;
-            let ctx = canvas.getContext('2d');
+            const ctx = canvas.getContext('2d');
             if (!ctx) {
                 return;
             }

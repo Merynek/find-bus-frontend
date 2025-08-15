@@ -23,7 +23,7 @@ export function ComboBox<T>(props: IComboBoxProps<T>) {
         if (value) {
             onChange(value);
         }
-    }, []);
+    }, [onChange]);
 
     return <div className={styles.layout}>
         <Select

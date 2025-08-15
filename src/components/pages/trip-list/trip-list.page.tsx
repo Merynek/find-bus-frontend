@@ -20,25 +20,28 @@ const TripListPage = observer(() => {
     const locale = useCurrentLocale();
 
     useEffect(() => {
-        const page = searchParams.get(SEARCH_PARAMS.PAGE);
-        const persons = searchParams.get(SEARCH_PARAMS.NUMBER_OF_PERSONS);
-        const dietForTransporter = searchParams.get(SEARCH_PARAMS.DIET_FOR_TRANSPORTER);
-        const onlyMine = searchParams.get(SEARCH_PARAMS.ONLY_MINE);
-        const meOffered = searchParams.get(SEARCH_PARAMS.ME_OFFERED);
-        const distanceFrom = searchParams.get(SEARCH_PARAMS.DISTANCE_FROM);
-        const distanceTo = searchParams.get(SEARCH_PARAMS.DISTANCE_TO);
+        (async () => {
+            const page = searchParams.get(SEARCH_PARAMS.PAGE);
+            const persons = searchParams.get(SEARCH_PARAMS.NUMBER_OF_PERSONS);
+            const dietForTransporter = searchParams.get(SEARCH_PARAMS.DIET_FOR_TRANSPORTER);
+            const onlyMine = searchParams.get(SEARCH_PARAMS.ONLY_MINE);
+            const meOffered = searchParams.get(SEARCH_PARAMS.ME_OFFERED);
+            const distanceFrom = searchParams.get(SEARCH_PARAMS.DISTANCE_FROM);
+            const distanceTo = searchParams.get(SEARCH_PARAMS.DISTANCE_TO);
 
-        _storeRef.current.loadDataFromUrl({
-            page: page ? Number(page) : undefined,
-            numberOfPersons: persons ? Number(persons) : undefined,
-            dietForTransporter: dietForTransporter === "true",
-            onlyMine: onlyMine === "true",
-            meOffered: meOffered === "true",
-            distanceFrom: distanceFrom ? Number(distanceFrom) : undefined,
-            distanceTo: distanceTo ? Number(distanceTo) : undefined,
-            locale: locale
-        })
-    }, [searchParams]);
+            const params = {
+                page: page ? Number(page) : undefined,
+                numberOfPersons: persons ? Number(persons) : undefined,
+                dietForTransporter: dietForTransporter === "true",
+                onlyMine: onlyMine === "true",
+                meOffered: meOffered === "true",
+                distanceFrom: distanceFrom ? Number(distanceFrom) : undefined,
+                distanceTo: distanceTo ? Number(distanceTo) : undefined,
+                locale: locale
+            };
+            await _storeRef.current.loadDataFromUrl(params);
+        })();
+    }, [searchParams, locale]);
 
     const setUrl = () => {
         const currentParams = new URLSearchParams(searchParams.toString());

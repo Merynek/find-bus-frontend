@@ -26,7 +26,7 @@ export class PlaceManager {
 
     @action
     public add(place: Place): Place {
-        let existsPlace = this.find(place);
+        const existsPlace = this.find(place);
         if (existsPlace) {
             return existsPlace;
         }

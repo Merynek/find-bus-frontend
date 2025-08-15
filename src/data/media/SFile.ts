@@ -1,5 +1,5 @@
 import { computed, observable, makeObservable } from "mobx";
-import type {FileCategory, FileType} from "@/src/api/openapi";
+import type {FileCategory} from "@/src/api/openapi";
 
 export enum FileUploadState {
     PENDING = "PENDING",

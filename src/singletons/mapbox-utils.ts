@@ -47,7 +47,7 @@ export class MapboxUtils {
                 })
             })
         } catch (e) {
-            console.warn("Error during search places");
+            console.warn("Error during search places", JSON.stringify(e));
             return [];
         }
     }
@@ -73,7 +73,7 @@ export class MapboxUtils {
                 timeInSeconds: response.routes[0] ? response.routes[0].duration : undefined
             }
         } catch (e) {
-            console.warn("Error during get direction data");
+            console.warn("Error during get direction data", JSON.stringify(e));
             return {};
         }
     }

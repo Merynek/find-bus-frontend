@@ -21,14 +21,14 @@ export function getRandomNumber(min: number, max: number) {
 }
 
 export function debouncedFn<T>(fn: () => Promise<T>|T, delay: number): Promise<T> {
-    return new Promise<T>(async (resolve, reject) => {
+    return new Promise<T>(async (resolve) => {
         setTimeout(async () => {
             resolve(await fn());
         }, delay);
     })
 }
 
-export function cn(...classes: any[]): string {
+export function cn(...classes: unknown[]): string {
     const strings: string[] = classes.filter(item => typeof item === "string");
 
     return strings.join(" ");

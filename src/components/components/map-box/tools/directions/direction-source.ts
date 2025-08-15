@@ -49,8 +49,8 @@ const decodePolyline = (encodedPolyLine: string): number[][] => {
             computedPolyLinesMap.set(encodedPolyLine, decoded);
         }
         return decoded;
-    } catch (e) {
-        console.error("Error during decoding polyline");
+    } catch (e: unknown) {
+        console.error("Error during decoding polyline", JSON.stringify(e));
         return [];
     }
 }

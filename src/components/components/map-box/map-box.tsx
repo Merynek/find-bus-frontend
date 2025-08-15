@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from "react";
+import React, {useCallback, useEffect, useRef} from "react";
 import "./map-box-styles.scss";
 import {useChangePropsAfterMount} from "@/src/hooks/lifecycleHooks";
 import mapboxgl, {LngLat, LngLatBoundsLike, LngLatLike, Map} from "mapbox-gl";
@@ -36,12 +36,7 @@ const InnerMapBox = (props: IMapBoxProps) => {
     const _polyLinesToUpdateRef = useRef<string[]>(polyLines);
     const _centerToUpdateRef = useRef<GeoPoint[]>(center || []);
 
-    useEffect(() => {
-        if (_mapRef.current) return; // initialize map only once
-        initMap();
-    }, []);
-
-    const initMap = () => {
+    const initMap = useCallback(() => {
         if (process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN) {
             mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
         } else {
@@ -83,7 +78,12 @@ const InnerMapBox = (props: IMapBoxProps) => {
                 onClick(e.lngLat);
             }
         })
-    }
+    }, [disableScrollZoom, initialView, onClick]);
+    
+    useEffect(() => {
+        if (_mapRef.current) return; // initialize map only once
+        initMap();
+    }, [initMap]);
 
     useChangePropsAfterMount(() => {
         if (_mapRef.current) {

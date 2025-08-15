@@ -50,7 +50,7 @@ export class Semaphore {
         this._ignoredIds.push(...ids);
     }
 
-    private async processNext<T>() {
+    private async processNext() {
         if (this._processesInProgress < this._concurrentProcessCount) {
             const item = this.getItemFromQueue();
             if (item) {
@@ -77,7 +77,9 @@ export class Semaphore {
         this._processesInProgress++;
         try {
             const data = await item.process();
-            item.resolve && item.resolve(data);
+            if (item.resolve) {
+                item.resolve(data);
+            }
         }
         finally {
             this._processesInProgress--;

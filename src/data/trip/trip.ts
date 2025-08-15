@@ -124,7 +124,9 @@ export class Trip {
     get allGeoPoints(): GeoPoint[] {
         const points: GeoPoint[] = [];
         this.stops.forEach(s => {
-            s.place.point && points.push(s.place.point);
+            if (s.place.point) {
+                points.push(s.place.point);
+            }
         })
 
         return points;

@@ -1,4 +1,5 @@
 import {ChangeEvent, useState} from "react";
+import Image from "next/image";
 
 interface ImageUploaderProps {
     label: string;
@@ -25,7 +26,7 @@ export const ImageUploader = (props: ImageUploaderProps) => {
 
             {preview && (
                 <div className="mt-2">
-                    <img src={preview} alt="Náhled" className="h-32 w-32 object-cover rounded-md" />
+                    <Image src={preview} alt="Náhled" className="h-32 w-32 object-cover rounded-md" />
                 </div>
             )}
 

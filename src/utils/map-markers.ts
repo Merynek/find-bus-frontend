@@ -3,7 +3,7 @@ import {Stop} from "../data/trip/stop";
 import {IMapMarker} from "../components/components/map-box/map-box-types";
 
 export function getTripMarkers(trip: Trip): IMapMarker[] {
-    let markers: IMapMarker[] = [];
+    const markers: IMapMarker[] = [];
 
     trip.stops.forEach((stop) => {
         markers.push(...getMarkersFromStop(stop));

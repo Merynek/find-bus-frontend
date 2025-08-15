@@ -29,7 +29,7 @@ export function AutoComplete<T>(props: IAutoCompleteProps<T>) {
         if (value) {
             onChange(value);
         }
-    }, []);
+    }, [onChange]);
 
     return <AsyncSelect
         autoFocus={autoFocus}

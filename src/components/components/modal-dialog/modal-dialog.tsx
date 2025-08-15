@@ -23,7 +23,6 @@ export const ModalDialog = observer((props: IModalDialogProps) => {
         footerContent,
         children,
         onClose,
-        modalSize,
         open,
     } = props;
 

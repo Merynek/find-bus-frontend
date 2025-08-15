@@ -22,8 +22,4 @@ export abstract class MediaItem extends SFile {
 
     abstract isPhoto(): this is Photo;
     abstract isVideo(): this is Video;
-
-    public async loadItem(..._params: any): Promise<void> {
-        throw ("Load item not implemented.");
-    }
 }

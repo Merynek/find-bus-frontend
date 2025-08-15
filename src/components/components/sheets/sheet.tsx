@@ -20,7 +20,9 @@ export const SheetComponent = (props: ISheetComponentProps) => {
     return <SwipeableDrawer
         anchor={"bottom"}
         onOpen={() => {
-            onOpen && onOpen();
+            if (onOpen) {
+                onOpen();
+            }
         }}
         disableSwipeToOpen={true}
         disableBackdropTransition={true}
