@@ -1,4 +1,5 @@
 import type { Preview } from '@storybook/nextjs'
+import {AppProvider} from "@/src/app/contexts/AppContext";
 
 const preview: Preview = {
   parameters: {
@@ -12,6 +13,13 @@ const preview: Preview = {
       },
     },
   },
+  decorators: [
+      (Story, context) => {
+        return <AppProvider>
+          <Story key={context.id} />
+        </AppProvider>
+      }
+  ]
 };
 
 export default preview;

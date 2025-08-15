@@ -1,8 +1,34 @@
 import Credentials from "next-auth/providers/credentials";
 import {AuthorizeApi} from "@/src/api/authorizeApi";
-import NextAuth, {Session, User} from "next-auth";
+import NextAuth, {DefaultSession, Session, User} from "next-auth";
 import type { JWT } from "next-auth/jwt";
 import type {AdapterUser} from "@auth/core/adapters";
+import {DefaultUser} from "@auth/core/types";
+import {AccessTokenDto, CurrentUserDto} from "@/src/api/openapi";
+import {DefaultJWT} from "@auth/core/jwt";
+
+declare module "next-auth" {
+    export interface User extends DefaultUser {
+        user: CurrentUserDto;
+        token: AccessTokenDto;
+        refreshToken: AccessTokenDto;
+    }
+
+    export interface Session extends DefaultSession {
+        user: CurrentUserDto;
+        token: AccessTokenDto;
+    }
+}
+
+declare module "next-auth/jwt" {
+    export interface JWT extends DefaultJWT {
+        data: {
+            user: CurrentUserDto;
+            token: AccessTokenDto;
+            refreshToken: AccessTokenDto;
+        };
+    }
+}
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
     providers: [

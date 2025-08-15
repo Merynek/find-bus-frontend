@@ -31,7 +31,7 @@ export const AppProvider = (props: IAppProviderProps)  => {
 export const useApp = () => {
     const context = useContext(AppContext);
     if (context === undefined) {
-        throw new Error('useLoader must be used within a LoaderProvider');
+        throw new Error('useLoader must be used within a AppProvider');
     }
     return context;
 };
