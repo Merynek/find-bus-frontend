@@ -15,6 +15,7 @@ interface IInputBoxProps {
     onFocus?: () => void;
     focusAfterMount?: boolean;
     disabled?: boolean;
+    id?: string;
     name?: string;
     onClick?: () => void;
 }
@@ -65,7 +66,7 @@ export const TextBox = observer((props: ITextBoxProps) => {
         refTextArea, refInput, focusAfterMount, type,
         placeholder, onKeyEnter, onBlur, onFocus,
         disabled, multiLine, disableSpaces, maxLength,
-        inputAutoSize, onClick, name
+        inputAutoSize, onClick, name, id
     } = props;
     const _innerTextAreaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -96,6 +97,7 @@ export const TextBox = observer((props: ITextBoxProps) => {
             size: inputAutoSize ? 1 : undefined,
             onClick: onClick,
             name: name,
+            id: id,
         };
 
         const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -127,6 +129,7 @@ export const TextBox = observer((props: ITextBoxProps) => {
             onFocus: onFocus,
             maxLength: maxLength,
             name: name,
+            id: id,
         };
 
         const handleTextAreaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {

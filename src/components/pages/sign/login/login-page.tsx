@@ -11,6 +11,7 @@ import { useRouter } from "@/src/i18n/navigation";
 import {userSettingsFormAction} from "@/src/app/actions/forms/signIn/signInFormAction";
 import {useFormActionState} from "@/src/hooks/formHook";
 import {FormStatus} from "@/src/components/components/form-status/form-status";
+import {TextBox, TextBoxType} from "@/src/components/components/inputs/text-box/text-box";
 
 const LoginPage = () => {
     const {t} = useTranslate("page.sign");
@@ -46,13 +47,24 @@ const LoginPage = () => {
 
             <div>
                 <label htmlFor={FormDataEnum.email}>Email</label>
-                <input id={FormDataEnum.email} name={FormDataEnum.email} placeholder="Email"/>
+                <TextBox
+                    controlled={false}
+                    name={FormDataEnum.email}
+                    id={FormDataEnum.email}
+                    type={TextBoxType.EMAIL}
+                    placeholder={"Email"}
+                />
             </div>
 
             <div>
                 <label htmlFor={FormDataEnum.password}>Password</label>
-                <input id={FormDataEnum.password} name={FormDataEnum.password} type={"password"}
-                       placeholder="password"/>
+                <TextBox
+                    controlled={false}
+                    name={FormDataEnum.password}
+                    id={FormDataEnum.password}
+                    type={TextBoxType.PASSWORD}
+                    placeholder={"password"}
+                />
             </div>
             <button disabled={pending} type="submit">
                 Sign In
