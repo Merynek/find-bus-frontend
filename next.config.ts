@@ -3,7 +3,7 @@ import createNextIntlPlugin from 'next-intl/plugin';
 import {LOCALES} from "@/src/utils/locale";
 
 const nextConfig: NextConfig = {
-    // reactStrictMode: true,
+    reactStrictMode: true,
     experimental: {
         serverActions: {
             bodySizeLimit: "40mb"
