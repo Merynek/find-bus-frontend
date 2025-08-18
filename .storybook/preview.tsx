@@ -5,6 +5,7 @@ import {NextIntlClientProvider} from "next-intl";
 import {LOCALES} from "@/src/utils/locale";
 import csMessages from "../messages/cs-cz.json";
 import enMessages from "../messages/en-us.json";
+import NextAuthProvider from "@/src/app/contexts/NextAuthContext";
 
 type Messages = {
   [LOCALES.cs_CZ]: typeof csMessages;
@@ -40,18 +41,33 @@ const preview: Preview = {
         ],
       },
     },
+    user: {
+      description: 'User state',
+      defaultValue: 'logged-out',
+      toolbar: {
+        title: 'User',
+        icon: 'user',
+        items: [
+          { value: 'logged-out', title: 'Not logged in' },
+          { value: 'logged-in', title: 'Logged in' },
+        ],
+      },
+    },
   },
   decorators: [
       (Story, context) => {
-        const { locale } = context.globals as { locale: keyof Messages };
+        const { locale, user } = context.globals as { locale: keyof Messages, user: string };
+        const userId = user === 'logged-in' ? 123 : 0;
 
         return <NextIntlClientProvider
             locale={locale}
             messages={messages[locale]}
         >
-          <AppProvider>
-            <Story key={context.id} />
-          </AppProvider>
+          <NextAuthProvider userId={userId || 0}>
+            <AppProvider>
+              <Story key={context.id} />
+            </AppProvider>
+          </NextAuthProvider>
         </NextIntlClientProvider>
       }
   ]
