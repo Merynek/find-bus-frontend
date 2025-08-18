@@ -1,13 +1,13 @@
-import { ZodSchema } from "zod";
+import { z } from "zod";
 import {TFormActionState} from "@/src/forms/BaseFormAction";
 import {useActionState} from "react";
 
-type TFormAction<Schema extends ZodSchema> = (
+type TFormAction<Schema extends z.ZodSchema> = (
     state: TFormActionState<Schema>,
     formData: FormData
 ) => Promise<TFormActionState<Schema>>;
 
-export function useFormActionState<T extends ZodSchema>(
+export function useFormActionState<T extends z.ZodSchema>(
     formAction: TFormAction<T>,
     initialState: TFormActionState<T>
 ) {

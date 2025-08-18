@@ -1,14 +1,14 @@
-import {z, ZodSchema} from 'zod';
+import {z} from 'zod';
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 
-export type TFormActionState<Schema extends ZodSchema> = {
+export type TFormActionState<Schema extends z.ZodSchema> = {
     success?: boolean;
     message?: string;
     errors?: z.ZodFormattedError<z.infer<Schema>>;
     data?: Partial<z.infer<Schema>>;
 } | undefined;
 
-export abstract class BaseFormAction<Schema extends ZodSchema, Data, ApiResult> {
+export abstract class BaseFormAction<Schema extends z.ZodSchema, Data, ApiResult> {
 
     protected constructor(protected readonly schema: Schema) {}
 

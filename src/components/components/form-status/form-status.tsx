@@ -2,13 +2,13 @@
 
 import React, {useEffect, useState} from "react";
 import {TFormActionState} from "@/src/forms/BaseFormAction";
-import {ZodSchema} from "zod";
+import {z} from "zod";
 
-type Props<T extends ZodSchema> = {
+type Props<T extends z.ZodSchema> = {
     state: TFormActionState<T>;
 };
 
-export function FormStatus<T extends ZodSchema>({state}: Props<T>) {
+export function FormStatus<T extends z.ZodSchema>({state}: Props<T>) {
     const [message, setMessage] = useState(state?.message);
     const [errors, setErrors] = useState(state?.errors);
 

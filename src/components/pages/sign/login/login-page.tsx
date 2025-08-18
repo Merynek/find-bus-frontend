@@ -36,7 +36,7 @@ const LoginPage = () => {
     return <div>
         <ButtonLink
             route={{route: ROUTES.SIGN_UP}}
-            label={t("registration.registrationButton") as string}
+            label={t("registration.registrationButton")}
             type={ButtonType.YELLOW}
             size={ButtonSize.BUTTON_SIZE_M}
         />
