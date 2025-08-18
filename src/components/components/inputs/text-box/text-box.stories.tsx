@@ -1,9 +1,9 @@
-import {IMultiLineResize, TextBox, TextBoxType, ITextBoxProps} from "./text-box";
+import {IMultiLineResize, TextBox, TextBoxType} from "./text-box";
 import React, {useState} from "react";
 import {InputSize} from "../inputEnum";
 import {Meta, StoryObj} from "@storybook/nextjs";
 
-export default {
+const meta: Meta<typeof TextBox> = {
     component: TextBox,
     args: {
         value: '',
@@ -20,19 +20,18 @@ export default {
         size: {
             options: Object.values(InputSize),
             control: { type: 'select' }
-        },
-        resize: {
-            options: Object.values(IMultiLineResize),
-            control: { type: 'select' }
         }
     },
-} as Meta<ITextBoxProps>;
+};
 
-export const TextBoxStory: StoryObj<ITextBoxProps> = {
+export default meta;
+
+export const Default: StoryObj<typeof TextBox> = {
     render: (args) => {
         const [value, setValue] = useState<string>("");
-        return  <TextBox
+        return <TextBox
             {...args}
+            controlled={true}
             value={value}
             onChange={(val) => {
                 setValue(val);
@@ -42,17 +41,19 @@ export const TextBoxStory: StoryObj<ITextBoxProps> = {
     args: {}
 };
 
-export const MultiLineStory: StoryObj<ITextBoxProps> = {
+export const MultiLine: StoryObj<typeof TextBox> = {
     render: (args) => {
         const [value, setValue] = useState<string>("");
 
         return <TextBox
             {...args}
+            controlled={true}
             value={value}
             onChange={(val) => {
                 setValue(val);
             }}
             multiLine={{rows: 5, resize: IMultiLineResize.NONE}}
         />
-    }
-}
+    },
+    args: {}
+};
