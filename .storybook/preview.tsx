@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/nextjs'
 import {AppProvider} from "@/src/app/contexts/AppContext";
+import '@/src/styles/global.scss';
 
 const preview: Preview = {
   parameters: {

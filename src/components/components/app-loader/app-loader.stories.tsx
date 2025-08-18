@@ -1,12 +1,12 @@
 import React from "react";
 import {AppLoader} from "./app-loader";
-import {FlexGap} from "@/src/enums/layout.enum";
 import type {Meta, StoryObj} from "@storybook/nextjs";
+import {useMount, useUnmount} from "@/src/hooks/lifecycleHooks";
+import {useApp} from "@/src/app/contexts/AppContext";
 
 const meta: Meta<typeof AppLoader> = {
     component: AppLoader,
     args: {
-        gap: FlexGap.TINY_8
     },
     argTypes: {}
 };
@@ -14,7 +14,17 @@ const meta: Meta<typeof AppLoader> = {
 export default meta;
 
 export const Default: StoryObj<typeof AppLoader> = {
-    render: () => <AppLoader />,
+    render: () => {
+        const {showLoader, hideLoader} = useApp();
+        useMount(() => {
+            showLoader();
+        })
+        useUnmount(() => {
+            hideLoader();
+        })
+
+        return <AppLoader />
+    },
     parameters: {
         layout: 'fullscreen'
     }
