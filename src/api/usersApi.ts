@@ -1,4 +1,4 @@
-import {IApiRequest} from "./toolsApi";
+import {handleApiCall, IApiRequest} from "./toolsApi";
 import * as OpenApi from "./openapi";
 import {ApiConfiguration} from "./apiConfiguration";
 import {AdminUserDetailResponseDto, UserSettingsRequestDto, type UserSettingsResponseDto} from "./openapi";
@@ -38,37 +38,37 @@ export class UsersApi {
     }
 
     public async changeSettings(req: IChangeSettingsRequest): Promise<void> {
-        await this._api.apiUsersSettingsPost({
+        await handleApiCall(this._api.apiUsersSettingsPost({
             userSettingsRequestDto: req.settings
-        }, req.initOverrides);
+        }, req.initOverrides));
     }
 
     public async getSettings(): Promise<UserSettingsResponseDto> {
-        return await this._api.apiUsersSettingsGet();
+        return await handleApiCall(this._api.apiUsersSettingsGet());
     }
 
     public async updateTransportRequirementsPhotos(req: IUpdateTransportRequirementsPhotosRequest): Promise<void> {
         const businessRiskInsurance = req.businessRiskInsurance;
         const concessionDocuments = req.concessionDocuments;
-        await this._api.apiUsersTransportRequirementsPhotosPost({
+        await handleApiCall(this._api.apiUsersTransportRequirementsPhotosPost({
             businessRiskInsurance: businessRiskInsurance || undefined,
             concessionDocuments: concessionDocuments || undefined
-        }, req.initOverrides);
+        }, req.initOverrides));
     }
 
     public async setUserVerification(req: ISetUserVerificationRequest): Promise<void> {
-        await this._api.apiUsersUserTransportVerificationPost({
+        await handleApiCall(this._api.apiUsersUserTransportVerificationPost({
             userTransportVerificationRequestDto: {
                 id: req.userId,
                 isVerifiedForTransporting: req.verified
             }
-        }, req.initOverrides)
+        }, req.initOverrides));
     }
 
     public async getAllUsers(req: IGetAdminUsersRequest): Promise<AdminUserDetailResponseDto[]> {
-        return await this._api.apiUsersUsersGet({
+        return await handleApiCall(this._api.apiUsersUsersGet({
             limit: req.limit,
             offset: req.offset
-        }, req.initOverrides);
+        }, req.initOverrides));
     }
 }

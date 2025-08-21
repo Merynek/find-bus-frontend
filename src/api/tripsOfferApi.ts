@@ -6,7 +6,7 @@ import {
     TripOfferAcceptMethod,
     type TripOfferMovementsResponseDto, type TripOfferResponseDto
 } from "./openapi";
-import {IApiRequest} from "./toolsApi";
+import {handleApiCall, IApiRequest} from "./toolsApi";
 
 export interface IGetTripMovementsRequest extends IApiRequest {
     tripId: number;
@@ -71,92 +71,92 @@ export class TripsOfferApi {
     }
 
     public async getTripOffers(req: IGetTripOffersRequest): Promise<TripOfferResponseDto[]> {
-        return await this._api.apiTripOfferGetTripOffersGet({
+        return await handleApiCall(this._api.apiTripOfferGetTripOffersGet({
             tripId: req.tripId
-        }, req.initOverrides);
+        }, req.initOverrides));
     }
 
     public async acceptOffer(req: IAcceptOfferRequest): Promise<void> {
-        await this._api.apiTripOfferAcceptOfferPost({
+        await handleApiCall(this._api.apiTripOfferAcceptOfferPost({
             acceptOfferRequestDto: {
                 offerId: req.offerId,
                 acceptMethod: req.acceptMethod
             }
-        }, req.initOverrides);
+        }, req.initOverrides));
     }
 
     public async updateOffer(req: IUpdateOfferRequest): Promise<void> {
-        await this._api.apiTripOfferOfferPut({
+        await handleApiCall(this._api.apiTripOfferOfferPut({
             updateOfferRequestDto: {
                 offerId: req.offerId,
                 endOfferDate: req.endOfferDate
             }
-        }, req.initOverrides);
+        }, req.initOverrides));
     }
 
     public async deleteOffer(req: IDeleteOfferRequest): Promise<void> {
-        await this._api.apiTripOfferOfferDelete({
+        await handleApiCall(this._api.apiTripOfferOfferDelete({
             deleteTripOfferRequestDto: {
                 tripId: req.tripId
             }
-        }, req.initOverrides);
+        }, req.initOverrides));
     }
 
     public async downloadFinancialDocument(req: IDownloadDocumentRequest) {
-        return await this._api.apiTripOfferDownloadDocumentGet({
+        return await handleApiCall(this._api.apiTripOfferDownloadDocumentGet({
             documentId: req.documentId,
             type: req.type
-        }, req.initOverrides);
+        }, req.initOverrides));
     }
 
     public async createOffer(req: ICreateOfferRequest): Promise<void> {
-        await this._api.apiTripOfferOfferPost({
+        await handleApiCall(this._api.apiTripOfferOfferPost({
             createOfferRequestDto: {
                 price: req.price,
                 tripId: req.tripId,
                 vehicleId: req.vehicleId,
                 endOfferDate: req.endOfferDate
             }
-        }, req.initOverrides);
+        }, req.initOverrides));
     }
 
     public async offerStateMovements(req: IGetTripMovementsRequest): Promise<TripOfferMovementsResponseDto[]> {
-        return await this._api.apiTripOfferStateMovementsGet({
+        return await handleApiCall(this._api.apiTripOfferStateMovementsGet({
             tripId: req.tripId
-        },req.initOverrides);
+        },req.initOverrides));
     }
 
     public async payedOffer(req: IPostPayedOfferRequest): Promise<void> {
-        await this._api.apiTripOfferPayedOfferPost({
+        await handleApiCall(this._api.apiTripOfferPayedOfferPost({
             payedOfferRequestDto: {
                 offerId: req.offerId
             }
-        }, req.initOverrides);
+        }, req.initOverrides));
     }
 
     public async startTrip(req: IPostStartTripRequest): Promise<void> {
-        await this._api.apiTripOfferStartTripPost({
+        await handleApiCall(this._api.apiTripOfferStartTripPost({
             startTripRequestDto: {
                 tripId: req.tripId
             }
-        }, req.initOverrides);
+        }, req.initOverrides));
     }
 
     public async finishTrip(req: IPostFinishTripRequest): Promise<void> {
-        await this._api.apiTripOfferFinishTripPost({
+        await handleApiCall(this._api.apiTripOfferFinishTripPost({
             finishTripRequestDto: {
                 tripId: req.tripId
             }
-        }, req.initOverrides);
+        }, req.initOverrides));
     }
 
     public async forceCloseTrip(req: IPostForceCloseTripRequest): Promise<void> {
-        await this._api.apiTripOfferCloseTripPost({
+        await handleApiCall(this._api.apiTripOfferCloseTripPost({
             closeTripRequestDto: {
                 tripId: req.tripId,
                 reason: req.reason,
                 reasonText: req.reasonText
             }
-        }, req.initOverrides);
+        }, req.initOverrides));
     }
 }

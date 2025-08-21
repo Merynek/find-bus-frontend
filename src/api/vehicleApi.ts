@@ -1,6 +1,6 @@
 import {ApiConfiguration} from "./apiConfiguration";
 import * as OpenApi from "./openapi";
-import {IApiRequest} from "./toolsApi";
+import {handleApiCall, IApiRequest} from "./toolsApi";
 import {Amenities, EuroStandard, PlaceRequestDto, type VehicleRequestDto, VehicleResponseDto} from "./openapi";
 
 export interface IUpdateVehicleRequest extends IApiRequest {
@@ -58,30 +58,30 @@ export class VehicleApi {
     }
 
     public async getVehicle(req: IGetVehicleRequest): Promise<VehicleResponseDto> {
-        return await this._api.apiVehiclesVehicleGet({
+        return await handleApiCall(this._api.apiVehiclesVehicleGet({
             idVehicle: req.vehicleId
-        }, req.initOverrides);
+        }, req.initOverrides));
     }
 
     public async getVehicles(): Promise<VehicleResponseDto[]> {
-        return await this._api.apiVehiclesGet();
+        return await handleApiCall(this._api.apiVehiclesGet());
     }
 
     public async addVehicle(req: IAddVehicleRequest): Promise<number> {
-        return await this._api.apiVehiclesVehiclePost({
+        return await handleApiCall(this._api.apiVehiclesVehiclePost({
             addVehicleRequestDto: {
                 info: this._createVehicleRequest(req.vehicle)
             }
-        }, req.initOverrides);
+        }, req.initOverrides));
     }
 
     public async updateVehicle(req: IUpdateVehicleRequest): Promise<void> {
-        await this._api.apiVehiclesVehiclePut({
+        await handleApiCall(this._api.apiVehiclesVehiclePut({
             updateVehicleRequestDto: {
                 id: req.vehicleId,
                 info: this._createVehicleRequest(req.vehicle)
             },
-        }, req.initOverrides);
+        }, req.initOverrides));
     }
 
     private _createVehicleRequest(req: IVehicleRequest): VehicleRequestDto {
@@ -100,7 +100,7 @@ export class VehicleApi {
     }
 
     public async uploadVehicleFiles(req: IUploadVehicleFilesRequest): Promise<void> {
-        return await this._api.apiVehiclesFilesPost({
+        return await handleApiCall(this._api.apiVehiclesFilesPost({
             id: req.vehicleId,
             frontPhoto: req.frontPhoto,
             rearPhoto: req.rearPhoto,
@@ -111,16 +111,16 @@ export class VehicleApi {
             technicalCertificate1: req.technicalCertificate1,
             technicalCertificate2: req.technicalCertificate2,
             insurance: req.insurance
-        }, req.initOverrides);
+        }, req.initOverrides));
     }
 
 
     public async setVehicleVerification(req: ISetVehicleVerificationRequest): Promise<void> {
-        await this._api.apiVehiclesTransportVerificationPost({
+        await handleApiCall(this._api.apiVehiclesTransportVerificationPost({
             vehicleTransportVerificationRequestDto: {
                 id: req.vehicleId,
                 isVerifiedForTransporting: req.verified
             }
-        }, req.initOverrides)
+        }, req.initOverrides));
     }
 }

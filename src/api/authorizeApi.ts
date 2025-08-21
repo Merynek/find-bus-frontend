@@ -43,28 +43,28 @@ export class AuthorizeApi {
     }
 
     public async refreshToken(req: IRefreshTokenRequest): Promise<AccessTokenDto> {
-        return await this._api.apiAuthorizeRefreshPost({
+        return await handleApiCall(this._api.apiAuthorizeRefreshPost({
             refreshTokenRequestDto: {
                 refreshToken: req.token
             }
-        }, req.initOverrides);
+        }, req.initOverrides));
     }
 
     public async forgotPassword(req: IForgotPasswordRequest): Promise<void> {
-        await this._api.apiAuthorizeForgetPasswordPost({
+        await handleApiCall(this._api.apiAuthorizeForgetPasswordPost({
             forgetPasswordRequestDto: {
                 email: req.email
             }
-        }, req.initOverrides);
+        }, req.initOverrides));
     }
 
     public async resetPassword(req: IResetPasswordRequest): Promise<void> {
-        await this._api.apiAuthorizeChangePasswordPost({
+        await handleApiCall(this._api.apiAuthorizeChangePasswordPost({
             changePasswordRequestDto: {
                 token: req.token,
                 confirmPassword: req.confirmPassword,
                 newPassword: req.password
             }
-        }, req.initOverrides)
+        }, req.initOverrides));
     }
 }

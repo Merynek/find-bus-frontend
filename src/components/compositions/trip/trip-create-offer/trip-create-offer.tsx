@@ -3,7 +3,6 @@ import React, {useRef, useState} from "react";
 import styles from "./trip-create-offer.module.scss";
 import {observer} from "mobx-react";
 import {ComboBox} from "../../../components/inputs/combo-box/combo-box";
-import {InputSize} from "../../../components/inputs/inputEnum";
 import {ButtonClick, ButtonSize, ButtonType} from "../../../components/button/button";
 import {DatePicker} from "../../../components/inputs/date-picker/date-picker";
 import {Price} from "@/src/data/price";

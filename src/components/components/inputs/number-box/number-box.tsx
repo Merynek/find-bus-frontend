@@ -19,7 +19,7 @@ enum InputType {
 }
 
 export const NumberBox = observer((props: INumberBoxProps) => {
-    const { refInput, focusAfterMount, placeholder,
+    const { focusAfterMount, placeholder,
         hideSpinButtons, onChange,
         onBlur, onFocus, value, disabled,
         maxValue, minValue, decimalCount
@@ -71,7 +71,6 @@ export const NumberBox = observer((props: INumberBoxProps) => {
     const renderInput = () => {
         return (
             <input
-                ref={refInput}
                 autoFocus={focusAfterMount}
                 type={inputType}
                 inputMode="decimal"

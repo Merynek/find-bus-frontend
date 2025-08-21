@@ -1,6 +1,6 @@
 import {ApiConfiguration} from "./apiConfiguration";
 import * as OpenApi from "./openapi";
-import {IApiRequest} from "./toolsApi";
+import {handleApiCall, IApiRequest} from "./toolsApi";
 import {
     AppBusinessConfigResponseDto,
     type EmailConfigResponseDto,
@@ -35,21 +35,21 @@ export class AdminApi {
     }
 
     public async setEmailConfig(req: ISetEmailConfigRequest): Promise<void> {
-        await this._api.apiAdminEmailConfigPost({
+        await handleApiCall(this._api.apiAdminEmailConfigPost({
             updateEmailConfig: {
                 type: req.type,
                 templateId: req.templateId,
                 language: req.language
             }
-        }, req.initOverrides);
+        }, req.initOverrides));
     }
 
     public async getAppBusinessConfig(): Promise<AppBusinessConfigResponseDto> {
-        return await this._api.apiAdminAppConfigGet();
+        return await handleApiCall(this._api.apiAdminAppConfigGet());
     }
 
     public async changeAppBusinessConfig(req: IPostChangeAppBusinessConfigRequest): Promise<void> {
-        await this._api.apiAdminAppConfigPost({
+        await handleApiCall(this._api.apiAdminAppConfigPost({
             updateAppBusinessConfigRequestDto: {
                 minDateToAcceptOfferInHours: req.cfg.minDateToAcceptOfferInHours,
                 minEndOrderFromNowInHours: req.cfg.minEndOrderFromNowInHours,
@@ -68,6 +68,6 @@ export class AdminApi {
                 tripOfferCommissionPercentage: req.cfg.tripOfferCommissionPercentage,
                 tripCancelPenaltyAfterLimitPercentageForTransporter: req.cfg.tripCancelPenaltyAfterLimitPercentageForTransporter
             }
-        }, req.initOverrides)
+        }, req.initOverrides));
     }
 }

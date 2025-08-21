@@ -1,6 +1,6 @@
 import {ApiConfiguration} from "./apiConfiguration";
 import * as OpenApi from "./openapi";
-import {IApiRequest} from "./toolsApi";
+import {handleApiCall, IApiRequest} from "./toolsApi";
 import {
     ApiTripListGetRequest,
     CreateTripRequestDto,
@@ -49,9 +49,9 @@ export class TripApi {
     }
 
     public async createTrip(req: ICreateTripRequest): Promise<void> {
-        await this._api.apiTripPost({
+        await handleApiCall(this._api.apiTripPost({
             createTripRequestDto: req.trip
-        }, req.initOverrides)
+        }, req.initOverrides));
     }
 
     public async getTrips(req: IGetTripsRequest): Promise<TripItemResponseDto[]> {
@@ -66,18 +66,18 @@ export class TripApi {
             onlyMine: req.onlyMine,
             meOffered: req.meOffered
         }
-        return await this._api.apiTripListGet(params, req.initOverrides);
+        return await handleApiCall(this._api.apiTripListGet(params, req.initOverrides));
     }
 
     public async getTrip(req: IGetTrip): Promise<TripResponseDto> {
-        return await this._api.apiTripTripGet({
+        return await handleApiCall(this._api.apiTripTripGet({
             tripId: req.id
-        }, req.initOverrides)
+        }, req.initOverrides));
     }
 
     public async getTripRecommendation(req: IGetTripRecommendation): Promise<TripRecommendationResponseDto> {
-        return await this._api.apiTripRecommendationPost({
+        return await handleApiCall(this._api.apiTripRecommendationPost({
             tripRecommendationRequestDto: req.trip
-        });
+        }));
     }
 }

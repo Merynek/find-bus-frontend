@@ -1,4 +1,4 @@
-import {IApiRequest} from "./toolsApi";
+import {handleApiCall, IApiRequest} from "./toolsApi";
 import * as OpenApi from "./openapi";
 import {UserRole} from "./openapi";
 import {ApiConfiguration} from "./apiConfiguration";
@@ -25,21 +25,21 @@ export class RegistrationApi {
     }
 
     public async registration(req: IRegistrationRequest): Promise<void> {
-        await this._api.apiRegistrationUserPost({
+        await handleApiCall(this._api.apiRegistrationUserPost({
             registrationUserRequestDto: {
                 email: req.email,
                 password: req.password,
                 confirmPassword: req.password,
                 role: req.role
             }
-        }, req.initOverrides);
+        }, req.initOverrides));
     }
 
     public async activeUser(req: IActiveUserRequest): Promise<void> {
-        await this._api.apiRegistrationActivePost({
+        await handleApiCall(this._api.apiRegistrationActivePost({
             userActiveRequestDto: {
                 token: req.token
             }
-        }, req.initOverrides)
+        }, req.initOverrides));
     }
 }
