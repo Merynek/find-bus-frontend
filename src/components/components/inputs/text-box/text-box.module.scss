@@ -3,77 +3,33 @@
 @use "../../../../styles/colors";
 @use "../../../../styles/fonts";
 
-@mixin textareaStyle {
-  line-height: fonts.$lineHeightBase;
-  overflow-y: auto;
-  white-space: pre-wrap;
-  cursor: auto;
-
-  &.textareaResizeNone {
-    resize: none;
-  }
-
-  &.textareaResizeBoth {
-    resize: both;
-  }
-
-  &.textareaResizeHorizontal {
-    resize: horizontal;
-  }
-
-  &.textareaResizeVertical {
-    resize: vertical;
-  }
-}
-
-.textBox {
+.inputWrapper {
+  position: relative;
   width: 100%;
-  border-radius: variables.$borderRadiusBase;
+  display: flex;
+  flex-direction: row;
+  border-bottom: 2px solid colors.$yellow;
+  padding-bottom: 4px;
 
-  &.smallSize {
-    input, textarea {
-      @include variables.inputStyle(variables.$inputSmallHeight);
-    }
-  }
-  &.mediumSize {
-    input, textarea {
-      @include variables.inputStyle(variables.$inputMediumHeight);
-    }
-  }
-  &.largeSize {
-    input, textarea {
-      @include variables.inputStyle(variables.$inputLargeHeight);
-    }
+  .placeholder {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    color: colors.$darkGray;
   }
 
-  &.smallSize, &.mediumSize, &.largeSize {
-    textarea {
-      @include textareaStyle();
-    }
-  }
-}
+  .input {
+    outline: none;
+    width: 100%;
 
-@media (max-width: mediaQueries.$mediaQuery768) {
-  .textBox {
-    &.smallSize {
-      input, textarea {
-        @include variables.inputStyle(variables.$inputSmallHeightPhone);
-      }
-    }
-    &.mediumSize {
-      input, textarea {
-        @include variables.inputStyle(variables.$inputMediumHeightPhone);
-      }
-    }
-    &.largeSize {
-      input, textarea {
-        @include variables.inputStyle(variables.$inputLargeHeightPhone);
-      }
-    }
-    &.smallSize, &.mediumSize, &.largeSize {
-      textarea {
-        @include textareaStyle();
-      }
+    &:focus + .placeholder,
+    &:not(:placeholder-shown) + .placeholder {
+      top: -6px;
+      font-size: 0.8em;
+      color: colors.$default;
     }
   }
 }

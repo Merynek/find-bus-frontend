@@ -2,13 +2,12 @@
 
 import React from "react";
 import styles from "./forgot-password.page.module.scss";
-import {observer} from "mobx-react";
 import {forgotPasswordFormAction} from "@/src/app/actions/forms/forgotPassword/forgotPasswordFormAction";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {useFormActionState} from "@/src/hooks/formHook";
 import {FormStatus} from "@/src/components/components/form-status/form-status";
 
-const ForgotPasswordPage = observer(() => {
+const ForgotPasswordPage = () => {
     const [state, action, pending] = useFormActionState(forgotPasswordFormAction, undefined);
 
     const _renderBody = () => {
@@ -33,6 +32,6 @@ const ForgotPasswordPage = observer(() => {
     return <div className={styles.layout}>
         {state?.success ? _renderRequestSentBody() : _renderBody()}
     </div>
-});
+};
 
 export default ForgotPasswordPage;

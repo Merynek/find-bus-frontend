@@ -1,5 +1,5 @@
 @use "./colors";
-@import "tailwindcss";
+@use "tailwindcss";
 
 :root {
     --background: #{colors.$white};

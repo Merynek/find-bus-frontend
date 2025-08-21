@@ -1,16 +1,13 @@
 import React, {RefObject, useRef} from "react";
 import styles from "./text-box.module.scss";
 import {cn} from "@/src/utils/common";
-import {InputSize} from "../inputEnum";
 import {observer} from "mobx-react";
 import {useMount} from "@/src/hooks/lifecycleHooks";
+import {Icon, IIconProps} from "@/src/components/components/icon/icon";
 
 interface IInputBoxProps {
-    size?: InputSize;
     placeholder?: string;
     refInput?: RefObject<HTMLInputElement>;
-    inputAutoSize?: boolean;
-    onKeyEnter?: () => void;
     onBlur?: () => void;
     onFocus?: () => void;
     focusAfterMount?: boolean;
@@ -18,10 +15,11 @@ interface IInputBoxProps {
     id?: string;
     name?: string;
     onClick?: () => void;
+    iconProps?: IIconProps;
 }
 
 interface ICommonProps extends IInputBoxProps {
-    type?: TextBoxType;
+    type: TextBoxType;
     disableSpaces?: boolean;
     refTextArea?: RefObject<HTMLTextAreaElement>;
     multiLine?: IMultiLineData;
@@ -45,7 +43,6 @@ export type ITextBoxProps = IControlledProps | UncontrolledProps;
 
 interface IMultiLineData {
     rows: number
-    resize?: IMultiLineResize;
 }
 
 export enum TextBoxType {
@@ -54,27 +51,21 @@ export enum TextBoxType {
     EMAIL = "email"
 }
 
-export enum IMultiLineResize {
-    NONE,
-    BOTH,
-    HORIZONTAL,
-    VERTICAL
-}
-
 export const TextBox = observer((props: ITextBoxProps) => {
     const {
         refTextArea, refInput, focusAfterMount, type,
-        placeholder, onKeyEnter, onBlur, onFocus,
+        placeholder, onBlur, onFocus,
         disabled, multiLine, disableSpaces, maxLength,
-        inputAutoSize, onClick, name, id
+        onClick, name, id, iconProps, controlled,
+        value, onChange
     } = props;
     const _innerTextAreaRef = useRef<HTMLTextAreaElement>(null);
 
     useMount(() => {
-        if (props.controlled) {
-            const ref = props.refTextArea || _innerTextAreaRef;
+        if (controlled) {
+            const ref = refTextArea || _innerTextAreaRef;
             if (ref.current) {
-                ref.current.setSelectionRange(props.value.length, props.value.length);
+                ref.current.setSelectionRange(value.length, value.length);
             }
         }
     });
@@ -84,20 +75,15 @@ export const TextBox = observer((props: ITextBoxProps) => {
             ref: refInput,
             autoFocus: focusAfterMount,
             type: type || TextBoxType.TEXT,
-            placeholder: placeholder,
-            onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => {
-                if (event.key === "Enter" && onKeyEnter) {
-                    onKeyEnter();
-                }
-            },
+            placeholder: "",
             onBlur: onBlur,
             onFocus: onFocus,
             disabled: disabled,
             maxLength: maxLength,
-            size: inputAutoSize ? 1 : undefined,
             onClick: onClick,
             name: name,
             id: id,
+            className: styles.input
         };
 
         const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,15 +91,23 @@ export const TextBox = observer((props: ITextBoxProps) => {
             if (disableSpaces) {
                 val = val.replace(/\s/g, '');
             }
-            if (props.controlled) {
-                props.onChange(val);
+            if (controlled) {
+                onChange(val);
             }
         };
 
-        if (props.controlled) {
-            return <input {...inputProps} value={props.value} onChange={handleInputChange} />;
+        if (controlled) {
+            return <InputWrapper
+                input={<input {...inputProps} value={value} onChange={handleInputChange}/>}
+                placeholder={placeholder}
+                iconProps={iconProps}
+            />
         } else {
-            return <input {...inputProps} defaultValue={props.defaultValue} onChange={handleInputChange} />;
+            return <InputWrapper
+                input={<input {...inputProps} defaultValue={props.defaultValue} onChange={handleInputChange}/>}
+                placeholder={placeholder}
+                iconProps={iconProps}
+            />
         }
     };
 
@@ -121,15 +115,15 @@ export const TextBox = observer((props: ITextBoxProps) => {
         const textAreaProps = {
             ref: refTextArea || _innerTextAreaRef,
             autoFocus: focusAfterMount,
-            className: cn(_getClassNameForTextAreaResize(multiLineData.resize)),
-            placeholder: placeholder,
+            className: cn(styles.input),
+            placeholder: "",
             rows: multiLineData.rows,
             disabled: disabled,
             onBlur: onBlur,
             onFocus: onFocus,
             maxLength: maxLength,
             name: name,
-            id: id,
+            id: id
         };
 
         const handleTextAreaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -139,25 +133,35 @@ export const TextBox = observer((props: ITextBoxProps) => {
         };
 
         if (props.controlled) {
-            return <textarea {...textAreaProps} value={props.value} onChange={handleTextAreaChange} />;
+            return <InputWrapper
+                input={<textarea {...textAreaProps} value={props.value} onChange={handleTextAreaChange}/>}
+                placeholder={placeholder}
+                iconProps={iconProps}
+            />
         } else {
-            return <textarea {...textAreaProps} defaultValue={props.defaultValue} onChange={handleTextAreaChange} />;
-        }
-    };
-
-    const _getClassNameForTextAreaResize = (resize?: IMultiLineResize): string => {
-        switch (resize) {
-            default:
-            case IMultiLineResize.NONE:
-                return styles.textareaResizeNone;
-            case IMultiLineResize.BOTH:
-                return styles.textareaResizeBoth;
-            case IMultiLineResize.HORIZONTAL:
-                return styles.textareaResizeHorizontal;
-            case IMultiLineResize.VERTICAL:
-                return styles.textareaResizeVertical;
+            return <InputWrapper
+                input={<textarea {...textAreaProps} defaultValue={props.defaultValue} onChange={handleTextAreaChange}/>}
+                placeholder={placeholder}
+                iconProps={iconProps}
+            />
         }
     };
 
     return multiLine ? _renderTextArea(multiLine) : _renderInput();
 });
+
+interface IInputWrapperProps {
+    input: React.ReactNode;
+    placeholder?: string;
+    iconProps?: IIconProps;
+}
+
+const InputWrapper = (props: IInputWrapperProps) => {
+    const {input, placeholder, iconProps} = props;
+
+    return <div className={styles.inputWrapper}>
+        {input}
+        {placeholder && <span className={styles.placeholder}>{placeholder}</span>}
+        {iconProps && <Icon {...iconProps}/>}
+    </div>
+}
