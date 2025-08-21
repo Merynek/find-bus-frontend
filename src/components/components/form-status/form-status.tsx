@@ -3,6 +3,7 @@
 import React, {useEffect, useState} from "react";
 import {TFormActionState} from "@/src/forms/BaseFormAction";
 import {z} from "zod";
+import {useTranslate} from "@/src/hooks/translateHook";
 
 type Props<T extends z.ZodSchema> = {
     state: TFormActionState<T>;
@@ -11,6 +12,7 @@ type Props<T extends z.ZodSchema> = {
 export function FormStatus<T extends z.ZodSchema>({state}: Props<T>) {
     const [message, setMessage] = useState(state?.message);
     const [errors, setErrors] = useState(state?.errors);
+    const {t} = useTranslate("errors");
 
     useEffect(() => {
         setMessage(state?.message);
@@ -47,9 +49,13 @@ export function FormStatus<T extends z.ZodSchema>({state}: Props<T>) {
                             {Object.entries(errors.properties).map(([key, value]) => {
                                 const errorValue = value as { errors?: string[] };
                                 if (errorValue?.errors?.length) {
+                                    const messages = errorValue.errors.map(err => {
+                                        // @ts-expect-error Expected error bcs of dynamic key
+                                        return t(err);
+                                    });
                                     return (
                                         <li key={key}>
-                                            <strong className="capitalize">{key}:</strong> <span className="text-red-600">{errorValue.errors.join(", ")}</span>
+                                            <strong className="capitalize">{key}:</strong> <span className="text-red-600">{messages.join(", ")}</span>
                                         </li>
                                     );
                                 }

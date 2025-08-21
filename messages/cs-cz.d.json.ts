@@ -49,6 +49,10 @@ declare const messages: {
       "logoutButton": "Odhlásit se",
       "loginButton": "Přihlásit se"
     }
+  },
+  "errors": {
+    "invalidEmail": "Neplatný email",
+    "invalidPassword": "Neplatné heslo"
   }
 };
 export default messages;

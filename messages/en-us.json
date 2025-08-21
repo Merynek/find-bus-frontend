@@ -46,5 +46,9 @@
       "logoutButton": "Logout",
       "loginButton": "Login"
     }
+  },
+  "errors": {
+    "invalidEmail": "Invalid email",
+    "invalidPassword": "Invalid password"
   }
 }
