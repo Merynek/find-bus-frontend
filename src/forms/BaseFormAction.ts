@@ -26,7 +26,6 @@ export abstract class BaseFormAction<Schema extends z.ZodSchema, Data, ApiResult
             return {
                 success: false,
                 errors: errors,
-                message: 'Některá zadaná data nejsou platná.',
                 data: data as Partial<z.infer<Schema>>,
             };
         }
@@ -35,11 +34,10 @@ export abstract class BaseFormAction<Schema extends z.ZodSchema, Data, ApiResult
             await this.callApi(validatedFields.data);
             return {
                 success: true,
-                message: 'Formulář byl úspěšně odeslán.',
                 data: data as Partial<z.infer<Schema>>,
             };
         } catch (error) {
-            let errorMessage = 'Došlo k neočekávané chybě.';
+            let errorMessage = "";
             if (error && typeof error === 'object' && 'response' in error) {
                 const apiError = (error as { response: { json: () => Promise<{ message?: string }> } });
                 if (apiError.response?.json) {
@@ -47,9 +45,10 @@ export abstract class BaseFormAction<Schema extends z.ZodSchema, Data, ApiResult
                     errorMessage = jsonError.message || errorMessage;
                 }
             }
+            console.error("BaseFormAction Error:", errorMessage);
             return {
                 success: false,
-                message: errorMessage,
+                message: "unexpectedError",
                 data: data as Partial<z.infer<Schema>>,
             };
         }

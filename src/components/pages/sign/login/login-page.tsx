@@ -40,10 +40,10 @@ const LoginPage = () => {
         <div className="p-8 bg-white rounded-lg shadow-xl border border-gray-200 w-full max-w-md">
             <LayoutFlexColumn gap={FlexGap.BIG_40}>
                 <Heading text={t("loginHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={3} />
-                <FormStatus state={state} />
                 <form action={action}>
                     <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale} />
                     <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
+                        <FormStatus state={state} />
                         <TextBox
                             controlled={false}
                             name={FormDataEnum.email}

@@ -51,6 +51,8 @@ declare const messages: {
     }
   },
   "errors": {
+    "formStatusLabel": "Vyskytla se chyba",
+    "unexpectedError": "Neočekovaná chyba",
     "invalidEmail": "Neplatný email",
     "invalidPassword": "Neplatné heslo"
   }

@@ -48,6 +48,8 @@
     }
   },
   "errors": {
+    "formStatusLabel": "An error occurred",
+    "unexpectedError": "Unexpected error",
     "invalidEmail": "Invalid email",
     "invalidPassword": "Invalid password"
   }

@@ -27,16 +27,15 @@ export function FormStatus<T extends z.ZodSchema>({state}: Props<T>) {
     }
 
     return (
-        <div className="my-4 p-4 rounded-md">
-            {message && (
-                <p className={state?.success ? "bg-green-100 text-green-700 p-3 rounded-md mb-2" : "bg-red-100 text-red-700 p-3 rounded-md mb-2"}>
-                    {message}
-                </p>
-            )}
-
+        <div className="">
+            {message && !Boolean(state?.success) && <p className={"bg-red-100 text-red-700 p-3 mb-2"}>
+                {// @ts-expect-error Expected error bcs of dynamic key
+                    t(message)
+                }
+            </p>}
             {(hasGlobalErrors || hasFieldErrors) && (
-                <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-md">
-                    <h4 className="font-bold text-lg mb-2">Chyby ve formuláři:</h4>
+                <div className="bg-red-50 text-red-700 p-4">
+                    <h4 className="font-bold text-lg mb-2">{t("formStatusLabel")}:</h4>
                     {hasGlobalErrors && errors?.errors && (
                         <ul className="list-disc list-inside mb-4">
                             {errors.errors.map((error, index) => (
@@ -55,7 +54,7 @@ export function FormStatus<T extends z.ZodSchema>({state}: Props<T>) {
                                     });
                                     return (
                                         <li key={key}>
-                                            <strong className="capitalize">{key}:</strong> <span className="text-red-600">{messages.join(", ")}</span>
+                                            <span className="text-red-600">{messages.join(", ")}</span>
                                         </li>
                                     );
                                 }

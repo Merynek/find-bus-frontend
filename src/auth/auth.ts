@@ -39,34 +39,17 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                 password: { label: "Password", type: "password" },
             },
             authorize: async (credentials) => {
-                try {
-                    const api = new AuthorizeApi(undefined);
-                    const loginResponse= await api.login({
-                        email: credentials.email as string,
-                        password: credentials.password as string,
-                    });
+                const api = new AuthorizeApi(undefined);
+                const loginResponse= await api.login({
+                    email: credentials.email as string,
+                    password: credentials.password as string,
+                });
 
-                    return {
-                        token: loginResponse.token,
-                        user: loginResponse.user,
-                        refreshToken: loginResponse.refreshToken
-                    };
-                } catch (error: unknown) {
-                    const errorMessage = 'AUTH: authorize.';
-                    if (error && typeof error === 'object' && 'response' in error) {
-                        const apiError = (error as { response: { json: () => Promise<{ message?: string }> } });
-                        if (apiError.response?.json) {
-                            const jsonError = await apiError.response.json();
-                            console.error("Došlo k chybě:", jsonError.message || errorMessage);
-                        }
-                    }
-                    if (error instanceof Error) {
-                        console.error("Došlo k chybě:", error.message);
-                    } else {
-                        console.error("Došlo k neznámé chybě:", error);
-                    }
-                    return null;
-                }
+                return {
+                    token: loginResponse.token,
+                    user: loginResponse.user,
+                    refreshToken: loginResponse.refreshToken
+                };
             },
         }),
     ],
@@ -93,18 +76,17 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                 token.data.token.expireDate = newTokens.expireDate;
                 return token;
             } catch (error: unknown) {
-                const errorMessage = 'AUTH: jwt.';
                 if (error && typeof error === 'object' && 'response' in error) {
                     const apiError = (error as { response: { json: () => Promise<{ message?: string }> } });
                     if (apiError.response?.json) {
                         const jsonError = await apiError.response.json();
-                        console.error("Došlo k chybě:", jsonError.message || errorMessage);
+                        console.error("JWT Auth Error:", jsonError.message);
                     }
                 }
                 if (error instanceof Error) {
-                    console.error("Došlo k chybě:", error.message);
+                    console.error("JWT Auth Error:", error.message);
                 } else {
-                    console.error("Došlo k neznámé chybě:", error);
+                    console.error("JWT Auth Error:", error);
                 }
                 return null;
             }
