@@ -42,42 +42,46 @@ const LoginPage = () => {
                 <Heading text={t("loginHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={3} />
                 <form action={action}>
                     <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale} />
-                    <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
+                    <LayoutFlexColumn gap={FlexGap.LARGE_32}>
                         <FormStatus state={state} />
-                        <TextBox
-                            controlled={false}
-                            name={FormDataEnum.email}
-                            id={FormDataEnum.email}
-                            type={TextBoxType.EMAIL}
-                            placeholder={t("emailPlaceholder")}
-                        />
-                        <TextBox
-                            controlled={false}
-                            name={FormDataEnum.password}
-                            id={FormDataEnum.password}
-                            type={TextBoxType.PASSWORD}
-                            placeholder={t("passwordPlaceholder")}
-                        />
-                        <ButtonClick
-                            controlled={false}
-                            type={ButtonType.BLACK}
-                            size={ButtonSize.BUTTON_SIZE_M}
-                            isDisabled={pending}
-                            label={t("login")}
-                        />
+                        <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
+                            <TextBox
+                                controlled={false}
+                                name={FormDataEnum.email}
+                                id={FormDataEnum.email}
+                                type={TextBoxType.EMAIL}
+                                placeholder={t("emailPlaceholder")}
+                                defaultValue={state?.data?.email}
+                            />
+                            <TextBox
+                                controlled={false}
+                                name={FormDataEnum.password}
+                                id={FormDataEnum.password}
+                                type={TextBoxType.PASSWORD}
+                                placeholder={t("passwordPlaceholder")}
+                                defaultValue={state?.data?.password}
+                            />
+                            <ButtonClick
+                                controlled={false}
+                                type={ButtonType.BLACK}
+                                size={ButtonSize.BUTTON_SIZE_M}
+                                isDisabled={pending}
+                                label={t("login")}
+                            />
+                        </LayoutFlexColumn>
                     </LayoutFlexColumn>
                 </form>
                 <LayoutFlexColumn gap={FlexGap.TINY_8}>
                     <ButtonLink
                         route={{route: ROUTES.FORGOT_PASSWORD}}
                         label={t("forgetPassword")}
-                        type={ButtonType.BLACK}
+                        type={ButtonType.YELLOW}
                         size={ButtonSize.BUTTON_SIZE_M}
                     />
                     <ButtonLink
                         route={{route: ROUTES.SIGN_UP}}
                         label={t("registration")}
-                        type={ButtonType.YELLOW}
+                        type={ButtonType.BLACK}
                         size={ButtonSize.BUTTON_SIZE_M}
                     />
                 </LayoutFlexColumn>
