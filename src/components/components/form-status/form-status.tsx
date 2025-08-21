@@ -17,7 +17,10 @@ export function FormStatus<T extends z.ZodSchema>({state}: Props<T>) {
         setErrors(state?.errors);
     }, [state]);
 
-    if (!message && !errors) {
+    const hasGlobalErrors = errors && errors.errors && errors.errors.length > 0;
+    const hasFieldErrors = errors && 'properties' in errors && errors.properties && Object.keys(errors.properties).length > 0;
+
+    if (!message && !hasGlobalErrors && !hasFieldErrors) {
         return null;
     }
 
@@ -28,24 +31,32 @@ export function FormStatus<T extends z.ZodSchema>({state}: Props<T>) {
                     {message}
                 </p>
             )}
-            {errors && Object.keys(errors).length > 0 && (
+
+            {(hasGlobalErrors || hasFieldErrors) && (
                 <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-md">
-                    <h4 className="font-bold text-lg mb-2">Errors:</h4>
-                    <ul className="list-disc list-inside space-y-1">
-                        {Object.entries(errors).map(([key, value]) => {
-                            if (value && typeof value === 'object' && '_errors' in value) {
-                                const errorValue = value as { _errors?: string[] };
-                                if (errorValue._errors) {
+                    <h4 className="font-bold text-lg mb-2">Chyby ve formuláři:</h4>
+                    {hasGlobalErrors && errors?.errors && (
+                        <ul className="list-disc list-inside mb-4">
+                            {errors.errors.map((error, index) => (
+                                <li key={index}>{error}</li>
+                            ))}
+                        </ul>
+                    )}
+                    {hasFieldErrors && typeof errors?.properties === 'object' && errors?.properties !== null && (
+                        <ul className="list-disc list-inside space-y-1">
+                            {Object.entries(errors.properties).map(([key, value]) => {
+                                const errorValue = value as { errors?: string[] };
+                                if (errorValue?.errors?.length) {
                                     return (
                                         <li key={key}>
-                                            <strong className="capitalize">{key}:</strong> <span className="text-red-600">{errorValue._errors.join(", ")}</span>
+                                            <strong className="capitalize">{key}:</strong> <span className="text-red-600">{errorValue.errors.join(", ")}</span>
                                         </li>
                                     );
                                 }
-                            }
-                            return null;
-                        })}
-                    </ul>
+                                return null;
+                            })}
+                        </ul>
+                    )}
                 </div>
             )}
         </div>
