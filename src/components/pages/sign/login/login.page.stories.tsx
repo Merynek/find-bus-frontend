@@ -1,13 +1,15 @@
 import React from "react";
 import LoginPage from "./login-page";
-import {StoryObj} from "@storybook/nextjs";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
-export default {
+const meta: Meta<typeof LoginPage> = {
     component: LoginPage,
-    args: {}
-};
+    args: { }
+}
 
-export const LoginPageStory: StoryObj = {
+export default meta;
+
+export const Default: StoryObj<typeof LoginPage> = {
     render: () => <LoginPage />,
     args: {}
 };
