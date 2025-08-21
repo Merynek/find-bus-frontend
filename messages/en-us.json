@@ -4,7 +4,9 @@
       "emailPlaceholder": "E-mail",
       "passwordPlaceholder": "Password",
       "passwordConfirmPlaceholder": "Confirm password",
-      "login": "Login"
+      "login": "Login",
+      "forgetPassword": "Forgot password",
+      "registration": "Registration"
     },
     "userSettings": {
       "name": "Name",

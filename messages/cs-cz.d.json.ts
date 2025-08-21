@@ -4,25 +4,12 @@
 declare const messages: {
   "page": {
     "sign": {
-      "emailPlaceholder": "Zadej svůj e-mail",
+      "emailPlaceholder": "E-mail",
       "passwordPlaceholder": "Heslo",
       "passwordConfirmPlaceholder": "Potvrzení hesla",
-      "enterEmail": "Zadejte email",
-      "enterPassword": "Zadejte heslo",
-      "invalidEmail": "Nesprávný email",
-      "shortPassword": "Heslo je příliš krátké",
-      "invalidPasswordConfirm": "Hesla nejsou totožná",
-      "registration": {
-        "registrationButton": "Registrovat"
-      },
-      "forgotPassword": {
-        "sendForgotPasswordButton": "Obnovit heslo",
-        "textRequestSent": "Poždavek se zpracovává. Kontrolujte si svuj email."
-      },
-      "resetPassword": {
-        "tokenInvalid": "Token není validní",
-        "submit": "Uložit heslo"
-      }
+      "login": "Přihlásit se",
+      "forgetPassword": "Zapomenuté heslo",
+      "registration": "Registrace"
     },
     "userSettings": {
       "name": "Jméno",

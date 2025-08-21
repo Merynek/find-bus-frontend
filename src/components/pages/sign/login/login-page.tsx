@@ -12,7 +12,6 @@ import {userSettingsFormAction} from "@/src/app/actions/forms/signIn/signInFormA
 import {useFormActionState} from "@/src/hooks/formHook";
 import {FormStatus} from "@/src/components/components/form-status/form-status";
 import {TextBox, TextBoxType} from "@/src/components/components/inputs/text-box/text-box";
-import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 import {FlexGap} from "@/src/enums/layout.enum";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 
@@ -37,13 +36,7 @@ const LoginPage = () => {
 
     const locale = useCurrentLocale();
 
-    return <div>
-        <ButtonLink
-            route={{route: ROUTES.SIGN_UP}}
-            label={t("registration.registrationButton")}
-            type={ButtonType.YELLOW}
-            size={ButtonSize.BUTTON_SIZE_M}
-        />
+    return <LayoutFlexColumn gap={FlexGap.BIG_40}>
         <FormStatus state={state} />
         <form action={action}>
             <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale} />
@@ -71,13 +64,21 @@ const LoginPage = () => {
                 />
             </LayoutFlexColumn>
         </form>
-        <ButtonLink
-            route={{route: ROUTES.FORGOT_PASSWORD}}
-            label={"FORGET PASSWORD"}
-            type={ButtonType.BLACK}
-            size={ButtonSize.BUTTON_SIZE_M}
-        />
-    </div>
+        <LayoutFlexColumn gap={FlexGap.TINY_8}>
+            <ButtonLink
+                route={{route: ROUTES.FORGOT_PASSWORD}}
+                label={t("forgetPassword")}
+                type={ButtonType.BLACK}
+                size={ButtonSize.BUTTON_SIZE_M}
+            />
+            <ButtonLink
+                route={{route: ROUTES.SIGN_UP}}
+                label={t("registration")}
+                type={ButtonType.YELLOW}
+                size={ButtonSize.BUTTON_SIZE_M}
+            />
+        </LayoutFlexColumn>
+    </LayoutFlexColumn>
 };
 
 export default LoginPage;
