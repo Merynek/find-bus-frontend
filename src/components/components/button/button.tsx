@@ -34,9 +34,16 @@ export interface ILinkButtonProps extends IButtonProps {
     onClick?: (event: React.MouseEvent) => void;
 }
 
-export interface IClickButtonProps extends IButtonProps {
+interface IControlledClickButtonProps extends IButtonProps {
+    controlled: true;
     onClick: (event: React.MouseEvent) => void;
 }
+
+interface IUncontrolledClickButtonProps extends IButtonProps {
+    controlled: false;
+}
+
+export type IClickButtonProps = IControlledClickButtonProps | IUncontrolledClickButtonProps;
 
 function getSizeForButton(buttonSize: ButtonSize): string {
     switch (buttonSize) {
@@ -59,15 +66,29 @@ function getClassNameForButton(buttonType: ButtonType): string {
 }
 
 export const ButtonClick = (props: IClickButtonProps) => {
-    const {type, size, isDisabled, onClick} = props;
+    const {type, size, isDisabled, controlled} = props;
+
+    const buttonProps = {
+        disabled: isDisabled,
+        className: cn(
+                getClassNameForButton(type),
+        getSizeForButton(size),
+        isDisabled && styles.disabled
+        )
+    };
+
+    if (controlled) {
+        return <button
+            onClick={props.onClick}
+            {...buttonProps}
+        >
+            <ButtonContent {...props} />
+        </button>
+    }
+
     return <button
-        onClick={onClick}
-        disabled={isDisabled}
-        className={cn(
-            getClassNameForButton(type),
-            getSizeForButton(size),
-            isDisabled && styles.disabled
-        )}
+        type={"submit"}
+        {...buttonProps}
     >
         <ButtonContent {...props} />
     </button>

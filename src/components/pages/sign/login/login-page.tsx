@@ -1,17 +1,20 @@
 'use client'
 
 import React, {useCallback, useEffect} from "react";
-import {ButtonSize, ButtonType, ButtonLink} from "../../../components/button/button";
+import {ButtonClick, ButtonLink, ButtonSize, ButtonType} from "../../../components/button/button";
 import {ROUTES, SEARCH_PARAMS} from "@/src/enums/router.enum";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {useCurrentLocale, useTranslate} from "@/src/hooks/translateHook";
 import {logoutAction} from "@/src/app/actions/auth/authActions";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "@/src/i18n/navigation";
+import {useSearchParams} from "next/navigation";
+import {useRouter} from "@/src/i18n/navigation";
 import {userSettingsFormAction} from "@/src/app/actions/forms/signIn/signInFormAction";
 import {useFormActionState} from "@/src/hooks/formHook";
 import {FormStatus} from "@/src/components/components/form-status/form-status";
 import {TextBox, TextBoxType} from "@/src/components/components/inputs/text-box/text-box";
+import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
+import {FlexGap} from "@/src/enums/layout.enum";
+import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 
 const LoginPage = () => {
     const {t} = useTranslate("page.sign");
@@ -41,34 +44,32 @@ const LoginPage = () => {
             type={ButtonType.YELLOW}
             size={ButtonSize.BUTTON_SIZE_M}
         />
+        <FormStatus state={state} />
         <form action={action}>
-            <FormStatus state={state} />
             <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale} />
-
-            <div>
-                <label htmlFor={FormDataEnum.email}>Email</label>
+            <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
                 <TextBox
                     controlled={false}
                     name={FormDataEnum.email}
                     id={FormDataEnum.email}
                     type={TextBoxType.EMAIL}
-                    placeholder={"Email"}
+                    placeholder={t("emailPlaceholder")}
                 />
-            </div>
-
-            <div>
-                <label htmlFor={FormDataEnum.password}>Password</label>
                 <TextBox
                     controlled={false}
                     name={FormDataEnum.password}
                     id={FormDataEnum.password}
                     type={TextBoxType.PASSWORD}
-                    placeholder={"password"}
+                    placeholder={t("passwordPlaceholder")}
                 />
-            </div>
-            <button disabled={pending} type="submit">
-                Sign In
-            </button>
+                <ButtonClick
+                    controlled={false}
+                    type={ButtonType.BLACK}
+                    size={ButtonSize.BUTTON_SIZE_M}
+                    isDisabled={pending}
+                    label={t("login")}
+                />
+            </LayoutFlexColumn>
         </form>
         <ButtonLink
             route={{route: ROUTES.FORGOT_PASSWORD}}

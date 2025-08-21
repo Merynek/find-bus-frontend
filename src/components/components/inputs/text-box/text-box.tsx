@@ -151,17 +151,18 @@ export const TextBox = observer((props: ITextBoxProps) => {
 });
 
 interface IInputWrapperProps {
+    id?: string;
     input: React.ReactNode;
     placeholder?: string;
     iconProps?: IIconProps;
 }
 
 const InputWrapper = (props: IInputWrapperProps) => {
-    const {input, placeholder, iconProps} = props;
+    const {input, placeholder, iconProps, id} = props;
 
     return <div className={styles.inputWrapper}>
         {input}
-        {placeholder && <span className={styles.placeholder}>{placeholder}</span>}
+        {placeholder && <label htmlFor={id} className={styles.placeholder}>{placeholder}</label>}
         {iconProps && <Icon {...iconProps}/>}
     </div>
 }
