@@ -1,4 +1,4 @@
-import {IApiRequest} from "./toolsApi";
+import {handleApiCall, IApiRequest} from "./toolsApi";
 import * as OpenApi from "./openapi";
 import {ApiConfiguration} from "@/src/api/apiConfiguration";
 import {AccessTokenDto, LoginResponseDto} from "./openapi";
@@ -34,12 +34,12 @@ export class AuthorizeApi {
     }
 
     public async login(req: ILoginRequest): Promise<LoginResponseDto> {
-        return await this._api.apiAuthorizeLoginPost({
+        return await handleApiCall(this._api.apiAuthorizeLoginPost({
             loginRequestDto: {
                 email: req.email,
                 password: req.password
             }
-        }, req.initOverrides);
+        }, req.initOverrides));
     }
 
     public async refreshToken(req: IRefreshTokenRequest): Promise<AccessTokenDto> {

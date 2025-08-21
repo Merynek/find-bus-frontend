@@ -21,8 +21,9 @@ export function FormStatus<T extends z.ZodSchema>({state}: Props<T>) {
 
     const hasGlobalErrors = errors && errors.errors && errors.errors.length > 0;
     const hasFieldErrors = errors && 'properties' in errors && errors.properties && Object.keys(errors.properties).length > 0;
+    const apiError = state?.apiErrors
 
-    if (!message && !hasGlobalErrors && !hasFieldErrors) {
+    if (!message && !hasGlobalErrors && !hasFieldErrors && !apiError) {
         return null;
     }
 
@@ -31,6 +32,11 @@ export function FormStatus<T extends z.ZodSchema>({state}: Props<T>) {
             {message && !Boolean(state?.success) && <p className={"bg-red-100 text-red-700 p-3 mb-2"}>
                 {// @ts-expect-error Expected error bcs of dynamic key
                     t(message)
+                }
+            </p>}
+            {apiError && !Boolean(state?.success) && <p className={"bg-red-100 text-red-700 p-3 mb-2"}>
+                {// @ts-expect-error Expected error bcs of dynamic key
+                    t("apiErrors." + apiError.errorCode)
                 }
             </p>}
             {(hasGlobalErrors || hasFieldErrors) && (

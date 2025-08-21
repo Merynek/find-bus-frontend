@@ -1,11 +1,14 @@
 import {z} from 'zod';
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import { $ZodErrorTree } from 'zod/v4/core';
+import {CallbackRouteError} from "@auth/core/errors";
+import {ApiError, IApiError} from "@/src/api/apiError";
 
 export type TFormActionState<Schema extends z.ZodSchema> = {
     success?: boolean;
     message?: string;
     errors?: $ZodErrorTree<z.infer<Schema>>;
+    apiErrors?: IApiError;
     data?: Partial<z.infer<Schema>>;
 } | undefined;
 
@@ -36,16 +39,23 @@ export abstract class BaseFormAction<Schema extends z.ZodSchema, Data, ApiResult
                 success: true,
                 data: data as Partial<z.infer<Schema>>,
             };
-        } catch (error) {
-            let errorMessage = "";
-            if (error && typeof error === 'object' && 'response' in error) {
-                const apiError = (error as { response: { json: () => Promise<{ message?: string }> } });
-                if (apiError.response?.json) {
-                    const jsonError = await apiError.response.json();
-                    errorMessage = jsonError.message || errorMessage;
+        } catch (error: unknown) {
+            let apiError: ApiError|undefined = undefined;
+
+            if (error instanceof CallbackRouteError) {
+                if (error.cause?.err instanceof ApiError) {
+                    apiError = error.cause?.err;
                 }
+            } else if (error instanceof ApiError) {
+                apiError = error;
             }
-            console.error("BaseFormAction Error:", errorMessage);
+            if (apiError) {
+                return {
+                    success: false,
+                    apiErrors: apiError.toJson()
+                };
+            }
+
             return {
                 success: false,
                 message: "unexpectedError",

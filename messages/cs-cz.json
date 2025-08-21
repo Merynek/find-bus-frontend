@@ -51,6 +51,19 @@
     "formStatusLabel": "Vyskytla se chyba",
     "unexpectedError": "Neočekovaná chyba",
     "invalidEmail": "Neplatný email",
-    "invalidPassword": "Neplatné heslo"
+    "invalidPassword": "Neplatné heslo",
+    "apiErrors": {
+      "UNKNOWN": "Neočekovaná chyba",
+      "BANNED": "Uživatel je zabanován",
+      "UNSUPPORTED_ROLE": "Nepodporovaná role",
+      "UNKNOWN_ROLE": "Neznámá role",
+      "LOGIN_FAILED": "Přihlášení se nezdařilo",
+      "USER_EXISTS": "Uživatel již existuje",
+      "UNKNOWN_EMAIL": "Neplatný email",
+      "UNKNOWN_USER": "Uživatel nenalezen",
+      "WRONG_PASSWORD":  "Nesprávné heslo",
+      "INVALID_PASSWORD_TOKEN": "Neplatný token hesla",
+      "INACTIVE": "Uživatel je neaktivní"
+    }
   }
 }

@@ -51,6 +51,19 @@
     "formStatusLabel": "An error occurred",
     "unexpectedError": "Unexpected error",
     "invalidEmail": "Invalid email",
-    "invalidPassword": "Invalid password"
+    "invalidPassword": "Invalid password",
+    "apiErrors": {
+      "UNKNOWN": "Unexpected error",
+      "BANNED": "User is banned",
+      "UNSUPPORTED_ROLE": "Unsupported role",
+      "UNKNOWN_ROLE": "Unknown role",
+      "LOGIN_FAILED": "Login failed",
+      "USER_EXISTS": "User already exists",
+      "UNKNOWN_EMAIL": "Invalid email",
+      "UNKNOWN_USER": "User not found",
+      "WRONG_PASSWORD":  "Wrong password",
+      "INVALID_PASSWORD_TOKEN": "Invalid password token",
+      "INACTIVE": "User is inactive"
+    }
   }
 }

@@ -40,7 +40,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
             },
             authorize: async (credentials) => {
                 const api = new AuthorizeApi(undefined);
-                const loginResponse= await api.login({
+                const loginResponse = await api.login({
                     email: credentials.email as string,
                     password: credentials.password as string,
                 });
