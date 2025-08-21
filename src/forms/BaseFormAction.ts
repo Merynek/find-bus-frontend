@@ -1,10 +1,11 @@
 import {z} from 'zod';
 import {FormDataEnum} from "@/src/enums/form-data.enum";
+import { $ZodErrorTree } from 'zod/v4/core';
 
 export type TFormActionState<Schema extends z.ZodSchema> = {
     success?: boolean;
     message?: string;
-    errors?: z.ZodFormattedError<z.infer<Schema>>;
+    errors?: $ZodErrorTree<z.infer<Schema>>;
     data?: Partial<z.infer<Schema>>;
 } | undefined;
 
@@ -21,7 +22,7 @@ export abstract class BaseFormAction<Schema extends z.ZodSchema, Data, ApiResult
         const validatedFields = this.schema.safeParse(data);
 
         if (!validatedFields.success) {
-            const errors = validatedFields.error.format() as z.ZodFormattedError<z.infer<Schema>>;
+            const errors = z.treeifyError(validatedFields.error);
             return {
                 success: false,
                 errors: errors,

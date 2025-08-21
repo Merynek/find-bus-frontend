@@ -10,7 +10,7 @@ export const UserSettingsSchema = z.object({
     dic: z.string().optional(),
     companyName: z.string().optional(),
     isCompany: z.boolean().optional(),
-    notifications: z.array(z.nativeEnum(NotificationsEnum)).optional(),
+    notifications: z.array(z.enum(NotificationsEnum)).optional(),
     address: UserAddressSchema.partial().optional(),
     mailingAddress: UserAddressSchema.partial().optional(),
     transferInfo: TransferInfoSchema.partial().optional(),

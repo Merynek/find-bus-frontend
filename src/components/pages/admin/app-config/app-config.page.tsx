@@ -29,7 +29,7 @@ const AppConfigPage = (props: IAppConfigPageProps) => {
                     <input id={FormDataEnum.minEndOrderFromNowInHours} name={FormDataEnum.minEndOrderFromNowInHours}
                            placeholder="minEndOrderFromNowInHours" type={"number"} defaultValue={appConfig.minEndOrderFromNowInHours}/>
                 </div>
-                {state?.errors?.minEndOrderFromNowInHours && <p>{state.errors.minEndOrderFromNowInHours._errors}</p>}
+                {state?.errors?.properties?.minEndOrderFromNowInHours && <p>{state.errors.properties?.minEndOrderFromNowInHours.errors}</p>}
             </div>
 
             <div className={styles.line}>
@@ -40,8 +40,8 @@ const AppConfigPage = (props: IAppConfigPageProps) => {
                            name={FormDataEnum.minDiffBetweenStartTripAndEndOrderInHours}
                            placeholder="minDiffBetweenStartTripAndEndOrderInHours" type={"number"} defaultValue={appConfig.minDiffBetweenStartTripAndEndOrderInHours}/>
                 </div>
-                {state?.errors?.minDiffBetweenStartTripAndEndOrderInHours &&
-                    <p>{state.errors.minDiffBetweenStartTripAndEndOrderInHours._errors}</p>}
+                {state?.errors?.properties?.minDiffBetweenStartTripAndEndOrderInHours &&
+                    <p>{state.errors.properties?.minDiffBetweenStartTripAndEndOrderInHours.errors}</p>}
             </div>
 
             <h2>Trip Offers</h2>
@@ -53,8 +53,8 @@ const AppConfigPage = (props: IAppConfigPageProps) => {
                            name={FormDataEnum.minDateToAcceptOfferInHours}
                            placeholder="minDateToAcceptOfferInHours" type={"number"} defaultValue={appConfig.minDateToAcceptOfferInHours}/>
                 </div>
-                {state?.errors?.minDateToAcceptOfferInHours &&
-                    <p>{state.errors.minDateToAcceptOfferInHours._errors}</p>}
+                {state?.errors?.properties?.minDateToAcceptOfferInHours &&
+                    <p>{state.errors?.properties?.minDateToAcceptOfferInHours.errors}</p>}
             </div>
 
             <div className={styles.line}>
@@ -66,8 +66,8 @@ const AppConfigPage = (props: IAppConfigPageProps) => {
                            name={FormDataEnum.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours}
                            placeholder="minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours" type={"number"} defaultValue={appConfig.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours}/>
                 </div>
-                {state?.errors?.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours &&
-                    <p>{state.errors.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours._errors}</p>}
+                {state?.errors?.properties?.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours &&
+                    <p>{state.errors.properties?.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours.errors}</p>}
             </div>
 
             <h2>Notifications</h2>
@@ -81,8 +81,8 @@ const AppConfigPage = (props: IAppConfigPageProps) => {
                            name={FormDataEnum.payRestOfPriceWarningBeforeStartTripInHours}
                            placeholder="payRestOfPriceWarningBeforeStartTripInHours" type={"number"} defaultValue={appConfig.payRestOfPriceWarningBeforeStartTripInHours}/>
                 </div>
-                {state?.errors?.payRestOfPriceWarningBeforeStartTripInHours &&
-                    <p>{state.errors.payRestOfPriceWarningBeforeStartTripInHours._errors}</p>}
+                {state?.errors?.properties?.payRestOfPriceWarningBeforeStartTripInHours &&
+                    <p>{state.errors.properties?.payRestOfPriceWarningBeforeStartTripInHours.errors}</p>}
             </div>
 
             <div className={styles.line}>
@@ -93,8 +93,8 @@ const AppConfigPage = (props: IAppConfigPageProps) => {
                            name={FormDataEnum.payInvoiceWarningAfterAcceptOfferInHours}
                            placeholder="payInvoiceWarningAfterAcceptOfferInHours" type={"number"} defaultValue={appConfig.payInvoiceWarningAfterAcceptOfferInHours}/>
                 </div>
-                {state?.errors?.payInvoiceWarningAfterAcceptOfferInHours &&
-                    <p>{state.errors.payInvoiceWarningAfterAcceptOfferInHours._errors}</p>}
+                {state?.errors?.properties?.payInvoiceWarningAfterAcceptOfferInHours &&
+                    <p>{state.errors.properties?.payInvoiceWarningAfterAcceptOfferInHours.errors}</p>}
             </div>
 
             <h2>Fee & Deposit</h2>
@@ -107,8 +107,8 @@ const AppConfigPage = (props: IAppConfigPageProps) => {
                            name={FormDataEnum.tripDepositInPercentage}
                            placeholder="tripDepositInPercentage" type={"number"} defaultValue={appConfig.tripDepositInPercentage}/>
                 </div>
-                {state?.errors?.tripDepositInPercentage &&
-                    <p>{state.errors.tripDepositInPercentage._errors}</p>}
+                {state?.errors?.properties?.tripDepositInPercentage &&
+                    <p>{state.errors.properties?.tripDepositInPercentage.errors}</p>}
             </div>
 
             <div className={styles.line}>
@@ -119,8 +119,8 @@ const AppConfigPage = (props: IAppConfigPageProps) => {
                            name={FormDataEnum.tripCancelFeePercentageForDemander}
                            placeholder="tripCancelFeePercentageForDemander" type={"number"} defaultValue={appConfig.tripCancelFeePercentageForDemander}/>
                 </div>
-                {state?.errors?.tripCancelFeePercentageForDemander &&
-                    <p>{state.errors.tripCancelFeePercentageForDemander._errors}</p>}
+                {state?.errors?.properties?.tripCancelFeePercentageForDemander &&
+                    <p>{state.errors.properties?.tripCancelFeePercentageForDemander.errors}</p>}
             </div>
 
 
@@ -132,8 +132,8 @@ const AppConfigPage = (props: IAppConfigPageProps) => {
                            name={FormDataEnum.tripCancelFeeAfterLimitPercentageForDemander}
                            placeholder="tripCancelFeeAfterLimitPercentageForDemander" type={"number"} defaultValue={appConfig.tripCancelFeeAfterLimitPercentageForDemander}/>
                 </div>
-                {state?.errors?.tripCancelFeeAfterLimitPercentageForDemander &&
-                    <p>{state.errors.tripCancelFeeAfterLimitPercentageForDemander._errors}</p>}
+                {state?.errors?.properties?.tripCancelFeeAfterLimitPercentageForDemander &&
+                    <p>{state.errors.properties?.tripCancelFeeAfterLimitPercentageForDemander.errors}</p>}
             </div>
 
             <div className={styles.line}>
@@ -144,8 +144,8 @@ const AppConfigPage = (props: IAppConfigPageProps) => {
                            name={FormDataEnum.tripOfferCommissionPercentage}
                            placeholder="tripOfferCommissionPercentage" type={"number"} defaultValue={appConfig.tripOfferCommissionPercentage}/>
                 </div>
-                {state?.errors?.tripOfferCommissionPercentage &&
-                    <p>{state.errors.tripOfferCommissionPercentage._errors}</p>}
+                {state?.errors?.properties?.tripOfferCommissionPercentage &&
+                    <p>{state.errors.properties?.tripOfferCommissionPercentage.errors}</p>}
             </div>
 
             <div className={styles.line}>
@@ -156,8 +156,8 @@ const AppConfigPage = (props: IAppConfigPageProps) => {
                            name={FormDataEnum.tripCancelPenaltyPercentageForTransporterFromCompany}
                            placeholder="tripCancelPenaltyPercentageForTransporterFromCompany" type={"number"} defaultValue={appConfig.tripCancelPenaltyPercentageForTransporterFromCompany}/>
                 </div>
-                {state?.errors?.tripCancelPenaltyPercentageForTransporterFromCompany &&
-                    <p>{state.errors.tripCancelPenaltyPercentageForTransporterFromCompany._errors}</p>}
+                {state?.errors?.properties?.tripCancelPenaltyPercentageForTransporterFromCompany &&
+                    <p>{state.errors.properties?.tripCancelPenaltyPercentageForTransporterFromCompany.errors}</p>}
             </div>
 
             <div className={styles.line}>
@@ -168,8 +168,8 @@ const AppConfigPage = (props: IAppConfigPageProps) => {
                            name={FormDataEnum.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany}
                            placeholder="tripCancelPenaltyMinAmountInCzkForTransporterFromCompany" type={"number"} defaultValue={appConfig.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany}/>
                 </div>
-                {state?.errors?.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany &&
-                    <p>{state.errors.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany._errors}</p>}
+                {state?.errors?.properties?.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany &&
+                    <p>{state.errors.properties?.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany.errors}</p>}
             </div>
 
             <div className={styles.line}>
@@ -180,8 +180,8 @@ const AppConfigPage = (props: IAppConfigPageProps) => {
                            name={FormDataEnum.tripCancelPenaltyPercentageForTransporterFromDemander}
                            placeholder="tripCancelPenaltyPercentageForTransporterFromDemander" type={"number"} defaultValue={appConfig.tripCancelPenaltyPercentageForTransporterFromDemander}/>
                 </div>
-                {state?.errors?.tripCancelPenaltyPercentageForTransporterFromDemander &&
-                    <p>{state.errors.tripCancelPenaltyPercentageForTransporterFromDemander._errors}</p>}
+                {state?.errors?.properties?.tripCancelPenaltyPercentageForTransporterFromDemander &&
+                    <p>{state.errors.properties?.tripCancelPenaltyPercentageForTransporterFromDemander.errors}</p>}
             </div>
 
             <div className={styles.line}>
@@ -192,8 +192,8 @@ const AppConfigPage = (props: IAppConfigPageProps) => {
                            name={FormDataEnum.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander}
                            placeholder="tripCancelPenaltyMinAmountInCzkForTransporterFromDemander" type={"number"} defaultValue={appConfig.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander}/>
                 </div>
-                {state?.errors?.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander &&
-                    <p>{state.errors.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander._errors}</p>}
+                {state?.errors?.properties?.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander &&
+                    <p>{state.errors.properties?.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander.errors}</p>}
             </div>
 
 
@@ -205,8 +205,8 @@ const AppConfigPage = (props: IAppConfigPageProps) => {
                            name={FormDataEnum.tripCancelPenaltyLimitInDays}
                            placeholder="tripCancelPenaltyLimitInDays" type={"number"} defaultValue={appConfig.tripCancelPenaltyLimitInDays}/>
                 </div>
-                {state?.errors?.tripCancelPenaltyLimitInDays &&
-                    <p>{state.errors.tripCancelPenaltyLimitInDays._errors}</p>}
+                {state?.errors?.properties?.tripCancelPenaltyLimitInDays &&
+                    <p>{state.errors.properties?.tripCancelPenaltyLimitInDays.errors}</p>}
             </div>
 
             <div className={styles.line}>
@@ -217,8 +217,8 @@ const AppConfigPage = (props: IAppConfigPageProps) => {
                            name={FormDataEnum.tripCancelPenaltyAfterLimitPercentageForTransporter}
                            placeholder="tripCancelPenaltyAfterLimitPercentageForTransporter" type={"number"} defaultValue={appConfig.tripCancelPenaltyAfterLimitPercentageForTransporter}/>
                 </div>
-                {state?.errors?.tripCancelPenaltyAfterLimitPercentageForTransporter &&
-                    <p>{state.errors.tripCancelPenaltyAfterLimitPercentageForTransporter._errors}</p>}
+                {state?.errors?.properties?.tripCancelPenaltyAfterLimitPercentageForTransporter &&
+                    <p>{state.errors.properties?.tripCancelPenaltyAfterLimitPercentageForTransporter.errors}</p>}
             </div>
 
             <button disabled={pending} type="submit">

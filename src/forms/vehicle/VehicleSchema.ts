@@ -19,8 +19,8 @@ const VehicleCoreSchema = z.object({
     vehicleId: z.coerce.number().optional(),
     name: z.string().optional(),
     personsCapacity: z.coerce.number().optional(),
-    euro: z.nativeEnum(EuroStandard, { message: "Neplatný Euro standard." }).optional(),
-    amenities: z.array(z.nativeEnum(Amenities, { message: "Neplatné vybavení." })).optional(),
+    euro: z.enum(EuroStandard, { message: "Neplatný Euro standard." }).optional(),
+    amenities: z.array(z.enum(Amenities, { message: "Neplatné vybavení." })).optional(),
     handicappedUserCount: z.coerce.number().optional(),
     vin: z.string().optional(),
     registrationSign: z.string().optional(),
@@ -30,7 +30,7 @@ const VehicleCoreSchema = z.object({
 }).strict();
 
 export const VehicleSchema = z.object({
-    locale: z.nativeEnum(LOCALES)
+    locale: z.enum(LOCALES)
 })
     .extend(VehicleCoreSchema.shape)
     .extend(VehiclePhotoSchema.shape)

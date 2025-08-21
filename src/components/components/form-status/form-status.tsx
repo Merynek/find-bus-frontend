@@ -22,23 +22,23 @@ export function FormStatus<T extends z.ZodSchema>({state}: Props<T>) {
     }
 
     return (
-        <div className="form-status">
+        <div className="my-4 p-4 rounded-md">
             {message && (
-                <p className={state?.success ? "success-message" : "error-message"}>
+                <p className={state?.success ? "bg-green-100 text-green-700 p-3 rounded-md mb-2" : "bg-red-100 text-red-700 p-3 rounded-md mb-2"}>
                     {message}
                 </p>
             )}
             {errors && Object.keys(errors).length > 0 && (
-                <div className="error-list">
-                    <h4>Errors:</h4>
-                    <ul>
+                <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-md">
+                    <h4 className="font-bold text-lg mb-2">Errors:</h4>
+                    <ul className="list-disc list-inside space-y-1">
                         {Object.entries(errors).map(([key, value]) => {
                             if (value && typeof value === 'object' && '_errors' in value) {
                                 const errorValue = value as { _errors?: string[] };
                                 if (errorValue._errors) {
                                     return (
                                         <li key={key}>
-                                            <strong>{key}:</strong> {errorValue._errors.join(", ")}
+                                            <strong className="capitalize">{key}:</strong> <span className="text-red-600">{errorValue._errors.join(", ")}</span>
                                         </li>
                                     );
                                 }

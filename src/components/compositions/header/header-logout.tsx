@@ -9,6 +9,7 @@ import { useRouter } from "@/src/i18n/navigation";
 export const HeaderLogout = () => {
     const router = useRouter();
     return <ButtonClick
+        controlled={true}
         size={ButtonSize.BY_CONTENT}
         label={"Logout"}
         onClick={async () => {
