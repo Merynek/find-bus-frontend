@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist } from "next/font/google";
 import '@/src/styles/global.scss';
 import {Header} from "@/src/components/compositions/header/header";
 import {AppProvider} from "@/src/app/contexts/AppContext";
@@ -12,11 +12,6 @@ import {AuthorizationService} from "@/src/services/AuthorizationService";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
@@ -39,7 +34,7 @@ export default async function RootLayout(props: IRootLayoutProps) {
     }
 
     return <html lang={locale}>
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <body className={`${geistSans.variable} antialiased`}>
             <NextIntlClientProvider>
                 <NextAuthProvider userId={user?.id || 0}>
                     <AppProvider>

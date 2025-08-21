@@ -24,7 +24,6 @@ $inputSmallPadding: 10px;
   background: colors.$white;
   min-height: $height;
   border-radius: $borderRadiusBase;
-  font-family: "Inter", serif;
   box-sizing: border-box;
   max-width: 100%;
 
@@ -53,10 +52,6 @@ $inputSmallPadding: 10px;
   &:disabled {
     background: colors.$gray;
     color: colors.$black;
-  }
-
-  input {
-    font-family: "Inter", serif;
   }
 }
 

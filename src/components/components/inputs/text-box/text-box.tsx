@@ -1,13 +1,10 @@
-import React, {RefObject, useRef} from "react";
+import React from "react";
 import styles from "./text-box.module.scss";
 import {cn} from "@/src/utils/common";
-import {observer} from "mobx-react";
-import {useMount} from "@/src/hooks/lifecycleHooks";
 import {Icon, IIconProps} from "@/src/components/components/icon/icon";
 
 export interface IInputBoxProps {
     placeholder?: string;
-    refInput?: RefObject<HTMLInputElement>;
     onBlur?: () => void;
     onFocus?: () => void;
     focusAfterMount?: boolean;
@@ -21,7 +18,6 @@ export interface IInputBoxProps {
 interface ICommonProps extends IInputBoxProps {
     type: TextBoxType;
     disableSpaces?: boolean;
-    refTextArea?: RefObject<HTMLTextAreaElement>;
     multiLine?: IMultiLineData;
     maxLength?: number;
 }
@@ -51,28 +47,18 @@ export enum TextBoxType {
     EMAIL = "email"
 }
 
-export const TextBox = observer((props: ITextBoxProps) => {
+export const TextBox = (props: ITextBoxProps) => {
     const {
-        refTextArea, refInput, focusAfterMount, type,
+        focusAfterMount, type,
         placeholder, onBlur, onFocus,
         disabled, multiLine, disableSpaces, maxLength,
         onClick, name, id, iconProps, controlled,
         value, onChange
     } = props;
-    const _innerTextAreaRef = useRef<HTMLTextAreaElement>(null);
 
-    useMount(() => {
-        if (controlled) {
-            const ref = refTextArea || _innerTextAreaRef;
-            if (ref.current) {
-                ref.current.setSelectionRange(value.length, value.length);
-            }
-        }
-    });
 
     const _renderInput = () => {
         const inputProps = {
-            ref: refInput,
             autoFocus: focusAfterMount,
             type: type || TextBoxType.TEXT,
             placeholder: "",
@@ -113,7 +99,6 @@ export const TextBox = observer((props: ITextBoxProps) => {
 
     const _renderTextArea = (multiLineData: IMultiLineData) => {
         const textAreaProps = {
-            ref: refTextArea || _innerTextAreaRef,
             autoFocus: focusAfterMount,
             className: cn(styles.input),
             placeholder: "",
@@ -148,7 +133,7 @@ export const TextBox = observer((props: ITextBoxProps) => {
     };
 
     return multiLine ? _renderTextArea(multiLine) : _renderInput();
-});
+};
 
 interface IInputWrapperProps {
     id?: string;

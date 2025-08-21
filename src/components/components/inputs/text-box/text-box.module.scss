@@ -26,9 +26,10 @@
     width: 100%;
 
     &:focus + .placeholder,
-    &:not(:placeholder-shown) + .placeholder {
-      top: -6px;
-      font-size: 0.8em;
+    &:not(:placeholder-shown) + .placeholder,
+    &:-webkit-autofill + .placeholder {
+      top: -8px;
+      font-size: fonts.$fontSize12;
       color: colors.$default;
     }
   }
