@@ -26,6 +26,7 @@ export const AdminTripCloseActions = (props: IAdminTripActionsProps) => {
                 return null;
         }
         return <ButtonClick
+            controlled={true}
             onClick={async () => {
                 showLoader();
                 await TripOfferService.forceCloseTrip(trip.id, reason, "");

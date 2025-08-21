@@ -80,11 +80,11 @@ const TripListPage = observer(() => {
             })}
         </div>
         <div>
-            <ButtonClick size={ButtonSize.BY_CONTENT} label={"Back"} onClick={async () => {
+            <ButtonClick controlled={true} size={ButtonSize.BY_CONTENT} label={"Back"} onClick={async () => {
                 await _storeRef.current.setPage(false);
                 setUrl();
             }} type={ButtonType.BLACK} />
-            <ButtonClick size={ButtonSize.BY_CONTENT} label={"Next"} onClick={async () => {
+            <ButtonClick controlled={true} size={ButtonSize.BY_CONTENT} label={"Next"} onClick={async () => {
                 await _storeRef.current.setPage(true);
                 setUrl();
             }} type={ButtonType.BLACK} />

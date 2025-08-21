@@ -100,6 +100,7 @@ export const TripFilter = observer((props: ITripFilterProps) => {
         {/*    </LayoutFlexColumn>*/}
         {/*</div>}*/}
         <ButtonClick
+            controlled={true}
             onClick={() => {
                 onSubmit();
             }}

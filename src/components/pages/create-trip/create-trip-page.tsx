@@ -117,6 +117,7 @@ const CreateTripPage = observer(() => {
                             trip={_store.trip}
                         />
                         <ButtonClick
+                            controlled={true}
                             size={ButtonSize.BY_CONTENT}
                             label={"Smazat"}
                             type={ButtonType.YELLOW}
@@ -150,6 +151,7 @@ const CreateTripPage = observer(() => {
         </div>
         <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
             <ButtonClick
+                controlled={true}
                 size={ButtonSize.BY_CONTENT}
                 label={"Přidat zastavku"}
                 type={ButtonType.YELLOW}
@@ -158,6 +160,7 @@ const CreateTripPage = observer(() => {
                 }}
             />
             <ButtonClick
+                controlled={true}
                 size={ButtonSize.BY_CONTENT}
                 label={"Vytvořit nabídku"}
                 type={ButtonType.BLACK}

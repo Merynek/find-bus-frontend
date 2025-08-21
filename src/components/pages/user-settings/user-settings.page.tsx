@@ -285,6 +285,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
 
                 </>}
                 <ButtonClick
+                    controlled={true}
                     size={ButtonSize.BUTTON_SIZE_M}
                     onClick={() => {
                     }}

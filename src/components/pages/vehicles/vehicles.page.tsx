@@ -38,6 +38,7 @@ const VehiclePage = (props: IVehiclePageProps) => {
     const _renderList = () => {
         return <div>
             <ButtonClick
+                controlled={true}
                 onClick={() => {
                     setVehicleEdit(new VehicleEditStore({
                         vehicle: Vehicle.create()
@@ -53,6 +54,7 @@ const VehiclePage = (props: IVehiclePageProps) => {
                         vehicle={vehicle}
                     />
                     <ButtonClick
+                        controlled={true}
                         onClick={() => {
                             setVehicleEdit(new VehicleEditStore({
                                 vehicle: vehicle

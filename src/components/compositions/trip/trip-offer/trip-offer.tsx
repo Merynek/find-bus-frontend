@@ -45,6 +45,7 @@ export const TripOffer = observer((props: ITripOfferProps) => {
                 </LayoutFlexRow>
             </div>
             <ButtonClick
+                controlled={true}
                 onClick={async () => {
                     if (vehicle.id) {
                         showLoader();

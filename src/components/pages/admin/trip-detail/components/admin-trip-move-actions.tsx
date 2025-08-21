@@ -54,6 +54,7 @@ export const AdminTripMoveActions = (props: IAdminTripMoveActionsProps) => {
 
     const renderPayButton = (offer: Offer) => {
         return <ButtonClick
+            controlled={true}
             onClick={async () => {
                 showLoader();
                 await TripOfferService.payedOffer(offer.id);
@@ -68,6 +69,7 @@ export const AdminTripMoveActions = (props: IAdminTripMoveActionsProps) => {
 
     const renderStartButton = () => {
         return <ButtonClick
+            controlled={true}
             onClick={async () => {
                 showLoader();
                 await TripOfferService.startTrip(trip.id);
@@ -82,6 +84,7 @@ export const AdminTripMoveActions = (props: IAdminTripMoveActionsProps) => {
 
     const renderFinishButton = () => {
         return <ButtonClick
+            controlled={true}
             onClick={async () => {
                 showLoader();
                 await TripOfferService.finishTrip(trip.id);

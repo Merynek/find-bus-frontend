@@ -15,6 +15,7 @@ export const UserVerifyButton = (props: IUserVerifyButtonProps) => {
     const user = useInit(() => UserAdminDetailConverter.toInstance(props.user));
 
     return  <ButtonClick
+        controlled={true}
         size={ButtonSize.BY_CONTENT}
         label={user.isVerifiedForTransporting ? "Označit USERA jako neoveřený" : "Označit USERA jako oveřený"}
         onClick={async () => {

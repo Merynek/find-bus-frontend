@@ -24,6 +24,7 @@ export const ConfirmDialog = observer((props: IConfirmDialogProps) => {
             onClose={onClose}
             footerContent={<ModalButtons>
                 <ButtonClick
+                    controlled={true}
                     size={ButtonSize.BUTTON_SIZE_M}
                     type={ButtonType.YELLOW}
                     label={cancelButtonText}
@@ -32,6 +33,7 @@ export const ConfirmDialog = observer((props: IConfirmDialogProps) => {
                     }}
                 />
                 <ButtonClick
+                    controlled={true}
                     size={ButtonSize.BUTTON_SIZE_M}
                     type={ButtonType.BLACK}
                     isDisabled={submitButtonDisabled}

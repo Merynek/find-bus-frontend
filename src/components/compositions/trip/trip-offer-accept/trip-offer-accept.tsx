@@ -56,6 +56,7 @@ export const TripOfferAccept = observer((props: ITripOfferAcceptProps) => {
             }}
         />
         <ButtonClick
+            controlled={true}
             onClick={async () => {
                 showLoader();
                 await TripOfferService.acceptOffer(offer.id, acceptMethod);

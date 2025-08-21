@@ -44,6 +44,7 @@ export const TripAddStop = observer((props: IStopAddPlaceProps) => {
             {onHide &&
                 <div className={styles.options}>
                     <ButtonClick
+                        controlled={true}
                         type={ButtonType.YELLOW}
                         size={ButtonSize.BY_CONTENT}
                         label={"REMOVE"}

@@ -20,9 +20,9 @@ enum InputType {
 
 export const NumberBox = observer((props: INumberBoxProps) => {
     const { refInput, focusAfterMount, placeholder,
-        hideSpinButtons, onChange, onKeyEnter,
+        hideSpinButtons, onChange,
         onBlur, onFocus, value, disabled,
-        inputAutoSize, maxValue, minValue, decimalCount
+        maxValue, minValue, decimalCount
     } = props;
     const [inputType, setInputType] = useState(focusAfterMount ? InputType.NUMBER : InputType.TEXT);
     const max = Math.min(INT_32_MAX_VALUE, maxValue === undefined ? INT_32_MAX_VALUE : maxValue);
@@ -84,16 +84,10 @@ export const NumberBox = observer((props: INumberBoxProps) => {
                     }
                     handleChange(Number(event.target.value));
                 }}
-                onKeyDown={event => {
-                    if (event.key === "Enter" && onKeyEnter) {
-                        onKeyEnter();
-                    }
-                }}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 value={renderValue()}
                 disabled={disabled}
-                size={inputAutoSize ? 1 : undefined}
                 step={decimalCount ? Math.pow(0.1, decimalCount) : undefined}
                 min={props.minValue}
                 max={props.maxValue}

@@ -53,6 +53,7 @@ export const FinancialDocumentDetail = (props: IFinancialDocumentProps) => {
             <span>{document.price.amount.toString() + " " + document.price.currency.toString()}</span>
         </LayoutFlexRow>
         <ButtonClick
+            controlled={true}
             onClick={async () => {
                 showLoader();
                 await TripOfferService.downloadFinancialDocument({

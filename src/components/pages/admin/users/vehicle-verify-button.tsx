@@ -15,6 +15,7 @@ export const VehicleVerifyButton = (props: IVehicleVerifyButtonProps) => {
     const vehicle = useInit(() => VehicleConverter.toInstance(props.vehicle));
 
     return <ButtonClick
+        controlled={true}
         size={ButtonSize.BY_CONTENT}
         label={vehicle.isVerifiedForTransporting ? "Označit Vehicle jako neoveřený" : "Označit Vehicle jako oveřený"}
         onClick={async () => {

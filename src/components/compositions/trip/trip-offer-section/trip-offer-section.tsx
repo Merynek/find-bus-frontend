@@ -82,6 +82,7 @@ export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
 
     const _transporterCloseButton = () => {
         return <ButtonClick
+            controlled={true}
             onClick={async () => {
                 showLoader();
                 await TripOfferService.deleteOffer(trip.id);
@@ -95,6 +96,7 @@ export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
 
     const _demanderCloseButton = () => {
         return <ButtonClick
+            controlled={true}
             onClick={async () => {
                 showLoader();
                 await TripOfferService.forceCloseTrip(trip.id, CloseTripOfferReason.DEMANDER_GENERAL, "");

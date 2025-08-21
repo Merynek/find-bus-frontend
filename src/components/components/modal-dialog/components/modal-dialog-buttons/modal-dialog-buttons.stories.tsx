@@ -16,6 +16,7 @@ export const ModalButtonsStory: StoryObj<IModalButtonsProps> = {
                 type: ButtonType.YELLOW,
                 size: ButtonSize.BUTTON_SIZE_M,
                 label: "cancel",
+                controlled: true,
                 onClick: () => {
                     console.log("click")
                 }
@@ -27,6 +28,7 @@ export const ModalButtonsStory: StoryObj<IModalButtonsProps> = {
                 type: ButtonType.BLACK,
                 size: ButtonSize.BUTTON_SIZE_M,
                 label: "submit",
+                controlled: true,
                 onClick: () => {
                     console.log("click")
                 }

@@ -1,8 +1,9 @@
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import styles from "./sheet.module.scss";
 import React from "react";
-import {FontSize, Text} from "../texts/text/text";
+import {Text} from "../texts/text";
 import {isIOS} from "react-device-detect";
+import {FontSize} from "@/src/components/components/texts/textStyles";
 
 export interface ISheetComponentProps {
     open: boolean;

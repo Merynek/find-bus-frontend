@@ -110,6 +110,7 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
                 {_renderDateTimePicker()}
                 <span>Kolik: {offers[0].price.amount} ,-</span>
                 <ButtonClick
+                    controlled={true}
                     onClick={async () => {
                         const isValid = validate();
                         if (selectedEndOfferDate && isValid) {
@@ -127,6 +128,7 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
                     size={ButtonSize.BUTTON_SIZE_M}
                 />
                 <ButtonClick
+                    controlled={true}
                     onClick={async () => {
                         showLoader();
                         await TripOfferService.deleteOffer(trip.id);
@@ -156,7 +158,6 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
                         }
                         setPriceAmount(val)
                     }}
-                    size={InputSize.MEDIUM}
                     hideSpinButtons
                 />
             </div>
@@ -175,6 +176,7 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
                 {_renderDateTimePicker()}
             </div>
             <ButtonClick
+                controlled={true}
                 type={ButtonType.BLACK}
                 onClick={async () => {
                     const isValid = validate();

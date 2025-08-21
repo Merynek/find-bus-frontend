@@ -5,7 +5,7 @@ import {observer} from "mobx-react";
 import {useMount} from "@/src/hooks/lifecycleHooks";
 import {Icon, IIconProps} from "@/src/components/components/icon/icon";
 
-interface IInputBoxProps {
+export interface IInputBoxProps {
     placeholder?: string;
     refInput?: RefObject<HTMLInputElement>;
     onBlur?: () => void;

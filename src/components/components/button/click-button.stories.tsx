@@ -35,7 +35,7 @@ export default meta;
 export const Default: StoryObj<typeof ButtonClick> = {
     render: (args) => <ButtonClick
         {...args}
-        onClick={() => {}}
+        controlled={false}
     />,
     args: {}
 };
@@ -43,7 +43,7 @@ export const Default: StoryObj<typeof ButtonClick> = {
 export const IconButton: StoryObj<typeof ButtonClick> = {
     render: (args) => <ButtonClick
         {...args}
-        onClick={() => {}}
+        controlled={false}
     >
         <Icon icon={IconType.CHECK} />
     </ButtonClick>,
