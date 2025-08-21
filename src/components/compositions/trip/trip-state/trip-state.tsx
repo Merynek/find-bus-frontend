@@ -4,7 +4,8 @@ import styles from "./trip-state.module.scss";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {cn} from "@/src/utils/common";
 import {FlexGap} from "@/src/enums/layout.enum";
-import {FontSize, FontWeight, Text, TextAlign} from "@/src/components/components/texts/text/text";
+import {Text} from "@/src/components/components/texts/text";
+import {FontSize, FontWeight, TextAlign} from "@/src/components/components/texts/textStyles";
 
 interface ITripStateProps {
     state: TripOfferState;

@@ -3,7 +3,7 @@ import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-c
 import {TripStatesFlow} from "@/src/components/compositions/trip/trip-states-flow/trip-states-flow";
 import {FlexGap} from "@/src/enums/layout.enum";
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
-import {FontSize, FontWeight, Text} from "@/src/components/components/texts/text/text";
+import {Text} from "@/src/components/components/texts/text";
 import {DateTimeFormat} from "@/src/enums/date-time-format.enum";
 import {Trip} from "@/src/data/trip/trip";
 import {DateTimeManager} from "@/src/singletons/date-time-manager";
@@ -14,6 +14,7 @@ import {AdminTripMovements} from "@/src/components/pages/admin/trip-detail/compo
 import {TripOfferMovement} from "@/src/data/tripOfferMovement";
 import {Offer} from "@/src/data/offer";
 import {LOCALES} from "@/src/utils/locale";
+import {FontSize, FontWeight} from "@/src/components/components/texts/textStyles";
 
 interface TripDetailPageProps {
     trip: Trip;

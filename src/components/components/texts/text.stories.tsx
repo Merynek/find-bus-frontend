@@ -1,8 +1,9 @@
 import React from "react";
-import {FontSize, FontWeight, Text, TextTransform, TextAlign, Color} from "./text";
+import {Text} from "./text";
 import {getRandomText} from "@/dataGenerator/texts/texts";
 import {getRandomNumber} from "@/src/utils/common";
 import {Meta, StoryObj} from "@storybook/nextjs";
+import {FontSize, FontWeight, TextTransform, Color, TextAlign, TextDecoration} from "./textStyles";
 
 const meta: Meta<typeof Text> = {
     component: Text,
@@ -13,14 +14,18 @@ const meta: Meta<typeof Text> = {
         textAlign: TextAlign.LEFT,
         textTransform: TextTransform.CAPITALIZE_FIRST,
         color: Color.BLACK,
-        inline: false
+        inline: false,
+        textDecoration: TextDecoration.UNDERLINE
     },
     argTypes: {
         fontSize: {
             options: Object.values(FontSize),
             control: {type: 'select'}
         },
-
+        textDecoration: {
+            options: Object.values(TextDecoration),
+            control: {type: 'select'}
+        },
         fontWeight: {
             options: Object.values(FontWeight),
             control: {type: 'select'}

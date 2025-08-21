@@ -1,6 +1,6 @@
-@use "../../../../styles/variables";
-@use "../../../../styles/colors";
-@use "../../../../styles/fonts";
+@use "../../../styles/variables";
+@use "../../../styles/colors";
+@use "../../../styles/fonts";
 
 .text {
   display: block;
@@ -73,4 +73,15 @@
   &.yellow {
     color: colors.$yellow;
   }
+}
+
+// Heading
+.heading1size {
+  font-size: fonts.$fontSize72;
+}
+.heading2size {
+  font-size: fonts.$fontSize48;
+}
+.heading3size {
+  font-size: fonts.$fontSize40;
 }

@@ -3,10 +3,11 @@ import React from "react";
 import styles from "./modal-dialog.module.scss";
 import {cn} from "@/src/utils/common";
 import {observer} from "mobx-react";
-import {FontSize, FontWeight, Text} from "../texts/text/text";
+import {Text} from "../texts/text";
 import {ButtonClick, ButtonSize, ButtonType} from "../button/button";
 import {Icon} from "../icon/icon";
 import {IconType} from "@/src/enums/icon.enum";
+import {FontSize, FontWeight} from "@/src/components/components/texts/textStyles";
 
 export interface IModalDialogProps {
     open: boolean;
@@ -38,6 +39,7 @@ export const ModalDialog = observer((props: IModalDialogProps) => {
     const renderCrossButton = () => {
         return <div className={cn(styles.closeButton)}>
             <ButtonClick
+                controlled={true}
                 label={"close"}
                 onClick={onClose}
                 size={ButtonSize.BY_CONTENT}

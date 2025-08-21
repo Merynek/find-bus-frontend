@@ -20,6 +20,7 @@ export const ModalDialogStory: StoryObj<IModalDialogProps> = {
         {...args}
         footerContent={<ModalButtons>
             <ButtonClick
+                controlled={true}
                 size={ButtonSize.BUTTON_SIZE_M}
                 type={ButtonType.YELLOW}
                 label="cancel"
@@ -28,6 +29,7 @@ export const ModalDialogStory: StoryObj<IModalDialogProps> = {
                 }}
             />
             <ButtonClick
+                controlled={true}
                 size={ButtonSize.BUTTON_SIZE_M}
                 type={ButtonType.BLACK}
                 label="submit"
