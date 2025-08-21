@@ -1,6 +1,7 @@
 {
   "page": {
     "sign": {
+      "loginHeading": "Login",
       "emailPlaceholder": "E-mail",
       "passwordPlaceholder": "Password",
       "passwordConfirmPlaceholder": "Confirm password",

@@ -4,6 +4,7 @@
 declare const messages: {
   "page": {
     "sign": {
+      "loginHeading": "Přihlášení",
       "emailPlaceholder": "E-mail",
       "passwordPlaceholder": "Heslo",
       "passwordConfirmPlaceholder": "Potvrzení hesla",

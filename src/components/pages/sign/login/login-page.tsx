@@ -14,12 +14,15 @@ import {FormStatus} from "@/src/components/components/form-status/form-status";
 import {TextBox, TextBoxType} from "@/src/components/components/inputs/text-box/text-box";
 import {FlexGap} from "@/src/enums/layout.enum";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
+import { Heading } from "@/src/components/components/texts/heading";
+import {FontWeight} from "@/src/components/components/texts/textStyles";
 
 const LoginPage = () => {
     const {t} = useTranslate("page.sign");
     const [state, action, pending] = useFormActionState(userSettingsFormAction, undefined);
     const searchParams = useSearchParams();
     const router = useRouter();
+    const locale = useCurrentLocale();
 
     const handleUnauthorizedLogout = useCallback(async () => {
         await logoutAction();
@@ -33,52 +36,54 @@ const LoginPage = () => {
         }
     }, [searchParams, handleUnauthorizedLogout]);
 
-
-    const locale = useCurrentLocale();
-
-    return <LayoutFlexColumn gap={FlexGap.BIG_40}>
-        <FormStatus state={state} />
-        <form action={action}>
-            <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale} />
-            <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
-                <TextBox
-                    controlled={false}
-                    name={FormDataEnum.email}
-                    id={FormDataEnum.email}
-                    type={TextBoxType.EMAIL}
-                    placeholder={t("emailPlaceholder")}
-                />
-                <TextBox
-                    controlled={false}
-                    name={FormDataEnum.password}
-                    id={FormDataEnum.password}
-                    type={TextBoxType.PASSWORD}
-                    placeholder={t("passwordPlaceholder")}
-                />
-                <ButtonClick
-                    controlled={false}
-                    type={ButtonType.BLACK}
-                    size={ButtonSize.BUTTON_SIZE_M}
-                    isDisabled={pending}
-                    label={t("login")}
-                />
+    return <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="p-8 bg-white rounded-lg shadow-xl border border-gray-200 w-full max-w-md">
+            <LayoutFlexColumn gap={FlexGap.BIG_40}>
+                <Heading text={t("loginHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={3} />
+                <FormStatus state={state} />
+                <form action={action}>
+                    <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale} />
+                    <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
+                        <TextBox
+                            controlled={false}
+                            name={FormDataEnum.email}
+                            id={FormDataEnum.email}
+                            type={TextBoxType.EMAIL}
+                            placeholder={t("emailPlaceholder")}
+                        />
+                        <TextBox
+                            controlled={false}
+                            name={FormDataEnum.password}
+                            id={FormDataEnum.password}
+                            type={TextBoxType.PASSWORD}
+                            placeholder={t("passwordPlaceholder")}
+                        />
+                        <ButtonClick
+                            controlled={false}
+                            type={ButtonType.BLACK}
+                            size={ButtonSize.BUTTON_SIZE_M}
+                            isDisabled={pending}
+                            label={t("login")}
+                        />
+                    </LayoutFlexColumn>
+                </form>
+                <LayoutFlexColumn gap={FlexGap.TINY_8}>
+                    <ButtonLink
+                        route={{route: ROUTES.FORGOT_PASSWORD}}
+                        label={t("forgetPassword")}
+                        type={ButtonType.BLACK}
+                        size={ButtonSize.BUTTON_SIZE_M}
+                    />
+                    <ButtonLink
+                        route={{route: ROUTES.SIGN_UP}}
+                        label={t("registration")}
+                        type={ButtonType.YELLOW}
+                        size={ButtonSize.BUTTON_SIZE_M}
+                    />
+                </LayoutFlexColumn>
             </LayoutFlexColumn>
-        </form>
-        <LayoutFlexColumn gap={FlexGap.TINY_8}>
-            <ButtonLink
-                route={{route: ROUTES.FORGOT_PASSWORD}}
-                label={t("forgetPassword")}
-                type={ButtonType.BLACK}
-                size={ButtonSize.BUTTON_SIZE_M}
-            />
-            <ButtonLink
-                route={{route: ROUTES.SIGN_UP}}
-                label={t("registration")}
-                type={ButtonType.YELLOW}
-                size={ButtonSize.BUTTON_SIZE_M}
-            />
-        </LayoutFlexColumn>
-    </LayoutFlexColumn>
+        </div>
+    </div>
 };
 
 export default LoginPage;
