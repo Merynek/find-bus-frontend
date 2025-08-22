@@ -1,14 +1,13 @@
 import {z} from 'zod';
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import { $ZodErrorTree } from 'zod/v4/core';
-import {CallbackRouteError} from "@auth/core/errors";
-import {ApiError, IApiError} from "@/src/api/apiError";
+import {FindBusError, IFindBusError} from "@/src/errors/FindBusError";
 
 export type TFormActionState<Schema extends z.ZodSchema> = {
     success?: boolean;
     message?: string;
-    errors?: $ZodErrorTree<z.infer<Schema>>;
-    apiErrors?: IApiError;
+    schemaErrors?: $ZodErrorTree<z.infer<Schema>>;
+    appError?: IFindBusError;
     data?: Partial<z.infer<Schema>>;
 } | undefined;
 
@@ -28,7 +27,7 @@ export abstract class BaseFormAction<Schema extends z.ZodSchema, Data, ApiResult
             const errors = z.treeifyError(validatedFields.error);
             return {
                 success: false,
-                errors: errors,
+                schemaErrors: errors,
                 data: data as Partial<z.infer<Schema>>,
             };
         }
@@ -40,22 +39,12 @@ export abstract class BaseFormAction<Schema extends z.ZodSchema, Data, ApiResult
                 data: data as Partial<z.infer<Schema>>,
             };
         } catch (error: unknown) {
-            let apiError: ApiError|undefined = undefined;
-
-            if (error instanceof CallbackRouteError) {
-                if (error.cause?.err instanceof ApiError) {
-                    apiError = error.cause?.err;
-                }
-            } else if (error instanceof ApiError) {
-                apiError = error;
-            }
-            if (apiError) {
+            if (error instanceof FindBusError) {
                 return {
                     success: false,
-                    apiErrors: apiError.toJson()
+                    appError: error.toJson()
                 };
             }
-
             return {
                 success: false,
                 message: "unexpectedError",

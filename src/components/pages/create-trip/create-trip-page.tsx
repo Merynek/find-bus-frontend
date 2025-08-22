@@ -36,7 +36,7 @@ const CreateTripPage = observer(() => {
     const cfg = _configuration.appBusinessConfig;
 
     useMount(() => {
-        _store.init(locale);
+        _store.init();
     })
 
     return <div className={styles.layout}>

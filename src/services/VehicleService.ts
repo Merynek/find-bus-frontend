@@ -10,32 +10,44 @@ import {
     IUploadVehicleFilesRequest,
     IUpdateVehicleRequest
 } from "@/src/api/vehicleApi";
-import {LOCALES} from "@/src/utils/locale";
+import {BaseService} from "@/src/services/BaseService";
 
-export class VehicleService {
+export class VehicleService extends BaseService {
     public static async setVehicleVerification(vehicleId: number, verified: boolean) {
-        await setVehicleVerification(vehicleId, verified);
+        await this.handleActionCall(async () => {
+            await setVehicleVerification(vehicleId, verified);
+        });
     }
 
     public static async getVehicle(vehicleId: number) {
-        const data = await getVehicle(vehicleId);
-        return VehicleConverter.toInstance(data);
+        return await this.handleActionCall(async () => {
+            const data = await getVehicle(vehicleId);
+            return VehicleConverter.toInstance(data);
+        });
     }
 
-    public static async getVehicles(locale: LOCALES) {
-        const data = await getVehicles(locale);
-        return data.map(VehicleConverter.toInstance);
+    public static async getVehicles() {
+        return await this.handleActionCall(async () => {
+            const data = await getVehicles();
+            return data.map(VehicleConverter.toInstance);
+        });
     }
 
     public static async addVehicle(req: IAddVehicleRequest) {
-        return await addVehicle(req);
+        return await this.handleActionCall(async () => {
+            return await addVehicle(req);
+        });
     }
 
     public static async updateVehicle(req: IUpdateVehicleRequest) {
-        await updateVehicle(req);
+        await this.handleActionCall(async () => {
+            await updateVehicle(req);
+        });
     }
 
     public static async uploadVehicleFiles(req: IUploadVehicleFilesRequest) {
-        await updateVehicleFiles(req);
+        await this.handleActionCall(async () => {
+            await updateVehicleFiles(req);
+        });
     }
 }

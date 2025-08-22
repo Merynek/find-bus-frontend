@@ -11,19 +11,19 @@ type Props<T extends z.ZodSchema> = {
 
 export function FormStatus<T extends z.ZodSchema>({state}: Props<T>) {
     const [message, setMessage] = useState(state?.message);
-    const [errors, setErrors] = useState(state?.errors);
+    const [errors, setErrors] = useState(state?.schemaErrors);
     const {t} = useTranslate("errors");
 
     useEffect(() => {
         setMessage(state?.message);
-        setErrors(state?.errors);
+        setErrors(state?.schemaErrors);
     }, [state]);
 
     const hasGlobalErrors = errors && errors.errors && errors.errors.length > 0;
     const hasFieldErrors = errors && 'properties' in errors && errors.properties && Object.keys(errors.properties).length > 0;
-    const apiError = state?.apiErrors
+    const appError = state?.appError
 
-    if (!message && !hasGlobalErrors && !hasFieldErrors && !apiError) {
+    if (!message && !hasGlobalErrors && !hasFieldErrors && !appError) {
         return null;
     }
 
@@ -34,9 +34,9 @@ export function FormStatus<T extends z.ZodSchema>({state}: Props<T>) {
                     t(message)
                 }
             </p>}
-            {apiError && !Boolean(state?.success) && <p className={"bg-red-100 text-red-700 p-3 mb-2"}>
+            {appError && !Boolean(state?.success) && <p className={"bg-red-100 text-red-700 p-3 mb-2"}>
                 {// @ts-expect-error Expected error bcs of dynamic key
-                    t("apiErrors." + apiError.errorCode)
+                    t("apiErrors." + appError.errorCode)
                 }
             </p>}
             {(hasGlobalErrors || hasFieldErrors) && (

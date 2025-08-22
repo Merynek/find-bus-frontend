@@ -3,52 +3,49 @@
 import {
     CreateTripRequestDto,
     TripItemResponseDto,
-    TripRecommendationRequestDto,
+    TripRecommendationRequestDto, type TripRecommendationResponseDto,
     TripResponseDto
 } from "@/src/api/openapi";
 import {getAccessToken} from "@/src/app/actions/auth/accessTokenActions";
 import {IGetTripsRequest, TripApi} from "@/src/api/tripApi";
-import {handleApiUnauthorizedError} from "@/src/utils/handleApiErrors";
-import {LOCALES} from "@/src/utils/locale";
+import {handleActionCall} from "@/src/app/actions/baseAction";
 
-export async function getTrip(id: number, locale: LOCALES): Promise<TripResponseDto> {
-    const accessToken = await getAccessToken();
-    const tripApi = new TripApi(accessToken);
-
-    try {
+export async function getTrip(id: number): Promise<TripResponseDto> {
+    return await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const tripApi = new TripApi(accessToken);
         return await tripApi.getTrip({
             id
         })
-    } catch (e: unknown) {
-        handleApiUnauthorizedError(e, locale);
-    }
-}
-
-export async function getTrips(req: IGetTripsRequest, locale: LOCALES): Promise<TripItemResponseDto[]> {
-    const accessToken = await getAccessToken();
-    const tripApi = new TripApi(accessToken);
-
-    try {
-        return await tripApi.getTrips(req);
-    } catch (e: unknown) {
-        handleApiUnauthorizedError(e, locale);
-    }
-}
-
-export async function createTrip(trip: CreateTripRequestDto) {
-    const accessToken = await getAccessToken();
-    const tripApi = new TripApi(accessToken);
-
-    return await tripApi.createTrip({
-        trip: trip
     })
 }
 
-export async function getTripRecommendation(tripRecommendation: TripRecommendationRequestDto) {
-    const accessToken = await getAccessToken();
-    const tripApi = new TripApi(accessToken);
+export async function getTrips(req: IGetTripsRequest): Promise<TripItemResponseDto[]> {
+    return await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const tripApi = new TripApi(accessToken);
+        return await tripApi.getTrips(req);
+    })
+}
 
-    return await tripApi.getTripRecommendation({
-        trip: tripRecommendation
+export async function createTrip(trip: CreateTripRequestDto) {
+    await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const tripApi = new TripApi(accessToken);
+
+        return await tripApi.createTrip({
+            trip: trip
+        })
+    })
+}
+
+export async function getTripRecommendation(tripRecommendation: TripRecommendationRequestDto): Promise<TripRecommendationResponseDto> {
+    return await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const tripApi = new TripApi(accessToken);
+
+        return await tripApi.getTripRecommendation({
+            trip: tripRecommendation
+        })
     })
 }

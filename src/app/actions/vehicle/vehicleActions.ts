@@ -8,56 +8,57 @@ import {
     VehicleApi
 } from "@/src/api/vehicleApi";
 import type {VehicleResponseDto} from "@/src/api/openapi";
-import {LOCALES} from "@/src/utils/locale";
-import {handleApiUnauthorizedError} from "@/src/utils/handleApiErrors";
+import {handleActionCall} from "@/src/app/actions/baseAction";
 
 export async function setVehicleVerification(vehicleId: number, verified: boolean) {
-    const accessToken = await getAccessToken();
-    const vehicleApi = new VehicleApi(accessToken);
-
-    await vehicleApi.setVehicleVerification({
-        vehicleId: vehicleId,
-        verified: verified
+    await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const vehicleApi = new VehicleApi(accessToken);
+        await vehicleApi.setVehicleVerification({
+            vehicleId: vehicleId,
+            verified: verified
+        });
     });
 }
 
 export async function getVehicle(vehicleId: number): Promise<VehicleResponseDto> {
-    const accessToken = await getAccessToken();
-    const vehicleApi = new VehicleApi(accessToken);
-
-    return await vehicleApi.getVehicle({
-        vehicleId: vehicleId
+    return await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const vehicleApi = new VehicleApi(accessToken);
+        return await vehicleApi.getVehicle({
+            vehicleId: vehicleId
+        });
     });
 }
 
-export async function getVehicles(locale: LOCALES): Promise<VehicleResponseDto[]> {
-    const accessToken = await getAccessToken();
-    const vehicleApi = new VehicleApi(accessToken);
-
-    try {
+export async function getVehicles(): Promise<VehicleResponseDto[]> {
+    return await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const vehicleApi = new VehicleApi(accessToken);
         return await vehicleApi.getVehicles();
-    } catch (e: unknown) {
-        handleApiUnauthorizedError(e, locale);
-    }
+    });
 }
 
-export async function addVehicle(req: IAddVehicleRequest) {
-    const accessToken = await getAccessToken();
-    const vehicleApi = new VehicleApi(accessToken);
-
-    return await vehicleApi.addVehicle(req);
+export async function addVehicle(req: IAddVehicleRequest): Promise<number> {
+    return await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const vehicleApi = new VehicleApi(accessToken);
+        return await vehicleApi.addVehicle(req);
+    });
 }
 
 export async function updateVehicle(req: IUpdateVehicleRequest) {
-    const accessToken = await getAccessToken();
-    const vehicleApi = new VehicleApi(accessToken);
-
-    return await vehicleApi.updateVehicle(req);
+    await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const vehicleApi = new VehicleApi(accessToken);
+        await vehicleApi.updateVehicle(req);
+    });
 }
 
 export async function updateVehicleFiles(req: IUploadVehicleFilesRequest) {
-    const accessToken = await getAccessToken();
-    const vehicleApi = new VehicleApi(accessToken);
-
-    return await vehicleApi.uploadVehicleFiles(req);
+    await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const vehicleApi = new VehicleApi(accessToken);
+        await vehicleApi.uploadVehicleFiles(req);
+    });
 }

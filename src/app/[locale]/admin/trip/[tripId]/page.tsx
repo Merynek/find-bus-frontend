@@ -2,6 +2,7 @@ import AdminTripDetailPage from "@/src/components/pages/admin/trip-detail/admin-
 import {TripService} from "@/src/services/TripService";
 import {TripOfferService} from "@/src/services/TripOfferService";
 import {PageProps} from "@/types/page.types";
+import {handleApiUnauthorizedError} from "@/src/utils/handleApiErrors";
 
 interface ITripParams {
     tripId: string;
@@ -9,17 +10,21 @@ interface ITripParams {
 
 async function PageWrapper(props: PageProps<ITripParams>) {
     const params = await props.params;
-    const tripId = parseInt(params.tripId);
-    const trip = await TripService.getTrip(tripId, params.locale);
-    const offerMovements = await TripOfferService.getOfferStateMovements(tripId, params.locale);
-    const offers = await TripOfferService.getTripOffers(tripId, params.locale);
+    try {
+        const tripId = parseInt(params.tripId);
+        const trip = await TripService.getTrip(tripId);
+        const offerMovements = await TripOfferService.getOfferStateMovements(tripId);
+        const offers = await TripOfferService.getTripOffers(tripId);
 
-    return <AdminTripDetailPage
-        trip={trip}
-        offerMovements={offerMovements}
-        offers={offers}
-        locale={params.locale}
-    />;
+        return <AdminTripDetailPage
+            trip={trip}
+            offerMovements={offerMovements}
+            offers={offers}
+            locale={params.locale}
+        />;
+    } catch (e: unknown) {
+        handleApiUnauthorizedError(e, params.locale);
+    }
 }
 
 export default PageWrapper;

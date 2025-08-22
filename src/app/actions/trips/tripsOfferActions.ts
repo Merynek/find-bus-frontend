@@ -8,108 +8,114 @@ import {
     TripOfferMovementsResponseDto,
     TripOfferResponseDto
 } from "@/src/api/openapi";
-import {LOCALES} from "@/src/utils/locale";
-import {handleApiUnauthorizedError} from "@/src/utils/handleApiErrors";
+import {handleActionCall} from "@/src/app/actions/baseAction";
 
-export async function getTripOffers(tripId: number, locale: LOCALES): Promise<TripOfferResponseDto[]> {
-    const accessToken = await getAccessToken();
-    const tripsOfferApi = new TripsOfferApi(accessToken);
-
-    try {
+export async function getTripOffers(tripId: number): Promise<TripOfferResponseDto[]> {
+    return await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const tripsOfferApi = new TripsOfferApi(accessToken);
         return await tripsOfferApi.getTripOffers({
             tripId
         });
-    } catch (e: unknown) {
-        handleApiUnauthorizedError(e, locale);
-    }
+    });
 }
 
-export async function getOfferStateMovements(tripId: number, locale: LOCALES): Promise<TripOfferMovementsResponseDto[]> {
-    const accessToken = await getAccessToken();
-    const tripsOfferApi = new TripsOfferApi(accessToken);
-
-    try {
+export async function getOfferStateMovements(tripId: number): Promise<TripOfferMovementsResponseDto[]> {
+    return await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const tripsOfferApi = new TripsOfferApi(accessToken);
         return await tripsOfferApi.offerStateMovements({
             tripId
         });
-    } catch (e: unknown) {
-        handleApiUnauthorizedError(e, locale);
-    }
+    });
 }
 
 export async function payedOffer(offerId: number) {
-    const accessToken = await getAccessToken();
-    const tripsOfferApi = new TripsOfferApi(accessToken);
-    return await tripsOfferApi.payedOffer({
-        offerId: offerId
+    await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const tripsOfferApi = new TripsOfferApi(accessToken);
+        return await tripsOfferApi.payedOffer({
+            offerId: offerId
+        });
     });
 }
 
 export async function startTrip(tripId: number) {
-    const accessToken = await getAccessToken();
-    const tripsOfferApi = new TripsOfferApi(accessToken);
-    return await tripsOfferApi.startTrip({
-        tripId: tripId
+    await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const tripsOfferApi = new TripsOfferApi(accessToken);
+        return await tripsOfferApi.startTrip({
+            tripId: tripId
+        });
     });
 }
 
 export async function finishTrip(tripId: number) {
-    const accessToken = await getAccessToken();
-    const tripsOfferApi = new TripsOfferApi(accessToken);
-    return await tripsOfferApi.finishTrip({
-        tripId: tripId
+    await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const tripsOfferApi = new TripsOfferApi(accessToken);
+        return await tripsOfferApi.finishTrip({
+            tripId: tripId
+        });
     });
 }
 
 export async function forceCloseTrip(tripId: number, reason: CloseTripOfferReason, reasonText: string) {
-    const accessToken = await getAccessToken();
-    const tripsOfferApi = new TripsOfferApi(accessToken);
-    return await tripsOfferApi.forceCloseTrip({
-        tripId: tripId,
-        reason: reason,
-        reasonText: reasonText
+    await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const tripsOfferApi = new TripsOfferApi(accessToken);
+        return await tripsOfferApi.forceCloseTrip({
+            tripId: tripId,
+            reason: reason,
+            reasonText: reasonText
+        });
     });
 }
 
 export async function deleteOffer(tripId: number) {
-    const accessToken = await getAccessToken();
-    const tripsOfferApi = new TripsOfferApi(accessToken);
-    return await tripsOfferApi.deleteOffer({
-        tripId: tripId
+    await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const tripsOfferApi = new TripsOfferApi(accessToken);
+        return await tripsOfferApi.deleteOffer({
+            tripId: tripId
+        });
     });
 }
 
 export async function acceptOffer(offerId: number, acceptMethod: TripOfferAcceptMethod) {
-    const accessToken = await getAccessToken();
-    const tripsOfferApi = new TripsOfferApi(accessToken);
-    return await tripsOfferApi.acceptOffer({
-        offerId: offerId,
-        acceptMethod: acceptMethod
+    return await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const tripsOfferApi = new TripsOfferApi(accessToken);
+        return await tripsOfferApi.acceptOffer({
+            offerId: offerId,
+            acceptMethod: acceptMethod
+        });
     });
 }
 
 export async function updateOffer(offerId: number, endOfferDate: Date) {
-    const accessToken = await getAccessToken();
-    const tripsOfferApi = new TripsOfferApi(accessToken);
-
-    return await tripsOfferApi.updateOffer({
-        offerId: offerId,
-        endOfferDate: endOfferDate
+    await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const tripsOfferApi = new TripsOfferApi(accessToken);
+        return await tripsOfferApi.updateOffer({
+            offerId: offerId,
+            endOfferDate: endOfferDate
+        });
     });
 }
 
 export async function createOffer(req: ICreateOfferRequest) {
-    const accessToken = await getAccessToken();
-    const tripsOfferApi = new TripsOfferApi(accessToken);
-
-    return await tripsOfferApi.createOffer(req);
+    return await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const tripsOfferApi = new TripsOfferApi(accessToken);
+        return await tripsOfferApi.createOffer(req);
+    });
 }
 
 export async function downloadFinancialDocument(req: IDownloadDocumentRequest): Promise<Response> {
-    const accessToken = await getAccessToken();
-    const tripsOfferApi = new TripsOfferApi(accessToken);
-
-    try {
+    return await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const tripsOfferApi = new TripsOfferApi(accessToken);
         const blob = await tripsOfferApi.downloadFinancialDocument({
             documentId: req.documentId,
             type: req.type
@@ -120,9 +126,5 @@ export async function downloadFinancialDocument(req: IDownloadDocumentRequest): 
         headers.set('Content-Disposition', `attachment; filename="document_${req.documentId}.${blob.type.split('/')[1] || 'bin'}"`);
 
         return new Response(blob, { headers });
-    } catch (error) {
-        console.error('Chyba při stahování dokumentu:', error);
-        // Zpracujte chyby, např. vraťte status 500
-        return new Response('Chyba při stahování dokumentu', { status: 500 });
-    }
+    });
 }

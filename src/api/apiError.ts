@@ -14,7 +14,7 @@ export class ApiError extends Error {
 
     constructor(details: IApiError) {
         super(details.message);
-        this.name = 'ApiError';
+        this.name = "ApiError";
         this.errorCode = details.errorCode;
         this.url = details.url;
         this.statusCode = details.statusCode;

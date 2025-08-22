@@ -9,7 +9,6 @@ import {TripService} from "@/src/services/TripService";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
 import {UsersService} from "@/src/services/UsersService";
 import {AppConfiguration} from "@/src/singletons/AppConfiguration";
-import {LOCALES} from "@/src/utils/locale";
 
 export class CreateTripPageStore {
     public trip: Trip;
@@ -41,8 +40,8 @@ export class CreateTripPageStore {
         makeObservable(this);
     }
 
-    public async init(locales: LOCALES) {
-        this.userSettings = await UsersService.getSettings(locales);
+    public async init() {
+        this.userSettings = await UsersService.getSettings();
     }
 
     public destroy() {

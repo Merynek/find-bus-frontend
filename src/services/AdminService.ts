@@ -9,24 +9,32 @@ import {
 import {EmailType, Language} from "@/src/api/openapi";
 import {EmailConfigConverter} from "@/src/converters/admin/email-config-converter";
 import {AppBusinessConfigConverter} from "@/src/converters/admin/app-business-config-converter";
-import {LOCALES} from "@/src/utils/locale";
+import {BaseService} from "@/src/services/BaseService";
 
-export class AdminService {
-    public static async getEmailConfig(locale: LOCALES): Promise<EmailConfig> {
-        const data = await getEmailConfig(locale);
-        return EmailConfigConverter.toInstance(data);
+export class AdminService extends BaseService {
+    public static async getEmailConfig(): Promise<EmailConfig> {
+        return await this.handleActionCall(async () => {
+            const data = await getEmailConfig();
+            return EmailConfigConverter.toInstance(data);
+        });
     }
 
     public static async setEmailConfig(type: EmailType, language: Language, templateId: number) {
-        await setEmailConfig(type, language, templateId);
+        await this.handleActionCall(async () => {
+            await setEmailConfig(type, language, templateId);
+        });
     }
 
-    public static async getAppBusinessConfig(locale: LOCALES): Promise<AppBusinessConfig> {
-        const config = await getAppBusinessConfig(locale);
-        return AppBusinessConfigConverter.toInstance(config);
+    public static async getAppBusinessConfig(): Promise<AppBusinessConfig> {
+        return await this.handleActionCall(async () => {
+            const config = await getAppBusinessConfig();
+            return AppBusinessConfigConverter.toInstance(config);
+        });
     }
 
     public static async updateAppBusinessConfig(config: AppBusinessConfig) {
-        await changeAppBusinessConfig(config);
+        await this.handleActionCall(async () => {
+            await changeAppBusinessConfig(config);
+        });
     }
 }

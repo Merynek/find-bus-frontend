@@ -1,7 +1,7 @@
 import {ROUTES, SEARCH_PARAMS} from "@/src/enums/router.enum";
 import { redirect } from "../i18n/navigation";
 import {LOCALES} from "@/src/utils/locale";
-import {ResponseError} from "@/src/api/openapi";
+import {FindBusError} from "@/src/errors/FindBusError";
 
 export function handleApiUnauthorizedError(error: unknown , locale: LOCALES): never {
     if (isUnauthorizedError(error)) {
@@ -20,8 +20,8 @@ export function handleApiUnauthorizedError(error: unknown , locale: LOCALES): ne
 }
 
 export function isUnauthorizedError(error: unknown): boolean {
-    if (error instanceof ResponseError) {
-        if (error && error.response && error.response.status === 401) {
+    if (error instanceof FindBusError) {
+        if (error.isUnauthorizedError) {
             return true;
         }
     }

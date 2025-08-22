@@ -33,10 +33,10 @@ export class TripListPageStore {
         this.filter.meOffered = params.meOffered || false;
         this.filter.distanceFromInKm = params.distanceFrom || 0;
         this.filter.distanceToInKm = params.distanceTo || 0;
-        await this._loadTrips(params.locale);
+        await this._loadTrips();
     }
 
-    private _loadTrips = async (locale: LOCALES) => {
+    private _loadTrips = async () => {
         this.tripItems = await TripService.getTrips({
             limit: 5,
             offset: (this.filter.page - 1) * 5,
@@ -46,7 +46,7 @@ export class TripListPageStore {
             meOffered: this.filter.meOffered || undefined,
             distanceFromInKm: this.filter.distanceFromInKm > 0 ? this.filter.distanceFromInKm : undefined,
             distanceToInKm: this.filter.distanceToInKm > 0 ? this.filter.distanceToInKm : undefined,
-        }, locale);
+        });
     }
 
     public async setPage(next: boolean) {

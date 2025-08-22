@@ -61,7 +61,7 @@ export default function VehicleForm(props: IVehicleEditProps) {
     const formattedStkExpired = formatDateToYYYYMMDD(state?.data?.stkExpired);
 
     useEffect(() => {
-        if (state && !state?.errors && state.success === true) {
+        if (state && !state?.schemaErrors && state.success === true) {
             onClose?.();
         }
     }, [state, onClose]);

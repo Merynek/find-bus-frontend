@@ -14,7 +14,7 @@ import {FormStatus} from "@/src/components/components/form-status/form-status";
 import {TextBox, TextBoxType} from "@/src/components/components/inputs/text-box/text-box";
 import {FlexGap} from "@/src/enums/layout.enum";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
-import { Heading } from "@/src/components/components/texts/heading";
+import {Heading} from "@/src/components/components/texts/heading";
 import {FontWeight} from "@/src/components/components/texts/textStyles";
 
 const LoginPage = () => {

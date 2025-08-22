@@ -17,7 +17,6 @@ import {TripConverter} from "@/src/converters/trip/trip-converter";
 import {TripOfferService} from "@/src/services/TripOfferService";
 import {useApp} from "@/src/app/contexts/AppContext";
 import {useLoggedUser} from "@/src/hooks/authenticationHook";
-import {useCurrentLocale} from "@/src/hooks/translateHook";
 
 export interface ITripOfferSectionProps {
     trip: TripResponseDto;
@@ -27,17 +26,15 @@ export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
     const trip = useInit(() => TripConverter.toInstance(props.trip));
     const {user} = useLoggedUser();
     const {showLoader, hideLoader} = useApp();
-    const locale = useCurrentLocale();
     const [offers, setOffers] = useState<Offer[]>([]);
     const router = useRouter();
 
     const loadOffers = async () => {
         showLoader();
-        const _offers = await TripOfferService.getTripOffers(trip.id, locale);
+        const _offers = await TripOfferService.getTripOffers(trip.id);
         setOffers(_offers);
         hideLoader();
     }
-
 
     const offerAccepted = () => {
         return offers.some(o => o.accepted);

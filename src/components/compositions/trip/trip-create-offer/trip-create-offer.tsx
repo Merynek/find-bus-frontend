@@ -54,9 +54,9 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
     })
 
     const _init = async () => {
-        setUserSettings(await UsersService.getSettings(locale));
+        setUserSettings(await UsersService.getSettings());
         if (user?.role === UserRole.TRANSPORTER) {
-            setVehicles(await VehicleService.getVehicles(locale));
+            setVehicles(await VehicleService.getVehicles());
         }
     }
 

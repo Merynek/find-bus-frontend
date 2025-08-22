@@ -11,29 +11,38 @@ import {UserSettings} from "@/src/data/users/userSettings";
 import {IUpdateTransportRequirementsPhotosRequest} from "@/src/api/usersApi";
 import {UserAdminDetailConverter} from "@/src/converters/admin/user-admin-detail-converter";
 import {UsersConverter} from "@/src/converters/users/users-converter";
-import {LOCALES} from "@/src/utils/locale";
+import {BaseService} from "@/src/services/BaseService";
 
-export class UsersService {
-    public static async getAllUsers(offset: number, limit: number, locale: LOCALES): Promise<UserAdminDetail[]> {
-        const data = await getAllUsers(offset, limit, locale);
-
-        return data.map(UserAdminDetailConverter.toInstance);
+export class UsersService extends BaseService {
+    public static async getAllUsers(offset: number, limit: number): Promise<UserAdminDetail[]> {
+        return await this.handleActionCall(async () => {
+            const data = await getAllUsers(offset, limit);
+            return data.map(UserAdminDetailConverter.toInstance);
+        });
     }
 
     public static async setUserVerification(userId: number, verified: boolean) {
-        await setUserVerification(userId, verified);
+        await this.handleActionCall(async () => {
+            await setUserVerification(userId, verified);
+        });
     }
 
     public static async changeSettings(settings: UserSettingsRequestDto) {
-        await changeSettings(settings);
+        await this.handleActionCall(async () => {
+            await changeSettings(settings);
+        });
     }
 
-    public static async getSettings(locale: LOCALES): Promise<UserSettings> {
-        const data = await getSettings(locale);
-        return UsersConverter.userSettingsToInstance(data);
+    public static async getSettings(): Promise<UserSettings> {
+        return await this.handleActionCall(async () => {
+            const data = await getSettings();
+            return UsersConverter.userSettingsToInstance(data);
+        });
     }
 
     public static async updateTransportRequirementsPhotos(req: IUpdateTransportRequirementsPhotosRequest) {
-        await updateTransportRequirementsPhotos(req);
+        await this.handleActionCall(async () => {
+            await updateTransportRequirementsPhotos(req);
+        });
     }
 }

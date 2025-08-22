@@ -6,34 +6,50 @@ import {
     signUpAction
 } from "@/src/app/actions/auth/authActions";
 import {UsersConverter} from "@/src/converters/users/users-converter";
+import {BaseService} from "@/src/services/BaseService";
+import {User} from "@/src/data/users/user";
 
-export class AuthorizationService {
-    public static async getLoggerUser() {
-        const user = await getLoggerUserSession();
-        return user ? UsersConverter.currentUserToInstance(user) : null;
+export class AuthorizationService extends BaseService {
+    public static async getLoggerUser(): Promise<User|null> {
+        return await this.handleActionCall(async () => {
+            const user = await getLoggerUserSession();
+            return user ? UsersConverter.currentUserToInstance(user) : null;
+        })
     }
 
     public static async login(email: string, password: string) {
-        await loginAction(email, password);
+        await this.handleActionCall(async () => {
+            await loginAction(email, password)
+        });
     }
 
     public static async logout() {
-        await logoutAction();
+        await this.handleActionCall(async () => {
+            await logoutAction();
+        });
     }
 
-    public static signUp(email: string, password: string, role: UserRole) {
-        return signUpAction(email, password, role);
+    public static async signUp(email: string, password: string, role: UserRole) {
+        return await this.handleActionCall(async () => {
+            return await signUpAction(email, password, role);
+        });
     }
 
     public static async activeUser(token: string) {
-        await activeUserAction(token);
+        await this.handleActionCall(async () => {
+            await activeUserAction(token);
+        });
     }
 
     public static async forgotPassword(token: string) {
-        await forgotPasswordAction(token);
+        await this.handleActionCall(async () => {
+            await forgotPasswordAction(token);
+        });
     }
 
     public static async resetPassword(token: string, password: string, confirmPassword: string) {
-        await resetPasswordAction(token, password, confirmPassword);
+        await this.handleActionCall(async () => {
+            await resetPasswordAction(token, password, confirmPassword);
+        });
     }
 }
