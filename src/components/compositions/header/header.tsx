@@ -7,7 +7,7 @@ import {PageTabs} from "@/src/components/compositions/page-tabs/page-tabs";
 import {LocaleSwitcherSelect} from "@/src/components/components/locale-switcher-select/LocaleSwitcherSelect";
 import {useLoggedUser} from "@/src/hooks/authenticationHook";
 import {useTranslate} from "@/src/hooks/translateHook";
-import {HeaderUserSection} from "@/src/components/compositions/header/header-user";
+import {HeaderUserSection} from "@/src/components/compositions/header/header-user-section";
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 
 export const Header = () => {

@@ -6,5 +6,6 @@ export enum IconType {
     ARROW_LEFT = "ARROW_LEFT",
     REMOVE = "REMOVE",
     LOCATION_ON = "LOCATION_ON",
-    ADD = "ADD"
+    ADD = "ADD",
+    PERSON = "PERSON"
 }

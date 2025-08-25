@@ -8,6 +8,7 @@ import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
+import PersonIcon from '@mui/icons-material/Person';
 import {SvgIconProps} from "@mui/material";
 
 interface IIconFromEnumProps {
@@ -35,5 +36,7 @@ export const IconFromEnum = (props: IIconFromEnumProps) => {
             return <LocationOnIcon {...options} />;
         case IconType.ADD:
             return <AddIcon {...options} />;
+        case IconType.PERSON:
+            return <PersonIcon {...options} />;
     }
 }

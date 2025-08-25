@@ -8,6 +8,9 @@ import {useTranslate} from "@/src/hooks/translateHook";
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 import {ContextMenu, IContextItem} from "@/src/components/components/context-menu/context-menu";
 import {UserRole} from "@/src/api/openapi";
+import {UserName} from "@/src/components/compositions/user/user-name";
+import {IconType} from "@/src/enums/icon.enum";
+import {Icon} from "@/src/components/components/icon/icon";
 
 export const HeaderUserSection = () => {
     const router = useRouter();
@@ -67,9 +70,10 @@ export const HeaderUserSection = () => {
     }
 
     return <LayoutFlexRow>
+        {user !== null && <UserName user={user} />}
         {user !== null && _renderLogoutButton()}
         {user !== null && <ContextMenu
-            opener={<div>{"USER"}: {user.email} as a {user.role.toString()}</div>}
+            opener={<Icon icon={IconType.MENU}/>}
             items={createContextItems()}
         />}
     </LayoutFlexRow>

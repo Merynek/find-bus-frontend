@@ -1,15 +1,16 @@
 import React from "react";
-import {IVehicleDetailListProps, VehicleDetail} from "./vehicle-detail-list";
+import {VehicleDetail} from "./vehicle-detail-list";
 import {getRandomVehicle} from "@/dataGenerator/vehicle";
 import {Meta, StoryObj} from "@storybook/nextjs";
 
-export default {
+const meta: Meta<typeof VehicleDetail> = {
     component: VehicleDetail,
-    args: {
-    }
-} as Meta<IVehicleDetailListProps>;
+    args: {}
+};
 
-export const VehicleDetailStory: StoryObj<IVehicleDetailListProps> = {
+export default meta;
+
+export const Default: StoryObj<typeof VehicleDetail> = {
     render: (args) => <VehicleDetail
         {...args}
         vehicle={getRandomVehicle()}
