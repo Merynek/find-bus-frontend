@@ -39,7 +39,7 @@ const LoginPage = () => {
 
     return <PageWrapper>
             <LayoutFlexColumn gap={FlexGap.BIG_40}>
-                <Heading text={t("loginHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={3}/>
+                <Heading text={t("loginHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={3} />
                 <form action={action}>
                     <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale}/>
                     <LayoutFlexColumn gap={FlexGap.LARGE_32}>
@@ -80,7 +80,7 @@ const LoginPage = () => {
                     />
                     <ButtonLink
                         route={{route: ROUTES.SIGN_UP}}
-                        label={t("registrationButton")}
+                        label={t("registration")}
                         type={ButtonType.BLACK}
                         size={ButtonSize.BUTTON_SIZE_M}
                     />

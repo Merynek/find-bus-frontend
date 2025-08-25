@@ -3,12 +3,16 @@
     "sign": {
       "loginHeading": "Login",
       "registrationHeading": "Registration",
+      "forgetPasswordHeading": "Forgot password",
       "emailPlaceholder": "E-mail",
       "passwordPlaceholder": "Password",
       "passwordConfirmPlaceholder": "Confirm password",
       "login": "Login",
+      "registration": "Registration",
+      "registrationButton": "Register",
       "forgetPassword": "Forgot password",
-      "registrationButton": "Register"
+      "forgetPasswordButton": "Send new password",
+      "forgetPasswordSent": "New password was sent to the given email address."
     },
     "userSettings": {
       "name": "Name",

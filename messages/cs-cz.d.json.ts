@@ -6,12 +6,16 @@ declare const messages: {
     "sign": {
       "loginHeading": "Přihlášení",
       "registrationHeading": "Registrace",
+      "forgetPasswordHeading": "Zapomenuté heslo",
       "emailPlaceholder": "E-mail",
       "passwordPlaceholder": "Heslo",
       "passwordConfirmPlaceholder": "Potvrzení hesla",
       "login": "Přihlásit se",
+      "registration": "Registrace",
+      "registrationButton": "Registrovat se",
       "forgetPassword": "Zapomenuté heslo",
-      "registrationButton": "Registrovat se"
+      "forgetPasswordButton": "Poslat nové heslo",
+      "forgetPasswordSent": "Nové heslo bylo odesláno na zadanou e-mailovou adresu."
     },
     "userSettings": {
       "name": "Jméno",
