@@ -15,7 +15,13 @@
       "forgetPasswordButton": "Poslat nové heslo",
       "forgetPasswordSent": "Nové heslo bylo odesláno na zadanou e-mailovou adresu.",
       "resetPasswordButton": "Resetovat heslo",
-      "resetPasswordSent": "Heslo bylo resetováno."
+      "resetPasswordSent": "Heslo bylo resetováno.",
+      "activeAccountHeadingSuccess": "Účet aktivován!",
+      "activeAccountHeadingError": "Chyba při aktivaci účtu",
+      "activeAccountMessageSuccess": "Váš účet byl úspěšně aktivován. Nyní se můžete přihlásit.",
+      "activeAccountMessageError": "Při aktivaci účtu došlo k neočekávané chybě. Zkuste to prosím později.",
+      "activeAccountMessageInvalidCode": "Je vyžadován platný kód pro aktivaci účtu. Zkontrolujte prosím odkaz z vaší e-mailové schránky.",
+      "loginAfterActivation": "Nyní se můžete přihlásit"
     },
     "userSettings": {
       "name": "Jméno",

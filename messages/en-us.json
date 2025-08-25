@@ -15,7 +15,13 @@
       "forgetPasswordButton": "Send new password",
       "forgetPasswordSent": "New password was sent to the given email address.",
       "resetPasswordButton": "Reset password",
-      "resetPasswordSent": "Password was reset."
+      "resetPasswordSent": "Password was reset.",
+      "activeAccountHeadingSuccess": "Account Activated!",
+      "activeAccountHeadingError": "Activation Error",
+      "activeAccountMessageSuccess": "Your account has been successfully activated. You can now log in.",
+      "activeAccountMessageError": "An unexpected error occurred during activation. Please try again later.",
+      "activeAccountMessageInvalidCode": "A valid code is required to activate the account. Please check the link from your email.",
+      "loginAfterActivation": "You can now log in"
     },
     "userSettings": {
       "name": "Name",

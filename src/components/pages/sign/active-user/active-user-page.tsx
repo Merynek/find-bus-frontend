@@ -2,69 +2,55 @@ import React from "react";
 import {AuthorizationService} from "@/src/services/AuthorizationService";
 import {ButtonLink, ButtonSize, ButtonType} from "@/src/components/components/button/button";
 import {ROUTES} from "@/src/enums/router.enum";
+import {FlexGap} from "@/src/enums/layout.enum";
+import {Heading} from "@/src/components/components/texts/heading";
+import {FontWeight} from "@/src/components/components/texts/textStyles";
+import { LayoutFlexColumn } from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
+import {getTranslations} from 'next-intl/server';
+import {PageWrapper} from "@/src/components/components/layout/page-wrapper/page-wrapper";
 
 interface ActiveUserPageProps {
     code?: string;
 }
 
 export default async function ActiveUserPage(props: ActiveUserPageProps) {
-    const {code} = props;
+    const { code } = props;
+    const t = await getTranslations("page.sign");
 
-    let activationResult: boolean | null = null;
-    let message: string = '';
+    let activationResult = false;
+    let messageKey = t("activeAccountMessageInvalidCode");
+    let headingKey = t("activeAccountHeadingError");
 
     if (code) {
         try {
             await AuthorizationService.activeUser(code);
             activationResult = true;
-            message = 'Váš účet byl úspěšně aktivován!';
+            headingKey = t("activeAccountHeadingSuccess");
+            messageKey = t("activeAccountMessageSuccess");
         } catch (error) {
             console.error('Došlo k chybě při aktivaci:', error);
-            activationResult = false;
-            message = 'Došlo k neočekávané chybě během aktivace. Zkuste to prosím později.';
         }
-    } else {
-        activationResult = false;
-        message = 'Pro aktivaci účtu je vyžadován platný kód. Zkontrolujte prosím odkaz z e-mailu.';
     }
 
     return (
-        <div style={{ padding: '20px', textAlign: 'center', maxWidth: '600px', margin: '50px auto', border: '1px solid #eee', borderRadius: '8px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }}>
-            {(
-                <div>
-                    {activationResult ? (
-                        <>
-                            <h1 style={{color: '#28a745'}}>✅ Účet Aktivován!</h1>
-                            <p style={{fontSize: '1.1em', lineHeight: '1.6'}}>{message}</p>
-                            <p style={{marginTop: '20px'}}>
-                                <ButtonLink
-                                    route={{
-                                        route: ROUTES.SIGN_IN
-                                    }}
-                                    label={"Nyní se můžete přihlásit"}
-                                    type={ButtonType.YELLOW}
-                                    size={ButtonSize.BUTTON_SIZE_M}
-                                />
-                            </p>
-                        </>
-                    ) : (
-                        <>
-                            <h1 style={{color: '#dc3545'}}>❌ Chyba při Aktivaci</h1>
-                            <p style={{fontSize: '1.1em', lineHeight: '1.6'}}>{message}</p>
-                            <p style={{marginTop: '20px'}}>
-                                <ButtonLink
-                                    route={{
-                                        route: ROUTES.SIGN_IN
-                                    }}
-                                    label={"Nyní se můžete přihlásit"}
-                                    type={ButtonType.YELLOW}
-                                    size={ButtonSize.BUTTON_SIZE_M}
-                                />
-                            </p>
-                        </>
-                    )}
+        <PageWrapper>
+            <LayoutFlexColumn gap={FlexGap.BIG_40}>
+                <Heading text={headingKey} fontWeight={FontWeight.SEMIBOLD} headingLevel={3} />
+                <div className="flex flex-col items-center justify-center p-5 text-center max-w-2xl mx-auto border border-gray-200 rounded-lg shadow-md bg-white">
+                    <div className={`text-4xl font-bold mb-4 ${activationResult ? "text-green-600" : "text-red-600"}`}>
+                        {activationResult ? "✅" : "❌"}
+                    </div>
+                    <p className="text-lg leading-relaxed text-gray-700">{messageKey}</p>
+                    <div className="mt-8">
+                        <ButtonLink
+                            route={{ route: ROUTES.SIGN_IN }}
+                            label={t("loginAfterActivation")}
+                            type={ButtonType.YELLOW}
+                            size={ButtonSize.BUTTON_SIZE_M}
+                        />
+                    </div>
                 </div>
-            )}
-        </div>
+            </LayoutFlexColumn>
+        </PageWrapper>
     );
 }
