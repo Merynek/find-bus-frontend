@@ -3,7 +3,7 @@
 import React from "react";
 import {resetPasswordFormAction} from "@/src/app/actions/forms/resetPassword/resetPasswordFormAction";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
-import {useCurrentLocale, useTranslate} from "@/src/hooks/translateHook";
+import {useTranslate} from "@/src/hooks/translateHook";
 import {useFormActionState} from "@/src/hooks/formHook";
 import {FormStatus} from "@/src/components/components/form-status/form-status";
 import {PageWrapper} from "@/src/components/components/layout/page-wrapper/page-wrapper";
@@ -22,13 +22,11 @@ const ResetPasswordPage = (props: ResetPasswordPageProps) => {
     const {token} = props;
     const {t} = useTranslate("page.sign");
     const [state, action, pending] = useFormActionState(resetPasswordFormAction, undefined);
-    const locale = useCurrentLocale();
 
     const _renderBody = () => {
         return <LayoutFlexColumn gap={FlexGap.BIG_40}>
             <Heading text={t("resetPasswordHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={3} />
             <form action={action}>
-                <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale} />
                 <input type="hidden" name={FormDataEnum.token} value={token + ""} />
                 <LayoutFlexColumn gap={FlexGap.LARGE_32}>
                     <FormStatus state={state}/>
