@@ -1,13 +1,15 @@
 import React from "react";
 import RegistrationPage from "./registration-page";
-import {StoryObj} from "@storybook/nextjs";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
-export default {
+const meta: Meta<typeof RegistrationPage> = {
     component: RegistrationPage,
     args: {}
 };
 
-export const RegistrationPageStory: StoryObj = {
+export default meta;
+
+export const Default: StoryObj<typeof RegistrationPage> = {
     render: () => <RegistrationPage />,
     args: {}
 };

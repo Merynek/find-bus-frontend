@@ -4,8 +4,8 @@ import {Meta, StoryObj} from "@storybook/nextjs";
 
 const meta: Meta<typeof LoginPage> = {
     component: LoginPage,
-    args: { }
-}
+    args: {}
+};
 
 export default meta;
 

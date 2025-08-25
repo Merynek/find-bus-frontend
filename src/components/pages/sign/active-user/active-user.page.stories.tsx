@@ -1,15 +1,17 @@
 import React from "react";
 import ActiveUserPage from "./active-user-page";
-import {StoryObj} from "@storybook/nextjs";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
-export default {
+const meta: Meta<typeof ActiveUserPage> = {
     component: ActiveUserPage,
     args: {}
 };
 
-export const ActiveUserPageStory: StoryObj = {
-    render: () => <ActiveUserPage
-        code={"xxx"}
+export default meta;
+
+export const Default: StoryObj<typeof ActiveUserPage> = {
+    render: (args) => <ActiveUserPage
+        {...args}
     />,
     args: {}
 };

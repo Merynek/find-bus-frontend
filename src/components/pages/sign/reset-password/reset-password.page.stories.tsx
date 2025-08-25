@@ -1,15 +1,17 @@
 import React from "react";
 import ResetPasswordPage from "./reset-password-page";
-import {StoryObj} from "@storybook/nextjs";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
-export default {
+const meta: Meta<typeof ResetPasswordPage> = {
     component: ResetPasswordPage,
     args: {}
 };
 
-export const ResetPasswordPageStory: StoryObj = {
-    render: () => <ResetPasswordPage
-        token={"xxx"}
+export default meta;
+
+export const Default: StoryObj<typeof ResetPasswordPage> = {
+    render: (args) => <ResetPasswordPage
+        {...args}
     />,
     args: {}
 };

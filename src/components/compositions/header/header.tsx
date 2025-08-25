@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./header.module.scss";
 import {ButtonSize, ButtonType, ButtonLink} from "../../components/button/button";
 import {ROUTES} from "@/src/enums/router.enum";
 import {PageTabs} from "@/src/components/compositions/page-tabs/page-tabs";
@@ -24,7 +23,7 @@ export const Header = async () => {
         />
     }
 
-    return <header className={styles.layout}>
+    return <header>
         <LocaleSwitcherSelect />
         {user === null ? _renderLoginButton() : _renderLogoutButton()}
         {user !== null && <PageTabs userDto={UsersConverter.currentUserToJson(user)}/>}

@@ -1,13 +1,15 @@
 import React from "react";
 import ForgotPasswordPage from "./forgot-password-page";
-import {StoryObj} from "@storybook/nextjs";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
-export default {
+const meta: Meta<typeof ForgotPasswordPage> = {
     component: ForgotPasswordPage,
     args: {}
 };
 
-export const ForgotPasswordPageStory: StoryObj = {
-    render: (args) => <ForgotPasswordPage {...args} />,
+export default meta;
+
+export const Default: StoryObj<typeof ForgotPasswordPage> = {
+    render: () => <ForgotPasswordPage />,
     args: {}
 };
