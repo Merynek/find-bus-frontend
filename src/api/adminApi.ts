@@ -31,7 +31,7 @@ export class AdminApi {
     }
 
     public async getEmailConfig(): Promise<EmailConfigResponseDto> {
-        return await this._api.apiAdminEmailConfigGet();
+        return await handleApiCall(this._api.apiAdminEmailConfigGet());
     }
 
     public async setEmailConfig(req: ISetEmailConfigRequest): Promise<void> {

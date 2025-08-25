@@ -1,47 +1,36 @@
 "use client";
 
 import React from "react";
-import {ButtonSize, ButtonType, ButtonLink, ButtonClick} from "../../components/button/button";
+import {ButtonSize, ButtonType, ButtonLink} from "../../components/button/button";
 import {ROUTES} from "@/src/enums/router.enum";
 import {PageTabs} from "@/src/components/compositions/page-tabs/page-tabs";
 import {LocaleSwitcherSelect} from "@/src/components/components/locale-switcher-select/LocaleSwitcherSelect";
-import {AuthorizationService} from "@/src/services/AuthorizationService";
-import {useRouter} from "@/src/i18n/navigation";
 import {useLoggedUser} from "@/src/hooks/authenticationHook";
 import {useTranslate} from "@/src/hooks/translateHook";
+import {HeaderUserSection} from "@/src/components/compositions/header/header-user";
+import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 
 export const Header = () => {
-    const router = useRouter();
     const {user} = useLoggedUser();
-    const {t} = useTranslate("page.sign");
-
-    const _renderLogoutButton = () => {
-        return <ButtonClick
-            controlled={true}
-            size={ButtonSize.BY_CONTENT}
-            label={"Logout"}
-            onClick={async () => {
-                await AuthorizationService.logout();
-                router.push(ROUTES.SIGN_IN);
-                router.refresh();
-            }}
-            type={ButtonType.YELLOW}
-        />
-    }
+    const {t} = useTranslate("component.header");
 
     const _renderLoginButton = () => {
         return <ButtonLink
             route={{route: ROUTES.SIGN_IN}}
-            label={"Login"}
+            label={t("loginButton")}
             type={ButtonType.YELLOW}
             size={ButtonSize.BUTTON_SIZE_M}
         />
     }
 
     return <header>
-        <LocaleSwitcherSelect/>
-        {user === null ? _renderLoginButton() : _renderLogoutButton()}
-        {user !== null && <PageTabs user={user}/>}
-        {user !== null && <div>{t("emailPlaceholder")}: {user?.email} as a {user?.role.toString()}</div>}
+        <LayoutFlexRow>
+            <LocaleSwitcherSelect/>
+            {user === null && _renderLoginButton()}
+            <LayoutFlexRow justifyContent={"flex-end"} style={{width: "100%"}}>
+                {user !== null && <PageTabs user={user}/>}
+                {user !== null && <HeaderUserSection />}
+            </LayoutFlexRow>
+        </LayoutFlexRow>
     </header>
 };

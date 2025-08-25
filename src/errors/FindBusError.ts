@@ -47,7 +47,7 @@ export class FindBusError extends Error {
                         errorCode: parsedError.errorCode as (ErrorCode|FrontendErrorEnum),
                         message: parsedError.message,
                         url: parsedError.url || "",
-                        statusCode: Number(parsedError.statusCode) || 0
+                        statusCode: parsedError.statusCode ? Number(parsedError.statusCode) : 0
                     });
                 }
             } catch (e) {

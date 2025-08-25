@@ -60,12 +60,16 @@
       "logoutButton": "Logout",
       "loginButton": "Login"
     },
-    "pageTabs": {
+    "pageNames": {
       "home": "Home",
       "createTrip": "New trip",
       "tripList": "Trips",
       "adminUsers": "Users",
-      "adminTrips": "Admin Trips"
+      "adminTrips": "Admin Trips",
+      "userSettings": "User settings",
+      "vehicles" : "Vehicles",
+      "appConfig": "App config",
+      "emailConfig": "Email config"
     }
   },
   "common": {

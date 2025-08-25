@@ -14,10 +14,10 @@ interface IPageTabsProps {
 
 export const PageTabs = (props: IPageTabsProps) => {
     const {user} = props;
-    const {t} = useTranslate("component.pageTabs");
+    const {t} = useTranslate("component.pageNames");
     const route = useCurrentRoute();
 
-    return <div className={styles.layout}>
+    return <nav className={styles.layout}>
         <LayoutFlexRow style={{width: "100%"}}>
             <ButtonLink
                 route={{route: ROUTES.HOME}}
@@ -56,5 +56,5 @@ export const PageTabs = (props: IPageTabsProps) => {
                 />
             }
         </LayoutFlexRow>
-    </div>
+    </nav>
 };
