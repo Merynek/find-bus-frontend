@@ -59,6 +59,13 @@
     "header": {
       "logoutButton": "Logout",
       "loginButton": "Login"
+    },
+    "pageTabs": {
+      "home": "Home",
+      "createTrip": "New trip",
+      "tripList": "Trips",
+      "adminUsers": "Users",
+      "adminTrips": "Admin Trips"
     }
   },
   "common": {

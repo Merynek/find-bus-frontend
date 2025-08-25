@@ -6,6 +6,7 @@ import {ROUTES} from "@/src/enums/router.enum";
 import {User} from "@/src/data/users/user";
 import {useTranslate} from "@/src/hooks/translateHook";
 import {useCurrentRoute} from "@/src/hooks/routesHook";
+import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 
 interface IPageTabsProps {
     user: User|null;
@@ -13,82 +14,47 @@ interface IPageTabsProps {
 
 export const PageTabs = (props: IPageTabsProps) => {
     const {user} = props;
-    const {t} = useTranslate("page.sign");
+    const {t} = useTranslate("component.pageTabs");
     const route = useCurrentRoute();
 
     return <div className={styles.layout}>
-        <ButtonLink
-            route={{route: ROUTES.HOME}}
-            label={"HOME"}
-            type={route === ROUTES.HOME ? ButtonType.YELLOW : ButtonType.BASE}
-            size={ButtonSize.BUTTON_SIZE_M}
-        />
-        <ButtonLink
-            route={{route: ROUTES.USER_SETTINGS}}
-            label={"USER_SETTINGS"}
-            type={route === ROUTES.USER_SETTINGS ? ButtonType.YELLOW : ButtonType.BASE}
-            size={ButtonSize.BUTTON_SIZE_M}
-        />
-        {user?.role === UserRole.DEMANDER &&
+        <LayoutFlexRow style={{width: "100%"}}>
             <ButtonLink
-                route={{route: ROUTES.CREATE_TRIP}}
-                label={"CREATE_TRIP"}
-                type={route === ROUTES.CREATE_TRIP ? ButtonType.YELLOW : ButtonType.BASE}
+                route={{route: ROUTES.HOME}}
+                label={t("home")}
+                type={route === ROUTES.HOME ? ButtonType.YELLOW : ButtonType.BASE}
                 size={ButtonSize.BUTTON_SIZE_M}
             />
-        }
-        <ButtonLink
-            route={{route: ROUTES.TRIP_LIST}}
-            label={"TRIP_LIST"}
-            type={route === ROUTES.TRIP_LIST ? ButtonType.YELLOW : ButtonType.BASE}
-            size={ButtonSize.BUTTON_SIZE_M}
-        />
-        {user?.role === UserRole.TRANSPORTER &&
+            {user?.role === UserRole.DEMANDER &&
+                <ButtonLink
+                    route={{route: ROUTES.CREATE_TRIP}}
+                    label={t("createTrip")}
+                    type={route === ROUTES.CREATE_TRIP ? ButtonType.YELLOW : ButtonType.BASE}
+                    size={ButtonSize.BUTTON_SIZE_M}
+                />
+            }
             <ButtonLink
-                route={{route: ROUTES.VEHICLES}}
-                label={"VEHICLES"}
-                type={route === ROUTES.VEHICLES ? ButtonType.YELLOW : ButtonType.BASE}
+                route={{route: ROUTES.TRIP_LIST}}
+                label={t("tripList")}
+                type={route === ROUTES.TRIP_LIST ? ButtonType.YELLOW : ButtonType.BASE}
                 size={ButtonSize.BUTTON_SIZE_M}
             />
-        }
-        <ButtonLink
-            route={{route: ROUTES.RESET_PASSWORD}}
-            label={"RESET_PASSWORD"}
-            type={route === ROUTES.RESET_PASSWORD ? ButtonType.YELLOW : ButtonType.BASE}
-            size={ButtonSize.BUTTON_SIZE_M}
-        />
-        {user?.role === UserRole.ADMIN &&
-            <ButtonLink
-                route={{route: ROUTES.ADMIN_TRIPS}}
-                label={"ADMIN TRIPS"}
-                type={route === ROUTES.ADMIN_TRIPS ? ButtonType.YELLOW : ButtonType.BASE}
-                size={ButtonSize.BUTTON_SIZE_M}
-            />
-        }
-        {user?.role === UserRole.ADMIN &&
-            <ButtonLink
-                route={{route: ROUTES.APP_CONFIG}}
-                label={"APP CONFIG"}
-                type={route === ROUTES.APP_CONFIG ? ButtonType.YELLOW : ButtonType.BASE}
-                size={ButtonSize.BUTTON_SIZE_M}
-            />
-        }
-        {user?.role === UserRole.ADMIN &&
-            <ButtonLink
-                route={{route: ROUTES.EMAIL_CONFIG}}
-                label={"EMAIL CONFIG"}
-                type={route === ROUTES.EMAIL_CONFIG ? ButtonType.YELLOW : ButtonType.BASE}
-                size={ButtonSize.BUTTON_SIZE_M}
-            />
-        }
-        {user?.role === UserRole.ADMIN &&
-            <ButtonLink
-                route={{route: ROUTES.ADMIN_USERS}}
-                label={"USERS"}
-                type={route === ROUTES.ADMIN_USERS ? ButtonType.YELLOW : ButtonType.BASE}
-                size={ButtonSize.BUTTON_SIZE_M}
-            />
-        }
-        <div>{t("emailPlaceholder")}: {user?.email} as a {user?.role.toString()}</div>
+            {user?.role === UserRole.ADMIN &&
+                <ButtonLink
+                    route={{route: ROUTES.ADMIN_TRIPS}}
+                    label={t("adminTrips")}
+                    type={route === ROUTES.ADMIN_TRIPS ? ButtonType.YELLOW : ButtonType.BASE}
+                    size={ButtonSize.BUTTON_SIZE_M}
+                />
+            }
+            {user?.role === UserRole.ADMIN &&
+                <ButtonLink
+                    route={{route: ROUTES.ADMIN_USERS}}
+                    label={t("adminUsers")}
+                    type={route === ROUTES.ADMIN_USERS ? ButtonType.YELLOW : ButtonType.BASE}
+                    size={ButtonSize.BUTTON_SIZE_M}
+                />
+            }
+        </LayoutFlexRow>
     </div>
 };

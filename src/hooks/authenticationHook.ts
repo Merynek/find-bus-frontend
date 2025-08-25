@@ -1,14 +1,15 @@
 import {useSession} from "next-auth/react";
-import {CurrentUserDto} from "@/src/api/openapi";
+import {UsersConverter} from "@/src/converters/users/users-converter";
+import {User} from "@/src/data/users/user";
 
 interface IUseLoggedUser {
-    user: CurrentUserDto|null;
+    user: User|null;
 }
 
 export const useLoggedUser = (): IUseLoggedUser  => {
     const {data} = useSession();
 
     return {
-        user: data?.user || null
+        user: data ? UsersConverter.currentUserToInstance(data.user) : null
     }
 }

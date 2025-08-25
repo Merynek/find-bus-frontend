@@ -8,12 +8,12 @@ import {LocaleSwitcherSelect} from "@/src/components/components/locale-switcher-
 import {AuthorizationService} from "@/src/services/AuthorizationService";
 import {useRouter} from "@/src/i18n/navigation";
 import {useLoggedUser} from "@/src/hooks/authenticationHook";
-import {UsersConverter} from "@/src/converters/users/users-converter";
+import {useTranslate} from "@/src/hooks/translateHook";
 
 export const Header = () => {
     const router = useRouter();
     const {user} = useLoggedUser();
-    const currentUser = user ? UsersConverter.currentUserToJson(user) : null;
+    const {t} = useTranslate("page.sign");
 
     const _renderLogoutButton = () => {
         return <ButtonClick
@@ -39,8 +39,9 @@ export const Header = () => {
     }
 
     return <header>
-        <LocaleSwitcherSelect />
+        <LocaleSwitcherSelect/>
         {user === null ? _renderLoginButton() : _renderLogoutButton()}
-        {user !== null && <PageTabs user={currentUser} />}
+        {user !== null && <PageTabs user={user}/>}
+        {user !== null && <div>{t("emailPlaceholder")}: {user?.email} as a {user?.role.toString()}</div>}
     </header>
 };

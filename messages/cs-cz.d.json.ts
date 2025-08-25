@@ -62,6 +62,13 @@ declare const messages: {
     "header": {
       "logoutButton": "Odhlásit se",
       "loginButton": "Přihlásit se"
+    },
+    "pageTabs": {
+      "home": "Domů",
+      "createTrip": "Nová cesta",
+      "tripList": "Cesty",
+      "adminUsers": "Uživatelé",
+      "adminTrips": "Admin Cesty"
     }
   },
   "common": {

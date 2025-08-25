@@ -1,6 +1,8 @@
 import React from "react";
 import {Meta, StoryObj} from "@storybook/nextjs";
 import {PageTabs} from "@/src/components/compositions/page-tabs/page-tabs";
+import {getRandomUser} from "@/dataGenerator/user";
+import {getRandomBoolean} from "@/dataGenerator/tools";
 
 const meta: Meta<typeof PageTabs> = {
     component: PageTabs,
@@ -12,6 +14,7 @@ export default meta;
 export const Default: StoryObj<typeof PageTabs> = {
     render: (args) => <PageTabs
         {...args}
+        user={getRandomBoolean() ? getRandomUser() : null}
     />,
     args: {}
 };

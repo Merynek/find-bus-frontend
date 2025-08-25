@@ -1,5 +1,5 @@
 import {getRandomText} from "./texts/texts";
-import {getRandomNumber} from "../src/utils/common";
+import {getRandomNumber} from "@/src/utils/common";
 
 export const getRandomBoolean = () => {
     return Math.random() + .5 >> 0 === 1;
