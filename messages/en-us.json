@@ -60,10 +60,13 @@
     "demander": "Demander"
   },
   "errors": {
-    "formStatusLabel": "An error occurred",
-    "unexpectedError": "Unexpected error",
-    "invalidEmail": "Invalid email",
-    "invalidPassword": "Invalid password",
+    "schemaErrors": {
+      "formStatusLabel": "An error occurred",
+      "unexpectedError": "Unexpected error",
+      "invalidEmail": "Invalid email",
+      "invalidPassword": "Invalid password",
+      "passwordConfirm": "Passwords do not match"
+    },
     "apiErrors": {
       "UNKNOWN": "Unexpected error",
       "BANNED": "User is banned",

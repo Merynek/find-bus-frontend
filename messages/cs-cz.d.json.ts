@@ -17,7 +17,8 @@ declare const messages: {
       "forgetPassword": "Zapomenuté heslo",
       "forgetPasswordButton": "Poslat nové heslo",
       "forgetPasswordSent": "Nové heslo bylo odesláno na zadanou e-mailovou adresu.",
-      "resetPasswordButton": "Resetovat heslo"
+      "resetPasswordButton": "Resetovat heslo",
+      "resetPasswordSent": "Heslo bylo resetováno."
     },
     "userSettings": {
       "name": "Jméno",
@@ -62,10 +63,13 @@ declare const messages: {
     "demander": "Zadavatel"
   },
   "errors": {
-    "formStatusLabel": "Vyskytla se chyba",
-    "unexpectedError": "Neočekovaná chyba",
-    "invalidEmail": "Neplatný email",
-    "invalidPassword": "Neplatné heslo",
+    "schemaErrors": {
+      "formStatusLabel": "Vyskytla se chyba",
+      "unexpectedError": "Neočekovaná chyba",
+      "invalidEmail": "Neplatný email",
+      "invalidPassword": "Neplatné heslo",
+      "passwordConfirm": "Hesla se neshodují"
+    },
     "apiErrors": {
       "UNKNOWN": "Neočekovaná chyba",
       "BANNED": "Uživatel je zabanován",

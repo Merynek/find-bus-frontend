@@ -3,10 +3,9 @@ import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {z} from "zod";
 import {AuthorizationService} from "@/src/services/AuthorizationService";
 import {SignupFormSchema} from "@/src/forms/sign-up/SignUpSchema";
-import {LOCALES} from "@/src/utils/locale";
 import {IRegistrationRequest} from "@/src/api/registrationApi";
 
-type SignUpData = Partial<IRegistrationRequest & {passwordConfirm: string, locale: LOCALES}>;
+type SignUpData = Partial<IRegistrationRequest & {passwordConfirm: string}>;
 
 type SignUpApiResult = void;
 
@@ -21,8 +20,7 @@ export class SignUpFormAction extends BaseFormAction<typeof SignupFormSchema, Si
             email: this.getStringFormValue(formData, FormDataEnum.email),
             password: this.getStringFormValue(formData, FormDataEnum.password),
             passwordConfirm: this.getStringFormValue(formData, FormDataEnum.password_confirm),
-            role: this.getEnumFormValue(formData, FormDataEnum.role),
-            locale: this.getEnumFormValue(formData, FormDataEnum.locale)
+            role: this.getEnumFormValue(formData, FormDataEnum.role)
         };
     }
 

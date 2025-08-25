@@ -4,7 +4,7 @@ import React from "react";
 import {UserRole} from "@/src/api/openapi";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {signupFormAction} from "@/src/app/actions/forms/signUp/signupFormAction";
-import {useCurrentLocale, useTranslate} from "@/src/hooks/translateHook";
+import {useTranslate} from "@/src/hooks/translateHook";
 import {useFormActionState} from "@/src/hooks/formHook";
 import {FormStatus} from "@/src/components/components/form-status/form-status";
 import {FlexGap} from "@/src/enums/layout.enum";
@@ -20,13 +20,11 @@ const RegistrationPage = () => {
     const {t} = useTranslate("page.sign");
     const {t: commonT} = useTranslate("common");
     const [state, action, pending] = useFormActionState(signupFormAction, undefined)
-    const locale = useCurrentLocale();
 
     return <PageWrapper>
         <LayoutFlexColumn gap={FlexGap.BIG_40}>
             <Heading text={t("registrationHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={3}/>
             <form action={action}>
-                <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale}/>
                 <LayoutFlexColumn gap={FlexGap.LARGE_32}>
                     <FormStatus state={state}/>
                     <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>

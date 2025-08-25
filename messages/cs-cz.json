@@ -60,10 +60,13 @@
     "demander": "Zadavatel"
   },
   "errors": {
-    "formStatusLabel": "Vyskytla se chyba",
-    "unexpectedError": "Neočekovaná chyba",
-    "invalidEmail": "Neplatný email",
-    "invalidPassword": "Neplatné heslo",
+    "schemaErrors": {
+      "formStatusLabel": "Vyskytla se chyba",
+      "unexpectedError": "Neočekovaná chyba",
+      "invalidEmail": "Neplatný email",
+      "invalidPassword": "Neplatné heslo",
+      "passwordConfirm": "Hesla se neshodují"
+    },
     "apiErrors": {
       "UNKNOWN": "Neočekovaná chyba",
       "BANNED": "Uživatel je zabanován",
