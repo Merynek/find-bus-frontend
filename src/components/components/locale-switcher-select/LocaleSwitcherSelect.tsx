@@ -1,5 +1,3 @@
-"use client";
-
 import { routing } from '@/src/i18n/routing';
 import {ChangeEvent, useTransition} from "react";
 import { usePathname, useRouter } from '@/src/i18n/navigation';

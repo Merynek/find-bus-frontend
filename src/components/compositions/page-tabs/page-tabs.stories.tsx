@@ -1,24 +1,17 @@
 import React from "react";
-import {PageTabs} from "./page-tabs";
-import {StoryObj} from "@storybook/nextjs";
-import {UserRole} from "@/src/api/openapi";
+import {Meta, StoryObj} from "@storybook/nextjs";
+import {PageTabs} from "@/src/components/compositions/page-tabs/page-tabs";
 
-export default {
+const meta: Meta<typeof PageTabs> = {
     component: PageTabs,
-    args: {
-        message: "Are you sure man ???",
-        cancelButtonText: "Cancel",
-        submitButtonText: "OK",
-        title: "Confirm Dialog",
-        submitButtonDisabled: false
-    }
+    args: {}
 };
 
-export const PageTabsStory: StoryObj = {
-    render: () => <PageTabs userDto={{
-        id: 1,
-        email: "test@test.cz",
-        role: UserRole.ADMIN
-    }} />,
+export default meta;
+
+export const Default: StoryObj<typeof PageTabs> = {
+    render: (args) => <PageTabs
+        {...args}
+    />,
     args: {}
 };

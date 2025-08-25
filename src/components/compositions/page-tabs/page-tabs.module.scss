@@ -5,13 +5,57 @@
 
 .layout {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: variables.$itemOffset;
+  padding: variables.$itemOffset * 2;
+  background-color: colors.$white; // Use white background for the menu bar
+  border-bottom: 1px solid colors.$gray;
+
+  @media (max-width: mediaQueries.$mediaQuery768) {
+    justify-content: flex-start;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    padding: variables.$itemOffset;
+  }
+
   .tab {
     display: flex;
-    color: colors.$blue;
+    align-items: center;
+    padding: variables.$itemOffset / 2 variables.$itemOffset;
+    color: colors.$black; // Use black for link text
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+
+    // Applying typography mixin for font size and weight
+    @include fonts.typoSize14;
+
     &.active {
-      color: colors.$black;
+      color: colors.$blue; // Active tab color to stand out
       font-weight: fonts.$fontWeightSemiBold;
       border-bottom: 3px solid colors.$blue;
+    }
+
+    &:hover:not(.active) {
+      color: colors.$blue; // Highlight non-active tabs on hover
+    }
+  }
+
+  // Style for the user info div
+  div:last-child {
+    display: flex;
+    align-items: center;
+    color: colors.$darkGray; // Use a darker gray for the user info
+    margin-left: auto; // Push to the right
+    padding: 0 variables.$itemOffset;
+
+    @include fonts.typoSize12; // Use a smaller font size for this info
+
+    @media (max-width: mediaQueries.$mediaQuery768) {
+      display: none; // Hide on smaller screens to save space
     }
   }
 }

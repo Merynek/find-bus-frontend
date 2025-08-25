@@ -1,17 +1,32 @@
+"use client";
+
 import React from "react";
-import {ButtonSize, ButtonType, ButtonLink} from "../../components/button/button";
+import {ButtonSize, ButtonType, ButtonLink, ButtonClick} from "../../components/button/button";
 import {ROUTES} from "@/src/enums/router.enum";
 import {PageTabs} from "@/src/components/compositions/page-tabs/page-tabs";
-import {HeaderLogout} from "@/src/components/compositions/header/header-logout";
 import {LocaleSwitcherSelect} from "@/src/components/components/locale-switcher-select/LocaleSwitcherSelect";
 import {AuthorizationService} from "@/src/services/AuthorizationService";
+import {useRouter} from "@/src/i18n/navigation";
+import {useLoggedUser} from "@/src/hooks/authenticationHook";
 import {UsersConverter} from "@/src/converters/users/users-converter";
 
-export const Header = async () => {
-    const user = await AuthorizationService.getLoggerUser();
+export const Header = () => {
+    const router = useRouter();
+    const {user} = useLoggedUser();
+    const currentUser = user ? UsersConverter.currentUserToJson(user) : null;
 
     const _renderLogoutButton = () => {
-        return <HeaderLogout/>
+        return <ButtonClick
+            controlled={true}
+            size={ButtonSize.BY_CONTENT}
+            label={"Logout"}
+            onClick={async () => {
+                await AuthorizationService.logout();
+                router.push(ROUTES.SIGN_IN);
+                router.refresh();
+            }}
+            type={ButtonType.YELLOW}
+        />
     }
 
     const _renderLoginButton = () => {
@@ -26,6 +41,6 @@ export const Header = async () => {
     return <header>
         <LocaleSwitcherSelect />
         {user === null ? _renderLoginButton() : _renderLogoutButton()}
-        {user !== null && <PageTabs userDto={UsersConverter.currentUserToJson(user)}/>}
+        {user !== null && <PageTabs user={currentUser} />}
     </header>
 };

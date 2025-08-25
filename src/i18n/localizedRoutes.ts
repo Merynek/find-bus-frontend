@@ -10,13 +10,17 @@ export function getBaseRouteFromLocalizedPathname(localizedPathname: string, cur
 
     for (const locale of localesArray) {
         const prefixInUrl = locale.toLowerCase();
-        if (normalizedLocalizedPathname.startsWith(`/${prefixInUrl}/`)) {
+        if (normalizedLocalizedPathname.startsWith(`/${prefixInUrl}`)) {
             pathWithoutLocalePrefix = normalizedLocalizedPathname.substring(`/${prefixInUrl}`.length);
             break;
         }
     }
     if (pathWithoutLocalePrefix === '') {
         pathWithoutLocalePrefix = '/';
+    }
+
+    if (pathWithoutLocalePrefix === '/') {
+        return ROUTES.HOME;
     }
 
     for (const routeKey in routing.pathnames) {

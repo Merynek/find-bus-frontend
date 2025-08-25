@@ -1,12 +1,12 @@
-import {User} from "../src/data/users/user";
+import {User} from "@/src/data/users/user";
 import {getRandomBoolean, getRandomEmail, getRandomEnum, getRandomId} from "./tools";
-import {UserRole} from "../src/api/openapi";
-import {UserDetail} from "../src/data/users/user-detail";
-import {UserAdminDetail} from "../src/data/users/user-admin-detail";
+import {UserRole} from "@/src/api/openapi";
+import {UserDetail} from "@/src/data/users/user-detail";
+import {UserAdminDetail} from "@/src/data/users/user-admin-detail";
 import {getRandomText} from "./texts/texts";
 import {getRandomTransferInfo, getRandomUserAddress, getTransportRequirements} from "./userSettings";
-import {Vehicle} from "../src/data/users/vehicle";
-import {getRandomNumber} from "../src/utils/common";
+import {Vehicle} from "@/src/data/users/vehicle";
+import {getRandomNumber} from "@/src/utils/common";
 import {getRandomVehicle} from "./vehicle";
 
 export function getRandomUser(): User {

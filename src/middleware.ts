@@ -16,7 +16,6 @@ export default auth((request) => {
     }
     const response = nextIntlMiddleware(request);
     const headers = new Headers(response.headers);
-    headers.set("x-current-path", request.nextUrl.pathname);
 
     const redirectUrl = getRedirectUrlIfNeeded(request);
     if (redirectUrl) {
