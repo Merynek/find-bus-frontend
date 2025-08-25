@@ -7,6 +7,7 @@ declare const messages: {
       "loginHeading": "Přihlášení",
       "registrationHeading": "Registrace",
       "forgetPasswordHeading": "Zapomenuté heslo",
+      "resetPasswordHeading": "Resetovat heslo",
       "emailPlaceholder": "E-mail",
       "passwordPlaceholder": "Heslo",
       "passwordConfirmPlaceholder": "Potvrzení hesla",
@@ -15,7 +16,8 @@ declare const messages: {
       "registrationButton": "Registrovat se",
       "forgetPassword": "Zapomenuté heslo",
       "forgetPasswordButton": "Poslat nové heslo",
-      "forgetPasswordSent": "Nové heslo bylo odesláno na zadanou e-mailovou adresu."
+      "forgetPasswordSent": "Nové heslo bylo odesláno na zadanou e-mailovou adresu.",
+      "resetPasswordButton": "Resetovat heslo"
     },
     "userSettings": {
       "name": "Jméno",

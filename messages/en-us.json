@@ -4,6 +4,7 @@
       "loginHeading": "Login",
       "registrationHeading": "Registration",
       "forgetPasswordHeading": "Forgot password",
+      "resetPasswordHeading": "Reset password",
       "emailPlaceholder": "E-mail",
       "passwordPlaceholder": "Password",
       "passwordConfirmPlaceholder": "Confirm password",
@@ -12,7 +13,8 @@
       "registrationButton": "Register",
       "forgetPassword": "Forgot password",
       "forgetPasswordButton": "Send new password",
-      "forgetPasswordSent": "New password was sent to the given email address."
+      "forgetPasswordSent": "New password was sent to the given email address.",
+      "resetPasswordButton": "Reset password"
     },
     "userSettings": {
       "name": "Name",
