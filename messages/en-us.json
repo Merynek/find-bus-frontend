@@ -2,12 +2,13 @@
   "page": {
     "sign": {
       "loginHeading": "Login",
+      "registrationHeading": "Registration",
       "emailPlaceholder": "E-mail",
       "passwordPlaceholder": "Password",
       "passwordConfirmPlaceholder": "Confirm password",
       "login": "Login",
       "forgetPassword": "Forgot password",
-      "registration": "Registration"
+      "registrationButton": "Register"
     },
     "userSettings": {
       "name": "Name",
@@ -46,6 +47,10 @@
       "logoutButton": "Logout",
       "loginButton": "Login"
     }
+  },
+  "common": {
+    "transporter": "Transporter",
+    "demander": "Demander"
   },
   "errors": {
     "formStatusLabel": "An error occurred",

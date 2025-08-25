@@ -1,70 +1,83 @@
 'use client'
 
 import React from "react";
-import styles from "./registration.page.module.scss";
-import {ButtonSize, ButtonType, ButtonLink} from "../../../components/button/button";
 import {UserRole} from "@/src/api/openapi";
-import {ROUTES} from "@/src/enums/router.enum";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {signupFormAction} from "@/src/app/actions/forms/signUp/signupFormAction";
-import {useCurrentLocale} from "@/src/hooks/translateHook";
+import {useCurrentLocale, useTranslate} from "@/src/hooks/translateHook";
 import {useFormActionState} from "@/src/hooks/formHook";
 import {FormStatus} from "@/src/components/components/form-status/form-status";
+import {FlexGap} from "@/src/enums/layout.enum";
+import {Heading} from "@/src/components/components/texts/heading";
+import {FontWeight} from "@/src/components/components/texts/textStyles";
+import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
+import {TextBox, TextBoxType} from "@/src/components/components/inputs/text-box/text-box";
+import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
+import {RadioInput} from "@/src/components/components/inputs/radio-input/radio-input";
 
 const RegistrationPage = () => {
+    const {t} = useTranslate("page.sign");
+    const {t: commonT} = useTranslate("common");
     const [state, action, pending] = useFormActionState(signupFormAction, undefined)
     const locale = useCurrentLocale();
 
-    return <div className={styles.layout}>
-        <ButtonLink
-            route={{route: ROUTES.SIGN_IN}}
-            label={"Přejit na přihlášení"}
-            type={ButtonType.YELLOW}
-            size={ButtonSize.BUTTON_SIZE_M}
-        />
-        <form action={action}>
-            <FormStatus state={state} />
-            <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale}/>
-            <div>
-                <label htmlFor={FormDataEnum.email}>Email</label>
-                <input id={FormDataEnum.email} name={FormDataEnum.email} type={"email"} placeholder="Email"/>
-            </div>
-
-            <div>
-                <label htmlFor={FormDataEnum.password}>Password</label>
-                <input id={FormDataEnum.password} name={FormDataEnum.password} type={"password"}
-                       placeholder="password"/>
-            </div>
-            <div>
-                <label htmlFor={FormDataEnum.password_confirm}>Password Confirm</label>
-                <input id={FormDataEnum.password_confirm} name={FormDataEnum.password_confirm} type={"password"}
-                       placeholder="password confirm"/>
-            </div>
-            <div>
-                <label htmlFor={UserRole.TRANSPORTER}>Transporter</label>
-                <input
-                    type="radio"
-                    id={UserRole.TRANSPORTER}
-                    name={FormDataEnum.role}
-                    value={UserRole.TRANSPORTER}
-                />
-            </div>
-
-            <div>
-                <label htmlFor={UserRole.DEMANDER}>Zadavatel</label>
-                <input
-                    type="radio"
-                    id={UserRole.DEMANDER}
-                    name={FormDataEnum.role}
-                    value={UserRole.DEMANDER}
-                />
-            </div>
-
-            <button disabled={pending} type="submit">
-                Sign Up
-            </button>
-
-        </form>
+    return <div className="flex flex-col items-center py-20">
+        <div className="p-8 bg-white rounded-lg shadow-xl border border-gray-200 w-full max-w-md">
+            <LayoutFlexColumn gap={FlexGap.BIG_40}>
+                <Heading text={t("registrationHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={3}/>
+                <form action={action}>
+                    <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale}/>
+                    <LayoutFlexColumn gap={FlexGap.LARGE_32}>
+                        <FormStatus state={state}/>
+                        <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
+                            <TextBox
+                                controlled={false}
+                                name={FormDataEnum.email}
+                                id={FormDataEnum.email}
+                                type={TextBoxType.EMAIL}
+                                placeholder={t("emailPlaceholder")}
+                                defaultValue={state?.data?.email}
+                            />
+                            <TextBox
+                                controlled={false}
+                                name={FormDataEnum.password}
+                                id={FormDataEnum.password}
+                                type={TextBoxType.PASSWORD}
+                                placeholder={t("passwordPlaceholder")}
+                                defaultValue={state?.data?.password}
+                            />
+                            <TextBox
+                                controlled={false}
+                                name={FormDataEnum.password_confirm}
+                                id={FormDataEnum.password_confirm}
+                                type={TextBoxType.PASSWORD}
+                                placeholder={t("passwordConfirmPlaceholder")}
+                                defaultValue={state?.data?.passwordConfirm}
+                            />
+                            <RadioInput
+                                id={UserRole.TRANSPORTER}
+                                name={FormDataEnum.role}
+                                value={UserRole.TRANSPORTER}
+                                label={commonT("transporter")}
+                            />
+                            <RadioInput
+                                id={UserRole.DEMANDER}
+                                name={FormDataEnum.role}
+                                value={UserRole.DEMANDER}
+                                label={commonT("demander")}
+                            />
+                        </LayoutFlexColumn>
+                        <ButtonClick
+                            controlled={false}
+                            type={ButtonType.BLACK}
+                            size={ButtonSize.BUTTON_SIZE_M}
+                            isDisabled={pending}
+                            label={t("registrationButton")}
+                        />
+                    </LayoutFlexColumn>
+                </form>
+            </LayoutFlexColumn>
+        </div>
     </div>
 };
 

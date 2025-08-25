@@ -80,7 +80,7 @@ const LoginPage = () => {
                     />
                     <ButtonLink
                         route={{route: ROUTES.SIGN_UP}}
-                        label={t("registration")}
+                        label={t("registrationButton")}
                         type={ButtonType.BLACK}
                         size={ButtonSize.BUTTON_SIZE_M}
                     />

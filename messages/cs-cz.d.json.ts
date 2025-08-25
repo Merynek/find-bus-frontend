@@ -5,12 +5,13 @@ declare const messages: {
   "page": {
     "sign": {
       "loginHeading": "Přihlášení",
+      "registrationHeading": "Registrace",
       "emailPlaceholder": "E-mail",
       "passwordPlaceholder": "Heslo",
       "passwordConfirmPlaceholder": "Potvrzení hesla",
       "login": "Přihlásit se",
       "forgetPassword": "Zapomenuté heslo",
-      "registration": "Registrace"
+      "registrationButton": "Registrovat se"
     },
     "userSettings": {
       "name": "Jméno",
@@ -49,6 +50,10 @@ declare const messages: {
       "logoutButton": "Odhlásit se",
       "loginButton": "Přihlásit se"
     }
+  },
+  "common": {
+    "transporter": "Přepravce",
+    "demander": "Zadavatel"
   },
   "errors": {
     "formStatusLabel": "Vyskytla se chyba",
