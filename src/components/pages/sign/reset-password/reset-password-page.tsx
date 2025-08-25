@@ -24,8 +24,8 @@ const ResetPasswordPage = (props: ResetPasswordPageProps) => {
     const [state, action, pending] = useFormActionState(resetPasswordFormAction, undefined);
     const locale = useCurrentLocale();
 
-    return <PageWrapper>
-        <LayoutFlexColumn gap={FlexGap.BIG_40}>
+    const _renderBody = () => {
+        return <LayoutFlexColumn gap={FlexGap.BIG_40}>
             <Heading text={t("resetPasswordHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={3} />
             <form action={action}>
                 <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale} />
@@ -60,6 +60,14 @@ const ResetPasswordPage = (props: ResetPasswordPageProps) => {
                 </LayoutFlexColumn>
             </form>
         </LayoutFlexColumn>
+    }
+
+    const _renderRequestSentBody = () => {
+        return <Heading text={t("resetPasswordSent")} fontWeight={FontWeight.SEMIBOLD} headingLevel={3} />
+    }
+
+    return <PageWrapper>
+        {state?.success ? _renderRequestSentBody() : _renderBody()}
     </PageWrapper>
 };
 

@@ -14,7 +14,8 @@
       "forgetPassword": "Zapomenuté heslo",
       "forgetPasswordButton": "Poslat nové heslo",
       "forgetPasswordSent": "Nové heslo bylo odesláno na zadanou e-mailovou adresu.",
-      "resetPasswordButton": "Resetovat heslo"
+      "resetPasswordButton": "Resetovat heslo",
+      "resetPasswordSent": "Heslo bylo resetováno."
     },
     "userSettings": {
       "name": "Jméno",

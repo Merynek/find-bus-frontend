@@ -14,7 +14,8 @@
       "forgetPassword": "Forgot password",
       "forgetPasswordButton": "Send new password",
       "forgetPasswordSent": "New password was sent to the given email address.",
-      "resetPasswordButton": "Reset password"
+      "resetPasswordButton": "Reset password",
+      "resetPasswordSent": "Password was reset."
     },
     "userSettings": {
       "name": "Name",
