@@ -16,6 +16,7 @@ import {FlexGap} from "@/src/enums/layout.enum";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {Heading} from "@/src/components/components/texts/heading";
 import {FontWeight} from "@/src/components/components/texts/textStyles";
+import {PageWrapper} from "@/src/components/components/layout/page-wrapper/page-wrapper";
 
 const LoginPage = () => {
     const {t} = useTranslate("page.sign");
@@ -36,8 +37,7 @@ const LoginPage = () => {
         }
     }, [searchParams, handleUnauthorizedLogout]);
 
-    return <div className="flex flex-col items-center py-20">
-        <div className="p-8 bg-white rounded-lg shadow-xl border border-gray-200 w-full max-w-md">
+    return <PageWrapper>
             <LayoutFlexColumn gap={FlexGap.BIG_40}>
                 <Heading text={t("loginHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={3}/>
                 <form action={action}>
@@ -86,8 +86,7 @@ const LoginPage = () => {
                     />
                 </LayoutFlexColumn>
             </LayoutFlexColumn>
-        </div>
-    </div>
+    </PageWrapper>
 };
 
 export default LoginPage;
