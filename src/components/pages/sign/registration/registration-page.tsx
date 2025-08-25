@@ -2,7 +2,6 @@
 
 import React from "react";
 import styles from "./registration.page.module.scss";
-import {observer} from "mobx-react";
 import {ButtonSize, ButtonType, ButtonLink} from "../../../components/button/button";
 import {UserRole} from "@/src/api/openapi";
 import {ROUTES} from "@/src/enums/router.enum";
@@ -12,7 +11,7 @@ import {useCurrentLocale} from "@/src/hooks/translateHook";
 import {useFormActionState} from "@/src/hooks/formHook";
 import {FormStatus} from "@/src/components/components/form-status/form-status";
 
-const RegistrationPage = observer(() => {
+const RegistrationPage = () => {
     const [state, action, pending] = useFormActionState(signupFormAction, undefined)
     const locale = useCurrentLocale();
 
@@ -67,6 +66,6 @@ const RegistrationPage = observer(() => {
 
         </form>
     </div>
-});
+};
 
 export default RegistrationPage;

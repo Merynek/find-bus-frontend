@@ -36,14 +36,14 @@ const LoginPage = () => {
         }
     }, [searchParams, handleUnauthorizedLogout]);
 
-    return <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    return <div className="flex flex-col items-center py-20">
         <div className="p-8 bg-white rounded-lg shadow-xl border border-gray-200 w-full max-w-md">
             <LayoutFlexColumn gap={FlexGap.BIG_40}>
-                <Heading text={t("loginHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={3} />
+                <Heading text={t("loginHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={3}/>
                 <form action={action}>
-                    <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale} />
+                    <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale}/>
                     <LayoutFlexColumn gap={FlexGap.LARGE_32}>
-                        <FormStatus state={state} />
+                        <FormStatus state={state}/>
                         <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
                             <TextBox
                                 controlled={false}
