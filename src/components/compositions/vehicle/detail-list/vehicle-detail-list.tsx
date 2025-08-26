@@ -51,7 +51,9 @@ export const VehicleDetail = (props: IVehicleDetailListProps) => {
                     <span>Front Photo:</span>
                     <div className={styles.photo}>
                         <ImageElement
-                            image={vehicle.frontPhoto}
+                            src={vehicle.frontPhoto.path}
+                            alt={""}
+                            fill={true}
                         />
                     </div>
                 </div>}
@@ -59,7 +61,9 @@ export const VehicleDetail = (props: IVehicleDetailListProps) => {
                     <span>Rear Photo:</span>
                     <div className={styles.photo}>
                         <ImageElement
-                            image={vehicle.rearPhoto}
+                            src={vehicle.rearPhoto.path}
+                            alt={""}
+                            fill={true}
                         />
                     </div>
                 </div>}
@@ -67,7 +71,9 @@ export const VehicleDetail = (props: IVehicleDetailListProps) => {
                     <span>Left Photo:</span>
                     <div className={styles.photo}>
                         <ImageElement
-                            image={vehicle.leftSidePhoto}
+                            src={vehicle.leftSidePhoto.path}
+                            alt={""}
+                            fill={true}
                         />
                     </div>
                 </div>}
@@ -75,7 +81,9 @@ export const VehicleDetail = (props: IVehicleDetailListProps) => {
                     <span>Right Photo:</span>
                     <div className={styles.photo}>
                         <ImageElement
-                            image={vehicle.rightSidePhoto}
+                            src={vehicle.rightSidePhoto.path}
+                            alt={""}
+                            fill={true}
                         />
                     </div>
                 </div>}
@@ -83,7 +91,9 @@ export const VehicleDetail = (props: IVehicleDetailListProps) => {
                     <span>Interior Photo 1:</span>
                     <div className={styles.photo}>
                         <ImageElement
-                            image={vehicle.interierPhoto1}
+                            src={vehicle.interierPhoto1.path}
+                            alt={""}
+                            fill={true}
                         />
                     </div>
                 </div>}
@@ -91,7 +101,9 @@ export const VehicleDetail = (props: IVehicleDetailListProps) => {
                     <span>Interior Photo 2:</span>
                     <div className={styles.photo}>
                         <ImageElement
-                            image={vehicle.interierPhoto2}
+                            src={vehicle.interierPhoto2.path}
+                            alt={""}
+                            fill={true}
                         />
                     </div>
                 </div>}
@@ -99,7 +111,9 @@ export const VehicleDetail = (props: IVehicleDetailListProps) => {
                     <span>Technical Certificate 1:</span>
                     <div className={styles.photo}>
                         <ImageElement
-                            image={vehicle.technicalCertificate1}
+                            src={vehicle.technicalCertificate1.path}
+                            alt={""}
+                            fill={true}
                         />
                     </div>
                 </div>}
@@ -107,7 +121,9 @@ export const VehicleDetail = (props: IVehicleDetailListProps) => {
                     <span>Technical Certificate 2:</span>
                     <div className={styles.photo}>
                         <ImageElement
-                            image={vehicle.technicalCertificate2}
+                            src={vehicle.technicalCertificate2.path}
+                            alt={""}
+                            fill={true}
                         />
                     </div>
                 </div>}
@@ -115,7 +131,9 @@ export const VehicleDetail = (props: IVehicleDetailListProps) => {
                     <span>Insurance:</span>
                     <div className={styles.photo}>
                         <ImageElement
-                            image={vehicle.insurancePhoto}
+                            src={vehicle.insurancePhoto.path}
+                            alt={""}
+                            fill={true}
                         />
                     </div>
                 </div>}

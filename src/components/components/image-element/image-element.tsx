@@ -1,23 +1,40 @@
-import React from "react";
-import {Image} from "@/src/data/media/Image";
-import styles from "./image-element.module.scss";
-import {cn} from "@/src/utils/common";
+import React, {CSSProperties} from "react";
 import NextImage from "next/image";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
-interface IImageElementProps {
-    image: Image;
-    width?: number;
-    height?: number;
-    alt?: string;
+type BaseImageProps = {
+    alt: string;
+    priority?: boolean;
+    styles?: CSSProperties;
 }
 
-export const ImageElement = (props: IImageElementProps) => {
-    const {image, width, height, alt} = props;
+type RemoteImageProps = {
+    src: string;
+} & (
+    | { fill: true; width?: never; height?: never }
+    | { fill?: false; width: number; height: number }
+    );
 
-     return <NextImage
-        className={cn(styles.image)}
-        style={{width: width, height: height}}
-        src={image.path}
-        alt={alt || image.id.toString()}
-    />
+type StaticImageProps = {
+    src: StaticImport;
+    width?: number;
+    height?: number;
+    fill?: boolean;
+};
+
+type IImageProps = BaseImageProps & (RemoteImageProps | StaticImageProps);
+
+export const ImageElement = (props: IImageProps) => {
+    const {src, alt, priority, width, height, fill, styles} = props;
+
+    return <NextImage
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        fill={fill}
+        priority={priority}
+        loading={priority ? "eager" : "lazy"}
+        style={fill ? { objectFit: "cover", ...styles } : styles}
+    />;
 };

@@ -10,6 +10,7 @@ import {useTranslate} from "@/src/hooks/translateHook";
 import {HeaderUserSection} from "@/src/components/compositions/header/header-user-section";
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 import {FlexGap} from "@/src/enums/layout.enum";
+import {Logo} from "@/src/components/components/logo/logo";
 
 export const Header = () => {
     const {user} = useLoggedUser();
@@ -26,6 +27,7 @@ export const Header = () => {
 
     return <header>
         <LayoutFlexRow>
+            <Logo />
             <LocaleSwitcherSelect/>
             {user === null && _renderLoginButton()}
             <LayoutFlexRow justifyContent={"flex-end"} style={{width: "100%"}} gap={FlexGap.LARGE_32}>

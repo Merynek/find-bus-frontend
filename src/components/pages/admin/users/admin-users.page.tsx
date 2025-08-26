@@ -44,7 +44,9 @@ const AdminUsersPage = (props: IUsersListParams) => {
                     <span>ConcessionDocuments: </span>
                     <div className={styles.photo}>
                         <ImageElement
-                            image={requirements.concessionDocuments}
+                            src={requirements.concessionDocuments.path}
+                            alt={""}
+                            fill={true}
                         />
                     </div>
                 </div>}
@@ -54,7 +56,9 @@ const AdminUsersPage = (props: IUsersListParams) => {
                     <span>BusinessRiskInsurance: </span>
                     <div className={styles.photo}>
                         <ImageElement
-                            image={requirements.businessRiskInsurance}
+                            src={requirements.businessRiskInsurance.path}
+                            alt={""}
+                            fill={true}
                         />
                     </div>
                 </div>}
