@@ -1,7 +1,11 @@
 import React from "react";
 import styles from "./layout-flex-row.module.scss"
 import {cn} from "@/src/utils/common";
-import {getClassName, ILayoutFlexProps} from "@/src/components/components/layout/layout-flex/layout-flex";
+import {
+    getClassName,
+    getFlexElement,
+    ILayoutFlexProps
+} from "@/src/components/components/layout/layout-flex/layout-flex";
 
 export interface ILayoutFlexRowProps extends ILayoutFlexProps {
     responsive?: boolean;
@@ -13,15 +17,17 @@ export const LayoutFlexRow = (props: ILayoutFlexRowProps) => {
         alignItems, tabIndex,
         children, canWrap, responsive, style} = props;
 
-    return <div
-        style={{
-            alignItems: alignItems,
-            justifyContent: justifyContent,
-            ...style
-        }}
-        tabIndex={tabIndex}
-        className={cn(styles.flex, gap && getClassName(gap), canWrap && styles.wrap, responsive && styles.flexResponsive)}
-    >
-        {children}
-    </div>;
+    return React.createElement(
+        getFlexElement(props),
+        {
+            className: cn(styles.flex, gap && getClassName(gap), canWrap && styles.wrap, responsive && styles.flexResponsive),
+            style: {
+                alignItems: alignItems,
+                justifyContent: justifyContent,
+                ...style
+            },
+            tabIndex: tabIndex
+        },
+        children
+    );
 };

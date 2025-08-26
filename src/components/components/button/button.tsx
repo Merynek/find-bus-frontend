@@ -21,7 +21,7 @@ export enum ButtonSize {
 
 export interface IButtonProps {
     children?: React.ReactNode;
-    label: string;
+    label?: string;
     type: ButtonType;
     size: ButtonSize;
     rightIcon?: IconType;
@@ -70,11 +70,7 @@ export const ButtonClick = (props: IClickButtonProps) => {
 
     const buttonProps = {
         disabled: isDisabled,
-        className: cn(
-                getClassNameForButton(type),
-        getSizeForButton(size),
-        isDisabled && styles.disabled
-        )
+        className: cn(getClassNameForButton(type),getSizeForButton(size), isDisabled && styles.disabled)
     };
 
     if (controlled) {
@@ -104,11 +100,7 @@ export const ButtonLink = (props: ILinkButtonProps) => {
     return <Link
         href={href as never}
         onClick={onClick}
-        className={cn(
-            getClassNameForButton(type),
-            getSizeForButton(size),
-            isDisabled && styles.disabled
-        )}
+        className={cn(getClassNameForButton(type), getSizeForButton(size), isDisabled && styles.disabled)}
         target={openInTab ? "_blank" : undefined}
     >
         <ButtonContent {...props} />

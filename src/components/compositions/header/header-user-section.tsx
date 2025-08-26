@@ -1,5 +1,5 @@
 import React from "react";
-import {ButtonSize, ButtonType, ButtonClick} from "../../components/button/button";
+import {ButtonClick, ButtonLink, ButtonSize, ButtonType} from "../../components/button/button";
 import {ROUTES} from "@/src/enums/router.enum";
 import {AuthorizationService} from "@/src/services/AuthorizationService";
 import {useRouter} from "@/src/i18n/navigation";
@@ -11,6 +11,8 @@ import {UserRole} from "@/src/api/openapi";
 import {UserName} from "@/src/components/compositions/user/user-name";
 import {IconType} from "@/src/enums/icon.enum";
 import {Icon} from "@/src/components/components/icon/icon";
+import {User} from "@/src/data/users/user";
+import {FlexGap} from "@/src/enums/layout.enum";
 
 export const HeaderUserSection = () => {
     const router = useRouter();
@@ -58,19 +60,31 @@ export const HeaderUserSection = () => {
     const _renderLogoutButton = () => {
         return <ButtonClick
             controlled={true}
-            size={ButtonSize.BUTTON_SIZE_M}
+            size={ButtonSize.BY_CONTENT}
             label={tHeader("logoutButton")}
             onClick={async () => {
                 await AuthorizationService.logout();
                 router.push(ROUTES.SIGN_IN);
                 router.refresh();
             }}
-            type={ButtonType.YELLOW}
+            type={ButtonType.BASE}
         />
     }
 
-    return <LayoutFlexRow>
-        {user !== null && <UserName user={user} />}
+    const _renderUserName = (user: User) => {
+        return <ButtonLink
+            route={{
+                route: ROUTES.USER_SETTINGS
+            }}
+            type={ButtonType.BASE}
+            size={ButtonSize.BY_CONTENT}
+        >
+            <UserName user={user} />
+        </ButtonLink>
+    }
+
+    return <LayoutFlexRow gap={FlexGap.LARGE_32}>
+        {user !== null && _renderUserName(user)}
         {user !== null && _renderLogoutButton()}
         {user !== null && <ContextMenu
             opener={<Icon icon={IconType.MENU}/>}

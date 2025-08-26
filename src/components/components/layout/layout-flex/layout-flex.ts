@@ -1,4 +1,4 @@
-import React, {CSSProperties} from "react";
+import React, {CSSProperties, JSX} from "react";
 import {Property} from "csstype";
 import styles from "./layout-flex.module.scss";
 import {FlexGap} from "@/src/enums/layout.enum";
@@ -12,12 +12,18 @@ export interface ILayoutFlexProps {
     tabIndex?: number;
     gap?: FlexGap | IResponsiveFlex;
     style?: CSSProperties | undefined;
+    htmlTag?: keyof JSX.IntrinsicElements;
 }
 
 export interface IResponsiveFlex {
     breakpoint: Breakpoint,
     above: FlexGap,
     below: FlexGap
+}
+
+export function getFlexElement(props: ILayoutFlexProps): keyof JSX.IntrinsicElements {
+    const {htmlTag} = props;
+    return htmlTag || "div";
 }
 
 function getGapClassName(gap: FlexGap) {
