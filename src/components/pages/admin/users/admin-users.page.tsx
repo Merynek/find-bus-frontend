@@ -7,7 +7,7 @@ import {UserAddress} from "@/src/data/users/userAddress";
 import {TransferInfo} from "@/src/data/transferInfo";
 import {VehicleDetail} from "../../../compositions/vehicle/detail-list/vehicle-detail-list";
 import {TransportRequirements} from "@/src/data/transportRequirements";
-import {MediaElement} from "../../../components/media-element/media-element";
+import {ImageElement} from "../../../components/image-element/image-element";
 import {VehicleVerifyButton} from "@/src/components/pages/admin/users/vehicle-verify-button";
 import {UserVerifyButton} from "@/src/components/pages/admin/users/user-verify-button";
 import {VehicleConverter} from "@/src/converters/vehicle-converter";
@@ -43,8 +43,8 @@ const AdminUsersPage = (props: IUsersListParams) => {
                 {requirements.concessionDocuments && <div>
                     <span>ConcessionDocuments: </span>
                     <div className={styles.photo}>
-                        <MediaElement
-                            mediaItem={requirements.concessionDocuments}
+                        <ImageElement
+                            image={requirements.concessionDocuments}
                         />
                     </div>
                 </div>}
@@ -53,8 +53,8 @@ const AdminUsersPage = (props: IUsersListParams) => {
                 {requirements.businessRiskInsurance && <div>
                     <span>BusinessRiskInsurance: </span>
                     <div className={styles.photo}>
-                        <MediaElement
-                            mediaItem={requirements.businessRiskInsurance}
+                        <ImageElement
+                            image={requirements.businessRiskInsurance}
                         />
                     </div>
                 </div>}

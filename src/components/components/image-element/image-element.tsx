@@ -4,14 +4,14 @@ import styles from "./image-element.module.scss";
 import {cn} from "@/src/utils/common";
 import NextImage from "next/image";
 
-interface IMediaElementProps {
+interface IImageElementProps {
     image: Image;
     width?: number;
     height?: number;
     alt?: string;
 }
 
-export const ImageElement = (props: IMediaElementProps) => {
+export const ImageElement = (props: IImageElementProps) => {
     const {image, width, height, alt} = props;
 
      return <NextImage

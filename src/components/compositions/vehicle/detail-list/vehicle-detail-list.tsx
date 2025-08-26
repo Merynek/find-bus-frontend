@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./vehicle-detail-list.module.scss";
 import {Vehicle} from "@/src/data/users/vehicle";
-import {MediaElement} from "../../../components/media-element/media-element";
+import {ImageElement} from "../../../components/image-element/image-element";
 import {LayoutFlexRow} from "../../../components/layout/layout-flex-row/layout-flex-row";
 import {LayoutFlexColumn} from "../../../components/layout/layout-flex-column/layout-flex-column";
 
@@ -50,72 +50,72 @@ export const VehicleDetail = (props: IVehicleDetailListProps) => {
                 {vehicle.frontPhoto && <div>
                     <span>Front Photo:</span>
                     <div className={styles.photo}>
-                        <MediaElement
-                            mediaItem={vehicle.frontPhoto}
+                        <ImageElement
+                            image={vehicle.frontPhoto}
                         />
                     </div>
                 </div>}
                 {vehicle.rearPhoto && <div>
                     <span>Rear Photo:</span>
                     <div className={styles.photo}>
-                        <MediaElement
-                            mediaItem={vehicle.rearPhoto}
+                        <ImageElement
+                            image={vehicle.rearPhoto}
                         />
                     </div>
                 </div>}
                 {vehicle.leftSidePhoto && <div>
                     <span>Left Photo:</span>
                     <div className={styles.photo}>
-                        <MediaElement
-                            mediaItem={vehicle.leftSidePhoto}
+                        <ImageElement
+                            image={vehicle.leftSidePhoto}
                         />
                     </div>
                 </div>}
                 {vehicle.rightSidePhoto && <div>
                     <span>Right Photo:</span>
                     <div className={styles.photo}>
-                        <MediaElement
-                            mediaItem={vehicle.rightSidePhoto}
+                        <ImageElement
+                            image={vehicle.rightSidePhoto}
                         />
                     </div>
                 </div>}
                 {vehicle.interierPhoto1 && <div>
                     <span>Interior Photo 1:</span>
                     <div className={styles.photo}>
-                        <MediaElement
-                            mediaItem={vehicle.interierPhoto1}
+                        <ImageElement
+                            image={vehicle.interierPhoto1}
                         />
                     </div>
                 </div>}
                 {vehicle.interierPhoto2 && <div>
                     <span>Interior Photo 2:</span>
                     <div className={styles.photo}>
-                        <MediaElement
-                            mediaItem={vehicle.interierPhoto2}
+                        <ImageElement
+                            image={vehicle.interierPhoto2}
                         />
                     </div>
                 </div>}
                 {vehicle.technicalCertificate1 && <div>
                     <span>Technical Certificate 1:</span>
                     <div className={styles.photo}>
-                        <MediaElement
-                            mediaItem={vehicle.technicalCertificate1}
+                        <ImageElement
+                            image={vehicle.technicalCertificate1}
                         />
                     </div>
                 </div>}
                 {vehicle.technicalCertificate2 && <div>
                     <span>Technical Certificate 2:</span>
                     <div className={styles.photo}>
-                        <MediaElement
-                            mediaItem={vehicle.technicalCertificate2}
+                        <ImageElement
+                            image={vehicle.technicalCertificate2}
                         />
                     </div>
                 </div>}
                 {vehicle.insurancePhoto && <div>
                     <span>Insurance:</span>
                     <div className={styles.photo}>
-                        <MediaElement
-                            mediaItem={vehicle.insurancePhoto}
+                        <ImageElement
+                            image={vehicle.insurancePhoto}
                         />
                     </div>
                 </div>}
