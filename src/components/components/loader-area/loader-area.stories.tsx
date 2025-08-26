@@ -1,15 +1,18 @@
 import React from "react";
-import {LoaderArea, ILoaderAreaProps} from "./loader-area";
+import {LoaderArea} from "./loader-area";
 import {Meta, StoryObj} from "@storybook/nextjs";
 
-export default {
+const meta: Meta<typeof LoaderArea> = {
     component: LoaderArea,
     args: {
         withOffset: true
     }
-} as Meta<ILoaderAreaProps>;
+};
 
-export const LoaderAreaStory: StoryObj<ILoaderAreaProps> = {
-    render: (args) => <LoaderArea {...args} />,
-    args: {}
+export default meta;
+
+export const Default: StoryObj<typeof LoaderArea>  = {
+    render: (args) => {
+        return <LoaderArea {...args} />
+    }
 };

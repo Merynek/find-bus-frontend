@@ -4,7 +4,7 @@ import styles from "./loader-area.module.scss";
 import {observer} from "mobx-react";
 import Image from "next/image";
 
-export interface ILoaderAreaProps {
+interface ILoaderAreaProps {
     grayMode?: boolean;
     withOffset?: boolean;
 }
