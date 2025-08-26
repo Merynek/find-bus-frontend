@@ -1,6 +1,6 @@
 import {action, computed, makeObservable, observable, runInAction} from "mobx";
 import {Amenities, EuroStandard} from "@/src/api/openapi";
-import {Photo} from "@/src/data/media/photo";
+import {Image} from "@/src/data/media/Image";
 import {Vehicle} from "@/src/data/users/vehicle";
 import {Place} from "@/src/data/place";
 
@@ -19,15 +19,15 @@ export class VehicleEditStore {
     @observable private _euro: EuroStandard;
     private _amenities: Amenities[];
     @observable private _handicappedUserCount: number;
-    @observable private _frontPhoto: Photo|null;
-    @observable private _rearPhoto: Photo|null;
-    @observable private _leftSidePhoto: Photo|null;
-    @observable private _rightSidePhoto: Photo|null;
-    @observable private _interierPhoto1: Photo|null;
-    @observable private _interierPhoto2: Photo|null;
-    @observable private _technicalCertificate1: Photo|null;
-    @observable private _technicalCertificate2: Photo|null;
-    @observable private _insurancePhoto: Photo|null;
+    @observable private _frontPhoto: Image|null;
+    @observable private _rearPhoto: Image|null;
+    @observable private _leftSidePhoto: Image|null;
+    @observable private _rightSidePhoto: Image|null;
+    @observable private _interierPhoto1: Image|null;
+    @observable private _interierPhoto2: Image|null;
+    @observable private _technicalCertificate1: Image|null;
+    @observable private _technicalCertificate2: Image|null;
+    @observable private _insurancePhoto: Image|null;
     @observable private _departureStation: Place|null;
 
     @observable public nameIsValid: boolean = true;
@@ -143,99 +143,99 @@ export class VehicleEditStore {
         })
     }
 
-    get frontPhoto(): Photo | null {
+    get frontPhoto(): Image | null {
         return this._frontPhoto;
     }
 
-    set frontPhoto(value: Photo | null) {
+    set frontPhoto(value: Image | null) {
         runInAction(() => {
             this.frontPhotoIsValid = true;
             this._frontPhoto = value;
         })
     }
 
-    get rearPhoto(): Photo | null {
+    get rearPhoto(): Image | null {
         return this._rearPhoto;
     }
 
-    set rearPhoto(value: Photo | null) {
+    set rearPhoto(value: Image | null) {
         runInAction(() => {
             this.rearPhotoIsValid = true;
             this._rearPhoto = value;
         })
     }
 
-    get leftSidePhoto(): Photo | null {
+    get leftSidePhoto(): Image | null {
         return this._leftSidePhoto;
     }
 
-    set leftSidePhoto(value: Photo | null) {
+    set leftSidePhoto(value: Image | null) {
         runInAction(() => {
             this.leftSidePhotoIsValid = true;
             this._leftSidePhoto = value;
         })
     }
 
-    get rightSidePhoto(): Photo | null {
+    get rightSidePhoto(): Image | null {
         return this._rightSidePhoto;
     }
 
-    set rightSidePhoto(value: Photo | null) {
+    set rightSidePhoto(value: Image | null) {
         runInAction(() => {
             this.rightSidePhotoIsValid = true;
             this._rightSidePhoto = value;
         })
     }
 
-    get interierPhoto1(): Photo | null {
+    get interierPhoto1(): Image | null {
         return this._interierPhoto1;
     }
 
-    set interierPhoto1(value: Photo | null) {
+    set interierPhoto1(value: Image | null) {
         runInAction(() => {
             this.interierPhoto1IsValid = true;
             this._interierPhoto1 = value;
         })
     }
 
-    get interierPhoto2(): Photo | null {
+    get interierPhoto2(): Image | null {
         return this._interierPhoto2;
     }
 
-    set interierPhoto2(value: Photo | null) {
+    set interierPhoto2(value: Image | null) {
         runInAction(() => {
             this.interierPhoto2IsValid = true;
             this._interierPhoto2 = value;
         })
     }
 
-    get technicalCertificate1(): Photo | null {
+    get technicalCertificate1(): Image | null {
         return this._technicalCertificate1;
     }
 
-    set technicalCertificate1(value: Photo | null) {
+    set technicalCertificate1(value: Image | null) {
         runInAction(() => {
             this.technicalCertificatePhoto1IsValid = true;
             this._technicalCertificate1 = value;
         })
     }
 
-    get technicalCertificate2(): Photo | null {
+    get technicalCertificate2(): Image | null {
         return this._technicalCertificate2;
     }
 
-    set technicalCertificate2(value: Photo | null) {
+    set technicalCertificate2(value: Image | null) {
         runInAction(() => {
             this.technicalCertificatePhoto2IsValid = true;
             this._technicalCertificate2 = value;
         })
     }
 
-    get insurancePhoto(): Photo | null {
+    get insurancePhoto(): Image | null {
         return this._insurancePhoto;
     }
 
-    set insurancePhoto(value: Photo | null) {
+    set insurancePhoto(value: Image | null) {
         runInAction(() => {
             this.insurancePhotoIsValid = true;
             this._insurancePhoto = value;

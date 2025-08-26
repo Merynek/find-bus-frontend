@@ -1,6 +1,6 @@
 import {Amenities, EuroStandard} from "../../api/openapi";
 import {makeObservable, observable} from "mobx";
-import {Photo} from "../media/photo";
+import {Image} from "../media/Image";
 import {Place} from "../place";
 
 export interface IVehicleSettings {
@@ -14,15 +14,15 @@ export interface IVehicleSettings {
     euroStandard: EuroStandard;
     amenities: Amenities[];
     handicappedUserCount: number;
-    frontPhoto: Photo|null;
-    rearPhoto: Photo|null;
-    leftSidePhoto: Photo|null;
-    rightSidePhoto: Photo|null;
-    interierPhoto1: Photo|null;
-    interierPhoto2: Photo|null;
-    technicalCertificate1: Photo|null;
-    technicalCertificate2: Photo|null;
-    insurance: Photo|null;
+    frontPhoto: Image|null;
+    rearPhoto: Image|null;
+    leftSidePhoto: Image|null;
+    rightSidePhoto: Image|null;
+    interierPhoto1: Image|null;
+    interierPhoto2: Image|null;
+    technicalCertificate1: Image|null;
+    technicalCertificate2: Image|null;
+    insurance: Image|null;
     departureStation: Place|null;
     isVerifiedForTransporting: boolean;
 }
@@ -38,15 +38,15 @@ export class Vehicle {
     @observable public euro: EuroStandard;
     public amenities: Amenities[];
     @observable public handicappedUserCount: number;
-    @observable public frontPhoto: Photo|null;
-    @observable public rearPhoto: Photo|null;
-    @observable public leftSidePhoto: Photo|null;
-    @observable public rightSidePhoto: Photo|null;
-    @observable public interierPhoto1: Photo|null;
-    @observable public interierPhoto2: Photo|null;
-    @observable public technicalCertificate1: Photo|null;
-    @observable public technicalCertificate2: Photo|null;
-    @observable public insurancePhoto: Photo|null;
+    @observable public frontPhoto: Image|null;
+    @observable public rearPhoto: Image|null;
+    @observable public leftSidePhoto: Image|null;
+    @observable public rightSidePhoto: Image|null;
+    @observable public interierPhoto1: Image|null;
+    @observable public interierPhoto2: Image|null;
+    @observable public technicalCertificate1: Image|null;
+    @observable public technicalCertificate2: Image|null;
+    @observable public insurancePhoto: Image|null;
     @observable public departureStation: Place|null;
     public isVerifiedForTransporting: boolean;
 

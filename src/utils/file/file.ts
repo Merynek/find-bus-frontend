@@ -1,37 +1,22 @@
-import {Photo} from "../../data/media/photo";
-import {Video, VideoType} from "../../data/media/video";
+import {Image} from "../../data/media/Image";
 import {FileCategory, FileType} from "@/src/api/openapi";
+import {getRandomId} from "@/dataGenerator/tools";
 
-export async function getPhotosFromFiles(files: File[]): Promise<Photo[]> {
-    return new Promise<Photo[]>(async (resolve) => {
-        const photos: Photo[] = [];
+export async function getPhotosFromFiles(files: File[]): Promise<Image[]> {
+    return new Promise<Image[]>(async (resolve) => {
+        const photos: Image[] = [];
         const imageFiles = files.filter(fileIsImage);
 
         for (const f of imageFiles) {
             const fileUrl = URL.createObjectURL(f);
-            photos.push(new Photo({
+            photos.push(new Image({
+                id: getRandomId(),
                 path: fileUrl,
                 type: FileType.VEHICLE_PHOTO,
                 category: FileCategory.IMAGE
             }));
         }
         resolve(photos);
-    });
-}
-
-export async function getVideosFromFiles(files: File[]): Promise<Video[]> {
-    return new Promise<Video[]>(async (resolve) => {
-        const videos: Video[] = [];
-        for (const file of files) {
-            if (fileIsVideo(file)) {
-                videos.push(new Video({
-                    file: file,
-                    type: VideoType.VIDEO,
-                    category: FileCategory.DOCUMENT
-                }));
-            }
-        }
-        resolve(videos);
     });
 }
 

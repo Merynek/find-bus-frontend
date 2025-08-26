@@ -1,9 +1,9 @@
 import {FileResponseDto} from "../api/openapi";
-import {Photo} from "@/src/data/media/photo";
+import {Image} from "@/src/data/media/Image";
 
 export class FileConverter {
-    public static toPhotoInstance(file: FileResponseDto): Photo {
-        return new Photo({
+    public static toPhotoInstance(file: FileResponseDto): Image {
+        return new Image({
             id: file.id,
             path: file.path,
             type: file.type,
@@ -11,7 +11,7 @@ export class FileConverter {
         });
     }
 
-    public static photoToJson(photo: Photo): FileResponseDto {
+    public static photoToJson(photo: Image): FileResponseDto {
         return {
             id: photo.id,
             path: photo.path,

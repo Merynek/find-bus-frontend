@@ -1,16 +1,16 @@
 import {computed, makeObservable, observable} from "mobx";
-import {Photo} from "./media/photo";
+import {Image} from "./media/Image";
 
 export interface ITransportRequirementsSettings {
     concessionNumber: string;
-    concessionDocuments: Photo|null;
-    businessRiskInsurance: Photo|null;
+    concessionDocuments: Image|null;
+    businessRiskInsurance: Image|null;
 }
 
 export class TransportRequirements {
     @observable public concessionNumber: string;
-    @observable public concessionDocuments: Photo|null;
-    @observable public businessRiskInsurance: Photo|null;
+    @observable public concessionDocuments: Image|null;
+    @observable public businessRiskInsurance: Image|null;
 
     constructor(settings: ITransportRequirementsSettings) {
         this.concessionNumber = settings.concessionNumber;
