@@ -13,6 +13,7 @@ import {IconType} from "@/src/enums/icon.enum";
 import {Icon} from "@/src/components/components/icon/icon";
 import {User} from "@/src/data/users/user";
 import {FlexGap} from "@/src/enums/layout.enum";
+import {LocaleSwitcherSelect} from "@/src/components/components/locale-switcher-select/locale-switcher-select";
 
 export const HeaderUserSection = () => {
     const router = useRouter();
@@ -84,6 +85,7 @@ export const HeaderUserSection = () => {
     }
 
     return <LayoutFlexRow gap={FlexGap.LARGE_32}>
+        <LocaleSwitcherSelect />
         {user !== null && _renderUserName(user)}
         {user !== null && _renderLogoutButton()}
         {user !== null && <ContextMenu

@@ -4,7 +4,6 @@ import React from "react";
 import {ButtonLink, ButtonSize, ButtonType} from "../../components/button/button";
 import {ROUTES} from "@/src/enums/router.enum";
 import {PageTabs} from "@/src/components/compositions/page-tabs/page-tabs";
-import {LocaleSwitcherSelect} from "@/src/components/components/locale-switcher-select/LocaleSwitcherSelect";
 import {useLoggedUser} from "@/src/hooks/authenticationHook";
 import {useTranslate} from "@/src/hooks/translateHook";
 import {HeaderUserSection} from "@/src/components/compositions/header/header-user-section";
@@ -28,7 +27,6 @@ export const Header = () => {
     return <header>
         <LayoutFlexRow>
             <Logo />
-            <LocaleSwitcherSelect/>
             {user === null && _renderLoginButton()}
             <LayoutFlexRow justifyContent={"flex-end"} style={{width: "100%"}} gap={FlexGap.LARGE_32}>
                 {user !== null && <PageTabs user={user}/>}
