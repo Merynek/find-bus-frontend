@@ -5,7 +5,7 @@ import {forgotPasswordFormAction} from "@/src/app/actions/forms/forgotPassword/f
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {useFormActionState} from "@/src/hooks/formHook";
 import {FormStatus} from "@/src/components/components/form-status/form-status";
-import {PageWrapper} from "@/src/components/components/layout/page-wrapper/page-wrapper";
+import {SignLayout} from "@/src/components/components/layout/page-wrapper/sign-layout";
 import {FlexGap} from "@/src/enums/layout.enum";
 import {Heading} from "@/src/components/components/texts/heading";
 import {FontWeight} from "@/src/components/components/texts/textStyles";
@@ -50,9 +50,9 @@ const ForgotPasswordPage = () => {
         return <Heading text={t("forgetPasswordSent")} fontWeight={FontWeight.SEMIBOLD} headingLevel={3} />
     }
 
-    return <PageWrapper>
+    return <SignLayout>
         {state?.success ? _renderRequestSentBody() : _renderBody()}
-    </PageWrapper>
+    </SignLayout>
 };
 
 export default ForgotPasswordPage;

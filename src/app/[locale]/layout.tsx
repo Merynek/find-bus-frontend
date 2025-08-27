@@ -41,7 +41,9 @@ export default async function RootLayout(props: IRootLayoutProps) {
                     <AppProvider>
                         <AppLoader />
                         <PageLayout>
-                            <Header />
+                            <div className={"mb-20"}>
+                                <Header />
+                            </div>
                             {children}
                         </PageLayout>
                     </AppProvider>

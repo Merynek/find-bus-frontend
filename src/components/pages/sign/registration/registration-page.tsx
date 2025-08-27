@@ -14,14 +14,14 @@ import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-c
 import {TextBox, TextBoxType} from "@/src/components/components/inputs/text-box/text-box";
 import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
 import {RadioInput} from "@/src/components/components/inputs/radio-input/radio-input";
-import {PageWrapper} from "@/src/components/components/layout/page-wrapper/page-wrapper";
+import {SignLayout} from "@/src/components/components/layout/page-wrapper/sign-layout";
 
 const RegistrationPage = () => {
     const {t} = useTranslate("page.sign");
     const {t: commonT} = useTranslate("common");
     const [state, action, pending] = useFormActionState(signupFormAction, undefined)
 
-    return <PageWrapper>
+    return <SignLayout>
         <LayoutFlexColumn gap={FlexGap.BIG_40}>
             <Heading text={t("registrationHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={3}/>
             <form action={action}>
@@ -78,7 +78,7 @@ const RegistrationPage = () => {
                 </LayoutFlexColumn>
             </form>
         </LayoutFlexColumn>
-    </PageWrapper>
+    </SignLayout>
 };
 
 export default RegistrationPage;

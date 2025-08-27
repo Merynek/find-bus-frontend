@@ -16,7 +16,7 @@ import {FlexGap} from "@/src/enums/layout.enum";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {Heading} from "@/src/components/components/texts/heading";
 import {FontWeight} from "@/src/components/components/texts/textStyles";
-import {PageWrapper} from "@/src/components/components/layout/page-wrapper/page-wrapper";
+import {SignLayout} from "@/src/components/components/layout/page-wrapper/sign-layout";
 
 const LoginPage = () => {
     const {t} = useTranslate("page.sign");
@@ -37,7 +37,7 @@ const LoginPage = () => {
         }
     }, [searchParams, handleUnauthorizedLogout]);
 
-    return <PageWrapper>
+    return <SignLayout>
             <LayoutFlexColumn gap={FlexGap.BIG_40}>
                 <Heading text={t("loginHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={3} />
                 <form action={action}>
@@ -88,7 +88,7 @@ const LoginPage = () => {
                     />
                 </LayoutFlexColumn>
             </LayoutFlexColumn>
-    </PageWrapper>
+    </SignLayout>
 };
 
 export default LoginPage;

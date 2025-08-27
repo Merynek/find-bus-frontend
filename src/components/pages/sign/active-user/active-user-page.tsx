@@ -7,7 +7,7 @@ import {Heading} from "@/src/components/components/texts/heading";
 import {FontWeight} from "@/src/components/components/texts/textStyles";
 import { LayoutFlexColumn } from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {getTranslations} from 'next-intl/server';
-import {PageWrapper} from "@/src/components/components/layout/page-wrapper/page-wrapper";
+import {SignLayout} from "@/src/components/components/layout/page-wrapper/sign-layout";
 
 interface ActiveUserPageProps {
     code?: string;
@@ -33,7 +33,7 @@ export default async function ActiveUserPage(props: ActiveUserPageProps) {
     }
 
     return (
-        <PageWrapper>
+        <SignLayout>
             <LayoutFlexColumn gap={FlexGap.BIG_40}>
                 <Heading text={headingKey} fontWeight={FontWeight.SEMIBOLD} headingLevel={3} />
                 <div className="flex flex-col items-center justify-center p-5 text-center max-w-2xl mx-auto border border-gray-200 rounded-lg shadow-md bg-white">
@@ -51,6 +51,6 @@ export default async function ActiveUserPage(props: ActiveUserPageProps) {
                     </div>
                 </div>
             </LayoutFlexColumn>
-        </PageWrapper>
+        </SignLayout>
     );
 }
