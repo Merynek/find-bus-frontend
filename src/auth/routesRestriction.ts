@@ -16,7 +16,8 @@ export const PublicRoutes = [
     ROUTES.SIGN_IN,
     ROUTES.SIGN_UP,
     ROUTES.ACTIVE_USER,
-    ROUTES.FORGOT_PASSWORD
+    ROUTES.FORGOT_PASSWORD,
+    ROUTES.HOME
 ]
 
 export const getRedirectUrlIfNeeded = (request: NextAuthRequest): string|null => {
