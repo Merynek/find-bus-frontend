@@ -58,7 +58,8 @@
     },
     "header": {
       "logoutButton": "Logout",
-      "loginButton": "Login"
+      "loginButton": "Login",
+      "registrationButton": "Registration"
     },
     "pageNames": {
       "home": "Home",

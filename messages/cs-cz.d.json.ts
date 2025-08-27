@@ -61,7 +61,8 @@ declare const messages: {
     },
     "header": {
       "logoutButton": "Odhlásit se",
-      "loginButton": "Přihlásit se"
+      "loginButton": "Přihlásit se",
+      "registrationButton": "Registrace"
     },
     "pageNames": {
       "home": "Domů",

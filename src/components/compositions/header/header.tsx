@@ -15,22 +15,30 @@ export const Header = () => {
     const {user} = useLoggedUser();
     const {t} = useTranslate("component.header");
 
-    const _renderLoginButton = () => {
-        return <ButtonLink
-            route={{route: ROUTES.SIGN_IN}}
-            label={t("loginButton")}
-            type={ButtonType.YELLOW}
-            size={ButtonSize.BUTTON_SIZE_M}
-        />
+    const _signButtons = () => {
+        return <LayoutFlexRow gap={FlexGap.SMALL_16}>
+            <ButtonLink
+                route={{route: ROUTES.SIGN_IN}}
+                label={t("loginButton")}
+                type={ButtonType.YELLOW}
+                size={ButtonSize.BUTTON_SIZE_M}
+            />
+            <ButtonLink
+                route={{route: ROUTES.SIGN_UP}}
+                label={t("registrationButton")}
+                type={ButtonType.BLACK}
+                size={ButtonSize.BUTTON_SIZE_M}
+            />
+        </LayoutFlexRow>
     }
 
     return <header>
         <LayoutFlexRow>
             <Logo />
-            {user === null && _renderLoginButton()}
             <LayoutFlexRow justifyContent={"flex-end"} style={{width: "100%"}} gap={FlexGap.LARGE_32}>
-                {user !== null && <PageTabs user={user}/>}
+                <PageTabs user={user} />
                 <div>|</div>
+                {user === null && _signButtons()}
                 {user !== null && <HeaderUserSection />}
             </LayoutFlexRow>
         </LayoutFlexRow>
