@@ -9,6 +9,7 @@ import {notFound} from 'next/navigation';
 import {routing} from "@/src/i18n/routing";
 import NextAuthProvider from "@/src/app/contexts/NextAuthContext";
 import {AuthorizationService} from "@/src/services/AuthorizationService";
+import {PageLayout} from "@/src/components/components/layout/page-layout/page-layout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,8 +40,10 @@ export default async function RootLayout(props: IRootLayoutProps) {
                 <NextAuthProvider userId={user?.id || 0}>
                     <AppProvider>
                         <AppLoader />
-                        <Header />
-                        {children}
+                        <PageLayout>
+                            <Header />
+                            {children}
+                        </PageLayout>
                     </AppProvider>
                 </NextAuthProvider>
             </NextIntlClientProvider>
