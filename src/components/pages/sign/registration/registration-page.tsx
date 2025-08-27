@@ -33,6 +33,7 @@ const RegistrationPage = () => {
                             name={FormDataEnum.email}
                             id={FormDataEnum.email}
                             type={TextBoxType.EMAIL}
+                            autoComplete={"username"}
                             placeholder={t("emailPlaceholder")}
                             defaultValue={state?.data?.email}
                         />
@@ -42,6 +43,7 @@ const RegistrationPage = () => {
                             id={FormDataEnum.password}
                             type={TextBoxType.PASSWORD}
                             placeholder={t("passwordPlaceholder")}
+                            autoComplete={"new-password"}
                             defaultValue={state?.data?.password}
                         />
                         <TextBox
@@ -50,6 +52,7 @@ const RegistrationPage = () => {
                             id={FormDataEnum.password_confirm}
                             type={TextBoxType.PASSWORD}
                             placeholder={t("passwordConfirmPlaceholder")}
+                            autoComplete={"new-password"}
                             defaultValue={state?.data?.passwordConfirm}
                         />
                         <RadioInput

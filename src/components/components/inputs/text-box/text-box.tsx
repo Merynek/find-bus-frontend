@@ -1,4 +1,4 @@
-import React from "react";
+import React, {HTMLInputAutoCompleteAttribute} from "react";
 import styles from "./text-box.module.scss";
 import {cn} from "@/src/utils/common";
 import {Icon, IIconProps} from "@/src/components/components/icon/icon";
@@ -13,6 +13,7 @@ export interface IInputBoxProps {
     name?: string;
     onClick?: () => void;
     iconProps?: IIconProps;
+    autoComplete?: HTMLInputAutoCompleteAttribute;
 }
 
 interface ICommonProps extends IInputBoxProps {
@@ -53,7 +54,7 @@ export const TextBox = (props: ITextBoxProps) => {
         placeholder, onBlur, onFocus,
         disabled, multiLine, disableSpaces, maxLength,
         onClick, name, id, iconProps, controlled,
-        value, onChange
+        value, onChange, autoComplete
     } = props;
 
 
@@ -64,6 +65,7 @@ export const TextBox = (props: ITextBoxProps) => {
             placeholder: "",
             onBlur: onBlur,
             onFocus: onFocus,
+            autoComplete: autoComplete,
             disabled: disabled,
             maxLength: maxLength,
             onClick: onClick,
@@ -104,6 +106,7 @@ export const TextBox = (props: ITextBoxProps) => {
             placeholder: "",
             rows: multiLineData.rows,
             disabled: disabled,
+            autoComplete: autoComplete,
             onBlur: onBlur,
             onFocus: onFocus,
             maxLength: maxLength,

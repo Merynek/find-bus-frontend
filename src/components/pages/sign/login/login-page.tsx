@@ -50,6 +50,7 @@ const LoginPage = () => {
                                 name={FormDataEnum.email}
                                 id={FormDataEnum.email}
                                 type={TextBoxType.EMAIL}
+                                autoComplete={"username"}
                                 placeholder={t("emailPlaceholder")}
                                 defaultValue={state?.data?.email}
                             />
@@ -58,6 +59,7 @@ const LoginPage = () => {
                                 name={FormDataEnum.password}
                                 id={FormDataEnum.password}
                                 type={TextBoxType.PASSWORD}
+                                autoComplete={"current-password"}
                                 placeholder={t("passwordPlaceholder")}
                                 defaultValue={state?.data?.password}
                             />

@@ -2,8 +2,8 @@ import {ImageElement} from "@/src/components/components/image-element/image-elem
 
 export const Logo = () => {
     return <ImageElement
-        src={'./global/logo.svg'}
-        alt={"logo"}
+        src={'/global/logo.svg'}
+        alt={"company logo"}
         fill={false}
         width={170}
         height={40}
