@@ -10,6 +10,7 @@ import {routing} from "@/src/i18n/routing";
 import NextAuthProvider from "@/src/app/contexts/NextAuthContext";
 import {AuthorizationService} from "@/src/services/AuthorizationService";
 import {PageLayout} from "@/src/components/components/layout/page-layout/page-layout";
+import React from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

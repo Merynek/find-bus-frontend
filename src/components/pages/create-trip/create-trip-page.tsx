@@ -22,7 +22,7 @@ import {NumberBox} from "../../components/inputs/number-box/number-box";
 import {ROUTES} from "@/src/enums/router.enum";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {FlexGap} from "@/src/enums/layout.enum";
-import {useInit, useMount} from "@/src/hooks/lifecycleHooks";
+import {useInit, useMount, useUnmount} from "@/src/hooks/lifecycleHooks";
 import {useApp} from "@/src/app/contexts/AppContext";
 import { useRouter } from "@/src/i18n/navigation";
 
@@ -37,6 +37,10 @@ const CreateTripPage = observer(() => {
 
     useMount(() => {
         _store.init();
+    })
+
+    useUnmount(() => {
+        _store.destroy();
     })
 
     return <div className={styles.layout}>

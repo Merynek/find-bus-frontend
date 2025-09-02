@@ -12,7 +12,7 @@ interface ILoaderAreaProps {
 export const LoaderArea = observer((props: ILoaderAreaProps) => {
     return (
         <div className={cn(styles.wrapper, props.grayMode && styles.wrapperGray, props.withOffset && styles.wrapperOffset)}>
-            <Image className={cn(styles.gif)} src={"/global/loading_gif.gif"} alt={"loading"} width={100} height={100} />
+            <Image className={cn(styles.gif)} src={"/global/loading_gif.gif"} alt={"loading"} width={100} height={100} unoptimized />
         </div>
     )
 });

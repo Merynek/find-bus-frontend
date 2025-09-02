@@ -1,5 +1,5 @@
 import {Trip} from "@/src/data/trip/trip";
-import {action, computed, makeObservable, observable, reaction} from "mobx";
+import {action, computed, IReactionDisposer, makeObservable, observable, reaction} from "mobx";
 import {TripRecommendationType} from "@/src/api/openapi";
 import {hoursToSeconds} from "@/src/utils/common";
 import {addHours} from "@/src/utils/date-time.common";
@@ -19,6 +19,9 @@ export class CreateTripPageStore {
     @observable public peopleCountIsValid: boolean = true;
     @observable public routesCountIsValid: boolean = true;
     @observable public userSettings: UserSettings|null = null;
+    private readonly _directionTimesReactionDisposer: IReactionDisposer;
+    private readonly _personCountReactionDisposer: IReactionDisposer;
+    private readonly _routesCountReactionDisposer: IReactionDisposer;
 
     constructor() {
         this.tripRecommendation = null;
@@ -27,14 +30,14 @@ export class CreateTripPageStore {
         this.trip = Trip.create({
             observeChanges: true
         });
-        reaction(() => this.trip.directionTimes + this.trip.pauses, () => {
+        this._directionTimesReactionDisposer = reaction(() => this.trip.directionTimes + this.trip.pauses, () => {
             this._computeDirectionTimesApi();
             this.placesAreSet = true;
         });
-        reaction(() => this.trip.numberOfPersons, () => {
+        this._personCountReactionDisposer = reaction(() => this.trip.numberOfPersons, () => {
             this.peopleCountIsValid = true;
         });
-        reaction(() => this.trip.routes.length, () => {
+        this._routesCountReactionDisposer = reaction(() => this.trip.routes.length, () => {
             this.routesCountIsValid = true;
         });
         makeObservable(this);
@@ -45,7 +48,9 @@ export class CreateTripPageStore {
     }
 
     public destroy() {
-        //todo
+        this._directionTimesReactionDisposer();
+        this._personCountReactionDisposer();
+        this._routesCountReactionDisposer();
     }
 
     private async _computeDirectionTimesApi() {
@@ -103,7 +108,6 @@ export class CreateTripPageStore {
         return this.trip.isValid;
     }
 
-    @action
     public async createTrip() {
         try {
             await TripService.createTrip({

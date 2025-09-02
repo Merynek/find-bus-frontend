@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef} from "react";
+import React, {useEffect, useRef} from "react";
 import "./map-box-styles.scss";
 import {useChangePropsAfterMount} from "@/src/hooks/lifecycleHooks";
 import mapboxgl, {LngLat, LngLatBoundsLike, LngLatLike, Map} from "mapbox-gl";
@@ -7,6 +7,8 @@ import {getCountriesBounds, getPointsBounds} from "./tools/map-box-tools";
 import {MapBoxApi} from "./tools/map-box-api";
 import {Country} from "@/src/api/openapi";
 import {IMapMarker} from "./map-box-types";
+
+mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || "";
 
 type TInitView = {
     countries?: Country[]; // priority 1
@@ -24,24 +26,16 @@ export interface IMapBoxProps {
     onClick?: (lngLat: LngLat) => void;
 }
 
-export const MapBox = (props: IMapBoxProps) => {
-    return <InnerMapBox {...props} />
-}
-
-const InnerMapBox = (props: IMapBoxProps) => {
+const MapBox = (props: IMapBoxProps) => {
     const _mapContainerRef = useRef<HTMLDivElement>(null);
     const _mapRef = useRef<Map|null>(null);
+    const _loadedRef = useRef<boolean>(false);
     const {markers, polyLines, flyTo, disableScrollZoom, initialView, center, onClick} = props;
     const _markersToUpdateRef = useRef<IMapMarker[]>(markers);
     const _polyLinesToUpdateRef = useRef<string[]>(polyLines);
     const _centerToUpdateRef = useRef<GeoPoint[]>(center || []);
 
-    const initMap = useCallback(() => {
-        if (process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN) {
-            mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
-        } else {
-            throw new Error('Environment variable NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN is not defined.');
-        }
+    const initMap = () => {
         let initBounds: LngLatBoundsLike|undefined = undefined;
         let initCenter: LngLatLike|undefined = undefined;
         if (initialView && initialView.countries?.length) {
@@ -66,27 +60,29 @@ const InnerMapBox = (props: IMapBoxProps) => {
             maxZoom: 15,
             fitBoundsOptions: { padding: {top: 40, bottom: 40, left: 40, right: 40}}
         });
+        _mapRef.current = map;
         map.on("load", async () => {
             MapBoxApi.initMapBoxDirection(map, _polyLinesToUpdateRef.current);
             await MapBoxApi.initMapImages(map);
             MapBoxApi.initMapBoxMarkers(map, _markersToUpdateRef.current);
             MapBoxApi.fitCenter(map, _centerToUpdateRef.current);
-            _mapRef.current = map;
+            _loadedRef.current = true;
         })
         map.on("click", (e) => {
             if (onClick) {
                 onClick(e.lngLat);
             }
         })
-    }, [disableScrollZoom, initialView, onClick]);
-    
+    };
+
     useEffect(() => {
-        if (_mapRef.current) return; // initialize map only once
+        if (_loadedRef.current) return; // initialize map only once
         initMap();
-    }, [initMap]);
+        return () => _mapRef.current?.remove();
+    }, []);
 
     useChangePropsAfterMount(() => {
-        if (_mapRef.current) {
+        if (_mapRef.current && _loadedRef.current) {
             MapBoxApi.updateMapBoxMarkers(_mapRef.current, markers);
         } else {
             _markersToUpdateRef.current = markers;
@@ -94,7 +90,7 @@ const InnerMapBox = (props: IMapBoxProps) => {
     }, [markers])
 
     useChangePropsAfterMount(() => {
-        if (_mapRef.current) {
+        if (_mapRef.current && _loadedRef.current) {
             MapBoxApi.updateMapBoxDirection(_mapRef.current, polyLines);
         } else {
             _polyLinesToUpdateRef.current = polyLines;
@@ -102,7 +98,7 @@ const InnerMapBox = (props: IMapBoxProps) => {
     }, [polyLines])
 
     useChangePropsAfterMount(() => {
-        if (_mapRef.current && center) {
+        if (_mapRef.current && center && _loadedRef.current) {
             MapBoxApi.fitCenter(_mapRef.current, center)
         } else {
             _centerToUpdateRef.current = center || [];
@@ -110,7 +106,7 @@ const InnerMapBox = (props: IMapBoxProps) => {
     }, [center])
 
     useChangePropsAfterMount(() => {
-        if (_mapRef.current && flyTo) {
+        if (_mapRef.current && flyTo && _loadedRef.current) {
             MapBoxApi.flyToPoint(_mapRef.current, flyTo);
         }
     }, [flyTo])
@@ -125,3 +121,5 @@ const InnerMapBox = (props: IMapBoxProps) => {
         }}
     />
 };
+
+export default MapBox;
