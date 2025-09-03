@@ -1,45 +1,35 @@
-import React, {useState} from "react";
-import styles from "../text-box/text-box.module.scss"
-import { IInputBoxProps } from "../text-box/text-box";
-import {cn, INT_32_MAX_VALUE} from "@/src/utils/common";
-import {observer} from "mobx-react";
+import React from "react";
+import styles from "../wrapper/input-wrapper.module.scss"
+import {IInputBoxProps} from "../text-box/text-box";
+import {INT_32_MAX_VALUE} from "@/src/utils/common";
+import {InputWrapper} from "@/src/components/components/inputs/wrapper/input-wrapper";
 
-export interface INumberBoxProps extends IInputBoxProps {
-    value?: number;
-    onChange: (value: number | undefined) => void;
-    hideSpinButtons?: boolean;
+interface IProps extends IInputBoxProps {
     minValue?: number;
     maxValue?: number;
     decimalCount?: number;
 }
 
-enum InputType {
-    TEXT = "text",
-    NUMBER = "number"
+interface IControlledProps extends IProps {
+    controlled: true;
+    value?: number;
+    onChange: (value: number|undefined) => void;
 }
 
-export const NumberBox = observer((props: INumberBoxProps) => {
-    const { focusAfterMount, placeholder,
-        hideSpinButtons, onChange,
-        onBlur, onFocus, value, disabled,
-        maxValue, minValue, decimalCount
-    } = props;
-    const [inputType, setInputType] = useState(focusAfterMount ? InputType.NUMBER : InputType.TEXT);
+interface UncontrolledProps extends IProps {
+    controlled: false;
+    value?: never;
+    onChange?: never;
+    defaultValue?: number;
+}
+
+export type INumberBoxProps = IControlledProps | UncontrolledProps;
+
+export const NumberBox = (props: INumberBoxProps) => {
+    const { focusAfterMount, placeholder, onChange, onBlur, onFocus, value, disabled,
+        maxValue, minValue, decimalCount, iconProps, controlled, autoComplete, name, id} = props;
     const max = Math.min(INT_32_MAX_VALUE, maxValue === undefined ? INT_32_MAX_VALUE : maxValue);
     const min = Math.max(-INT_32_MAX_VALUE, minValue === undefined ? -INT_32_MAX_VALUE : minValue);
-
-    const handleBlur = () => {
-        setInputType(InputType.TEXT);
-        if (onBlur) {
-            onBlur();
-        }
-    }
-    const handleFocus = () => {
-        setInputType(InputType.NUMBER);
-        if (onFocus) {
-            onFocus();
-        }
-    }
 
     const valueIsTooBig = (val: number) => {
         return val > max;
@@ -49,50 +39,68 @@ export const NumberBox = observer((props: INumberBoxProps) => {
     }
 
     const handleChange = (value: number|undefined) => {
-        if (value === undefined) {
-            onChange(value);
-            return;
+        if (controlled) {
+            if (value === undefined) {
+                onChange(value);
+                return;
+            }
+            if (valueIsTooSmall(value)) {
+                onChange(min);
+                return
+            }
+            if (valueIsTooBig(value)) {
+                onChange(max);
+                return
+            }
+            onChange(value)
         }
-        if (valueIsTooSmall(value)) {
-            onChange(min);
-            return
-        }
-        if (valueIsTooBig(value)) {
-            onChange(max);
-            return
-        }
-        onChange(value)
     }
 
     const renderValue = (): string => {
         return value !== undefined ? value.toString() : "";
     }
 
-    const renderInput = () => {
-        return (
-            <input
-                autoFocus={focusAfterMount}
-                type={inputType}
-                inputMode="decimal"
+    const _renderInput = () => {
+        const inputProps = {
+            autoFocus: focusAfterMount,
+            type: "number",
+            placeholder: "",
+            onBlur: onBlur,
+            onFocus: onFocus,
+            autoComplete: autoComplete,
+            disabled: disabled,
+            name: name,
+            id: id,
+            className: styles.input,
+            step: decimalCount ? Math.pow(0.1, decimalCount) : undefined,
+            min: minValue,
+            max: maxValue
+        };
+
+        const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+            if (controlled) {
+                if (!event.target.value || isNaN(Number(event.target.value))) {
+                    handleChange(undefined);
+                    return;
+                }
+                handleChange(Number(event.target.value));
+            }
+        };
+
+        if (controlled) {
+            return <InputWrapper
+                input={<input {...inputProps} value={renderValue()} onChange={handleInputChange} inputMode={"decimal"} />}
                 placeholder={placeholder}
-                className={cn(hideSpinButtons && styles.noSpinButtons)}
-                onChange={(event) => {
-                    if (!event.target.value || isNaN(Number(event.target.value))) {
-                        handleChange(undefined);
-                        return;
-                    }
-                    handleChange(Number(event.target.value));
-                }}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-                value={renderValue()}
-                disabled={disabled}
-                step={decimalCount ? Math.pow(0.1, decimalCount) : undefined}
-                min={props.minValue}
-                max={props.maxValue}
+                iconProps={iconProps}
             />
-        );
+        } else {
+            return <InputWrapper
+                input={<input {...inputProps} defaultValue={props.defaultValue} onChange={handleInputChange} inputMode={"decimal"} />}
+                placeholder={placeholder}
+                iconProps={iconProps}
+            />
+        }
     }
 
-    return renderInput();
-})
+    return _renderInput();
+};

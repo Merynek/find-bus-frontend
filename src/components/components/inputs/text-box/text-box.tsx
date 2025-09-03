@@ -1,7 +1,8 @@
 import React, {HTMLInputAutoCompleteAttribute} from "react";
-import styles from "./text-box.module.scss";
+import styles from "../wrapper/input-wrapper.module.scss";
 import {cn} from "@/src/utils/common";
-import {Icon, IIconProps} from "@/src/components/components/icon/icon";
+import {IIconProps} from "@/src/components/components/icon/icon";
+import {InputWrapper} from "@/src/components/components/inputs/wrapper/input-wrapper";
 
 export interface IInputBoxProps {
     placeholder?: string;
@@ -137,20 +138,3 @@ export const TextBox = (props: ITextBoxProps) => {
 
     return multiLine ? _renderTextArea(multiLine) : _renderInput();
 };
-
-interface IInputWrapperProps {
-    id?: string;
-    input: React.ReactNode;
-    placeholder?: string;
-    iconProps?: IIconProps;
-}
-
-const InputWrapper = (props: IInputWrapperProps) => {
-    const {input, placeholder, iconProps, id} = props;
-
-    return <div className={styles.inputWrapper}>
-        {input}
-        {placeholder && <label htmlFor={id} className={styles.placeholder}>{placeholder}</label>}
-        {iconProps && <Icon {...iconProps}/>}
-    </div>
-}

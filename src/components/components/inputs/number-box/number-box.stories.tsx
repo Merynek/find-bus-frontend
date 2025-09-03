@@ -1,33 +1,34 @@
-import React, {useEffect, useState} from "react";
-import {INumberBoxProps, NumberBox} from "./number-box";
-import {InputSize} from "../inputEnum";
+import React, {useState} from "react";
+import {NumberBox} from "./number-box";
 import {Meta, StoryObj} from "@storybook/nextjs";
+import {IconType} from "@/src/enums/icon.enum";
 
-export default {
+const meta: Meta<typeof NumberBox> = {
     component: NumberBox,
     args: {
-        placeholder: "placeholder",
-        size: InputSize.LARGE,
+        value: 0,
+        placeholder: "Placeholder",
         disabled: false,
-        hideTopPlaceholder: false,
-        hideSpinButtons: false,
-        formatter: ""
+        iconProps: {
+            icon: IconType.MENU
+        }
     },
-} as Meta<INumberBoxProps>;
+    argTypes: {
+    },
+};
 
-export const NumberBoxStory: StoryObj<INumberBoxProps> = {
+export default meta;
+
+export const Default: StoryObj<typeof NumberBox> = {
     render: (args) => {
-        const [value, setValue] = useState<number | undefined>(args.value);
-
-        useEffect(() => {
-            setValue(args.value)
-
-        }, [args.value])
-
+        const [value, setValue] = useState<number|undefined>(0);
         return <NumberBox
             {...args}
+            controlled={true}
             value={value}
-            onChange={setValue}
+            onChange={(val) => {
+                setValue(val);
+            }}
         />
     },
     args: {}
