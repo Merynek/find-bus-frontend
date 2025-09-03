@@ -17,7 +17,6 @@ import {
     TripRouteRecommendation
 } from "../../compositions/trip/trip-route/trip-route-recommendation/trip-route-recommendation";
 import {GeoPoint} from "@/src/data/geoPoint";
-import {CheckBoxSize} from "@/src/enums/check-box.enum";
 import {NumberBox} from "../../components/inputs/number-box/number-box";
 import {ROUTES} from "@/src/enums/router.enum";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
@@ -93,7 +92,6 @@ const CreateTripPage = observer(() => {
             <CheckBox
                 value={_store.trip.dietForTransporter}
                 onChange={(val) => _store.trip.dietForTransporter = val}
-                size={CheckBoxSize.MEDIUM}
             />
         </div>
         <div>
@@ -110,7 +108,6 @@ const CreateTripPage = observer(() => {
                             removeOnIndex(_store.trip.amenities, index);
                         }
                     }}
-                    size={CheckBoxSize.MEDIUM}
                 />
             })}
         </div>

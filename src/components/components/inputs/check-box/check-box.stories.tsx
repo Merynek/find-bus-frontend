@@ -1,30 +1,28 @@
-import React from "react";
-import {CheckBox, ICheckBoxProps} from "./check-box";
-import {getRandomEnum} from "@/dataGenerator/tools";
+import React, {useState} from "react";
+import {CheckBox} from "./check-box";
 import {Meta, StoryObj} from "@storybook/nextjs";
 import {getRandomText} from "@/dataGenerator/texts/texts";
-import {CheckBoxSize} from "@/src/enums/check-box.enum";
 
-export default {
+const meta: Meta<typeof CheckBox> = {
     component: CheckBox,
     args: {
-        value: true,
-        size: getRandomEnum(CheckBoxSize),
-        onChange: () => {},
         disabled: false,
         label: getRandomText(1)
     },
-    argTypes: {
-        size: {
-            options: Object.values(CheckBoxSize),
-            control: {type: 'select'}
-        },
-    }
-} as Meta<ICheckBoxProps>;
+};
 
-export const CheckBoxStory: StoryObj<ICheckBoxProps> = {
-    render: (args) => <CheckBox
-        {...args}
-    />,
+export default meta;
+
+export const Default: StoryObj<typeof CheckBox> = {
+    render: (args) => {
+        const [value, setValue] = useState<boolean>(true);
+        return <CheckBox
+            {...args}
+            value={value}
+            onChange={() => {
+                setValue(!value);
+            }}
+        />
+    },
     args: {}
 };

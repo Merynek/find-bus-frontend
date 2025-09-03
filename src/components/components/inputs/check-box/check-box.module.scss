@@ -1,24 +1,53 @@
 @use "../../../../styles/colors";
-
-@mixin sizeWrapper($size){
-  width: $size;
-  height: $size;
-}
+@use "../../../../styles/variables";
 
 .wrapper {
   display: flex;
   align-items: center;
   color: colors.$blue;
+  cursor: pointer;
+
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  div {
+    width: 25px;
+    height: 25px;
+    border: 2px solid colors.$yellow;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    position: relative;
+  }
 }
 
-.container {
-  &.BIG {
-    @include sizeWrapper(30px);
-  }
-  &.MEDIUM {
-    @include sizeWrapper(25px);
-  }
-  &.SMALL {
-    @include sizeWrapper(20px);
-  }
+.wrapper > div::before,
+.wrapper > div::after {
+  content: '';
+  position: absolute;
+  background-color: black;
+  height: 15px;
+  width: 2px;
+  opacity: 0;
+  @include variables.transition-styles(opacity);
+}
+
+.wrapper > div::before {
+  transform: rotate(45deg);
+}
+
+.wrapper > div::after {
+  transform: rotate(-45deg);
+}
+
+.wrapper:has(input[type="checkbox"]:checked) > div::before,
+.wrapper:has(input[type="checkbox"]:checked) > div::after {
+  opacity: 1;
+}
+
+.wrapper > label {
+  cursor: pointer;
 }

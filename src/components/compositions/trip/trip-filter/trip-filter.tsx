@@ -4,7 +4,6 @@ import {observer} from "mobx-react";
 import {CheckBox} from "../../../components/inputs/check-box/check-box";
 import {TripFilterStore} from "./trip-filter.store";
 import {ButtonClick, ButtonSize, ButtonType} from "../../../components/button/button";
-import {CheckBoxSize} from "@/src/enums/check-box.enum";
 import { NumberBox } from "../../../components/inputs/number-box/number-box";
 
 export interface ITripFilterProps {
@@ -20,19 +19,19 @@ export const TripFilter = observer((props: ITripFilterProps) => {
             <span>Only Mine</span>
             <CheckBox value={filter.onlyMine} onChange={(val) => {
                 filter.onlyMine = val;
-            }} size={CheckBoxSize.SMALL} />
+            }} />
         </div>
         <div className={styles.item}>
             <span>Me Offered</span>
             <CheckBox value={filter.meOffered} onChange={(val) => {
                 filter.meOffered = val;
-            }} size={CheckBoxSize.SMALL} />
+            }}  />
         </div>
         <div className={styles.item}>
             <span>Diet For Transporter</span>
             <CheckBox value={filter.dietForTransporter} onChange={(val) => {
                 filter.dietForTransporter = val;
-            }} size={CheckBoxSize.SMALL} />
+            }}  />
         </div>
         <div className={styles.item}>
             <span>Max number Of persons</span>
