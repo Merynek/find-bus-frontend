@@ -147,6 +147,7 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
             <div className={styles.line}>
                 <span>Kolik:</span>
                 <NumberBox
+                    controlled={true}
                     value={priceAmount === undefined ? undefined : price.current.amount}
                     minValue={0}
                     onChange={(val) => {
@@ -157,7 +158,6 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
                         }
                         setPriceAmount(val)
                     }}
-                    hideSpinButtons
                 />
             </div>
             <div className={styles.line}>

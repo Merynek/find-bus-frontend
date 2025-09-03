@@ -47,6 +47,7 @@ const CreateTripPage = observer(() => {
         <div className={styles.section}>
             <span>Kolik handikepovaných: </span>
             <NumberBox
+                controlled={true}
                 value={_store.trip.handicappedUserCount}
                 onChange={(val) => {
                     if (val) {
@@ -77,6 +78,7 @@ const CreateTripPage = observer(() => {
         <div className={styles.section}>
             <span>Pocet osob: </span>
             <NumberBox
+                controlled={true}
                 value={_store.trip.numberOfPersons}
                 onChange={(val) => {
                     if (val) {

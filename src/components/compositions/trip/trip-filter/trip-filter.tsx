@@ -36,7 +36,7 @@ export const TripFilter = observer((props: ITripFilterProps) => {
         </div>
         <div className={styles.item}>
             <span>Max number Of persons</span>
-            <NumberBox value={filter.maxNumberOfPersons || 0} onChange={(val) => {
+            <NumberBox controlled={true} value={filter.maxNumberOfPersons || 0} onChange={(val) => {
                 if (val) {
                     filter.maxNumberOfPersons = val;
                 }
@@ -44,7 +44,7 @@ export const TripFilter = observer((props: ITripFilterProps) => {
         </div>
         <div className={styles.item}>
             <span>Distance From</span>
-            <NumberBox value={filter.distanceFromInKm || 0} onChange={(val) => {
+            <NumberBox controlled={true} value={filter.distanceFromInKm || 0} onChange={(val) => {
                 if (val) {
                     if (val < 0) {
                         filter.distanceFromInKm = 0;
@@ -56,7 +56,7 @@ export const TripFilter = observer((props: ITripFilterProps) => {
         </div>
         <div className={styles.item}>
             <span>Distance To</span>
-            <NumberBox value={filter.distanceToInKm || 0} onChange={(val) => {
+            <NumberBox controlled={true} value={filter.distanceToInKm || 0} onChange={(val) => {
                 if (val) {
                     if (val < 0) {
                         filter.distanceToInKm = 0;
