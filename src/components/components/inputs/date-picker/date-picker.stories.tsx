@@ -1,9 +1,9 @@
 import React from "react";
-import {DatePicker, IDatePickerProps} from "./date-picker";
+import {DatePicker} from "./date-picker";
 import {Meta, StoryObj} from "@storybook/nextjs";
 import {addDays, minusDays} from "@/src/utils/date-time.common";
 
-export default {
+const meta: Meta<typeof DatePicker> = {
     component: DatePicker,
     args: {
         disabled: false,
@@ -11,14 +11,19 @@ export default {
         placeholderText: "Date Picker",
         showTimeSelect: false,
         maxDate: addDays(new Date(), 20),
-        minDate: minusDays(new Date(), 20),
-        selected: new Date()
+        minDate: minusDays(new Date(), 20)
     },
-} as Meta<IDatePickerProps>;
+    argTypes: {
+    },
+};
 
-export const DatePickerStory: StoryObj<IDatePickerProps> = {
-    render: (args) => <DatePicker
-        {...args}
-    />,
+export default meta;
+
+export const Default: StoryObj<typeof DatePicker> = {
+    render: (args) => {
+        return <DatePicker
+            {...args}
+        />
+    },
     args: {}
 };

@@ -60,7 +60,7 @@ const CreateTripPage = observer(() => {
         <div className={styles.section}>
             <span>Kdy nabídka končí: </span>
             <DatePicker
-                selected={_store.trip.endOrder}
+                value={_store.trip.endOrder}
                 onChange={(val) => {
                     if (val) {
                         _store.trip.endOrder = val;

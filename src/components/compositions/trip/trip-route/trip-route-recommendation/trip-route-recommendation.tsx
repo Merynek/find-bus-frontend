@@ -31,7 +31,7 @@ export const TripRouteRecommendation = observer((props: ITripRouteRecommendation
             <span className={styles.label}>{t("timeFromLabel")}:</span>
             <div className={styles.date}>
                 <DatePicker
-                    selected={route.computedDate}
+                    value={route.computedDate}
                     disabled={true}
                     minDate={route.minDate}
                     onChange={(val) => {

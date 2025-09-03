@@ -89,7 +89,7 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
 
     const _renderDateTimePicker = () => {
         return <DatePicker
-            selected={selectedEndOfferDate}
+            value={selectedEndOfferDate}
             placeholderText={"Change Date"}
             minDate={minDate()}
             maxDate={maxDate()}
