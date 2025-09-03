@@ -1,8 +1,8 @@
 import React from "react";
-import {AutoComplete, IAutoCompleteItem, IAutoCompleteProps} from "./auto-complete";
+import {AutoComplete, IAutoCompleteItem} from "./auto-complete";
 import {Meta, StoryObj} from "@storybook/nextjs";
 
-export default {
+const meta: Meta<typeof AutoComplete> = {
     component: AutoComplete,
     args: {
         autoFocus: false,
@@ -10,10 +10,14 @@ export default {
         emptyMessage: "Empty message",
         loadingMessage: "Loading Message",
         placeholder: "PlaceHolder"
-    }
-} as Meta<IAutoCompleteProps<string>>;
+    },
+    argTypes: {
+    },
+};
 
-export const AutoCompleteStory: StoryObj<IAutoCompleteProps<string>> = {
+export default meta;
+
+export const Default: StoryObj<typeof AutoComplete> = {
     render: (args) => {
         const getFilteredItems = async (filter: string) => {
             return new Promise<IAutoCompleteItem<string>[]>((resolve) => {
@@ -43,5 +47,6 @@ export const AutoCompleteStory: StoryObj<IAutoCompleteProps<string>> = {
             {...args}
             getFilteredItems={getFilteredItems}
         />
-    }
+    },
+    args: {}
 };
