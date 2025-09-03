@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./radio-input.module.scss";
 
 interface IRadioInputProps {
     id: string;
@@ -11,24 +12,24 @@ export const RadioInput = (props: IRadioInputProps) => {
     const { id, name, value, label } = props;
 
     return (
-        <div className="flex items-center">
+        <div className={styles.layout}>
             <input
                 type={"radio"}
                 id={id}
                 name={name}
                 value={value}
-                className={"hidden peer"}
+                className={styles.radioInput}
             />
             <span
-                className={"relative flex items-center justify-center w-5 h-5 rounded-full border border-gray-400 peer-checked:border-yellow-400 peer-checked:bg-yellow-100 transition-all duration-300"}>
+                className={styles.customRadio}>
                 <span
-                    className={"block w-3 h-3 rounded-full bg-yellow-400 opacity-0 transition-opacity duration-300 peer-checked:opacity-100"}>
+                    className={styles.customRadioDot}>
                 </span>
             </span>
 
             <label
                 htmlFor={id}
-                className={"ml-2 cursor-pointer text-black"}
+                className={styles.label}
             >
                 {label}
             </label>

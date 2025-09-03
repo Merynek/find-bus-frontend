@@ -1,0 +1,50 @@
+@use "../../../../styles/variables";
+@use "../../../../styles/mediaQueries";
+@use "../../../../styles/colors";
+@use "../../../../styles/fonts";
+
+.layout {
+    display: flex;
+    align-items: center;
+}
+
+.radioInput {
+    display: none;
+}
+
+.customRadio {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 3px solid colors.$gray;
+    @include variables.transition-styles(all);
+}
+
+.customRadioDot {
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: colors.$black;
+    opacity: 0;
+    @include variables.transition-styles(opacity);
+}
+
+.label {
+    margin-left: variables.$itemOffset;
+    cursor: pointer;
+    color: colors.$black;
+}
+
+.radioInput:checked + .customRadio {
+    border-color: colors.$yellow;
+    background-color: colors.$white;
+}
+
+.radioInput:checked + .customRadio > .customRadioDot {
+    opacity: 1;
+}
