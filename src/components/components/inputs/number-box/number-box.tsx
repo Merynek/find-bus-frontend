@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "../wrapper/input-wrapper.module.scss"
 import {IInputBoxProps} from "../text-box/text-box";
 import {INT_32_MAX_VALUE} from "@/src/utils/common";
 import {InputWrapper} from "@/src/components/components/inputs/wrapper/input-wrapper";
@@ -71,7 +70,6 @@ export const NumberBox = (props: INumberBoxProps) => {
             disabled: disabled,
             name: name,
             id: id,
-            className: styles.input,
             step: decimalCount ? Math.pow(0.1, decimalCount) : undefined,
             min: minValue,
             max: maxValue

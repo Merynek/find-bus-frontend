@@ -3,6 +3,12 @@
 @use "../../../../styles/colors";
 @use "../../../../styles/fonts";
 
+@mixin placeholder-transform-styles {
+    top: -8px;
+    font-size: fonts.$fontSize12;
+    color: colors.$default;
+}
+
 .inputWrapper {
     position: relative;
     width: 100%;
@@ -21,16 +27,19 @@
         @include variables.transition-styles(all);
     }
 
-    .input {
+    &.focused .placeholder {
+        @include placeholder-transform-styles;
+    }
+
+    input, textarea {
         outline: none;
         width: 100%;
 
+        &.focused .placeholder,
         &:focus + .placeholder,
         &:not(:placeholder-shown) + .placeholder,
         &:-webkit-autofill + .placeholder {
-            top: -8px;
-            font-size: fonts.$fontSize12;
-            color: colors.$default;
+            @include placeholder-transform-styles;
         }
     }
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {AutoComplete, IAutoCompleteItem} from "./auto-complete";
 import {Meta, StoryObj} from "@storybook/nextjs";
 
@@ -19,6 +19,7 @@ export default meta;
 
 export const Default: StoryObj<typeof AutoComplete> = {
     render: (args) => {
+        const [value, setValue] = useState<IAutoCompleteItem<string>|undefined>(undefined);
         const getFilteredItems = async (filter: string) => {
             return new Promise<IAutoCompleteItem<string>[]>((resolve) => {
                 if (filter.length < 3) {
@@ -46,6 +47,10 @@ export const Default: StoryObj<typeof AutoComplete> = {
         return <AutoComplete
             {...args}
             getFilteredItems={getFilteredItems}
+            value={value}
+            onChange={(val) => {
+                setValue(val);
+            }}
         />
     },
     args: {}

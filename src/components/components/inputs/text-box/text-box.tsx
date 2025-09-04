@@ -1,5 +1,4 @@
 import React, {HTMLInputAutoCompleteAttribute} from "react";
-import styles from "../wrapper/input-wrapper.module.scss";
 import {cn} from "@/src/utils/common";
 import {IIconProps} from "@/src/components/components/icon/icon";
 import {InputWrapper} from "@/src/components/components/inputs/wrapper/input-wrapper";
@@ -71,8 +70,7 @@ export const TextBox = (props: ITextBoxProps) => {
             maxLength: maxLength,
             onClick: onClick,
             name: name,
-            id: id,
-            className: styles.input
+            id: id
         };
 
         const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,7 +101,6 @@ export const TextBox = (props: ITextBoxProps) => {
     const _renderTextArea = (multiLineData: IMultiLineData) => {
         const textAreaProps = {
             autoFocus: focusAfterMount,
-            className: cn(styles.input),
             placeholder: "",
             rows: multiLineData.rows,
             disabled: disabled,

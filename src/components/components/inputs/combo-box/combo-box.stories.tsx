@@ -1,35 +1,40 @@
-import React, {useRef} from "react";
-import {ComboBox, IComboBoxItem, IComboBoxProps} from "./combo-box";
+import React from "react";
+import {ComboBox, IComboBoxItem} from "./combo-box";
 import {Meta, StoryObj} from "@storybook/nextjs";
 import {getRandomText} from "@/dataGenerator/texts/texts";
+import {useInit} from "@/src/hooks/lifecycleHooks";
 
 interface IData extends IComboBoxItem<string> {
     label: string;
     value: string;
 }
 
-export default {
+const meta: Meta<typeof ComboBox> = {
     component: ComboBox,
     args: {
         onChange: () => {},
         disabled: false,
         placeHolder: getRandomText(1)
-    }
-} as Meta<IComboBoxProps<string>>;
+    },
+    argTypes: {
+    },
+};
 
-export const ComboBoxStory: StoryObj<IComboBoxProps<string>> = {
+export default meta;
+
+export const Default: StoryObj<typeof ComboBox> = {
     render: (args) => {
-        const initData = useRef<IData[]>([
+        const initData = useInit<IData[]>(() => ([
             { value: "1", label: "aaaa"},
             { value: "2", label: "bbbb"},
             { value: "3", label: "cccc"},
             { value: "4", label: "dddd"},
             { value: "5", label: "eeee"},
-        ]);
+        ]));
 
         return <ComboBox
             {...args}
-            items={initData.current}
+            items={initData}
         />
     },
     args: {}

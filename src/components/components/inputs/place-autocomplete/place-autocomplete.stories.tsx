@@ -1,17 +1,27 @@
 import React, {useState} from "react";
-import {IPlaceAutocompleteProps, PlaceAutocomplete} from "./place-autocomplete";
+import {PlaceAutocomplete} from "./place-autocomplete";
 import {Place} from "@/src/data/place";
 import {Meta, StoryObj} from "@storybook/nextjs";
 
-export default {
+const meta: Meta<typeof PlaceAutocomplete> = {
     component: PlaceAutocomplete,
-    args: {},
-} as Meta<IPlaceAutocompleteProps>;
+    args: {
+        disabled: false,
+        emptyMessage: "Empty message",
+        loadingMessage: "Loading Message",
+        placeHolder: "PlaceHolder"
+    },
+    argTypes: {
+    },
+};
 
-export const PlaceAutocompleteStory: StoryObj<IPlaceAutocompleteProps> = {
-    render: () => {
+export default meta;
+
+export const Default: StoryObj<typeof PlaceAutocomplete> = {
+    render: (args) => {
         const [place, setPlace] = useState<Place|undefined>(undefined);
         return <PlaceAutocomplete
+            {...args}
             onChange={(place) => {
                 setPlace(place)
             }}

@@ -6,12 +6,16 @@ import {LocationService} from "@/src/singletons/location-service";
 export interface IPlaceAutocompleteProps {
    place?: Place;
    placeHolder?: string;
+   emptyMessage?: string;
+   loadingMessage?: string;
    disabled?: boolean;
+   id?: string;
+   name?: string;
    onChange: (place: Place) => void;
 }
 
 export const PlaceAutocomplete = (props: IPlaceAutocompleteProps) => {
-   const {onChange, place, placeHolder, disabled} = props;
+   const {onChange, place, placeHolder, disabled, emptyMessage, loadingMessage, id, name} = props;
 
    const getFilteredItems = useCallback(async (filter: string): Promise<IAutoCompleteItem<Place>[]> => {
       if (filter.length < 3) {
@@ -32,8 +36,12 @@ export const PlaceAutocomplete = (props: IPlaceAutocompleteProps) => {
    }
 
    return <AutoComplete
+       id={id}
+       name={name}
        getFilteredItems={getFilteredItems}
        placeholder={placeHolder}
+       loadingMessage={loadingMessage}
+       emptyMessage={emptyMessage}
        isDisabled={disabled}
        value={place ? getValue(place) : undefined}
        onChange={(value) => {
