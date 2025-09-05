@@ -32,7 +32,7 @@ const CreateTripPage = observer(() => {
     const _store = useInit(() => new CreateTripPageStore());
     const locale = useCurrentLocale();
     const _configuration = AppConfiguration.instance;
-    const {t} = useTranslate("component.trip");
+    const {t} = useTranslate("page.trip");
     const cfg = _configuration.appBusinessConfig;
 
     useMount(() => {
@@ -44,57 +44,48 @@ const CreateTripPage = observer(() => {
     })
 
     return <LayoutFlexColumn gap={FlexGap.MEDIUM_24} style={{padding: "20px"}}>
-        <LayoutFlexRow justifyContent={"space-between"} alignItems={"center"}>
-            <span>Kolik handikepovaných: </span>
-            <NumberBox
-                controlled={true}
-                value={_store.trip.handicappedUserCount}
-                onChange={(val) => {
-                    if (val) {
-                        _store.trip.handicappedUserCount = val;
-                    }
-                }}
-                minValue={0}
-            />
-        </LayoutFlexRow>
-        <LayoutFlexRow justifyContent={"space-between"} alignItems={"center"}>
-            <span>Kdy nabídka končí: </span>
-            <DatePicker
-                value={_store.trip.endOrder}
-                onChange={(val) => {
-                    if (val) {
-                        _store.trip.endOrder = val;
-                    }
-                }}
-                placeholderText={"End"}
-                showTimeSelect={true}
-                locale={locale}
-            />
-        </LayoutFlexRow>
+        <NumberBox
+            placeholder={t("handicappedUserCount")}
+            controlled={true}
+            value={_store.trip.handicappedUserCount}
+            onChange={(val) => {
+                if (val) {
+                    _store.trip.handicappedUserCount = val;
+                }
+            }}
+            minValue={0}
+        />
+        <DatePicker
+            value={_store.trip.endOrder}
+            onChange={(val) => {
+                if (val) {
+                    _store.trip.endOrder = val;
+                }
+            }}
+            placeholderText={t("endDemand")}
+            showTimeSelect={true}
+            locale={locale}
+        />
         <LayoutFlexColumn gap={FlexGap.SMALL_16}>
             {!_store.endOrderIsValid && <p style={{color: "red"}}>Min EndOrder From Now is {cfg.minEndOrderFromNowInHours} in Hours</p>}
             {!_store.endOrderWithStartTripIsValid && <p style={{color: "red"}}>Min diff between EndOrder and StartTrip is {cfg.minDiffBetweenStartTripAndEndOrderInHours} in Hours</p>}
         </LayoutFlexColumn>
-        <LayoutFlexRow justifyContent={"space-between"} alignItems={"center"}>
-            <span>Pocet osob: </span>
-            <NumberBox
-                controlled={true}
-                value={_store.trip.numberOfPersons}
-                onChange={(val) => {
-                    if (val) {
-                        _store.trip.numberOfPersons = val;
-                    }
-                }}
-                minValue={0}
-            />
-        </LayoutFlexRow>
-        <LayoutFlexRow justifyContent={"space-between"} alignItems={"center"}>
-            <span>Diety pro ridice: </span>
-            <CheckBox
-                value={_store.trip.dietForTransporter}
-                onChange={(val) => _store.trip.dietForTransporter = val}
-            />
-        </LayoutFlexRow>
+        <NumberBox
+            placeholder={t("numberOfPassengers")}
+            controlled={true}
+            value={_store.trip.numberOfPersons}
+            onChange={(val) => {
+                if (val) {
+                    _store.trip.numberOfPersons = val;
+                }
+            }}
+            minValue={0}
+        />
+        <CheckBox
+            label={t("dietForTransporter")}
+            value={_store.trip.dietForTransporter}
+            onChange={(val) => _store.trip.dietForTransporter = val}
+        />
         <LayoutFlexRow canWrap={true} gap={FlexGap.SMALL_16}>
             {Object.values(Amenities).map((amenity, index) => {
                 return <CheckBox
@@ -123,7 +114,7 @@ const CreateTripPage = observer(() => {
                         <ButtonClick
                             controlled={true}
                             size={ButtonSize.BY_CONTENT}
-                            label={"Smazat"}
+                            label={t("removeRoute")}
                             type={ButtonType.YELLOW}
                             onClick={() => {
                                 removeOnIndex(_store.trip.routes, index);
@@ -134,7 +125,7 @@ const CreateTripPage = observer(() => {
                 <ButtonClick
                     controlled={true}
                     size={ButtonSize.BY_CONTENT}
-                    label={"Přidat zastavku"}
+                    label={t("addRoute")}
                     type={ButtonType.YELLOW}
                     onClick={() => {
                         _store.trip.addRoute();
@@ -166,7 +157,7 @@ const CreateTripPage = observer(() => {
             <ButtonClick
                 controlled={true}
                 size={ButtonSize.BY_CONTENT}
-                label={"Vytvořit nabídku"}
+                label={t("createDemand")}
                 type={ButtonType.BLACK}
                 onClick={async () => {
                     let errors = "";

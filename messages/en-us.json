@@ -38,6 +38,15 @@
       "psc": "PSC",
       "street": "Street",
       "houseNumber": "House Number"
+    },
+    "trip": {
+      "handicappedUserCount": "Number of handicapped",
+      "endDemand": "When does the demand end",
+      "numberOfPassengers": "Number of passengers",
+      "dietForTransporter": "Diets for transporter",
+      "removeRoute": "Remove route",
+      "addRoute": "Add route",
+      "createDemand": "Create demand"
     }
   },
   "component":  {

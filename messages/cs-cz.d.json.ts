@@ -41,6 +41,15 @@ declare const messages: {
       "psc": "PSč",
       "street": "Ulice",
       "houseNumber": "Cislo domu"
+    },
+    "trip": {
+      "handicappedUserCount": "Počet vozíčkářů",
+      "endDemand": "Kdy končí nabídka",
+      "numberOfPassengers": "Počet cestujících",
+      "dietForTransporter": "Diety pro řidiče",
+      "removeRoute": "Odstranit trasu",
+      "addRoute": "Přidat trasu",
+      "createDemand": "Vytvořit poptávku"
     }
   },
   "component":  {
