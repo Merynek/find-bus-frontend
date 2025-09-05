@@ -19,17 +19,23 @@ export class CreateTripPageStore {
     @observable public peopleCountIsValid: boolean = true;
     @observable public routesCountIsValid: boolean = true;
     @observable public userSettings: UserSettings|null = null;
-    private readonly _directionTimesReactionDisposer: IReactionDisposer;
-    private readonly _personCountReactionDisposer: IReactionDisposer;
-    private readonly _routesCountReactionDisposer: IReactionDisposer;
+    private _directionTimesReactionDisposer: IReactionDisposer|null;
+    private _personCountReactionDisposer: IReactionDisposer|null;
+    private _routesCountReactionDisposer: IReactionDisposer|null;
 
     constructor() {
         this.tripRecommendation = null;
         this.reduceRoutesHours = null;
         this.reduceTimeHours = null;
-        this.trip = Trip.create({
-            observeChanges: true
-        });
+        this.trip = Trip.create({});
+        this._directionTimesReactionDisposer = null;
+        this._personCountReactionDisposer = null;
+        this._routesCountReactionDisposer = null;
+        makeObservable(this);
+    }
+
+    public async init() {
+        this.trip.startObservingChanges();
         this._directionTimesReactionDisposer = reaction(() => this.trip.directionTimes + this.trip.pauses, () => {
             this._computeDirectionTimesApi();
             this.placesAreSet = true;
@@ -40,17 +46,20 @@ export class CreateTripPageStore {
         this._routesCountReactionDisposer = reaction(() => this.trip.routes.length, () => {
             this.routesCountIsValid = true;
         });
-        makeObservable(this);
-    }
-
-    public async init() {
         this.userSettings = await UsersService.getSettings();
     }
 
     public destroy() {
-        this._directionTimesReactionDisposer();
-        this._personCountReactionDisposer();
-        this._routesCountReactionDisposer();
+        this.trip.destroy();
+        if (this._directionTimesReactionDisposer) {
+            this._directionTimesReactionDisposer();
+        }
+        if (this._personCountReactionDisposer) {
+            this._personCountReactionDisposer();
+        }
+        if (this._routesCountReactionDisposer) {
+            this._routesCountReactionDisposer();
+        }
     }
 
     private async _computeDirectionTimesApi() {

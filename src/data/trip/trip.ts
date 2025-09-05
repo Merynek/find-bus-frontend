@@ -19,7 +19,6 @@ interface ITrip {
     offerState: TripOfferState;
     handicappedUserCount: number;
     totalDistanceInMeters: number;
-    observeChanges?: boolean;
     created: Date;
 }
 
@@ -35,7 +34,7 @@ export class Trip {
     @observable public handicappedUserCount: number;
     public totalDistanceInMeters: number;
     public offerState: TripOfferState;
-    private readonly _observeChanges: boolean;
+    private _observeChangesStarted: boolean;
     public created: Date;
 
     constructor(settings: ITrip) {
@@ -53,12 +52,19 @@ export class Trip {
         this.offerState = settings.offerState;
         this.handicappedUserCount = settings.handicappedUserCount;
         this.totalDistanceInMeters = settings.totalDistanceInMeters;
-        this._observeChanges = settings.observeChanges || false;
+        this._observeChangesStarted = false;
         this.created = settings.created;
-        if (this._observeChanges) {
-            this.routes.map(route => route.observePlaceChanges())
-        }
         makeObservable(this);
+    }
+
+    public startObservingChanges() {
+        this._observeChangesStarted = true;
+        this.routes.map(route => route.startObservingChanges());
+    }
+
+    public destroy() {
+        this._observeChangesStarted = false;
+        this.routes.map(route => route.destroy());
     }
 
     @computed
@@ -113,8 +119,8 @@ export class Trip {
             end: new Date(),
             direction: new Direction({})
         });
-        if (this._observeChanges) {
-            route.observePlaceChanges();
+        if (this._observeChangesStarted) {
+            route.startObservingChanges();
         }
         this.routes.push(route);
         route.start = route.minDate;
@@ -176,7 +182,6 @@ export class Trip {
             handicappedUserCount: tripSettings.handicappedUserCount || 0,
             offerState: tripSettings.offerState || TripOfferState.CREATED,
             totalDistanceInMeters: tripSettings.totalDistanceInMeters || 0,
-            observeChanges: tripSettings.observeChanges || false,
             created: tripSettings.created || new Date()
         })
     }

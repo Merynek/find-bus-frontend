@@ -34,11 +34,12 @@ export class Route {
         this._trip = settings.trip || null;
         this.start = settings.start;
         this.end = settings.end;
+        this._polyLineComputeDisposer = null;
         this.updateStops();
         makeObservable(this);
     }
 
-    public observePlaceChanges() {
+    public startObservingChanges() {
         if (!this._polyLineComputeDisposer) {
             this._polyLineComputeDisposer = reaction(() => this.from.place.point?.toString() + "-" + this.to.place.point?.toString(), async () => {
                 this._direction.setData(await LocationService.instance.getDirectionData(this.from.place, this.to.place, Priority.HIGH));
