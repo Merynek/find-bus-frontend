@@ -34,7 +34,6 @@ export class Route {
         this._trip = settings.trip || null;
         this.start = settings.start;
         this.end = settings.end;
-        this._polyLineComputeDisposer = null;
         this.updateStops();
         makeObservable(this);
     }
