@@ -4,11 +4,10 @@ import {useCurrentLocale, useTranslate} from "@/src/hooks/translateHook";
 import React from "react";
 import {observer} from "mobx-react";
 import {CreateTripPageStore} from "./create-trip.page.store";
-import styles from "./create-trip-page.module.scss";
 import {ButtonClick, ButtonSize, ButtonType} from "../../components/button/button";
 import {CheckBox} from "../../components/inputs/check-box/check-box";
-import {Amenities, TripRecommendationType} from "@/src/api/openapi";
-import {cn, formatTimeForTrip, hoursToSeconds, removeOnIndex} from "@/src/utils/common";
+import {TripRecommendationType} from "@/src/api/openapi";
+import {formatTimeForTrip, hoursToSeconds, removeOnIndex} from "@/src/utils/common";
 import {TripRouteCreate} from "../../compositions/trip/trip-route/trip-route-create/trip-route-create";
 import {DatePicker} from "../../components/inputs/date-picker/date-picker";
 import {AppConfiguration} from "@/src/singletons/AppConfiguration";
@@ -25,6 +24,7 @@ import {useInit, useMount, useUnmount} from "@/src/hooks/lifecycleHooks";
 import {useApp} from "@/src/app/contexts/AppContext";
 import { useRouter } from "@/src/i18n/navigation";
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
+import {TripAmenities} from "@/src/components/compositions/trip/trip-amenities/trip-amenities";
 
 const CreateTripPage = observer(() => {
     const router = useRouter();
@@ -86,23 +86,7 @@ const CreateTripPage = observer(() => {
             value={_store.trip.dietForTransporter}
             onChange={(val) => _store.trip.dietForTransporter = val}
         />
-        <LayoutFlexRow canWrap={true} gap={FlexGap.SMALL_16}>
-            {Object.values(Amenities).map((amenity, index) => {
-                return <CheckBox
-                    key={index}
-                    label={amenity}
-                    value={_store.trip.amenities.indexOf(amenity) > -1}
-                    onChange={(val) => {
-                        if (val) {
-                            _store.trip.amenities.push(amenity);
-                        } else {
-                            const index = _store.trip.amenities.indexOf(amenity);
-                            removeOnIndex(_store.trip.amenities, index);
-                        }
-                    }}
-                />
-            })}
-        </LayoutFlexRow>
+        <TripAmenities trip={_store.trip}/>
         <LayoutFlexRow>
             <LayoutFlexColumn gap={FlexGap.MEDIUM_24} style={{flex: 1}}>
                 {_store.trip.routes.map((route, index) => {

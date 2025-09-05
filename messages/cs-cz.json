@@ -63,7 +63,23 @@
       "timeFromPlaceHolder": "Čas a datum",
       "directionKm": "km",
       "directionHours":  "h",
-      "directionMinutes": "m"
+      "directionMinutes": "m",
+      "amenities": {
+        "BIKE": "Kolo",
+        "SKI": "Lyže",
+        "COFFEE": "Káva",
+        "WIFI": "Wi-Fi",
+        "AIR_CONDITIONING": "Klimatizace",
+        "BICYCLE_LIFT": "Zvedák pro bicykle",
+        "SKI_BOX": "Box pro lyže",
+        "BOAT_LIFT": "Zvedák pro lodě",
+        "WC": "WC",
+        "TV": "TV",
+        "USB_SOCKETS": "USB připojky",
+        "SOCKETS_V230": "Zásuvka V230",
+        "ADJUSTABLE_SEATS": "Přizpůsobitelné sedadla",
+        "SEAT_BELTS": "Bezpečnostní pásy"
+      }
     },
     "header": {
       "logoutButton": "Odhlásit se",

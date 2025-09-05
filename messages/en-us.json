@@ -63,7 +63,23 @@
       "timeFromPlaceHolder": "Time and date",
       "directionKm": "km",
       "directionHours":  "h",
-      "directionMinutes": "m"
+      "directionMinutes": "m",
+      "amenities": {
+        "BIKE": "Bike",
+        "SKI": "Ski",
+        "COFFEE": "Coffee",
+        "WIFI": "Wi-Fi",
+        "AIR_CONDITIONING": "Air conditioning",
+        "BICYCLE_LIFT": "Bicycle lift",
+        "SKI_BOX": "Ski box",
+        "BOAT_LIFT": "Boat lift",
+        "WC": "WC",
+        "TV": "TV",
+        "USB_SOCKETS": "USB sockets",
+        "SOCKETS_V230": "Socket V230",
+        "ADJUSTABLE_SEATS": "Adjustable seats",
+        "SEAT_BELTS": "Seat belts"
+      }
     },
     "header": {
       "logoutButton": "Logout",
