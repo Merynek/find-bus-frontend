@@ -24,6 +24,7 @@ import {FlexGap} from "@/src/enums/layout.enum";
 import {useInit, useMount, useUnmount} from "@/src/hooks/lifecycleHooks";
 import {useApp} from "@/src/app/contexts/AppContext";
 import { useRouter } from "@/src/i18n/navigation";
+import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 
 const CreateTripPage = observer(() => {
     const router = useRouter();
@@ -42,8 +43,8 @@ const CreateTripPage = observer(() => {
         _store.destroy();
     })
 
-    return <div className={styles.layout}>
-        <div className={styles.section}>
+    return <LayoutFlexColumn gap={FlexGap.MEDIUM_24} style={{padding: "20px"}}>
+        <LayoutFlexRow justifyContent={"space-between"} alignItems={"center"}>
             <span>Kolik handikepovaných: </span>
             <NumberBox
                 controlled={true}
@@ -55,8 +56,8 @@ const CreateTripPage = observer(() => {
                 }}
                 minValue={0}
             />
-        </div>
-        <div className={styles.section}>
+        </LayoutFlexRow>
+        <LayoutFlexRow justifyContent={"space-between"} alignItems={"center"}>
             <span>Kdy nabídka končí: </span>
             <DatePicker
                 value={_store.trip.endOrder}
@@ -69,12 +70,12 @@ const CreateTripPage = observer(() => {
                 showTimeSelect={true}
                 locale={locale}
             />
-        </div>
-        <div>
+        </LayoutFlexRow>
+        <LayoutFlexColumn gap={FlexGap.SMALL_16}>
             {!_store.endOrderIsValid && <p style={{color: "red"}}>Min EndOrder From Now is {cfg.minEndOrderFromNowInHours} in Hours</p>}
             {!_store.endOrderWithStartTripIsValid && <p style={{color: "red"}}>Min diff between EndOrder and StartTrip is {cfg.minDiffBetweenStartTripAndEndOrderInHours} in Hours</p>}
-        </div>
-        <div className={styles.section}>
+        </LayoutFlexColumn>
+        <LayoutFlexRow justifyContent={"space-between"} alignItems={"center"}>
             <span>Pocet osob: </span>
             <NumberBox
                 controlled={true}
@@ -86,15 +87,15 @@ const CreateTripPage = observer(() => {
                 }}
                 minValue={0}
             />
-        </div>
-        <div className={styles.section}>
+        </LayoutFlexRow>
+        <LayoutFlexRow justifyContent={"space-between"} alignItems={"center"}>
             <span>Diety pro ridice: </span>
             <CheckBox
                 value={_store.trip.dietForTransporter}
                 onChange={(val) => _store.trip.dietForTransporter = val}
             />
-        </div>
-        <div>
+        </LayoutFlexRow>
+        <LayoutFlexRow canWrap={true} gap={FlexGap.SMALL_16}>
             {Object.values(Amenities).map((amenity, index) => {
                 return <CheckBox
                     key={index}
@@ -110,11 +111,11 @@ const CreateTripPage = observer(() => {
                     }}
                 />
             })}
-        </div>
-        <div className={styles.trips}>
-            <div className={styles.stopsSection}>
+        </LayoutFlexRow>
+        <LayoutFlexRow>
+            <LayoutFlexColumn gap={FlexGap.MEDIUM_24} style={{flex: 1}}>
                 {_store.trip.routes.map((route, index) => {
-                    return <div key={index}>
+                    return <LayoutFlexColumn key={index} gap={FlexGap.SMALL_16}>
                         <TripRouteCreate
                             route={route}
                             trip={_store.trip}
@@ -128,13 +129,22 @@ const CreateTripPage = observer(() => {
                                 removeOnIndex(_store.trip.routes, index);
                             }}
                         />
-                    </div>
+                    </LayoutFlexColumn>
                 })}
-            </div>
-            {_store.displayRecommendation && <div className={cn(styles.stopsSection, styles.recommendation)}>
+                <ButtonClick
+                    controlled={true}
+                    size={ButtonSize.BY_CONTENT}
+                    label={"Přidat zastavku"}
+                    type={ButtonType.YELLOW}
+                    onClick={() => {
+                        _store.trip.addRoute();
+                    }}
+                />
+            </LayoutFlexColumn>
+            {_store.displayRecommendation && <LayoutFlexColumn gap={FlexGap.MEDIUM_24} style={{flex: 1, border: "2px solid #16C15B"}}>
                 <p><b>ECONOMY</b> version for one driver</p>
                 {_store.tripRecommendation === TripRecommendationType.ONE_DRIVER && <>{_store.trip.routes.map((route, index) => {
-                    return <div key={index}>
+                    return <LayoutFlexColumn key={index} gap={FlexGap.SMALL_16}>
                         <TripRouteRecommendation
                             route={route}
                             trip={_store.trip}
@@ -144,24 +154,15 @@ const CreateTripPage = observer(() => {
                             <p>M: {formatTimeForTrip(hoursToSeconds(route.currentM), t("directionHours"), t("directionMinutes"))}</p>
                             <p>REAL: {formatTimeForTrip(route.computedDirectionInSeconds, t("directionHours"), t("directionMinutes"))}</p>
                         </div>
-                    </div>
+                    </LayoutFlexColumn>
                 })}</>}
                 {_store.tripRecommendation === TripRecommendationType.TWO_DRIVERS && <div>
                     <p>REDUCE ROUTE: {_store.reduceRoutesHours} Hours</p>
                     <p>REDUCE TIME: {_store.reduceTimeHours} Hours</p>
                 </div>}
-            </div>}
-        </div>
+            </LayoutFlexColumn>}
+        </LayoutFlexRow>
         <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
-            <ButtonClick
-                controlled={true}
-                size={ButtonSize.BY_CONTENT}
-                label={"Přidat zastavku"}
-                type={ButtonType.YELLOW}
-                onClick={() => {
-                    _store.trip.addRoute();
-                }}
-            />
             <ButtonClick
                 controlled={true}
                 size={ButtonSize.BY_CONTENT}
@@ -208,7 +209,7 @@ const CreateTripPage = observer(() => {
                 }}
             />
         </div>
-    </div>
-});
+    </LayoutFlexColumn>
+});;
 
 export default CreateTripPage;
