@@ -122,7 +122,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                 name={FormDataEnum.isCompany}
                 id={FormDataEnum.isCompany}
                 label={t("isCompany")}
-                defaultValue={state?.data?.isCompany || false}
+                defaultChecked={state?.data?.isCompany || false}
             />
         </>
     }
@@ -141,6 +141,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
     const renderAddress = () => {
         const countryOptions = getCountryOptions();
         return <>
+            <Heading text={t("addressHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={4}/>
             <ComboBox
                 controlled={false}
                 items={countryOptions}
@@ -188,6 +189,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
     const renderMailingAddress = () => {
         const countryOptions = getCountryOptions();
         return <>
+            <Heading text={t("mailingAddressHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={4}/>
             <ComboBox
                 controlled={false}
                 items={countryOptions}
@@ -242,7 +244,8 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                     name={FormDataEnum.notifications}
                     id={FormDataEnum.notifications}
                     label={option}
-                    defaultValue={notifications.includes(option)}
+                    value={option}
+                    defaultChecked={notifications.includes(option)}
                     key={option}
                 />
             })}

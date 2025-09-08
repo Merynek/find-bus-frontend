@@ -48,7 +48,9 @@
       "notVerifiedForTransporting": "Not verified for transporting",
       "businessRiskInsurance": "Insurance for business",
       "concessionDocuments": "Concession documents",
-      "saveButton": "Save"
+      "saveButton": "Save",
+      "addressHeading": "Address",
+      "mailingAddressHeading": "Mailing address"
     },
     "trip": {
       "handicappedUserCount": "Number of handicapped",

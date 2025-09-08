@@ -51,7 +51,9 @@ declare const messages: {
       "notVerifiedForTransporting": "Neověřený pro dopravu",
       "businessRiskInsurance": "Pojištění podnikatelských rizik",
       "concessionDocuments": "Koncesní listina",
-      "saveButton": "Uložit"
+      "saveButton": "Uložit",
+      "addressHeading": "Adresa",
+      "mailingAddressHeading": "Poštovní adresa"
     },
     "trip": {
       "handicappedUserCount": "Počet vozíčkářů",

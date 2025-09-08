@@ -6,32 +6,34 @@ interface ICommonCheckBoxProps {
     name?: string;
     label?: string;
     disabled?: boolean;
+    value?: string;
 }
 
 interface IControlledProps extends ICommonCheckBoxProps {
     controlled: true;
-    value: boolean;
+    checked: boolean;
     onChange: (value: boolean) => void;
 }
 
-interface UncontrolledProps extends ICommonCheckBoxProps {
+interface IUncontrolledProps extends ICommonCheckBoxProps {
     controlled: false;
-    value?: never;
+    checked?: never;
     onChange?: never;
-    defaultValue?: boolean;
+    defaultChecked?: boolean;
 }
 
-type ICheckBoxProps = IControlledProps | UncontrolledProps;
+type ICheckBoxProps = IControlledProps | IUncontrolledProps;
 
 export const CheckBox = (props: ICheckBoxProps) => {
-    const {disabled, label, id, onChange, value, name, controlled} = props;
+    const {disabled, label, id, onChange, value, name, controlled, checked} = props;
 
     const inputProps = {
         type: "checkbox",
         disabled: disabled,
-        checked: value,
+        checked: checked,
         id: id,
-        name: name
+        name: name,
+        value: value
     };
 
     const renderWrapper = (input: React.ReactNode) => {
@@ -51,7 +53,6 @@ export const CheckBox = (props: ICheckBoxProps) => {
     }
     return renderWrapper(<input
         {...inputProps}
-        type="checkbox"
-        defaultChecked={props.defaultValue}
+        defaultChecked={props.defaultChecked}
     />);
 }
