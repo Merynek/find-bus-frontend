@@ -6,15 +6,9 @@ import {observer} from "mobx-react";
 import {CreateTripPageStore} from "./create-trip.page.store";
 import {ButtonClick, ButtonSize, ButtonType} from "../../components/button/button";
 import {CheckBox} from "../../components/inputs/check-box/check-box";
-import {TripRecommendationType} from "@/src/api/openapi";
-import {formatTimeForTrip, hoursToSeconds, removeOnIndex} from "@/src/utils/common";
-import {TripRouteCreate} from "../../compositions/trip/trip-route/trip-route-create/trip-route-create";
 import {DatePicker} from "../../components/inputs/date-picker/date-picker";
 import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import {DirectionsMap} from "../../components/directions-map/directions-map";
-import {
-    TripRouteRecommendation
-} from "../../compositions/trip/trip-route/trip-route-recommendation/trip-route-recommendation";
 import {GeoPoint} from "@/src/data/geoPoint";
 import {NumberBox} from "../../components/inputs/number-box/number-box";
 import {ROUTES} from "@/src/enums/router.enum";
@@ -25,6 +19,10 @@ import {useApp} from "@/src/app/contexts/AppContext";
 import { useRouter } from "@/src/i18n/navigation";
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 import {TripAmenities} from "@/src/components/compositions/trip/trip-amenities/trip-amenities";
+import {
+    CreateTripRecommendations
+} from "@/src/components/pages/create-trip/components/create-trip-routes";
+import {CreateTripRoutes} from "@/src/components/pages/create-trip/components/create-trip-recommendation";
 
 const CreateTripPage = observer(() => {
     const router = useRouter();
@@ -88,54 +86,8 @@ const CreateTripPage = observer(() => {
         />
         <TripAmenities trip={_store.trip}/>
         <LayoutFlexRow>
-            <LayoutFlexColumn gap={FlexGap.MEDIUM_24} style={{flex: 1}}>
-                {_store.trip.routes.map((route, index) => {
-                    return <LayoutFlexColumn key={index} gap={FlexGap.SMALL_16}>
-                        <TripRouteCreate
-                            route={route}
-                            trip={_store.trip}
-                        />
-                        <ButtonClick
-                            controlled={true}
-                            size={ButtonSize.BY_CONTENT}
-                            label={t("removeRoute")}
-                            type={ButtonType.YELLOW}
-                            onClick={() => {
-                                removeOnIndex(_store.trip.routes, index);
-                            }}
-                        />
-                    </LayoutFlexColumn>
-                })}
-                <ButtonClick
-                    controlled={true}
-                    size={ButtonSize.BY_CONTENT}
-                    label={t("addRoute")}
-                    type={ButtonType.YELLOW}
-                    onClick={() => {
-                        _store.trip.addRoute();
-                    }}
-                />
-            </LayoutFlexColumn>
-            {_store.displayRecommendation && <LayoutFlexColumn gap={FlexGap.MEDIUM_24} style={{flex: 1, border: "2px solid #16C15B"}}>
-                <p><b>ECONOMY</b> version for one driver</p>
-                {_store.tripRecommendation === TripRecommendationType.ONE_DRIVER && <>{_store.trip.routes.map((route, index) => {
-                    return <LayoutFlexColumn key={index} gap={FlexGap.SMALL_16}>
-                        <TripRouteRecommendation
-                            route={route}
-                            trip={_store.trip}
-                        />
-                        <div>
-                            <p>DJ: {formatTimeForTrip(hoursToSeconds(route.currentDJ), t("directionHours"), t("directionMinutes"))}</p>
-                            <p>M: {formatTimeForTrip(hoursToSeconds(route.currentM), t("directionHours"), t("directionMinutes"))}</p>
-                            <p>REAL: {formatTimeForTrip(route.computedDirectionInSeconds, t("directionHours"), t("directionMinutes"))}</p>
-                        </div>
-                    </LayoutFlexColumn>
-                })}</>}
-                {_store.tripRecommendation === TripRecommendationType.TWO_DRIVERS && <div>
-                    <p>REDUCE ROUTE: {_store.reduceRoutesHours} Hours</p>
-                    <p>REDUCE TIME: {_store.reduceTimeHours} Hours</p>
-                </div>}
-            </LayoutFlexColumn>}
+            <CreateTripRoutes trip={_store.trip}/>
+            {_store.displayRecommendation && <CreateTripRecommendations store={_store}/>}
         </LayoutFlexRow>
         <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
             <ButtonClick
