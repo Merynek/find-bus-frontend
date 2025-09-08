@@ -57,7 +57,7 @@ export function getComboBoxStyles<T>(): StylesConfig<IComboBoxItem<T>, false> {
 
 export function ComboBox<T>(props: IComboBoxProps<T>) {
     const {items, onChange, value,  isSearchable,
-        disabled,  placeHolder, id, name, controlled, instanceId } = props;
+        disabled,  placeHolder, id, name, controlled, instanceId, defaultValue } = props;
     const [isFocused, setIsFocused] = useState(false);
     const [internalValue, setInternalValue] = useState<SingleValue<IComboBoxItem<T>>>(null);
 
@@ -68,7 +68,7 @@ export function ComboBox<T>(props: IComboBoxProps<T>) {
         setInternalValue(newValue);
     }, [controlled, props]);
 
-    const selectedValue = value !== undefined ? value : internalValue;
+    const selectedValue = value !== undefined ? value : internalValue || defaultValue;
 
     return <InputWrapper
         input={<Select<IComboBoxItem<T>, false>
