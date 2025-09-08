@@ -17,19 +17,19 @@ export const TripFilter = observer((props: ITripFilterProps) => {
     return <div className={styles.layout}>
         <div className={styles.item}>
             <span>Only Mine</span>
-            <CheckBox value={filter.onlyMine} onChange={(val) => {
+            <CheckBox controlled={true} value={filter.onlyMine} onChange={(val) => {
                 filter.onlyMine = val;
             }} />
         </div>
         <div className={styles.item}>
             <span>Me Offered</span>
-            <CheckBox value={filter.meOffered} onChange={(val) => {
+            <CheckBox controlled={true} value={filter.meOffered} onChange={(val) => {
                 filter.meOffered = val;
             }}  />
         </div>
         <div className={styles.item}>
             <span>Diet For Transporter</span>
-            <CheckBox value={filter.dietForTransporter} onChange={(val) => {
+            <CheckBox controlled={true} value={filter.dietForTransporter} onChange={(val) => {
                 filter.dietForTransporter = val;
             }}  />
         </div>

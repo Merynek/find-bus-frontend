@@ -19,6 +19,7 @@ export const TripAmenities = observer((props: ITripAmenitiesProps) => {
     return <LayoutFlexRow canWrap={true} gap={FlexGap.SMALL_16}>
         {Object.values(Amenities).map((amenity, index) => {
             return <CheckBox
+                controlled={true}
                 key={index}
                 label={t(amenity)}
                 value={trip.amenities.indexOf(amenity) > -1}

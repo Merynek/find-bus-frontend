@@ -80,6 +80,7 @@ const CreateTripPage = observer(() => {
             minValue={0}
         />
         <CheckBox
+            controlled={true}
             label={t("dietForTransporter")}
             value={_store.trip.dietForTransporter}
             onChange={(val) => _store.trip.dietForTransporter = val}

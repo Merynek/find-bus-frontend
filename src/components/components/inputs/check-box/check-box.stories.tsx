@@ -18,6 +18,7 @@ export const Default: StoryObj<typeof CheckBox> = {
         const [value, setValue] = useState<boolean>(true);
         return <CheckBox
             {...args}
+            controlled={true}
             value={value}
             onChange={() => {
                 setValue(!value);

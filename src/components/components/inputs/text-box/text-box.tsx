@@ -45,7 +45,8 @@ interface IMultiLineData {
 export enum TextBoxType {
     TEXT = "text",
     PASSWORD = "password",
-    EMAIL = "email"
+    EMAIL = "email",
+    TEL = "tel",
 }
 
 export const TextBox = (props: ITextBoxProps) => {

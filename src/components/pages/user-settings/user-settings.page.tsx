@@ -14,6 +14,11 @@ import {useLoggedUser} from "@/src/hooks/authenticationHook";
 import {ImageUploader} from "@/src/components/components/image-uploader/image-uploader";
 import {useFormActionState} from "@/src/hooks/formHook";
 import {FormStatus} from "@/src/components/components/form-status/form-status";
+import {FlexGap} from "@/src/enums/layout.enum";
+import {Heading} from "@/src/components/components/texts/heading";
+import {FontWeight} from "@/src/components/components/texts/textStyles";
+import {TextBox, TextBoxType} from "@/src/components/components/inputs/text-box/text-box";
+import { CheckBox } from "../../components/inputs/check-box/check-box";
 
 interface IUserSettingsPageProps {
     settings: UserSettingsResponseDto;
@@ -61,241 +66,259 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
         })
     }
 
-    return <div className={styles.layout}>
-        <form action={action}>
-            <FormStatus state={state} />
-            <fieldset className="space-y-2">
-                <legend className="text-sm font-medium text-gray-700">Obecné</legend>
-                <div>
-                    <label htmlFor={FormDataEnum.name}>Name</label>
-                    <input id={FormDataEnum.name} name={FormDataEnum.name} type={"text"} placeholder="Name"
-                           defaultValue={state?.data?.name || ""}/>
-                </div>
-                <div>
-                    <label htmlFor={FormDataEnum.surname}>Surname</label>
-                    <input id={FormDataEnum.surname} name={FormDataEnum.surname} type={"text"} placeholder="Surname"
-                           defaultValue={state?.data?.surname || ""}/>
-                </div>
-                <div>
-                    <label htmlFor={FormDataEnum.phoneNumber}>PhoneNumber</label>
-                    <input id={FormDataEnum.phoneNumber} name={FormDataEnum.phoneNumber} type={"tel"}
-                           defaultValue={state?.data?.phoneNumber || ""}
-                           placeholder="PhoneNumber"/>
-                </div>
-                <div>
-                    <label htmlFor={FormDataEnum.ico}>ico</label>
-                    <input id={FormDataEnum.ico} name={FormDataEnum.ico} type={"text"} placeholder="Ico"
-                           defaultValue={state?.data?.ico || ""}/>
-                </div>
-                <div>
-                    <label htmlFor={FormDataEnum.dic}>dic</label>
-                    <input id={FormDataEnum.dic} name={FormDataEnum.dic} type={"text"} placeholder="Dic"
-                           defaultValue={state?.data?.dic || ""}/>
-                </div>
+    const renderBaseInfo = () => {
+        return <>
+            <TextBox
+                controlled={false}
+                name={FormDataEnum.name}
+                id={FormDataEnum.name}
+                type={TextBoxType.TEXT}
+                placeholder={t("name")}
+                defaultValue={state?.data?.name || ""}
+            />
+            <TextBox
+                controlled={false}
+                name={FormDataEnum.surname}
+                id={FormDataEnum.surname}
+                type={TextBoxType.TEXT}
+                placeholder={t("surname")}
+                defaultValue={state?.data?.surname || ""}
+            />
+            <TextBox
+                controlled={false}
+                name={FormDataEnum.phoneNumber}
+                id={FormDataEnum.phoneNumber}
+                type={TextBoxType.TEL}
+                placeholder={t("phoneNumber")}
+                defaultValue={state?.data?.phoneNumber || ""}
+            />
+            <TextBox
+                controlled={false}
+                name={FormDataEnum.ico}
+                id={FormDataEnum.ico}
+                type={TextBoxType.TEXT}
+                placeholder={t("ico")}
+                defaultValue={state?.data?.ico || ""}
+            />
+            <TextBox
+                controlled={false}
+                name={FormDataEnum.dic}
+                id={FormDataEnum.dic}
+                type={TextBoxType.TEXT}
+                placeholder={t("dic")}
+                defaultValue={state?.data?.dic || ""}
+            />
+            <TextBox
+                controlled={false}
+                name={FormDataEnum.companyName}
+                id={FormDataEnum.companyName}
+                type={TextBoxType.TEXT}
+                placeholder={t("companyName")}
+                defaultValue={state?.data?.companyName || ""}
+            />
+            <CheckBox
+                controlled={false}
+                name={FormDataEnum.isCompany}
+                id={FormDataEnum.isCompany}
+                label={t("isCompany")}
+                defaultValue={state?.data?.isCompany || false}
+            />
+        </>
+    }
 
-                <div>
-                    <label htmlFor={FormDataEnum.companyName}>companyName</label>
-                    <input id={FormDataEnum.companyName} name={FormDataEnum.companyName} type={"text"}
-                           placeholder="CompanyName" defaultValue={state?.data?.companyName || ""}/>
-                </div>
-            </fieldset>
-                <h2>Jsi firma?:</h2>
-                <div>
-                    <label htmlFor={FormDataEnum.isCompany}>isCompany</label>
-                    <input
-                        id={FormDataEnum.isCompany}
-                        name={FormDataEnum.isCompany}
-                        type={"checkbox"}
-                        placeholder="isCompany"
-                        defaultChecked={state?.data?.isCompany || false}
-                    />
-                </div>
+    const renderAddress = () => {
+        return <>
+            <div>
+                <label htmlFor={FormDataEnum.address_country}>Země</label>
+                <select
+                    id={FormDataEnum.address_country}
+                    name={FormDataEnum.address_country}
+                    defaultValue={state?.data?.address?.country}
+                    key={state?.data?.address?.country}
+                >
+                    <option value="">- Vyberte zemi -</option>
+                    {Object.values(Country).map((country) => (
+                        <option key={country} value={country}>
+                            {country}
+                        </option>
+                    ))}
+                </select>
+            </div>
+            <TextBox
+                controlled={false}
+                name={FormDataEnum.address_city}
+                id={FormDataEnum.address_city}
+                type={TextBoxType.TEXT}
+                placeholder={t("city")}
+                defaultValue={state?.data?.address?.city || ""}
+            />
+            <TextBox
+                controlled={false}
+                name={FormDataEnum.address_psc}
+                id={FormDataEnum.address_psc}
+                type={TextBoxType.TEXT}
+                placeholder={t("psc")}
+                defaultValue={state?.data?.address?.psc || ""}
+            />
+            <TextBox
+                controlled={false}
+                name={FormDataEnum.address_street}
+                id={FormDataEnum.address_street}
+                type={TextBoxType.TEXT}
+                placeholder={t("street")}
+                defaultValue={state?.data?.address?.street || ""}
+            />
+            <TextBox
+                controlled={false}
+                name={FormDataEnum.address_houseNumber}
+                id={FormDataEnum.address_houseNumber}
+                type={TextBoxType.TEXT}
+                placeholder={t("houseNumber")}
+                defaultValue={state?.data?.address?.houseNumber || ""}
+            />
+        </>
+    }
 
-                <fieldset className="space-y-2">
-                    <legend className="text-sm font-medium text-gray-700">Adresa</legend>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label htmlFor={FormDataEnum.address_country}>Země</label>
-                            <select
-                                id={FormDataEnum.address_country}
-                                name={FormDataEnum.address_country}
-                                defaultValue={state?.data?.address?.country}
-                                key={state?.data?.address?.country}
-                            >
-                                <option value="">- Vyberte zemi -</option>
-                                {Object.values(Country).map((country) => (
-                                    <option key={country} value={country}>
-                                        {country}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium">Město</label>
-                            <input
-                                type="text"
-                                name={FormDataEnum.address_city}
-                                defaultValue={state?.data?.address?.city || ""}
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium">PSČ</label>
-                            <input
-                                type="text"
-                                name={FormDataEnum.address_psc}
-                                defaultValue={state?.data?.address?.psc || ""}
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium">Ulice</label>
-                            <input
-                                type="text"
-                                name={FormDataEnum.address_street}
-                                defaultValue={state?.data?.address?.street || ""}
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium">Číslo popisné</label>
-                            <input
-                                type="text"
-                                name={FormDataEnum.address_houseNumber}
-                                defaultValue={state?.data?.address?.houseNumber || ""}
-                            />
-                        </div>
-                    </div>
-                </fieldset>
+    const renderMailingAddress = () => {
+        return <>
+            <div>
+                <label htmlFor={FormDataEnum.mailingAddress_country}>Země</label>
+                <select
+                    id={FormDataEnum.mailingAddress_country}
+                    name={FormDataEnum.mailingAddress_country}
+                    defaultValue={state?.data?.mailingAddress?.country}
+                    key={state?.data?.mailingAddress?.country}
+                >
+                    <option value="">- Vyberte zemi -</option>
+                    {Object.values(Country).map((country) => (
+                        <option key={country} value={country}>
+                            {country}
+                        </option>
+                    ))}
+                </select>
+            </div>
+            <TextBox
+                controlled={false}
+                name={FormDataEnum.mailingAddress_city}
+                id={FormDataEnum.mailingAddress_city}
+                type={TextBoxType.TEXT}
+                placeholder={t("city")}
+                defaultValue={state?.data?.mailingAddress?.city || ""}
+            />
+            <TextBox
+                controlled={false}
+                name={FormDataEnum.mailingAddress_psc}
+                id={FormDataEnum.mailingAddress_psc}
+                type={TextBoxType.TEXT}
+                placeholder={t("psc")}
+                defaultValue={state?.data?.mailingAddress?.psc || ""}
+            />
+            <TextBox
+                controlled={false}
+                name={FormDataEnum.mailingAddress_street}
+                id={FormDataEnum.mailingAddress_street}
+                type={TextBoxType.TEXT}
+                placeholder={t("street")}
+                defaultValue={state?.data?.mailingAddress?.street || ""}
+            />
+            <TextBox
+                controlled={false}
+                name={FormDataEnum.mailingAddress_houseNumber}
+                id={FormDataEnum.mailingAddress_houseNumber}
+                type={TextBoxType.TEXT}
+                placeholder={t("houseNumber")}
+                defaultValue={state?.data?.mailingAddress?.houseNumber || ""}
+            />
+        </>
+    }
 
-                <fieldset className="space-y-2">
-                    <legend className="text-sm font-medium text-gray-700">Poštovní Adresa</legend>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label htmlFor={FormDataEnum.mailingAddress_country}>Země</label>
-                            <select
-                                id={FormDataEnum.mailingAddress_country}
-                                name={FormDataEnum.mailingAddress_country}
-                                defaultValue={state?.data?.mailingAddress?.country}
-                                key={state?.data?.mailingAddress?.country}
-                            >
-                                <option value="">- Vyberte zemi -</option>
-                                {Object.values(Country).map((country) => (
-                                    <option key={country} value={country}>
-                                        {country}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium">Město</label>
-                            <input
-                                type="text"
-                                name={FormDataEnum.mailingAddress_city}
-                                defaultValue={state?.data?.mailingAddress?.city || ""}
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium">PSČ</label>
-                            <input
-                                type="text"
-                                name={FormDataEnum.mailingAddress_psc}
-                                defaultValue={state?.data?.mailingAddress?.psc || ""}
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium">Ulice</label>
-                            <input
-                                type="text"
-                                name={FormDataEnum.mailingAddress_street}
-                                defaultValue={state?.data?.mailingAddress?.street || ""}
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium">Číslo popisné</label>
-                            <input
-                                type="text"
-                                name={FormDataEnum.mailingAddress_houseNumber}
-                                defaultValue={state?.data?.mailingAddress?.houseNumber || ""}
-                            />
-                        </div>
-                    </div>
-                </fieldset>
-
-                <h2>Notifications</h2>
-                <fieldset>
-                    <legend className="text-sm font-medium text-gray-700">Notifikace</legend>
-                    <div className="mt-2 space-y-2">
-                        {allNotifications().map((option) => {
-                            const notifications = state?.data?.notifications || [];
-                            return <label key={option}>
-                                <input
-                                    type="checkbox"
-                                    name={FormDataEnum.notifications}
-                                    value={option}
-                                    defaultChecked={notifications.includes(option)}
-                                />
-                                <span>{option}</span>
-                            </label>
-                        })}
-                    </div>
-                </fieldset>
-                {user?.role === UserRole.TRANSPORTER && <>
-                    <h2>Bankovní udaje</h2>
-                    <LayoutFlexColumn>
-                        <div>
-                            <label htmlFor={FormDataEnum.transferInfo_iban}>iban</label>
-                            <input id={FormDataEnum.transferInfo_iban} name={FormDataEnum.transferInfo_iban} type={"text"} placeholder="Iban"
-                                   defaultValue={state?.data?.transferInfo?.iban || ""}/>
-                        </div>
-                        <div>
-                            <label htmlFor={FormDataEnum.transferInfo_swift}>swift</label>
-                            <input id={FormDataEnum.transferInfo_swift} name={FormDataEnum.transferInfo_swift} type={"text"} placeholder="swift"
-                                   defaultValue={state?.data?.transferInfo?.swift || ""}/>
-                        </div>
-                    </LayoutFlexColumn>
-                </>}
-                {user?.role === UserRole.TRANSPORTER && <>
-                    <h2>Požadavky na transportera</h2>
-                    <LayoutFlexColumn>
-                        <LayoutFlexColumn>
-                            <span>{"User => " + (settings.isVerifiedForTransporting ? "Verified" : "Not Verified")}</span>
-                        </LayoutFlexColumn>
-                        <div>
-                            <label htmlFor={FormDataEnum.concessionNumber}>concessionNumber</label>
-                            <input id={FormDataEnum.concessionNumber} name={FormDataEnum.concessionNumber} type={"text"}
-                                   placeholder="concessionNumber"
-                                   defaultValue={state?.data?.concessionNumber || ""}/>
-                        </div>
-                    </LayoutFlexColumn>
-                    <fieldset className="space-y-4">
-                        <legend className="text-sm font-medium text-gray-700">Dokumenty</legend>
-                        <div>
-                            <ImageUploader
-                                label={"Pojištění podnikatelských rizik"}
-                                inputName={FormDataEnum.businessRiskInsurance}
-                                initialImage={settings.transportRequirements.businessRiskInsurance?.path}
-                            />
-                        </div>
-                        <div>
-                            <ImageUploader
-                                label={"Koncesní listina"}
-                                inputName={FormDataEnum.concessionDocuments}
-                                initialImage={settings.transportRequirements.concessionDocuments?.path}
-                            />
-                        </div>
-                    </fieldset>
-
-                </>}
-                <ButtonClick
-                    controlled={true}
-                    size={ButtonSize.BUTTON_SIZE_M}
-                    onClick={() => {
-                    }}
-                    isDisabled={pending}
-                    type={ButtonType.BLACK}
-                    label={t("save")}
+    const renderNotifications = () => {
+        return <>
+            <Heading text={t("notificationsHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={4}/>
+            {allNotifications().map((option) => {
+                const notifications = state?.data?.notifications || [];
+                return <CheckBox
+                    controlled={false}
+                    name={FormDataEnum.notifications}
+                    id={FormDataEnum.notifications}
+                    label={option}
+                    defaultValue={notifications.includes(option)}
+                    key={option}
                 />
-        </form>
-    </div>
+            })}
+        </>
+    }
 
+    const renderBankInfo = () => {
+        return <>
+            <Heading text={t("bankInfoHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={4}/>
+            <TextBox
+                controlled={false}
+                name={FormDataEnum.transferInfo_iban}
+                id={FormDataEnum.transferInfo_iban}
+                type={TextBoxType.TEXT}
+                placeholder={t("iban")}
+                defaultValue={state?.data?.transferInfo?.iban || ""}
+            />
+            <TextBox
+                controlled={false}
+                name={FormDataEnum.transferInfo_swift}
+                id={FormDataEnum.transferInfo_swift}
+                type={TextBoxType.TEXT}
+                placeholder={t("swift")}
+                defaultValue={state?.data?.transferInfo?.swift || ""}
+            />
+        </>
+    }
+
+    const renderTransportRequirements = () => {
+        return <>
+            <Heading text={t("transportRequirementsHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={4}/>
+            <span>{"User => " + (settings.isVerifiedForTransporting ? t("verifiedForTransporting") : t("notVerifiedForTransporting"))}</span>
+            <TextBox
+                controlled={false}
+                name={FormDataEnum.concessionNumber}
+                id={FormDataEnum.concessionNumber}
+                type={TextBoxType.TEXT}
+                placeholder={t("concessionNumber")}
+                defaultValue={state?.data?.concessionNumber || ""}
+            />
+            <ImageUploader
+                label={t("businessRiskInsurance")}
+                inputName={FormDataEnum.businessRiskInsurance}
+                initialImage={settings.transportRequirements.businessRiskInsurance?.path}
+            />
+            <ImageUploader
+                label={t("concessionDocuments")}
+                inputName={FormDataEnum.concessionDocuments}
+                initialImage={settings.transportRequirements.concessionDocuments?.path}
+            />
+        </>
+    }
+
+    return <LayoutFlexColumn gap={FlexGap.BIG_40}>
+        <Heading text={t("userSettingsHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={3}/>
+        <form action={action}>
+            <LayoutFlexColumn gap={FlexGap.LARGE_32}>
+                <FormStatus state={state}/>
+                <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
+                    {renderBaseInfo()}
+                    {renderAddress()}
+                    {renderMailingAddress()}
+                    {renderNotifications()}
+                    {user?.role === UserRole.TRANSPORTER && renderBankInfo()}
+                    {user?.role === UserRole.TRANSPORTER && renderTransportRequirements()}
+                </LayoutFlexColumn>
+                <ButtonClick
+                    controlled={false}
+                    type={ButtonType.BLACK}
+                    size={ButtonSize.BUTTON_SIZE_M}
+                    isDisabled={pending}
+                    label={t("saveButton")}
+                />
+            </LayoutFlexColumn>
+        </form>
+    </LayoutFlexColumn>
 };
 
 export default UserSettingsPage;

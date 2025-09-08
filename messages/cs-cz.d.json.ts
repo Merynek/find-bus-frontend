@@ -27,6 +27,7 @@ declare const messages: {
       "loginAfterActivation": "Nyní se můžete přihlásit"
     },
     "userSettings": {
+      "userSettingsHeading": "Nastavení uživatele",
       "name": "Jméno",
       "surname": "Příjmení",
       "phoneNumber": "Telefoní číslo",
@@ -40,7 +41,16 @@ declare const messages: {
       "city": "Mesto",
       "psc": "PSč",
       "street": "Ulice",
-      "houseNumber": "Cislo domu"
+      "houseNumber": "Cislo domu",
+      "isCompany": "Jste firma?",
+      "notificationsHeading": "Notifikace",
+      "bankInfoHeading": "Bankovní spojení",
+      "transportRequirementsHeading": "Požadavky na dopravce",
+      "verifiedForTransporting": "Ověřený pro dopravu",
+      "notVerifiedForTransporting": "Neověřený pro dopravu",
+      "businessRiskInsurance": "Pojištění podnikatelských rizik",
+      "concessionDocuments": "Koncesní listina",
+      "saveButton": "Uložit"
     },
     "trip": {
       "handicappedUserCount": "Počet vozíčkářů",

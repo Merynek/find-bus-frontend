@@ -24,6 +24,7 @@
       "loginAfterActivation": "You can now log in"
     },
     "userSettings": {
+      "userSettingsHeading": "User Settings",
       "name": "Name",
       "surname": "Surname",
       "phoneNumber": "Phone number",
@@ -37,7 +38,16 @@
       "city": "City",
       "psc": "PSC",
       "street": "Street",
-      "houseNumber": "House Number"
+      "houseNumber": "House Number",
+      "isCompany": "Are you a company?",
+      "notificationsHeading": "Notifications",
+      "bankInfoHeading": "Bank connection",
+      "transportRequirementsHeading": "Transport requirements",
+      "verifiedForTransporting": "Verified for transporting",
+      "notVerifiedForTransporting": "Not verified for transporting",
+      "businessRiskInsurance": "Insurance for business",
+      "concessionDocuments": "Concession documents",
+      "saveButton": "Save"
     },
     "trip": {
       "handicappedUserCount": "Number of handicapped",
