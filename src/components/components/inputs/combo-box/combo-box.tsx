@@ -7,16 +7,31 @@ export interface IComboBoxItem<T> {
     label: string;
 }
 
-export interface IComboBoxProps<T> {
+interface ICommonProps<T> {
     id?: string;
     name?: string;
     placeHolder?: string;
-    value?: IComboBoxItem<T>;
     items: IComboBoxItem<T>[];
-    onChange: (value: IComboBoxItem<T>) => void;
     disabled?: boolean;
     isSearchable?: boolean;
+    instanceId: string;
 }
+
+interface IControlledComboBoxProps<T> extends ICommonProps<T> {
+    controlled: true;
+    value?: IComboBoxItem<T>;
+    onChange: (value: IComboBoxItem<T>) => void;
+    defaultValue?: never;
+}
+
+interface IUncontrolledComboBoxProps<T> extends ICommonProps<T> {
+    controlled: false;
+    value?: never;
+    onChange?: never;
+    defaultValue?: IComboBoxItem<T>;
+}
+
+export type IComboBoxProps<T> = IControlledComboBoxProps<T> | IUncontrolledComboBoxProps<T>;
 
 export function getComboBoxStyles<T>(): StylesConfig<IComboBoxItem<T>, false> {
     return {
@@ -42,21 +57,22 @@ export function getComboBoxStyles<T>(): StylesConfig<IComboBoxItem<T>, false> {
 
 export function ComboBox<T>(props: IComboBoxProps<T>) {
     const {items, onChange, value,  isSearchable,
-        disabled,  placeHolder, id, name } = props;
+        disabled,  placeHolder, id, name, controlled, instanceId } = props;
     const [isFocused, setIsFocused] = useState(false);
     const [internalValue, setInternalValue] = useState<SingleValue<IComboBoxItem<T>>>(null);
 
     const handleChange = useCallback((newValue: SingleValue<IComboBoxItem<T>>) => {
-        if (newValue) {
-            onChange(newValue);
+        if (controlled) {
+            onChange(newValue as IComboBoxItem<T>);
         }
         setInternalValue(newValue);
-    }, [onChange]);
+    }, [controlled, props]);
 
     const selectedValue = value !== undefined ? value : internalValue;
 
     return <InputWrapper
         input={<Select<IComboBoxItem<T>, false>
+            instanceId={instanceId}
             menuPlacement={"auto"}
             minMenuHeight={Math.min(items.length * 40, 360)}
             closeMenuOnScroll={true}

@@ -35,6 +35,7 @@
       "swift": "SWIFT",
       "concessionNumber": "Concession Number",
       "companyName": "Company Name",
+      "country": "Country",
       "city": "City",
       "psc": "PSC",
       "street": "Street",

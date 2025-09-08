@@ -14,7 +14,8 @@ const meta: Meta<typeof ComboBox> = {
     args: {
         onChange: () => {},
         disabled: false,
-        placeHolder: getRandomText(1)
+        placeHolder: getRandomText(1),
+        controlled: true,
     },
     argTypes: {
     },

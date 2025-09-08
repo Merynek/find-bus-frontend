@@ -47,6 +47,8 @@ export const TripOfferAccept = observer((props: ITripOfferAcceptProps) => {
 
     return <div className={styles.layout}>
         <ComboBox
+            instanceId={"acceptMethod"}
+            controlled={true}
             items={methods}
             value={methods.find(i => i.value === acceptMethod)}
             onChange={(item) => {

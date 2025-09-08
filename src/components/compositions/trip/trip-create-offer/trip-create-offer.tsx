@@ -163,6 +163,8 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
             <div className={styles.line}>
                 <span>Bus:</span>
                 <ComboBox
+                    instanceId={"bus"}
+                    controlled={true}
                     items={getBusItems()}
                     value={currentBus}
                     onChange={(val) => {

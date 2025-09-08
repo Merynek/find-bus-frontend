@@ -19,6 +19,7 @@ import {Heading} from "@/src/components/components/texts/heading";
 import {FontWeight} from "@/src/components/components/texts/textStyles";
 import {TextBox, TextBoxType} from "@/src/components/components/inputs/text-box/text-box";
 import { CheckBox } from "../../components/inputs/check-box/check-box";
+import {ComboBox, IComboBoxItem} from "@/src/components/components/inputs/combo-box/combo-box";
 
 interface IUserSettingsPageProps {
     settings: UserSettingsResponseDto;
@@ -126,24 +127,29 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
         </>
     }
 
+    const getCountryOptions = (): IComboBoxItem<string>[] => {
+        const options: IComboBoxItem<string>[] = [];
+        Object.values(Country).map((country) => (
+            options.push({
+                value: country,
+                label: country
+            })
+        ))
+        return options;
+    }
+
     const renderAddress = () => {
+        const countryOptions = getCountryOptions();
         return <>
-            <div>
-                <label htmlFor={FormDataEnum.address_country}>Země</label>
-                <select
-                    id={FormDataEnum.address_country}
-                    name={FormDataEnum.address_country}
-                    defaultValue={state?.data?.address?.country}
-                    key={state?.data?.address?.country}
-                >
-                    <option value="">- Vyberte zemi -</option>
-                    {Object.values(Country).map((country) => (
-                        <option key={country} value={country}>
-                            {country}
-                        </option>
-                    ))}
-                </select>
-            </div>
+            <ComboBox
+                controlled={false}
+                items={countryOptions}
+                defaultValue={countryOptions.find(i => i.value === state?.data?.address?.country)}
+                id={FormDataEnum.address_country}
+                name={FormDataEnum.address_country}
+                placeHolder={t("country")}
+                instanceId={"address_country"}
+            />
             <TextBox
                 controlled={false}
                 name={FormDataEnum.address_city}
@@ -180,23 +186,17 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
     }
 
     const renderMailingAddress = () => {
+        const countryOptions = getCountryOptions();
         return <>
-            <div>
-                <label htmlFor={FormDataEnum.mailingAddress_country}>Země</label>
-                <select
-                    id={FormDataEnum.mailingAddress_country}
-                    name={FormDataEnum.mailingAddress_country}
-                    defaultValue={state?.data?.mailingAddress?.country}
-                    key={state?.data?.mailingAddress?.country}
-                >
-                    <option value="">- Vyberte zemi -</option>
-                    {Object.values(Country).map((country) => (
-                        <option key={country} value={country}>
-                            {country}
-                        </option>
-                    ))}
-                </select>
-            </div>
+            <ComboBox
+                controlled={false}
+                items={countryOptions}
+                defaultValue={countryOptions.find(i => i.value === state?.data?.mailingAddress?.country)}
+                id={FormDataEnum.mailingAddress_country}
+                name={FormDataEnum.mailingAddress_country}
+                placeHolder={t("country")}
+                instanceId={"mailingAddress_country"}
+            />
             <TextBox
                 controlled={false}
                 name={FormDataEnum.mailingAddress_city}

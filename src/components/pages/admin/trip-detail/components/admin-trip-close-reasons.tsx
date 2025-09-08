@@ -41,6 +41,8 @@ export const AdminTripCloseReasons = observer((props: IAdminTripCloseReasonsProp
     const options = _createOptions();
 
     return <ComboBox
+        instanceId={"reason"}
+        controlled={true}
         items={options}
         value={options.find(i => i.value === reason)}
         onChange={(item) => {

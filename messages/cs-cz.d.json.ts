@@ -38,6 +38,7 @@ declare const messages: {
       "swift": "SWIFT",
       "concessionNumber": "Koncesialni cislo",
       "companyName": "Nazev firmy",
+      "country": "Země",
       "city": "Mesto",
       "psc": "PSč",
       "street": "Ulice",
