@@ -1,5 +1,5 @@
 import React, {useRef, useState} from "react";
-import {IMapBoxProps, MapBox} from "./map-box";
+import MapBox, {IMapBoxProps} from "./map-box";
 import {GeoPoint} from "@/src/data/geoPoint";
 import {getRandomPlace} from "@/dataGenerator/places/place";
 import {IMapMarker} from "./map-box-types";
