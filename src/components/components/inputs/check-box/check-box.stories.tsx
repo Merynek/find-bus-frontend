@@ -19,7 +19,7 @@ export const Default: StoryObj<typeof CheckBox> = {
         return <CheckBox
             {...args}
             controlled={true}
-            value={value}
+            checked={value}
             onChange={() => {
                 setValue(!value);
             }}

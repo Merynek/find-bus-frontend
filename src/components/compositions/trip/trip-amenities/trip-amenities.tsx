@@ -22,7 +22,7 @@ export const TripAmenities = observer((props: ITripAmenitiesProps) => {
                 controlled={true}
                 key={index}
                 label={t(amenity)}
-                value={trip.amenities.indexOf(amenity) > -1}
+                checked={trip.amenities.indexOf(amenity) > -1}
                 onChange={(val) => {
                     if (val) {
                         trip.amenities.push(amenity);

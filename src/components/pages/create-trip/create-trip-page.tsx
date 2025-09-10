@@ -82,7 +82,7 @@ const CreateTripPage = observer(() => {
         <CheckBox
             controlled={true}
             label={t("dietForTransporter")}
-            value={_store.trip.dietForTransporter}
+            checked={_store.trip.dietForTransporter}
             onChange={(val) => _store.trip.dietForTransporter = val}
         />
         <TripAmenities trip={_store.trip}/>
@@ -138,6 +138,6 @@ const CreateTripPage = observer(() => {
             />
         </div>
     </LayoutFlexColumn>
-});;
+});
 
 export default CreateTripPage;
