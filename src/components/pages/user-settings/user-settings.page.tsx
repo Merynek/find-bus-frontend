@@ -2,7 +2,6 @@
 
 import {useTranslate} from "@/src/hooks/translateHook";
 import React from "react";
-import styles from "./user-settings.page.module.scss";
 import {ButtonClick, ButtonSize, ButtonType} from "../../components/button/button";
 import {Country, NotificationsEnum, UserRole, UserSettingsResponseDto} from "@/src/api/openapi";
 import {LayoutFlexColumn} from "../../components/layout/layout-flex-column/layout-flex-column";

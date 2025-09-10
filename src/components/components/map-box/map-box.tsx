@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from "react";
 import "./map-box-styles.scss";
-import {useChangePropsAfterMount} from "@/src/hooks/lifecycleHooks";
+import {useChangePropsAfterMount, useMount, useUnmount} from "@/src/hooks/lifecycleHooks";
 import mapboxgl, {LngLat, LngLatBoundsLike, LngLatLike, Map} from "mapbox-gl";
 import {GeoPoint} from "@/src/data/geoPoint";
 import {getCountriesBounds, getPointsBounds} from "./tools/map-box-tools";
@@ -75,11 +75,14 @@ const MapBox = (props: IMapBoxProps) => {
         })
     };
 
-    useEffect(() => {
-        if (_loadedRef.current) return; // initialize map only once
+    useMount(() => {
+        if (_loadedRef.current) return;
         initMap();
-        return () => _mapRef.current?.remove();
-    }, []);
+    })
+
+    useUnmount(() => {
+        _mapRef.current?.remove();
+    })
 
     useChangePropsAfterMount(() => {
         if (_mapRef.current && _loadedRef.current) {

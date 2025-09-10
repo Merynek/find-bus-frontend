@@ -35,7 +35,7 @@ export type IComboBoxProps<T> = IControlledComboBoxProps<T> | IUncontrolledCombo
 
 export function getComboBoxStyles<T>(): StylesConfig<IComboBoxItem<T>, false> {
     return {
-        control: (provided, state) => ({
+        control: (provided) => ({
             ...provided,
             border: 'none',
             borderRadius: '0',
@@ -44,11 +44,11 @@ export function getComboBoxStyles<T>(): StylesConfig<IComboBoxItem<T>, false> {
                 padding: "0"
             }
         }),
-        container: (provided, state) => ({
+        container: (provided) => ({
             ...provided,
             width: '100%',
         }),
-        dropdownIndicator: (provided, state) => ({
+        dropdownIndicator: (provided) => ({
             ...provided,
             padding: '0',
         })
@@ -66,7 +66,7 @@ export function ComboBox<T>(props: IComboBoxProps<T>) {
             onChange(newValue as IComboBoxItem<T>);
         }
         setInternalValue(newValue);
-    }, [controlled, props]);
+    }, [controlled, onChange]);
 
     const selectedValue = value !== undefined ? value : internalValue || defaultValue;
 

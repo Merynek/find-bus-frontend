@@ -15,7 +15,7 @@ import {FlexGap} from "@/src/enums/layout.enum";
 export const LocaleSwitcherSelect = () => {
     const locale = useCurrentLocale();
     const router = useRouter();
-    const [isPending, startTransition] = useTransition();
+    const [, startTransition] = useTransition();
     const pathname = usePathname();
     const params = useParams();
 
