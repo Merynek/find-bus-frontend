@@ -1,5 +1,6 @@
-import {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, useState} from "react";
 import Image from "next/image";
+import {ImageElement} from "@/src/components/components/image-element/image-element";
 
 interface ImageUploaderProps {
     label: string;
@@ -25,8 +26,12 @@ export const ImageUploader = (props: ImageUploaderProps) => {
             <label className="block text-sm font-medium text-gray-700">{label}</label>
 
             {preview && (
-                <div className="mt-2">
-                    <Image src={preview} alt="Náhled" className="h-32 w-32 object-cover rounded-md" />
+                <div style={{width: "200px", height: "200px", position: "relative"}}>
+                    <ImageElement
+                        src={preview}
+                        alt={"preview"}
+                        fill={true}
+                    />
                 </div>
             )}
 

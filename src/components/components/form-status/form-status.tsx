@@ -31,7 +31,7 @@ export function FormStatus<T extends z.ZodSchema>({state}: Props<T>) {
         <div className="">
             {message && !Boolean(state?.success) && <p className={"bg-red-100 text-red-700 p-3 mb-2"}>
                 {// @ts-expect-error Expected error bcs of dynamic key
-                    t("schemaErrors" + message)
+                    t("schemaErrors." + message)
                 }
             </p>}
             {appError && !Boolean(state?.success) && <p className={"bg-red-100 text-red-700 p-3 mb-2"}>
@@ -56,7 +56,7 @@ export function FormStatus<T extends z.ZodSchema>({state}: Props<T>) {
                                 if (errorValue?.errors?.length) {
                                     const messages = errorValue.errors.map(err => {
                                         // @ts-expect-error Expected error bcs of dynamic key
-                                        return t(err);
+                                        return t("schemaErrors." + err);
                                     });
                                     return (
                                         <li key={key}>
