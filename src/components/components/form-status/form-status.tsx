@@ -4,6 +4,7 @@ import React, {useEffect, useState} from "react";
 import {TFormActionState} from "@/src/forms/BaseFormAction";
 import {z} from "zod";
 import {useTranslate} from "@/src/hooks/translateHook";
+import {FrontendErrorEnum} from "@/src/enums/frontend-error.enum";
 
 type Props<T extends z.ZodSchema> = {
     state: TFormActionState<T>;
@@ -38,6 +39,7 @@ export function FormStatus<T extends z.ZodSchema>({state}: Props<T>) {
                 {// @ts-expect-error Expected error bcs of dynamic key
                     t("apiErrors." + appError.errorCode)
                 }
+                {appError.errorCode === FrontendErrorEnum.UNKNOWN && <p>{appError.message}</p>}
             </p>}
             {(hasGlobalErrors || hasFieldErrors) && (
                 <div className="bg-red-50 text-red-700 p-4">

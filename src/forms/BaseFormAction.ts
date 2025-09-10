@@ -42,7 +42,8 @@ export abstract class BaseFormAction<Schema extends z.ZodSchema, Data, ApiResult
             if (error instanceof FindBusError) {
                 return {
                     success: false,
-                    appError: error.toJson()
+                    appError: error.toJson(),
+                    data: data as Partial<z.infer<Schema>>
                 };
             }
             return {

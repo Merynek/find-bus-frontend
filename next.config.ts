@@ -4,6 +4,18 @@ import {LOCALES} from "@/src/utils/locale";
 
 const nextConfig: NextConfig = {
     reactStrictMode: true,
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'findbusteststorage.blob.core.windows.net',
+            },
+            {
+                protocol: 'https',
+                hostname: 'findbusprodstorage.blob.core.windows.net',
+            },
+        ],
+    },
     experimental: {
         serverActions: {
             bodySizeLimit: "40mb"
