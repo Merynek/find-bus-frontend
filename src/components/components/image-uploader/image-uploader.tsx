@@ -1,5 +1,4 @@
 import React, {ChangeEvent, useState} from "react";
-import Image from "next/image";
 import {ImageElement} from "@/src/components/components/image-element/image-element";
 
 interface ImageUploaderProps {
