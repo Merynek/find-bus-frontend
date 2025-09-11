@@ -241,7 +241,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                 return <CheckBox
                     controlled={false}
                     name={FormDataEnum.notifications}
-                    id={FormDataEnum.notifications}
+                    id={`${FormDataEnum.notifications}-${option}`}
                     label={option}
                     value={option}
                     defaultChecked={notifications.includes(option)}

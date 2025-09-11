@@ -6,6 +6,7 @@ import {DatePickerSlotProps, DatePicker as NativeDatePicker } from '@mui/x-date-
 import moment from "moment";
 import {LOCALES} from "@/src/utils/locale";
 import {PickerValue} from "@mui/x-date-pickers/internals";
+import {useCallback, useState} from "react";
 
 interface IBaseDatePickerProps {
     minDate?: Date | null;
@@ -22,6 +23,7 @@ interface IControlledProps extends IBaseDatePickerProps {
     controlled: true;
     value?: Date | null;
     onChange: (date: Date|null) => void;
+    defaultValue?: never;
 }
 
 interface IUncontrolledProps extends IBaseDatePickerProps {
@@ -34,7 +36,8 @@ interface IUncontrolledProps extends IBaseDatePickerProps {
 export type IDatePickerProps = IControlledProps | IUncontrolledProps;
 
 export const DatePicker = (props: IDatePickerProps) => {
-    const {value, locale, minDate, disabled, maxDate, onChange, placeholderText, showTimeSelect, controlled, name, id} = props;
+    const {value, locale, minDate, disabled, maxDate, onChange, placeholderText, showTimeSelect, controlled, name, id, defaultValue} = props;
+    const [internalValue, setInternalValue] = useState<Date|null>(null);
 
     const slotProps: DatePickerSlotProps<true> = {
         textField: {
@@ -66,20 +69,23 @@ export const DatePicker = (props: IDatePickerProps) => {
         }
     }
 
-    const valueToUse = controlled ? value : (props.defaultValue ?? null);
+    const handleChange = useCallback((newValue: PickerValue) => {
+        if (controlled) {
+            onChange(newValue ? newValue.toDate() : null);
+        }
+        setInternalValue(newValue ? newValue.toDate() : null);
+    }, [controlled, onChange]);
+
+    const selectedValue = value !== undefined ? value : internalValue || defaultValue;
 
     const pickerProps = {
         minDate: minDate ? moment(minDate) : undefined,
         maxDate: maxDate ? moment(maxDate) : undefined,
-        value: valueToUse ? moment(valueToUse) : undefined,
         disabled: disabled,
         label: placeholderText,
         slotProps: slotProps,
-        onChange: (date: PickerValue) => {
-            if (controlled && onChange) {
-                onChange(date ? date.toDate() : null)
-            }
-        },
+        value: selectedValue ? moment(selectedValue) : undefined,
+        onChange: handleChange,
         id: id,
         name: name
     }

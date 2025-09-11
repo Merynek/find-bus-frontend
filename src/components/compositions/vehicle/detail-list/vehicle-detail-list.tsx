@@ -4,6 +4,7 @@ import {Vehicle} from "@/src/data/users/vehicle";
 import {ImageElement} from "../../../components/image-element/image-element";
 import {LayoutFlexRow} from "../../../components/layout/layout-flex-row/layout-flex-row";
 import {LayoutFlexColumn} from "../../../components/layout/layout-flex-column/layout-flex-column";
+import {FlexGap} from "@/src/enums/layout.enum";
 
 export interface IVehicleDetailListProps {
     vehicle: Vehicle;
@@ -11,6 +12,18 @@ export interface IVehicleDetailListProps {
 
 export const VehicleDetail = (props: IVehicleDetailListProps) => {
     const {vehicle} = props;
+
+    const renderImage = (path: string) => {
+        return <div style={{width: "200px", height: "200px", position: "relative"}}>
+            <div className={styles.photo}>
+                <ImageElement
+                    src={path}
+                    alt={""}
+                    fill={true}
+                />
+            </div>
+        </div>
+    }
 
     return <div className={styles.layout}>
         <LayoutFlexColumn>
@@ -46,96 +59,42 @@ export const VehicleDetail = (props: IVehicleDetailListProps) => {
                     })}</span>
                 </div>
             </LayoutFlexColumn>
-            <LayoutFlexRow>
+            <LayoutFlexRow canWrap={true} gap={FlexGap.SMALL_16}>
                 {vehicle.frontPhoto && <div>
                     <span>Front Photo:</span>
-                    <div className={styles.photo}>
-                        <ImageElement
-                            src={vehicle.frontPhoto.path}
-                            alt={""}
-                            fill={true}
-                        />
-                    </div>
+                    {renderImage(vehicle.frontPhoto.path)}
                 </div>}
                 {vehicle.rearPhoto && <div>
                     <span>Rear Photo:</span>
-                    <div className={styles.photo}>
-                        <ImageElement
-                            src={vehicle.rearPhoto.path}
-                            alt={""}
-                            fill={true}
-                        />
-                    </div>
+                    {renderImage(vehicle.rearPhoto.path)}
                 </div>}
                 {vehicle.leftSidePhoto && <div>
                     <span>Left Photo:</span>
-                    <div className={styles.photo}>
-                        <ImageElement
-                            src={vehicle.leftSidePhoto.path}
-                            alt={""}
-                            fill={true}
-                        />
-                    </div>
+                    {renderImage(vehicle.leftSidePhoto.path)}
                 </div>}
                 {vehicle.rightSidePhoto && <div>
                     <span>Right Photo:</span>
-                    <div className={styles.photo}>
-                        <ImageElement
-                            src={vehicle.rightSidePhoto.path}
-                            alt={""}
-                            fill={true}
-                        />
-                    </div>
+                    {renderImage(vehicle.rightSidePhoto.path)}
                 </div>}
                 {vehicle.interierPhoto1 && <div>
                     <span>Interior Photo 1:</span>
-                    <div className={styles.photo}>
-                        <ImageElement
-                            src={vehicle.interierPhoto1.path}
-                            alt={""}
-                            fill={true}
-                        />
-                    </div>
+                    {renderImage(vehicle.interierPhoto1.path)}
                 </div>}
                 {vehicle.interierPhoto2 && <div>
                     <span>Interior Photo 2:</span>
-                    <div className={styles.photo}>
-                        <ImageElement
-                            src={vehicle.interierPhoto2.path}
-                            alt={""}
-                            fill={true}
-                        />
-                    </div>
+                    {renderImage(vehicle.interierPhoto2.path)}
                 </div>}
                 {vehicle.technicalCertificate1 && <div>
                     <span>Technical Certificate 1:</span>
-                    <div className={styles.photo}>
-                        <ImageElement
-                            src={vehicle.technicalCertificate1.path}
-                            alt={""}
-                            fill={true}
-                        />
-                    </div>
+                    {renderImage(vehicle.technicalCertificate1.path)}
                 </div>}
                 {vehicle.technicalCertificate2 && <div>
                     <span>Technical Certificate 2:</span>
-                    <div className={styles.photo}>
-                        <ImageElement
-                            src={vehicle.technicalCertificate2.path}
-                            alt={""}
-                            fill={true}
-                        />
-                    </div>
+                    {renderImage(vehicle.technicalCertificate2.path)}
                 </div>}
                 {vehicle.insurancePhoto && <div>
                     <span>Insurance:</span>
-                    <div className={styles.photo}>
-                        <ImageElement
-                            src={vehicle.insurancePhoto.path}
-                            alt={""}
-                            fill={true}
-                        />
-                    </div>
+                    {renderImage(vehicle.insurancePhoto.path)}
                 </div>}
             </LayoutFlexRow>
         </LayoutFlexColumn>

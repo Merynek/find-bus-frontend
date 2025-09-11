@@ -18,6 +18,8 @@ import {TextBox, TextBoxType} from "@/src/components/components/inputs/text-box/
 import {NumberBox} from "@/src/components/components/inputs/number-box/number-box";
 import {DatePicker} from "@/src/components/components/inputs/date-picker/date-picker";
 import {ComboBox, IComboBoxItem} from "@/src/components/components/inputs/combo-box/combo-box";
+import {CheckBox} from "@/src/components/components/inputs/check-box/check-box";
+import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 
 export interface IVehicleEditProps {
     store: VehicleEditStore;
@@ -78,19 +80,7 @@ export default function VehicleForm(props: IVehicleEditProps) {
         return options;
     }
 
-    const getAmenitiesOptions = (): IComboBoxItem<string>[] => {
-        const options: IComboBoxItem<string>[] = [];
-        Object.values(Amenities).map((amenity) => (
-            options.push({
-                value: amenity,
-                label: amenity
-            })
-        ))
-        return options;
-    }
-
     const euroStandardOptions = getEuroStandardOptions();
-    const amenitiesOptions = getAmenitiesOptions();
 
     const formattedStkExpired = formatDateToYYYYMMDD(state?.data?.stkExpired);
 
@@ -99,6 +89,26 @@ export default function VehicleForm(props: IVehicleEditProps) {
             onClose?.();
         }
     }, [state, onClose]);
+
+    const renderAmenities = () => {
+        return <LayoutFlexColumn>
+            <Heading text={t("amenities")} fontWeight={FontWeight.SEMIBOLD} headingLevel={4}/>
+            <LayoutFlexRow canWrap={true} gap={FlexGap.SMALL_16}>
+                {Object.values(Amenities).map((amenity, index) => {
+                    const amenities = state?.data?.amenities || [];
+                    return <CheckBox
+                        controlled={false}
+                        key={index}
+                        label={amenity}
+                        value={amenity}
+                        id={`${FormDataEnum.amenities}-${amenity}`}
+                        name={FormDataEnum.amenities}
+                        defaultChecked={amenities.includes(amenity)}
+                    />
+                })}
+            </LayoutFlexRow>
+        </LayoutFlexColumn>
+    }
 
     const renderVehiclePhotos = () => {
         return <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
@@ -256,15 +266,7 @@ export default function VehicleForm(props: IVehicleEditProps) {
                         placeHolder={t("euro")}
                         instanceId={"euro"}
                     />
-                    <ComboBox
-                        controlled={false}
-                        items={amenitiesOptions}
-                        defaultValue={amenitiesOptions.find(i => i.value === state?.data?.euro)}
-                        id={FormDataEnum.amenities}
-                        name={FormDataEnum.amenities}
-                        placeHolder={t("amenities")}
-                        instanceId={"amenities"}
-                    />
+                    {renderAmenities()}
                     <PlaceAutocomplete
                         place={departureStation}
                         onChange={setDepartureStation}
