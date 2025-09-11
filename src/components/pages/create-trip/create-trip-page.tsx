@@ -54,6 +54,7 @@ const CreateTripPage = observer(() => {
             minValue={0}
         />
         <DatePicker
+            controlled={true}
             value={_store.trip.endOrder}
             onChange={(val) => {
                 if (val) {

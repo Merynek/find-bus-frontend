@@ -39,6 +39,7 @@ export const TripRouteCreate = observer((props: ITripRouteCreateProps) => {
                     message={"Wrong date"}
                 >
                     <DatePicker
+                        controlled={true}
                         value={route.start}
                         minDate={route.minDate}
                         onChange={(val) => {

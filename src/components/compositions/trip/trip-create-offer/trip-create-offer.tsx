@@ -89,6 +89,7 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
 
     const _renderDateTimePicker = () => {
         return <DatePicker
+            controlled={true}
             value={selectedEndOfferDate}
             placeholderText={"Change Date"}
             minDate={minDate()}

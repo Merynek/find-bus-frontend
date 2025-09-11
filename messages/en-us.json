@@ -60,6 +60,32 @@
       "removeRoute": "Remove route",
       "addRoute": "Add route",
       "createDemand": "Create demand"
+    },
+    "vehicle": {
+      "vehicleEditHeading": "Edit vehicle",
+      "vehicleAddHeading": "Add vehicle",
+      "name": "Vehicle name",
+      "personsCapacity": "Persons capacity",
+      "handicappedUserCount": "Number of handicapped",
+      "yearOfManufacture": "Year of manufacture",
+      "vin": "VIN",
+      "registrationSign": "Registration sign",
+      "stkExpired": "STK expiration",
+      "euro": "Euro standard",
+      "amenities": "Amenities",
+      "departureStation": "Departure station",
+      "vehiclePhotos": "Vehicle photos",
+      "frontPhoto": "Front photo",
+      "rearPhoto": "Rear photo",
+      "leftSidePhoto": "Left side photo",
+      "rightSidePhoto": "Right side photo",
+      "interierPhoto1": "Interior photo 1",
+      "interierPhoto2": "Interior photo 2",
+      "technicalCertificate1": "Technical certificate 1",
+      "technicalCertificate2": "Technical certificate 2",
+      "insurance": "Insurance",
+      "saveVehicle": "Save vehicle",
+      "addVehicle": "Add vehicle"
     }
   },
   "component":  {

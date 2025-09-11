@@ -63,6 +63,32 @@ declare const messages: {
       "removeRoute": "Odstranit trasu",
       "addRoute": "Přidat trasu",
       "createDemand": "Vytvořit poptávku"
+    },
+    "vehicle": {
+      "vehicleEditHeading": "Upravit vozidlo",
+      "vehicleAddHeading": "Přidat vozidlo",
+      "name": "Název vozidla",
+      "personsCapacity": "Počet osob",
+      "handicappedUserCount": "Počet vozíčkářů",
+      "yearOfManufacture": "Rok výroby",
+      "vin": "VIN",
+      "registrationSign": "SPZ",
+      "stkExpired": "STK expirace",
+      "euro": "Euro norma",
+      "amenities": "Vybavení",
+      "departureStation": "Stanice odjezdu",
+      "vehiclePhotos": "Fotografie vozidla",
+      "frontPhoto": "Přední strana vozidla",
+      "rearPhoto": "Zadní strana vozidla",
+      "leftSidePhoto": "Levá strana vozidla",
+      "rightSidePhoto": "Pravá strana vozidla",
+      "interierPhoto1": "Strana vozidla 1",
+      "interierPhoto2": "Strana vozidla 2",
+      "technicalCertificate1": "Technický certifikát 1",
+      "technicalCertificate2": "Technický certifikát 2",
+      "insurance": "Pojistění vozidla",
+      "saveVehicle": "Uložit vozidlo",
+      "addVehicle": "Přidat vozidlo"
     }
   },
   "component":  {
