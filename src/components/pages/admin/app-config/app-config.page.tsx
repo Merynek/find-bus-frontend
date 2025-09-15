@@ -8,6 +8,11 @@ import {AppBusinessConfigResponseDto} from "@/src/api/openapi";
 import {AppBusinessConfigConverter} from "@/src/converters/admin/app-business-config-converter";
 import {useFormActionState} from "@/src/hooks/formHook";
 import {FormStatus} from "@/src/components/components/form-status/form-status";
+import {NumberBox} from "@/src/components/components/inputs/number-box/number-box";
+import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
+import {Text} from "@/src/components/components/texts/text";
+import {FontSize} from "@/src/components/components/texts/textStyles";
+import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
 
 interface IAppConfigPageProps {
     cfg: AppBusinessConfigResponseDto;
@@ -16,214 +21,292 @@ interface IAppConfigPageProps {
 const AppConfigPage = (props: IAppConfigPageProps) => {
     const cfg = AppBusinessConfigConverter.toInstance(props.cfg);
     const appConfig = AppBusinessConfigConverter.toInstance(cfg);
-    const [state, action, pending] = useFormActionState(appConfigFormAction, undefined)
+    const [state, action, pending] = useFormActionState(appConfigFormAction, {
+        data: {
+            minEndOrderFromNowInHours: appConfig.minEndOrderFromNowInHours,
+            minDateToAcceptOfferInHours: appConfig.minDateToAcceptOfferInHours,
+            minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours: appConfig.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours,
+            minDiffBetweenStartTripAndEndOrderInHours: appConfig.minDiffBetweenStartTripAndEndOrderInHours,
+            payRestOfPriceWarningBeforeStartTripInHours: appConfig.payRestOfPriceWarningBeforeStartTripInHours,
+            payInvoiceWarningAfterAcceptOfferInHours: appConfig.payInvoiceWarningAfterAcceptOfferInHours,
+            tripDepositInPercentage: appConfig.tripDepositInPercentage,
+            tripCancelFeePercentageForDemander: appConfig.tripCancelFeePercentageForDemander,
+            tripCancelFeeAfterLimitPercentageForDemander: appConfig.tripCancelFeeAfterLimitPercentageForDemander,
+            tripOfferCommissionPercentage: appConfig.tripOfferCommissionPercentage,
+            tripCancelPenaltyPercentageForTransporterFromCompany: appConfig.tripCancelPenaltyPercentageForTransporterFromCompany,
+            tripCancelPenaltyMinAmountInCzkForTransporterFromCompany: appConfig.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany,
+            tripCancelPenaltyPercentageForTransporterFromDemander: appConfig.tripCancelPenaltyPercentageForTransporterFromDemander,
+            tripCancelPenaltyMinAmountInCzkForTransporterFromDemander: appConfig.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander,
+            tripCancelPenaltyLimitInDays: appConfig.tripCancelPenaltyLimitInDays,
+            tripCancelPenaltyAfterLimitPercentageForTransporter: appConfig.tripCancelPenaltyAfterLimitPercentageForTransporter
+        }
+    })
 
     return <div className={styles.layout}>
         <form action={action}>
-            <FormStatus state={state} />
+            <FormStatus state={state}/>
             <h2>Create Trip</h2>
             <div className={styles.line}>
-                <div>
-                    <label htmlFor={FormDataEnum.minEndOrderFromNowInHours}>minEndOrderFromNowInHours (Minimální datum
-                        vytvoření aukce od teď (24 hodin))</label>
-                    <input id={FormDataEnum.minEndOrderFromNowInHours} name={FormDataEnum.minEndOrderFromNowInHours}
-                           placeholder="minEndOrderFromNowInHours" type={"number"} defaultValue={appConfig.minEndOrderFromNowInHours}/>
-                </div>
-                {state?.schemaErrors?.properties?.minEndOrderFromNowInHours && <p>{state?.schemaErrors?.properties?.minEndOrderFromNowInHours.errors}</p>}
+                <LayoutFlexRow>
+                    <Text text={"minEndOrderFromNowInHours (Minimální datum vytvoření aukce od teď (24 hodin))"}
+                          fontSize={FontSize.BASE_14}/>
+                    <NumberBox
+                        placeholder={"minEndOrderFromNowInHours"}
+                        controlled={false}
+                        id={FormDataEnum.templateId}
+                        name={FormDataEnum.templateId}
+                        defaultValue={state?.data?.minEndOrderFromNowInHours || 0}
+                        minValue={0}
+                    />
+                </LayoutFlexRow>
             </div>
-
             <div className={styles.line}>
-                <div>
-                    <label htmlFor={FormDataEnum.minDiffBetweenStartTripAndEndOrderInHours}>minDiffBetweenStartTripAndEndOrderInHours
-                        (Minimální rozdíl hodin konce aukce a odjezdem (480 hodin = 20 dní)</label>
-                    <input id={FormDataEnum.minDiffBetweenStartTripAndEndOrderInHours}
-                           name={FormDataEnum.minDiffBetweenStartTripAndEndOrderInHours}
-                           placeholder="minDiffBetweenStartTripAndEndOrderInHours" type={"number"} defaultValue={appConfig.minDiffBetweenStartTripAndEndOrderInHours}/>
-                </div>
-                {state?.schemaErrors?.properties?.minDiffBetweenStartTripAndEndOrderInHours &&
-                    <p>{state?.schemaErrors?.properties?.minDiffBetweenStartTripAndEndOrderInHours.errors}</p>}
+                <LayoutFlexRow>
+                    <Text
+                        text={"minDiffBetweenStartTripAndEndOrderInHours (Minimální rozdíl hodin konce aukce a odjezdem (480 hodin = 20 dní)"}
+                        fontSize={FontSize.BASE_14}/>
+                    <NumberBox
+                        placeholder={"minDiffBetweenStartTripAndEndOrderInHours"}
+                        controlled={false}
+                        id={FormDataEnum.minDiffBetweenStartTripAndEndOrderInHours}
+                        name={FormDataEnum.minDiffBetweenStartTripAndEndOrderInHours}
+                        defaultValue={appConfig.minDiffBetweenStartTripAndEndOrderInHours}
+                        minValue={0}
+                    />
+                </LayoutFlexRow>
             </div>
 
             <h2>Trip Offers</h2>
             <div className={styles.line}>
-                <div>
-                    <label htmlFor={FormDataEnum.minDateToAcceptOfferInHours}>minDateToAcceptOfferInHours (Jak dlouho má
-                        uživatel přijmout nabídku po té co aukce skončila a nic si zatím nevybral (24 hodin))</label>
-                    <input id={FormDataEnum.minDateToAcceptOfferInHours}
-                           name={FormDataEnum.minDateToAcceptOfferInHours}
-                           placeholder="minDateToAcceptOfferInHours" type={"number"} defaultValue={appConfig.minDateToAcceptOfferInHours}/>
-                </div>
-                {state?.schemaErrors?.properties?.minDateToAcceptOfferInHours &&
-                    <p>{state?.schemaErrors?.properties?.minDateToAcceptOfferInHours.errors}</p>}
+                <LayoutFlexRow>
+                    <Text
+                        text={"minDateToAcceptOfferInHours (Jak dlouho má uživatel přijmout nabídku po té co aukce skončila a nic si zatím nevybral (24 hodin))"}
+                        fontSize={FontSize.BASE_14}/>
+                    <NumberBox
+                        placeholder={"minDateToAcceptOfferInHours"}
+                        controlled={false}
+                        id={FormDataEnum.minDateToAcceptOfferInHours}
+                        name={FormDataEnum.minDateToAcceptOfferInHours}
+                        defaultValue={appConfig.minDateToAcceptOfferInHours}
+                        minValue={0}
+                    />
+                </LayoutFlexRow>
             </div>
 
             <div className={styles.line}>
-                <div>
-                    <label htmlFor={FormDataEnum.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours}>minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours
-                        (Minimální rozdíl hodin konce aukce a odjezdem pro zobrazení všech method zaplacení (600 hodin =
-                        25 dní))</label>
-                    <input id={FormDataEnum.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours}
-                           name={FormDataEnum.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours}
-                           placeholder="minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours" type={"number"} defaultValue={appConfig.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours}/>
-                </div>
-                {state?.schemaErrors?.properties?.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours &&
-                    <p>{state?.schemaErrors?.properties?.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours.errors}</p>}
+                <LayoutFlexRow>
+                    <Text
+                        text={"minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours (Minimální rozdíl hodin konce aukce a odjezdem pro zobrazení všech method zaplacení (600 hodin = 25 dní))"}
+                        fontSize={FontSize.BASE_14}/>
+                    <NumberBox
+                        placeholder={"minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours"}
+                        controlled={false}
+                        id={FormDataEnum.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours}
+                        name={FormDataEnum.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours}
+                        defaultValue={appConfig.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours}
+                        minValue={0}
+                    />
+                </LayoutFlexRow>
             </div>
 
             <h2>Notifications</h2>
 
             <div className={styles.line}>
-                <div>
-                    <label htmlFor={FormDataEnum.payRestOfPriceWarningBeforeStartTripInHours}>payRestOfPriceWarningBeforeStartTripInHours
-                        (Pouze pro doplatek 75%) - Kolik hodin před zařátkem tripu máme posilat warning email Doplatek
-                        (480 hodin = 20 dní))</label>
-                    <input id={FormDataEnum.payRestOfPriceWarningBeforeStartTripInHours}
-                           name={FormDataEnum.payRestOfPriceWarningBeforeStartTripInHours}
-                           placeholder="payRestOfPriceWarningBeforeStartTripInHours" type={"number"} defaultValue={appConfig.payRestOfPriceWarningBeforeStartTripInHours}/>
-                </div>
-                {state?.schemaErrors?.properties?.payRestOfPriceWarningBeforeStartTripInHours &&
-                    <p>{state?.schemaErrors?.properties?.payRestOfPriceWarningBeforeStartTripInHours.errors}</p>}
+                <LayoutFlexRow>
+                    <Text
+                        text={"payRestOfPriceWarningBeforeStartTripInHours (Pouze pro doplatek 75%) - Kolik hodin před zařátkem tripu máme posilat warning email Doplatek (480 hodin = 20 dní))"}
+                        fontSize={FontSize.BASE_14}/>
+                    <NumberBox
+                        placeholder={"payRestOfPriceWarningBeforeStartTripInHours"}
+                        controlled={false}
+                        id={FormDataEnum.payRestOfPriceWarningBeforeStartTripInHours}
+                        name={FormDataEnum.payRestOfPriceWarningBeforeStartTripInHours}
+                        defaultValue={appConfig.payRestOfPriceWarningBeforeStartTripInHours}
+                        minValue={0}
+                    />
+                </LayoutFlexRow>
             </div>
 
             <div className={styles.line}>
-                <div>
-                    <label htmlFor={FormDataEnum.payInvoiceWarningAfterAcceptOfferInHours}>payInvoiceWarningAfterAcceptOfferInHours
-                        (Kolik hodin po akceptování nabídky musí prijít varování email (72 hodin = 3 dny))</label>
-                    <input id={FormDataEnum.payInvoiceWarningAfterAcceptOfferInHours}
-                           name={FormDataEnum.payInvoiceWarningAfterAcceptOfferInHours}
-                           placeholder="payInvoiceWarningAfterAcceptOfferInHours" type={"number"} defaultValue={appConfig.payInvoiceWarningAfterAcceptOfferInHours}/>
-                </div>
-                {state?.schemaErrors?.properties?.payInvoiceWarningAfterAcceptOfferInHours &&
-                    <p>{state?.schemaErrors?.properties?.payInvoiceWarningAfterAcceptOfferInHours.errors}</p>}
+                <LayoutFlexRow>
+                    <Text
+                        text={"payInvoiceWarningAfterAcceptOfferInHours (Kolik hodin po akceptování nabídky musí prijít varování email (72 hodin = 3 dny))"}
+                        fontSize={FontSize.BASE_14}/>
+                    <NumberBox
+                        placeholder={"payInvoiceWarningAfterAcceptOfferInHours"}
+                        controlled={false}
+                        id={FormDataEnum.payInvoiceWarningAfterAcceptOfferInHours}
+                        name={FormDataEnum.payInvoiceWarningAfterAcceptOfferInHours}
+                        defaultValue={appConfig.payInvoiceWarningAfterAcceptOfferInHours}
+                        minValue={0}
+                    />
+                </LayoutFlexRow>
             </div>
 
             <h2>Fee & Deposit</h2>
 
             <div className={styles.line}>
-                <div>
-                    <label htmlFor={FormDataEnum.tripDepositInPercentage}>tripDepositInPercentage (Jaká je záloha na
-                        trip (25%)</label>
-                    <input id={FormDataEnum.tripDepositInPercentage}
-                           name={FormDataEnum.tripDepositInPercentage}
-                           placeholder="tripDepositInPercentage" type={"number"} defaultValue={appConfig.tripDepositInPercentage}/>
-                </div>
-                {state?.schemaErrors?.properties?.tripDepositInPercentage &&
-                    <p>{state?.schemaErrors?.properties?.tripDepositInPercentage.errors}</p>}
+                <LayoutFlexRow>
+                    <Text text={"tripDepositInPercentage (Jaká je záloha na trip (25%)"} fontSize={FontSize.BASE_14}/>
+                    <NumberBox
+                        placeholder={"tripDepositInPercentage"}
+                        controlled={false}
+                        id={FormDataEnum.tripDepositInPercentage}
+                        name={FormDataEnum.tripDepositInPercentage}
+                        defaultValue={appConfig.tripDepositInPercentage}
+                        minValue={0}
+                    />
+                </LayoutFlexRow>
             </div>
 
             <div className={styles.line}>
-                <div>
-                    <label htmlFor={FormDataEnum.tripCancelFeePercentageForDemander}>tripCancelFeePercentageForDemander
-                        (Poplatek za ukončení pro demandera (5%)</label>
-                    <input id={FormDataEnum.tripCancelFeePercentageForDemander}
-                           name={FormDataEnum.tripCancelFeePercentageForDemander}
-                           placeholder="tripCancelFeePercentageForDemander" type={"number"} defaultValue={appConfig.tripCancelFeePercentageForDemander}/>
-                </div>
-                {state?.schemaErrors?.properties?.tripCancelFeePercentageForDemander &&
-                    <p>{state?.schemaErrors?.properties?.tripCancelFeePercentageForDemander.errors}</p>}
-            </div>
-
-
-            <div className={styles.line}>
-                <div>
-                    <label htmlFor={FormDataEnum.tripCancelFeeAfterLimitPercentageForDemander}>tripCancelFeeAfterLimitPercentageForDemander
-                        (Poplatek za ukončení po limitu (60%)</label>
-                    <input id={FormDataEnum.tripCancelFeeAfterLimitPercentageForDemander}
-                           name={FormDataEnum.tripCancelFeeAfterLimitPercentageForDemander}
-                           placeholder="tripCancelFeeAfterLimitPercentageForDemander" type={"number"} defaultValue={appConfig.tripCancelFeeAfterLimitPercentageForDemander}/>
-                </div>
-                {state?.schemaErrors?.properties?.tripCancelFeeAfterLimitPercentageForDemander &&
-                    <p>{state?.schemaErrors?.properties?.tripCancelFeeAfterLimitPercentageForDemander.errors}</p>}
-            </div>
-
-            <div className={styles.line}>
-                <div>
-                    <label htmlFor={FormDataEnum.tripOfferCommissionPercentage}>tripOfferCommissionPercentage (Trip
-                        provize (10%)</label>
-                    <input id={FormDataEnum.tripOfferCommissionPercentage}
-                           name={FormDataEnum.tripOfferCommissionPercentage}
-                           placeholder="tripOfferCommissionPercentage" type={"number"} defaultValue={appConfig.tripOfferCommissionPercentage}/>
-                </div>
-                {state?.schemaErrors?.properties?.tripOfferCommissionPercentage &&
-                    <p>{state?.schemaErrors?.properties?.tripOfferCommissionPercentage.errors}</p>}
-            </div>
-
-            <div className={styles.line}>
-                <div>
-                    <label htmlFor={FormDataEnum.tripCancelPenaltyPercentageForTransporterFromCompany}>tripCancelPenaltyPercentageForTransporterFromCompany
-                        (Pokuta za ukončení transporterovi pro firmu (10%)</label>
-                    <input id={FormDataEnum.tripCancelPenaltyPercentageForTransporterFromCompany}
-                           name={FormDataEnum.tripCancelPenaltyPercentageForTransporterFromCompany}
-                           placeholder="tripCancelPenaltyPercentageForTransporterFromCompany" type={"number"} defaultValue={appConfig.tripCancelPenaltyPercentageForTransporterFromCompany}/>
-                </div>
-                {state?.schemaErrors?.properties?.tripCancelPenaltyPercentageForTransporterFromCompany &&
-                    <p>{state?.schemaErrors?.properties?.tripCancelPenaltyPercentageForTransporterFromCompany.errors}</p>}
-            </div>
-
-            <div className={styles.line}>
-                <div>
-                    <label htmlFor={FormDataEnum.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany}>tripCancelPenaltyMinAmountInCzkForTransporterFromCompany
-                        (Minimalni Pokuta za ukončení transporterovi pro firmu (5000 Kč)</label>
-                    <input id={FormDataEnum.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany}
-                           name={FormDataEnum.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany}
-                           placeholder="tripCancelPenaltyMinAmountInCzkForTransporterFromCompany" type={"number"} defaultValue={appConfig.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany}/>
-                </div>
-                {state?.schemaErrors?.properties?.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany &&
-                    <p>{state?.schemaErrors?.properties?.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany.errors}</p>}
-            </div>
-
-            <div className={styles.line}>
-                <div>
-                    <label htmlFor={FormDataEnum.tripCancelPenaltyPercentageForTransporterFromDemander}>tripCancelPenaltyPercentageForTransporterFromDemander
-                        (Pokuta za ukončení transporterovi pro demandera (20%)</label>
-                    <input id={FormDataEnum.tripCancelPenaltyPercentageForTransporterFromDemander}
-                           name={FormDataEnum.tripCancelPenaltyPercentageForTransporterFromDemander}
-                           placeholder="tripCancelPenaltyPercentageForTransporterFromDemander" type={"number"} defaultValue={appConfig.tripCancelPenaltyPercentageForTransporterFromDemander}/>
-                </div>
-                {state?.schemaErrors?.properties?.tripCancelPenaltyPercentageForTransporterFromDemander &&
-                    <p>{state?.schemaErrors?.properties?.tripCancelPenaltyPercentageForTransporterFromDemander.errors}</p>}
-            </div>
-
-            <div className={styles.line}>
-                <div>
-                    <label htmlFor={FormDataEnum.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander}>tripCancelPenaltyMinAmountInCzkForTransporterFromDemander
-                        (Minimalni Pokuta za ukončení transporterovi pro demandera (5000 Kč)</label>
-                    <input id={FormDataEnum.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander}
-                           name={FormDataEnum.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander}
-                           placeholder="tripCancelPenaltyMinAmountInCzkForTransporterFromDemander" type={"number"} defaultValue={appConfig.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander}/>
-                </div>
-                {state?.schemaErrors?.properties?.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander &&
-                    <p>{state?.schemaErrors?.properties?.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander.errors}</p>}
+                <LayoutFlexRow>
+                    <Text text={"tripCancelFeePercentageForDemander (Poplatek za ukončení pro demandera (5%)"}
+                          fontSize={FontSize.BASE_14}/>
+                    <NumberBox
+                        placeholder={"tripCancelFeePercentageForDemander"}
+                        controlled={false}
+                        id={FormDataEnum.tripCancelFeePercentageForDemander}
+                        name={FormDataEnum.tripCancelFeePercentageForDemander}
+                        defaultValue={appConfig.tripCancelFeePercentageForDemander}
+                        minValue={0}
+                    />
+                </LayoutFlexRow>
             </div>
 
 
             <div className={styles.line}>
-                <div>
-                    <label htmlFor={FormDataEnum.tripCancelPenaltyLimitInDays}>tripCancelPenaltyLimitInDays (Od kdy je
-                        vyší pokuta za ukončení před tripem (21 dní)</label>
-                    <input id={FormDataEnum.tripCancelPenaltyLimitInDays}
-                           name={FormDataEnum.tripCancelPenaltyLimitInDays}
-                           placeholder="tripCancelPenaltyLimitInDays" type={"number"} defaultValue={appConfig.tripCancelPenaltyLimitInDays}/>
-                </div>
-                {state?.schemaErrors?.properties?.tripCancelPenaltyLimitInDays &&
-                    <p>{state?.schemaErrors?.properties?.tripCancelPenaltyLimitInDays.errors}</p>}
+                <LayoutFlexRow>
+                    <Text text={"tripCancelFeeAfterLimitPercentageForDemander (Poplatek za ukončení po limitu (60%)"}
+                          fontSize={FontSize.BASE_14}/>
+                    <NumberBox
+                        placeholder={"tripCancelFeeAfterLimitPercentageForDemander"}
+                        controlled={false}
+                        id={FormDataEnum.tripCancelFeeAfterLimitPercentageForDemander}
+                        name={FormDataEnum.tripCancelFeeAfterLimitPercentageForDemander}
+                        defaultValue={appConfig.tripCancelFeeAfterLimitPercentageForDemander}
+                        minValue={0}
+                    />
+                </LayoutFlexRow>
             </div>
 
             <div className={styles.line}>
-                <div>
-                    <label htmlFor={FormDataEnum.tripCancelPenaltyAfterLimitPercentageForTransporter}>tripCancelPenaltyAfterLimitPercentageForTransporter
-                        (Pokuta za ukončení tripu pro transportera po limitu (30 %)</label>
-                    <input id={FormDataEnum.tripCancelPenaltyAfterLimitPercentageForTransporter}
-                           name={FormDataEnum.tripCancelPenaltyAfterLimitPercentageForTransporter}
-                           placeholder="tripCancelPenaltyAfterLimitPercentageForTransporter" type={"number"} defaultValue={appConfig.tripCancelPenaltyAfterLimitPercentageForTransporter}/>
-                </div>
-                {state?.schemaErrors?.properties?.tripCancelPenaltyAfterLimitPercentageForTransporter &&
-                    <p>{state?.schemaErrors?.properties?.tripCancelPenaltyAfterLimitPercentageForTransporter.errors}</p>}
+                <LayoutFlexRow>
+                    <Text text={"tripOfferCommissionPercentage (Trip provize (10%)"} fontSize={FontSize.BASE_14}/>
+                    <NumberBox
+                        placeholder={"tripOfferCommissionPercentage"}
+                        controlled={false}
+                        id={FormDataEnum.tripOfferCommissionPercentage}
+                        name={FormDataEnum.tripOfferCommissionPercentage}
+                        defaultValue={appConfig.tripOfferCommissionPercentage}
+                        minValue={0}
+                    />
+                </LayoutFlexRow>
             </div>
 
-            <button disabled={pending} type="submit">
-                Change
-            </button>
+            <div className={styles.line}>
+                <LayoutFlexRow>
+                    <Text
+                        text={"tripCancelPenaltyPercentageForTransporterFromCompany (Pokuta za ukončení transporterovi pro firmu (10%)"}
+                        fontSize={FontSize.BASE_14}/>
+                    <NumberBox
+                        placeholder={"tripCancelPenaltyPercentageForTransporterFromCompany"}
+                        controlled={false}
+                        id={FormDataEnum.tripCancelPenaltyPercentageForTransporterFromCompany}
+                        name={FormDataEnum.tripCancelPenaltyPercentageForTransporterFromCompany}
+                        defaultValue={appConfig.tripCancelPenaltyPercentageForTransporterFromCompany}
+                        minValue={0}
+                    />
+                </LayoutFlexRow>
+            </div>
+
+            <div className={styles.line}>
+                <LayoutFlexRow>
+                    <Text
+                        text={"tripCancelPenaltyMinAmountInCzkForTransporterFromCompany (Minimalni Pokuta za ukončení transporterovi pro firmu (5000 Kč)"}
+                        fontSize={FontSize.BASE_14}/>
+                    <NumberBox
+                        placeholder={"tripCancelPenaltyMinAmountInCzkForTransporterFromCompany"}
+                        controlled={false}
+                        id={FormDataEnum.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany}
+                        name={FormDataEnum.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany}
+                        defaultValue={appConfig.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany}
+                        minValue={0}
+                    />
+                </LayoutFlexRow>
+            </div>
+
+            <div className={styles.line}>
+                <LayoutFlexRow>
+                    <Text
+                        text={"tripCancelPenaltyPercentageForTransporterFromDemander (Pokuta za ukončení transporterovi pro demandera (20%)"}
+                        fontSize={FontSize.BASE_14}/>
+                    <NumberBox
+                        placeholder={"tripCancelPenaltyPercentageForTransporterFromDemander"}
+                        controlled={false}
+                        id={FormDataEnum.tripCancelPenaltyPercentageForTransporterFromDemander}
+                        name={FormDataEnum.tripCancelPenaltyPercentageForTransporterFromDemander}
+                        defaultValue={appConfig.tripCancelPenaltyPercentageForTransporterFromDemander}
+                        minValue={0}
+                    />
+                </LayoutFlexRow>
+            </div>
+
+            <div className={styles.line}>
+                <LayoutFlexRow>
+                    <Text
+                        text={"tripCancelPenaltyMinAmountInCzkForTransporterFromDemander (Minimalni Pokuta za ukončení transporterovi pro demandera (5000 Kč)"}
+                        fontSize={FontSize.BASE_14}/>
+                    <NumberBox
+                        placeholder={"tripCancelPenaltyMinAmountInCzkForTransporterFromDemander"}
+                        controlled={false}
+                        id={FormDataEnum.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander}
+                        name={FormDataEnum.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander}
+                        defaultValue={appConfig.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander}
+                        minValue={0}
+                    />
+                </LayoutFlexRow>
+            </div>
+
+
+            <div className={styles.line}>
+                <LayoutFlexRow>
+                    <Text text={"tripCancelPenaltyLimitInDays (Od kdy je vyší pokuta za ukončení před tripem (21 dní)"}
+                          fontSize={FontSize.BASE_14}/>
+                    <NumberBox
+                        placeholder={"tripCancelPenaltyLimitInDays"}
+                        controlled={false}
+                        id={FormDataEnum.tripCancelPenaltyLimitInDays}
+                        name={FormDataEnum.tripCancelPenaltyLimitInDays}
+                        defaultValue={appConfig.tripCancelPenaltyLimitInDays}
+                        minValue={0}
+                    />
+                </LayoutFlexRow>
+            </div>
+
+            <div className={styles.line}>
+                <LayoutFlexRow>
+                    <Text
+                        text={"tripCancelPenaltyAfterLimitPercentageForTransporter (Pokuta za ukončení tripu pro transportera po limitu (30 %)"}
+                        fontSize={FontSize.BASE_14}/>
+                    <NumberBox
+                        placeholder={"tripCancelPenaltyAfterLimitPercentageForTransporter"}
+                        controlled={false}
+                        id={FormDataEnum.tripCancelPenaltyAfterLimitPercentageForTransporter}
+                        name={FormDataEnum.tripCancelPenaltyAfterLimitPercentageForTransporter}
+                        defaultValue={appConfig.tripCancelPenaltyAfterLimitPercentageForTransporter}
+                        minValue={0}
+                    />
+                </LayoutFlexRow>
+            </div>
+
+            <ButtonClick
+                controlled={false}
+                size={ButtonSize.BUTTON_SIZE_M}
+                type={ButtonType.BLACK}
+                isDisabled={pending}
+                label={"Change"}
+            />
         </form>
     </div>
 };

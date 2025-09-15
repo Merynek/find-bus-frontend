@@ -9,6 +9,8 @@ import type {EmailTemplateResponseDto} from "@/src/api/openapi";
 import {EmailTemplateConverter} from "@/src/converters/admin/email-template-converter";
 import {FormStatus} from "@/src/components/components/form-status/form-status";
 import {useFormActionState} from "@/src/hooks/formHook";
+import {NumberBox} from "@/src/components/components/inputs/number-box/number-box";
+import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
 
 export interface IEmailConfigItemProps {
     tmp: EmailTemplateResponseDto;
@@ -47,14 +49,21 @@ export const EmailConfigItem = (props: IEmailConfigItemProps) => {
                             <span>{localization.language}</span>
                         </div>
                         <div className={styles.templateId}>
-                            <span>Id template:</span>
-                            <div>
-                                <label htmlFor={FormDataEnum.templateId}>Id template:</label>
-                                <input id={FormDataEnum.templateId} name={FormDataEnum.templateId} type={"number"} defaultValue={localization.templateId}/>
-                            </div>
-                            <button disabled={pending} type="submit">
-                                Change
-                            </button>
+                            <NumberBox
+                                placeholder={"Id template:"}
+                                controlled={false}
+                                id={FormDataEnum.templateId}
+                                name={FormDataEnum.templateId}
+                                defaultValue={localization.templateId || 0}
+                                minValue={0}
+                            />
+                            <ButtonClick
+                                controlled={false}
+                                size={ButtonSize.BUTTON_SIZE_M}
+                                type={ButtonType.BLACK}
+                                isDisabled={pending}
+                                label={"Change"}
+                            />
                         </div>
                     </form>
                 </React.Fragment>

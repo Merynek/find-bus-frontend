@@ -46,7 +46,7 @@ export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
 
     const _actionsForTransporter = () => {
         return trip && <div>
-            {trip.offerHasEnded ? <TripOfferResult trip={trip} offers={offers} />: <div>
+            {trip.offerHasEnded ? <TripOfferResult trip={trip} offers={offers} /> : <div>
                 <h2>Make offer: </h2>
                 <TripCreateOffer
                     trip={trip}
