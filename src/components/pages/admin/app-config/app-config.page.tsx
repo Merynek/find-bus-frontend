@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import styles from "./app-config.page.module.scss";
 import {appConfigFormAction} from "@/src/app/actions/forms/admin/appConfig/appConfigFormAction";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {AppBusinessConfigResponseDto} from "@/src/api/openapi";
@@ -13,6 +12,8 @@ import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/
 import {Text} from "@/src/components/components/texts/text";
 import {FontSize} from "@/src/components/components/texts/textStyles";
 import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
+import {FlexGap} from "@/src/enums/layout.enum";
+import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 
 interface IAppConfigPageProps {
     cfg: AppBusinessConfigResponseDto;
@@ -42,263 +43,191 @@ const AppConfigPage = (props: IAppConfigPageProps) => {
         }
     })
 
-    return <div className={styles.layout}>
+    return <LayoutFlexColumn>
         <form action={action}>
             <FormStatus state={state}/>
             <h2>Create Trip</h2>
-            <div className={styles.line}>
-                <LayoutFlexRow>
-                    <Text text={"minEndOrderFromNowInHours (Minimální datum vytvoření aukce od teď (24 hodin))"}
-                          fontSize={FontSize.BASE_14}/>
-                    <NumberBox
+            <LayoutFlexColumn gap={FlexGap.SMALL_16}>
+                <AppConfigItem
+                    text={"minEndOrderFromNowInHours (Minimální datum vytvoření aukce od teď (24 hodin))"}
+                    node={<NumberBox
                         placeholder={"minEndOrderFromNowInHours"}
                         controlled={false}
                         id={FormDataEnum.templateId}
                         name={FormDataEnum.templateId}
                         defaultValue={state?.data?.minEndOrderFromNowInHours || 0}
                         minValue={0}
-                    />
-                </LayoutFlexRow>
-            </div>
-            <div className={styles.line}>
-                <LayoutFlexRow>
-                    <Text
-                        text={"minDiffBetweenStartTripAndEndOrderInHours (Minimální rozdíl hodin konce aukce a odjezdem (480 hodin = 20 dní)"}
-                        fontSize={FontSize.BASE_14}/>
-                    <NumberBox
+                    />}
+                />
+                <AppConfigItem
+                    text={"minDiffBetweenStartTripAndEndOrderInHours (Minimální rozdíl hodin konce aukce a odjezdem (480 hodin = 20 dní)"}
+                    node={<NumberBox
                         placeholder={"minDiffBetweenStartTripAndEndOrderInHours"}
                         controlled={false}
                         id={FormDataEnum.minDiffBetweenStartTripAndEndOrderInHours}
                         name={FormDataEnum.minDiffBetweenStartTripAndEndOrderInHours}
-                        defaultValue={appConfig.minDiffBetweenStartTripAndEndOrderInHours}
+                        defaultValue={state?.data?.minDiffBetweenStartTripAndEndOrderInHours || 0}
                         minValue={0}
-                    />
-                </LayoutFlexRow>
-            </div>
-
-            <h2>Trip Offers</h2>
-            <div className={styles.line}>
-                <LayoutFlexRow>
-                    <Text
-                        text={"minDateToAcceptOfferInHours (Jak dlouho má uživatel přijmout nabídku po té co aukce skončila a nic si zatím nevybral (24 hodin))"}
-                        fontSize={FontSize.BASE_14}/>
-                    <NumberBox
+                    />}
+                />
+                <h2>Trip Offers</h2>
+                <AppConfigItem
+                    text={"minDateToAcceptOfferInHours (Jak dlouho má uživatel přijmout nabídku po té co aukce skončila a nic si zatím nevybral (24 hodin))"}
+                    node={<NumberBox
                         placeholder={"minDateToAcceptOfferInHours"}
                         controlled={false}
                         id={FormDataEnum.minDateToAcceptOfferInHours}
                         name={FormDataEnum.minDateToAcceptOfferInHours}
-                        defaultValue={appConfig.minDateToAcceptOfferInHours}
+                        defaultValue={state?.data?.minDateToAcceptOfferInHours || 0}
                         minValue={0}
-                    />
-                </LayoutFlexRow>
-            </div>
-
-            <div className={styles.line}>
-                <LayoutFlexRow>
-                    <Text
-                        text={"minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours (Minimální rozdíl hodin konce aukce a odjezdem pro zobrazení všech method zaplacení (600 hodin = 25 dní))"}
-                        fontSize={FontSize.BASE_14}/>
-                    <NumberBox
+                    />}
+                />
+                <AppConfigItem
+                    text={"minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours (Minimální rozdíl hodin konce aukce a odjezdem pro zobrazení všech method zaplacení (600 hodin = 25 dní))"}
+                    node={<NumberBox
                         placeholder={"minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours"}
                         controlled={false}
                         id={FormDataEnum.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours}
                         name={FormDataEnum.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours}
-                        defaultValue={appConfig.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours}
+                        defaultValue={state?.data?.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours || 0}
                         minValue={0}
-                    />
-                </LayoutFlexRow>
-            </div>
-
-            <h2>Notifications</h2>
-
-            <div className={styles.line}>
-                <LayoutFlexRow>
-                    <Text
-                        text={"payRestOfPriceWarningBeforeStartTripInHours (Pouze pro doplatek 75%) - Kolik hodin před zařátkem tripu máme posilat warning email Doplatek (480 hodin = 20 dní))"}
-                        fontSize={FontSize.BASE_14}/>
-                    <NumberBox
+                    />}
+                />
+                <h2>Notifications</h2>
+                <AppConfigItem
+                    text={"payRestOfPriceWarningBeforeStartTripInHours (Pouze pro doplatek 75%) - Kolik hodin před zařátkem tripu máme posilat warning email Doplatek (480 hodin = 20 dní))"}
+                    node={<NumberBox
                         placeholder={"payRestOfPriceWarningBeforeStartTripInHours"}
                         controlled={false}
                         id={FormDataEnum.payRestOfPriceWarningBeforeStartTripInHours}
                         name={FormDataEnum.payRestOfPriceWarningBeforeStartTripInHours}
-                        defaultValue={appConfig.payRestOfPriceWarningBeforeStartTripInHours}
+                        defaultValue={state?.data?.payRestOfPriceWarningBeforeStartTripInHours || 0}
                         minValue={0}
-                    />
-                </LayoutFlexRow>
-            </div>
-
-            <div className={styles.line}>
-                <LayoutFlexRow>
-                    <Text
-                        text={"payInvoiceWarningAfterAcceptOfferInHours (Kolik hodin po akceptování nabídky musí prijít varování email (72 hodin = 3 dny))"}
-                        fontSize={FontSize.BASE_14}/>
-                    <NumberBox
+                    />}
+                />
+                <AppConfigItem
+                    text={"payInvoiceWarningAfterAcceptOfferInHours (Kolik hodin po akceptování nabídky musí prijít varování email (72 hodin = 3 dny))"}
+                    node={<NumberBox
                         placeholder={"payInvoiceWarningAfterAcceptOfferInHours"}
                         controlled={false}
                         id={FormDataEnum.payInvoiceWarningAfterAcceptOfferInHours}
                         name={FormDataEnum.payInvoiceWarningAfterAcceptOfferInHours}
-                        defaultValue={appConfig.payInvoiceWarningAfterAcceptOfferInHours}
+                        defaultValue={state?.data?.payInvoiceWarningAfterAcceptOfferInHours || 0}
                         minValue={0}
-                    />
-                </LayoutFlexRow>
-            </div>
-
-            <h2>Fee & Deposit</h2>
-
-            <div className={styles.line}>
-                <LayoutFlexRow>
-                    <Text text={"tripDepositInPercentage (Jaká je záloha na trip (25%)"} fontSize={FontSize.BASE_14}/>
-                    <NumberBox
+                    />}
+                />
+                <h2>Fee & Deposit</h2>
+                <AppConfigItem
+                    text={"tripDepositInPercentage (Jaká je záloha na trip (25%)"}
+                    node={<NumberBox
                         placeholder={"tripDepositInPercentage"}
                         controlled={false}
                         id={FormDataEnum.tripDepositInPercentage}
                         name={FormDataEnum.tripDepositInPercentage}
-                        defaultValue={appConfig.tripDepositInPercentage}
+                        defaultValue={state?.data?.tripDepositInPercentage || 0}
                         minValue={0}
-                    />
-                </LayoutFlexRow>
-            </div>
-
-            <div className={styles.line}>
-                <LayoutFlexRow>
-                    <Text text={"tripCancelFeePercentageForDemander (Poplatek za ukončení pro demandera (5%)"}
-                          fontSize={FontSize.BASE_14}/>
-                    <NumberBox
+                    />}
+                />
+                <AppConfigItem
+                    text={"tripCancelFeePercentageForDemander (Poplatek za ukončení pro demandera (5%)"}
+                    node={<NumberBox
                         placeholder={"tripCancelFeePercentageForDemander"}
                         controlled={false}
                         id={FormDataEnum.tripCancelFeePercentageForDemander}
                         name={FormDataEnum.tripCancelFeePercentageForDemander}
-                        defaultValue={appConfig.tripCancelFeePercentageForDemander}
+                        defaultValue={state?.data?.tripCancelFeePercentageForDemander || 0}
                         minValue={0}
-                    />
-                </LayoutFlexRow>
-            </div>
-
-
-            <div className={styles.line}>
-                <LayoutFlexRow>
-                    <Text text={"tripCancelFeeAfterLimitPercentageForDemander (Poplatek za ukončení po limitu (60%)"}
-                          fontSize={FontSize.BASE_14}/>
-                    <NumberBox
+                    />}
+                />
+                <AppConfigItem
+                    text={"tripCancelFeeAfterLimitPercentageForDemander (Poplatek za ukončení po limitu (60%)"}
+                    node={<NumberBox
                         placeholder={"tripCancelFeeAfterLimitPercentageForDemander"}
                         controlled={false}
                         id={FormDataEnum.tripCancelFeeAfterLimitPercentageForDemander}
                         name={FormDataEnum.tripCancelFeeAfterLimitPercentageForDemander}
-                        defaultValue={appConfig.tripCancelFeeAfterLimitPercentageForDemander}
+                        defaultValue={state?.data?.tripCancelFeeAfterLimitPercentageForDemander || 0}
                         minValue={0}
-                    />
-                </LayoutFlexRow>
-            </div>
-
-            <div className={styles.line}>
-                <LayoutFlexRow>
-                    <Text text={"tripOfferCommissionPercentage (Trip provize (10%)"} fontSize={FontSize.BASE_14}/>
-                    <NumberBox
+                    />}
+                />
+                <AppConfigItem
+                    text={"tripOfferCommissionPercentage (Trip provize (10%)"}
+                    node={<NumberBox
                         placeholder={"tripOfferCommissionPercentage"}
                         controlled={false}
                         id={FormDataEnum.tripOfferCommissionPercentage}
                         name={FormDataEnum.tripOfferCommissionPercentage}
-                        defaultValue={appConfig.tripOfferCommissionPercentage}
+                        defaultValue={state?.data?.tripOfferCommissionPercentage || 0}
                         minValue={0}
-                    />
-                </LayoutFlexRow>
-            </div>
-
-            <div className={styles.line}>
-                <LayoutFlexRow>
-                    <Text
-                        text={"tripCancelPenaltyPercentageForTransporterFromCompany (Pokuta za ukončení transporterovi pro firmu (10%)"}
-                        fontSize={FontSize.BASE_14}/>
-                    <NumberBox
+                    />}
+                />
+                <AppConfigItem
+                    text={"tripCancelPenaltyPercentageForTransporterFromCompany (Pokuta za ukončení transporterovi pro firmu (10%)"}
+                    node={<NumberBox
                         placeholder={"tripCancelPenaltyPercentageForTransporterFromCompany"}
                         controlled={false}
                         id={FormDataEnum.tripCancelPenaltyPercentageForTransporterFromCompany}
                         name={FormDataEnum.tripCancelPenaltyPercentageForTransporterFromCompany}
-                        defaultValue={appConfig.tripCancelPenaltyPercentageForTransporterFromCompany}
+                        defaultValue={state?.data?.tripCancelPenaltyPercentageForTransporterFromCompany || 0}
                         minValue={0}
-                    />
-                </LayoutFlexRow>
-            </div>
-
-            <div className={styles.line}>
-                <LayoutFlexRow>
-                    <Text
-                        text={"tripCancelPenaltyMinAmountInCzkForTransporterFromCompany (Minimalni Pokuta za ukončení transporterovi pro firmu (5000 Kč)"}
-                        fontSize={FontSize.BASE_14}/>
-                    <NumberBox
+                    />}
+                />
+                <AppConfigItem
+                    text={"tripCancelPenaltyMinAmountInCzkForTransporterFromCompany (Minimalni Pokuta za ukončení transporterovi pro firmu (5000 Kč)"}
+                    node={<NumberBox
                         placeholder={"tripCancelPenaltyMinAmountInCzkForTransporterFromCompany"}
                         controlled={false}
                         id={FormDataEnum.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany}
                         name={FormDataEnum.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany}
-                        defaultValue={appConfig.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany}
+                        defaultValue={state?.data?.tripCancelPenaltyMinAmountInCzkForTransporterFromCompany || 0}
                         minValue={0}
-                    />
-                </LayoutFlexRow>
-            </div>
-
-            <div className={styles.line}>
-                <LayoutFlexRow>
-                    <Text
-                        text={"tripCancelPenaltyPercentageForTransporterFromDemander (Pokuta za ukončení transporterovi pro demandera (20%)"}
-                        fontSize={FontSize.BASE_14}/>
-                    <NumberBox
+                    />}
+                />
+                <AppConfigItem
+                    text={"tripCancelPenaltyPercentageForTransporterFromDemander (Pokuta za ukončení transporterovi pro demandera (20%)"}
+                    node={<NumberBox
                         placeholder={"tripCancelPenaltyPercentageForTransporterFromDemander"}
                         controlled={false}
                         id={FormDataEnum.tripCancelPenaltyPercentageForTransporterFromDemander}
                         name={FormDataEnum.tripCancelPenaltyPercentageForTransporterFromDemander}
-                        defaultValue={appConfig.tripCancelPenaltyPercentageForTransporterFromDemander}
+                        defaultValue={state?.data?.tripCancelPenaltyPercentageForTransporterFromDemander || 0}
                         minValue={0}
-                    />
-                </LayoutFlexRow>
-            </div>
-
-            <div className={styles.line}>
-                <LayoutFlexRow>
-                    <Text
-                        text={"tripCancelPenaltyMinAmountInCzkForTransporterFromDemander (Minimalni Pokuta za ukončení transporterovi pro demandera (5000 Kč)"}
-                        fontSize={FontSize.BASE_14}/>
-                    <NumberBox
+                    />}
+                />
+                <AppConfigItem
+                    text={"tripCancelPenaltyMinAmountInCzkForTransporterFromDemander (Minimalni Pokuta za ukončení transporterovi pro demandera (5000 Kč)"}
+                    node={<NumberBox
                         placeholder={"tripCancelPenaltyMinAmountInCzkForTransporterFromDemander"}
                         controlled={false}
                         id={FormDataEnum.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander}
                         name={FormDataEnum.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander}
-                        defaultValue={appConfig.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander}
+                        defaultValue={state?.data?.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander || 0}
                         minValue={0}
-                    />
-                </LayoutFlexRow>
-            </div>
-
-
-            <div className={styles.line}>
-                <LayoutFlexRow>
-                    <Text text={"tripCancelPenaltyLimitInDays (Od kdy je vyší pokuta za ukončení před tripem (21 dní)"}
-                          fontSize={FontSize.BASE_14}/>
-                    <NumberBox
+                    />}
+                />
+                <AppConfigItem
+                    text={"tripCancelPenaltyLimitInDays (Od kdy je vyší pokuta za ukončení před tripem (21 dní)"}
+                    node={<NumberBox
                         placeholder={"tripCancelPenaltyLimitInDays"}
                         controlled={false}
                         id={FormDataEnum.tripCancelPenaltyLimitInDays}
                         name={FormDataEnum.tripCancelPenaltyLimitInDays}
-                        defaultValue={appConfig.tripCancelPenaltyLimitInDays}
+                        defaultValue={state?.data?.tripCancelPenaltyLimitInDays || 0}
                         minValue={0}
-                    />
-                </LayoutFlexRow>
-            </div>
-
-            <div className={styles.line}>
-                <LayoutFlexRow>
-                    <Text
-                        text={"tripCancelPenaltyAfterLimitPercentageForTransporter (Pokuta za ukončení tripu pro transportera po limitu (30 %)"}
-                        fontSize={FontSize.BASE_14}/>
-                    <NumberBox
+                    />}
+                />
+                <AppConfigItem
+                    text={"tripCancelPenaltyAfterLimitPercentageForTransporter (Pokuta za ukončení tripu pro transportera po limitu (30 %)"}
+                    node={<NumberBox
                         placeholder={"tripCancelPenaltyAfterLimitPercentageForTransporter"}
                         controlled={false}
                         id={FormDataEnum.tripCancelPenaltyAfterLimitPercentageForTransporter}
                         name={FormDataEnum.tripCancelPenaltyAfterLimitPercentageForTransporter}
-                        defaultValue={appConfig.tripCancelPenaltyAfterLimitPercentageForTransporter}
+                        defaultValue={state?.data?.tripCancelPenaltyAfterLimitPercentageForTransporter || 0}
                         minValue={0}
-                    />
-                </LayoutFlexRow>
-            </div>
+                    />}
+                />
+            </LayoutFlexColumn>
 
             <ButtonClick
                 controlled={false}
@@ -308,7 +237,23 @@ const AppConfigPage = (props: IAppConfigPageProps) => {
                 label={"Change"}
             />
         </form>
-    </div>
+    </LayoutFlexColumn>
 };
 
 export default AppConfigPage;
+
+interface IAppConfigItemProps {
+    text: string;
+    node: React.ReactNode;
+}
+
+export const AppConfigItem = (props: IAppConfigItemProps) => {
+    const {text, node} = props;
+    return <LayoutFlexRow gap={FlexGap.SMALL_16}>
+        <Text
+            text={text}
+            fontSize={FontSize.BASE_14}
+        />
+        {node}
+    </LayoutFlexRow>
+}
