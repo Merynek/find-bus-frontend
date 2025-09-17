@@ -20,13 +20,13 @@ import {
     EmailTypeToJSON,
     EmailTypeToJSONTyped,
 } from './EmailType';
-import type { Language } from './Language';
+import type { Languages } from './Languages';
 import {
-    LanguageFromJSON,
-    LanguageFromJSONTyped,
-    LanguageToJSON,
-    LanguageToJSONTyped,
-} from './Language';
+    LanguagesFromJSON,
+    LanguagesFromJSONTyped,
+    LanguagesToJSON,
+    LanguagesToJSONTyped,
+} from './Languages';
 
 /**
  * 
@@ -42,10 +42,10 @@ export interface UpdateEmailConfig {
     type: EmailType;
     /**
      * 
-     * @type {Language}
+     * @type {Languages}
      * @memberof UpdateEmailConfig
      */
-    language: Language;
+    language: Languages;
     /**
      * 
      * @type {number}
@@ -77,7 +77,7 @@ export function UpdateEmailConfigFromJSONTyped(json: any, ignoreDiscriminator: b
     return {
         
         'type': EmailTypeFromJSON(json['type']),
-        'language': LanguageFromJSON(json['language']),
+        'language': LanguagesFromJSON(json['language']),
         'templateId': json['templateId'],
     };
 }
@@ -94,7 +94,7 @@ export function UpdateEmailConfigToJSONTyped(value?: UpdateEmailConfig | null, i
     return {
         
         'type': EmailTypeToJSON(value['type']),
-        'language': LanguageToJSON(value['language']),
+        'language': LanguagesToJSON(value['language']),
         'templateId': value['templateId'],
     };
 }

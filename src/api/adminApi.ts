@@ -5,13 +5,13 @@ import {
     AppBusinessConfigResponseDto,
     type EmailConfigResponseDto,
     EmailType,
-    Language,
+    Languages,
     UpdateAppBusinessConfigRequestDto
 } from "./openapi";
 
 export interface ISetEmailConfigRequest extends IApiRequest {
     type: EmailType;
-    language: Language;
+    language: Languages;
     templateId: number;
 }
 

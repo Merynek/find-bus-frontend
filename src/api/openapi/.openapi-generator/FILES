@@ -42,7 +42,7 @@ models/FinancialDocumentType.ts
 models/FinishTripRequestDto.ts
 models/ForgetPasswordRequestDto.ts
 models/GeoPoint.ts
-models/Language.ts
+models/Languages.ts
 models/LoginRequestDto.ts
 models/LoginResponseDto.ts
 models/NotificationsEnum.ts

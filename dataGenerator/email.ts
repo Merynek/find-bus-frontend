@@ -1,7 +1,7 @@
-import {EmailConfig, EmailConfigLocalization, EmailTemplate} from "../src/data/emailConfig";
+import {EmailConfig, EmailConfigLocalization, EmailTemplate} from "@/src/data/emailConfig";
 import {getRandomEnum, getRandomId} from "./tools";
-import {EmailType, Language} from "../src/api/openapi";
-import {getRandomNumber} from "../src/utils/common";
+import {EmailType, Languages} from "@/src/api/openapi";
+import {getRandomNumber} from "@/src/utils/common";
 
 export function getRandomEmailConfig(): EmailConfig {
     const templates: EmailTemplate[] = [];
@@ -25,7 +25,7 @@ export function getRandomEmailTemplate(): EmailTemplate {
 
 export function getRandomEmailLocalizationConfig(): EmailConfigLocalization {
     return new EmailConfigLocalization({
-        language: getRandomEnum(Language),
+        language: getRandomEnum(Languages),
         templateId: getRandomId()
     })
 }

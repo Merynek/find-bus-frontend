@@ -13,13 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
-import type { Language } from './Language';
+import type { Languages } from './Languages';
 import {
-    LanguageFromJSON,
-    LanguageFromJSONTyped,
-    LanguageToJSON,
-    LanguageToJSONTyped,
-} from './Language';
+    LanguagesFromJSON,
+    LanguagesFromJSONTyped,
+    LanguagesToJSON,
+    LanguagesToJSONTyped,
+} from './Languages';
 
 /**
  * 
@@ -29,10 +29,10 @@ import {
 export interface EmailConfigLocalizationResponseDto {
     /**
      * 
-     * @type {Language}
+     * @type {Languages}
      * @memberof EmailConfigLocalizationResponseDto
      */
-    language: Language;
+    language: Languages;
     /**
      * 
      * @type {number}
@@ -62,7 +62,7 @@ export function EmailConfigLocalizationResponseDtoFromJSONTyped(json: any, ignor
     }
     return {
         
-        'language': LanguageFromJSON(json['language']),
+        'language': LanguagesFromJSON(json['language']),
         'templateId': json['templateId'],
     };
 }
@@ -78,7 +78,7 @@ export function EmailConfigLocalizationResponseDtoToJSONTyped(value?: EmailConfi
 
     return {
         
-        'language': LanguageToJSON(value['language']),
+        'language': LanguagesToJSON(value['language']),
         'templateId': value['templateId'],
     };
 }

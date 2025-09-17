@@ -1,3 +1,5 @@
+/* tslint:disable */
+/* eslint-disable */
 export * from './AcceptOfferRequestDto';
 export * from './AccessTokenDto';
 export * from './AddVehicleRequestDto';
@@ -33,7 +35,7 @@ export * from './FinancialDocumentType';
 export * from './FinishTripRequestDto';
 export * from './ForgetPasswordRequestDto';
 export * from './GeoPoint';
-export * from './Language';
+export * from './Languages';
 export * from './LoginRequestDto';
 export * from './LoginResponseDto';
 export * from './NotificationsEnum';

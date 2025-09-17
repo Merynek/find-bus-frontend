@@ -14,7 +14,7 @@ import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/b
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {FlexGap} from "@/src/enums/layout.enum";
 import {Text} from "@/src/components/components/texts/text";
-import {FontSize} from "@/src/components/components/texts/textStyles";
+import {FontSize, FontWeight} from "@/src/components/components/texts/textStyles";
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 
 interface IEmailConfigItemProps {
@@ -31,7 +31,7 @@ export const EmailConfigItem = (props: IEmailConfigItemProps) => {
         config.params.forEach((value: string, key: string) => {
             params.push(<LayoutFlexColumn gap={FlexGap.TINY_8} key={key}>
                 <LayoutFlexRow gap={FlexGap.TINY_8}>
-                    <Text text={key} fontSize={FontSize.BASE_14}/>
+                    <Text text={key} fontSize={FontSize.BASE_14} fontWeight={FontWeight.SEMIBOLD}/>
                     <Text text={": "} fontSize={FontSize.BASE_14}/>
                     <Text text={value} fontSize={FontSize.BASE_14}/>
                 </LayoutFlexRow>
@@ -53,10 +53,9 @@ export const EmailConfigItem = (props: IEmailConfigItemProps) => {
                             <FormStatus state={state}/>
                             <input type="hidden" name={FormDataEnum.language} value={localization.language}/>
                             <input type="hidden" name={FormDataEnum.template} value={emailTemplate.type}/>
-                            <div>
-                                <span>Language:</span>
-                                <span>{localization.language}</span>
-                            </div>
+                            <LayoutFlexRow>
+                                <Text text={`Language: ${localization.language}`} fontSize={FontSize.BASE_14} fontWeight={FontWeight.SEMIBOLD} />
+                            </LayoutFlexRow>
                             <LayoutFlexRow gap={FlexGap.TINY_8}>
                                 <NumberBox
                                     placeholder={"Id template:"}

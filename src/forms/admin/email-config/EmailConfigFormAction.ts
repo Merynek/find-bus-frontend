@@ -3,11 +3,11 @@ import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {z} from "zod";
 import {AdminService} from "@/src/services/AdminService";
 import {EmailConfigSchema} from "@/src/forms/admin/email-config/EmailConfigSchema";
-import {Language} from "@/src/api/openapi";
+import {Languages} from "@/src/api/openapi";
 
 type EmailConfigData = {
     template?: string;
-    language?: Language;
+    language?: Languages;
     templateId?: number;
 }
 
