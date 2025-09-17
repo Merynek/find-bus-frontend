@@ -4,7 +4,7 @@ import {
     AppBusinessConfigResponseDto,
     type EmailConfigResponseDto,
     EmailType,
-    Language,
+    Languages,
     UpdateAppBusinessConfigRequestDto
 } from "@/src/api/openapi";
 import {getAccessToken} from "@/src/app/actions/auth/accessTokenActions";
@@ -19,7 +19,7 @@ export async function getEmailConfig(): Promise<EmailConfigResponseDto> {
     })
 }
 
-export async function setEmailConfig(type: EmailType, language: Language, templateId: number) {
+export async function setEmailConfig(type: EmailType, language: Languages, templateId: number) {
     await handleActionCall(async () => {
         const accessToken = await getAccessToken();
         const adminApi = new AdminApi(accessToken);
