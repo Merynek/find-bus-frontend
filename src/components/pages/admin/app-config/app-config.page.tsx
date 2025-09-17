@@ -54,8 +54,8 @@ const AppConfigPage = (props: IAppConfigPageProps) => {
                     node={<NumberBox
                         placeholder={"minEndOrderFromNowInHours"}
                         controlled={false}
-                        id={FormDataEnum.templateId}
-                        name={FormDataEnum.templateId}
+                        id={FormDataEnum.minEndOrderFromNowInHours}
+                        name={FormDataEnum.minEndOrderFromNowInHours}
                         defaultValue={state?.data?.minEndOrderFromNowInHours || 0}
                         minValue={0}
                     />}
