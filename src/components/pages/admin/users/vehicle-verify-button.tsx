@@ -5,14 +5,15 @@ import {ButtonClick, ButtonSize, ButtonType} from "../../../components/button/bu
 import {VehicleService} from "@/src/services/VehicleService";
 import {VehicleResponseDto} from "@/src/api/openapi";
 import {VehicleConverter} from "@/src/converters/vehicle-converter";
-import {useInit} from "@/src/hooks/lifecycleHooks";
+import {useRouter} from "@/src/i18n/navigation";
 
 interface IVehicleVerifyButtonProps {
     vehicle: VehicleResponseDto;
 }
 
 export const VehicleVerifyButton = (props: IVehicleVerifyButtonProps) => {
-    const vehicle = useInit(() => VehicleConverter.toInstance(props.vehicle));
+    const vehicle = VehicleConverter.toInstance(props.vehicle);
+    const router = useRouter();
 
     return <ButtonClick
         controlled={true}
@@ -21,6 +22,7 @@ export const VehicleVerifyButton = (props: IVehicleVerifyButtonProps) => {
         onClick={async () => {
             if (vehicle.id) {
                 await VehicleService.setVehicleVerification(vehicle.id, !vehicle.isVerifiedForTransporting);
+                router.refresh();
             }
         }}
         type={ButtonType.BLACK}
