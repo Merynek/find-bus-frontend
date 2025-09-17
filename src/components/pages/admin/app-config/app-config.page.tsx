@@ -10,7 +10,8 @@ import {FormStatus} from "@/src/components/components/form-status/form-status";
 import {NumberBox} from "@/src/components/components/inputs/number-box/number-box";
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 import {Text} from "@/src/components/components/texts/text";
-import {FontSize} from "@/src/components/components/texts/textStyles";
+import {Heading} from "@/src/components/components/texts/heading";
+import {FontSize, FontWeight} from "@/src/components/components/texts/textStyles";
 import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
 import {FlexGap} from "@/src/enums/layout.enum";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
@@ -46,8 +47,8 @@ const AppConfigPage = (props: IAppConfigPageProps) => {
     return <LayoutFlexColumn>
         <form action={action}>
             <FormStatus state={state}/>
-            <h2>Create Trip</h2>
-            <LayoutFlexColumn gap={FlexGap.SMALL_16}>
+            <LayoutFlexColumn gap={FlexGap.LARGE_32}>
+                <Heading text={"Create Trip"} fontWeight={FontWeight.SEMIBOLD} headingLevel={4}/>
                 <AppConfigItem
                     text={"minEndOrderFromNowInHours (Minimální datum vytvoření aukce od teď (24 hodin))"}
                     node={<NumberBox
@@ -70,7 +71,7 @@ const AppConfigPage = (props: IAppConfigPageProps) => {
                         minValue={0}
                     />}
                 />
-                <h2>Trip Offers</h2>
+                <Heading text={"Trip Offers"} fontWeight={FontWeight.SEMIBOLD} headingLevel={4}/>
                 <AppConfigItem
                     text={"minDateToAcceptOfferInHours (Jak dlouho má uživatel přijmout nabídku po té co aukce skončila a nic si zatím nevybral (24 hodin))"}
                     node={<NumberBox
@@ -93,7 +94,7 @@ const AppConfigPage = (props: IAppConfigPageProps) => {
                         minValue={0}
                     />}
                 />
-                <h2>Notifications</h2>
+                <Heading text={"Notifications"} fontWeight={FontWeight.SEMIBOLD} headingLevel={4}/>
                 <AppConfigItem
                     text={"payRestOfPriceWarningBeforeStartTripInHours (Pouze pro doplatek 75%) - Kolik hodin před zařátkem tripu máme posilat warning email Doplatek (480 hodin = 20 dní))"}
                     node={<NumberBox
@@ -116,7 +117,7 @@ const AppConfigPage = (props: IAppConfigPageProps) => {
                         minValue={0}
                     />}
                 />
-                <h2>Fee & Deposit</h2>
+                <Heading text={"Fee & Deposit"} fontWeight={FontWeight.SEMIBOLD} headingLevel={4}/>
                 <AppConfigItem
                     text={"tripDepositInPercentage (Jaká je záloha na trip (25%)"}
                     node={<NumberBox
@@ -227,15 +228,15 @@ const AppConfigPage = (props: IAppConfigPageProps) => {
                         minValue={0}
                     />}
                 />
+                <ButtonClick
+                    controlled={false}
+                    size={ButtonSize.BUTTON_SIZE_M}
+                    type={ButtonType.BLACK}
+                    isDisabled={pending}
+                    label={"Change"}
+                />
             </LayoutFlexColumn>
 
-            <ButtonClick
-                controlled={false}
-                size={ButtonSize.BUTTON_SIZE_M}
-                type={ButtonType.BLACK}
-                isDisabled={pending}
-                label={"Change"}
-            />
         </form>
     </LayoutFlexColumn>
 };
@@ -249,11 +250,17 @@ interface IAppConfigItemProps {
 
 export const AppConfigItem = (props: IAppConfigItemProps) => {
     const {text, node} = props;
-    return <LayoutFlexRow gap={FlexGap.SMALL_16}>
-        <Text
-            text={text}
-            fontSize={FontSize.BASE_14}
-        />
-        {node}
-    </LayoutFlexRow>
+    return <div style={{borderBottom: "2px solid black", paddingBottom: 15}}>
+        <LayoutFlexRow gap={FlexGap.SMALL_16} justifyContent={"space-around"}>
+            <div style={{width: "100%"}}>
+                <Text
+                    text={text}
+                    fontSize={FontSize.BASE_14}
+                />
+            </div>
+            <div style={{width: "100%"}}>
+                {node}
+            </div>
+        </LayoutFlexRow>
+    </div>
 }
