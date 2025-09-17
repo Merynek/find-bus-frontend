@@ -8,9 +8,13 @@ import {UserVerifyButton} from "@/src/components/pages/admin/users/user-verify-b
 import {UserAdminDetailConverter} from "@/src/converters/admin/user-admin-detail-converter";
 import React from "react";
 import {UserAddress} from "@/src/data/users/userAddress";
-import {TransferInfo} from "@/src/data/transferInfo";
 import {TransportRequirements} from "@/src/data/transportRequirements";
 import {ImageElement} from "@/src/components/components/image-element/image-element";
+import {Accordion} from "@/src/components/components/accordion/accordion";
+import {Text} from "@/src/components/components/texts/text";
+import {FontSize, FontWeight} from "@/src/components/components/texts/textStyles";
+import {FlexGap} from "@/src/enums/layout.enum";
+
 
 interface IAdminUserItemProps {
     user: UserAdminDetail
@@ -20,14 +24,11 @@ export const AdminUserItem = (props: IAdminUserItemProps) => {
     const {user} = props;
 
     const _renderTransporterRequirements = (requirements: TransportRequirements) => {
-        return <LayoutFlexColumn>
-            <LayoutFlexRow>
-                <span>ConcessionNumber: </span>
-                <span>{requirements.concessionNumber}</span>
-            </LayoutFlexRow>
-            <LayoutFlexRow>
+        return <LayoutFlexRow gap={FlexGap.MEDIUM_24} canWrap={true} justifyContent={"flex-start"} alignItems={"flex-start"}>
+            {renderTextItem("ConcessionNumber", requirements.concessionNumber)}
+            <LayoutFlexColumn>
+                <Text text={`ConcessionDocuments: `} fontSize={FontSize.BASE_14} fontWeight={FontWeight.SEMIBOLD} />
                 {requirements.concessionDocuments && <div>
-                    <span>ConcessionDocuments: </span>
                     <div style={{width: "200px", height: "200px", position: "relative"}}>
                         <ImageElement
                             src={requirements.concessionDocuments.path}
@@ -36,10 +37,10 @@ export const AdminUserItem = (props: IAdminUserItemProps) => {
                         />
                     </div>
                 </div>}
-            </LayoutFlexRow>
-            <LayoutFlexRow>
+            </LayoutFlexColumn>
+            <LayoutFlexColumn>
+                <Text text={`BusinessRiskInsurance: `} fontSize={FontSize.BASE_14} fontWeight={FontWeight.SEMIBOLD} />
                 {requirements.businessRiskInsurance && <div>
-                    <span>BusinessRiskInsurance: </span>
                     <div style={{width: "200px", height: "200px", position: "relative"}}>
                         <ImageElement
                             src={requirements.businessRiskInsurance.path}
@@ -48,92 +49,79 @@ export const AdminUserItem = (props: IAdminUserItemProps) => {
                         />
                     </div>
                 </div>}
-            </LayoutFlexRow>
-        </LayoutFlexColumn>
+            </LayoutFlexColumn>
+        </LayoutFlexRow>
     }
-
-
-    const _renderTransferInfo = (info: TransferInfo) => {
-        return <LayoutFlexColumn>
-            <LayoutFlexRow>
-                <span>Iban: </span>
-                <span>{info.iban}</span>
-            </LayoutFlexRow>
-            <LayoutFlexRow>
-                <span>Swift: </span>
-                <span>{info.swift}</span>
-            </LayoutFlexRow>
-        </LayoutFlexColumn>
-    }
-
 
     const _renderAddress = (address: UserAddress) => {
-        return <LayoutFlexColumn>
-            <LayoutFlexRow>
-                <span>Address: </span>
-                <span>{address.street + " " + address.houseNumber}</span>
-            </LayoutFlexRow>
-            <LayoutFlexRow>
-                <span>PSC: </span>
-                <span>{address.psc}</span>
-            </LayoutFlexRow>
-            <LayoutFlexRow>
-                <span>City: </span>
-                <span>{address.city}</span>
-            </LayoutFlexRow>
-            <LayoutFlexRow>
-                <span>Country: </span>
-                <span>{address.country}</span>
-            </LayoutFlexRow>
-        </LayoutFlexColumn>
+        return <>
+            {renderTextItem("Address", address.street + " " + address.houseNumber)}
+            {renderTextItem("PSC", address.psc)}
+            {renderTextItem("City", address.city)}
+            {renderTextItem("Country", address.country?.toString() ||"")}
+        </>
     }
 
-    return <LayoutFlexColumn>
-        <LayoutFlexRow>
-            <span>Email: </span>
-            <span>{user.email}</span>
+    const renderTextItem = (name: string, value: string) => {
+        return <LayoutFlexRow gap={FlexGap.TINY_8}>
+            <Text text={`${name}: `} fontSize={FontSize.BASE_14} fontWeight={FontWeight.SEMIBOLD} />
+            <Text text={value} fontSize={FontSize.BASE_14} />
         </LayoutFlexRow>
-        <LayoutFlexRow>
-            <span>Jmeno: </span>
-            <span>{user.name + " " + user.surname}</span>
-        </LayoutFlexRow>
-        <LayoutFlexRow>
-            <span>Is Company: </span>
-            <span>{user.isCompany.toString()}</span>
-        </LayoutFlexRow>
-        <LayoutFlexRow>
-            <span>ICO: </span>
-            <span>{user.ico}</span>
-        </LayoutFlexRow>
-        <LayoutFlexRow>
-            <span>DIC: </span>
-            <span>{user.dic}</span>
-        </LayoutFlexRow>
-        <LayoutFlexRow>
-            <span>PhoneNumber: </span>
-            <span>{user.phoneNumber}</span>
-        </LayoutFlexRow>
-        <h3>Address</h3>
-        {_renderAddress(user.address)}
-        <h3>Mailing Address</h3>
-        {_renderAddress(user.mailingAddress)}
-        <h3>Transfer Info</h3>
-        {_renderTransferInfo(user.transferInfo)}
-        <h3>Transport Requirements</h3>
-        {_renderTransporterRequirements(user.transportRequirements)}
-        <h2>Vehicles</h2>
-        <LayoutFlexColumn>
-            {user.vehicles.map(v => {
-                return <LayoutFlexColumn key={v.id}>
-                    <VehicleDetail vehicle={v} />
-                    <VehicleVerifyButton vehicle={VehicleConverter.toJson(v)} />
-                </LayoutFlexColumn>
-            })}
-        </LayoutFlexColumn>
-        <LayoutFlexColumn>
-            <h2>{user.isVerifiedForTransporting ? "USER IS Verified" : "USER NOT Verified"}</h2>
-            <UserVerifyButton user={UserAdminDetailConverter.toJson(user)} />
-        </LayoutFlexColumn>
-    </LayoutFlexColumn>
+    }
 
+    return <Accordion
+        style={{background: "gray"}}
+        title={<Text text={`${user.email} - ${user.isVerifiedForTransporting ? "Verified" : "NOT Verified"}`} fontSize={FontSize.M_22} fontWeight={FontWeight.SEMIBOLD} />}
+        content={<LayoutFlexColumn gap={FlexGap.SMALL_16}>
+            <LayoutFlexRow gap={FlexGap.MEDIUM_24} canWrap={true} justifyContent={"flex-start"} alignItems={"flex-start"}>
+                <Group title={"Info"}>
+                    {renderTextItem("Jméno", user.name + " " + user.surname)}
+                    {renderTextItem("Je to firma", user.isCompany.toString())}
+                    {renderTextItem("ICO", user.ico)}
+                    {renderTextItem("DIC", user.dic)}
+                    {renderTextItem("Telefonní číslo", user.phoneNumber)}
+                </Group>
+                <Group title={"Adresa"}>
+                    {_renderAddress(user.address)}
+                </Group>
+                <Group title={"Mailing Address"}>
+                    {_renderAddress(user.mailingAddress)}
+                </Group>
+                <Group title={"Transfer Info"}>
+                    {renderTextItem("Iban", user.transferInfo.iban)}
+                    {renderTextItem("Swift", user.transferInfo.swift)}
+                </Group>
+            </LayoutFlexRow>
+            <Group title={"Transport Requirements"}>
+                {_renderTransporterRequirements(user.transportRequirements)}
+            </Group>
+            <Group title={"Vehicles"}>
+                {user.vehicles.map(v => {
+                    return <Accordion
+                        style={{background: "orange"}}
+                        key={v.id}
+                        title={`${v.name} - ${v.isVerifiedForTransporting ? "Verified" : "NOT Verified"}`}
+                        content={<LayoutFlexColumn gap={FlexGap.SMALL_16}>
+                            <VehicleDetail vehicle={v} />
+                            <VehicleVerifyButton vehicle={VehicleConverter.toJson(v)} />
+                        </LayoutFlexColumn>}
+                    />
+                })}
+            </Group>
+            <UserVerifyButton user={UserAdminDetailConverter.toJson(user)} />
+        </LayoutFlexColumn>}
+    />
+}
+
+interface IGroupProps {
+    title: string;
+    children: React.ReactNode;
+}
+
+const Group = (props: IGroupProps) => {
+    const {title, children} = props;
+    return <LayoutFlexColumn>
+        <Text text={title} fontSize={FontSize.M_22} fontWeight={FontWeight.SEMIBOLD} />
+        {children}
+    </LayoutFlexColumn>
 }

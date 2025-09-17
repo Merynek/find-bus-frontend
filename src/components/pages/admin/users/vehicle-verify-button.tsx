@@ -23,6 +23,6 @@ export const VehicleVerifyButton = (props: IVehicleVerifyButtonProps) => {
                 await VehicleService.setVehicleVerification(vehicle.id, !vehicle.isVerifiedForTransporting);
             }
         }}
-        type={ButtonType.YELLOW}
+        type={ButtonType.BLACK}
     />
 };

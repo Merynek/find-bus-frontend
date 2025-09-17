@@ -4,6 +4,8 @@ export enum IconType {
     CALENDAR_MONTH = "CALENDAR_MONTH",
     MENU = "MENU",
     ARROW_LEFT = "ARROW_LEFT",
+    ARROW_UP = "ARROW_UP",
+    ARROW_DOWN = "ARROW_DOWN",
     REMOVE = "REMOVE",
     LOCATION_ON = "LOCATION_ON",
     ADD = "ADD",

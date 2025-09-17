@@ -5,6 +5,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import MenuIcon from '@mui/icons-material/Menu';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import ArrowUpIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownIcon from '@mui/icons-material/ArrowDownward';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
@@ -31,6 +33,10 @@ export const IconFromEnum = (props: IIconFromEnumProps) => {
             return <MenuIcon {...options} />;
         case IconType.ARROW_LEFT:
             return <ArrowLeftIcon {...options} />;
+        case IconType.ARROW_UP:
+            return <ArrowUpIcon {...options} />;
+        case IconType.ARROW_DOWN:
+            return <ArrowDownIcon {...options} />;
         case IconType.REMOVE:
             return <RemoveIcon {...options} />;
         case IconType.LOCATION_ON:
