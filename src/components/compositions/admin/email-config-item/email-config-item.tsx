@@ -2,7 +2,7 @@
 
 import React from "react";
 import styles from "./email-config-item.module.scss";
-import {EmailTemplate} from "@/src/data/emailConfig";
+import {EmailConfigLocalization, EmailTemplate} from "@/src/data/emailConfig";
 import {emailConfigFormAction} from "@/src/app/actions/forms/admin/emailConfig/emailConfigFormAction";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import type {EmailTemplateResponseDto} from "@/src/api/openapi";
@@ -22,7 +22,6 @@ interface IEmailConfigItemProps {
 }
 
 export const EmailConfigItem = (props: IEmailConfigItemProps) => {
-    const [state, action, pending] = useFormActionState(emailConfigFormAction, undefined)
     const {tmp} = props;
     const emailTemplate = EmailTemplateConverter.toInstance(tmp);
 
@@ -48,35 +47,57 @@ export const EmailConfigItem = (props: IEmailConfigItemProps) => {
             </div>
             <LayoutFlexColumn gap={FlexGap.TINY_8}>
                 {emailTemplate.localizations.map((localization, i) => {
-                    return <form action={action} key={i}>
-                        <LayoutFlexColumn gap={FlexGap.SMALL_16}>
-                            <FormStatus state={state}/>
-                            <input type="hidden" name={FormDataEnum.language} value={localization.language}/>
-                            <input type="hidden" name={FormDataEnum.template} value={emailTemplate.type}/>
-                            <LayoutFlexRow>
-                                <Text text={`Language: ${localization.language}`} fontSize={FontSize.BASE_14} fontWeight={FontWeight.SEMIBOLD} />
-                            </LayoutFlexRow>
-                            <LayoutFlexRow gap={FlexGap.TINY_8}>
-                                <NumberBox
-                                    placeholder={"Id template:"}
-                                    controlled={false}
-                                    id={FormDataEnum.templateId}
-                                    name={FormDataEnum.templateId}
-                                    defaultValue={localization.templateId || 0}
-                                    minValue={0}
-                                />
-                                <ButtonClick
-                                    controlled={false}
-                                    size={ButtonSize.BUTTON_SIZE_M}
-                                    type={ButtonType.BLACK}
-                                    isDisabled={pending}
-                                    label={"Change"}
-                                />
-                            </LayoutFlexRow>
-                        </LayoutFlexColumn>
-                    </form>
+                    return <EmailConfigLocalizationItem
+                        key={i}
+                        template={emailTemplate}
+                        localization={localization}
+                    />
                 })}
             </LayoutFlexColumn>
         </LayoutFlexColumn>
     </div>
 };
+
+interface IEmailConfigLocalizationItemProps {
+    template: EmailTemplate;
+    localization: EmailConfigLocalization;
+}
+
+export const EmailConfigLocalizationItem = (props: IEmailConfigLocalizationItemProps) => {
+    const {localization, template} = props;
+    const [state, action, pending] = useFormActionState(emailConfigFormAction, {
+        data: {
+            language: localization.language,
+            template: template.type,
+            templateId: localization.templateId
+        }
+    })
+
+    return <form action={action}>
+        <LayoutFlexColumn gap={FlexGap.SMALL_16}>
+            <FormStatus state={state}/>
+            <input type="hidden" name={FormDataEnum.language} value={state?.data?.language}/>
+            <input type="hidden" name={FormDataEnum.template} value={state?.data?.template}/>
+            <LayoutFlexRow>
+                <Text text={`Language: ${localization.language}`} fontSize={FontSize.BASE_14} fontWeight={FontWeight.SEMIBOLD} />
+            </LayoutFlexRow>
+            <LayoutFlexRow gap={FlexGap.TINY_8}>
+                <NumberBox
+                    placeholder={"Id template:"}
+                    controlled={false}
+                    id={FormDataEnum.templateId}
+                    name={FormDataEnum.templateId}
+                    defaultValue={state?.data?.templateId || 0}
+                    minValue={0}
+                />
+                <ButtonClick
+                    controlled={false}
+                    size={ButtonSize.BUTTON_SIZE_M}
+                    type={ButtonType.BLACK}
+                    isDisabled={pending}
+                    label={"Change"}
+                />
+            </LayoutFlexRow>
+        </LayoutFlexColumn>
+    </form>
+}
