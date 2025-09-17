@@ -1,13 +1,15 @@
 import React from "react";
 import AdminUsersPage from "./admin-users.page";
-import {StoryObj} from "@storybook/nextjs";
+import {Meta, StoryObj} from "@storybook/nextjs";
 
-export default {
+const meta: Meta<typeof AdminUsersPage> = {
     component: AdminUsersPage,
     args: {}
 };
 
-export const AdminUsersPageStory: StoryObj = {
+export default meta;
+
+export const Default: StoryObj<typeof AdminUsersPage> = {
     render: () => <AdminUsersPage
         users={[]}
     />,
