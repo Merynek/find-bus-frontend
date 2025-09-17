@@ -11,8 +11,13 @@ import {FormStatus} from "@/src/components/components/form-status/form-status";
 import {useFormActionState} from "@/src/hooks/formHook";
 import {NumberBox} from "@/src/components/components/inputs/number-box/number-box";
 import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
+import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
+import {FlexGap} from "@/src/enums/layout.enum";
+import {Text} from "@/src/components/components/texts/text";
+import {FontSize} from "@/src/components/components/texts/textStyles";
+import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 
-export interface IEmailConfigItemProps {
+interface IEmailConfigItemProps {
     tmp: EmailTemplateResponseDto;
 }
 
@@ -24,50 +29,55 @@ export const EmailConfigItem = (props: IEmailConfigItemProps) => {
     const _renderParams = (config: EmailTemplate) => {
         const params: React.ReactNode[] = [];
         config.params.forEach((value: string, key: string) => {
-            params.push(<div key={key}>
-                <span>{key}: </span>
-                <span>{value}</span>
-            </div>);
+            params.push(<LayoutFlexColumn gap={FlexGap.TINY_8} key={key}>
+                <LayoutFlexRow gap={FlexGap.TINY_8}>
+                    <Text text={key} fontSize={FontSize.BASE_14}/>
+                    <Text text={": "} fontSize={FontSize.BASE_14}/>
+                    <Text text={value} fontSize={FontSize.BASE_14}/>
+                </LayoutFlexRow>
+            </LayoutFlexColumn>)
         });
         return params;
     }
 
     return <div className={styles.layout}>
-        <div className={styles.header}>{emailTemplate.type.toString()}</div>
-        <div className={styles.params}>
-            {_renderParams(emailTemplate)}
-        </div>
-        <div>
-            {emailTemplate.localizations.map((localization, i) => {
-                return <React.Fragment key={i}>
-                    <form action={action}>
-                        <FormStatus state={state} />
-                        <input type="hidden" name={FormDataEnum.language} value={localization.language}/>
-                        <input type="hidden" name={FormDataEnum.template} value={emailTemplate.type}/>
-                        <div>
-                            <span>Language:</span>
-                            <span>{localization.language}</span>
-                        </div>
-                        <div className={styles.templateId}>
-                            <NumberBox
-                                placeholder={"Id template:"}
-                                controlled={false}
-                                id={FormDataEnum.templateId}
-                                name={FormDataEnum.templateId}
-                                defaultValue={localization.templateId || 0}
-                                minValue={0}
-                            />
-                            <ButtonClick
-                                controlled={false}
-                                size={ButtonSize.BUTTON_SIZE_M}
-                                type={ButtonType.BLACK}
-                                isDisabled={pending}
-                                label={"Change"}
-                            />
-                        </div>
+        <LayoutFlexColumn gap={FlexGap.TINY_8}>
+            <Text text={emailTemplate.type.toString()} fontSize={FontSize.M_24} />
+            <div className={styles.params}>
+                {_renderParams(emailTemplate)}
+            </div>
+            <LayoutFlexColumn gap={FlexGap.TINY_8}>
+                {emailTemplate.localizations.map((localization, i) => {
+                    return <form action={action} key={i}>
+                        <LayoutFlexColumn gap={FlexGap.SMALL_16}>
+                            <FormStatus state={state}/>
+                            <input type="hidden" name={FormDataEnum.language} value={localization.language}/>
+                            <input type="hidden" name={FormDataEnum.template} value={emailTemplate.type}/>
+                            <div>
+                                <span>Language:</span>
+                                <span>{localization.language}</span>
+                            </div>
+                            <LayoutFlexRow gap={FlexGap.TINY_8}>
+                                <NumberBox
+                                    placeholder={"Id template:"}
+                                    controlled={false}
+                                    id={FormDataEnum.templateId}
+                                    name={FormDataEnum.templateId}
+                                    defaultValue={localization.templateId || 0}
+                                    minValue={0}
+                                />
+                                <ButtonClick
+                                    controlled={false}
+                                    size={ButtonSize.BUTTON_SIZE_M}
+                                    type={ButtonType.BLACK}
+                                    isDisabled={pending}
+                                    label={"Change"}
+                                />
+                            </LayoutFlexRow>
+                        </LayoutFlexColumn>
                     </form>
-                </React.Fragment>
-            })}
-        </div>
+                })}
+            </LayoutFlexColumn>
+        </LayoutFlexColumn>
     </div>
 };

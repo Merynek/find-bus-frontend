@@ -1,8 +1,9 @@
 import React from "react";
-import styles from "./email-config.page.module.scss";
 import {EmailConfigItem} from "../../../compositions/admin/email-config-item/email-config-item";
 import {EmailConfig} from "@/src/data/emailConfig";
 import {EmailTemplateConverter} from "@/src/converters/admin/email-template-converter";
+import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
+import {FlexGap} from "@/src/enums/layout.enum";
 
 interface IEmailConfigPageProps {
     cfg: EmailConfig;
@@ -11,15 +12,12 @@ interface IEmailConfigPageProps {
 const EmailConfigPage = async (props: IEmailConfigPageProps) => {
     const {cfg} = props;
 
-    return <div className={styles.layout}>
-        {cfg.templates.map((e, i) => <div
-            className={styles.item} key={i}>
-            <EmailConfigItem
-                key={i}
-                tmp={EmailTemplateConverter.toJson(e)}
-            />
-        </div>)}
-    </div>
+    return <LayoutFlexRow gap={FlexGap.TINY_8} canWrap={true}>
+        {cfg.templates.map((e, i) => <EmailConfigItem
+            key={i}
+            tmp={EmailTemplateConverter.toJson(e)}
+        />)}
+    </LayoutFlexRow>
 };
 
 export default EmailConfigPage;

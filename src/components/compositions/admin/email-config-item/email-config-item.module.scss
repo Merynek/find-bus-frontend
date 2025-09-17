@@ -1,16 +1,13 @@
+@use "../../../../styles/variables";
+@use "../../../../styles/mediaQueries";
+@use "../../../../styles/colors";
+
 .layout {
-  display: flex;
-  flex-direction: column;
-  border: 2px solid gray;
-  .header {
-    font-size: 22px;
-  }
-  .templateId {
-    display: flex;
-  }
+  border: 2px solid colors.$darkGray;
+  background: colors.$green;
+  padding: (variables.$itemOffset * 2);
+
   .params {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 25px;
+    background: colors.$orange;
   }
 }

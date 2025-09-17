@@ -1,17 +1,15 @@
 import React from "react";
-import {EmailConfigItem, IEmailConfigItemProps} from "./email-config-item";
-import {getRandomEmailTemplate} from "@/dataGenerator/email";
+import {EmailConfigItem} from "./email-config-item";
 import {Meta, StoryObj} from "@storybook/nextjs";
 
-export default {
+const meta: Meta<typeof EmailConfigItem> = {
     component: EmailConfigItem,
-    args: {
-        emailTemplate: getRandomEmailTemplate(),
-        onSubmitTemplate: () => {}
-    }
-} as Meta<IEmailConfigItemProps>;
+    args: {},
+    argTypes: {}
+};
 
-export const EmailConfigItemStory: StoryObj<IEmailConfigItemProps> = {
-    render: (args) => <EmailConfigItem {...args} />,
-    args: {}
+export default meta;
+
+export const Default: StoryObj<typeof EmailConfigItem> = {
+    render: (args) => <EmailConfigItem {...args} />
 };
