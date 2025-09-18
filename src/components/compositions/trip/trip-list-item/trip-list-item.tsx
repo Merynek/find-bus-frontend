@@ -1,5 +1,4 @@
-import React from "react";
-import {observer} from "mobx-react";
+import React, {useState} from "react";
 import styles from "./trip-list-item.module.scss";
 import {formatDateTime} from "@/src/utils/date-time.format";
 import {cn, getFormattedDistance} from "@/src/utils/common";
@@ -13,15 +12,17 @@ import {IconType} from "@/src/enums/icon.enum";
 import {Icon} from "../../../components/icon/icon";
 import {useLoggedUser} from "@/src/hooks/authenticationHook";
 import {useCurrentLocale} from "@/src/hooks/translateHook";
+import {TripAmenities} from "@/src/components/compositions/trip/trip-amenities/trip-amenities";
 
 export interface ITripListItemProps {
     tripItem: TripItem;
 }
 
-export const TripListItem = observer((props: ITripListItemProps) => {
+export const TripListItem = (props: ITripListItemProps) => {
     const {tripItem} = props;
     const {user} = useLoggedUser();
     const locale = useCurrentLocale();
+    const [offerHasEnded, setOfferHasEnded] = useState(tripItem.offerHasEnded);
 
     const _renderRoute = (route: Route, index: number) => {
         return <div key={index}>
@@ -33,10 +34,10 @@ export const TripListItem = observer((props: ITripListItemProps) => {
                     })}</span>
                 </div>
                 <div className={styles.line}>
-                    <span>Z - {(route.from.place.name + "- " + route.from.place.placeFormatted)}</span>
+                    <span>Z - {route.from.place.name}</span>
                 </div>
                 <div className={styles.line}>
-                    <span>Do - {(route.to.place.name + "- " + route.to.place.placeFormatted)}</span>
+                    <span>Do - {route.to.place.name}</span>
                 </div>
                 <div className={styles.line}>
                     <span>Přijezd - {formatDateTime({
@@ -61,7 +62,7 @@ export const TripListItem = observer((props: ITripListItemProps) => {
         return tripItem.isMine && tripItem.hasOffers && tripItem.offerState === TripOfferState.CREATED;
     }
 
-    return <div className={cn(styles.layout, tripItem.offerHasEnded && styles.end, hasOffersForAccept() && styles.offers)}>
+    return <div className={cn(styles.layout, offerHasEnded && styles.end, hasOffersForAccept() && styles.offers)}>
         <ButtonLink
             route={{
                 route: ROUTES.TRIP,
@@ -75,12 +76,12 @@ export const TripListItem = observer((props: ITripListItemProps) => {
             <span>ID:</span>
             <span>{tripItem.id}</span>
         </div>
-        {!tripItem.offerHasEnded && <div>
+        {!offerHasEnded && <div>
             <span>Odpočet:</span>
             <Countdown
                 deadLine={tripItem.endOffer}
-                onDone={() =>{
-                    tripItem.offerHasEnded = true;
+                onDone={() => {
+                    setOfferHasEnded(true);
                 }}
             />
         </div>}
@@ -109,10 +110,11 @@ export const TripListItem = observer((props: ITripListItemProps) => {
             <span>{tripItem.handicappedUserCount}</span>
         </div>}
         <div>
-            <div>{tripItem.amenities.map(amenity => <b key={amenity}>-{amenity}-</b>)}</div>
+            <span>Amenities: </span>
+            <TripAmenities amenities={tripItem.amenities}/>
         </div>
         <div>
             {tripItem.routes.map(_renderRoute)}
         </div>
     </div>
-});
+};

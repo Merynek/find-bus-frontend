@@ -18,7 +18,7 @@ import {useInit, useMount, useUnmount} from "@/src/hooks/lifecycleHooks";
 import {useApp} from "@/src/app/contexts/AppContext";
 import { useRouter } from "@/src/i18n/navigation";
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
-import {TripAmenities} from "@/src/components/compositions/trip/trip-amenities/trip-amenities";
+import {SelectTripAmenities} from "@/src/components/compositions/trip/trip-amenities/select-trip-amenities";
 import {
     CreateTripRecommendations
 } from "@/src/components/pages/create-trip/components/create-trip-routes";
@@ -86,7 +86,7 @@ const CreateTripPage = observer(() => {
             checked={_store.trip.dietForTransporter}
             onChange={(val) => _store.trip.dietForTransporter = val}
         />
-        <TripAmenities trip={_store.trip}/>
+        <SelectTripAmenities trip={_store.trip}/>
         <LayoutFlexRow>
             <CreateTripRoutes trip={_store.trip}/>
             {_store.displayRecommendation && <CreateTripRecommendations store={_store}/>}

@@ -1,6 +1,5 @@
 import {Amenities, TripOfferState} from "../api/openapi";
 import {Route} from "./trip/route";
-import {makeObservable, observable} from "mobx";
 
 interface ITripItem {
     id: number;
@@ -26,7 +25,7 @@ export class TripItem {
     public amenities: Amenities[];
     public dietForTransporter: boolean;
     public endOffer: Date;
-    @observable public offerHasEnded: boolean;
+    public offerHasEnded: boolean;
     public alreadyOffered: boolean;
     public handicappedUserCount: number;
     public isMine: boolean;
@@ -50,6 +49,5 @@ export class TripItem {
         this.hasOffers = settings.hasOffers;
         this.totalDistanceInMeters = settings.totalDistanceInMeters;
         this.created = settings.created;
-        makeObservable(this);
     }
 }
