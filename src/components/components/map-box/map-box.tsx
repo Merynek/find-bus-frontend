@@ -81,7 +81,10 @@ const MapBox = (props: IMapBoxProps) => {
     })
 
     useUnmount(() => {
-        _mapRef.current?.remove();
+        if (_mapRef.current) {
+            _mapRef.current?.remove();
+            _mapRef.current = null;
+        }
     })
 
     useChangePropsAfterMount(() => {

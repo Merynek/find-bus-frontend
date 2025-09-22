@@ -16,7 +16,7 @@ interface ICreateTripRecommendationsProps {
 
 export const CreateTripRecommendations = observer((props: ICreateTripRecommendationsProps) => {
     const {store} = props;
-    const {t} = useTranslate("page.trip");
+    const {t} = useTranslate("component.trip");
 
     return <LayoutFlexColumn gap={FlexGap.MEDIUM_24} style={{flex: 1, border: "2px solid #16C15B"}}>
         <p><b>ECONOMY</b> version for one driver</p>
