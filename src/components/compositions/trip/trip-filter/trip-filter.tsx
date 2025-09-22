@@ -38,17 +38,17 @@ export const TripFilter = (props: ITripFilterProps) => {
         } else {
             currentParams.delete(SEARCH_PARAMS.PAGE);
         }
-        if (maxNumberOfPersons !== undefined) {
+        if (maxNumberOfPersons !== undefined && maxNumberOfPersons >= 0) {
             currentParams.set(SEARCH_PARAMS.NUMBER_OF_PERSONS, maxNumberOfPersons.toString());
         } else {
             currentParams.delete(SEARCH_PARAMS.NUMBER_OF_PERSONS);
         }
-        if (distanceFromInKm !== undefined) {
+        if (distanceFromInKm !== undefined && distanceFromInKm >= 0) {
             currentParams.set(SEARCH_PARAMS.DISTANCE_FROM, distanceFromInKm.toString());
         } else {
             currentParams.delete(SEARCH_PARAMS.DISTANCE_FROM);
         }
-        if (distanceToInKm !== undefined) {
+        if (distanceToInKm !== undefined && distanceToInKm >= 0) {
             currentParams.set(SEARCH_PARAMS.DISTANCE_TO, distanceToInKm.toString());
         } else {
             currentParams.delete(SEARCH_PARAMS.DISTANCE_TO);
@@ -136,9 +136,7 @@ export const TripFilter = (props: ITripFilterProps) => {
                 controlled={true}
                 value={maxNumberOfPersons}
                 onChange={(val) => {
-                    if (val) {
-                        setMaxNumberOfPersons(val);
-                    }
+                    setMaxNumberOfPersons(val);
                 }}
                 placeholder={"Max number Of persons"}
             />
@@ -146,13 +144,7 @@ export const TripFilter = (props: ITripFilterProps) => {
                 controlled={true}
                 value={distanceFromInKm}
                 onChange={(val) => {
-                    if (val) {
-                        if (val < 0) {
-                            setDistanceFromInKm(0);
-                        } else {
-                            setDistanceFromInKm(val);
-                        }
-                    }
+                    setDistanceFromInKm(val);
                 }}
                 placeholder={"Distance From"}
             />
@@ -160,13 +152,7 @@ export const TripFilter = (props: ITripFilterProps) => {
                 controlled={true}
                 value={distanceToInKm}
                 onChange={(val) => {
-                    if (val) {
-                        if (val < 0) {
-                            setDistanceToInKm(0);
-                        } else {
-                            setDistanceToInKm(val);
-                        }
-                    }
+                    setDistanceToInKm(val);
                 }}
                 placeholder={"Distance To"}
             />
