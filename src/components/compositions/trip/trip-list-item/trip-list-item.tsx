@@ -5,23 +5,23 @@ import styles from "./trip-list-item.module.scss";
 import {formatDateTime} from "@/src/utils/date-time.format";
 import {cn, getFormattedDistance} from "@/src/utils/common";
 import {Countdown} from "../../../components/countdown/countdown";
-import {TripOfferState, UserRole} from "@/src/api/openapi";
+import {TripItemResponseDto, TripOfferState, UserRole} from "@/src/api/openapi";
 import {ButtonSize, ButtonType, ButtonLink} from "../../../components/button/button";
 import {Route} from "@/src/data/trip/route";
-import {TripItem} from "@/src/data/tripItem";
 import {ROUTES} from "@/src/enums/router.enum";
 import {IconType} from "@/src/enums/icon.enum";
 import {Icon} from "../../../components/icon/icon";
 import {useLoggedUser} from "@/src/hooks/authenticationHook";
 import {useCurrentLocale} from "@/src/hooks/translateHook";
 import {TripAmenities} from "@/src/components/compositions/trip/trip-amenities/trip-amenities";
+import {TripItemConverter} from "@/src/converters/trip-item-converter";
 
 export interface ITripListItemProps {
-    tripItem: TripItem;
+    tripItem: TripItemResponseDto;
 }
 
 export const TripListItem = (props: ITripListItemProps) => {
-    const {tripItem} = props;
+    const tripItem = TripItemConverter.toInstance(props.tripItem);
     const {user} = useLoggedUser();
     const locale = useCurrentLocale();
     const [offerHasEnded, setOfferHasEnded] = useState(tripItem.offerHasEnded);

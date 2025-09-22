@@ -4,6 +4,7 @@ import {TripFilter} from "../../compositions/trip/trip-filter/trip-filter";
 import {TripItem} from "@/src/data/tripItem";
 import {ITripFilterParams} from "@/src/components/compositions/trip/trip-filter/trip-filter-types";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
+import {TripItemConverter} from "@/src/converters/trip-item-converter";
 
 interface ITripListPageProps {
     items: TripItem[];
@@ -19,7 +20,7 @@ const TripListPage = (props: ITripListPageProps) => {
         />
         <LayoutFlexColumn>
             {items.map((tripItem) => {
-                return <TripListItem tripItem={tripItem} key={tripItem.id}/>
+                return <TripListItem tripItem={TripItemConverter.toJson(tripItem)} key={tripItem.id} />
             })}
         </LayoutFlexColumn>
     </LayoutFlexColumn>
