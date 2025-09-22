@@ -1,19 +1,27 @@
-import {TripFilter, ITripFilterProps} from "./trip-filter";
+import {TripFilter} from "./trip-filter";
 import React from "react";
-import {TripFilterStore} from "./trip-filter.store";
 import {Meta, StoryObj} from "@storybook/nextjs";
 
-export default {
+const meta: Meta<typeof TripFilter> = {
     component: TripFilter,
     args: {
-        onSubmit: () => {},
-    }
-} as Meta<ITripFilterProps>;
+        params: {
+            page: 1,
+            dietForTransporter: false,
+            maxNumberOfPersons: 0,
+            onlyMine: false,
+            meOffered: false,
+            distanceFromInKm: 0,
+            distanceToInKm: 0
+        },
+    },
+    argTypes: {}
+};
 
-export const TripFilterStory: StoryObj<ITripFilterProps> = {
+export default meta;
+
+export const Default: StoryObj<typeof TripFilter> = {
     render: (args) => <TripFilter
         {...args}
-        filter={new TripFilterStore()}
-    />,
-    args: {}
+    />
 };
