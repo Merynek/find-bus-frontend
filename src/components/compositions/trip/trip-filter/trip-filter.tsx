@@ -11,6 +11,8 @@ import {ITripFilterParams} from "@/src/components/compositions/trip/trip-filter/
 import {ROUTES, SEARCH_PARAMS} from "@/src/enums/router.enum";
 import {useRouter} from "@/src/i18n/navigation";
 import {useSearchParams} from "next/navigation";
+import {Color, FontSize} from "@/src/components/components/texts/textStyles";
+import {Text} from "@/src/components/components/texts/text";
 
 export interface ITripFilterProps {
     params: ITripFilterParams;
@@ -20,24 +22,54 @@ export const TripFilter = (props: ITripFilterProps) => {
     const {params} = props;
     const router = useRouter();
     const searchParams = useSearchParams();
-    const [page, setPage] = useState<number>(params.page || 0);
-    const [dietForTransporter, setDietForTransporter] = useState<boolean>(params.dietForTransporter || false);
-    const [maxNumberOfPersons, setMaxNumberOfPersons] = useState<number>(params.maxNumberOfPersons || 0);
-    const [onlyMine, setOnlyMine] = useState<boolean>(params.onlyMine || false);
-    const [meOffered, setMeOffered] = useState<boolean>(params.meOffered || false);
-    const [distanceFromInKm, setDistanceFromInKm] = useState<number>(params.distanceFromInKm || 0);
-    const [distanceToInKm, setDistanceToInKm] = useState<number>(params.distanceToInKm || 0);
+    const [page, setPage] = useState<number|undefined>(params.page);
+    const [dietForTransporter, setDietForTransporter] = useState<boolean|undefined>(params.dietForTransporter);
+    const [maxNumberOfPersons, setMaxNumberOfPersons] = useState<number|undefined>(params.maxNumberOfPersons);
+    const [onlyMine, setOnlyMine] = useState<boolean|undefined>(params.onlyMine);
+    const [meOffered, setMeOffered] = useState<boolean|undefined>(params.meOffered);
+    const [distanceFromInKm, setDistanceFromInKm] = useState<number|undefined>(params.distanceFromInKm);
+    const [distanceToInKm, setDistanceToInKm] = useState<number|undefined>(params.distanceToInKm);
 
-    const submit = () => {
+    const submit = (_page: number|undefined) => {
         const currentParams = new URLSearchParams(searchParams.toString());
 
-        currentParams.set(SEARCH_PARAMS.PAGE, page.toString());
-        currentParams.set(SEARCH_PARAMS.NUMBER_OF_PERSONS, maxNumberOfPersons.toString());
-        currentParams.set(SEARCH_PARAMS.DIET_FOR_TRANSPORTER, dietForTransporter.toString());
-        currentParams.set(SEARCH_PARAMS.ONLY_MINE, onlyMine.toString());
-        currentParams.set(SEARCH_PARAMS.ME_OFFERED, meOffered.toString());
-        currentParams.set(SEARCH_PARAMS.DISTANCE_FROM, distanceToInKm.toString());
-        currentParams.set(SEARCH_PARAMS.DISTANCE_TO, distanceToInKm.toString());
+        if (_page !== undefined) {
+            currentParams.set(SEARCH_PARAMS.PAGE, _page.toString());
+        } else {
+            currentParams.delete(SEARCH_PARAMS.PAGE);
+        }
+        if (maxNumberOfPersons !== undefined) {
+            currentParams.set(SEARCH_PARAMS.NUMBER_OF_PERSONS, maxNumberOfPersons.toString());
+        } else {
+            currentParams.delete(SEARCH_PARAMS.NUMBER_OF_PERSONS);
+        }
+        if (distanceFromInKm !== undefined) {
+            currentParams.set(SEARCH_PARAMS.DISTANCE_FROM, distanceFromInKm.toString());
+        } else {
+            currentParams.delete(SEARCH_PARAMS.DISTANCE_FROM);
+        }
+        if (distanceToInKm !== undefined) {
+            currentParams.set(SEARCH_PARAMS.DISTANCE_TO, distanceToInKm.toString());
+        } else {
+            currentParams.delete(SEARCH_PARAMS.DISTANCE_TO);
+        }
+        // booleans
+        if (dietForTransporter) {
+            currentParams.set(SEARCH_PARAMS.DIET_FOR_TRANSPORTER, dietForTransporter.toString());
+        } else {
+            currentParams.delete(SEARCH_PARAMS.DIET_FOR_TRANSPORTER);
+        }
+        if (onlyMine) {
+            currentParams.set(SEARCH_PARAMS.ONLY_MINE, onlyMine.toString());
+        } else {
+            currentParams.delete(SEARCH_PARAMS.ONLY_MINE);
+        }
+        if (meOffered) {
+            currentParams.set(SEARCH_PARAMS.ME_OFFERED, meOffered.toString());
+        } else {
+            currentParams.delete(SEARCH_PARAMS.ME_OFFERED);
+        }
+
         const newQuery = Object.fromEntries(currentParams.entries());
 
         router.push({
@@ -52,20 +84,25 @@ export const TripFilter = (props: ITripFilterProps) => {
                 controlled={true}
                 size={ButtonSize.BY_CONTENT}
                 label={"Back"}
-                isDisabled={page <= 1}
+                isDisabled={page ? page <= 1 : false}
                 onClick={() => {
-                    if (page > 1) {
-                        setPage(page - 1);
+                    if (page && page > 1) {
+                        const newPage = page - 1;
+                        setPage(newPage);
+                        submit(newPage);
                     }
                 }}
                 type={ButtonType.BLACK}
             />
+            {<Text text={`Page: ${page}`} fontSize={FontSize.BASE_14} color={Color.BLACK} />}
             <ButtonClick
                 controlled={true}
                 size={ButtonSize.BY_CONTENT}
                 label={"Next"}
                 onClick={() => {
-                    setPage(page + 1);
+                    const newPage = page ? page + 1 : 2;
+                    setPage(newPage);
+                    submit(newPage);
                 }}
                 type={ButtonType.BLACK}
             />
@@ -73,7 +110,7 @@ export const TripFilter = (props: ITripFilterProps) => {
         <LayoutFlexRow gap={FlexGap.MEDIUM_24} canWrap={true}>
             <CheckBox
                 controlled={true}
-                checked={onlyMine}
+                checked={onlyMine || false}
                 onChange={(val) => {
                     setOnlyMine(val);
                 }}
@@ -81,7 +118,7 @@ export const TripFilter = (props: ITripFilterProps) => {
             />
             <CheckBox
                 controlled={true}
-                checked={meOffered}
+                checked={meOffered || false}
                 onChange={(val) => {
                     setMeOffered(val);
                 }}
@@ -89,7 +126,7 @@ export const TripFilter = (props: ITripFilterProps) => {
             />
             <CheckBox
                 controlled={true}
-                checked={dietForTransporter}
+                checked={dietForTransporter || false}
                 onChange={(val) => {
                     setDietForTransporter(val);
                 }}
@@ -131,11 +168,14 @@ export const TripFilter = (props: ITripFilterProps) => {
                         }
                     }
                 }}
+                placeholder={"Distance To"}
             />
         </LayoutFlexRow>
         <ButtonClick
             controlled={true}
-            onClick={submit}
+            onClick={() => {
+                submit(page);
+            }}
             label={"Submit"}
             type={ButtonType.BLACK}
             size={ButtonSize.BUTTON_SIZE_M}

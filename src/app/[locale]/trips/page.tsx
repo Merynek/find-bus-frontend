@@ -16,7 +16,7 @@ interface IParams {
 
 async function PageWrapper(props: PageProps<Record<string, never>, IParams>)  {
     const searchParams = await props.searchParams;
-    const page = parseNumberParam(searchParams?.page, 1);
+    const page = searchParams?.page ? parseNumberParam(searchParams?.page, 1) : undefined;
     const distanceFromInKm = searchParams?.distanceFrom ? parseNumberParam(searchParams?.distanceFrom, 0) : undefined;
     const distanceToInKm = searchParams?.distanceTo ? parseNumberParam(searchParams?.distanceTo, 0) : undefined;
 
@@ -24,8 +24,8 @@ async function PageWrapper(props: PageProps<Record<string, never>, IParams>)  {
         return {
             page: page,
             dietForTransporter: searchParams?.dietForTransporter ? parseBooleanParam(searchParams?.dietForTransporter, false) : undefined,
-            maxNumberOfPersons: parseNumberParam(searchParams?.numberOfPersons, 0) || undefined,
-            onlyMine: searchParams?.dietForTransporter ? parseBooleanParam(searchParams?.onlyMine, false) : undefined,
+            maxNumberOfPersons: searchParams?.numberOfPersons ? parseNumberParam(searchParams?.numberOfPersons, 0) : undefined,
+            onlyMine: searchParams?.onlyMine ? parseBooleanParam(searchParams?.onlyMine, false) : undefined,
             meOffered: searchParams?.meOffered ? parseBooleanParam(searchParams?.onlyMine, false) : undefined,
             distanceFromInKm: distanceFromInKm && distanceFromInKm > 0 ? distanceFromInKm : undefined,
             distanceToInKm: distanceToInKm && distanceToInKm > 0 ? distanceToInKm : undefined,
@@ -35,7 +35,7 @@ async function PageWrapper(props: PageProps<Record<string, never>, IParams>)  {
 
     const items = await TripService.getTrips({
         limit: 5,
-        offset: (page - 1) * 5,
+        offset: page ? (page - 1) * 5 : 0,
         maxNumberOfPersons: filterParams.maxNumberOfPersons,
         dietForTransporter: filterParams.dietForTransporter,
         onlyMine: filterParams.onlyMine,
