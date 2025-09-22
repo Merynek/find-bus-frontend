@@ -1,3 +1,5 @@
+"use client";
+
 import React, {useState} from "react";
 import styles from "./trip-list-item.module.scss";
 import {formatDateTime} from "@/src/utils/date-time.format";
