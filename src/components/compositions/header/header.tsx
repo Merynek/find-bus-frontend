@@ -36,10 +36,10 @@ export const Header = () => {
         <LayoutFlexRow>
             <Logo />
             <LayoutFlexRow justifyContent={"flex-end"} style={{width: "100%"}} gap={FlexGap.LARGE_32}>
-                <PageTabs user={user} />
+                <PageTabs user={user}/>
                 <div>|</div>
                 {user === null && _signButtons()}
-                {user !== null && <HeaderUserSection />}
+                {user !== null && <HeaderUserSection/>}
             </LayoutFlexRow>
         </LayoutFlexRow>
     </header>

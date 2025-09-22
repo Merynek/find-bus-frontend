@@ -2,14 +2,14 @@ import {useEffect, useState} from "react";
 
 /* call once after rendered to the DOM */
 export const useMount = (effect: () => void) => {
-    useEffect(effect, [effect]);
+    useEffect(effect, []);
 };
 
 /* call after unmount from the DOM */
 export const useUnmount = (effect: () => void) => {
     useEffect(() => {
         return effect;
-    }, [effect])
+    }, [])
 }
 
 /* call after props changed and after rendered to the DOM */

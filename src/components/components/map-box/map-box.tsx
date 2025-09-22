@@ -1,7 +1,8 @@
 import React, {useEffect, useRef} from "react";
 import "./map-box-styles.scss";
-import {useChangePropsAfterMount, useMount, useUnmount} from "@/src/hooks/lifecycleHooks";
+import {useChangePropsAfterMount} from "@/src/hooks/lifecycleHooks";
 import mapboxgl, {LngLat, LngLatBoundsLike, LngLatLike, Map} from "mapbox-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
 import {GeoPoint} from "@/src/data/geoPoint";
 import {getCountriesBounds, getPointsBounds} from "./tools/map-box-tools";
 import {MapBoxApi} from "./tools/map-box-api";
@@ -29,7 +30,6 @@ export interface IMapBoxProps {
 const MapBox = (props: IMapBoxProps) => {
     const _mapContainerRef = useRef<HTMLDivElement>(null);
     const _mapRef = useRef<Map|null>(null);
-    const _loadedRef = useRef<boolean>(false);
     const {markers, polyLines, flyTo, disableScrollZoom, initialView, center, onClick} = props;
     const _markersToUpdateRef = useRef<IMapMarker[]>(markers);
     const _polyLinesToUpdateRef = useRef<string[]>(polyLines);
@@ -60,13 +60,12 @@ const MapBox = (props: IMapBoxProps) => {
             maxZoom: 15,
             fitBoundsOptions: { padding: {top: 40, bottom: 40, left: 40, right: 40}}
         });
-        _mapRef.current = map;
         map.on("load", async () => {
             MapBoxApi.initMapBoxDirection(map, _polyLinesToUpdateRef.current);
             await MapBoxApi.initMapImages(map);
             MapBoxApi.initMapBoxMarkers(map, _markersToUpdateRef.current);
             MapBoxApi.fitCenter(map, _centerToUpdateRef.current);
-            _loadedRef.current = true;
+            _mapRef.current = map;
         })
         map.on("click", (e) => {
             if (onClick) {
@@ -75,20 +74,20 @@ const MapBox = (props: IMapBoxProps) => {
         })
     };
 
-    useMount(() => {
-        if (_loadedRef.current) return;
+    useEffect(() => {
+        if (_mapRef.current) return;
         initMap();
-    })
 
-    useUnmount(() => {
-        if (_mapRef.current) {
-            _mapRef.current?.remove();
-            _mapRef.current = null;
+        return () => {
+            if (_mapRef.current) {
+                _mapRef.current?.remove();
+                _mapRef.current = null;
+            }
         }
-    })
+    }, []);
 
     useChangePropsAfterMount(() => {
-        if (_mapRef.current && _loadedRef.current) {
+        if (_mapRef.current) {
             MapBoxApi.updateMapBoxMarkers(_mapRef.current, markers);
         } else {
             _markersToUpdateRef.current = markers;
@@ -96,7 +95,7 @@ const MapBox = (props: IMapBoxProps) => {
     }, [markers])
 
     useChangePropsAfterMount(() => {
-        if (_mapRef.current && _loadedRef.current) {
+        if (_mapRef.current) {
             MapBoxApi.updateMapBoxDirection(_mapRef.current, polyLines);
         } else {
             _polyLinesToUpdateRef.current = polyLines;
@@ -104,7 +103,7 @@ const MapBox = (props: IMapBoxProps) => {
     }, [polyLines])
 
     useChangePropsAfterMount(() => {
-        if (_mapRef.current && center && _loadedRef.current) {
+        if (_mapRef.current && center) {
             MapBoxApi.fitCenter(_mapRef.current, center)
         } else {
             _centerToUpdateRef.current = center || [];
@@ -112,7 +111,7 @@ const MapBox = (props: IMapBoxProps) => {
     }, [center])
 
     useChangePropsAfterMount(() => {
-        if (_mapRef.current && flyTo && _loadedRef.current) {
+        if (_mapRef.current && flyTo) {
             MapBoxApi.flyToPoint(_mapRef.current, flyTo);
         }
     }, [flyTo])

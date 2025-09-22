@@ -23,6 +23,7 @@ import {
     CreateTripRecommendations
 } from "@/src/components/pages/create-trip/components/create-trip-routes";
 import {CreateTripRoutes} from "@/src/components/pages/create-trip/components/create-trip-recommendation";
+import {IMapBoxProps} from "@/src/components/components/map-box/map-box";
 
 const CreateTripPage = observer(() => {
     const router = useRouter();
@@ -130,7 +131,7 @@ const CreateTripPage = observer(() => {
         </LayoutFlexColumn>
         <div style={{position: "relative", width: "100%", height: "300px"}}>
             <DirectionsMap
-                directions={_store.trip.directions}
+                polyLines={_store.trip.directions.map(d => d.polyline).map(p => p)}
                 markers={_store.trip.markers}
                 center={_store.trip.stops.map(s => s.place.point).filter<GeoPoint>((p) : p is GeoPoint => p !== undefined)}
                 initialView={{

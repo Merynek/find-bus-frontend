@@ -35,6 +35,6 @@ export const ImageElement = (props: IImageProps) => {
         fill={fill}
         priority={priority}
         loading={priority ? "eager" : "lazy"}
-        style={fill ? { objectFit: "cover", ...styles } : styles}
+        style={fill ? { objectFit: "fill", ...styles } : styles}
     />;
 };
