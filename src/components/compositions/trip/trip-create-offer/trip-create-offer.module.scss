@@ -5,8 +5,8 @@
 .layout {
   display: flex;
   flex-direction: column;
-  background: colors.$yellow;
-  padding: variables.$itemOffset;
+  background: colors.$gray;
+  padding: variables.$itemOffset * 5;
 
   .line {
     display: flex;

@@ -51,6 +51,10 @@ export function getComboBoxStyles<T>(): StylesConfig<IComboBoxItem<T>, false> {
         dropdownIndicator: (provided) => ({
             ...provided,
             padding: '0',
+        }),
+        menu: (provided) => ({
+            ...provided,
+            zIndex: 1000,
         })
     }
 }

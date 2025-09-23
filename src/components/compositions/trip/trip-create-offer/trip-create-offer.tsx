@@ -20,6 +20,7 @@ import {Vehicle} from "@/src/data/users/vehicle";
 import {useLoggedUser} from "@/src/hooks/authenticationHook";
 import {useCurrentLocale} from "@/src/hooks/translateHook";
 import {PriceConverter} from "@/src/converters/price-converter";
+import {FlexGap} from "@/src/enums/layout.enum";
 
 export interface ITripCreateOfferProps {
     trip: Trip;
@@ -106,7 +107,7 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
 
     const _renderEdit = () => {
         return offers.length &&
-            <LayoutFlexColumn>
+            <LayoutFlexColumn gap={FlexGap.TINY_8}>
                 {_renderDateTimePicker()}
                 <span>Kolik: {offers[0].price.amount} ,-</span>
                 <ButtonClick
@@ -144,39 +145,32 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
     }
 
     const _renderNewOffer = () => {
-        return <>
-            <div className={styles.line}>
-                <span>Kolik:</span>
-                <NumberBox
-                    controlled={true}
-                    value={priceAmount === undefined ? undefined : price.current.amount}
-                    minValue={0}
-                    onChange={(val) => {
-                        if (val !== undefined) {
-                            price.current.amount = val
-                        } else {
-                            price.current.amount = 0;
-                        }
-                        setPriceAmount(val)
-                    }}
-                />
-            </div>
-            <div className={styles.line}>
-                <span>Bus:</span>
-                <ComboBox
-                    instanceId={"bus"}
-                    controlled={true}
-                    items={getBusItems()}
-                    value={currentBus}
-                    onChange={(val) => {
-                        setCurrentBus(val);
-                    }}
-                />
-            </div>
-            <div className={styles.line}>
-                <span>End Offer:</span>
-                {_renderDateTimePicker()}
-            </div>
+        return <LayoutFlexColumn gap={FlexGap.LARGE_32}>
+            <NumberBox
+                placeholder={"Kolik"}
+                controlled={true}
+                value={priceAmount === undefined ? undefined : price.current.amount}
+                minValue={0}
+                onChange={(val) => {
+                    if (val !== undefined) {
+                        price.current.amount = val
+                    } else {
+                        price.current.amount = 0;
+                    }
+                    setPriceAmount(val)
+                }}
+            />
+            <ComboBox
+                placeHolder={"Vozidlo"}
+                instanceId={"bus"}
+                controlled={true}
+                items={getBusItems()}
+                value={currentBus}
+                onChange={(val) => {
+                    setCurrentBus(val);
+                }}
+            />
+            {_renderDateTimePicker()}
             <ButtonClick
                 controlled={true}
                 type={ButtonType.BLACK}
@@ -199,7 +193,8 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
                 label={"Nabídnout"}
                 size={ButtonSize.BY_CONTENT}
             />
-        </>
+        </LayoutFlexColumn>
+
     }
 
     return <div className={styles.layout}>
