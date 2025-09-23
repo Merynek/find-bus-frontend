@@ -15,13 +15,11 @@ export const VehicleDetail = (props: IVehicleDetailListProps) => {
 
     const renderImage = (path: string) => {
         return <div style={{width: "200px", height: "200px", position: "relative"}}>
-            <div className={styles.photo}>
-                <ImageElement
-                    src={path}
-                    alt={""}
-                    fill={true}
-                />
-            </div>
+            <ImageElement
+                src={path}
+                alt={""}
+                fill={true}
+            />
         </div>
     }
 
