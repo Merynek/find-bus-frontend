@@ -7,7 +7,7 @@ interface ISearchParams {
 
 async function PageWrapper(props: PageProps<Record<string, never>, ISearchParams>) {
     const searchParams = await props.searchParams;
-    const token = await searchParams?.token;
+    const token = searchParams?.token;
     return <ResetPasswordPage token={token || ""}/>;
 }
 
