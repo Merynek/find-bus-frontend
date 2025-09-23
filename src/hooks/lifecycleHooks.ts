@@ -2,11 +2,13 @@ import {useEffect, useState} from "react";
 
 /* call once after rendered to the DOM */
 export const useMount = (effect: () => void) => {
+    /* eslint-disable */
     useEffect(effect, []);
 };
 
 /* call after unmount from the DOM */
 export const useUnmount = (effect: () => void) => {
+    /* eslint-disable */
     useEffect(() => {
         return effect;
     }, [])

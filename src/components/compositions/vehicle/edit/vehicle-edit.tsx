@@ -57,18 +57,6 @@ export default function VehicleForm(props: IVehicleEditProps) {
     const [departureStation, setDepartureStation] = useState<Place|undefined>(store.departureStation || undefined);
     const locale = useCurrentLocale();
 
-    const formatDateToYYYYMMDD = (date: Date | undefined): string => {
-        if (!date) {
-            return "";
-        }
-        // Zajištění, že máme objekt Date, pokud by přišel jako string
-        const d = date instanceof Date ? date : new Date(date);
-        const year = d.getFullYear();
-        const month = (d.getMonth() + 1).toString().padStart(2, '0'); // Měsíce jsou 0-11
-        const day = d.getDate().toString().padStart(2, '0');
-        return `${year}-${month}-${day}`;
-    };
-
     const getEuroStandardOptions = (): IComboBoxItem<string>[] => {
         const options: IComboBoxItem<string>[] = [];
         Object.values(EuroStandard).map((euro) => (
@@ -81,8 +69,6 @@ export default function VehicleForm(props: IVehicleEditProps) {
     }
 
     const euroStandardOptions = getEuroStandardOptions();
-
-    const formattedStkExpired = formatDateToYYYYMMDD(state?.data?.stkExpired);
 
     useEffect(() => {
         if (state && !state?.schemaErrors && state.success === true) {

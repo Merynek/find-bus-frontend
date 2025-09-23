@@ -74,6 +74,7 @@ const MapBox = (props: IMapBoxProps) => {
         })
     };
 
+    /* eslint-disable */
     useEffect(() => {
         if (_mapRef.current) return;
         initMap();

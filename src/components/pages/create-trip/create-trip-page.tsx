@@ -23,7 +23,6 @@ import {
     CreateTripRecommendations
 } from "@/src/components/pages/create-trip/components/create-trip-routes";
 import {CreateTripRoutes} from "@/src/components/pages/create-trip/components/create-trip-recommendation";
-import {IMapBoxProps} from "@/src/components/components/map-box/map-box";
 
 const CreateTripPage = observer(() => {
     const router = useRouter();
