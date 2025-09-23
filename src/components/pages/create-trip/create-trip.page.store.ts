@@ -98,7 +98,7 @@ export class CreateTripPageStore {
                 this.placesAreSet = false;
             }
         })
-        if (this.trip.numberOfPersons <= 0) {
+        if (this.trip.numberOfPersons && this.trip.numberOfPersons <= 0) {
             this.peopleCountIsValid = false;
         }
         if (this.trip.routes.length === 0) {

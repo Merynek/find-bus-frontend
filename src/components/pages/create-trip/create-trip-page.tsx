@@ -47,9 +47,7 @@ const CreateTripPage = observer(() => {
             controlled={true}
             value={_store.trip.handicappedUserCount}
             onChange={(val) => {
-                if (val) {
-                    _store.trip.handicappedUserCount = val;
-                }
+                _store.trip.handicappedUserCount = val;
             }}
             minValue={0}
         />
@@ -74,9 +72,7 @@ const CreateTripPage = observer(() => {
             controlled={true}
             value={_store.trip.numberOfPersons}
             onChange={(val) => {
-                if (val) {
-                    _store.trip.numberOfPersons = val;
-                }
+                _store.trip.numberOfPersons = val;
             }}
             minValue={0}
         />

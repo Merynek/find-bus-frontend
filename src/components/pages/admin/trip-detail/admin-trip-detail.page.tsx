@@ -36,7 +36,7 @@ const AdminTripDetailPage = (props: TripDetailPageProps) => {
                 </LayoutFlexRow>
                 <LayoutFlexRow gap={FlexGap.SMALLEST_4}>
                     <Text text={"Passengers: "} fontSize={FontSize.BASE_14} fontWeight={FontWeight.SEMIBOLD} />
-                    <Text text={trip.numberOfPersons.toString()} fontSize={FontSize.BASE_14} />
+                    <Text text={trip.numberOfPersons ? trip.numberOfPersons.toString() : "0"} fontSize={FontSize.BASE_14} />
                 </LayoutFlexRow>
                 <LayoutFlexRow gap={FlexGap.SMALLEST_4}>
                     <Text text={"From: "} fontSize={FontSize.BASE_14} fontWeight={FontWeight.SEMIBOLD} />

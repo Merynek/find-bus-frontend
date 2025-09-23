@@ -31,11 +31,11 @@ export class TripConverter {
     public static toServer(trip: Trip): CreateTripRequestDto {
         return {
             routes: trip.routes.map((r) => RouteConverter.toServer(r)),
-            numberOfPersons: trip.numberOfPersons,
+            numberOfPersons: trip.numberOfPersons || 0,
             dietForTransporter: trip.dietForTransporter,
             amenities: toJS(trip.amenities),
             endOrder: trip.endOrder,
-            handicappedUserCount: trip.handicappedUserCount
+            handicappedUserCount: trip.handicappedUserCount || 0
         }
     }
 
@@ -72,13 +72,13 @@ export class TripConverter {
             id: trip.id,
             ownerId: trip.ownerId,
             routes: trip.routes.map(r => RouteConverter.toJson(r)),
-            numberOfPersons: trip.numberOfPersons,
+            numberOfPersons: trip.numberOfPersons || 0,
             amenities: toJS(trip.amenities),
             dietForTransporter: trip.dietForTransporter,
             endOrder: trip.endOrder,
             offerHasEnded: trip.offerHasEnded,
             offerState: trip.offerState,
-            handicappedUserCount: trip.handicappedUserCount,
+            handicappedUserCount: trip.handicappedUserCount || 0,
             totalDistanceInMeters: trip.totalDistanceInMeters,
             created: trip.created
         }

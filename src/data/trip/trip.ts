@@ -26,12 +26,12 @@ export class Trip {
     public id: number;
     public ownerId: number;
     @observable public routes: Route[];
-    @observable public numberOfPersons: number;
+    @observable public numberOfPersons: number|undefined;
     @observable public amenities: Amenities[];
     @observable public dietForTransporter: boolean;
     @observable public endOrder: Date;
     @observable public offerHasEnded: boolean;
-    @observable public handicappedUserCount: number;
+    @observable public handicappedUserCount: number|undefined;
     public totalDistanceInMeters: number;
     public offerState: TripOfferState;
     private _observeChangesStarted: boolean;
