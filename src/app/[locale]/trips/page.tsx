@@ -12,6 +12,7 @@ interface IParams {
     meOffered?: string;
     distanceFrom?: string;
     distanceTo?: string;
+    maxDistanceInMeters?: string;
 }
 
 async function PageWrapper(props: PageProps<Record<string, never>, IParams>)  {
@@ -19,6 +20,7 @@ async function PageWrapper(props: PageProps<Record<string, never>, IParams>)  {
     const page = searchParams?.page ? parseNumberParam(searchParams?.page, 1) : undefined;
     const distanceFromInKm = searchParams?.distanceFrom ? parseNumberParam(searchParams?.distanceFrom, 0) : undefined;
     const distanceToInKm = searchParams?.distanceTo ? parseNumberParam(searchParams?.distanceTo, 0) : undefined;
+    const maxDistanceInMeters = searchParams?.maxDistanceInMeters ? parseNumberParam(searchParams?.maxDistanceInMeters, 0) : undefined;
 
     const createParams = (): ITripFilterParams => {
         return {
@@ -29,6 +31,7 @@ async function PageWrapper(props: PageProps<Record<string, never>, IParams>)  {
             meOffered: searchParams?.meOffered ? parseBooleanParam(searchParams?.onlyMine, false) : undefined,
             distanceFromInKm: distanceFromInKm && distanceFromInKm > 0 ? distanceFromInKm : undefined,
             distanceToInKm: distanceToInKm && distanceToInKm > 0 ? distanceToInKm : undefined,
+            maxDistanceInMeters: maxDistanceInMeters && maxDistanceInMeters > 0 ? maxDistanceInMeters : undefined,
         }
     }
     const filterParams = createParams();
@@ -41,7 +44,8 @@ async function PageWrapper(props: PageProps<Record<string, never>, IParams>)  {
         onlyMine: filterParams.onlyMine,
         meOffered: filterParams.meOffered,
         distanceFromInKm: filterParams.distanceFromInKm,
-        distanceToInKm: filterParams.distanceToInKm
+        distanceToInKm: filterParams.distanceToInKm,
+        maxDistanceInMeters: filterParams.maxDistanceInMeters
     });
 
     return <TripListPage

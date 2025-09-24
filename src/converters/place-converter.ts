@@ -1,7 +1,6 @@
 import {Country, PlaceRequestDto, PlaceResponseDto} from "../api/openapi";
 import {Place} from "../data/place";
 import {PointsConverter} from "./points-converter";
-import {GeoPointConverter} from "./trip/geoPoint-converter";
 
 export class PlaceConverter {
     public static toInstance(apiPlace: PlaceResponseDto): Place {
@@ -17,7 +16,7 @@ export class PlaceConverter {
     public static toServer(place: Place): PlaceRequestDto {
         return {
             placeId: place.placeId || "",
-            point: place.point ? GeoPointConverter.toJson(place.point) : {lat: 0, lng: 0},
+            point: place.point ? PointsConverter.toJson(place.point) : {lat: 0, lng: 0},
             country: place.country || Country.CZ,
             name: place.name || "",
             placeFormatted: place.placeFormatted || ""

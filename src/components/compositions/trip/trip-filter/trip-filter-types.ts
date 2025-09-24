@@ -6,4 +6,5 @@ export interface ITripFilterParams {
     meOffered?: boolean;
     distanceFromInKm?: number;
     distanceToInKm?: number;
+    maxDistanceInMeters?: number;
 }

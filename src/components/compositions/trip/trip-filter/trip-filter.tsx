@@ -29,6 +29,7 @@ export const TripFilter = (props: ITripFilterProps) => {
     const [meOffered, setMeOffered] = useState<boolean|undefined>(params.meOffered);
     const [distanceFromInKm, setDistanceFromInKm] = useState<number|undefined>(params.distanceFromInKm);
     const [distanceToInKm, setDistanceToInKm] = useState<number|undefined>(params.distanceToInKm);
+    const [maxDistanceInMeters, setMaxDistanceInMeters] = useState<number|undefined>(params.maxDistanceInMeters);
 
     const submit = (_page: number|undefined) => {
         const currentParams = new URLSearchParams(searchParams.toString());
@@ -52,6 +53,11 @@ export const TripFilter = (props: ITripFilterProps) => {
             currentParams.set(SEARCH_PARAMS.DISTANCE_TO, distanceToInKm.toString());
         } else {
             currentParams.delete(SEARCH_PARAMS.DISTANCE_TO);
+        }
+        if (maxDistanceInMeters !== undefined && maxDistanceInMeters >= 0) {
+            currentParams.set(SEARCH_PARAMS.MAX_DISTANCE_IN_METERS, maxDistanceInMeters.toString());
+        } else {
+            currentParams.delete(SEARCH_PARAMS.MAX_DISTANCE_IN_METERS);
         }
         // booleans
         if (dietForTransporter) {
@@ -155,6 +161,14 @@ export const TripFilter = (props: ITripFilterProps) => {
                     setDistanceToInKm(val);
                 }}
                 placeholder={"Distance To"}
+            />
+            <NumberBox
+                controlled={true}
+                value={maxDistanceInMeters}
+                onChange={(val) => {
+                    setMaxDistanceInMeters(val);
+                }}
+                placeholder={"Distance from start point in meters"}
             />
         </LayoutFlexRow>
         <ButtonClick

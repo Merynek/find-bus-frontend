@@ -44,6 +44,7 @@ export interface ApiTripListGetRequest {
     meOffered?: boolean;
     distanceFromInMeters?: number;
     distanceToInMeters?: number;
+    maxDistanceInMeters?: number;
 }
 
 export interface ApiTripPostRequest {
@@ -116,6 +117,10 @@ export class TripApi extends runtime.BaseAPI {
 
         if (requestParameters['distanceToInMeters'] != null) {
             queryParameters['DistanceToInMeters'] = requestParameters['distanceToInMeters'];
+        }
+
+        if (requestParameters['maxDistanceInMeters'] != null) {
+            queryParameters['MaxDistanceInMeters'] = requestParameters['maxDistanceInMeters'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};

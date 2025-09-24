@@ -486,6 +486,14 @@
               "type": "integer",
               "format": "int32"
             }
+          },
+          {
+            "name": "MaxDistanceInMeters",
+            "in": "query",
+            "schema": {
+              "type": "number",
+              "format": "double"
+            }
           }
         ],
         "responses": {
@@ -2774,7 +2782,7 @@
         },
         "additionalProperties": false
       },
-      "GeoPoint": {
+      "GeoPointDto": {
         "required": [
           "lat",
           "lng"
@@ -2876,7 +2884,7 @@
             "type": "string"
           },
           "point": {
-            "$ref": "#/components/schemas/GeoPoint"
+            "$ref": "#/components/schemas/GeoPointDto"
           },
           "country": {
             "$ref": "#/components/schemas/Country"
@@ -2907,7 +2915,7 @@
             "type": "string"
           },
           "point": {
-            "$ref": "#/components/schemas/GeoPoint"
+            "$ref": "#/components/schemas/GeoPointDto"
           },
           "name": {
             "minLength": 1,

@@ -13,13 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
-import type { GeoPoint } from './GeoPoint';
+import type { GeoPointDto } from './GeoPointDto';
 import {
-    GeoPointFromJSON,
-    GeoPointFromJSONTyped,
-    GeoPointToJSON,
-    GeoPointToJSONTyped,
-} from './GeoPoint';
+    GeoPointDtoFromJSON,
+    GeoPointDtoFromJSONTyped,
+    GeoPointDtoToJSON,
+    GeoPointDtoToJSONTyped,
+} from './GeoPointDto';
 import type { Country } from './Country';
 import {
     CountryFromJSON,
@@ -42,10 +42,10 @@ export interface PlaceResponseDto {
     placeId: string;
     /**
      * 
-     * @type {GeoPoint}
+     * @type {GeoPointDto}
      * @memberof PlaceResponseDto
      */
-    point: GeoPoint;
+    point: GeoPointDto;
     /**
      * 
      * @type {string}
@@ -91,7 +91,7 @@ export function PlaceResponseDtoFromJSONTyped(json: any, ignoreDiscriminator: bo
     return {
         
         'placeId': json['placeId'],
-        'point': GeoPointFromJSON(json['point']),
+        'point': GeoPointDtoFromJSON(json['point']),
         'name': json['name'],
         'placeFormatted': json['placeFormatted'],
         'country': CountryFromJSON(json['country']),
@@ -110,7 +110,7 @@ export function PlaceResponseDtoToJSONTyped(value?: PlaceResponseDto | null, ign
     return {
         
         'placeId': value['placeId'],
-        'point': GeoPointToJSON(value['point']),
+        'point': GeoPointDtoToJSON(value['point']),
         'name': value['name'],
         'placeFormatted': value['placeFormatted'],
         'country': CountryToJSON(value['country']),

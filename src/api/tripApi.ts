@@ -23,6 +23,7 @@ export interface IGetTripsRequest extends IApiRequest {
     meOffered?: boolean;
     distanceFromInKm?: number;
     distanceToInKm?: number;
+    maxDistanceInMeters?: number;
 }
 
 export interface IGetTrip extends IApiRequest {
