@@ -65,7 +65,8 @@ export class TripApi {
             start: req.start || undefined,
             maxNumberOfPersons: req.maxNumberOfPersons,
             onlyMine: req.onlyMine,
-            meOffered: req.meOffered
+            meOffered: req.meOffered,
+            maxDistanceInMeters: req.maxDistanceInMeters
         }
         return await handleApiCall(this._api.apiTripListGet(params, req.initOverrides));
     }

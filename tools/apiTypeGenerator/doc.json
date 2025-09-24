@@ -491,8 +491,8 @@
             "name": "MaxDistanceInMeters",
             "in": "query",
             "schema": {
-              "type": "number",
-              "format": "double"
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
