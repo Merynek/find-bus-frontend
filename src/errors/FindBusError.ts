@@ -51,6 +51,7 @@ export class FindBusError extends Error {
                     });
                 }
             } catch (e) {
+                console.error("Error:", JSON.stringify(error));
                 console.error("Chyba při parsování chyby:", JSON.stringify(e));
                 return null;
             }
