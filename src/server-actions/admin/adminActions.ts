@@ -7,9 +7,9 @@ import {
     Languages,
     UpdateAppBusinessConfigRequestDto
 } from "@/src/api/openapi";
-import {getAccessToken} from "@/src/app/actions/auth/accessTokenActions";
+import {getAccessToken} from "@/src/server-actions/auth/accessTokenActions";
 import {AdminApi} from "@/src/api/adminApi";
-import {handleActionCall} from "@/src/app/actions/baseAction";
+import {handleActionCall} from "@/src/server-actions/baseAction";
 
 export async function getEmailConfig(): Promise<EmailConfigResponseDto> {
     return await handleActionCall(async () => {

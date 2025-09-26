@@ -6,9 +6,9 @@ import {
     TripRecommendationRequestDto, type TripRecommendationResponseDto,
     TripResponseDto
 } from "@/src/api/openapi";
-import {getAccessToken} from "@/src/app/actions/auth/accessTokenActions";
+import {getAccessToken} from "@/src/server-actions/auth/accessTokenActions";
 import {IGetTripsRequest, TripApi} from "@/src/api/tripApi";
-import {handleActionCall} from "@/src/app/actions/baseAction";
+import {handleActionCall} from "@/src/server-actions/baseAction";
 
 export async function getTrip(id: number): Promise<TripResponseDto> {
     return await handleActionCall(async () => {

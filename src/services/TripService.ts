@@ -1,5 +1,5 @@
 import {Trip} from "@/src/data/trip/trip";
-import {createTrip, getTrip, getTripRecommendation, getTrips} from "@/src/app/actions/trips/tripsActions";
+import {createTrip, getTrip, getTripRecommendation, getTrips} from "@/src/server-actions/trips/tripsActions";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
 import {TripItemConverter} from "@/src/converters/trip-item-converter";
 import {TripItem} from "@/src/data/tripItem";

@@ -4,7 +4,7 @@ import {AuthorizeApi} from "@/src/api/authorizeApi";
 import {type CurrentUserDto, UserRole} from "@/src/api/openapi";
 import {RegistrationApi} from "@/src/api/registrationApi";
 import {signIn, signOut, auth} from "@/src/auth/auth";
-import {handleActionCall} from "@/src/app/actions/baseAction";
+import {handleActionCall} from "@/src/server-actions/baseAction";
 
 interface CustomSession {
     user?: CurrentUserDto;

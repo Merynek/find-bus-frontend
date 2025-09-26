@@ -5,10 +5,10 @@ import {ButtonClick, ButtonLink, ButtonSize, ButtonType} from "../../../componen
 import {ROUTES, SEARCH_PARAMS} from "@/src/enums/router.enum";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {useCurrentLocale, useTranslate} from "@/src/hooks/translateHook";
-import {logoutAction} from "@/src/app/actions/auth/authActions";
+import {logoutAction} from "@/src/server-actions/auth/authActions";
 import {useSearchParams} from "next/navigation";
 import {useRouter} from "@/src/i18n/navigation";
-import {userSettingsFormAction} from "@/src/app/actions/forms/signIn/signInFormAction";
+import {userSettingsFormAction} from "@/src/server-actions/forms/signIn/signInFormAction";
 import {useFormActionState} from "@/src/hooks/formHook";
 import {FormStatus} from "@/src/components/components/form-status/form-status";
 import {TextBox, TextBoxType} from "@/src/components/components/inputs/text-box/text-box";

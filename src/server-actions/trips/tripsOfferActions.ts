@@ -1,6 +1,6 @@
 'use server';
 
-import {getAccessToken} from "@/src/app/actions/auth/accessTokenActions";
+import {getAccessToken} from "@/src/server-actions/auth/accessTokenActions";
 import {ICreateOfferRequest, IDownloadDocumentRequest, TripsOfferApi} from "@/src/api/tripsOfferApi";
 import {
     CloseTripOfferReason,
@@ -8,7 +8,7 @@ import {
     TripOfferMovementsResponseDto,
     TripOfferResponseDto
 } from "@/src/api/openapi";
-import {handleActionCall} from "@/src/app/actions/baseAction";
+import {handleActionCall} from "@/src/server-actions/baseAction";
 
 export async function getTripOffers(tripId: number): Promise<TripOfferResponseDto[]> {
     return await handleActionCall(async () => {

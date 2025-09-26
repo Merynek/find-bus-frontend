@@ -5,7 +5,7 @@ import {
     getAppBusinessConfig,
     getEmailConfig,
     setEmailConfig
-} from "@/src/app/actions/admin/adminActions";
+} from "@/src/server-actions/admin/adminActions";
 import {EmailType, Languages} from "@/src/api/openapi";
 import {EmailConfigConverter} from "@/src/converters/admin/email-config-converter";
 import {AppBusinessConfigConverter} from "@/src/converters/admin/app-business-config-converter";

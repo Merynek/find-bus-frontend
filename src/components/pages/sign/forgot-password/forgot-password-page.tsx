@@ -1,7 +1,7 @@
 'use client'
 
 import React from "react";
-import {forgotPasswordFormAction} from "@/src/app/actions/forms/forgotPassword/forgotPasswordFormAction";
+import {forgotPasswordFormAction} from "@/src/server-actions/forms/forgotPassword/forgotPasswordFormAction";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {useFormActionState} from "@/src/hooks/formHook";
 import {FormStatus} from "@/src/components/components/form-status/form-status";

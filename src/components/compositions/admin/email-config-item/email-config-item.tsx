@@ -3,7 +3,7 @@
 import React from "react";
 import styles from "./email-config-item.module.scss";
 import {EmailConfigLocalization, EmailTemplate} from "@/src/data/emailConfig";
-import {emailConfigFormAction} from "@/src/app/actions/forms/admin/emailConfig/emailConfigFormAction";
+import {emailConfigFormAction} from "@/src/server-actions/forms/admin/emailConfig/emailConfigFormAction";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import type {EmailTemplateResponseDto} from "@/src/api/openapi";
 import {EmailTemplateConverter} from "@/src/converters/admin/email-template-converter";

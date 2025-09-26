@@ -5,7 +5,7 @@ import {
     getSettings,
     setUserVerification,
     updateTransportRequirementsPhotos
-} from "@/src/app/actions/users/usersActions";
+} from "@/src/server-actions/users/usersActions";
 import {UserSettingsRequestDto} from "@/src/api/openapi";
 import {UserSettings} from "@/src/data/users/userSettings";
 import {IUpdateTransportRequirementsPhotosRequest} from "@/src/api/usersApi";

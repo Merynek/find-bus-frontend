@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import {appConfigFormAction} from "@/src/app/actions/forms/admin/appConfig/appConfigFormAction";
+import {appConfigFormAction} from "@/src/server-actions/forms/admin/appConfig/appConfigFormAction";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {AppBusinessConfigResponseDto} from "@/src/api/openapi";
 import {AppBusinessConfigConverter} from "@/src/converters/admin/app-business-config-converter";

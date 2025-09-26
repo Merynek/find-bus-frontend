@@ -2,8 +2,8 @@
 
 import {IUpdateTransportRequirementsPhotosRequest, UsersApi} from "@/src/api/usersApi";
 import {AdminUserDetailResponseDto, UserSettingsRequestDto, type UserSettingsResponseDto} from "@/src/api/openapi";
-import {getAccessToken} from "@/src/app/actions/auth/accessTokenActions";
-import {handleActionCall} from "@/src/app/actions/baseAction";
+import {getAccessToken} from "@/src/server-actions/auth/accessTokenActions";
+import {handleActionCall} from "@/src/server-actions/baseAction";
 
 export async function getAllUsers(offset: number, limit: number): Promise<AdminUserDetailResponseDto[]> {
     return await handleActionCall(async () => {

@@ -3,7 +3,7 @@ import {
     getVehicle,
     getVehicles,
     setVehicleVerification, updateVehicle, updateVehicleFiles
-} from "../app/actions/vehicle/vehicleActions";
+} from "../server-actions/vehicle/vehicleActions";
 import {VehicleConverter} from "@/src/converters/vehicle-converter";
 import {
     IAddVehicleRequest,

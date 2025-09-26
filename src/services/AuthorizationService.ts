@@ -4,7 +4,7 @@ import {
     loginAction,
     logoutAction, resetPasswordAction,
     signUpAction
-} from "@/src/app/actions/auth/authActions";
+} from "@/src/server-actions/auth/authActions";
 import {UsersConverter} from "@/src/converters/users/users-converter";
 import {BaseService} from "@/src/services/BaseService";
 import {User} from "@/src/data/users/user";

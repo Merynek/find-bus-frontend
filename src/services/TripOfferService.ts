@@ -7,7 +7,7 @@ import {
     forceCloseTrip,
     deleteOffer,
     acceptOffer, updateOffer, createOffer, downloadFinancialDocument
-} from "@/src/app/actions/trips/tripsOfferActions";
+} from "@/src/server-actions/trips/tripsOfferActions";
 import {TripOfferConverter} from "@/src/converters/trip-offer-converter";
 import {TripOfferMovement} from "@/src/data/tripOfferMovement";
 import {Offer} from "@/src/data/offer";

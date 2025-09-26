@@ -6,7 +6,7 @@ import {ButtonClick, ButtonSize, ButtonType} from "../../components/button/butto
 import {Country, NotificationsEnum, UserRole, UserSettingsResponseDto} from "@/src/api/openapi";
 import {LayoutFlexColumn} from "../../components/layout/layout-flex-column/layout-flex-column";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
-import {userSettingsFormAction} from "@/src/app/actions/forms/userSettings/userSettingsFormAction";
+import {userSettingsFormAction} from "@/src/server-actions/forms/userSettings/userSettingsFormAction";
 import {useInit} from "@/src/hooks/lifecycleHooks";
 import {UsersConverter} from "@/src/converters/users/users-converter";
 import {useLoggedUser} from "@/src/hooks/authenticationHook";

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Amenities, EuroStandard} from "@/src/api/openapi";
 import {VehicleEditStore} from "./vehicle-edit.store";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
-import {vehicleFormAction} from "@/src/app/actions/forms/vehicle/vehicleFormAction";
+import {vehicleFormAction} from "@/src/server-actions/forms/vehicle/vehicleFormAction";
 import {ImageUploader} from "@/src/components/components/image-uploader/image-uploader";
 import {Place} from "@/src/data/place";
 import {PlaceAutocomplete} from "@/src/components/components/inputs/place-autocomplete/place-autocomplete";

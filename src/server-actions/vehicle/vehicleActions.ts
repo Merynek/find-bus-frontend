@@ -1,6 +1,6 @@
 'use server';
 
-import {getAccessToken} from "@/src/app/actions/auth/accessTokenActions";
+import {getAccessToken} from "@/src/server-actions/auth/accessTokenActions";
 import {
     IAddVehicleRequest,
     IUploadVehicleFilesRequest,
@@ -8,7 +8,7 @@ import {
     VehicleApi
 } from "@/src/api/vehicleApi";
 import type {VehicleResponseDto} from "@/src/api/openapi";
-import {handleActionCall} from "@/src/app/actions/baseAction";
+import {handleActionCall} from "@/src/server-actions/baseAction";
 
 export async function setVehicleVerification(vehicleId: number, verified: boolean) {
     await handleActionCall(async () => {
