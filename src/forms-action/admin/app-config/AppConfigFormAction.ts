@@ -1,7 +1,7 @@
-import {BaseFormAction} from "@/src/forms/BaseFormAction";
+import {BaseFormAction} from "@/src/forms-action/BaseFormAction";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {z} from "zod";
-import {AppConfigSchema} from "@/src/forms/admin/app-config/AppConfigSchema";
+import {AppConfigSchema} from "@/src/forms-action/admin/app-config/AppConfigSchema";
 import {AdminService} from "@/src/services/AdminService";
 import {AppBusinessConfig, IAppBusinessConfigSettings} from "@/src/data/appBusinessConfig";
 

@@ -2,10 +2,10 @@
 
 import { redirect } from "@/src/i18n/navigation";
 import {ROUTES} from "@/src/enums/router.enum";
-import {TFormActionState} from "@/src/forms/BaseFormAction";
+import {TFormActionState} from "@/src/forms-action/BaseFormAction";
 import {Locale} from "next-intl";
-import {SignUpFormAction} from "@/src/forms/sign-up/SignUpFormAction";
-import {SignupFormSchema} from "@/src/forms/sign-up/SignUpSchema";
+import {SignUpFormAction} from "@/src/forms-action/sign-up/SignUpFormAction";
+import {SignupFormSchema} from "@/src/forms-action/sign-up/SignUpSchema";
 
 const signUpFormActionHandler = new SignUpFormAction();
 

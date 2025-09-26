@@ -1,8 +1,8 @@
-import {BaseFormAction} from "@/src/forms/BaseFormAction";
+import {BaseFormAction} from "@/src/forms-action/BaseFormAction";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {z} from "zod";
 import {AuthorizationService} from "@/src/services/AuthorizationService";
-import {SignInFormSchema} from "@/src/forms/sign-in/SignInSchema";
+import {SignInFormSchema} from "@/src/forms-action/sign-in/SignInSchema";
 import {LOCALES} from "@/src/utils/locale";
 
 type SignInData = {

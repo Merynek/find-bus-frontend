@@ -1,5 +1,5 @@
 import { z } from "zod";
-import {TFormActionState} from "@/src/forms/BaseFormAction";
+import {TFormActionState} from "@/src/forms-action/BaseFormAction";
 import {useActionState} from "react";
 
 type TFormAction<Schema extends z.ZodSchema> = (

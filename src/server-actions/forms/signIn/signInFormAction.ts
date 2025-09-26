@@ -3,9 +3,9 @@
 import { redirect } from "@/src/i18n/navigation";
 import {ROUTES} from "@/src/enums/router.enum";
 import { Locale } from "next-intl";
-import {TFormActionState} from "@/src/forms/BaseFormAction";
-import {SignInFormAction} from "@/src/forms/sign-in/SignInFormAction";
-import {SignInFormSchema} from "@/src/forms/sign-in/SignInSchema";
+import {TFormActionState} from "@/src/forms-action/BaseFormAction";
+import {SignInFormAction} from "@/src/forms-action/sign-in/SignInFormAction";
+import {SignInFormSchema} from "@/src/forms-action/sign-in/SignInSchema";
 
 const signInFormActionHandler = new SignInFormAction();
 

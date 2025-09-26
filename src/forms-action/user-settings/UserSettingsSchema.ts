@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { NotificationsEnum } from "@/src/api/openapi";
-import {ImageFileSchema, TransferInfoSchema, UserAddressSchema} from "@/src/forms/Schemas";
+import {ImageFileSchema, TransferInfoSchema, UserAddressSchema} from "@/src/forms-action/Schemas";
 
 export const UserSettingsSchema = z.object({
     name: z.string().min(2, "Name je vyžadováno.").optional(),

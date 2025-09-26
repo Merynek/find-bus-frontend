@@ -1,7 +1,7 @@
 "use client";
 
 import React, {useEffect, useState} from "react";
-import {TFormActionState} from "@/src/forms/BaseFormAction";
+import {TFormActionState} from "@/src/forms-action/BaseFormAction";
 import {z} from "zod";
 import {useTranslate} from "@/src/hooks/translateHook";
 import {FrontendErrorEnum} from "@/src/enums/frontend-error.enum";

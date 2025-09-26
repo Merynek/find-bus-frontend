@@ -1,8 +1,8 @@
 'use server';
 
-import {TFormActionState} from "@/src/forms/BaseFormAction";
-import {AppConfigSchema} from "@/src/forms/admin/app-config/AppConfigSchema";
-import {AppConfigFormAction} from "@/src/forms/admin/app-config/AppConfigFormAction";
+import {TFormActionState} from "@/src/forms-action/BaseFormAction";
+import {AppConfigSchema} from "@/src/forms-action/admin/app-config/AppConfigSchema";
+import {AppConfigFormAction} from "@/src/forms-action/admin/app-config/AppConfigFormAction";
 
 const appConfigFormActionHandler = new AppConfigFormAction();
 

@@ -1,8 +1,8 @@
-import {BaseFormAction} from "@/src/forms/BaseFormAction";
+import {BaseFormAction} from "@/src/forms-action/BaseFormAction";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {z} from "zod";
 import {AdminService} from "@/src/services/AdminService";
-import {EmailConfigSchema} from "@/src/forms/admin/email-config/EmailConfigSchema";
+import {EmailConfigSchema} from "@/src/forms-action/admin/email-config/EmailConfigSchema";
 import {Languages} from "@/src/api/openapi";
 
 type EmailConfigData = {

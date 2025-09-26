@@ -1,8 +1,8 @@
-import {BaseFormAction} from "@/src/forms/BaseFormAction";
+import {BaseFormAction} from "@/src/forms-action/BaseFormAction";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {z} from "zod";
 import {AuthorizationService} from "@/src/services/AuthorizationService";
-import {ResetPasswordSchema} from "@/src/forms/reset-password/ResetPasswordSchema";
+import {ResetPasswordSchema} from "@/src/forms-action/reset-password/ResetPasswordSchema";
 
 type ResetPasswordData = {
     token?: string;

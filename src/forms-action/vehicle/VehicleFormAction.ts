@@ -1,7 +1,7 @@
-import {BaseFormAction} from "@/src/forms/BaseFormAction";
+import {BaseFormAction} from "@/src/forms-action/BaseFormAction";
 import {z} from "zod";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
-import {VehicleSchema} from "@/src/forms/vehicle/VehicleSchema";
+import {VehicleSchema} from "@/src/forms-action/vehicle/VehicleSchema";
 import {VehicleService} from "@/src/services/VehicleService";
 import {IUploadVehicleFilesRequest, IVehicleRequest} from "@/src/api/vehicleApi";
 import {Country, PlaceRequestDto} from "@/src/api/openapi";

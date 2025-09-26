@@ -1,8 +1,8 @@
 'use server';
 
-import {TFormActionState} from "@/src/forms/BaseFormAction";
-import {ResetPasswordFormAction} from "@/src/forms/reset-password/ResetPasswordFormAction";
-import {ResetPasswordSchema} from "@/src/forms/reset-password/ResetPasswordSchema";
+import {TFormActionState} from "@/src/forms-action/BaseFormAction";
+import {ResetPasswordFormAction} from "@/src/forms-action/reset-password/ResetPasswordFormAction";
+import {ResetPasswordSchema} from "@/src/forms-action/reset-password/ResetPasswordSchema";
 
 const ResetPasswordFormActionHandler = new ResetPasswordFormAction();
 

@@ -1,9 +1,9 @@
-import {BaseFormAction} from "@/src/forms/BaseFormAction";
+import {BaseFormAction} from "@/src/forms-action/BaseFormAction";
 import {UsersService} from "@/src/services/UsersService";
 import {z} from "zod";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {ApiUsersTransportRequirementsPhotosPostRequest, UserSettingsRequestDto} from "@/src/api/openapi";
-import {UserSettingsSchema} from "@/src/forms/user-settings/UserSettingsSchema";
+import {UserSettingsSchema} from "@/src/forms-action/user-settings/UserSettingsSchema";
 
 type UserSettingsData = Partial<UserSettingsRequestDto & ApiUsersTransportRequirementsPhotosPostRequest>;
 

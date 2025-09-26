@@ -1,8 +1,8 @@
 'use server';
 
-import {TFormActionState} from "@/src/forms/BaseFormAction";
-import {EmailConfigFormAction} from "@/src/forms/admin/email-config/EmailConfigFormAction";
-import {EmailConfigSchema} from "@/src/forms/admin/email-config/EmailConfigSchema";
+import {TFormActionState} from "@/src/forms-action/BaseFormAction";
+import {EmailConfigFormAction} from "@/src/forms-action/admin/email-config/EmailConfigFormAction";
+import {EmailConfigSchema} from "@/src/forms-action/admin/email-config/EmailConfigSchema";
 
 const emailConfigFormActionHandler = new EmailConfigFormAction();
 

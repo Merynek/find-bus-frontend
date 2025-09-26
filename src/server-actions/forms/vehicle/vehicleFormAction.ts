@@ -1,8 +1,8 @@
 'use server';
 
-import {TFormActionState} from "@/src/forms/BaseFormAction";
-import {VehicleFormAction} from "@/src/forms/vehicle/VehicleFormAction";
-import {VehicleSchema} from "@/src/forms/vehicle/VehicleSchema";
+import {TFormActionState} from "@/src/forms-action/BaseFormAction";
+import {VehicleFormAction} from "@/src/forms-action/vehicle/VehicleFormAction";
+import {VehicleSchema} from "@/src/forms-action/vehicle/VehicleSchema";
 
 const VehicleFormActionHandler = new VehicleFormAction();
 

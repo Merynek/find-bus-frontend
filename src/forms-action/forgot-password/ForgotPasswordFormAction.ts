@@ -1,8 +1,8 @@
-import {BaseFormAction} from "@/src/forms/BaseFormAction";
+import {BaseFormAction} from "@/src/forms-action/BaseFormAction";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {z} from "zod";
 import {AuthorizationService} from "@/src/services/AuthorizationService";
-import {ForgotPasswordSchema} from "@/src/forms/forgot-password/ForgotPasswordSchema";
+import {ForgotPasswordSchema} from "@/src/forms-action/forgot-password/ForgotPasswordSchema";
 
 type ForgotPasswordData = {
     email?: string;

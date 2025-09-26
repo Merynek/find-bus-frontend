@@ -1,8 +1,8 @@
 'use server';
 
-import {TFormActionState} from "@/src/forms/BaseFormAction";
-import {ForgotPasswordFormAction} from "@/src/forms/forgot-password/ForgotPasswordFormAction";
-import {ForgotPasswordSchema} from "@/src/forms/forgot-password/ForgotPasswordSchema";
+import {TFormActionState} from "@/src/forms-action/BaseFormAction";
+import {ForgotPasswordFormAction} from "@/src/forms-action/forgot-password/ForgotPasswordFormAction";
+import {ForgotPasswordSchema} from "@/src/forms-action/forgot-password/ForgotPasswordSchema";
 
 const ForgotPasswordFormActionHandler = new ForgotPasswordFormAction();
 

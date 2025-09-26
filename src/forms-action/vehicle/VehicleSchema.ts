@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import {Amenities, EuroStandard} from "@/src/api/openapi";
 import {LOCALES} from "@/src/utils/locale";
-import {ImageFileSchema, PlaceSchema} from "@/src/forms/Schemas";
+import {ImageFileSchema, PlaceSchema} from "@/src/forms-action/Schemas";
 
 const VehiclePhotoSchema = z.object({
     frontPhoto: ImageFileSchema.nullable().optional(),
