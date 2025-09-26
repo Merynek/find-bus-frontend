@@ -10,6 +10,7 @@ import {routing} from "@/src/i18n/routing";
 import NextAuthProvider from "@/src/app/contexts/NextAuthContext";
 import {AuthorizationService} from "@/src/services/AuthorizationService";
 import {PageLayout} from "@/src/components/components/layout/page-layout/page-layout";
+import { GoogleTagManager } from '@next/third-parties/google'
 import React from "react";
 
 const geistSans = Geist({
@@ -36,6 +37,7 @@ export default async function RootLayout(props: IRootLayoutProps) {
     }
 
     return <html lang={locale}>
+        {process.env.NEXT_PUBLIC_GTM_ID && <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />}
         <body className={`${geistSans.variable} antialiased`}>
             <NextIntlClientProvider>
                 <NextAuthProvider userId={user?.id || 0}>
