@@ -2,7 +2,7 @@ import React from "react";
 import {AppLoader} from "./app-loader";
 import type {Meta, StoryObj} from "@storybook/nextjs";
 import {useMount, useUnmount} from "@/src/hooks/lifecycleHooks";
-import {useApp} from "@/src/app/contexts/AppContext";
+import {useApp} from "@/src/context/AppContext";
 
 const meta: Meta<typeof AppLoader> = {
     component: AppLoader,

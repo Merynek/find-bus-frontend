@@ -15,7 +15,7 @@ import {ROUTES} from "@/src/enums/router.enum";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {FlexGap} from "@/src/enums/layout.enum";
 import {useInit, useMount, useUnmount} from "@/src/hooks/lifecycleHooks";
-import {useApp} from "@/src/app/contexts/AppContext";
+import {useApp} from "@/src/context/AppContext";
 import { useRouter } from "@/src/i18n/navigation";
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 import {SelectTripAmenities} from "@/src/components/compositions/trip/trip-amenities/select-trip-amenities";

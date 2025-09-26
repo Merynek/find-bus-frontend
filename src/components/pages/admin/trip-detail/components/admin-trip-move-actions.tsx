@@ -7,7 +7,7 @@ import {Offer} from "@/src/data/offer";
 import {TripOfferResponseDto, TripOfferState, TripResponseDto} from "@/src/api/openapi";
 import {TripOfferConverter} from "@/src/converters/trip-offer-converter";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
-import {useApp} from "@/src/app/contexts/AppContext";
+import {useApp} from "@/src/context/AppContext";
 import {TripOfferService} from "@/src/services/TripOfferService";
 import {useInit} from "@/src/hooks/lifecycleHooks";
 import {resetPage} from "@/src/utils/common";

@@ -6,7 +6,7 @@ import {ButtonClick, ButtonSize, ButtonType} from "../../components/button/butto
 import {VehicleEditStore} from "../../compositions/vehicle/edit/vehicle-edit.store";
 import {Vehicle} from "@/src/data/users/vehicle";
 import {VehicleService} from "@/src/services/VehicleService";
-import {useApp} from "@/src/app/contexts/AppContext";
+import {useApp} from "@/src/context/AppContext";
 import VehicleForm from "@/src/components/compositions/vehicle/edit/vehicle-edit";
 import {VehicleResponseDto} from "@/src/api/openapi";
 import {VehicleConverter} from "@/src/converters/vehicle-converter";

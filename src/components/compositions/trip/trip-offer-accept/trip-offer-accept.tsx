@@ -10,7 +10,7 @@ import {TripOfferAcceptMethod} from "@/src/api/openapi";
 import {ButtonClick, ButtonSize, ButtonType} from "../../../components/button/button";
 import moment from "moment";
 import {TripOfferService} from "@/src/services/TripOfferService";
-import {useApp} from "@/src/app/contexts/AppContext";
+import {useApp} from "@/src/context/AppContext";
 
 export interface ITripOfferAcceptProps {
     offer: Offer;

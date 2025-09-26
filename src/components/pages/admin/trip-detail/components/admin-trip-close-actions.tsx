@@ -6,7 +6,7 @@ import {CloseTripOfferReason, TripOfferState, TripResponseDto} from "@/src/api/o
 import {AdminTripCloseReasons} from "@/src/components/pages/admin/trip-detail/components/admin-trip-close-reasons";
 import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
-import {useApp} from "@/src/app/contexts/AppContext";
+import {useApp} from "@/src/context/AppContext";
 import {TripOfferService} from "@/src/services/TripOfferService";
 import {useInit} from "@/src/hooks/lifecycleHooks";
 import {resetPage} from "@/src/utils/common";

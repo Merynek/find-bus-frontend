@@ -15,7 +15,7 @@ import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-c
 import {FlexGap} from "@/src/enums/layout.enum";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
 import {TripOfferService} from "@/src/services/TripOfferService";
-import {useApp} from "@/src/app/contexts/AppContext";
+import {useApp} from "@/src/context/AppContext";
 import {useLoggedUser} from "@/src/hooks/authenticationHook";
 
 export interface ITripOfferSectionProps {

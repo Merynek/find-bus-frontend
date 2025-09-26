@@ -13,7 +13,7 @@ import {
     FinancialDocumentDetail
 } from "@/src/components/compositions/invoices/financial-document/financial-document-detail";
 import {VehicleService} from "@/src/services/VehicleService";
-import {useApp} from "@/src/app/contexts/AppContext";
+import {useApp} from "@/src/context/AppContext";
 import {useCurrentLocale} from "@/src/hooks/translateHook";
 
 export interface ITripOfferProps {

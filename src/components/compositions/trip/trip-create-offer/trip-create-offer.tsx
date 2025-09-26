@@ -15,7 +15,7 @@ import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-c
 import {TripOfferService} from "@/src/services/TripOfferService";
 import {UsersService} from "@/src/services/UsersService";
 import {VehicleService} from "@/src/services/VehicleService";
-import {useApp} from "@/src/app/contexts/AppContext";
+import {useApp} from "@/src/context/AppContext";
 import {Vehicle} from "@/src/data/users/vehicle";
 import {useLoggedUser} from "@/src/hooks/authenticationHook";
 import {useCurrentLocale} from "@/src/hooks/translateHook";

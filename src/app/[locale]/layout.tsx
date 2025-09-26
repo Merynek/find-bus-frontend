@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import '@/src/styles/global.scss';
 import {Header} from "@/src/components/compositions/header/header";
-import {AppProvider} from "@/src/app/contexts/AppContext";
+import {AppProvider} from "@/src/context/AppContext";
 import {AppLoader} from "@/src/components/components/app-loader/app-loader";
 import {NextIntlClientProvider, hasLocale} from 'next-intl';
 import {notFound} from 'next/navigation';
 import {routing} from "@/src/i18n/routing";
-import NextAuthProvider from "@/src/app/contexts/NextAuthContext";
+import NextAuthProvider from "@/src/context/NextAuthContext";
 import {AuthorizationService} from "@/src/services/AuthorizationService";
 import {PageLayout} from "@/src/components/components/layout/page-layout/page-layout";
 import { GoogleTagManager,  } from '@next/third-parties/google'

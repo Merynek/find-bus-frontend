@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import {useApp} from "@/src/app/contexts/AppContext";
+import {useApp} from "@/src/context/AppContext";
 
 export const AppLoader = () => {
     const {isLoading} = useApp();

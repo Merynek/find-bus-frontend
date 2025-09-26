@@ -5,7 +5,7 @@ import {formatDateTime} from "@/src/utils/date-time.format";
 import {ButtonClick, ButtonSize, ButtonType} from "../../../components/button/button";
 import {FinancialDocument} from "@/src/data/documents/financialDocument";
 import {TripOfferService} from "@/src/services/TripOfferService";
-import {useApp} from "@/src/app/contexts/AppContext";
+import {useApp} from "@/src/context/AppContext";
 import {useCurrentLocale} from "@/src/hooks/translateHook";
 
 export interface IFinancialDocumentProps {
