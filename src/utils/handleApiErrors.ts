@@ -1,6 +1,6 @@
 import {ROUTES, SEARCH_PARAMS} from "@/src/enums/router.enum";
 import { redirect } from "../i18n/navigation";
-import {LOCALES} from "@/src/utils/locale";
+import {LOCALES} from "@/src/enums/locale";
 import {FindBusError} from "@/src/errors/FindBusError";
 
 export function handleApiUnauthorizedError(error: unknown , locale: LOCALES): never {

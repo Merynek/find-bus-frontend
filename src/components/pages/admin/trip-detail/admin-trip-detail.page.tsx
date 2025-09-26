@@ -6,14 +6,14 @@ import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/
 import {Text} from "@/src/components/components/texts/text";
 import {DateTimeFormat} from "@/src/enums/date-time-format.enum";
 import {Trip} from "@/src/data/trip/trip";
-import {DateTimeManager} from "@/src/singletons/date-time-manager";
+import {DateTimeManager} from "@/src/singletons/DateTimeManager";
 import styles from "./admin-trip-detail.page.module.scss";
 import {cn} from "@/src/utils/common";
 import {AdminTripActions} from "@/src/components/pages/admin/trip-detail/components/admin-trip-actions";
 import {AdminTripMovements} from "@/src/components/pages/admin/trip-detail/components/admin-trip-movements";
 import {TripOfferMovement} from "@/src/data/tripOfferMovement";
 import {Offer} from "@/src/data/offer";
-import {LOCALES} from "@/src/utils/locale";
+import {LOCALES} from "@/src/enums/locale";
 import {FontSize, FontWeight} from "@/src/components/components/texts/textStyles";
 
 interface TripDetailPageProps {

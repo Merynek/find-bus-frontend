@@ -3,7 +3,7 @@ import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {z} from "zod";
 import {AuthorizationService} from "@/src/services/AuthorizationService";
 import {SignInFormSchema} from "@/src/forms-action/sign-in/SignInSchema";
-import {LOCALES} from "@/src/utils/locale";
+import {LOCALES} from "@/src/enums/locale";
 
 type SignInData = {
     email?: string;

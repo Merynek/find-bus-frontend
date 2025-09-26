@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import {Amenities, EuroStandard} from "@/src/api/openapi";
-import {LOCALES} from "@/src/utils/locale";
+import {LOCALES} from "@/src/enums/locale";
 import {ImageFileSchema, PlaceSchema} from "@/src/forms-action/Schemas";
 
 const VehiclePhotoSchema = z.object({

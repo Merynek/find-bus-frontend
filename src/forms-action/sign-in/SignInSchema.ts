@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import {LOCALES} from "@/src/utils/locale";
+import {LOCALES} from "@/src/enums/locale";
 
 export const SignInFormSchema = z.object({
     email: z.email({ error: 'invalidEmail' }).trim(),

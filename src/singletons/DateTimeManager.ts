@@ -9,7 +9,7 @@ import {
     formatY,
     IFormatSettings
 } from "@/src/utils/date-time.format";
-import {LOCALES} from "@/src/utils/locale";
+import {LOCALES} from "@/src/enums/locale";
 
 export class DateTimeManager {
     public static dateTimeFormat(format: DateTimeFormat, date: Date, withDayName?: boolean): string {

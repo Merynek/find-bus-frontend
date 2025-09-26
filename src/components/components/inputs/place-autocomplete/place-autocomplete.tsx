@@ -1,7 +1,7 @@
 import React, {useCallback} from "react";
 import {AutoComplete, IAutoCompleteItem} from "../autocomplete/auto-complete";
 import {Place} from "@/src/data/place";
-import {LocationService} from "@/src/singletons/location-service";
+import {LocationService} from "@/src/singletons/LocationService";
 
 export interface IPlaceAutocompleteProps {
    place?: Place;

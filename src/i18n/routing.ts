@@ -1,5 +1,5 @@
 import {defineRouting} from 'next-intl/routing';
-import {LOCALES} from "@/src/utils/locale";
+import {LOCALES} from "@/src/enums/locale";
 import {ROUTES} from "@/src/enums/router.enum";
 
 export const routing = defineRouting({

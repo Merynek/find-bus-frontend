@@ -2,7 +2,7 @@ import type { Preview } from '@storybook/nextjs'
 import {AppProvider} from "@/src/context/AppContext";
 import '@/src/styles/global.scss';
 import {NextIntlClientProvider} from "next-intl";
-import {LOCALES} from "@/src/utils/locale";
+import {LOCALES} from "@/src/enums/locale";
 import csMessages from "../messages/cs-cz.json";
 import enMessages from "../messages/en-us.json";
 import NextAuthProvider from "@/src/context/NextAuthContext";

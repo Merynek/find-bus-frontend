@@ -1,7 +1,7 @@
 import {Priority, Semaphore} from "../utils/semaphore";
 import {debouncedFn} from "../utils/common";
 import {Place} from "../data/place";
-import {MapboxUtils} from "./mapbox-utils";
+import {MapboxUtils} from "./MapboxUtils";
 import {IDirectionData} from "../data/trip/direction";
 
 export class LocationService {

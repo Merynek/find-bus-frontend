@@ -4,7 +4,7 @@ import {TripOfferMovement} from "@/src/data/tripOfferMovement";
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 import {formatDateTime} from "@/src/utils/date-time.format";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
-import {LOCALES} from "@/src/utils/locale";
+import {LOCALES} from "@/src/enums/locale";
 
 interface IAdminTripMovementsProps {
     movements: TripOfferMovement[];

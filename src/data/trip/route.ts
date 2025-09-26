@@ -3,7 +3,7 @@ import {Stop} from "./stop";
 import {Direction} from "./direction";
 import {Trip} from "./trip";
 import {milliSecondsToHours, secondsToMilliSeconds} from "../../utils/common";
-import {LocationService} from "../../singletons/location-service";
+import {LocationService} from "../../singletons/LocationService";
 import {Priority} from "../../utils/semaphore";
 
 interface IRoute {

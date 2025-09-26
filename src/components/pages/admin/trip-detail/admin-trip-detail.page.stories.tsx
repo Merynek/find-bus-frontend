@@ -2,7 +2,7 @@ import {Meta, StoryObj} from "@storybook/nextjs";
 import React from "react";
 import AdminTripDetailPage from "@/src/components/pages/admin/trip-detail/admin-trip-detail.page";
 import {getRandomOffer, getRandomOfferMovement, getRandomTrip} from "@/dataGenerator/trip";
-import {LOCALES} from "@/src/utils/locale";
+import {LOCALES} from "@/src/enums/locale";
 
 const meta: Meta<typeof AdminTripDetailPage> = {
     component: AdminTripDetailPage,

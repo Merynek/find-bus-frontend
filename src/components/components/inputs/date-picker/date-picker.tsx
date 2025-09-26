@@ -4,7 +4,7 @@ import { LocalizationProvider} from "@mui/x-date-pickers";
 import { DateTimePicker as NativeDateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import {DatePickerSlotProps, DatePicker as NativeDatePicker } from '@mui/x-date-pickers/DatePicker';
 import moment from "moment";
-import {LOCALES} from "@/src/utils/locale";
+import {LOCALES} from "@/src/enums/locale";
 import {PickerValue} from "@mui/x-date-pickers/internals";
 import {useCallback, useState} from "react";
 

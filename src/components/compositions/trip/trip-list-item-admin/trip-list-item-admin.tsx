@@ -5,7 +5,7 @@ import {ROUTES} from "@/src/enums/router.enum";
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 import {Text} from "@/src/components/components/texts/text";
 import {FlexGap} from "@/src/enums/layout.enum";
-import {DateTimeManager} from "@/src/singletons/date-time-manager";
+import {DateTimeManager} from "@/src/singletons/DateTimeManager";
 import {DateTimeFormat} from "@/src/enums/date-time-format.enum";
 import {ButtonLink, ButtonSize, ButtonType} from "@/src/components/components/button/button";
 import {FontSize, FontWeight} from "@/src/components/components/texts/textStyles";

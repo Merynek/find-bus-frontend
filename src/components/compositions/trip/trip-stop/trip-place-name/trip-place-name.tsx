@@ -5,7 +5,7 @@ import styles from "./trip-place-name.module.scss";
 import {observer} from "mobx-react";
 import {Stop} from "@/src/data/trip/stop";
 import {Trip} from "@/src/data/trip/trip";
-import {PlaceManager} from "@/src/singletons/place-manager";
+import {PlaceManager} from "@/src/singletons/PlaceManager";
 import {PlaceAutocomplete} from "../../../../components/inputs/place-autocomplete/place-autocomplete";
 import {useInit} from "@/src/hooks/lifecycleHooks";
 

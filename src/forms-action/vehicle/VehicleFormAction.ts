@@ -5,7 +5,7 @@ import {VehicleSchema} from "@/src/forms-action/vehicle/VehicleSchema";
 import {VehicleService} from "@/src/services/VehicleService";
 import {IUploadVehicleFilesRequest, IVehicleRequest} from "@/src/api/vehicleApi";
 import {Country, PlaceRequestDto} from "@/src/api/openapi";
-import {LOCALES} from "@/src/utils/locale";
+import {LOCALES} from "@/src/enums/locale";
 
 type VehicleData = Partial<IVehicleRequest & {vehicleId?: number} & IUploadVehicleFilesRequest & {locale: LOCALES}>;
 

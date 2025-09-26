@@ -1,7 +1,7 @@
 import {Place} from "../place";
 import {computed, makeObservable, observable, runInAction} from "mobx";
 import {Route} from "./route";
-import {IdGenerator, IdType} from "@/src/singletons/id-generator";
+import {IdGenerator, IdType} from "@/src/singletons/IdGenerator";
 
 interface IStop {
     id?: number;

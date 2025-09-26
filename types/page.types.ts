@@ -1,4 +1,4 @@
-import {LOCALES} from "@/src/utils/locale";
+import {LOCALES} from "@/src/enums/locale";
 
 interface PagePropsInterface<TParams = Record<string, never>, TSearchParams = Record<string, never>> {
     params: {

@@ -1,6 +1,6 @@
 import {z} from "zod";
 import {UserRole} from "@/src/api/openapi";
-import {LOCALES} from "@/src/utils/locale";
+import {LOCALES} from "@/src/enums/locale";
 
 export const SignupFormSchema = z.object({
     email: z.email({ error: 'invalidEmail' }).trim(),

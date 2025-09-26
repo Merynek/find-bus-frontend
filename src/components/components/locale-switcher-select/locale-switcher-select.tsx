@@ -3,7 +3,7 @@ import React, {useTransition} from "react";
 import {usePathname, useRouter} from '@/src/i18n/navigation';
 import {useParams} from "next/navigation";
 import {useCurrentLocale} from "@/src/hooks/translateHook";
-import {LOCALES} from "@/src/utils/locale";
+import {LOCALES} from "@/src/enums/locale";
 import {ContextMenu, IContextItem} from "@/src/components/components/context-menu/context-menu";
 import {Text} from "@/src/components/components/texts/text";
 import {FontSize, FontWeight} from "@/src/components/components/texts/textStyles";
