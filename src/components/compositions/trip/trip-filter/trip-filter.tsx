@@ -13,6 +13,7 @@ import {useRouter} from "@/src/i18n/navigation";
 import {useSearchParams} from "next/navigation";
 import {Color, FontSize} from "@/src/components/components/texts/textStyles";
 import {Text} from "@/src/components/components/texts/text";
+import { sendGTMEvent } from '@next/third-parties/google'
 
 export interface ITripFilterProps {
     params: ITripFilterParams;
@@ -167,6 +168,7 @@ export const TripFilter = (props: ITripFilterProps) => {
                 value={maxDistanceInMeters}
                 onChange={(val) => {
                     setMaxDistanceInMeters(val);
+                    sendGTMEvent({event: "maxDistanceInMeters", value: val})
                 }}
                 placeholder={"Distance from start point in meters"}
             />
