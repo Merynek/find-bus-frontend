@@ -4,12 +4,13 @@ import {
     changeAppBusinessConfig,
     getAppBusinessConfig,
     getEmailConfig,
-    setEmailConfig
+    setEmailConfig, setUserConfig
 } from "@/src/server-actions/admin/adminActions";
 import {EmailType, Languages} from "@/src/api/openapi";
 import {EmailConfigConverter} from "@/src/converters/admin/email-config-converter";
 import {AppBusinessConfigConverter} from "@/src/converters/admin/app-business-config-converter";
 import {BaseService} from "@/src/services/BaseService";
+import {ISetUSerConfigRequest} from "@/src/api/adminApi";
 
 export class AdminService extends BaseService {
     public static async getEmailConfig(): Promise<EmailConfig> {
@@ -22,6 +23,12 @@ export class AdminService extends BaseService {
     public static async setEmailConfig(type: EmailType, language: Languages, templateId: number) {
         await this.handleActionCall(async () => {
             await setEmailConfig(type, language, templateId);
+        });
+    }
+
+    public static async setUserConfig(cfg: ISetUSerConfigRequest) {
+        await this.handleActionCall(async () => {
+            await setUserConfig(cfg);
         });
     }
 

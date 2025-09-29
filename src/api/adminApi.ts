@@ -15,6 +15,11 @@ export interface ISetEmailConfigRequest extends IApiRequest {
     templateId: number;
 }
 
+export interface ISetUSerConfigRequest extends IApiRequest {
+    userId: number;
+    tripOfferCommissionPercentage: number;
+}
+
 export interface IPostChangeAppBusinessConfigRequest extends IApiRequest {
     cfg: UpdateAppBusinessConfigRequestDto;
 }
@@ -40,6 +45,15 @@ export class AdminApi {
                 type: req.type,
                 templateId: req.templateId,
                 language: req.language
+            }
+        }, req.initOverrides));
+    }
+
+    public async setUserConfig(req: ISetUSerConfigRequest): Promise<void> {
+        await handleApiCall(this._api.apiAdminUserConfigPost({
+            updateUserConfigRequestDto: {
+                userId: req.userId,
+                tripOfferCommissionPercentage: req.tripOfferCommissionPercentage
             }
         }, req.initOverrides));
     }

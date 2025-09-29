@@ -1,4 +1,5 @@
 export enum FormDataEnum {
+    userId = "userId",
     locale = "locale",
     email = "email",
     password = "password",

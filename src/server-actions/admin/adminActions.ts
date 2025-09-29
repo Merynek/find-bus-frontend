@@ -8,7 +8,7 @@ import {
     UpdateAppBusinessConfigRequestDto
 } from "@/src/api/openapi";
 import {getAccessToken} from "@/src/server-actions/auth/accessTokenActions";
-import {AdminApi} from "@/src/api/adminApi";
+import {AdminApi, ISetUSerConfigRequest} from "@/src/api/adminApi";
 import {handleActionCall} from "@/src/server-actions/baseAction";
 
 export async function getEmailConfig(): Promise<EmailConfigResponseDto> {
@@ -28,6 +28,14 @@ export async function setEmailConfig(type: EmailType, language: Languages, templ
             language: language,
             templateId: templateId
         });
+    })
+}
+
+export async function setUserConfig(cfg: ISetUSerConfigRequest) {
+    await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const adminApi = new AdminApi(accessToken);
+        await adminApi.setUserConfig(cfg);
     })
 }
 
