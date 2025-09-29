@@ -61,4 +61,23 @@ export class UserAdminDetail extends UserDetail {
         this.transportRequirements = settings.transportRequirements;
         this.userConfigs = settings.userConfigs;
     }
+
+    get currentConfig(): UserConfig|undefined {
+        if (!this.userConfigs || this.userConfigs.length === 0) {
+            return undefined;
+        }
+
+        const sortedConfigs = [...this.userConfigs].sort((a, b) =>
+            b.created.getTime() - a.created.getTime()
+        );
+        return sortedConfigs[0];
+    }
+
+    get previousConfigs(): UserConfig[] {
+        const current = this.currentConfig;
+
+        return this.userConfigs.filter(config =>
+            config !== current
+        );
+    }
 }

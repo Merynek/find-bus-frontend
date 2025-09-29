@@ -1,4 +1,3 @@
-import {UserAdminDetail} from "@/src/data/users/user-admin-detail";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 import {VehicleDetail} from "@/src/components/compositions/vehicle/detail-list/vehicle-detail-list";
@@ -14,10 +13,11 @@ import {Accordion} from "@/src/components/components/accordion/accordion";
 import {Text} from "@/src/components/components/texts/text";
 import {FontSize, FontWeight} from "@/src/components/components/texts/textStyles";
 import {FlexGap} from "@/src/enums/layout.enum";
-
+import {UserAdminDetail} from "@/src/data/users/user-admin-detail";
+import {AdminUserConfig} from "@/src/components/compositions/admin/admin-user-config/admin-user-config";
 
 interface IAdminUserItemProps {
-    user: UserAdminDetail
+    user: UserAdminDetail;
 }
 
 export const AdminUserItem = (props: IAdminUserItemProps) => {
@@ -107,6 +107,9 @@ export const AdminUserItem = (props: IAdminUserItemProps) => {
                         </LayoutFlexColumn>}
                     />
                 })}
+            </Group>
+            <Group title={"Configs"}>
+                <AdminUserConfig user={UserAdminDetailConverter.toJson(user)} />
             </Group>
             <UserVerifyButton user={UserAdminDetailConverter.toJson(user)} />
         </LayoutFlexColumn>}
