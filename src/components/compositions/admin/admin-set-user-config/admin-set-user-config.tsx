@@ -30,7 +30,7 @@ export const AdminSetUserConfig = (props: IAdminSetUserConfigProps) => {
         <LayoutFlexColumn gap={FlexGap.SMALL_16}>
             <FormStatus state={state}/>
             <input type="hidden" name={FormDataEnum.userId} value={userId}/>
-            <LayoutFlexRow gap={FlexGap.TINY_8}>
+            <LayoutFlexColumn gap={FlexGap.TINY_8}>
                 <NumberBox
                     placeholder={"Commission Percentage:"}
                     controlled={false}
@@ -39,14 +39,14 @@ export const AdminSetUserConfig = (props: IAdminSetUserConfigProps) => {
                     defaultValue={state?.data?.tripOfferCommissionPercentage || appConfig.tripOfferCommissionPercentage}
                     minValue={0}
                 />
-                <ButtonClick
-                    controlled={false}
-                    size={ButtonSize.BUTTON_SIZE_M}
-                    type={ButtonType.BLACK}
-                    isDisabled={pending}
-                    label={"Update"}
-                />
-            </LayoutFlexRow>
+            </LayoutFlexColumn>
+            <ButtonClick
+                controlled={false}
+                size={ButtonSize.BUTTON_SIZE_M}
+                type={ButtonType.BLACK}
+                isDisabled={pending}
+                label={"Update config"}
+            />
         </LayoutFlexColumn>
     </form>
 }

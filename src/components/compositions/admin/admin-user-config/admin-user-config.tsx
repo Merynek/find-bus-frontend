@@ -30,17 +30,20 @@ export const AdminUserConfig = (props: IAdminUserConfigHistoryProps) => {
         </LayoutFlexRow>
     }
 
-    return <LayoutFlexColumn gap={FlexGap.TINY_8}>
+    return <LayoutFlexColumn gap={FlexGap.SMALL_16}>
         <AdminSetUserConfig
             userId={user.id}
             userConfig={user.currentConfig}
             appConfig={appConfig}
         />
-        {user.previousConfigs.map((c, index) => {
-            return <LayoutFlexRow gap={FlexGap.TINY_8} key={index}>
-                {renderTextItem("Last Update", formatDateTime({date: c.created,locale: locale}))}
-                {renderTextItem("Commission Percentage", c.tripOfferCommissionPercentage.toString())}
-            </LayoutFlexRow>
-        })}
+        <LayoutFlexColumn gap={FlexGap.TINY_8}>
+            <Text text={"Config history: "} fontSize={FontSize.BASE_14} />
+            {user.previousConfigs.map((c, index) => {
+                return <LayoutFlexRow gap={FlexGap.TINY_8} key={index}>
+                    {renderTextItem("Last Update", formatDateTime({date: c.created,locale: locale}))}
+                    {renderTextItem("Commission Percentage", c.tripOfferCommissionPercentage.toString())}
+                </LayoutFlexRow>
+            })}
+        </LayoutFlexColumn>
     </LayoutFlexColumn>
 }

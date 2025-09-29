@@ -73,7 +73,7 @@ export const AdminUserItem = (props: IAdminUserItemProps) => {
     }
 
     return <Accordion
-        style={{background: "gray"}}
+        style={{background: "chocolate"}}
         title={<Text text={`${user.email} - ${user.isVerifiedForTransporting ? "Verified" : "NOT Verified"}`} fontSize={FontSize.M_22} fontWeight={FontWeight.SEMIBOLD} />}
         content={<LayoutFlexColumn gap={FlexGap.SMALL_16}>
             <LayoutFlexRow gap={FlexGap.MEDIUM_24} canWrap={true} justifyContent={"flex-start"} alignItems={"flex-start"}>
@@ -129,7 +129,7 @@ interface IGroupProps {
 
 const Group = (props: IGroupProps) => {
     const {title, children} = props;
-    return <LayoutFlexColumn>
+    return <LayoutFlexColumn gap={FlexGap.SMALL_16}>
         <Text text={title} fontSize={FontSize.M_22} fontWeight={FontWeight.SEMIBOLD} />
         {children}
     </LayoutFlexColumn>

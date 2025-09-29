@@ -16,7 +16,12 @@ export class FindBusError extends Error {
     public readonly name: string;
 
     constructor(error: IFindBusError) {
-        super(error.message);
+        super(`FindBusError
+        -> Name: ${error.name}.
+        -> ErrorCode: ${error.errorCode}.
+        -> Message: ${error.message}.
+        -> Url: ${error.url}.
+        -> StatusCode: ${error.statusCode}`);
         this.name = error.name;
         this.errorCode = error.errorCode;
         this.url = error.url;
