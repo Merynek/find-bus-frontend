@@ -15,6 +15,7 @@ import {Color, FontSize} from "@/src/components/components/texts/textStyles";
 import {Text} from "@/src/components/components/texts/text";
 import {useGa} from "@/src/hooks/gaEventHook";
 import {GENERAL_GA_EVENTS} from "@/src/enums/ga.enums";
+import { sendGTMEvent } from '@next/third-parties/google'
 
 export interface ITripFilterProps {
     params: ITripFilterParams;
@@ -162,6 +163,7 @@ export const TripFilter = (props: ITripFilterProps) => {
                 value={distanceToInKm}
                 onChange={(val) => {
                     setDistanceToInKm(val);
+                    sendGTMEvent({event: 'SYSEL_TEST', value: val});
                 }}
                 placeholder={"Distance To"}
             />

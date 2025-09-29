@@ -10,8 +10,8 @@ import {routing} from "@/src/i18n/routing";
 import NextAuthProvider from "@/src/context/NextAuthContext";
 import {AuthorizationService} from "@/src/services/AuthorizationService";
 import {PageLayout} from "@/src/components/components/layout/page-layout/page-layout";
-import { GoogleTagManager } from '@next/third-parties/google'
 import React from "react";
+import {GoogleTagManager} from "@/src/components/head-components/GoogleTagManager";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,22 +37,24 @@ export default async function RootLayout(props: IRootLayoutProps) {
     }
 
     return <html lang={locale}>
-        {process.env.NEXT_PUBLIC_GTM_ID && process.env.NEXT_PUBLIC_GTM_SERVER &&
-            <GoogleTagManager gtmScriptUrl={process.env.NEXT_PUBLIC_GTM_SERVER} gtmId={process.env.NEXT_PUBLIC_GTM_ID} />}
+        <GoogleTagManager gtmFunction={"sdad"} />
         <body className={`${geistSans.variable} antialiased`}>
-            <NextIntlClientProvider>
-                <NextAuthProvider userId={user?.id || 0}>
-                    <AppProvider>
-                        <AppLoader />
-                        <PageLayout>
-                            <div className={"mb-20"}>
-                                <Header />
-                            </div>
-                            {children}
-                        </PageLayout>
-                    </AppProvider>
-                </NextAuthProvider>
-            </NextIntlClientProvider>
+        <noscript>
+            <iframe src="https://green.find-bus.com/ns.html?id=GTM-KHSXM73Z" height="0" width="0" style={{display: "none", visibility: "hidden"}}></iframe>
+        </noscript>
+        <NextIntlClientProvider>
+            <NextAuthProvider userId={user?.id || 0}>
+                <AppProvider>
+                    <AppLoader/>
+                    <PageLayout>
+                        <div className={"mb-20"}>
+                            <Header/>
+                        </div>
+                        {children}
+                    </PageLayout>
+                </AppProvider>
+            </NextAuthProvider>
+        </NextIntlClientProvider>
         </body>
     </html>
 }
