@@ -37,7 +37,7 @@ export default async function RootLayout(props: IRootLayoutProps) {
     }
 
     return <html lang={locale}>
-        <GoogleTagManager gtmId={"GTM-KHSXM73Z"} gtmScriptUrl={"https://green.find-bus.com/bdlczojxfa.js"}/>
+        <GoogleTagManager gtmId={"GTM-KHSXM73Z"} gtmScriptUrl={"https://green.find-bus.com/bdlczojxfa.js?23n=CAJFLTs3TicpNSAnWEk5ShdbSkReXAcCXAARBAtXARkSSBsFAg%3D%3D"}/>
         <body className={`${geistSans.variable} antialiased`}>
         {/*<noscript>*/}
         {/*    <iframe src="https://green.find-bus.com/ns.html?id=GTM-KHSXM73Z" height="0" width="0" style={{display: "none", visibility: "hidden"}} />*/}
