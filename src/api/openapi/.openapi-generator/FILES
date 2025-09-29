@@ -74,10 +74,13 @@ models/TripResponseDto.ts
 models/UpdateAppBusinessConfigRequestDto.ts
 models/UpdateEmailConfig.ts
 models/UpdateOfferRequestDto.ts
+models/UpdateUserConfigRequestDto.ts
 models/UpdateVehicleRequestDto.ts
 models/UserActiveRequestDto.ts
 models/UserAddressRequestDto.ts
 models/UserAddressResponseDto.ts
+models/UserConfigRequestDto.ts
+models/UserConfigResponseDto.ts
 models/UserDetailResponseDto.ts
 models/UserRole.ts
 models/UserSettingsRequestDto.ts

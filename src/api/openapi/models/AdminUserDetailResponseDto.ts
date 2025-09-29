@@ -27,6 +27,13 @@ import {
     VehicleResponseDtoToJSON,
     VehicleResponseDtoToJSONTyped,
 } from './VehicleResponseDto';
+import type { UserConfigResponseDto } from './UserConfigResponseDto';
+import {
+    UserConfigResponseDtoFromJSON,
+    UserConfigResponseDtoFromJSONTyped,
+    UserConfigResponseDtoToJSON,
+    UserConfigResponseDtoToJSONTyped,
+} from './UserConfigResponseDto';
 import type { UserAddressResponseDto } from './UserAddressResponseDto';
 import {
     UserAddressResponseDtoFromJSON,
@@ -144,6 +151,12 @@ export interface AdminUserDetailResponseDto {
      * @memberof AdminUserDetailResponseDto
      */
     vehicles: Array<VehicleResponseDto>;
+    /**
+     * 
+     * @type {Array<UserConfigResponseDto>}
+     * @memberof AdminUserDetailResponseDto
+     */
+    userConfigs: Array<UserConfigResponseDto>;
 }
 
 /**
@@ -162,6 +175,7 @@ export function instanceOfAdminUserDetailResponseDto(value: object): value is Ad
     if (!('dic' in value) || value['dic'] === undefined) return false;
     if (!('isCompany' in value) || value['isCompany'] === undefined) return false;
     if (!('vehicles' in value) || value['vehicles'] === undefined) return false;
+    if (!('userConfigs' in value) || value['userConfigs'] === undefined) return false;
     return true;
 }
 
@@ -191,6 +205,7 @@ export function AdminUserDetailResponseDtoFromJSONTyped(json: any, ignoreDiscrim
         'transferInfo': json['transferInfo'] == null ? undefined : TransferInfoResponseDtoFromJSON(json['transferInfo']),
         'transporterRequirements': json['transporterRequirements'] == null ? undefined : TransporterRequirementsResponseDtoFromJSON(json['transporterRequirements']),
         'vehicles': ((json['vehicles'] as Array<any>).map(VehicleResponseDtoFromJSON)),
+        'userConfigs': ((json['userConfigs'] as Array<any>).map(UserConfigResponseDtoFromJSON)),
     };
 }
 
@@ -221,6 +236,7 @@ export function AdminUserDetailResponseDtoToJSONTyped(value?: AdminUserDetailRes
         'transferInfo': TransferInfoResponseDtoToJSON(value['transferInfo']),
         'transporterRequirements': TransporterRequirementsResponseDtoToJSON(value['transporterRequirements']),
         'vehicles': ((value['vehicles'] as Array<any>).map(VehicleResponseDtoToJSON)),
+        'userConfigs': ((value['userConfigs'] as Array<any>).map(UserConfigResponseDtoToJSON)),
     };
 }
 

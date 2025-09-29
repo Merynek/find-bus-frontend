@@ -3,6 +3,7 @@ import {UserAddress} from "./userAddress";
 import {TransferInfo} from "../transferInfo";
 import {Vehicle} from "./vehicle";
 import {TransportRequirements} from "../transportRequirements";
+import {UserConfig} from "@/src/data/userConfig";
 
 export interface IUserAdminDetailSettings extends IUserDetailSettings {
     email: string;
@@ -20,6 +21,7 @@ export interface IUserAdminDetailSettings extends IUserDetailSettings {
     transferInfo: TransferInfo;
     vehicles: Vehicle[];
     transportRequirements: TransportRequirements;
+    userConfigs: UserConfig[];
 }
 
 export class UserAdminDetail extends UserDetail {
@@ -38,6 +40,7 @@ export class UserAdminDetail extends UserDetail {
     public transferInfo: TransferInfo;
     public vehicles: Vehicle[];
     public transportRequirements: TransportRequirements;
+    public userConfigs: UserConfig[];
 
     constructor(settings: IUserAdminDetailSettings) {
         super(settings);
@@ -56,5 +59,6 @@ export class UserAdminDetail extends UserDetail {
         this.transferInfo = settings.transferInfo;
         this.vehicles = settings.vehicles;
         this.transportRequirements = settings.transportRequirements;
+        this.userConfigs = settings.userConfigs;
     }
 }

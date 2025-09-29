@@ -68,6 +68,93 @@
         }
       }
     },
+    "/api/Admin/userConfig": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserConfigRequestDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserConfigRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserConfigRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserConfigRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserConfigResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserConfigResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserConfigResponseDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserConfigRequestDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserConfigRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserConfigRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserConfigRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Admin/emailConfig": {
       "get": {
         "tags": [
@@ -1683,6 +1770,7 @@
           "name",
           "phoneNumber",
           "surname",
+          "userConfigs",
           "vehicles"
         ],
         "type": "object",
@@ -1743,6 +1831,12 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/VehicleResponseDto"
+            }
+          },
+          "userConfigs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserConfigResponseDto"
             }
           }
         },
@@ -3608,6 +3702,24 @@
         },
         "additionalProperties": false
       },
+      "UpdateUserConfigRequestDto": {
+        "required": [
+          "tripOfferCommissionPercentage",
+          "userId"
+        ],
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tripOfferCommissionPercentage": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "UpdateVehicleRequestDto": {
         "required": [
           "id"
@@ -3689,6 +3801,37 @@
           "houseNumber": {
             "minLength": 1,
             "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserConfigRequestDto": {
+        "required": [
+          "userId"
+        ],
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserConfigResponseDto": {
+        "required": [
+          "created",
+          "tripOfferCommissionPercentage"
+        ],
+        "type": "object",
+        "properties": {
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "tripOfferCommissionPercentage": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

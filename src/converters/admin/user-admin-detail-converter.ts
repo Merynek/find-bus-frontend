@@ -9,6 +9,7 @@ import {TransportRequirements} from "@/src/data/transportRequirements";
 import {TransportRequirementsConverter} from "@/src/converters/users/transport-requirements-converter";
 import {UserAddressConverter} from "@/src/converters/users/user-address-converter";
 import {TransferInfoConverter} from "@/src/converters/users/transfer-info-converter";
+import {UserConfigConverter} from "@/src/converters/admin/user-config-converter";
 
 export class UserAdminDetailConverter {
 
@@ -29,7 +30,8 @@ export class UserAdminDetailConverter {
             mailingAddress: response.mailingAddress ? UserAddressConverter.toInstance(response.mailingAddress) : UserAddress.create(),
             transferInfo: response.transferInfo ? TransferInfoConverter.toInstance(response.transferInfo) : TransferInfo.create(),
             vehicles: response.vehicles.map(VehicleConverter.toInstance),
-            transportRequirements: response.transporterRequirements ? TransportRequirementsConverter.toInstance(response.transporterRequirements) : TransportRequirements.create()
+            transportRequirements: response.transporterRequirements ? TransportRequirementsConverter.toInstance(response.transporterRequirements) : TransportRequirements.create(),
+            userConfigs: response.userConfigs.map(UserConfigConverter.toInstance)
         })
     }
 
@@ -50,7 +52,8 @@ export class UserAdminDetailConverter {
             mailingAddress: UserAddressConverter.toJson(user.mailingAddress),
             transferInfo: TransferInfoConverter.toJson(user.transferInfo),
             vehicles: user.vehicles.map(v => VehicleConverter.toJson(v)),
-            transporterRequirements: TransportRequirementsConverter.toJson(user.transportRequirements)
+            transporterRequirements: TransportRequirementsConverter.toJson(user.transportRequirements),
+            userConfigs: user.userConfigs.map(UserConfigConverter.toJson)
         }
     }
 }

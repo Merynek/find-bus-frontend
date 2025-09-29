@@ -8,6 +8,8 @@ import {getRandomTransferInfo, getRandomUserAddress, getTransportRequirements} f
 import {Vehicle} from "@/src/data/users/vehicle";
 import {getRandomNumber} from "@/src/utils/common";
 import {getRandomVehicle} from "./vehicle";
+import {getRandomUserConfig} from "@/dataGenerator/userConfig";
+import {UserConfig} from "@/src/data/userConfig";
 
 export function getRandomUser(): User {
     return new User({
@@ -25,8 +27,12 @@ export function getRandomUserDetail(): UserDetail {
 
 export function getRandomUserAdminDetail(): UserAdminDetail {
     const vehicles: Vehicle[] = [];
+    const userConfigs: UserConfig[] = [];
     for (let i = 0; i < getRandomNumber(1, 5); i++) {
         vehicles.push(getRandomVehicle())
+    }
+    for (let i = 0; i < getRandomNumber(1, 5); i++) {
+        userConfigs.push(getRandomUserConfig())
     }
     return new UserAdminDetail({
         id: getRandomId(),
@@ -44,6 +50,7 @@ export function getRandomUserAdminDetail(): UserAdminDetail {
         surname: getRandomText(1),
         transferInfo: getRandomTransferInfo(),
         vehicles: vehicles,
-        transportRequirements: getTransportRequirements()
+        transportRequirements: getTransportRequirements(),
+        userConfigs: userConfigs
     })
 }

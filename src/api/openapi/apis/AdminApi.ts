@@ -19,6 +19,9 @@ import type {
   EmailConfigResponseDto,
   UpdateAppBusinessConfigRequestDto,
   UpdateEmailConfig,
+  UpdateUserConfigRequestDto,
+  UserConfigRequestDto,
+  UserConfigResponseDto,
 } from '../models/index';
 import {
     AppBusinessConfigResponseDtoFromJSON,
@@ -29,6 +32,12 @@ import {
     UpdateAppBusinessConfigRequestDtoToJSON,
     UpdateEmailConfigFromJSON,
     UpdateEmailConfigToJSON,
+    UpdateUserConfigRequestDtoFromJSON,
+    UpdateUserConfigRequestDtoToJSON,
+    UserConfigRequestDtoFromJSON,
+    UserConfigRequestDtoToJSON,
+    UserConfigResponseDtoFromJSON,
+    UserConfigResponseDtoToJSON,
 } from '../models/index';
 
 export interface ApiAdminAppConfigPostRequest {
@@ -37,6 +46,14 @@ export interface ApiAdminAppConfigPostRequest {
 
 export interface ApiAdminEmailConfigPostRequest {
     updateEmailConfig?: UpdateEmailConfig;
+}
+
+export interface ApiAdminUserConfigGetRequest {
+    userConfigRequestDto?: UserConfigRequestDto;
+}
+
+export interface ApiAdminUserConfigPostRequest {
+    updateUserConfigRequestDto?: UpdateUserConfigRequestDto;
 }
 
 /**
@@ -186,6 +203,81 @@ export class AdminApi extends runtime.BaseAPI {
      */
     async apiAdminEmailConfigPost(requestParameters: ApiAdminEmailConfigPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.apiAdminEmailConfigPostRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     */
+    async apiAdminUserConfigGetRaw(requestParameters: ApiAdminUserConfigGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserConfigResponseDto>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json-patch+json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/Admin/userConfig`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UserConfigRequestDtoToJSON(requestParameters['userConfigRequestDto']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => UserConfigResponseDtoFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiAdminUserConfigGet(requestParameters: ApiAdminUserConfigGetRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserConfigResponseDto> {
+        const response = await this.apiAdminUserConfigGetRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiAdminUserConfigPostRaw(requestParameters: ApiAdminUserConfigPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json-patch+json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/Admin/userConfig`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdateUserConfigRequestDtoToJSON(requestParameters['updateUserConfigRequestDto']),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async apiAdminUserConfigPost(requestParameters: ApiAdminUserConfigPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.apiAdminUserConfigPostRaw(requestParameters, initOverrides);
     }
 
 }
