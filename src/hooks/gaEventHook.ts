@@ -12,6 +12,8 @@ export const useGa = (): IGaFunctions => {
 
     return {
         sendEvent: async (event: GENERAL_GA_EVENTS, params: IGaTrackData) => {
+            GaManager.toggleStorageConsent(GA_STORAGE.ANALYTICS_STORAGE, true);
+            GaManager.toggleStorageConsent(GA_STORAGE.AD_STORAGE, true);
             if (!params.user && user) {
                 params.user = {
                     id: user.id,
