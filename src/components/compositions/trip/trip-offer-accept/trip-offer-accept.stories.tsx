@@ -1,20 +1,22 @@
 import {getRandomOffer, getRandomTrip} from "@/dataGenerator/trip";
 import React from "react";
-import {ITripOfferAcceptProps, TripOfferAccept} from "./trip-offer-accept";
+import {TripOfferAccept} from "./trip-offer-accept";
 import {Meta, StoryObj} from "@storybook/nextjs";
+import {getRandomAppBusinessConfig} from "@/dataGenerator/appBusinessConfig";
 
-export default {
+const meta: Meta<typeof TripOfferAccept> = {
     component: TripOfferAccept,
-    args: {
-        onAcceptOffer: () => {}
-    }
-} as Meta<ITripOfferAcceptProps>;
+    args: {},
+    argTypes: {}
+};
 
-export const TripOfferAcceptStory: StoryObj<ITripOfferAcceptProps> = {
+export default meta;
+
+export const Default: StoryObj<typeof TripOfferAccept> = {
     render: (args) => <TripOfferAccept
         {...args}
         offer={getRandomOffer()}
         trip={getRandomTrip()}
-    />,
-    args: {}
+        config={getRandomAppBusinessConfig()}
+    />
 };

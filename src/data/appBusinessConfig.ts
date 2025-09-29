@@ -1,5 +1,3 @@
-import {makeObservable, observable} from "mobx";
-
 export interface IAppBusinessConfigSettings {
     minEndOrderFromNowInHours: number;
     minDateToAcceptOfferInHours: number;
@@ -20,23 +18,23 @@ export interface IAppBusinessConfigSettings {
 }
 
 export class AppBusinessConfig {
-    @observable public minEndOrderFromNowInHours: number;
-    @observable public minDateToAcceptOfferInHours: number;
-    @observable public minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours: number;
-    @observable public minDiffBetweenStartTripAndEndOrderInHours: number;
-    @observable public payRestOfPriceWarningBeforeStartTripInHours: number;
-    @observable public payInvoiceWarningAfterAcceptOfferInHours: number;
-    @observable public tripDepositInPercentage: number;
+    public minEndOrderFromNowInHours: number;
+    public minDateToAcceptOfferInHours: number;
+    public minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours: number;
+    public minDiffBetweenStartTripAndEndOrderInHours: number;
+    public payRestOfPriceWarningBeforeStartTripInHours: number;
+    public payInvoiceWarningAfterAcceptOfferInHours: number;
+    public tripDepositInPercentage: number;
 
-    @observable public tripCancelFeePercentageForDemander: number;
-    @observable public tripCancelFeeAfterLimitPercentageForDemander: number;
-    @observable public tripOfferCommissionPercentage: number;
-    @observable public tripCancelPenaltyPercentageForTransporterFromCompany: number;
-    @observable public tripCancelPenaltyMinAmountInCzkForTransporterFromCompany: number;
-    @observable public tripCancelPenaltyPercentageForTransporterFromDemander: number;
-    @observable public tripCancelPenaltyMinAmountInCzkForTransporterFromDemander: number;
-    @observable public tripCancelPenaltyLimitInDays: number;
-    @observable public tripCancelPenaltyAfterLimitPercentageForTransporter: number;
+    public tripCancelFeePercentageForDemander: number;
+    public tripCancelFeeAfterLimitPercentageForDemander: number;
+    public tripOfferCommissionPercentage: number;
+    public tripCancelPenaltyPercentageForTransporterFromCompany: number;
+    public tripCancelPenaltyMinAmountInCzkForTransporterFromCompany: number;
+    public tripCancelPenaltyPercentageForTransporterFromDemander: number;
+    public tripCancelPenaltyMinAmountInCzkForTransporterFromDemander: number;
+    public tripCancelPenaltyLimitInDays: number;
+    public tripCancelPenaltyAfterLimitPercentageForTransporter: number;
 
     constructor(settings: IAppBusinessConfigSettings) {
         this.minEndOrderFromNowInHours = settings.minEndOrderFromNowInHours;
@@ -55,6 +53,5 @@ export class AppBusinessConfig {
         this.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander = settings.tripCancelPenaltyMinAmountInCzkForTransporterFromDemander;
         this.tripCancelPenaltyLimitInDays = settings.tripCancelPenaltyLimitInDays;
         this.tripCancelPenaltyAfterLimitPercentageForTransporter = settings.tripCancelPenaltyAfterLimitPercentageForTransporter;
-        makeObservable(this);
     }
 }

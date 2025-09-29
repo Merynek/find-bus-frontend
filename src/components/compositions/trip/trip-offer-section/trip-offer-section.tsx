@@ -2,7 +2,13 @@
 
 import {observer} from "mobx-react";
 import React, {useState} from "react";
-import {CloseTripOfferReason, TripOfferState, TripResponseDto, UserRole} from "@/src/api/openapi";
+import {
+    AppBusinessConfigResponseDto,
+    CloseTripOfferReason,
+    TripOfferState,
+    TripResponseDto,
+    UserRole
+} from "@/src/api/openapi";
 import {TripOfferResult} from "../trip-offer-result/trip-offer-result";
 import {TripCreateOffer} from "../trip-create-offer/trip-create-offer";
 import {TripOffer} from "../trip-offer/trip-offer";
@@ -17,13 +23,16 @@ import {TripConverter} from "@/src/converters/trip/trip-converter";
 import {TripOfferService} from "@/src/services/TripOfferService";
 import {useApp} from "@/src/context/AppContext";
 import {useLoggedUser} from "@/src/hooks/authenticationHook";
+import {AppBusinessConfigConverter} from "@/src/converters/admin/app-business-config-converter";
 
 export interface ITripOfferSectionProps {
     trip: TripResponseDto;
+    config: AppBusinessConfigResponseDto;
 }
 
 export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
     const trip = useInit(() => TripConverter.toInstance(props.trip));
+    const config = useInit(() => AppBusinessConfigConverter.toInstance(props.config));
     const {user} = useLoggedUser();
     const {showLoader, hideLoader} = useApp();
     const [offers, setOffers] = useState<Offer[]>([]);
@@ -126,6 +135,7 @@ export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
                                 <TripOfferAccept
                                     offer={offer}
                                     trip={trip}
+                                    config={config}
                                     onAcceptOffer={async () => {
                                         await loadOffers();
                                     }}

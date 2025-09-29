@@ -1,5 +1,6 @@
 import {getRandomText} from "./texts/texts";
 import {getRandomNumber} from "@/src/utils/common";
+import {LOCALES} from "@/src/enums/locale";
 
 export const getRandomBoolean = () => {
     return Math.random() + .5 >> 0 === 1;
@@ -30,7 +31,7 @@ export const shuffleArray = <T>(array: T[]): T[] => {
 
 export const getRandomEnum = <T>(anEnum: T, except?: T[keyof T]): T[keyof T] => {
     const enumValues = [];
-    for (let enumMember in anEnum) {
+    for (const enumMember in anEnum) {
         if (except && anEnum[enumMember] === except) {
             continue;
         }
@@ -42,7 +43,7 @@ export const getRandomEnum = <T>(anEnum: T, except?: T[keyof T]): T[keyof T] => 
 
 export const getAllEnum = <T>(anEnum: T, except?: T[keyof T]): (T[keyof T])[] => {
     const enumValues: (T[keyof T])[] = [];
-    for (let enumMember in anEnum) {
+    for (const enumMember in anEnum) {
         if (except && anEnum[enumMember] === except) {
             continue;
         }
@@ -51,6 +52,6 @@ export const getAllEnum = <T>(anEnum: T, except?: T[keyof T]): (T[keyof T])[] =>
     return enumValues;
 }
 
-export const getLocales = (): string[] => {
-    return [ "en-US", 'cs-CZ'];
+export const getLocales = (): LOCALES[] => {
+    return [LOCALES.en_US, LOCALES.cs_CZ];
 }

@@ -1,29 +1,5 @@
-import {AppBusinessConfig} from "../data/appBusinessConfig";
-
 export class AppConfiguration {
     private static _instance: AppConfiguration | null = null;
-    public appBusinessConfig: AppBusinessConfig;
-
-    constructor() {
-        this.appBusinessConfig = new AppBusinessConfig({
-            minEndOrderFromNowInHours: 24,
-            minDateToAcceptOfferInHours: 24,
-            minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours: 600,
-            minDiffBetweenStartTripAndEndOrderInHours: 480,
-            payRestOfPriceWarningBeforeStartTripInHours: 480,
-            payInvoiceWarningAfterAcceptOfferInHours: 72,
-            tripCancelFeePercentageForDemander: 5,
-            tripCancelFeeAfterLimitPercentageForDemander: 60,
-            tripCancelPenaltyLimitInDays: 21,
-            tripCancelPenaltyPercentageForTransporterFromCompany: 10,
-            tripCancelPenaltyMinAmountInCzkForTransporterFromCompany: 5000,
-            tripCancelPenaltyPercentageForTransporterFromDemander: 20,
-            tripCancelPenaltyMinAmountInCzkForTransporterFromDemander: 5000,
-            tripDepositInPercentage: 25,
-            tripOfferCommissionPercentage: 10,
-            tripCancelPenaltyAfterLimitPercentageForTransporter: 30
-        });
-    }
 
     public static get instance(): AppConfiguration {
         if (!AppConfiguration._instance) {

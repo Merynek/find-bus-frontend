@@ -1,13 +1,20 @@
 import React from "react";
 import CreateTripPage from "./create-trip-page";
-import {StoryObj} from "@storybook/nextjs";
+import {Meta, StoryObj} from "@storybook/nextjs";
+import {getRandomAppBusinessConfig} from "@/dataGenerator/appBusinessConfig";
+import {AppBusinessConfigConverter} from "@/src/converters/admin/app-business-config-converter";
 
-export default {
+const meta: Meta<typeof CreateTripPage> = {
     component: CreateTripPage,
-    args: {}
-}
+    args: {},
+    argTypes: {}
+};
 
-export const CreateTripPageStory: StoryObj = {
-    render: (args) => <CreateTripPage {...args} />,
-    args: {}
+export default meta;
+
+export const Default: StoryObj<typeof CreateTripPage> = {
+    render: (args) => <CreateTripPage
+        {...args}
+        cfg={AppBusinessConfigConverter.toJson(getRandomAppBusinessConfig())}
+    />
 };

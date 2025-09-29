@@ -7,7 +7,6 @@ import {CreateTripPageStore} from "./create-trip.page.store";
 import {ButtonClick, ButtonSize, ButtonType} from "../../components/button/button";
 import {CheckBox} from "../../components/inputs/check-box/check-box";
 import {DatePicker} from "../../components/inputs/date-picker/date-picker";
-import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import {DirectionsMap} from "../../components/directions-map/directions-map";
 import {GeoPoint} from "@/src/data/geoPoint";
 import {NumberBox} from "../../components/inputs/number-box/number-box";
@@ -23,15 +22,20 @@ import {
     CreateTripRecommendations
 } from "@/src/components/pages/create-trip/components/create-trip-routes";
 import {CreateTripRoutes} from "@/src/components/pages/create-trip/components/create-trip-recommendation";
+import {AppBusinessConfigResponseDto} from "@/src/api/openapi";
+import {AppBusinessConfigConverter} from "@/src/converters/admin/app-business-config-converter";
 
-const CreateTripPage = observer(() => {
+interface ICreateTripPageProps {
+    cfg: AppBusinessConfigResponseDto;
+}
+
+const CreateTripPage = observer((props: ICreateTripPageProps) => {
+    const config = AppBusinessConfigConverter.toInstance(props.cfg);
     const router = useRouter();
     const {showLoader, hideLoader} = useApp();
-    const _store = useInit(() => new CreateTripPageStore());
+    const _store = useInit(() => new CreateTripPageStore(config));
     const locale = useCurrentLocale();
-    const _configuration = AppConfiguration.instance;
     const {t} = useTranslate("page.trip");
-    const cfg = _configuration.appBusinessConfig;
 
     useMount(() => {
         _store.init();
@@ -64,8 +68,8 @@ const CreateTripPage = observer(() => {
             locale={locale}
         />
         <LayoutFlexColumn gap={FlexGap.SMALL_16}>
-            {!_store.endOrderIsValid && <p style={{color: "red"}}>Min EndOrder From Now is {cfg.minEndOrderFromNowInHours} in Hours</p>}
-            {!_store.endOrderWithStartTripIsValid && <p style={{color: "red"}}>Min diff between EndOrder and StartTrip is {cfg.minDiffBetweenStartTripAndEndOrderInHours} in Hours</p>}
+            {!_store.endOrderIsValid && <p style={{color: "red"}}>Min EndOrder From Now is {config.minEndOrderFromNowInHours} in Hours</p>}
+            {!_store.endOrderWithStartTripIsValid && <p style={{color: "red"}}>Min diff between EndOrder and StartTrip is {config.minDiffBetweenStartTripAndEndOrderInHours} in Hours</p>}
         </LayoutFlexColumn>
         <NumberBox
             placeholder={t("numberOfPassengers")}

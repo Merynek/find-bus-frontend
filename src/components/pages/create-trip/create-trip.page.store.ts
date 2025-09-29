@@ -8,7 +8,7 @@ import {UserSettings} from "@/src/data/users/userSettings";
 import {TripService} from "@/src/services/TripService";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
 import {UsersService} from "@/src/services/UsersService";
-import {AppConfiguration} from "@/src/singletons/AppConfiguration";
+import {AppBusinessConfig} from "@/src/data/appBusinessConfig";
 
 export class CreateTripPageStore {
     public trip: Trip;
@@ -22,8 +22,10 @@ export class CreateTripPageStore {
     private _directionTimesReactionDisposer: IReactionDisposer|null;
     private _personCountReactionDisposer: IReactionDisposer|null;
     private _routesCountReactionDisposer: IReactionDisposer|null;
+    public appBusinessConfig: AppBusinessConfig;
 
-    constructor() {
+    constructor(cfg: AppBusinessConfig) {
+        this.appBusinessConfig = cfg;
         this.tripRecommendation = null;
         this.reduceRoutesHours = null;
         this.reduceTimeHours = null;
@@ -77,7 +79,7 @@ export class CreateTripPageStore {
 
     @computed
     get endOrderIsValid() {
-        return this.trip.endOrder >= addHours(new Date(), AppConfiguration.instance.appBusinessConfig.minEndOrderFromNowInHours);
+        return this.trip.endOrder >= addHours(new Date(), this.appBusinessConfig.minEndOrderFromNowInHours);
     }
 
     @computed
@@ -86,7 +88,7 @@ export class CreateTripPageStore {
             const start = moment(this.trip.dateFrom);
             const end = moment(this.trip.endOrder);
             const duration = moment.duration(start.diff(end));
-            return duration.asHours() >= AppConfiguration.instance.appBusinessConfig.minDiffBetweenStartTripAndEndOrderInHours;
+            return duration.asHours() >= this.appBusinessConfig.minDiffBetweenStartTripAndEndOrderInHours;
         }
         return true;
     }

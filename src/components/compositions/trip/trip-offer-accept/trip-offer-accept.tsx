@@ -1,6 +1,5 @@
 import {Offer} from "@/src/data/offer";
 import React, {useState} from "react";
-import {AppConfiguration} from "@/src/singletons/AppConfiguration";
 import styles from "./trip-offer-accept.module.scss";
 import {observer} from "mobx-react";
 import {Trip} from "@/src/data/trip/trip";
@@ -11,15 +10,17 @@ import {ButtonClick, ButtonSize, ButtonType} from "../../../components/button/bu
 import moment from "moment";
 import {TripOfferService} from "@/src/services/TripOfferService";
 import {useApp} from "@/src/context/AppContext";
+import {AppBusinessConfig} from "@/src/data/appBusinessConfig";
 
 export interface ITripOfferAcceptProps {
     offer: Offer;
     trip: Trip;
     onAcceptOffer: () => void;
+    config: AppBusinessConfig;
 }
 
 export const TripOfferAccept = observer((props: ITripOfferAcceptProps) => {
-    const {offer, onAcceptOffer, trip} = props;
+    const {offer, onAcceptOffer, trip, config} = props;
     const {showLoader, hideLoader} = useApp();
     const _createAcceptMethodOption = (method: TripOfferAcceptMethod): IComboBoxItem<string> => {
         return {
@@ -34,7 +35,7 @@ export const TripOfferAccept = observer((props: ITripOfferAcceptProps) => {
             const start = moment(trip.dateFrom);
             const end = moment(trip.endOrder);
             const duration = moment.duration(start.diff(end));
-            if (duration.asHours() > AppConfiguration.instance.appBusinessConfig.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours) {
+            if (duration.asHours() > config.minDiffBetweenStartTripAndEndOrderForAllPaymentsInHours) {
                 options.push(_createAcceptMethodOption(TripOfferAcceptMethod.PAY_DEPOSIT));
             }
         }
