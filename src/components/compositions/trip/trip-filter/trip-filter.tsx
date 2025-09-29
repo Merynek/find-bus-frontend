@@ -13,9 +13,8 @@ import {useRouter} from "@/src/i18n/navigation";
 import {useSearchParams} from "next/navigation";
 import {Color, FontSize} from "@/src/components/components/texts/textStyles";
 import {Text} from "@/src/components/components/texts/text";
-import {useGa} from "@/src/hooks/gaEventHook";
 import {GENERAL_GA_EVENTS} from "@/src/enums/ga.enums";
-import { sendGTMEvent } from '@next/third-parties/google'
+import {useGtm} from "@/src/hooks/gtmHook";
 
 export interface ITripFilterProps {
     params: ITripFilterParams;
@@ -24,7 +23,7 @@ export interface ITripFilterProps {
 export const TripFilter = (props: ITripFilterProps) => {
     const {params} = props;
     const router = useRouter();
-    const {sendEvent} = useGa();
+    const {sendEvent} = useGtm();
     const searchParams = useSearchParams();
     const [page, setPage] = useState<number|undefined>(params.page);
     const [dietForTransporter, setDietForTransporter] = useState<boolean|undefined>(params.dietForTransporter);
@@ -163,7 +162,6 @@ export const TripFilter = (props: ITripFilterProps) => {
                 value={distanceToInKm}
                 onChange={(val) => {
                     setDistanceToInKm(val);
-                    sendGTMEvent({event: 'SYSEL_TEST', value: val});
                 }}
                 placeholder={"Distance To"}
             />

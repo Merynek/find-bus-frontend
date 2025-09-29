@@ -10,8 +10,8 @@ import {routing} from "@/src/i18n/routing";
 import NextAuthProvider from "@/src/context/NextAuthContext";
 import {AuthorizationService} from "@/src/services/AuthorizationService";
 import {PageLayout} from "@/src/components/components/layout/page-layout/page-layout";
-import { GoogleTagManager } from '@next/third-parties/google'
 import React from "react";
+import {TagManager} from "@/src/components/head-components/TagManager";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,11 +37,8 @@ export default async function RootLayout(props: IRootLayoutProps) {
     }
 
     return <html lang={locale}>
-        <GoogleTagManager gtmId={"GTM-KHSXM73Z"} gtmScriptUrl={"https://green.find-bus.com/bdlczojxfa.js?23n=CAJFLTs3TicpNSAnWEk5ShdbSkReXAcCXAARBAtXARkSSBsFAg%3D%3D"}/>
+        <TagManager />
         <body className={`${geistSans.variable} antialiased`}>
-        {/*<noscript>*/}
-        {/*    <iframe src="https://green.find-bus.com/ns.html?id=GTM-KHSXM73Z" height="0" width="0" style={{display: "none", visibility: "hidden"}} />*/}
-        {/*</noscript>*/}
         <NextIntlClientProvider>
             <NextAuthProvider userId={user?.id || 0}>
                 <AppProvider>
