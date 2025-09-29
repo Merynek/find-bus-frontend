@@ -10,14 +10,17 @@ import {UserAdminDetailConverter} from "@/src/converters/admin/user-admin-detail
 import {useCurrentLocale} from "@/src/hooks/translateHook";
 import {Text} from "@/src/components/components/texts/text";
 import {FontSize, FontWeight} from "@/src/components/components/texts/textStyles";
-import {AdminUserDetailResponseDto} from "@/src/api/openapi";
+import {AdminUserDetailResponseDto, AppBusinessConfigResponseDto} from "@/src/api/openapi";
+import {AppBusinessConfigConverter} from "@/src/converters/admin/app-business-config-converter";
 
 interface IAdminUserConfigHistoryProps {
     user: AdminUserDetailResponseDto;
+    appConfig: AppBusinessConfigResponseDto;
 }
 
 export const AdminUserConfig = (props: IAdminUserConfigHistoryProps) => {
     const user = UserAdminDetailConverter.toInstance(props.user);
+    const appConfig = AppBusinessConfigConverter.toInstance(props.appConfig);
     const locale = useCurrentLocale();
 
     const renderTextItem = (name: string, value: string) => {
@@ -28,7 +31,11 @@ export const AdminUserConfig = (props: IAdminUserConfigHistoryProps) => {
     }
 
     return <LayoutFlexColumn gap={FlexGap.TINY_8}>
-        {user.currentConfig && <AdminSetUserConfig userId={user.id} config={user.currentConfig} />}
+        <AdminSetUserConfig
+            userId={user.id}
+            userConfig={user.currentConfig}
+            appConfig={appConfig}
+        />
         {user.previousConfigs.map((c, index) => {
             return <LayoutFlexRow gap={FlexGap.TINY_8} key={index}>
                 {renderTextItem("Last Update", formatDateTime({date: c.created,locale: locale}))}

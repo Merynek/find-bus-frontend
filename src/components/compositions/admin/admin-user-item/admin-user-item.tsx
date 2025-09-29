@@ -15,13 +15,16 @@ import {FontSize, FontWeight} from "@/src/components/components/texts/textStyles
 import {FlexGap} from "@/src/enums/layout.enum";
 import {UserAdminDetail} from "@/src/data/users/user-admin-detail";
 import {AdminUserConfig} from "@/src/components/compositions/admin/admin-user-config/admin-user-config";
+import {AppBusinessConfig} from "@/src/data/appBusinessConfig";
+import {AppBusinessConfigConverter} from "@/src/converters/admin/app-business-config-converter";
 
 interface IAdminUserItemProps {
     user: UserAdminDetail;
+    config: AppBusinessConfig;
 }
 
 export const AdminUserItem = (props: IAdminUserItemProps) => {
-    const {user} = props;
+    const {user, config} = props;
 
     const _renderTransporterRequirements = (requirements: TransportRequirements) => {
         return <LayoutFlexRow gap={FlexGap.MEDIUM_24} canWrap={true} justifyContent={"flex-start"} alignItems={"flex-start"}>
@@ -109,7 +112,10 @@ export const AdminUserItem = (props: IAdminUserItemProps) => {
                 })}
             </Group>
             <Group title={"Configs"}>
-                <AdminUserConfig user={UserAdminDetailConverter.toJson(user)} />
+                <AdminUserConfig
+                    user={UserAdminDetailConverter.toJson(user)}
+                    appConfig={AppBusinessConfigConverter.toJson(config)}
+                />
             </Group>
             <UserVerifyButton user={UserAdminDetailConverter.toJson(user)} />
         </LayoutFlexColumn>}

@@ -9,18 +9,20 @@ import {NumberBox} from "@/src/components/components/inputs/number-box/number-bo
 import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
 import {userConfigFormAction} from "@/src/server-actions/forms/admin/userlConfig/userConfigFormAction";
 import {UserConfig} from "@/src/data/userConfig";
+import {AppBusinessConfig} from "@/src/data/appBusinessConfig";
 
 interface IAdminSetUserConfigProps {
     userId: number;
-    config: UserConfig;
+    appConfig: AppBusinessConfig;
+    userConfig?: UserConfig;
 }
 
 export const AdminSetUserConfig = (props: IAdminSetUserConfigProps) => {
-    const {userId, config} = props;
+    const {userId, userConfig, appConfig} = props;
     const [state, action, pending] = useFormActionState(userConfigFormAction, {
         data: {
             userId: userId,
-            tripOfferCommissionPercentage: config.tripOfferCommissionPercentage
+            tripOfferCommissionPercentage: userConfig ? userConfig.tripOfferCommissionPercentage : appConfig.tripOfferCommissionPercentage
         }
     })
 
@@ -34,7 +36,7 @@ export const AdminSetUserConfig = (props: IAdminSetUserConfigProps) => {
                     controlled={false}
                     id={FormDataEnum.tripOfferCommissionPercentage}
                     name={FormDataEnum.tripOfferCommissionPercentage}
-                    defaultValue={state?.data?.tripOfferCommissionPercentage|| 0}
+                    defaultValue={state?.data?.tripOfferCommissionPercentage || appConfig.tripOfferCommissionPercentage}
                     minValue={0}
                 />
                 <ButtonClick
