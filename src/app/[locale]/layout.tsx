@@ -40,7 +40,7 @@ export default async function RootLayout(props: IRootLayoutProps) {
         <GoogleTagManager gtmFunction={"sdad"} />
         <body className={`${geistSans.variable} antialiased`}>
         <noscript>
-            <iframe src="https://green.find-bus.com/ns.html?id=GTM-KHSXM73Z" height="0" width="0" style={{display: "none", visibility: "hidden"}}></iframe>
+            <iframe src="https://green.find-bus.com/ns.html?id=GTM-KHSXM73Z" height="0" width="0" style={{display: "none", visibility: "hidden"}} />
         </noscript>
         <NextIntlClientProvider>
             <NextAuthProvider userId={user?.id || 0}>
