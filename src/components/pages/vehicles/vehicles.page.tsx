@@ -2,7 +2,7 @@
 
 import React, {useState} from "react";
 import {VehicleDetail} from "../../compositions/vehicle/detail-list/vehicle-detail-list";
-import {ButtonClick, ButtonSize, ButtonType} from "../../components/button/button";
+import {ButtonClick, ButtonLink, ButtonSize, ButtonType} from "../../components/button/button";
 import {VehicleEditStore} from "../../compositions/vehicle/edit/vehicle-edit.store";
 import {Vehicle} from "@/src/data/users/vehicle";
 import {VehicleService} from "@/src/services/VehicleService";
@@ -10,6 +10,7 @@ import {useApp} from "@/src/context/AppContext";
 import VehicleForm from "@/src/components/compositions/vehicle/edit/vehicle-edit";
 import {VehicleResponseDto} from "@/src/api/openapi";
 import {VehicleConverter} from "@/src/converters/vehicle-converter";
+import {ROUTES} from "@/src/enums/router.enum";
 
 export interface IVehiclePageProps {
     vehicles: VehicleResponseDto[];
@@ -51,12 +52,10 @@ const VehiclePage = (props: IVehiclePageProps) => {
                     <VehicleDetail
                         vehicle={vehicle}
                     />
-                    <ButtonClick
-                        controlled={true}
-                        onClick={() => {
-                            setVehicleEdit(new VehicleEditStore({
-                                vehicle: vehicle
-                            }));
+                    <ButtonLink
+                        route={{
+                            route: ROUTES.VEHICLE_DETAIL,
+                            params: { vehicleId: vehicle.id.toString() }
                         }}
                         label={"EDIT"}
                         type={ButtonType.BLACK}

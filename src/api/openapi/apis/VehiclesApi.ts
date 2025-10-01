@@ -17,6 +17,8 @@ import * as runtime from '../runtime';
 import type {
   AddVehicleRequestDto,
   UpdateVehicleRequestDto,
+  VehicleDocumentType,
+  VehiclePhotoType,
   VehicleResponseDto,
   VehicleTransportVerificationRequestDto,
 } from '../models/index';
@@ -25,6 +27,10 @@ import {
     AddVehicleRequestDtoToJSON,
     UpdateVehicleRequestDtoFromJSON,
     UpdateVehicleRequestDtoToJSON,
+    VehicleDocumentTypeFromJSON,
+    VehicleDocumentTypeToJSON,
+    VehiclePhotoTypeFromJSON,
+    VehiclePhotoTypeToJSON,
     VehicleResponseDtoFromJSON,
     VehicleResponseDtoToJSON,
     VehicleTransportVerificationRequestDtoFromJSON,
@@ -42,6 +48,10 @@ export interface ApiVehiclesFilesPostRequest {
     technicalCertificate1?: Blob;
     technicalCertificate2?: Blob;
     insurance?: Blob;
+    documentTypes?: Array<VehicleDocumentType>;
+    documentFiles?: Array<Blob>;
+    photoTypes?: Array<VehiclePhotoType>;
+    photoFiles?: Array<Blob>;
 }
 
 export interface ApiVehiclesTransportVerificationPostRequest {
@@ -113,6 +123,10 @@ export class VehiclesApi extends runtime.BaseAPI {
         useForm = canConsumeForm;
         // use FormData to transmit files using content-type "multipart/form-data"
         useForm = canConsumeForm;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        useForm = canConsumeForm;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        useForm = canConsumeForm;
         if (useForm) {
             formParams = new FormData();
         } else {
@@ -157,6 +171,30 @@ export class VehiclesApi extends runtime.BaseAPI {
 
         if (requestParameters['insurance'] != null) {
             formParams.append('Insurance', requestParameters['insurance'] as any);
+        }
+
+        if (requestParameters['documentTypes'] != null) {
+            requestParameters['documentTypes'].forEach((element) => {
+                formParams.append('DocumentTypes', element as any);
+            })
+        }
+
+        if (requestParameters['documentFiles'] != null) {
+            requestParameters['documentFiles'].forEach((element) => {
+                formParams.append('DocumentFiles', element as any);
+            })
+        }
+
+        if (requestParameters['photoTypes'] != null) {
+            requestParameters['photoTypes'].forEach((element) => {
+                formParams.append('PhotoTypes', element as any);
+            })
+        }
+
+        if (requestParameters['photoFiles'] != null) {
+            requestParameters['photoFiles'].forEach((element) => {
+                formParams.append('PhotoFiles', element as any);
+            })
         }
 
 

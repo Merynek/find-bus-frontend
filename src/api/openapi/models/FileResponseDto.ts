@@ -13,13 +13,6 @@
  */
 
 import { mapValues } from '../runtime';
-import type { FileCategory } from './FileCategory';
-import {
-    FileCategoryFromJSON,
-    FileCategoryFromJSONTyped,
-    FileCategoryToJSON,
-    FileCategoryToJSONTyped,
-} from './FileCategory';
 import type { FileType } from './FileType';
 import {
     FileTypeFromJSON,
@@ -27,6 +20,13 @@ import {
     FileTypeToJSON,
     FileTypeToJSONTyped,
 } from './FileType';
+import type { FileStorageCategory } from './FileStorageCategory';
+import {
+    FileStorageCategoryFromJSON,
+    FileStorageCategoryFromJSONTyped,
+    FileStorageCategoryToJSON,
+    FileStorageCategoryToJSONTyped,
+} from './FileStorageCategory';
 
 /**
  * 
@@ -54,10 +54,10 @@ export interface FileResponseDto {
     type: FileType;
     /**
      * 
-     * @type {FileCategory}
+     * @type {FileStorageCategory}
      * @memberof FileResponseDto
      */
-    category: FileCategory;
+    storageCategory: FileStorageCategory;
 }
 
 
@@ -69,7 +69,7 @@ export function instanceOfFileResponseDto(value: object): value is FileResponseD
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('path' in value) || value['path'] === undefined) return false;
     if (!('type' in value) || value['type'] === undefined) return false;
-    if (!('category' in value) || value['category'] === undefined) return false;
+    if (!('storageCategory' in value) || value['storageCategory'] === undefined) return false;
     return true;
 }
 
@@ -86,7 +86,7 @@ export function FileResponseDtoFromJSONTyped(json: any, ignoreDiscriminator: boo
         'id': json['id'],
         'path': json['path'],
         'type': FileTypeFromJSON(json['type']),
-        'category': FileCategoryFromJSON(json['category']),
+        'storageCategory': FileStorageCategoryFromJSON(json['storageCategory']),
     };
 }
 
@@ -104,7 +104,7 @@ export function FileResponseDtoToJSONTyped(value?: FileResponseDto | null, ignor
         'id': value['id'],
         'path': value['path'],
         'type': FileTypeToJSON(value['type']),
-        'category': FileCategoryToJSON(value['category']),
+        'storageCategory': FileStorageCategoryToJSON(value['storageCategory']),
     };
 }
 

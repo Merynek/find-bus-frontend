@@ -34,8 +34,8 @@ models/EmailType.ts
 models/ErrorCode.ts
 models/ErrorResponseDto.ts
 models/EuroStandard.ts
-models/FileCategory.ts
 models/FileResponseDto.ts
+models/FileStorageCategory.ts
 models/FileType.ts
 models/FinancialDocumentResponseDto.ts
 models/FinancialDocumentType.ts
@@ -86,6 +86,8 @@ models/UserRole.ts
 models/UserSettingsRequestDto.ts
 models/UserSettingsResponseDto.ts
 models/UserTransportVerificationRequestDto.ts
+models/VehicleDocumentType.ts
+models/VehiclePhotoType.ts
 models/VehicleRequestDto.ts
 models/VehicleResponseDto.ts
 models/VehicleTransportVerificationRequestDto.ts

@@ -1629,6 +1629,32 @@
                   "Insurance": {
                     "type": "string",
                     "format": "binary"
+                  },
+                  "DocumentTypes": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/VehicleDocumentType"
+                    }
+                  },
+                  "DocumentFiles": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  },
+                  "PhotoTypes": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/VehiclePhotoType"
+                    }
+                  },
+                  "PhotoFiles": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
                   }
                 }
               },
@@ -1661,6 +1687,18 @@
                   "style": "form"
                 },
                 "Insurance": {
+                  "style": "form"
+                },
+                "DocumentTypes": {
+                  "style": "form"
+                },
+                "DocumentFiles": {
+                  "style": "form"
+                },
+                "PhotoTypes": {
+                  "style": "form"
+                },
+                "PhotoFiles": {
                   "style": "form"
                 }
               }
@@ -2750,20 +2788,11 @@
         ],
         "type": "string"
       },
-      "FileCategory": {
-        "enum": [
-          "IMAGE",
-          "DOCUMENT",
-          "OTHER",
-          "UNKNOWN"
-        ],
-        "type": "string"
-      },
       "FileResponseDto": {
         "required": [
-          "category",
           "id",
           "path",
+          "storageCategory",
           "type"
         ],
         "type": "object",
@@ -2779,19 +2808,26 @@
           "type": {
             "$ref": "#/components/schemas/FileType"
           },
-          "category": {
-            "$ref": "#/components/schemas/FileCategory"
+          "storageCategory": {
+            "$ref": "#/components/schemas/FileStorageCategory"
           }
         },
         "additionalProperties": false
       },
-      "FileType": {
+      "FileStorageCategory": {
         "enum": [
           "VEHICLE_PHOTO",
           "VEHICLE_INSURANCE",
           "VEHICLE_TECHNICAL_CERTIFICATE",
           "CONCESSION_DOCUMENT",
           "BUSINESS_RISK_INSURANCE"
+        ],
+        "type": "string"
+      },
+      "FileType": {
+        "enum": [
+          "IMAGE",
+          "DOCUMENT"
         ],
         "type": "string"
       },
@@ -3992,6 +4028,23 @@
           }
         },
         "additionalProperties": false
+      },
+      "VehicleDocumentType": {
+        "enum": [
+          "TechnicalCertificate",
+          "Insurance"
+        ],
+        "type": "string"
+      },
+      "VehiclePhotoType": {
+        "enum": [
+          "Front",
+          "Rear",
+          "LeftSide",
+          "RightSide",
+          "Interior"
+        ],
+        "type": "string"
       },
       "VehicleRequestDto": {
         "type": "object",

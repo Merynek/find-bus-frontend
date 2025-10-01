@@ -13,6 +13,7 @@ export enum ROUTES {
     FORGOT_PASSWORD = "/forgot-password",
     USER_SETTINGS = "/user-settings",
     VEHICLES = "/vehicles",
+    VEHICLE_DETAIL = "/vehicle/[vehicleId]",
     CREATE_TRIP = "/create-trip",
     TRIP_LIST = "/trips",
     TRIP = "/trip/[tripId]",
