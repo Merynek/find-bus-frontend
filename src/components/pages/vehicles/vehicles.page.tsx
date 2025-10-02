@@ -1,31 +1,21 @@
-"use client";
-
 import React from "react";
 import {VehicleDetail} from "../../compositions/vehicle/detail-list/vehicle-detail-list";
-import {ButtonClick, ButtonLink, ButtonSize, ButtonType} from "../../components/button/button";
-import {VehicleResponseDto} from "@/src/api/openapi";
-import {VehicleConverter} from "@/src/converters/vehicle-converter";
+import {ButtonLink, ButtonSize, ButtonType} from "../../components/button/button";
 import {ROUTES} from "@/src/enums/router.enum";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
+import AddVehicleButton from "@/src/components/pages/vehicles/add-vehicle-button";
+import {Vehicle} from "@/src/data/users/vehicle";
 
-export interface IVehiclePageProps {
-    vehicles: VehicleResponseDto[];
+export interface IVehiclesPageProps {
+    vehicles: Vehicle[];
 }
 
-const VehiclePage = (props: IVehiclePageProps) => {
-    const vehicles = props.vehicles.map(VehicleConverter.toInstance);
+const VehiclesPage = (props: IVehiclesPageProps) => {
+    const {vehicles} = props;
 
     const _renderList = () => {
         return <div>
-            <ButtonClick
-                controlled={true}
-                onClick={() => {
-                    // TODO: create new vehicle
-                }}
-                label={"Add new"}
-                type={ButtonType.YELLOW}
-                size={ButtonSize.BY_CONTENT}
-            />
+            <AddVehicleButton />
             {vehicles.map((vehicle => {
                 return <div key={vehicle.id}>
                     <VehicleDetail
@@ -50,4 +40,4 @@ const VehiclePage = (props: IVehiclePageProps) => {
     </LayoutFlexColumn>
 };
 
-export default VehiclePage;
+export default VehiclesPage;
