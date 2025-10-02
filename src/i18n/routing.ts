@@ -42,12 +42,12 @@ export const routing = defineRouting({
             [LOCALES.en_US]: ROUTES.VEHICLES
         },
         [ROUTES.VEHICLE_DETAIL]: {
-            [LOCALES.cs_CZ]: '/vozidlo',
-            [LOCALES.en_US]: ROUTES.VEHICLE_DETAIL
+            [LOCALES.cs_CZ]: '/vozidlo/[vehicleId]',
+            [LOCALES.en_US]: `${ROUTES.VEHICLE_DETAIL}/[vehicleId]`
         },
         [ROUTES.VEHICLE_EDIT]: {
-            [LOCALES.cs_CZ]: '/nastaveni-vozidla',
-            [LOCALES.en_US]: ROUTES.VEHICLE_EDIT
+            [LOCALES.cs_CZ]: '/nastaveni-vozidla/[vehicleId]',
+            [LOCALES.en_US]: `${ROUTES.VEHICLE_EDIT}/[vehicleId]`
         },
         [ROUTES.CREATE_TRIP]: {
             [LOCALES.cs_CZ]: '/nova-cesta',

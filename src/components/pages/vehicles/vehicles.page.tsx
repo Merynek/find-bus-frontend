@@ -23,7 +23,7 @@ const VehiclesPage = (props: IVehiclesPageProps) => {
                     />
                     <ButtonLink
                         route={{
-                            route: ROUTES.VEHICLE_DETAIL,
+                            route: ROUTES.VEHICLE_EDIT,
                             params: { vehicleId: vehicle.id.toString() }
                         }}
                         label={"EDIT"}

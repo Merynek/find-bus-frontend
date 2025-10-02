@@ -24,7 +24,7 @@ const AddVehicleButton = () => {
                     params: {
                         vehicleId: vehicleId.toString()
                     }
-                })
+                });
             } catch (e: unknown) {
                 // error
             }
