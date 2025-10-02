@@ -7,7 +7,7 @@ import {IUploadVehicleFilesRequest, IVehicleRequest} from "@/src/api/vehicleApi"
 import {Country, PlaceRequestDto} from "@/src/api/openapi";
 import {LOCALES} from "@/src/enums/locale";
 
-type VehicleData = Partial<IVehicleRequest & {vehicleId?: number} & IUploadVehicleFilesRequest & {locale: LOCALES}>;
+type VehicleData = Partial<IVehicleRequest & {vehicleId: number} & IUploadVehicleFilesRequest & {locale: LOCALES}>;
 
 type VehicleApiResult = void;
 
@@ -45,9 +45,10 @@ export class VehicleFormAction extends BaseFormAction<typeof VehicleSchema, Vehi
     }
 
     protected async callApi(validatedData: z.infer<typeof VehicleSchema>): Promise<VehicleApiResult> {
-        let vehicleId = validatedData.vehicleId;
-        const vehicleReq: IVehicleRequest = {
-            name: validatedData.name,
+        await VehicleService.updateVehicle({
+            vehicleId: validatedData.vehicleId,
+            vehicle: {
+                name: validatedData.name,
                 personsCapacity: validatedData.personsCapacity,
                 euro: validatedData.euro,
                 amenities: validatedData.amenities,
@@ -57,17 +58,8 @@ export class VehicleFormAction extends BaseFormAction<typeof VehicleSchema, Vehi
                 stkExpired: validatedData.stkExpired,
                 yearOfManufacture: validatedData.yearOfManufacture,
                 departureStation: validatedData.departureStation
-        }
-        if (vehicleId) {
-            await VehicleService.updateVehicle({
-                vehicleId: vehicleId,
-                vehicle: vehicleReq
-            });
-        } else {
-            vehicleId = await VehicleService.addVehicle({
-                vehicle: vehicleReq
-            });
-        }
+            }
+        });
         await VehicleService.uploadVehicleFiles({
             vehicleId: vehicleId,
             frontPhoto: validatedData.frontPhoto || undefined,

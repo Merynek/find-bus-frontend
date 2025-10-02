@@ -63,7 +63,6 @@
     },
     "vehicle": {
       "vehicleEditHeading": "Upravit vozidlo",
-      "vehicleAddHeading": "Přidat vozidlo",
       "name": "Název vozidla",
       "personsCapacity": "Počet osob",
       "handicappedUserCount": "Počet vozíčkářů",

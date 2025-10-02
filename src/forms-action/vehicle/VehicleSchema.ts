@@ -16,7 +16,7 @@ const VehiclePhotoSchema = z.object({
 }).strict();
 
 const VehicleCoreSchema = z.object({
-    vehicleId: z.coerce.number().optional(),
+    vehicleId: z.coerce.number(),
     name: z.string().optional(),
     personsCapacity: z.coerce.number().optional(),
     euro: z.enum(EuroStandard, { message: "Neplatný Euro standard." }).optional(),

@@ -14,6 +14,7 @@ export enum ROUTES {
     USER_SETTINGS = "/user-settings",
     VEHICLES = "/vehicles",
     VEHICLE_DETAIL = "/vehicle/[vehicleId]",
+    VEHICLE_EDIT = "/vehicle-edit/[vehicleId]",
     CREATE_TRIP = "/create-trip",
     TRIP_LIST = "/trips",
     TRIP = "/trip/[tripId]",
