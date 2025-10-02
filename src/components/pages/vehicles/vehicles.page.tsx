@@ -6,6 +6,7 @@ import {ButtonClick, ButtonLink, ButtonSize, ButtonType} from "../../components/
 import {VehicleResponseDto} from "@/src/api/openapi";
 import {VehicleConverter} from "@/src/converters/vehicle-converter";
 import {ROUTES} from "@/src/enums/router.enum";
+import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 
 export interface IVehiclePageProps {
     vehicles: VehicleResponseDto[];
@@ -44,9 +45,9 @@ const VehiclePage = (props: IVehiclePageProps) => {
         </div>
     }
 
-    return <div className={"layout"}>
+    return <LayoutFlexColumn>
         {_renderList()}
-    </div>
+    </LayoutFlexColumn>
 };
 
 export default VehiclePage;

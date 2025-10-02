@@ -1,13 +1,20 @@
 import React from "react";
-import VehiclePage, {IVehiclePageProps} from "./vehicles.page";
+import VehiclePage from "./vehicles.page";
 import {Meta, StoryObj} from "@storybook/nextjs";
+import {VehicleConverter} from "@/src/converters/vehicle-converter";
+import {getRandomVehicle} from "@/dataGenerator/vehicle";
 
-export default {
+const meta: Meta<typeof VehiclePage> = {
     component: VehiclePage,
-    args: {}
-} as Meta<IVehiclePageProps>;
+    args: {},
+    argTypes: {}
+};
 
-export const VehiclePageStory: StoryObj<IVehiclePageProps> = {
-    render: (args) => <VehiclePage {...args} />,
-    args: {}
+export default meta;
+
+export const Default: StoryObj<typeof VehiclePage> = {
+    render: (args) => <VehiclePage
+        {...args}
+        vehicles={[getRandomVehicle(), getRandomVehicle()].map(VehicleConverter.toJson)}
+    />
 };
