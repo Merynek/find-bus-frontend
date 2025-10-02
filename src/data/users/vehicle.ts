@@ -1,10 +1,9 @@
 import {Amenities, EuroStandard} from "../../api/openapi";
-import {makeObservable, observable} from "mobx";
 import {Image} from "../media/Image";
 import {Place} from "../place";
 
 export interface IVehicleSettings {
-    id?: number;
+    id: number;
     name: string;
     registrationSign: string;
     VIN: string;
@@ -28,26 +27,26 @@ export interface IVehicleSettings {
 }
 
 export class Vehicle {
-    public id?: number;
-    @observable public name: string;
-    @observable public registrationSign: string;
-    @observable public VIN: string;
-    @observable public stkExpired: Date;
-    @observable public yearOfManufacture: number;
-    @observable public personsCapacity: number;
-    @observable public euro: EuroStandard;
+    public id: number;
+    public name: string;
+    public registrationSign: string;
+    public VIN: string;
+    public stkExpired: Date;
+    public yearOfManufacture: number;
+    public personsCapacity: number;
+    public euro: EuroStandard;
     public amenities: Amenities[];
-    @observable public handicappedUserCount: number;
-    @observable public frontPhoto: Image|null;
-    @observable public rearPhoto: Image|null;
-    @observable public leftSidePhoto: Image|null;
-    @observable public rightSidePhoto: Image|null;
-    @observable public interierPhoto1: Image|null;
-    @observable public interierPhoto2: Image|null;
-    @observable public technicalCertificate1: Image|null;
-    @observable public technicalCertificate2: Image|null;
-    @observable public insurancePhoto: Image|null;
-    @observable public departureStation: Place|null;
+    public handicappedUserCount: number;
+    public frontPhoto: Image|null;
+    public rearPhoto: Image|null;
+    public leftSidePhoto: Image|null;
+    public rightSidePhoto: Image|null;
+    public interierPhoto1: Image|null;
+    public interierPhoto2: Image|null;
+    public technicalCertificate1: Image|null;
+    public technicalCertificate2: Image|null;
+    public insurancePhoto: Image|null;
+    public departureStation: Place|null;
     public isVerifiedForTransporting: boolean;
 
     constructor(settings: IVehicleSettings) {
@@ -72,31 +71,5 @@ export class Vehicle {
         this.insurancePhoto = settings.insurance;
         this.departureStation = settings.departureStation;
         this.isVerifiedForTransporting = settings.isVerifiedForTransporting;
-        makeObservable(this);
-    }
-
-    public static create() {
-        return new Vehicle({
-            name: "",
-            euroStandard: EuroStandard.EURO3,
-            amenities: [],
-            handicappedUserCount: 0,
-            stkExpired: new Date(),
-            VIN: "",
-            yearOfManufacture: 0,
-            registrationSign: "",
-            personsCapacity: 0,
-            frontPhoto: null,
-            rearPhoto: null,
-            leftSidePhoto: null,
-            rightSidePhoto: null,
-            interierPhoto1: null,
-            interierPhoto2: null,
-            technicalCertificate1: null,
-            technicalCertificate2: null,
-            insurance: null,
-            departureStation: null,
-            isVerifiedForTransporting: false
-        });
     }
 }

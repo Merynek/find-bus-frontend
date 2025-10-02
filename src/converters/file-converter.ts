@@ -7,7 +7,7 @@ export class FileConverter {
             id: file.id,
             path: file.path,
             type: file.type,
-            category: file.category
+            storageCategory: file.storageCategory
         });
     }
 
@@ -16,7 +16,7 @@ export class FileConverter {
             id: photo.id,
             path: photo.path,
             type: photo.type,
-            category: photo.fileCategory
+            storageCategory: photo.storageCategory
         }
     }
 }

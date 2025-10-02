@@ -1,5 +1,5 @@
 import {Image} from "../../data/media/Image";
-import {FileCategory, FileType} from "@/src/api/openapi";
+import {FileStorageCategory, FileType} from "@/src/api/openapi";
 import {getRandomId} from "@/dataGenerator/tools";
 
 export async function getPhotosFromFiles(files: File[]): Promise<Image[]> {
@@ -12,8 +12,8 @@ export async function getPhotosFromFiles(files: File[]): Promise<Image[]> {
             photos.push(new Image({
                 id: getRandomId(),
                 path: fileUrl,
-                type: FileType.VEHICLE_PHOTO,
-                category: FileCategory.IMAGE
+                type: FileType.IMAGE,
+                storageCategory: FileStorageCategory.VEHICLE_PHOTO
             }));
         }
         resolve(photos);

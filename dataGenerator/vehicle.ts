@@ -1,11 +1,10 @@
-import {Vehicle} from "../src/data/users/vehicle";
+import {Vehicle} from "@/src/data/users/vehicle";
 import {getRandomBoolean, getRandomEnum, getRandomId} from "./tools";
-import {getRandomNumber} from "../src/utils/common";
+import {getRandomNumber} from "@/src/utils/common";
 import {getRandomText} from "./texts/texts";
-import {Amenities, EuroStandard} from "../src/api/openapi";
+import {Amenities, EuroStandard} from "@/src/api/openapi";
 import {getRandomPhoto} from "./photos/photos";
 import {getRandomDate} from "./time";
-import {VehicleEditStore} from "../src/components/compositions/vehicle/edit/vehicle-edit.store";
 import {getRandomPlace} from "./places/place";
 
 export function getRandomVehicle(): Vehicle {
@@ -35,11 +34,5 @@ export function getRandomVehicle(): Vehicle {
         technicalCertificate1: getRandomPhoto(),
         technicalCertificate2: getRandomBoolean() ? getRandomPhoto() : null,
         departureStation: getRandomBoolean() ? getRandomPlace() : null
-    })
-}
-
-export function getRandomEditVehicleStore(): VehicleEditStore {
-    return new VehicleEditStore({
-        vehicle: getRandomVehicle()
     })
 }

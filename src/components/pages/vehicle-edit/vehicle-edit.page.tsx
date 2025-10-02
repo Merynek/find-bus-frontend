@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {Amenities, EuroStandard, VehicleResponseDto} from "@/src/api/openapi";
 import { VehicleConverter } from "@/src/converters/vehicle-converter";
@@ -70,12 +70,6 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
     }
 
     const euroStandardOptions = getEuroStandardOptions();
-
-    useEffect(() => {
-        if (state && !state?.schemaErrors && state.success === true) {
-            onClose?.();
-        }
-    }, [state, onClose]);
 
     const renderAmenities = () => {
         return <LayoutFlexColumn>
@@ -266,7 +260,7 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
                     type={ButtonType.BLACK}
                     size={ButtonSize.BUTTON_SIZE_M}
                     isDisabled={pending}
-                    label={isEdit ? t("saveVehicle") : t("addVehicle")}
+                    label={t("saveVehicle")}
                 />
             </LayoutFlexColumn>
         </form>

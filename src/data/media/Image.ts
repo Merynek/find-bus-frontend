@@ -1,18 +1,18 @@
-import {type FileType} from "@/src/api/openapi";
+import {FileStorageCategory} from "@/src/api/openapi";
 import {ISFile, SFile} from "@/src/data/media/SFile";
 
 export interface IImage extends ISFile {
     path: string;
-    type: FileType;
+    storageCategory: FileStorageCategory;
 }
 
 export class Image extends SFile {
     public readonly path: string;
-    public type: FileType;
+    public storageCategory: FileStorageCategory;
 
     constructor(settings: IImage) {
         super(settings);
         this.path = settings.path;
-        this.type = settings.type;
+        this.storageCategory = settings.storageCategory;
     }
 }

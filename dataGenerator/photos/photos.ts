@@ -1,7 +1,7 @@
 import {photos} from "./photos_db";
 import {getRandomEnum, getRandomId, shuffleArray} from "../tools";
 import {Image} from "@/src/data/media/Image";
-import {FileCategory, FileType} from "@/src/api/openapi";
+import {FileType, FileStorageCategory} from "@/src/api/openapi";
 
 export function getRandomPhoto(): Image {
     const photo = photos[Math.floor(Math.random() * photos.length)];
@@ -9,7 +9,7 @@ export function getRandomPhoto(): Image {
         id: getRandomId(),
         path: photo,
         type: getRandomEnum(FileType),
-        category: getRandomEnum(FileCategory),
+        storageCategory: getRandomEnum(FileStorageCategory),
     });
 }
 
@@ -20,7 +20,7 @@ export function getAllPhotos(): Image[] {
             id: index,
             path: photo,
             type: getRandomEnum(FileType),
-            category: getRandomEnum(FileCategory),
+            storageCategory: getRandomEnum(FileStorageCategory),
         });
     })
 }

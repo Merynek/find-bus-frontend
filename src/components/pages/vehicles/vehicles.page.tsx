@@ -1,13 +1,8 @@
 "use client";
 
-import React, {useState} from "react";
+import React from "react";
 import {VehicleDetail} from "../../compositions/vehicle/detail-list/vehicle-detail-list";
 import {ButtonClick, ButtonLink, ButtonSize, ButtonType} from "../../components/button/button";
-import {VehicleEditStore} from "../../compositions/vehicle/edit/vehicle-edit.store";
-import {Vehicle} from "@/src/data/users/vehicle";
-import {VehicleService} from "@/src/services/VehicleService";
-import {useApp} from "@/src/context/AppContext";
-import VehicleForm from "@/src/components/compositions/vehicle/edit/vehicle-edit";
 import {VehicleResponseDto} from "@/src/api/openapi";
 import {VehicleConverter} from "@/src/converters/vehicle-converter";
 import {ROUTES} from "@/src/enums/router.enum";
@@ -17,31 +12,14 @@ export interface IVehiclePageProps {
 }
 
 const VehiclePage = (props: IVehiclePageProps) => {
-    const [vehicles, setVehicles] = useState<Vehicle[]>(props.vehicles.map(VehicleConverter.toInstance));
-    const {showLoader, hideLoader} = useApp();
-    const [vehicleEdit, setVehicleEdit] = useState<VehicleEditStore|null>(null);
-
-    const _renderEdit = (editVehicle: VehicleEditStore) => {
-        return <VehicleForm
-            store={editVehicle}
-            onClose={async () => {
-                showLoader();
-                setVehicleEdit(null);
-                const vehicles = await VehicleService.getVehicles();
-                setVehicles(vehicles);
-                hideLoader();
-            }}
-        />
-    }
+    const vehicles = props.vehicles.map(VehicleConverter.toInstance);
 
     const _renderList = () => {
         return <div>
             <ButtonClick
                 controlled={true}
                 onClick={() => {
-                    setVehicleEdit(new VehicleEditStore({
-                        vehicle: Vehicle.create()
-                    }))
+                    // TODO: create new vehicle
                 }}
                 label={"Add new"}
                 type={ButtonType.YELLOW}
@@ -67,7 +45,7 @@ const VehiclePage = (props: IVehiclePageProps) => {
     }
 
     return <div className={"layout"}>
-        {vehicleEdit ? _renderEdit(vehicleEdit) : _renderList()}
+        {_renderList()}
     </div>
 };
 

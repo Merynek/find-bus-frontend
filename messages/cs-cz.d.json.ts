@@ -66,7 +66,6 @@ declare const messages: {
     },
     "vehicle": {
       "vehicleEditHeading": "Upravit vozidlo",
-      "vehicleAddHeading": "Přidat vozidlo",
       "name": "Název vozidla",
       "personsCapacity": "Počet osob",
       "handicappedUserCount": "Počet vozíčkářů",
@@ -87,8 +86,7 @@ declare const messages: {
       "technicalCertificate1": "Technický certifikát 1",
       "technicalCertificate2": "Technický certifikát 2",
       "insurance": "Pojistění vozidla",
-      "saveVehicle": "Uložit vozidlo",
-      "addVehicle": "Přidat vozidlo"
+      "saveVehicle": "Uložit vozidlo"
     }
   },
   "component":  {

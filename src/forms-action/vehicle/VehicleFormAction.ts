@@ -61,7 +61,7 @@ export class VehicleFormAction extends BaseFormAction<typeof VehicleSchema, Vehi
             }
         });
         await VehicleService.uploadVehicleFiles({
-            vehicleId: vehicleId,
+            vehicleId: validatedData.vehicleId,
             frontPhoto: validatedData.frontPhoto || undefined,
             rearPhoto: validatedData.rearPhoto || undefined,
             leftSidePhoto: validatedData.leftSidePhoto || undefined,
