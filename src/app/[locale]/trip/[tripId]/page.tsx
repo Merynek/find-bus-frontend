@@ -3,15 +3,16 @@ import {TripService} from "@/src/services/TripService";
 import {PageProps} from "@/types/page.types";
 import {handleApiUnauthorizedError} from "@/src/utils/handleApiErrors";
 import {AdminService} from "@/src/services/AdminService";
+import {URL_PARAMS} from "@/src/enums/router.enum";
 
 interface IParams {
-    tripId: string;
+    [URL_PARAMS.TRIP_ID]: string;
 }
 
 async function PageWrapper(props: PageProps<IParams>) {
     const params = await props.params;
     try {
-        const trip = await TripService.getTrip(Number(params.tripId));
+        const trip = await TripService.getTrip(Number(params[URL_PARAMS.TRIP_ID]));
         const config = await AdminService.getAppBusinessConfig();
 
         return <TripDetailPage trip={trip} config={config} />;

@@ -2,7 +2,7 @@
 
 import React, {useState} from "react";
 import {ButtonClick, ButtonSize, ButtonType} from "../../components/button/button";
-import {ROUTES} from "@/src/enums/router.enum";
+import {ROUTES, URL_PARAMS} from "@/src/enums/router.enum";
 import {VehicleService} from "@/src/services/VehicleService";
 import {useRouter} from "@/src/i18n/navigation";
 
@@ -22,7 +22,7 @@ const AddVehicleButton = () => {
                 router.push({
                     pathname: ROUTES.VEHICLE_EDIT,
                     params: {
-                        vehicleId: vehicleId.toString()
+                        [URL_PARAMS.VEHICLE_ID]: vehicleId.toString()
                     }
                 });
             } catch (e: unknown) {

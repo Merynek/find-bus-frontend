@@ -8,7 +8,7 @@ import {Countdown} from "../../../components/countdown/countdown";
 import {TripItemResponseDto, TripOfferState, UserRole} from "@/src/api/openapi";
 import {ButtonSize, ButtonType, ButtonLink} from "../../../components/button/button";
 import {Route} from "@/src/data/trip/route";
-import {ROUTES} from "@/src/enums/router.enum";
+import {ROUTES, URL_PARAMS} from "@/src/enums/router.enum";
 import {IconType} from "@/src/enums/icon.enum";
 import {Icon} from "../../../components/icon/icon";
 import {useLoggedUser} from "@/src/hooks/authenticationHook";
@@ -68,7 +68,7 @@ export const TripListItem = (props: ITripListItemProps) => {
         <ButtonLink
             route={{
                 route: ROUTES.TRIP,
-                params: { tripId: tripItem.id.toString() }
+                params: { [URL_PARAMS.TRIP_ID]: tripItem.id.toString() }
             }}
             label={"Zobrazit detail"}
             type={ButtonType.YELLOW}

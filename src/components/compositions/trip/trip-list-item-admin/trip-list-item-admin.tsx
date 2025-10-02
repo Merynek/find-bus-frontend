@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./trip-list-item-admin.module.scss";
 import {TripItem} from "@/src/data/tripItem";
-import {ROUTES} from "@/src/enums/router.enum";
+import {ROUTES, URL_PARAMS} from "@/src/enums/router.enum";
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 import {Text} from "@/src/components/components/texts/text";
 import {FlexGap} from "@/src/enums/layout.enum";
@@ -39,7 +39,7 @@ export const TripListItemAdmin = (props: ITripListItemAdminProps) => {
                 <ButtonLink
                     route={{
                         route: ROUTES.ADMIN_TRIP_DETAIL,
-                        params: { tripId: tripItem.id.toString() }
+                        params: { [URL_PARAMS.TRIP_ID]: tripItem.id.toString() }
                     }}
                     label={"Detail"}
                     type={ButtonType.BLACK}

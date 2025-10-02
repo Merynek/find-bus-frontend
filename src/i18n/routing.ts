@@ -1,6 +1,6 @@
 import {defineRouting} from 'next-intl/routing';
 import {LOCALES} from "@/src/enums/locale";
-import {ROUTES} from "@/src/enums/router.enum";
+import {ROUTES, URL_PARAMS} from "@/src/enums/router.enum";
 
 export const routing = defineRouting({
     locales: [LOCALES.cs_CZ, LOCALES.en_US],
@@ -42,12 +42,12 @@ export const routing = defineRouting({
             [LOCALES.en_US]: ROUTES.VEHICLES
         },
         [ROUTES.VEHICLE_DETAIL]: {
-            [LOCALES.cs_CZ]: '/vozidlo/[vehicleId]',
-            [LOCALES.en_US]: `${ROUTES.VEHICLE_DETAIL}/[vehicleId]`
+            [LOCALES.cs_CZ]: `/vozidlo/[${URL_PARAMS.VEHICLE_ID}]`,
+            [LOCALES.en_US]: `${ROUTES.VEHICLE_DETAIL}/[${URL_PARAMS.VEHICLE_ID}]`
         },
         [ROUTES.VEHICLE_EDIT]: {
-            [LOCALES.cs_CZ]: '/nastaveni-vozidla/[vehicleId]',
-            [LOCALES.en_US]: `${ROUTES.VEHICLE_EDIT}/[vehicleId]`
+            [LOCALES.cs_CZ]: `/nastaveni-vozidla/[${URL_PARAMS.VEHICLE_ID}]`,
+            [LOCALES.en_US]: `${ROUTES.VEHICLE_EDIT}/[${URL_PARAMS.VEHICLE_ID}]`
         },
         [ROUTES.CREATE_TRIP]: {
             [LOCALES.cs_CZ]: '/nova-cesta',
@@ -58,8 +58,8 @@ export const routing = defineRouting({
             [LOCALES.en_US]: ROUTES.TRIP_LIST
         },
         [ROUTES.TRIP]: {
-            [LOCALES.cs_CZ]: '/cesta/[tripId]',
-            [LOCALES.en_US]: `${ROUTES.ADMIN_TRIP_DETAIL}/[tripId]`
+            [LOCALES.cs_CZ]: `/cesta/[${URL_PARAMS.TRIP_ID}]`,
+            [LOCALES.en_US]: `${ROUTES.ADMIN_TRIP_DETAIL}/[${URL_PARAMS.TRIP_ID}]`
         },
         [ROUTES.ADMIN_TRIPS]: {
             [LOCALES.cs_CZ]: '/admin/cesty',
@@ -78,8 +78,8 @@ export const routing = defineRouting({
             [LOCALES.en_US]: ROUTES.ADMIN_USERS
         },
         [ROUTES.ADMIN_TRIP_DETAIL]: {
-            [LOCALES.cs_CZ]: '/admin/cesta/[tripId]',
-            [LOCALES.en_US]: `${ROUTES.ADMIN_TRIP_DETAIL}/[tripId]`
+            [LOCALES.cs_CZ]: `/admin/cesta/[${URL_PARAMS.TRIP_ID}]`,
+            [LOCALES.en_US]: `${ROUTES.ADMIN_TRIP_DETAIL}/[${URL_PARAMS.TRIP_ID}]`
         }
     }
 });

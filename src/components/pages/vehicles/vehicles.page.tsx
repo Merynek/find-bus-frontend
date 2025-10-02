@@ -1,7 +1,7 @@
 import React from "react";
 import {VehicleDetail} from "../../compositions/vehicle/detail-list/vehicle-detail-list";
 import {ButtonLink, ButtonSize, ButtonType} from "../../components/button/button";
-import {ROUTES} from "@/src/enums/router.enum";
+import {ROUTES, URL_PARAMS} from "@/src/enums/router.enum";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import AddVehicleButton from "@/src/components/pages/vehicles/add-vehicle-button";
 import {Vehicle} from "@/src/data/users/vehicle";
@@ -24,7 +24,7 @@ const VehiclesPage = (props: IVehiclesPageProps) => {
                     <ButtonLink
                         route={{
                             route: ROUTES.VEHICLE_EDIT,
-                            params: { vehicleId: vehicle.id.toString() }
+                            params: { [URL_PARAMS.VEHICLE_ID]: vehicle.id.toString() }
                         }}
                         label={"EDIT"}
                         type={ButtonType.BLACK}

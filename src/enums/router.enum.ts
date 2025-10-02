@@ -4,6 +4,11 @@ export interface IRoute {
     params?: Record<string, string>;
 }
 
+export enum URL_PARAMS {
+    TRIP_ID = "tripId",
+    VEHICLE_ID = "vehicleId"
+}
+
 export enum ROUTES {
     HOME = "/",
     SIGN_IN = "/sign/in",
@@ -13,16 +18,16 @@ export enum ROUTES {
     FORGOT_PASSWORD = "/forgot-password",
     USER_SETTINGS = "/user-settings",
     VEHICLES = "/vehicles",
-    VEHICLE_DETAIL = "/vehicle/[vehicleId]",
-    VEHICLE_EDIT = "/vehicle-edit/[vehicleId]",
+    VEHICLE_DETAIL = `/vehicle/[${URL_PARAMS.VEHICLE_ID}]`,
+    VEHICLE_EDIT = `/vehicle-edit/[${URL_PARAMS.VEHICLE_ID}]`,
     CREATE_TRIP = "/create-trip",
     TRIP_LIST = "/trips",
-    TRIP = "/trip/[tripId]",
+    TRIP = `/trip/[${URL_PARAMS.TRIP_ID}]`,
     ADMIN_TRIPS = "/admin/trips",
     APP_CONFIG = "/admin/config",
     EMAIL_CONFIG = "/admin/emails",
     ADMIN_USERS = "/admin/users",
-    ADMIN_TRIP_DETAIL = "/admin/trip/[tripId]"
+    ADMIN_TRIP_DETAIL = `/admin/trip/[${URL_PARAMS.TRIP_ID}]`
 }
 
 export enum SEARCH_PARAMS {
