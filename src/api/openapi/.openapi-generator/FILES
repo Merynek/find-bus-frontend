@@ -90,6 +90,8 @@ models/VehicleDocumentType.ts
 models/VehiclePhotoType.ts
 models/VehicleRequestDto.ts
 models/VehicleResponseDto.ts
+models/VehicleStatus.ts
 models/VehicleTransportVerificationRequestDto.ts
+models/VehicleVerificationRequestDto.ts
 models/index.ts
 runtime.ts

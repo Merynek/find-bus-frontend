@@ -34,6 +34,13 @@ import {
     PlaceResponseDtoToJSON,
     PlaceResponseDtoToJSONTyped,
 } from './PlaceResponseDto';
+import type { VehicleStatus } from './VehicleStatus';
+import {
+    VehicleStatusFromJSON,
+    VehicleStatusFromJSONTyped,
+    VehicleStatusToJSON,
+    VehicleStatusToJSONTyped,
+} from './VehicleStatus';
 import type { Amenities } from './Amenities';
 import {
     AmenitiesFromJSON,
@@ -54,6 +61,12 @@ export interface VehicleResponseDto {
      * @memberof VehicleResponseDto
      */
     id: number;
+    /**
+     * 
+     * @type {VehicleStatus}
+     * @memberof VehicleResponseDto
+     */
+    status: VehicleStatus;
     /**
      * 
      * @type {string}
@@ -183,6 +196,7 @@ export interface VehicleResponseDto {
  */
 export function instanceOfVehicleResponseDto(value: object): value is VehicleResponseDto {
     if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('status' in value) || value['status'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('isVerifiedForTransporting' in value) || value['isVerifiedForTransporting'] === undefined) return false;
     if (!('registrationSign' in value) || value['registrationSign'] === undefined) return false;
@@ -207,6 +221,7 @@ export function VehicleResponseDtoFromJSONTyped(json: any, ignoreDiscriminator: 
     return {
         
         'id': json['id'],
+        'status': VehicleStatusFromJSON(json['status']),
         'name': json['name'],
         'isVerifiedForTransporting': json['isVerifiedForTransporting'],
         'registrationSign': json['registrationSign'],
@@ -242,6 +257,7 @@ export function VehicleResponseDtoToJSONTyped(value?: VehicleResponseDto | null,
     return {
         
         'id': value['id'],
+        'status': VehicleStatusToJSON(value['status']),
         'name': value['name'],
         'isVerifiedForTransporting': value['isVerifiedForTransporting'],
         'registrationSign': value['registrationSign'],

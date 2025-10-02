@@ -8,6 +8,7 @@ export class VehicleConverter {
     public static toInstance(vehicleDto: VehicleResponseDto): Vehicle {
         return new Vehicle({
             id: vehicleDto.id,
+            status: vehicleDto.status,
             isVerifiedForTransporting: vehicleDto.isVerifiedForTransporting,
             amenities: vehicleDto.amenities,
             euroStandard: vehicleDto.euro,
@@ -33,7 +34,8 @@ export class VehicleConverter {
 
     public static toJson(vehicle: Vehicle): VehicleResponseDto {
         return {
-            id: vehicle.id || 0,
+            id: vehicle.id,
+            status: vehicle.status,
             name: vehicle.name,
             registrationSign: vehicle.registrationSign,
             vin: vehicle.VIN,

@@ -1,9 +1,10 @@
-import {Amenities, EuroStandard} from "../../api/openapi";
+import {Amenities, EuroStandard, type VehicleStatus} from "../../api/openapi";
 import {Image} from "../media/Image";
 import {Place} from "../place";
 
 export interface IVehicleSettings {
     id: number;
+    status: VehicleStatus;
     name: string;
     registrationSign: string;
     VIN: string;
@@ -28,6 +29,7 @@ export interface IVehicleSettings {
 
 export class Vehicle {
     public id: number;
+    public status: VehicleStatus;
     public name: string;
     public registrationSign: string;
     public VIN: string;
@@ -51,6 +53,7 @@ export class Vehicle {
 
     constructor(settings: IVehicleSettings) {
         this.id = settings.id;
+        this.status = settings.status;
         this.name = settings.name;
         this.registrationSign = settings.registrationSign;
         this.VIN = settings.VIN;

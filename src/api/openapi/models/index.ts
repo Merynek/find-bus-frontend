@@ -83,4 +83,6 @@ export * from './VehicleDocumentType';
 export * from './VehiclePhotoType';
 export * from './VehicleRequestDto';
 export * from './VehicleResponseDto';
+export * from './VehicleStatus';
 export * from './VehicleTransportVerificationRequestDto';
+export * from './VehicleVerificationRequestDto';

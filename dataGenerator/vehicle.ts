@@ -2,7 +2,7 @@ import {Vehicle} from "@/src/data/users/vehicle";
 import {getRandomBoolean, getRandomEnum, getRandomId} from "./tools";
 import {getRandomNumber} from "@/src/utils/common";
 import {getRandomText} from "./texts/texts";
-import {Amenities, EuroStandard} from "@/src/api/openapi";
+import {Amenities, EuroStandard, VehicleStatus} from "@/src/api/openapi";
 import {getRandomPhoto} from "./photos/photos";
 import {getRandomDate} from "./time";
 import {getRandomPlace} from "./places/place";
@@ -14,6 +14,7 @@ export function getRandomVehicle(): Vehicle {
     }
     return new Vehicle({
         id: getRandomId(),
+        status: getRandomEnum(VehicleStatus),
         isVerifiedForTransporting: getRandomBoolean(),
         personsCapacity: getRandomNumber(20, 60),
         name: getRandomText(1),

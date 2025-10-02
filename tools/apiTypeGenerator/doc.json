@@ -1576,6 +1576,42 @@
         }
       }
     },
+    "/api/Vehicles/vehicleVerification": {
+      "post": {
+        "tags": [
+          "Vehicles"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/VehicleVerificationRequestDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VehicleVerificationRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VehicleVerificationRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/VehicleVerificationRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Vehicles/files": {
       "post": {
         "tags": [
@@ -4111,6 +4147,7 @@
           "name",
           "personsCapacity",
           "registrationSign",
+          "status",
           "stkExpired",
           "vin",
           "yearOfManufacture"
@@ -4120,6 +4157,9 @@
           "id": {
             "type": "integer",
             "format": "int32"
+          },
+          "status": {
+            "$ref": "#/components/schemas/VehicleStatus"
           },
           "name": {
             "minLength": 1,
@@ -4194,6 +4234,15 @@
         },
         "additionalProperties": false
       },
+      "VehicleStatus": {
+        "enum": [
+          "Draft",
+          "PendingVerification",
+          "Verified",
+          "Archived"
+        ],
+        "type": "string"
+      },
       "VehicleTransportVerificationRequestDto": {
         "required": [
           "id",
@@ -4207,6 +4256,19 @@
           },
           "isVerifiedForTransporting": {
             "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "VehicleVerificationRequestDto": {
+        "required": [
+          "vehicleId"
+        ],
+        "type": "object",
+        "properties": {
+          "vehicleId": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
