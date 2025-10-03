@@ -1576,7 +1576,7 @@
         }
       }
     },
-    "/api/Vehicles/vehicleVerification": {
+    "/api/Vehicles/sendVehicleToVerification": {
       "post": {
         "tags": [
           "Vehicles"

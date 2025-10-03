@@ -1,4 +1,5 @@
 export enum FormDataEnum {
+    formActionType = "formActionType",
     userId = "userId",
     locale = "locale",
     email = "email",

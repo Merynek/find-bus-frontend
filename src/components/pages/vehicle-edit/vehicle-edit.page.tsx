@@ -22,6 +22,7 @@ import {NumberBox} from "@/src/components/components/inputs/number-box/number-bo
 import {DatePicker} from "@/src/components/components/inputs/date-picker/date-picker";
 import {PlaceAutocomplete} from "@/src/components/components/inputs/place-autocomplete/place-autocomplete";
 import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
+import {FormActionEnum} from "@/src/enums/form-action.enum";
 
 interface IVehicleEditPageProps {
     vehicle: VehicleResponseDto;
@@ -40,7 +41,7 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
             handicappedUserCount: vehicle.handicappedUserCount,
             vin: vehicle.VIN,
             registrationSign: vehicle.registrationSign,
-            stkExpired: vehicle.stkExpired || undefined,
+            stkExpired: vehicle.stkExpired,
             yearOfManufacture: vehicle.yearOfManufacture,
             departureStation: (vehicle.departureStation && vehicle.departureStation.placeFormatted && vehicle.departureStation.name && vehicle.departureStation.placeId && vehicle.departureStation.point && vehicle.departureStation.country) ? {
                 name: vehicle.departureStation.name,
@@ -259,8 +260,19 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
                     controlled={false}
                     type={ButtonType.BLACK}
                     size={ButtonSize.BUTTON_SIZE_M}
+                    name={FormDataEnum.formActionType}
+                    value={FormActionEnum.SAVE}
                     isDisabled={pending}
                     label={t("saveVehicle")}
+                />
+                <ButtonClick
+                    controlled={false}
+                    type={ButtonType.BLACK}
+                    size={ButtonSize.BUTTON_SIZE_M}
+                    name={FormDataEnum.formActionType}
+                    value={FormActionEnum.SAVE_AND_VERIFY}
+                    isDisabled={pending}
+                    label={t("saveAndPostToVerification")}
                 />
             </LayoutFlexColumn>
         </form>

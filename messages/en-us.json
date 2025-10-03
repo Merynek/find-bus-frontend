@@ -83,7 +83,8 @@
       "technicalCertificate1": "Technical certificate 1",
       "technicalCertificate2": "Technical certificate 2",
       "insurance": "Insurance",
-      "saveVehicle": "Save vehicle"
+      "saveVehicle": "Save vehicle",
+      "saveAndPostToVerification": "Save and sent to verification"
     }
   },
   "component":  {

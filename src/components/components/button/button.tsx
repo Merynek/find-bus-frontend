@@ -41,6 +41,8 @@ interface IControlledClickButtonProps extends IButtonProps {
 
 interface IUncontrolledClickButtonProps extends IButtonProps {
     controlled: false;
+    name?: string;
+    value?: string;
 }
 
 export type IClickButtonProps = IControlledClickButtonProps | IUncontrolledClickButtonProps;
@@ -84,6 +86,8 @@ export const ButtonClick = (props: IClickButtonProps) => {
 
     return <button
         type={"submit"}
+        name={props.name}
+        value={props.value}
         {...buttonProps}
     >
         <ButtonContent {...props} />

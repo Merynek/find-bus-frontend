@@ -8,6 +8,10 @@ export interface IUpdateVehicleRequest extends IApiRequest {
     vehicle: IVehicleRequest;
 }
 
+export interface ISendVehicleToVerificationRequest extends IApiRequest {
+    vehicleId: number;
+}
+
 export interface IUploadVehicleFilesRequest extends IApiRequest {
     vehicleId: number;
     frontPhoto: File|undefined;
@@ -80,6 +84,14 @@ export class VehicleApi {
             updateVehicleRequestDto: {
                 id: req.vehicleId,
                 info: this._createVehicleRequest(req.vehicle)
+            },
+        }, req.initOverrides));
+    }
+
+    public async sendVehicleToVerification(req: ISendVehicleToVerificationRequest): Promise<void> {
+        await handleApiCall(this._api.apiVehiclesSendVehicleToVerificationPost({
+            vehicleVerificationRequestDto: {
+                vehicleId: req.vehicleId
             },
         }, req.initOverrides));
     }

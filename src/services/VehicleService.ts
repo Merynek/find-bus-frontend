@@ -1,7 +1,7 @@
 import {
     addVehicle,
     getVehicle,
-    getVehicles,
+    getVehicles, sendVehicleToVerificationRequest,
     setVehicleVerification, updateVehicle, updateVehicleFiles
 } from "../server-actions/vehicle/vehicleActions";
 import {VehicleConverter} from "@/src/converters/vehicle-converter";
@@ -42,6 +42,12 @@ export class VehicleService extends BaseService {
     public static async updateVehicle(req: IUpdateVehicleRequest) {
         await this.handleActionCall(async () => {
             await updateVehicle(req);
+        });
+    }
+
+    public static async sendVehicleToVerificationRequest(req: IUpdateVehicleRequest) {
+        await this.handleActionCall(async () => {
+            await sendVehicleToVerificationRequest(req);
         });
     }
 

@@ -5,7 +5,7 @@ import {
     IAddVehicleRequest,
     IUploadVehicleFilesRequest,
     IUpdateVehicleRequest,
-    VehicleApi
+    VehicleApi, ISendVehicleToVerificationRequest
 } from "@/src/api/vehicleApi";
 import type {VehicleResponseDto} from "@/src/api/openapi";
 import {handleActionCall} from "@/src/server-actions/baseAction";
@@ -52,6 +52,14 @@ export async function updateVehicle(req: IUpdateVehicleRequest) {
         const accessToken = await getAccessToken();
         const vehicleApi = new VehicleApi(accessToken);
         await vehicleApi.updateVehicle(req);
+    });
+}
+
+export async function sendVehicleToVerificationRequest(req: ISendVehicleToVerificationRequest) {
+    await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const vehicleApi = new VehicleApi(accessToken);
+        await vehicleApi.sendVehicleToVerification(req);
     });
 }
 

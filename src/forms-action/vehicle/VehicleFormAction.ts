@@ -6,8 +6,9 @@ import {VehicleService} from "@/src/services/VehicleService";
 import {IUploadVehicleFilesRequest, IVehicleRequest} from "@/src/api/vehicleApi";
 import {Country, PlaceRequestDto} from "@/src/api/openapi";
 import {LOCALES} from "@/src/enums/locale";
+import {FormActionEnum} from "@/src/enums/form-action.enum";
 
-type VehicleData = Partial<IVehicleRequest & {vehicleId: number} & IUploadVehicleFilesRequest & {locale: LOCALES}>;
+type VehicleData = Partial<IVehicleRequest & {vehicleId: number, formActionType: FormActionEnum} & IUploadVehicleFilesRequest & {locale: LOCALES}>;
 
 type VehicleApiResult = void;
 
@@ -41,6 +42,7 @@ export class VehicleFormAction extends BaseFormAction<typeof VehicleSchema, Vehi
             technicalCertificate2: this.getFileFormValue(formData, FormDataEnum.technicalCertificate2),
             insurance: this.getFileFormValue(formData, FormDataEnum.insurance),
             locale: this.getEnumFormValue(formData, FormDataEnum.locale),
+            formActionType: this.getEnumFormValue(formData, FormDataEnum.formActionType)
         };
     }
 
@@ -72,6 +74,11 @@ export class VehicleFormAction extends BaseFormAction<typeof VehicleSchema, Vehi
             technicalCertificate2: validatedData.technicalCertificate2 || undefined,
             insurance: validatedData.insurance || undefined
         })
+        if (validatedData.formActionType === FormActionEnum.SAVE_AND_VERIFY) {
+            await VehicleService.sendVehicleToVerificationRequest({
+                vehicleId: validatedData.vehicleId
+            });
+        }
     }
 
     private _getDepartureStation(formData: FormData): PlaceRequestDto|undefined {

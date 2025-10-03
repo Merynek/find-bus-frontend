@@ -57,6 +57,10 @@ export interface ApiVehiclesFilesPostRequest {
     photoFiles?: Array<Blob>;
 }
 
+export interface ApiVehiclesSendVehicleToVerificationPostRequest {
+    vehicleVerificationRequestDto?: VehicleVerificationRequestDto;
+}
+
 export interface ApiVehiclesTransportVerificationPostRequest {
     vehicleTransportVerificationRequestDto?: VehicleTransportVerificationRequestDto;
 }
@@ -71,10 +75,6 @@ export interface ApiVehiclesVehiclePostRequest {
 
 export interface ApiVehiclesVehiclePutRequest {
     updateVehicleRequestDto?: UpdateVehicleRequestDto;
-}
-
-export interface ApiVehiclesVehicleVerificationPostRequest {
-    vehicleVerificationRequestDto?: VehicleVerificationRequestDto;
 }
 
 /**
@@ -261,6 +261,43 @@ export class VehiclesApi extends runtime.BaseAPI {
 
     /**
      */
+    async apiVehiclesSendVehicleToVerificationPostRaw(requestParameters: ApiVehiclesSendVehicleToVerificationPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json-patch+json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/Vehicles/sendVehicleToVerification`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: VehicleVerificationRequestDtoToJSON(requestParameters['vehicleVerificationRequestDto']),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async apiVehiclesSendVehicleToVerificationPost(requestParameters: ApiVehiclesSendVehicleToVerificationPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.apiVehiclesSendVehicleToVerificationPostRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     */
     async apiVehiclesTransportVerificationPostRaw(requestParameters: ApiVehiclesTransportVerificationPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const queryParameters: any = {};
 
@@ -419,43 +456,6 @@ export class VehiclesApi extends runtime.BaseAPI {
      */
     async apiVehiclesVehiclePut(requestParameters: ApiVehiclesVehiclePutRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.apiVehiclesVehiclePutRaw(requestParameters, initOverrides);
-    }
-
-    /**
-     */
-    async apiVehiclesVehicleVerificationPostRaw(requestParameters: ApiVehiclesVehicleVerificationPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json-patch+json';
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("Bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/api/Vehicles/vehicleVerification`;
-
-        const response = await this.request({
-            path: urlPath,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: VehicleVerificationRequestDtoToJSON(requestParameters['vehicleVerificationRequestDto']),
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     */
-    async apiVehiclesVehicleVerificationPost(requestParameters: ApiVehiclesVehicleVerificationPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.apiVehiclesVehicleVerificationPostRaw(requestParameters, initOverrides);
     }
 
 }
