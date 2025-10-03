@@ -8,7 +8,7 @@ import {VehicleConverter} from "@/src/converters/vehicle-converter";
 import {
     IAddVehicleRequest,
     IUploadVehicleFilesRequest,
-    IUpdateVehicleRequest
+    IUpdateVehicleRequest, ISendVehicleToVerificationRequest
 } from "@/src/api/vehicleApi";
 import {BaseService} from "@/src/services/BaseService";
 
@@ -45,7 +45,7 @@ export class VehicleService extends BaseService {
         });
     }
 
-    public static async sendVehicleToVerificationRequest(req: IUpdateVehicleRequest) {
+    public static async sendVehicleToVerificationRequest(req: ISendVehicleToVerificationRequest) {
         await this.handleActionCall(async () => {
             await sendVehicleToVerificationRequest(req);
         });

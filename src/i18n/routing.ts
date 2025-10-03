@@ -43,11 +43,11 @@ export const routing = defineRouting({
         },
         [ROUTES.VEHICLE_DETAIL]: {
             [LOCALES.cs_CZ]: `/vozidlo/[${URL_PARAMS.VEHICLE_ID}]`,
-            [LOCALES.en_US]: `${ROUTES.VEHICLE_DETAIL}/[${URL_PARAMS.VEHICLE_ID}]`
+            [LOCALES.en_US]: ROUTES.VEHICLE_DETAIL
         },
         [ROUTES.VEHICLE_EDIT]: {
             [LOCALES.cs_CZ]: `/nastaveni-vozidla/[${URL_PARAMS.VEHICLE_ID}]`,
-            [LOCALES.en_US]: `${ROUTES.VEHICLE_EDIT}/[${URL_PARAMS.VEHICLE_ID}]`
+            [LOCALES.en_US]: ROUTES.VEHICLE_EDIT
         },
         [ROUTES.CREATE_TRIP]: {
             [LOCALES.cs_CZ]: '/nova-cesta',
@@ -59,7 +59,7 @@ export const routing = defineRouting({
         },
         [ROUTES.TRIP]: {
             [LOCALES.cs_CZ]: `/cesta/[${URL_PARAMS.TRIP_ID}]`,
-            [LOCALES.en_US]: `${ROUTES.ADMIN_TRIP_DETAIL}/[${URL_PARAMS.TRIP_ID}]`
+            [LOCALES.en_US]: ROUTES.ADMIN_TRIP_DETAIL
         },
         [ROUTES.ADMIN_TRIPS]: {
             [LOCALES.cs_CZ]: '/admin/cesty',
@@ -79,7 +79,11 @@ export const routing = defineRouting({
         },
         [ROUTES.ADMIN_TRIP_DETAIL]: {
             [LOCALES.cs_CZ]: `/admin/cesta/[${URL_PARAMS.TRIP_ID}]`,
-            [LOCALES.en_US]: `${ROUTES.ADMIN_TRIP_DETAIL}/[${URL_PARAMS.TRIP_ID}]`
+            [LOCALES.en_US]: ROUTES.ADMIN_TRIP_DETAIL
+        },
+        [ROUTES.ADMIN_VEHICLE_DETAIL]: {
+            [LOCALES.cs_CZ]: `/admin/vozidlo/[${URL_PARAMS.VEHICLE_ID}]`,
+            [LOCALES.en_US]: ROUTES.ADMIN_VEHICLE_DETAIL
         }
     }
 });

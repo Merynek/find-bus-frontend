@@ -86,7 +86,8 @@ declare const messages: {
       "technicalCertificate1": "Technický certifikát 1",
       "technicalCertificate2": "Technický certifikát 2",
       "insurance": "Pojistění vozidla",
-      "saveVehicle": "Uložit vozidlo"
+      "saveVehicle": "Uložit vozidlo",
+      "saveAndPostToVerification": "Uložit a poslat na ověření"
     }
   },
   "component":  {
