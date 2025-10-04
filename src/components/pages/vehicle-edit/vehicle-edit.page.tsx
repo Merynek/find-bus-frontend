@@ -2,8 +2,7 @@
 
 import React, {useState} from "react";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
-import {Amenities, EuroStandard, VehicleResponseDto} from "@/src/api/openapi";
-import { VehicleConverter } from "@/src/converters/vehicle-converter";
+import {Amenities, EuroStandard, VehicleResponseDto, VehiclePhotoType, VehicleDocumentType} from "@/src/api/openapi";
 import {useCurrentLocale, useTranslate} from "@/src/hooks/translateHook";
 import {useFormActionState} from "@/src/hooks/formHook";
 import {vehicleFormAction} from "@/src/server-actions/forms/vehicle/vehicleFormAction";
@@ -22,6 +21,7 @@ import {NumberBox} from "@/src/components/components/inputs/number-box/number-bo
 import {DatePicker} from "@/src/components/components/inputs/date-picker/date-picker";
 import {PlaceAutocomplete} from "@/src/components/components/inputs/place-autocomplete/place-autocomplete";
 import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
+import {VehicleConverter} from "@/src/converters/vehicle/vehicle-converter";
 import {FormActionEnum} from "@/src/enums/form-action.enum";
 
 interface IVehicleEditPageProps {
@@ -92,55 +92,40 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
         </LayoutFlexColumn>
     }
 
+    const getPhotoPaths = (type: VehiclePhotoType): (string|undefined)[] => {
+        const photos = vehicle.photos.filter(p => p.type === type);
+        return photos.map(p => p.file?.path);
+    }
+
+    const getDocumentPaths = (type: VehicleDocumentType): (string|undefined)[] => {
+        const documents = vehicle.documents.filter(p => p.type === type);
+        return documents.map(p => p.file?.path);
+    }
+
+    const renderImage = (label: string, inputName: FormDataEnum, initialImage: string|undefined) => {
+        return <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
+            <ImageUploader
+                label={label}
+                inputName={inputName}
+                initialImage={initialImage}
+            />
+        </LayoutFlexColumn>
+    }
+
     const renderVehiclePhotos = () => {
         return <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
             <Heading text={t("vehiclePhotos")} fontWeight={FontWeight.SEMIBOLD} headingLevel={4}/>
             <LayoutFlexRow gap={FlexGap.MEDIUM_24} canWrap={true}>
-                <ImageUploader
-                    label={t("frontPhoto")}
-                    inputName={FormDataEnum.frontPhoto}
-                    initialImage={vehicle.frontPhoto?.path}
-                />
-                <ImageUploader
-                    label={t("rearPhoto")}
-                    inputName={FormDataEnum.rearPhoto}
-                    initialImage={vehicle.rearPhoto?.path}
-                />
-                <ImageUploader
-                    label={t("leftSidePhoto")}
-                    inputName={FormDataEnum.leftSidePhoto}
-                    initialImage={vehicle.leftSidePhoto?.path}
-                />
-                <ImageUploader
-                    label={t("rightSidePhoto")}
-                    inputName={FormDataEnum.rightSidePhoto}
-                    initialImage={vehicle.rightSidePhoto?.path}
-                />
-                <ImageUploader
-                    label={t("interierPhoto1")}
-                    inputName={FormDataEnum.interierPhoto1}
-                    initialImage={vehicle.interierPhoto1?.path}
-                />
-                <ImageUploader
-                    label={t("interierPhoto2")}
-                    inputName={FormDataEnum.interierPhoto2}
-                    initialImage={vehicle.interierPhoto2?.path}
-                />
-                <ImageUploader
-                    label={t("technicalCertificate1")}
-                    inputName={FormDataEnum.technicalCertificate1}
-                    initialImage={vehicle.technicalCertificate1?.path}
-                />
-                <ImageUploader
-                    label={t("technicalCertificate2")}
-                    inputName={FormDataEnum.technicalCertificate2}
-                    initialImage={vehicle.technicalCertificate2?.path}
-                />
-                <ImageUploader
-                    label={t("insurance")}
-                    inputName={FormDataEnum.insurance}
-                    initialImage={vehicle.insurancePhoto?.path}
-                />
+                {renderImage(t("frontPhoto"), FormDataEnum.frontPhoto, getPhotoPaths(VehiclePhotoType.FRONT)[0])}
+                {renderImage(t("frontPhoto"), FormDataEnum.frontPhoto, getPhotoPaths(VehiclePhotoType.FRONT)[0])}
+                {renderImage(t("rearPhoto"), FormDataEnum.rearPhoto, getPhotoPaths(VehiclePhotoType.REAR)[0])}
+                {renderImage(t("leftSidePhoto"), FormDataEnum.leftSidePhoto, getPhotoPaths(VehiclePhotoType.LEFT_SIDE)[0])}
+                {renderImage(t("rightSidePhoto"), FormDataEnum.rightSidePhoto, getPhotoPaths(VehiclePhotoType.RIGHT_SIDE)[0])}
+                {renderImage(t("interiorPhoto1"), FormDataEnum.interiorPhoto1, getPhotoPaths(VehiclePhotoType.INTERIOR)[0])}
+                {renderImage(t("interiorPhoto2"), FormDataEnum.interiorPhoto2, getPhotoPaths(VehiclePhotoType.INTERIOR)[1])}
+                {renderImage(t("technicalCertificate1"), FormDataEnum.technicalCertificate1, getDocumentPaths(VehicleDocumentType.TECHNICAL_CERTIFICATE)[0])}
+                {renderImage(t("technicalCertificate2"), FormDataEnum.technicalCertificate2, getDocumentPaths(VehicleDocumentType.TECHNICAL_CERTIFICATE)[1])}
+                {renderImage(t("insurance"), FormDataEnum.insurance, getDocumentPaths(VehicleDocumentType.INSURANCE)[0])}
             </LayoutFlexRow>
         </LayoutFlexColumn>
     }

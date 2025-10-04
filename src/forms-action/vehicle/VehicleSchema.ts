@@ -9,8 +9,8 @@ const VehiclePhotoSchema = z.object({
     rearPhoto: ImageFileSchema.nullable().optional(),
     leftSidePhoto: ImageFileSchema.nullable().optional(),
     rightSidePhoto: ImageFileSchema.nullable().optional(),
-    interierPhoto1: ImageFileSchema.nullable().optional(),
-    interierPhoto2: ImageFileSchema.nullable().optional(),
+    interiorPhoto1: ImageFileSchema.nullable().optional(),
+    interiorPhoto2: ImageFileSchema.nullable().optional(),
     technicalCertificate1: ImageFileSchema.nullable().optional(),
     technicalCertificate2: ImageFileSchema.nullable().optional(),
     insurance: ImageFileSchema.nullable().optional()

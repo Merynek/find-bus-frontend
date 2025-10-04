@@ -86,7 +86,9 @@ models/UserRole.ts
 models/UserSettingsRequestDto.ts
 models/UserSettingsResponseDto.ts
 models/UserTransportVerificationRequestDto.ts
+models/VehicleDocumentResponseDto.ts
 models/VehicleDocumentType.ts
+models/VehiclePhotoResponseDto.ts
 models/VehiclePhotoType.ts
 models/VehicleRequestDto.ts
 models/VehicleResponseDto.ts

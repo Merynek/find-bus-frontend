@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "./vehicle-detail-list.module.scss";
-import {Vehicle} from "@/src/data/users/vehicle";
 import {ImageElement} from "../../../components/image-element/image-element";
 import {LayoutFlexRow} from "../../../components/layout/layout-flex-row/layout-flex-row";
 import {LayoutFlexColumn} from "../../../components/layout/layout-flex-column/layout-flex-column";
 import {FlexGap} from "@/src/enums/layout.enum";
+import {Vehicle} from "@/src/data/vehicle/vehicle";
 
 export interface IVehicleDetailListProps {
     vehicle: Vehicle;
@@ -58,42 +58,18 @@ export const VehicleDetail = (props: IVehicleDetailListProps) => {
                 </div>
             </LayoutFlexColumn>
             <LayoutFlexRow canWrap={true} gap={FlexGap.SMALL_16}>
-                {vehicle.frontPhoto && <div>
-                    <span>Front Photo:</span>
-                    {renderImage(vehicle.frontPhoto.path)}
-                </div>}
-                {vehicle.rearPhoto && <div>
-                    <span>Rear Photo:</span>
-                    {renderImage(vehicle.rearPhoto.path)}
-                </div>}
-                {vehicle.leftSidePhoto && <div>
-                    <span>Left Photo:</span>
-                    {renderImage(vehicle.leftSidePhoto.path)}
-                </div>}
-                {vehicle.rightSidePhoto && <div>
-                    <span>Right Photo:</span>
-                    {renderImage(vehicle.rightSidePhoto.path)}
-                </div>}
-                {vehicle.interierPhoto1 && <div>
-                    <span>Interior Photo 1:</span>
-                    {renderImage(vehicle.interierPhoto1.path)}
-                </div>}
-                {vehicle.interierPhoto2 && <div>
-                    <span>Interior Photo 2:</span>
-                    {renderImage(vehicle.interierPhoto2.path)}
-                </div>}
-                {vehicle.technicalCertificate1 && <div>
-                    <span>Technical Certificate 1:</span>
-                    {renderImage(vehicle.technicalCertificate1.path)}
-                </div>}
-                {vehicle.technicalCertificate2 && <div>
-                    <span>Technical Certificate 2:</span>
-                    {renderImage(vehicle.technicalCertificate2.path)}
-                </div>}
-                {vehicle.insurancePhoto && <div>
-                    <span>Insurance:</span>
-                    {renderImage(vehicle.insurancePhoto.path)}
-                </div>}
+                {vehicle.photos.map(photo => {
+                    return <div key={photo.id}>
+                        <span>{photo.type}:</span>
+                        {photo.file && renderImage(photo.file.path)}
+                    </div>
+                })}
+                {vehicle.documents.map(document => {
+                    return <div key={document.id}>
+                        <span>{document.type}:</span>
+                        {document.file && renderImage(document.file.path)}
+                    </div>
+                })}
             </LayoutFlexRow>
         </LayoutFlexColumn>
     </div>

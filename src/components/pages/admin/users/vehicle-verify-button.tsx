@@ -4,8 +4,8 @@ import React from "react";
 import {ButtonClick, ButtonSize, ButtonType} from "../../../components/button/button";
 import {VehicleService} from "@/src/services/VehicleService";
 import {VehicleResponseDto} from "@/src/api/openapi";
-import {VehicleConverter} from "@/src/converters/vehicle-converter";
 import {useRouter} from "@/src/i18n/navigation";
+import {VehicleConverter} from "@/src/converters/vehicle/vehicle-converter";
 
 interface IVehicleVerifyButtonProps {
     vehicle: VehicleResponseDto;

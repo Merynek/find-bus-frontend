@@ -16,11 +16,11 @@ import {TripOfferService} from "@/src/services/TripOfferService";
 import {UsersService} from "@/src/services/UsersService";
 import {VehicleService} from "@/src/services/VehicleService";
 import {useApp} from "@/src/context/AppContext";
-import {Vehicle} from "@/src/data/users/vehicle";
 import {useLoggedUser} from "@/src/hooks/authenticationHook";
 import {useCurrentLocale} from "@/src/hooks/translateHook";
 import {PriceConverter} from "@/src/converters/price-converter";
 import {FlexGap} from "@/src/enums/layout.enum";
+import {Vehicle} from "@/src/data/vehicle/vehicle";
 
 export interface ITripCreateOfferProps {
     trip: Trip;

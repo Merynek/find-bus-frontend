@@ -42,19 +42,12 @@ import {
 
 export interface ApiVehiclesFilesPostRequest {
     id: number;
-    frontPhoto?: Blob;
-    rearPhoto?: Blob;
-    leftSidePhoto?: Blob;
-    rightSidePhoto?: Blob;
-    interierPhoto1?: Blob;
-    interierPhoto2?: Blob;
-    technicalCertificate1?: Blob;
-    technicalCertificate2?: Blob;
-    insurance?: Blob;
     documentTypes?: Array<VehicleDocumentType>;
     documentFiles?: Array<Blob>;
+    documentIdsToDelete?: Array<number>;
     photoTypes?: Array<VehiclePhotoType>;
     photoFiles?: Array<Blob>;
+    photoIdsToDelete?: Array<number>;
 }
 
 export interface ApiVehiclesSendVehicleToVerificationPostRequest {
@@ -116,24 +109,6 @@ export class VehiclesApi extends runtime.BaseAPI {
         useForm = canConsumeForm;
         // use FormData to transmit files using content-type "multipart/form-data"
         useForm = canConsumeForm;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
         if (useForm) {
             formParams = new FormData();
         } else {
@@ -142,42 +117,6 @@ export class VehiclesApi extends runtime.BaseAPI {
 
         if (requestParameters['id'] != null) {
             formParams.append('Id', requestParameters['id'] as any);
-        }
-
-        if (requestParameters['frontPhoto'] != null) {
-            formParams.append('FrontPhoto', requestParameters['frontPhoto'] as any);
-        }
-
-        if (requestParameters['rearPhoto'] != null) {
-            formParams.append('RearPhoto', requestParameters['rearPhoto'] as any);
-        }
-
-        if (requestParameters['leftSidePhoto'] != null) {
-            formParams.append('LeftSidePhoto', requestParameters['leftSidePhoto'] as any);
-        }
-
-        if (requestParameters['rightSidePhoto'] != null) {
-            formParams.append('RightSidePhoto', requestParameters['rightSidePhoto'] as any);
-        }
-
-        if (requestParameters['interierPhoto1'] != null) {
-            formParams.append('InterierPhoto1', requestParameters['interierPhoto1'] as any);
-        }
-
-        if (requestParameters['interierPhoto2'] != null) {
-            formParams.append('InterierPhoto2', requestParameters['interierPhoto2'] as any);
-        }
-
-        if (requestParameters['technicalCertificate1'] != null) {
-            formParams.append('TechnicalCertificate1', requestParameters['technicalCertificate1'] as any);
-        }
-
-        if (requestParameters['technicalCertificate2'] != null) {
-            formParams.append('TechnicalCertificate2', requestParameters['technicalCertificate2'] as any);
-        }
-
-        if (requestParameters['insurance'] != null) {
-            formParams.append('Insurance', requestParameters['insurance'] as any);
         }
 
         if (requestParameters['documentTypes'] != null) {
@@ -192,6 +131,12 @@ export class VehiclesApi extends runtime.BaseAPI {
             })
         }
 
+        if (requestParameters['documentIdsToDelete'] != null) {
+            requestParameters['documentIdsToDelete'].forEach((element) => {
+                formParams.append('DocumentIdsToDelete', element as any);
+            })
+        }
+
         if (requestParameters['photoTypes'] != null) {
             requestParameters['photoTypes'].forEach((element) => {
                 formParams.append('PhotoTypes', element as any);
@@ -201,6 +146,12 @@ export class VehiclesApi extends runtime.BaseAPI {
         if (requestParameters['photoFiles'] != null) {
             requestParameters['photoFiles'].forEach((element) => {
                 formParams.append('PhotoFiles', element as any);
+            })
+        }
+
+        if (requestParameters['photoIdsToDelete'] != null) {
+            requestParameters['photoIdsToDelete'].forEach((element) => {
+                formParams.append('PhotoIdsToDelete', element as any);
             })
         }
 

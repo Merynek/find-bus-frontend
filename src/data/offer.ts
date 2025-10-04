@@ -1,8 +1,8 @@
 import {UserDetail} from "./users/user-detail";
-import {Vehicle} from "./users/vehicle";
 import {makeObservable, observable} from "mobx";
 import {Price} from "./price";
 import {FinancialDocument} from "@/src/data/documents/financialDocument";
+import {Vehicle} from "@/src/data/vehicle/vehicle";
 
 export interface IOfferSettings {
     id: number;

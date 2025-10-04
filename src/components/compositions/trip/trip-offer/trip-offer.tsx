@@ -2,7 +2,6 @@ import {observer} from "mobx-react";
 import React, {useState} from "react";
 import styles from "./trip-offer.module.scss";
 import {Offer} from "@/src/data/offer";
-import {Vehicle} from "@/src/data/users/vehicle";
 import {formatDateTime} from "@/src/utils/date-time.format";
 import {VehicleDetailModal} from "../../vehicle/modal-vehicle-detail/vehicle-detail-modal";
 import {LayoutFlexColumn} from "../../../components/layout/layout-flex-column/layout-flex-column";
@@ -15,6 +14,7 @@ import {
 import {VehicleService} from "@/src/services/VehicleService";
 import {useApp} from "@/src/context/AppContext";
 import {useCurrentLocale} from "@/src/hooks/translateHook";
+import {Vehicle} from "@/src/data/vehicle/vehicle";
 
 export interface ITripOfferProps {
     offer: Offer;

@@ -1630,42 +1630,6 @@
                     "type": "integer",
                     "format": "int32"
                   },
-                  "FrontPhoto": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "RearPhoto": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "LeftSidePhoto": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "RightSidePhoto": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "InterierPhoto1": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "InterierPhoto2": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "TechnicalCertificate1": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "TechnicalCertificate2": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "Insurance": {
-                    "type": "string",
-                    "format": "binary"
-                  },
                   "DocumentTypes": {
                     "type": "array",
                     "items": {
@@ -1677,6 +1641,13 @@
                     "items": {
                       "type": "string",
                       "format": "binary"
+                    }
+                  },
+                  "DocumentIdsToDelete": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "format": "int32"
                     }
                   },
                   "PhotoTypes": {
@@ -1691,38 +1662,18 @@
                       "type": "string",
                       "format": "binary"
                     }
+                  },
+                  "PhotoIdsToDelete": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "format": "int32"
+                    }
                   }
                 }
               },
               "encoding": {
                 "Id": {
-                  "style": "form"
-                },
-                "FrontPhoto": {
-                  "style": "form"
-                },
-                "RearPhoto": {
-                  "style": "form"
-                },
-                "LeftSidePhoto": {
-                  "style": "form"
-                },
-                "RightSidePhoto": {
-                  "style": "form"
-                },
-                "InterierPhoto1": {
-                  "style": "form"
-                },
-                "InterierPhoto2": {
-                  "style": "form"
-                },
-                "TechnicalCertificate1": {
-                  "style": "form"
-                },
-                "TechnicalCertificate2": {
-                  "style": "form"
-                },
-                "Insurance": {
                   "style": "form"
                 },
                 "DocumentTypes": {
@@ -1731,10 +1682,16 @@
                 "DocumentFiles": {
                   "style": "form"
                 },
+                "DocumentIdsToDelete": {
+                  "style": "form"
+                },
                 "PhotoTypes": {
                   "style": "form"
                 },
                 "PhotoFiles": {
+                  "style": "form"
+                },
+                "PhotoIdsToDelete": {
                   "style": "form"
                 }
               }
@@ -4065,12 +4022,56 @@
         },
         "additionalProperties": false
       },
+      "VehicleDocumentResponseDto": {
+        "required": [
+          "id",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "$ref": "#/components/schemas/VehicleDocumentType"
+          },
+          "file": {
+            "$ref": "#/components/schemas/FileResponseDto"
+          }
+        },
+        "additionalProperties": false
+      },
       "VehicleDocumentType": {
         "enum": [
           "TechnicalCertificate",
           "Insurance"
         ],
         "type": "string"
+      },
+      "VehiclePhotoResponseDto": {
+        "required": [
+          "id",
+          "isPublic",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "$ref": "#/components/schemas/VehiclePhotoType"
+          },
+          "isPublic": {
+            "type": "boolean"
+          },
+          "file": {
+            "$ref": "#/components/schemas/FileResponseDto"
+          }
+        },
+        "additionalProperties": false
       },
       "VehiclePhotoType": {
         "enum": [
@@ -4149,6 +4150,8 @@
           "registrationSign",
           "status",
           "stkExpired",
+          "vehicleDocuments",
+          "vehiclePhotos",
           "vin",
           "yearOfManufacture"
         ],
@@ -4201,35 +4204,20 @@
             "type": "integer",
             "format": "int32"
           },
-          "frontPhoto": {
-            "$ref": "#/components/schemas/FileResponseDto"
-          },
-          "rearPhoto": {
-            "$ref": "#/components/schemas/FileResponseDto"
-          },
-          "leftSidePhoto": {
-            "$ref": "#/components/schemas/FileResponseDto"
-          },
-          "rightSidePhoto": {
-            "$ref": "#/components/schemas/FileResponseDto"
-          },
-          "interierPhoto1": {
-            "$ref": "#/components/schemas/FileResponseDto"
-          },
-          "interierPhoto2": {
-            "$ref": "#/components/schemas/FileResponseDto"
-          },
-          "technicalCertificate1": {
-            "$ref": "#/components/schemas/FileResponseDto"
-          },
-          "technicalCertificate2": {
-            "$ref": "#/components/schemas/FileResponseDto"
-          },
-          "insurance": {
-            "$ref": "#/components/schemas/FileResponseDto"
-          },
           "departureStation": {
             "$ref": "#/components/schemas/PlaceResponseDto"
+          },
+          "vehiclePhotos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VehiclePhotoResponseDto"
+            }
+          },
+          "vehicleDocuments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VehicleDocumentResponseDto"
+            }
           }
         },
         "additionalProperties": false

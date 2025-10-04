@@ -1,9 +1,9 @@
 import {IUserDetailSettings, UserDetail} from "./user-detail";
 import {UserAddress} from "./userAddress";
 import {TransferInfo} from "../transferInfo";
-import {Vehicle} from "./vehicle";
 import {TransportRequirements} from "../transportRequirements";
 import {UserConfig} from "@/src/data/userConfig";
+import {Vehicle} from "@/src/data/vehicle/vehicle";
 
 export interface IUserAdminDetailSettings extends IUserDetailSettings {
     email: string;

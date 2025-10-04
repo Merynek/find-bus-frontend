@@ -2,7 +2,6 @@ import {
     AdminUserDetailResponseDto
 } from "@/src/api/openapi";
 import {UserAdminDetail} from "@/src/data/users/user-admin-detail";
-import {VehicleConverter} from "@/src/converters/vehicle-converter";
 import {TransferInfo} from "@/src/data/transferInfo";
 import {UserAddress} from "@/src/data/users/userAddress";
 import {TransportRequirements} from "@/src/data/transportRequirements";
@@ -10,6 +9,7 @@ import {TransportRequirementsConverter} from "@/src/converters/users/transport-r
 import {UserAddressConverter} from "@/src/converters/users/user-address-converter";
 import {TransferInfoConverter} from "@/src/converters/users/transfer-info-converter";
 import {UserConfigConverter} from "@/src/converters/admin/user-config-converter";
+import {VehicleConverter} from "@/src/converters/vehicle/vehicle-converter";
 
 export class UserAdminDetailConverter {
 

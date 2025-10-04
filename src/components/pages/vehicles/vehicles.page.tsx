@@ -4,7 +4,7 @@ import {ButtonLink, ButtonSize, ButtonType} from "../../components/button/button
 import {ROUTES, URL_PARAMS} from "@/src/enums/router.enum";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import AddVehicleButton from "@/src/components/pages/vehicles/add-vehicle-button";
-import {Vehicle} from "@/src/data/users/vehicle";
+import {Vehicle} from "@/src/data/vehicle/vehicle";
 
 export interface IVehiclesPageProps {
     vehicles: Vehicle[];

@@ -1,11 +1,13 @@
-import {Vehicle} from "@/src/data/users/vehicle";
 import {getRandomBoolean, getRandomEnum, getRandomId} from "./tools";
 import {getRandomNumber} from "@/src/utils/common";
 import {getRandomText} from "./texts/texts";
-import {Amenities, EuroStandard, VehicleStatus} from "@/src/api/openapi";
+import {Amenities, EuroStandard, VehicleDocumentType, VehiclePhotoType, VehicleStatus} from "@/src/api/openapi";
 import {getRandomPhoto} from "./photos/photos";
 import {getRandomDate} from "./time";
 import {getRandomPlace} from "./places/place";
+import {Vehicle} from "@/src/data/vehicle/vehicle";
+import {VehiclePhoto} from "@/src/data/vehicle/vehiclePhoto";
+import { VehicleDocument } from "@/src/data/vehicle/vehicleDocument";
 
 export function getRandomVehicle(): Vehicle {
     const amenities: Amenities[] = [];
@@ -25,15 +27,25 @@ export function getRandomVehicle(): Vehicle {
         euroStandard: getRandomEnum(EuroStandard),
         amenities: amenities,
         handicappedUserCount: getRandomNumber(0, 5),
-        frontPhoto: getRandomPhoto(),
-        rearPhoto: getRandomPhoto(),
-        leftSidePhoto: getRandomPhoto(),
-        rightSidePhoto: getRandomPhoto(),
-        interierPhoto1: getRandomPhoto(),
-        interierPhoto2: getRandomPhoto(),
-        insurance: getRandomPhoto(),
-        technicalCertificate1: getRandomPhoto(),
-        technicalCertificate2: getRandomBoolean() ? getRandomPhoto() : null,
+        photos: [getRandomVehiclePhoto(), getRandomVehiclePhoto(), getRandomVehiclePhoto()],
+        documents: [getRandomVehicleDocument(), getRandomVehicleDocument(), getRandomVehicleDocument()],
         departureStation: getRandomBoolean() ? getRandomPlace() : null
+    })
+}
+
+export function getRandomVehiclePhoto(): VehiclePhoto {
+    return new VehiclePhoto({
+        id: getRandomId(),
+        file: getRandomPhoto(),
+        type: getRandomEnum(VehiclePhotoType),
+        isPublic: getRandomBoolean()
+    })
+}
+
+export function getRandomVehicleDocument(): VehicleDocument {
+    return new VehicleDocument({
+        id: getRandomId(),
+        file: getRandomPhoto(),
+        type: getRandomEnum(VehicleDocumentType)
     })
 }

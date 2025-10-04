@@ -5,11 +5,11 @@ import {UserDetail} from "@/src/data/users/user-detail";
 import {UserAdminDetail} from "@/src/data/users/user-admin-detail";
 import {getRandomText} from "./texts/texts";
 import {getRandomTransferInfo, getRandomUserAddress, getTransportRequirements} from "./userSettings";
-import {Vehicle} from "@/src/data/users/vehicle";
 import {getRandomNumber} from "@/src/utils/common";
 import {getRandomVehicle} from "./vehicle";
 import {getRandomUserConfig} from "@/dataGenerator/userConfig";
 import {UserConfig} from "@/src/data/userConfig";
+import {Vehicle} from "@/src/data/vehicle/vehicle";
 
 export function getRandomUser(): User {
     return new User({

@@ -1,10 +1,10 @@
 import {TripOfferMovementsResponseDto, TripOfferResponseDto} from "../api/openapi";
 import {Offer} from "../data/offer";
-import {VehicleConverter} from "./vehicle-converter";
 import {TripOfferMovement} from "../data/tripOfferMovement";
 import {PriceConverter} from "./price-converter";
 import {FinancialDocumentConverter} from "./financial-document-converter";
 import {UsersConverter} from "@/src/converters/users/users-converter";
+import {VehicleConverter} from "@/src/converters/vehicle/vehicle-converter";
 
 export class TripOfferConverter {
     public static toInstance(response: TripOfferResponseDto): Offer {

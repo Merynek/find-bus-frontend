@@ -2,7 +2,6 @@ import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-c
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 import {VehicleDetail} from "@/src/components/compositions/vehicle/detail-list/vehicle-detail-list";
 import {VehicleVerifyButton} from "@/src/components/pages/admin/users/vehicle-verify-button";
-import {VehicleConverter} from "@/src/converters/vehicle-converter";
 import {UserVerifyButton} from "@/src/components/pages/admin/users/user-verify-button";
 import {UserAdminDetailConverter} from "@/src/converters/admin/user-admin-detail-converter";
 import React from "react";
@@ -17,6 +16,7 @@ import {UserAdminDetail} from "@/src/data/users/user-admin-detail";
 import {AdminUserConfig} from "@/src/components/compositions/admin/admin-user-config/admin-user-config";
 import {AppBusinessConfig} from "@/src/data/appBusinessConfig";
 import {AppBusinessConfigConverter} from "@/src/converters/admin/app-business-config-converter";
+import {VehicleConverter} from "@/src/converters/vehicle/vehicle-converter";
 
 interface IAdminUserItemProps {
     user: UserAdminDetail;

@@ -2,8 +2,8 @@ import {PageProps} from "@/types/page.types";
 import {handleApiUnauthorizedError} from "@/src/utils/handleApiErrors";
 import VehicleEditPage from "@/src/components/pages/vehicle-edit/vehicle-edit.page";
 import {VehicleService} from "@/src/services/VehicleService";
-import {VehicleConverter} from "@/src/converters/vehicle-converter";
 import {URL_PARAMS} from "@/src/enums/router.enum";
+import {VehicleConverter} from "@/src/converters/vehicle/vehicle-converter";
 
 interface IParams {
     [URL_PARAMS.VEHICLE_ID]: string;

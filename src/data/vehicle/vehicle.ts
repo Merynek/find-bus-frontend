@@ -1,6 +1,7 @@
 import {Amenities, EuroStandard, type VehicleStatus} from "../../api/openapi";
-import {Image} from "../media/Image";
 import {Place} from "../place";
+import { VehicleDocument } from "./vehicleDocument";
+import {VehiclePhoto} from "@/src/data/vehicle/vehiclePhoto";
 
 export interface IVehicleSettings {
     id: number;
@@ -14,17 +15,10 @@ export interface IVehicleSettings {
     euroStandard: EuroStandard;
     amenities: Amenities[];
     handicappedUserCount: number;
-    frontPhoto: Image|null;
-    rearPhoto: Image|null;
-    leftSidePhoto: Image|null;
-    rightSidePhoto: Image|null;
-    interierPhoto1: Image|null;
-    interierPhoto2: Image|null;
-    technicalCertificate1: Image|null;
-    technicalCertificate2: Image|null;
-    insurance: Image|null;
     departureStation: Place|null;
     isVerifiedForTransporting: boolean;
+    photos: VehiclePhoto[];
+    documents: VehicleDocument[];
 }
 
 export class Vehicle {
@@ -39,17 +33,10 @@ export class Vehicle {
     public euro: EuroStandard;
     public amenities: Amenities[];
     public handicappedUserCount: number;
-    public frontPhoto: Image|null;
-    public rearPhoto: Image|null;
-    public leftSidePhoto: Image|null;
-    public rightSidePhoto: Image|null;
-    public interierPhoto1: Image|null;
-    public interierPhoto2: Image|null;
-    public technicalCertificate1: Image|null;
-    public technicalCertificate2: Image|null;
-    public insurancePhoto: Image|null;
     public departureStation: Place|null;
     public isVerifiedForTransporting: boolean;
+    public photos: VehiclePhoto[];
+    public documents: VehicleDocument[];
 
     constructor(settings: IVehicleSettings) {
         this.id = settings.id;
@@ -63,15 +50,8 @@ export class Vehicle {
         this.euro = settings.euroStandard;
         this.amenities = settings.amenities;
         this.handicappedUserCount = settings.handicappedUserCount;
-        this.frontPhoto = settings.frontPhoto;
-        this.rearPhoto = settings.rearPhoto;
-        this.leftSidePhoto = settings.leftSidePhoto;
-        this.rightSidePhoto = settings.rightSidePhoto;
-        this.interierPhoto1 = settings.interierPhoto1;
-        this.interierPhoto2 = settings.interierPhoto2;
-        this.technicalCertificate1 = settings.technicalCertificate1;
-        this.technicalCertificate2 = settings.technicalCertificate2;
-        this.insurancePhoto = settings.insurance;
+        this.photos = settings.photos;
+        this.documents = settings.documents;
         this.departureStation = settings.departureStation;
         this.isVerifiedForTransporting = settings.isVerifiedForTransporting;
     }

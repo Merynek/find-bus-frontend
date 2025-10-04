@@ -4,13 +4,13 @@ import {
     getVehicles, sendVehicleToVerificationRequest,
     setVehicleVerification, updateVehicle, updateVehicleFiles
 } from "../server-actions/vehicle/vehicleActions";
-import {VehicleConverter} from "@/src/converters/vehicle-converter";
 import {
     IAddVehicleRequest,
     IUploadVehicleFilesRequest,
     IUpdateVehicleRequest, ISendVehicleToVerificationRequest
 } from "@/src/api/vehicleApi";
 import {BaseService} from "@/src/services/BaseService";
+import {VehicleConverter} from "@/src/converters/vehicle/vehicle-converter";
 
 export class VehicleService extends BaseService {
     public static async setVehicleVerification(vehicleId: number, verified: boolean) {

@@ -1,7 +1,24 @@
 import {ApiConfiguration} from "./apiConfiguration";
 import * as OpenApi from "./openapi";
 import {handleApiCall, IApiRequest} from "./toolsApi";
-import {Amenities, EuroStandard, PlaceRequestDto, type VehicleRequestDto, VehicleResponseDto} from "./openapi";
+import {
+    Amenities,
+    EuroStandard,
+    PlaceRequestDto, VehicleDocumentType,
+    VehiclePhotoType,
+    type VehicleRequestDto,
+    VehicleResponseDto
+} from "./openapi";
+
+export interface IVehiclePhotoRequest {
+    type: VehiclePhotoType;
+    file: File;
+}
+
+export interface IVehicleDocumentRequest {
+    type: VehicleDocumentType;
+    file: File;
+}
 
 export interface IUpdateVehicleRequest extends IApiRequest {
     vehicleId: number;
@@ -14,15 +31,10 @@ export interface ISendVehicleToVerificationRequest extends IApiRequest {
 
 export interface IUploadVehicleFilesRequest extends IApiRequest {
     vehicleId: number;
-    frontPhoto: File|undefined;
-    rearPhoto: File|undefined;
-    leftSidePhoto: File|undefined;
-    rightSidePhoto: File|undefined;
-    interierPhoto1: File|undefined;
-    interierPhoto2: File|undefined;
-    technicalCertificate1: File|undefined;
-    technicalCertificate2: File|undefined;
-    insurance: File|undefined;
+    photos: IVehiclePhotoRequest[];
+    documents: IVehicleDocumentRequest[];
+    photoIdsToDelete: number[];
+    documentIdsToDelete: number[];
 }
 
 export interface ISetVehicleVerificationRequest extends IApiRequest {
@@ -112,17 +124,19 @@ export class VehicleApi {
     }
 
     public async uploadVehicleFiles(req: IUploadVehicleFilesRequest): Promise<void> {
+        const photoFiles = req.photos.map(p => p.file);
+        const photoTypes = req.photos.map(p => p.type);
+        const documentFiles = req.documents.map(p => p.file);
+        const documentTypes = req.documents.map(p => p.type);
+
         return await handleApiCall(this._api.apiVehiclesFilesPost({
             id: req.vehicleId,
-            frontPhoto: req.frontPhoto,
-            rearPhoto: req.rearPhoto,
-            leftSidePhoto: req.leftSidePhoto,
-            rightSidePhoto: req.rightSidePhoto,
-            interierPhoto1: req.interierPhoto1,
-            interierPhoto2: req.interierPhoto2,
-            technicalCertificate1: req.technicalCertificate1,
-            technicalCertificate2: req.technicalCertificate2,
-            insurance: req.insurance
+            photoFiles: photoFiles,
+            photoTypes: photoTypes,
+            documentFiles: documentFiles,
+            documentTypes: documentTypes,
+            photoIdsToDelete: req.photoIdsToDelete,
+            documentIdsToDelete: req.documentIdsToDelete
         }, req.initOverrides));
     }
 

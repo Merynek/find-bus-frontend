@@ -1,7 +1,7 @@
 import React from "react";
-import {Vehicle} from "@/src/data/users/vehicle";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {VehicleDetail} from "@/src/components/compositions/vehicle/detail-list/vehicle-detail-list";
+import {Vehicle} from "@/src/data/vehicle/vehicle";
 
 interface IVehicleDetailPageProps {
     vehicle: Vehicle;

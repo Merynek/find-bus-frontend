@@ -20,13 +20,20 @@ import {
     EuroStandardToJSON,
     EuroStandardToJSONTyped,
 } from './EuroStandard';
-import type { FileResponseDto } from './FileResponseDto';
+import type { VehicleDocumentResponseDto } from './VehicleDocumentResponseDto';
 import {
-    FileResponseDtoFromJSON,
-    FileResponseDtoFromJSONTyped,
-    FileResponseDtoToJSON,
-    FileResponseDtoToJSONTyped,
-} from './FileResponseDto';
+    VehicleDocumentResponseDtoFromJSON,
+    VehicleDocumentResponseDtoFromJSONTyped,
+    VehicleDocumentResponseDtoToJSON,
+    VehicleDocumentResponseDtoToJSONTyped,
+} from './VehicleDocumentResponseDto';
+import type { VehiclePhotoResponseDto } from './VehiclePhotoResponseDto';
+import {
+    VehiclePhotoResponseDtoFromJSON,
+    VehiclePhotoResponseDtoFromJSONTyped,
+    VehiclePhotoResponseDtoToJSON,
+    VehiclePhotoResponseDtoToJSONTyped,
+} from './VehiclePhotoResponseDto';
 import type { PlaceResponseDto } from './PlaceResponseDto';
 import {
     PlaceResponseDtoFromJSON,
@@ -129,64 +136,22 @@ export interface VehicleResponseDto {
     handicappedUserCount: number;
     /**
      * 
-     * @type {FileResponseDto}
-     * @memberof VehicleResponseDto
-     */
-    frontPhoto?: FileResponseDto;
-    /**
-     * 
-     * @type {FileResponseDto}
-     * @memberof VehicleResponseDto
-     */
-    rearPhoto?: FileResponseDto;
-    /**
-     * 
-     * @type {FileResponseDto}
-     * @memberof VehicleResponseDto
-     */
-    leftSidePhoto?: FileResponseDto;
-    /**
-     * 
-     * @type {FileResponseDto}
-     * @memberof VehicleResponseDto
-     */
-    rightSidePhoto?: FileResponseDto;
-    /**
-     * 
-     * @type {FileResponseDto}
-     * @memberof VehicleResponseDto
-     */
-    interierPhoto1?: FileResponseDto;
-    /**
-     * 
-     * @type {FileResponseDto}
-     * @memberof VehicleResponseDto
-     */
-    interierPhoto2?: FileResponseDto;
-    /**
-     * 
-     * @type {FileResponseDto}
-     * @memberof VehicleResponseDto
-     */
-    technicalCertificate1?: FileResponseDto;
-    /**
-     * 
-     * @type {FileResponseDto}
-     * @memberof VehicleResponseDto
-     */
-    technicalCertificate2?: FileResponseDto;
-    /**
-     * 
-     * @type {FileResponseDto}
-     * @memberof VehicleResponseDto
-     */
-    insurance?: FileResponseDto;
-    /**
-     * 
      * @type {PlaceResponseDto}
      * @memberof VehicleResponseDto
      */
     departureStation?: PlaceResponseDto;
+    /**
+     * 
+     * @type {Array<VehiclePhotoResponseDto>}
+     * @memberof VehicleResponseDto
+     */
+    vehiclePhotos: Array<VehiclePhotoResponseDto>;
+    /**
+     * 
+     * @type {Array<VehicleDocumentResponseDto>}
+     * @memberof VehicleResponseDto
+     */
+    vehicleDocuments: Array<VehicleDocumentResponseDto>;
 }
 
 
@@ -207,6 +172,8 @@ export function instanceOfVehicleResponseDto(value: object): value is VehicleRes
     if (!('euro' in value) || value['euro'] === undefined) return false;
     if (!('amenities' in value) || value['amenities'] === undefined) return false;
     if (!('handicappedUserCount' in value) || value['handicappedUserCount'] === undefined) return false;
+    if (!('vehiclePhotos' in value) || value['vehiclePhotos'] === undefined) return false;
+    if (!('vehicleDocuments' in value) || value['vehicleDocuments'] === undefined) return false;
     return true;
 }
 
@@ -232,16 +199,9 @@ export function VehicleResponseDtoFromJSONTyped(json: any, ignoreDiscriminator: 
         'euro': EuroStandardFromJSON(json['euro']),
         'amenities': ((json['amenities'] as Array<any>).map(AmenitiesFromJSON)),
         'handicappedUserCount': json['handicappedUserCount'],
-        'frontPhoto': json['frontPhoto'] == null ? undefined : FileResponseDtoFromJSON(json['frontPhoto']),
-        'rearPhoto': json['rearPhoto'] == null ? undefined : FileResponseDtoFromJSON(json['rearPhoto']),
-        'leftSidePhoto': json['leftSidePhoto'] == null ? undefined : FileResponseDtoFromJSON(json['leftSidePhoto']),
-        'rightSidePhoto': json['rightSidePhoto'] == null ? undefined : FileResponseDtoFromJSON(json['rightSidePhoto']),
-        'interierPhoto1': json['interierPhoto1'] == null ? undefined : FileResponseDtoFromJSON(json['interierPhoto1']),
-        'interierPhoto2': json['interierPhoto2'] == null ? undefined : FileResponseDtoFromJSON(json['interierPhoto2']),
-        'technicalCertificate1': json['technicalCertificate1'] == null ? undefined : FileResponseDtoFromJSON(json['technicalCertificate1']),
-        'technicalCertificate2': json['technicalCertificate2'] == null ? undefined : FileResponseDtoFromJSON(json['technicalCertificate2']),
-        'insurance': json['insurance'] == null ? undefined : FileResponseDtoFromJSON(json['insurance']),
         'departureStation': json['departureStation'] == null ? undefined : PlaceResponseDtoFromJSON(json['departureStation']),
+        'vehiclePhotos': ((json['vehiclePhotos'] as Array<any>).map(VehiclePhotoResponseDtoFromJSON)),
+        'vehicleDocuments': ((json['vehicleDocuments'] as Array<any>).map(VehicleDocumentResponseDtoFromJSON)),
     };
 }
 
@@ -268,16 +228,9 @@ export function VehicleResponseDtoToJSONTyped(value?: VehicleResponseDto | null,
         'euro': EuroStandardToJSON(value['euro']),
         'amenities': ((value['amenities'] as Array<any>).map(AmenitiesToJSON)),
         'handicappedUserCount': value['handicappedUserCount'],
-        'frontPhoto': FileResponseDtoToJSON(value['frontPhoto']),
-        'rearPhoto': FileResponseDtoToJSON(value['rearPhoto']),
-        'leftSidePhoto': FileResponseDtoToJSON(value['leftSidePhoto']),
-        'rightSidePhoto': FileResponseDtoToJSON(value['rightSidePhoto']),
-        'interierPhoto1': FileResponseDtoToJSON(value['interierPhoto1']),
-        'interierPhoto2': FileResponseDtoToJSON(value['interierPhoto2']),
-        'technicalCertificate1': FileResponseDtoToJSON(value['technicalCertificate1']),
-        'technicalCertificate2': FileResponseDtoToJSON(value['technicalCertificate2']),
-        'insurance': FileResponseDtoToJSON(value['insurance']),
         'departureStation': PlaceResponseDtoToJSON(value['departureStation']),
+        'vehiclePhotos': ((value['vehiclePhotos'] as Array<any>).map(VehiclePhotoResponseDtoToJSON)),
+        'vehicleDocuments': ((value['vehicleDocuments'] as Array<any>).map(VehicleDocumentResponseDtoToJSON)),
     };
 }
 
