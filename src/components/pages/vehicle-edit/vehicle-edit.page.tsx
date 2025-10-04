@@ -117,7 +117,6 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
             <Heading text={t("vehiclePhotos")} fontWeight={FontWeight.SEMIBOLD} headingLevel={4}/>
             <LayoutFlexRow gap={FlexGap.MEDIUM_24} canWrap={true}>
                 {renderImage(t("frontPhoto"), FormDataEnum.frontPhoto, getPhotoPaths(VehiclePhotoType.FRONT)[0])}
-                {renderImage(t("frontPhoto"), FormDataEnum.frontPhoto, getPhotoPaths(VehiclePhotoType.FRONT)[0])}
                 {renderImage(t("rearPhoto"), FormDataEnum.rearPhoto, getPhotoPaths(VehiclePhotoType.REAR)[0])}
                 {renderImage(t("leftSidePhoto"), FormDataEnum.leftSidePhoto, getPhotoPaths(VehiclePhotoType.LEFT_SIDE)[0])}
                 {renderImage(t("rightSidePhoto"), FormDataEnum.rightSidePhoto, getPhotoPaths(VehiclePhotoType.RIGHT_SIDE)[0])}
