@@ -37,8 +37,8 @@ export class VehicleFormAction extends BaseFormAction<typeof VehicleSchema, Vehi
             departureStation: this._getDepartureStation(formData),
             locale: this.getEnumFormValue(formData, FormDataEnum.locale),
             formActionType: this.getEnumFormValue(formData, FormDataEnum.formActionType),
-            photoIdsToDelete: this.getNumberArrayFormValue(formData, FormDataEnum.photoIdsToDelete),
-            documentIdsToDelete: this.getNumberArrayFormValue(formData, FormDataEnum.documentIdsToDelete),
+            photoIdsToDelete: this.getNumberArrayFormValue(formData, FormDataEnum.photoIdsToDelete) || [],
+            documentIdsToDelete: this.getNumberArrayFormValue(formData, FormDataEnum.documentIdsToDelete) || [],
             photoFiles: this.getFileArrayFormValue(formData, FormDataEnum.imagesUpload),
             documentFiles: this.getFileArrayFormValue(formData, FormDataEnum.documentsUpload),
             photoTypes: this.getEnumArrayFormValue(formData, FormDataEnum.imagesType),
@@ -65,12 +65,12 @@ export class VehicleFormAction extends BaseFormAction<typeof VehicleSchema, Vehi
 
         await VehicleService.uploadVehicleFiles({
             vehicleId: validatedData.vehicleId,
-            photoFiles: validatedData.photoFiles,
-            documentFiles: validatedData.documentFiles,
-            photoTypes: validatedData.photoTypes,
-            documentTypes: validatedData.documentTypes,
-            photoIdsToDelete: validatedData.photoIdsToDelete,
-            documentIdsToDelete: validatedData.documentIdsToDelete,
+            photoFiles: validatedData.photoFiles  || [],
+            documentFiles: validatedData.documentFiles  || [],
+            photoTypes: validatedData.photoTypes || [],
+            documentTypes: validatedData.documentTypes || [],
+            photoIdsToDelete: validatedData.photoIdsToDelete || [],
+            documentIdsToDelete: validatedData.documentIdsToDelete || [],
         })
         if (validatedData.formActionType === FormActionEnum.SAVE_AND_VERIFY) {
             await VehicleService.sendVehicleToVerificationRequest({

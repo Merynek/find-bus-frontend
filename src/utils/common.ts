@@ -11,6 +11,10 @@ export const resetPage = () => {
     window.location.reload();
 }
 
+export const isClient = () => {
+    return typeof window !== "undefined";
+}
+
 export function getRandomNumber(min: number, max: number) {
     if (max > INT_32_MAX_VALUE) {
         max = INT_32_MAX_VALUE;

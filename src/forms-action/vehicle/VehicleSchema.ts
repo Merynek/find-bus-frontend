@@ -17,12 +17,12 @@ const VehicleCoreSchema = z.object({
     yearOfManufacture: z.number().int().min(1900, "Neplatný rok výroby.").max(new Date().getFullYear() + 1, "Rok výroby nesmí být v budoucnosti.").optional(),
     departureStation: PlaceSchema.optional(),
     formActionType: z.enum(FormActionEnum),
-    photoIdsToDelete: z.array(z.number()),
-    documentIdsToDelete: z.array(z.number()),
-    photoFiles: z.array(ImageFileSchema),
-    documentFiles: z.array(ImageFileSchema),
-    photoTypes: z.array(z.enum(VehiclePhotoType)),
-    documentTypes: z.array(z.enum(VehicleDocumentType))
+    photoIdsToDelete: z.array(z.number()).optional(),
+    documentIdsToDelete: z.array(z.number()).optional(),
+    photoFiles: z.array(ImageFileSchema).optional(),
+    documentFiles: z.array(ImageFileSchema).optional(),
+    photoTypes: z.array(z.enum(VehiclePhotoType)).optional(),
+    documentTypes: z.array(z.enum(VehicleDocumentType)).optional()
 }).strict();
 
 export const VehicleSchema = z.object({
