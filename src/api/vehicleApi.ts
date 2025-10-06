@@ -31,8 +31,10 @@ export interface ISendVehicleToVerificationRequest extends IApiRequest {
 
 export interface IUploadVehicleFilesRequest extends IApiRequest {
     vehicleId: number;
-    photos: IVehiclePhotoRequest[];
-    documents: IVehicleDocumentRequest[];
+    photoFiles: File[];
+    documentFiles: File[];
+    photoTypes: VehiclePhotoType[];
+    documentTypes: VehicleDocumentType[];
     photoIdsToDelete: number[];
     documentIdsToDelete: number[];
 }
@@ -124,17 +126,12 @@ export class VehicleApi {
     }
 
     public async uploadVehicleFiles(req: IUploadVehicleFilesRequest): Promise<void> {
-        const photoFiles = req.photos.map(p => p.file);
-        const photoTypes = req.photos.map(p => p.type);
-        const documentFiles = req.documents.map(p => p.file);
-        const documentTypes = req.documents.map(p => p.type);
-
         return await handleApiCall(this._api.apiVehiclesFilesPost({
             id: req.vehicleId,
-            photoFiles: photoFiles,
-            photoTypes: photoTypes,
-            documentFiles: documentFiles,
-            documentTypes: documentTypes,
+            photoFiles: req.photoFiles,
+            documentFiles: req.documentFiles,
+            photoTypes: req.photoTypes,
+            documentTypes: req.documentTypes,
             photoIdsToDelete: req.photoIdsToDelete,
             documentIdsToDelete: req.documentIdsToDelete
         }, req.initOverrides));

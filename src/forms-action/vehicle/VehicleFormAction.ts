@@ -4,27 +4,14 @@ import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {VehicleSchema} from "@/src/forms-action/vehicle/VehicleSchema";
 import {VehicleService} from "@/src/services/VehicleService";
 import {
-    IVehicleDocumentRequest,
-    IVehiclePhotoRequest,
+    IUploadVehicleFilesRequest,
     IVehicleRequest
 } from "@/src/api/vehicleApi";
-import {Country, PlaceRequestDto, VehicleDocumentType, VehiclePhotoType} from "@/src/api/openapi";
+import {Country, PlaceRequestDto} from "@/src/api/openapi";
 import {LOCALES} from "@/src/enums/locale";
 import {FormActionEnum} from "@/src/enums/form-action.enum";
 
-interface IFiles {
-    frontPhoto: File|undefined;
-    rearPhoto: File|undefined;
-    leftSidePhoto: File|undefined;
-    rightSidePhoto: File|undefined;
-    interiorPhoto1: File|undefined;
-    interiorPhoto2: File|undefined;
-    technicalCertificate1: File|undefined;
-    technicalCertificate2: File|undefined;
-    insurance: File|undefined;
-}
-
-type VehicleData = Partial<IVehicleRequest & {vehicleId: number, formActionType: FormActionEnum} & IFiles & {locale: LOCALES}>;
+type VehicleData = Partial<IVehicleRequest & {vehicleId: number, formActionType: FormActionEnum} & IUploadVehicleFilesRequest & {locale: LOCALES}>;
 
 type VehicleApiResult = void;
 
@@ -48,17 +35,14 @@ export class VehicleFormAction extends BaseFormAction<typeof VehicleSchema, Vehi
             stkExpired: stkExpired ? new Date(stkExpired) : undefined,
             yearOfManufacture: this.getNumberFormValue(formData, FormDataEnum.yearOfManufacture),
             departureStation: this._getDepartureStation(formData),
-            frontPhoto: this.getFileFormValue(formData, FormDataEnum.frontPhoto),
-            rearPhoto: this.getFileFormValue(formData, FormDataEnum.rearPhoto),
-            leftSidePhoto: this.getFileFormValue(formData, FormDataEnum.leftSidePhoto),
-            rightSidePhoto: this.getFileFormValue(formData, FormDataEnum.rightSidePhoto),
-            interiorPhoto1: this.getFileFormValue(formData, FormDataEnum.interiorPhoto1),
-            interiorPhoto2: this.getFileFormValue(formData, FormDataEnum.interiorPhoto2),
-            technicalCertificate1: this.getFileFormValue(formData, FormDataEnum.technicalCertificate1),
-            technicalCertificate2: this.getFileFormValue(formData, FormDataEnum.technicalCertificate2),
-            insurance: this.getFileFormValue(formData, FormDataEnum.insurance),
             locale: this.getEnumFormValue(formData, FormDataEnum.locale),
-            formActionType: this.getEnumFormValue(formData, FormDataEnum.formActionType)
+            formActionType: this.getEnumFormValue(formData, FormDataEnum.formActionType),
+            photoIdsToDelete: this.getNumberArrayFormValue(formData, FormDataEnum.photoIdsToDelete),
+            documentIdsToDelete: this.getNumberArrayFormValue(formData, FormDataEnum.documentIdsToDelete),
+            photoFiles: this.getFileArrayFormValue(formData, FormDataEnum.imagesUpload),
+            documentFiles: this.getFileArrayFormValue(formData, FormDataEnum.documentsUpload),
+            photoTypes: this.getEnumArrayFormValue(formData, FormDataEnum.imagesType),
+            documentTypes: this.getEnumArrayFormValue(formData, FormDataEnum.documentsType),
         };
     }
 
@@ -81,82 +65,18 @@ export class VehicleFormAction extends BaseFormAction<typeof VehicleSchema, Vehi
 
         await VehicleService.uploadVehicleFiles({
             vehicleId: validatedData.vehicleId,
-            photos: this._getVehiclePhotos(validatedData),
-            documents: this._getVehicleDocuments(validatedData),
-            photoIdsToDelete: [],
-            documentIdsToDelete: []
+            photoFiles: validatedData.photoFiles,
+            documentFiles: validatedData.documentFiles,
+            photoTypes: validatedData.photoTypes,
+            documentTypes: validatedData.documentTypes,
+            photoIdsToDelete: validatedData.photoIdsToDelete,
+            documentIdsToDelete: validatedData.documentIdsToDelete,
         })
         if (validatedData.formActionType === FormActionEnum.SAVE_AND_VERIFY) {
             await VehicleService.sendVehicleToVerificationRequest({
                 vehicleId: validatedData.vehicleId
             });
         }
-    }
-
-    private _getVehicleDocuments(validatedData: z.infer<typeof VehicleSchema>): IVehicleDocumentRequest[] {
-        const documents: IVehicleDocumentRequest[] = [];
-
-        if (validatedData.technicalCertificate1) {
-            documents.push({
-                type: VehicleDocumentType.TECHNICAL_CERTIFICATE,
-                file: validatedData.technicalCertificate1
-            });
-        }
-        if (validatedData.technicalCertificate2) {
-            documents.push({
-                type: VehicleDocumentType.TECHNICAL_CERTIFICATE,
-                file: validatedData.technicalCertificate2
-            });
-        }
-        if (validatedData.insurance) {
-            documents.push({
-                type: VehicleDocumentType.INSURANCE,
-                file: validatedData.insurance
-            });
-        }
-        return documents;
-    }
-
-    private _getVehiclePhotos(validatedData: z.infer<typeof VehicleSchema>): IVehiclePhotoRequest[] {
-        const photos: IVehiclePhotoRequest[] = [];
-
-        if (validatedData.frontPhoto) {
-            photos.push({
-                type: VehiclePhotoType.FRONT,
-                file: validatedData.frontPhoto
-            });
-        }
-        if (validatedData.rearPhoto) {
-            photos.push({
-                type: VehiclePhotoType.REAR,
-                file: validatedData.rearPhoto
-            });
-        }
-        if (validatedData.leftSidePhoto) {
-            photos.push({
-                type: VehiclePhotoType.LEFT_SIDE,
-                file: validatedData.leftSidePhoto
-            });
-        }
-        if (validatedData.rightSidePhoto) {
-            photos.push({
-                type: VehiclePhotoType.RIGHT_SIDE,
-                file: validatedData.rightSidePhoto
-            });
-        }
-        if (validatedData.interiorPhoto1) {
-            photos.push({
-                type: VehiclePhotoType.INTERIOR,
-                file: validatedData.interiorPhoto1
-            });
-        }
-        if (validatedData.interiorPhoto2) {
-            photos.push({
-                type: VehiclePhotoType.INTERIOR,
-                file: validatedData.interiorPhoto2
-            });
-        }
-        return photos;
     }
 
     private _getDepartureStation(formData: FormData): PlaceRequestDto|undefined {

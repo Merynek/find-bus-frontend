@@ -72,6 +72,24 @@ export abstract class BaseFormAction<Schema extends z.ZodSchema, Data, ApiResult
         return value;
     }
 
+    protected getFileArrayFormValue(formData: FormData, key: FormDataEnum): File[]|undefined {
+        const values = formData.getAll(key);
+        if (values.length === 0) {
+            return undefined;
+        }
+
+        const files: File[] = [];
+        for (const value of values) {
+            if (!(value instanceof File)) {
+                throw new Error("Only files are allowed in file array.");
+            }
+            if (value.size > 0) {
+                files.push(value);
+            }
+        }
+        return files.length > 0 ? files : undefined;
+    }
+
     protected getEnumArrayFormValue<T>(formData: FormData, key: FormDataEnum): T[]|undefined {
         const values = formData.getAll(key);
         if (values === null) {
@@ -108,5 +126,18 @@ export abstract class BaseFormAction<Schema extends z.ZodSchema, Data, ApiResult
             return undefined;
         }
         return numberValue;
+    }
+
+    protected getNumberArrayFormValue(formData: FormData, key: FormDataEnum): number[]|undefined {
+        const values = formData.getAll(key);
+        if (values === null) {
+            return undefined;
+        }
+        if (values instanceof File) {
+            throw new Error("File is not allowed.");
+        }
+        return values
+            .map(value => parseFloat(value as string))
+            .filter(value => !isNaN(value));
     }
 }
