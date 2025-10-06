@@ -81,10 +81,8 @@ declare const messages: {
       "rearPhoto": "Zadní strana vozidla",
       "leftSidePhoto": "Levá strana vozidla",
       "rightSidePhoto": "Pravá strana vozidla",
-      "interiorPhoto1": "Interier 1",
-      "interiorPhoto2": "Interier 2",
-      "technicalCertificate1": "Technický certifikát 1",
-      "technicalCertificate2": "Technický certifikát 2",
+      "interiorPhoto": "Interier",
+      "technicalCertificate": "Technický certifikát",
       "insurance": "Pojistění vozidla",
       "saveVehicle": "Uložit vozidlo",
       "saveAndPostToVerification": "Uložit a poslat na ověření"

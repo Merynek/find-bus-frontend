@@ -78,10 +78,8 @@
       "rearPhoto": "Rear photo",
       "leftSidePhoto": "Left side photo",
       "rightSidePhoto": "Right side photo",
-      "interiorPhoto1": "Interior photo 1",
-      "interiorPhoto2": "Interior photo 2",
-      "technicalCertificate1": "Technical certificate 1",
-      "technicalCertificate2": "Technical certificate 2",
+      "interiorPhoto": "Interior photo",
+      "technicalCertificate": "Technical certificate",
       "insurance": "Insurance",
       "saveVehicle": "Save vehicle",
       "saveAndPostToVerification": "Save and sent to verification"
