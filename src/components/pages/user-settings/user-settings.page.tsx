@@ -285,16 +285,16 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                 placeholder={t("concessionNumber")}
                 defaultValue={state?.data?.concessionNumber || ""}
             />
-            <ImageUploader
-                label={t("businessRiskInsurance")}
-                inputName={FormDataEnum.businessRiskInsurance}
-                initialImage={settings.transportRequirements.businessRiskInsurance?.path}
-            />
-            <ImageUploader
-                label={t("concessionDocuments")}
-                inputName={FormDataEnum.concessionDocuments}
-                initialImage={settings.transportRequirements.concessionDocuments?.path}
-            />
+            {/*<ImageUploader*/}
+            {/*    label={t("businessRiskInsurance")}*/}
+            {/*    inputName={FormDataEnum.businessRiskInsurance}*/}
+            {/*    initialImage={settings.transportRequirements.businessRiskInsurance?.path}*/}
+            {/*/>*/}
+            {/*<ImageUploader*/}
+            {/*    label={t("concessionDocuments")}*/}
+            {/*    inputName={FormDataEnum.concessionDocuments}*/}
+            {/*    initialImage={settings.transportRequirements.concessionDocuments?.path}*/}
+            {/*/>*/}
         </>
     }
 
