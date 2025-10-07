@@ -1,4 +1,4 @@
-import React, {useCallback, useState } from "react";
+import React, {useState } from "react";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {VehiclePhotoType} from "@/src/api/openapi";
 import {FlexGap} from "@/src/enums/layout.enum";
@@ -8,7 +8,6 @@ import {FontSize, FontWeight} from "@/src/components/components/texts/textStyles
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 import {ImageUploader} from "@/src/components/components/image-uploader/image-uploader";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
-import {isClient} from "@/src/utils/common";
 
 interface IVehiclePhotoGroupProps {
     vehicle: Vehicle;
@@ -16,130 +15,90 @@ interface IVehiclePhotoGroupProps {
     type: VehiclePhotoType;
 }
 
-interface ActiveSlot {
-    key: string;
-    photoId: number | undefined;
-    initialPath: string | null;
-    newFile: File | null;
+interface IPhotoItem {
+    id: string;
+    dbId?: number;
+    path?: string;
+    file?: File;
 }
 
 const VehiclePhotoGroup = (props: IVehiclePhotoGroupProps) => {
     const { vehicle, label, type } = props;
 
-    const [deletedPhotoIds, setDeletedPhotoIds] = useState<number[]>([]);
-    const [newSlotCounter, setNewSlotCounter] = useState(0);
+    const generateId = () => {
+        return new Date().getTime().toString() + Math.random().toString();
+    }
 
-    const [activeSlots, setActiveSlots] = useState<ActiveSlot[]>(() => {
-        return vehicle.photos
+    const [items, setItems] = useState<IPhotoItem[]>(() => {
+        const photos: IPhotoItem[] = vehicle.photos
             .filter(p => p.type === type)
             .map(p => ({
-                key: `photo-${p.id}`,
-                photoId: p.id,
-                initialPath: p.file?.path || null,
-                newFile: null,
+                id: p.id.toString(),
+                dbId: p.id,
+                path: p.file?.path,
+                file: undefined,
             }));
+        photos.push({
+            id: generateId(),
+            dbId: undefined,
+            path: undefined,
+            file: undefined
+        });
+        return photos;
     });
 
-    const handleDeletePhoto = useCallback((photoId?: number) => {
-        if (photoId) {
-            setDeletedPhotoIds(prevIds => [...prevIds, photoId]);
-        }
-    }, []);
-
-    const handleFileReplace = useCallback((slotKey: string, file: File, photoId?: number) => {
-        setActiveSlots(prevSlots => {
-            const slotIndex = prevSlots.findIndex(s => s.key === slotKey);
-
-            if (slotIndex !== -1) {
-                const updatedSlots = [...prevSlots];
-                if (photoId) {
-                    handleDeletePhoto(photoId);
-                }
-                updatedSlots[slotIndex] = {
-                    ...updatedSlots[slotIndex],
-                    newFile: file,
-                };
-                return updatedSlots;
-            }
-            return prevSlots;
+    const addItemOnIndex = (currentItems: IPhotoItem[], index: number, file: File) => {
+        currentItems.splice(index, 0, {
+            file: file,
+            dbId: undefined,
+            path: URL.createObjectURL(file),
+            id: generateId()
         });
+        setItems(currentItems);
+    }
 
-    }, [handleDeletePhoto]);
-
-
-    const handleFileSelectForEmptySlot = useCallback((file: File | null) => {
-        if (file) {
-            const newKey = `new-${type}-${newSlotCounter}`;
-            setNewSlotCounter(prev => prev + 1);
-
-            const newSlot: ActiveSlot = {
-                key: newKey,
-                photoId: undefined,
-                initialPath: null,
-                newFile: file,
-            };
-
-            setActiveSlots(prevSlots => [...prevSlots, newSlot]);
-        }
-    }, [newSlotCounter, type]);
-
+    const [deletedPhotoIds, setDeletedPhotoIds] = useState<number[]>([]);
     return <LayoutFlexColumn gap={FlexGap.BIG_40}>
         <Text text={label} fontWeight={FontWeight.SEMIBOLD} fontSize={FontSize.M_22} />
         <LayoutFlexRow gap={FlexGap.MEDIUM_24} canWrap={true}>
-            {activeSlots.map((slot) => {
-                const isExisting = slot.photoId !== undefined;
-                const photoId = slot.photoId;
+            {items.map((item, index) => {
+                const itemForUpload = item.dbId === undefined && item.path !== undefined;
 
-                let previewUrl: string | null = null;
-                if (slot.newFile && isClient()) {
-                    previewUrl = URL.createObjectURL(slot.newFile);
-                } else if (isExisting) {
-                    previewUrl = slot.initialPath;
-                }
-
-                if (!previewUrl) return null;
-
-                const shouldSendType = !!slot.newFile;
-                return (
-                    <div key={slot.key}>
-                        <ImageUploader
-                            inputName={FormDataEnum.imagesUpload}
-                            previewUrl={previewUrl}
-                            onDelete={() => {
-                                setActiveSlots(prevSlots => prevSlots.filter(s => s.key !== slot.key));
-                                handleDeletePhoto(photoId);
-                            }}
-                            isExistingPhoto={isExisting && slot.newFile === null}
-                            onFileSelect={(file) => {
-                                if (file) {
-                                    handleFileReplace(slot.key, file, photoId);
-                                }
-                            }}
-                            imageId={slot.key}
-                        />
-                        {shouldSendType && (
-                            <input
-                                type="hidden"
-                                name={FormDataEnum.imagesType}
-                                value={type}
-                            />
-                        )}
-                    </div>
-                );
+                return <React.Fragment key={index}>
+                    <ImageUploader
+                        inputName={FormDataEnum.imagesUpload}
+                        previewUrl={item.path || undefined}
+                        onDelete={() => {
+                            if (item.dbId) {
+                                setDeletedPhotoIds([...deletedPhotoIds, item.dbId]);
+                                setItems(prevItems => prevItems.filter(i => i.dbId !== item.dbId));
+                            } else {
+                                setItems(prevItems => prevItems.filter(i => i.file !== item.file));
+                            }
+                        }}
+                        isExistingPhoto={item.dbId !== undefined}
+                        onFileSelect={(file) => {
+                            if (item.dbId) {
+                                setDeletedPhotoIds([...deletedPhotoIds, item.dbId]);
+                                const newItems = items.filter(i => i.dbId !== item.dbId);
+                                addItemOnIndex(newItems, index, file);
+                            } else {
+                                const newItems = [...items];
+                                addItemOnIndex(newItems, index, file);
+                            }
+                        }}
+                        imageId={item.id}
+                    />
+                    {itemForUpload && <input
+                        type="hidden"
+                        name={FormDataEnum.imagesType}
+                        value={type}
+                    />}
+                </React.Fragment>
             })}
-            <div key="empty-slot">
-                <ImageUploader
-                    inputName={FormDataEnum.imagesUpload}
-                    previewUrl={null}
-                    onDelete={() => { }}
-                    isExistingPhoto={false}
-                    onFileSelect={handleFileSelectForEmptySlot}
-                    imageId={`empty-uploader-${type}`}
-                />
-            </div>
             {deletedPhotoIds.map(id => (
                 <input
-                    key={`deleted-${id}`}
+                    key={id}
                     type="hidden"
                     name={FormDataEnum.photoIdsToDelete}
                     value={id}

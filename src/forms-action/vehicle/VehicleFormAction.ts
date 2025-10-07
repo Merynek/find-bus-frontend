@@ -10,6 +10,8 @@ import {
 import {Country, PlaceRequestDto} from "@/src/api/openapi";
 import {LOCALES} from "@/src/enums/locale";
 import {FormActionEnum} from "@/src/enums/form-action.enum";
+import {FindBusError} from "@/src/errors/FindBusError";
+import {FrontendErrorEnum} from "@/src/enums/frontend-error.enum";
 
 type VehicleData = Partial<IVehicleRequest & {vehicleId: number, formActionType: FormActionEnum} & IUploadVehicleFilesRequest & {locale: LOCALES}>;
 
@@ -62,6 +64,21 @@ export class VehicleFormAction extends BaseFormAction<typeof VehicleSchema, Vehi
                 departureStation: validatedData.departureStation
             }
         });
+
+        const photos = validatedData.photoFiles || [];
+        const documents = validatedData.documentFiles || [];
+        const photoTypes = validatedData.photoTypes || [];
+        const documentTypes = validatedData.documentTypes || [];
+
+        if (photos.length !== photoTypes.length || documents.length !== documentTypes.length) {
+            throw new FindBusError({
+                name: "Photos and documents",
+                errorCode: FrontendErrorEnum.UNKNOWN,
+                message: "Photos and documents must have the same length",
+                url: "VehicleFormAction.ts",
+                statusCode: 400
+            });
+        }
 
         await VehicleService.uploadVehicleFiles({
             vehicleId: validatedData.vehicleId,

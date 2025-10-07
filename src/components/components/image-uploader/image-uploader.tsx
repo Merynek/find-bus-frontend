@@ -9,8 +9,8 @@ import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/
 
 interface ImageUploaderProps {
     inputName: string;
-    previewUrl?: string | null;
-    onFileSelect: (file: File | null) => void;
+    previewUrl?: string;
+    onFileSelect: (file: File) => void;
     onDelete: () => void;
     isExistingPhoto: boolean;
     imageId: string;
@@ -22,7 +22,9 @@ export const ImageUploader = (props: ImageUploaderProps) => {
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         const selectedFile = e.target.files?.[0] || null;
-        onFileSelect(selectedFile);
+        if (selectedFile) {
+            onFileSelect(selectedFile);
+        }
     };
 
     const handleDelete = () => {
@@ -32,7 +34,6 @@ export const ImageUploader = (props: ImageUploaderProps) => {
             if (fileInput) {
                 fileInput.value = '';
             }
-            onFileSelect(null);
         }
     }
 
@@ -48,7 +49,7 @@ export const ImageUploader = (props: ImageUploaderProps) => {
             <LayoutFlexRow>
                 <div style={{width: "200px", height: "200px", position: "relative"}}>
                     <ImageElement
-                        src={previewUrl!}
+                        src={previewUrl}
                         alt={"preview"}
                         fill={true}
                     />
