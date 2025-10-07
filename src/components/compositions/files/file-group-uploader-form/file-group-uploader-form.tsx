@@ -1,53 +1,61 @@
-import React, {useState } from "react";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
-import {VehiclePhotoType} from "@/src/api/openapi";
 import {FlexGap} from "@/src/enums/layout.enum";
-import {Vehicle} from "@/src/data/vehicle/vehicle";
 import {Text} from "@/src/components/components/texts/text";
 import {FontSize, FontWeight} from "@/src/components/components/texts/textStyles";
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 import {ImageUploader} from "@/src/components/components/image-uploader/image-uploader";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
+import { useState } from "react";
+import React from "react";
+import {Image} from "@/src/data/media/Image";
 
-interface IVehiclePhotoGroupProps {
-    vehicle: Vehicle;
-    label: string;
-    type: VehiclePhotoType;
+interface IInputItems {
+    id: number;
+    file: Image;
 }
 
-interface IPhotoItem {
+interface IFileGroupUploaderFormProps {
+    files: IInputItems[];
+    label: string;
+    typeValue: string;
+    formFileUpload: FormDataEnum;
+    formFileType: FormDataEnum;
+    formIdsToDelete: FormDataEnum;
+}
+
+interface IFileItem {
     id: string;
     dbId?: number;
     path?: string;
     file?: File;
 }
 
-const VehiclePhotoGroup = (props: IVehiclePhotoGroupProps) => {
-    const { vehicle, label, type } = props;
+const FileGroupUploaderForm = (props: IFileGroupUploaderFormProps) => {
+    const { files, label, typeValue, formFileUpload, formFileType, formIdsToDelete } = props;
+    const [deletedFileIds, setDeletedFileIds] = useState<number[]>([]);
 
     const generateId = () => {
         return new Date().getTime().toString() + Math.random().toString();
     }
 
-    const [items, setItems] = useState<IPhotoItem[]>(() => {
-        const photos: IPhotoItem[] = vehicle.photos
-            .filter(p => p.type === type)
+    const [items, setItems] = useState<IFileItem[]>(() => {
+        const _items: IFileItem[] = files
             .map(p => ({
                 id: p.id.toString(),
                 dbId: p.id,
                 path: p.file?.path,
                 file: undefined,
             }));
-        photos.push({
+        _items.push({
             id: generateId(),
             dbId: undefined,
             path: undefined,
             file: undefined
         });
-        return photos;
+        return _items;
     });
 
-    const addItemOnIndex = (currentItems: IPhotoItem[], index: number, file: File) => {
+    const addItemOnIndex = (currentItems: IFileItem[], index: number, file: File) => {
         currentItems.splice(index, 0, {
             file: file,
             dbId: undefined,
@@ -57,7 +65,6 @@ const VehiclePhotoGroup = (props: IVehiclePhotoGroupProps) => {
         setItems(currentItems);
     }
 
-    const [deletedPhotoIds, setDeletedPhotoIds] = useState<number[]>([]);
     return <LayoutFlexColumn gap={FlexGap.BIG_40}>
         <Text text={label} fontWeight={FontWeight.SEMIBOLD} fontSize={FontSize.M_22} />
         <LayoutFlexRow gap={FlexGap.MEDIUM_24} canWrap={true}>
@@ -66,11 +73,11 @@ const VehiclePhotoGroup = (props: IVehiclePhotoGroupProps) => {
 
                 return <React.Fragment key={index}>
                     <ImageUploader
-                        inputName={FormDataEnum.imagesUpload}
+                        inputName={formFileUpload}
                         previewUrl={item.path || undefined}
                         onDelete={() => {
                             if (item.dbId) {
-                                setDeletedPhotoIds([...deletedPhotoIds, item.dbId]);
+                                setDeletedFileIds([...deletedFileIds, item.dbId]);
                                 setItems(prevItems => prevItems.filter(i => i.dbId !== item.dbId));
                             } else {
                                 setItems(prevItems => prevItems.filter(i => i.file !== item.file));
@@ -79,7 +86,7 @@ const VehiclePhotoGroup = (props: IVehiclePhotoGroupProps) => {
                         isExistingPhoto={item.dbId !== undefined}
                         onFileSelect={(file) => {
                             if (item.dbId) {
-                                setDeletedPhotoIds([...deletedPhotoIds, item.dbId]);
+                                setDeletedFileIds([...deletedFileIds, item.dbId]);
                                 const newItems = items.filter(i => i.dbId !== item.dbId);
                                 addItemOnIndex(newItems, index, file);
                             } else {
@@ -91,16 +98,16 @@ const VehiclePhotoGroup = (props: IVehiclePhotoGroupProps) => {
                     />
                     {itemForUpload && <input
                         type="hidden"
-                        name={FormDataEnum.imagesType}
-                        value={type}
+                        name={formFileType}
+                        value={typeValue}
                     />}
                 </React.Fragment>
             })}
-            {deletedPhotoIds.map(id => (
+            {deletedFileIds.map(id => (
                 <input
                     key={id}
                     type="hidden"
-                    name={FormDataEnum.photoIdsToDelete}
+                    name={formIdsToDelete}
                     value={id}
                 />
             ))}
@@ -108,4 +115,4 @@ const VehiclePhotoGroup = (props: IVehiclePhotoGroupProps) => {
     </LayoutFlexColumn>
 };
 
-export default VehiclePhotoGroup;
+export default FileGroupUploaderForm;

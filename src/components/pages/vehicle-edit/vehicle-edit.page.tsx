@@ -22,8 +22,8 @@ import {PlaceAutocomplete} from "@/src/components/components/inputs/place-autoco
 import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
 import {VehicleConverter} from "@/src/converters/vehicle/vehicle-converter";
 import {FormActionEnum} from "@/src/enums/form-action.enum";
-import VehiclePhotoGroup from "@/src/components/pages/vehicle-edit/vehicle-photo-group";
-import VehicleDocumentGroup from "@/src/components/pages/vehicle-edit/vehicle-document-group";
+import FileGroupUploaderForm from "@/src/components/compositions/files/file-group-uploader-form/file-group-uploader-form";
+import {Image} from "@/src/data/media/Image";
 
 interface IVehicleEditPageProps {
     vehicle: VehicleResponseDto;
@@ -93,17 +93,94 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
         </LayoutFlexColumn>
     }
 
+    const getPhotoItems = (type: VehiclePhotoType) => {
+        const _inputs: {id: number; file: Image}[] = [];
+        const _photos = vehicle.photos.filter(p => p.type === type);
+        _photos.forEach(p => {
+            if (p.file) {
+                _inputs.push({
+                    id: p.id,
+                    file: p.file
+                })
+            }
+        });
+        return _inputs;
+    }
+
+    const getDocumentItems = (type: VehicleDocumentType) => {
+        const _inputs: {id: number; file: Image}[] = [];
+        const _photos = vehicle.documents.filter(p => p.type === type);
+        _photos.forEach(p => {
+            if (p.file) {
+                _inputs.push({
+                    id: p.id,
+                    file: p.file
+                })
+            }
+        });
+        return _inputs;
+    }
+
     const renderVehiclePhotos = () => {
         return <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
             <Heading text={t("vehiclePhotos")} fontWeight={FontWeight.SEMIBOLD} headingLevel={4}/>
             <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
-                <VehiclePhotoGroup label={t("frontPhoto")} vehicle={vehicle} type={VehiclePhotoType.FRONT} />
-                <VehiclePhotoGroup label={t("rearPhoto")} vehicle={vehicle} type={VehiclePhotoType.REAR} />
-                <VehiclePhotoGroup label={t("leftSidePhoto")} vehicle={vehicle} type={VehiclePhotoType.LEFT_SIDE} />
-                <VehiclePhotoGroup label={t("rightSidePhoto")} vehicle={vehicle} type={VehiclePhotoType.RIGHT_SIDE} />
-                <VehiclePhotoGroup label={t("interiorPhoto")} vehicle={vehicle} type={VehiclePhotoType.INTERIOR} />
-                <VehicleDocumentGroup label={t("technicalCertificate")} vehicle={vehicle} type={VehicleDocumentType.TECHNICAL_CERTIFICATE} />
-                <VehicleDocumentGroup label={t("insurance")} vehicle={vehicle} type={VehicleDocumentType.INSURANCE} />
+                <FileGroupUploaderForm
+                    files={getPhotoItems(VehiclePhotoType.FRONT)}
+                    label={t("frontPhoto")}
+                    typeValue={VehiclePhotoType.FRONT}
+                    formFileUpload={FormDataEnum.imagesUpload}
+                    formFileType={FormDataEnum.imagesType}
+                    formIdsToDelete={FormDataEnum.photoIdsToDelete}
+                />
+                <FileGroupUploaderForm
+                    files={getPhotoItems(VehiclePhotoType.REAR)}
+                    label={t("rearPhoto")}
+                    typeValue={VehiclePhotoType.REAR}
+                    formFileUpload={FormDataEnum.imagesUpload}
+                    formFileType={FormDataEnum.imagesType}
+                    formIdsToDelete={FormDataEnum.photoIdsToDelete}
+                />
+                <FileGroupUploaderForm
+                    files={getPhotoItems(VehiclePhotoType.LEFT_SIDE)}
+                    label={t("leftSidePhoto")}
+                    typeValue={VehiclePhotoType.LEFT_SIDE}
+                    formFileUpload={FormDataEnum.imagesUpload}
+                    formFileType={FormDataEnum.imagesType}
+                    formIdsToDelete={FormDataEnum.photoIdsToDelete}
+                />
+                <FileGroupUploaderForm
+                    files={getPhotoItems(VehiclePhotoType.RIGHT_SIDE)}
+                    label={t("rightSidePhoto")}
+                    typeValue={VehiclePhotoType.RIGHT_SIDE}
+                    formFileUpload={FormDataEnum.imagesUpload}
+                    formFileType={FormDataEnum.imagesType}
+                    formIdsToDelete={FormDataEnum.photoIdsToDelete}
+                />
+                <FileGroupUploaderForm
+                    files={getPhotoItems(VehiclePhotoType.INTERIOR)}
+                    label={t("interiorPhoto")}
+                    typeValue={VehiclePhotoType.INTERIOR}
+                    formFileUpload={FormDataEnum.imagesUpload}
+                    formFileType={FormDataEnum.imagesType}
+                    formIdsToDelete={FormDataEnum.photoIdsToDelete}
+                />
+                <FileGroupUploaderForm
+                    files={getDocumentItems(VehicleDocumentType.TECHNICAL_CERTIFICATE)}
+                    label={t("technicalCertificate")}
+                    typeValue={VehicleDocumentType.TECHNICAL_CERTIFICATE}
+                    formFileUpload={FormDataEnum.documentsUpload}
+                    formFileType={FormDataEnum.documentsType}
+                    formIdsToDelete={FormDataEnum.documentIdsToDelete}
+                />
+                <FileGroupUploaderForm
+                    files={getDocumentItems(VehicleDocumentType.INSURANCE)}
+                    label={t("insurance")}
+                    typeValue={VehicleDocumentType.INSURANCE}
+                    formFileUpload={FormDataEnum.documentsUpload}
+                    formFileType={FormDataEnum.documentsType}
+                    formIdsToDelete={FormDataEnum.documentIdsToDelete}
+                />
             </LayoutFlexColumn>
         </LayoutFlexColumn>
     }
