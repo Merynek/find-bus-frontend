@@ -26,6 +26,9 @@ export const VehicleDetail = (props: IVehicleDetailListProps) => {
     return <div className={styles.layout}>
         <LayoutFlexColumn>
             <LayoutFlexColumn>
+                <div style={{backgroundColor: "aquamarine"}}>
+                    {vehicle.status.toString()}
+                </div>
                 <div className={styles.line}>
                     <span>Is Verified:</span>
                     <span>{vehicle.isVerifiedForTransporting.toString()}</span>

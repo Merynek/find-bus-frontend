@@ -16,12 +16,19 @@ export interface IVehiclesPageProps {
 const VehiclesPage = (props: IVehiclesPageProps) => {
     const {vehicles} = props;
 
+    const _renderState = (vehicle: Vehicle) => {
+        return <div style={{backgroundColor: "aquamarine"}}>
+            {vehicle.status.toString()}
+        </div>
+    }
+
     const _renderList = () => {
-        return <LayoutFlexColumn gap={FlexGap.LARGE_32}>
+        return <LayoutFlexColumn gap={FlexGap.LARGE_32} style={{border: "1px solid black"}}>
             {vehicles.map((vehicle => {
                 return <LayoutFlexRow key={vehicle.id} gap={FlexGap.MEDIUM_24}>
-                    <Text text={vehicle.id.toString()} fontSize={FontSize.M_24} fontWeight={FontWeight.SEMIBOLD} />
+                    <Text text={`ID: ${vehicle.id.toString()}`} fontSize={FontSize.M_24} fontWeight={FontWeight.SEMIBOLD} />
                     <Text text={vehicle.name} fontSize={FontSize.M_24} fontWeight={FontWeight.SEMIBOLD} />
+                    {_renderState(vehicle)}
                     <ButtonLink
                         route={{
                             route: ROUTES.VEHICLE_DETAIL,
@@ -45,7 +52,7 @@ const VehiclesPage = (props: IVehiclesPageProps) => {
         </LayoutFlexColumn>
     }
 
-    return <LayoutFlexColumn>
+    return <LayoutFlexColumn gap={FlexGap.TINY_8}>
         <AddVehicleButton />
         {_renderList()}
     </LayoutFlexColumn>

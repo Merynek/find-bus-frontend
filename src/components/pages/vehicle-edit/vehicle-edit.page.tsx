@@ -187,6 +187,9 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
 
     return <LayoutFlexColumn gap={FlexGap.BIG_40}>
         <Heading text={t("vehicleEditHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={3}/>
+        <div style={{backgroundColor: "aquamarine"}}>
+            {vehicle.status.toString()}
+        </div>
         <form action={action}>
             <LayoutFlexColumn gap={FlexGap.LARGE_32}>
                 <FormStatus state={state}/>
