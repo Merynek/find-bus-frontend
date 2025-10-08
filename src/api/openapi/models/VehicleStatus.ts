@@ -21,7 +21,8 @@ export const VehicleStatus = {
     DRAFT: 'Draft',
     PENDING_VERIFICATION: 'PendingVerification',
     VERIFIED: 'Verified',
-    ARCHIVED: 'Archived'
+    ARCHIVED: 'Archived',
+    NOT_VERIFIED: 'NotVerified'
 } as const;
 export type VehicleStatus = typeof VehicleStatus[keyof typeof VehicleStatus];
 

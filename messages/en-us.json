@@ -83,6 +83,10 @@
       "insurance": "Insurance",
       "saveVehicle": "Save vehicle",
       "saveAndPostToVerification": "Save and sent to verification"
+    },
+    "adminVehicle": {
+      "vehicleHeading": "Vehicle settings",
+      "verified": "Verified"
     }
   },
   "component":  {

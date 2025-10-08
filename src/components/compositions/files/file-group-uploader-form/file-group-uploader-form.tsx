@@ -20,7 +20,7 @@ interface IFileGroupUploaderFormProps {
     typeValue: string;
     formFileUpload: FormDataEnum;
     formFileType: FormDataEnum;
-    formIdsToDelete: FormDataEnum;
+    formIdsToDelete?: FormDataEnum;
 }
 
 interface IFileItem {
@@ -103,7 +103,7 @@ const FileGroupUploaderForm = (props: IFileGroupUploaderFormProps) => {
                     />}
                 </React.Fragment>
             })}
-            {deletedFileIds.map(id => (
+            {formIdsToDelete && deletedFileIds.map(id => (
                 <input
                     key={id}
                     type="hidden"

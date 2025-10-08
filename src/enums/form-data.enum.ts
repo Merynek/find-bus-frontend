@@ -1,6 +1,7 @@
 export enum FormDataEnum {
     documentIdsToDelete = "documentIdsToDelete",
     photoIdsToDelete = "photoIdsToDelete",
+    photoIds = "photoIds",
     imagesUpload = "imagesUpload",
     documentsUpload = "documentsUpload",
     imagesType = "imagesType",

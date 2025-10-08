@@ -10,16 +10,6 @@ import {
     VehicleResponseDto
 } from "./openapi";
 
-export interface IVehiclePhotoRequest {
-    type: VehiclePhotoType;
-    file: File;
-}
-
-export interface IVehicleDocumentRequest {
-    type: VehicleDocumentType;
-    file: File;
-}
-
 export interface IUpdateVehicleRequest extends IApiRequest {
     vehicleId: number;
     vehicle: IVehicleRequest;
@@ -27,6 +17,13 @@ export interface IUpdateVehicleRequest extends IApiRequest {
 
 export interface ISendVehicleToVerificationRequest extends IApiRequest {
     vehicleId: number;
+}
+
+export interface IUploadVehiclePublicPhotosRequest extends IApiRequest {
+    vehicleId: number;
+    photoFiles: File[];
+    photoIds: number[];
+    photoIdsToDelete: number[];
 }
 
 export interface IUploadVehicleFilesRequest extends IApiRequest {
@@ -142,8 +139,17 @@ export class VehicleApi {
         await handleApiCall(this._api.apiVehiclesTransportVerificationPost({
             vehicleTransportVerificationRequestDto: {
                 id: req.vehicleId,
-                isVerifiedForTransporting: req.verified
+                isVerified: req.verified
             }
+        }, req.initOverrides));
+    }
+
+    public async uploadVehiclePublicPhotos(req: IUploadVehiclePublicPhotosRequest): Promise<void> {
+        await handleApiCall(this._api.apiVehiclesUploadPublicVehiclePhotosPost({
+            id: req.vehicleId,
+            photoFiles: req.photoFiles,
+            photoIds: req.photoIds,
+            photoIdsToDelete: req.photoIdsToDelete,
         }, req.initOverrides));
     }
 }

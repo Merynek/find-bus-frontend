@@ -5,7 +5,7 @@ import {
     IAddVehicleRequest,
     IUploadVehicleFilesRequest,
     IUpdateVehicleRequest,
-    VehicleApi, ISendVehicleToVerificationRequest
+    VehicleApi, ISendVehicleToVerificationRequest, IUploadVehiclePublicPhotosRequest
 } from "@/src/api/vehicleApi";
 import type {VehicleResponseDto} from "@/src/api/openapi";
 import {handleActionCall} from "@/src/server-actions/baseAction";
@@ -70,3 +70,12 @@ export async function updateVehicleFiles(req: IUploadVehicleFilesRequest) {
         await vehicleApi.uploadVehicleFiles(req);
     });
 }
+
+export async function uploadVehiclePublicPhotos(req: IUploadVehiclePublicPhotosRequest) {
+    await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const vehicleApi = new VehicleApi(accessToken);
+        await vehicleApi.uploadVehiclePublicPhotos(req);
+    });
+}
+

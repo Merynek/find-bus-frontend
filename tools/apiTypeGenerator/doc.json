@@ -1740,6 +1740,71 @@
           }
         }
       }
+    },
+    "/api/Vehicles/uploadPublicVehiclePhotos": {
+      "post": {
+        "tags": [
+          "Vehicles"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "Id"
+                ],
+                "type": "object",
+                "properties": {
+                  "Id": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "PhotoIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "format": "int32"
+                    }
+                  },
+                  "PhotoFiles": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  },
+                  "PhotoIdsToDelete": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "format": "int32"
+                    }
+                  }
+                }
+              },
+              "encoding": {
+                "Id": {
+                  "style": "form"
+                },
+                "PhotoIds": {
+                  "style": "form"
+                },
+                "PhotoFiles": {
+                  "style": "form"
+                },
+                "PhotoIdsToDelete": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -4227,14 +4292,15 @@
           "Draft",
           "PendingVerification",
           "Verified",
-          "Archived"
+          "Archived",
+          "NotVerified"
         ],
         "type": "string"
       },
       "VehicleTransportVerificationRequestDto": {
         "required": [
           "id",
-          "isVerifiedForTransporting"
+          "isVerified"
         ],
         "type": "object",
         "properties": {
@@ -4242,7 +4308,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "isVerifiedForTransporting": {
+          "isVerified": {
             "type": "boolean"
           }
         },

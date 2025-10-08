@@ -109,8 +109,8 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
 
     const getDocumentItems = (type: VehicleDocumentType) => {
         const _inputs: {id: number; file: Image}[] = [];
-        const _photos = vehicle.documents.filter(p => p.type === type);
-        _photos.forEach(p => {
+        const _documents = vehicle.documents.filter(p => p.type === type);
+        _documents.forEach(p => {
             if (p.file) {
                 _inputs.push({
                     id: p.id,

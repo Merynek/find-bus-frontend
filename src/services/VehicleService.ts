@@ -2,12 +2,12 @@ import {
     addVehicle,
     getVehicle,
     getVehicles, sendVehicleToVerificationRequest,
-    setVehicleVerification, updateVehicle, updateVehicleFiles
+    setVehicleVerification, updateVehicle, updateVehicleFiles, uploadVehiclePublicPhotos
 } from "../server-actions/vehicle/vehicleActions";
 import {
     IAddVehicleRequest,
     IUploadVehicleFilesRequest,
-    IUpdateVehicleRequest, ISendVehicleToVerificationRequest
+    IUpdateVehicleRequest, ISendVehicleToVerificationRequest, IUploadVehiclePublicPhotosRequest
 } from "@/src/api/vehicleApi";
 import {BaseService} from "@/src/services/BaseService";
 import {VehicleConverter} from "@/src/converters/vehicle/vehicle-converter";
@@ -54,6 +54,12 @@ export class VehicleService extends BaseService {
     public static async uploadVehicleFiles(req: IUploadVehicleFilesRequest) {
         await this.handleActionCall(async () => {
             await updateVehicleFiles(req);
+        });
+    }
+
+    public static async uploadVehiclePublicPhotos(req: IUploadVehiclePublicPhotosRequest) {
+        await this.handleActionCall(async () => {
+            await uploadVehiclePublicPhotos(req);
         });
     }
 }

@@ -30,7 +30,7 @@ export interface VehicleTransportVerificationRequestDto {
      * @type {boolean}
      * @memberof VehicleTransportVerificationRequestDto
      */
-    isVerifiedForTransporting: boolean;
+    isVerified: boolean;
 }
 
 /**
@@ -38,7 +38,7 @@ export interface VehicleTransportVerificationRequestDto {
  */
 export function instanceOfVehicleTransportVerificationRequestDto(value: object): value is VehicleTransportVerificationRequestDto {
     if (!('id' in value) || value['id'] === undefined) return false;
-    if (!('isVerifiedForTransporting' in value) || value['isVerifiedForTransporting'] === undefined) return false;
+    if (!('isVerified' in value) || value['isVerified'] === undefined) return false;
     return true;
 }
 
@@ -53,7 +53,7 @@ export function VehicleTransportVerificationRequestDtoFromJSONTyped(json: any, i
     return {
         
         'id': json['id'],
-        'isVerifiedForTransporting': json['isVerifiedForTransporting'],
+        'isVerified': json['isVerified'],
     };
 }
 
@@ -69,7 +69,7 @@ export function VehicleTransportVerificationRequestDtoToJSONTyped(value?: Vehicl
     return {
         
         'id': value['id'],
-        'isVerifiedForTransporting': value['isVerifiedForTransporting'],
+        'isVerified': value['isVerified'],
     };
 }
 

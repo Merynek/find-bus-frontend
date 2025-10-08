@@ -5,6 +5,7 @@ import {UserRole} from "@/src/api/openapi";
 import {NextAuthRequest} from "next-auth";
 
 export const AdminRoutes = [
+    ROUTES.ADMIN_VEHICLE,
     ROUTES.ADMIN_TRIP_DETAIL,
     ROUTES.ADMIN_TRIPS,
     ROUTES.APP_CONFIG,

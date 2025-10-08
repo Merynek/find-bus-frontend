@@ -58,6 +58,13 @@ export interface ApiVehiclesTransportVerificationPostRequest {
     vehicleTransportVerificationRequestDto?: VehicleTransportVerificationRequestDto;
 }
 
+export interface ApiVehiclesUploadPublicVehiclePhotosPostRequest {
+    id: number;
+    photoIds?: Array<number>;
+    photoFiles?: Array<Blob>;
+    photoIdsToDelete?: Array<number>;
+}
+
 export interface ApiVehiclesVehicleGetRequest {
     idVehicle: number;
 }
@@ -282,6 +289,86 @@ export class VehiclesApi extends runtime.BaseAPI {
      */
     async apiVehiclesTransportVerificationPost(requestParameters: ApiVehiclesTransportVerificationPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.apiVehiclesTransportVerificationPostRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     */
+    async apiVehiclesUploadPublicVehiclePhotosPostRaw(requestParameters: ApiVehiclesUploadPublicVehiclePhotosPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling apiVehiclesUploadPublicVehiclePhotosPost().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const consumes: runtime.Consume[] = [
+            { contentType: 'multipart/form-data' },
+        ];
+        // @ts-ignore: canConsumeForm may be unused
+        const canConsumeForm = runtime.canConsumeForm(consumes);
+
+        let formParams: { append(param: string, value: any): any };
+        let useForm = false;
+        // use FormData to transmit files using content-type "multipart/form-data"
+        useForm = canConsumeForm;
+        if (useForm) {
+            formParams = new FormData();
+        } else {
+            formParams = new URLSearchParams();
+        }
+
+        if (requestParameters['id'] != null) {
+            formParams.append('Id', requestParameters['id'] as any);
+        }
+
+        if (requestParameters['photoIds'] != null) {
+            requestParameters['photoIds'].forEach((element) => {
+                formParams.append('PhotoIds', element as any);
+            })
+        }
+
+        if (requestParameters['photoFiles'] != null) {
+            requestParameters['photoFiles'].forEach((element) => {
+                formParams.append('PhotoFiles', element as any);
+            })
+        }
+
+        if (requestParameters['photoIdsToDelete'] != null) {
+            requestParameters['photoIdsToDelete'].forEach((element) => {
+                formParams.append('PhotoIdsToDelete', element as any);
+            })
+        }
+
+
+        let urlPath = `/api/Vehicles/uploadPublicVehiclePhotos`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: formParams,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async apiVehiclesUploadPublicVehiclePhotosPost(requestParameters: ApiVehiclesUploadPublicVehiclePhotosPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.apiVehiclesUploadPublicVehiclePhotosPostRaw(requestParameters, initOverrides);
     }
 
     /**

@@ -86,6 +86,10 @@ declare const messages: {
       "insurance": "Pojistění vozidla",
       "saveVehicle": "Uložit vozidlo",
       "saveAndPostToVerification": "Uložit a poslat na ověření"
+    },
+    "adminVehicle": {
+      "vehicleHeading": "Nastavení vozidla",
+      "verified": "Ověřeno"
     }
   },
   "component":  {

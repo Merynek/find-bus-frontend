@@ -81,9 +81,9 @@ export const routing = defineRouting({
             [LOCALES.cs_CZ]: `/admin/cesta/[${URL_PARAMS.TRIP_ID}]`,
             [LOCALES.en_US]: ROUTES.ADMIN_TRIP_DETAIL
         },
-        [ROUTES.ADMIN_VEHICLE_DETAIL]: {
+        [ROUTES.ADMIN_VEHICLE]: {
             [LOCALES.cs_CZ]: `/admin/vozidlo/[${URL_PARAMS.VEHICLE_ID}]`,
-            [LOCALES.en_US]: ROUTES.ADMIN_VEHICLE_DETAIL
+            [LOCALES.en_US]: ROUTES.ADMIN_VEHICLE
         }
     }
 });
