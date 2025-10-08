@@ -17,10 +17,11 @@ interface IInputItems {
 interface IFileGroupUploaderFormProps {
     files: IInputItems[];
     label: string;
-    typeValue: string;
+    idValue: string;
     formFileUpload: FormDataEnum;
     formFileType: FormDataEnum;
     formIdsToDelete?: FormDataEnum;
+    onlyOneFile?: boolean;
 }
 
 interface IFileItem {
@@ -31,7 +32,7 @@ interface IFileItem {
 }
 
 const FileGroupUploaderForm = (props: IFileGroupUploaderFormProps) => {
-    const { files, label, typeValue, formFileUpload, formFileType, formIdsToDelete } = props;
+    const { files, label, idValue, formFileUpload, formFileType, formIdsToDelete, onlyOneFile } = props;
     const [deletedFileIds, setDeletedFileIds] = useState<number[]>([]);
 
     const generateId = () => {
@@ -90,7 +91,10 @@ const FileGroupUploaderForm = (props: IFileGroupUploaderFormProps) => {
                                 const newItems = items.filter(i => i.dbId !== item.dbId);
                                 addItemOnIndex(newItems, index, file);
                             } else {
-                                const newItems = [...items];
+                                let newItems: IFileItem[] = [];
+                                if (!onlyOneFile) {
+                                    newItems = [...items];
+                                }
                                 addItemOnIndex(newItems, index, file);
                             }
                         }}
@@ -99,7 +103,7 @@ const FileGroupUploaderForm = (props: IFileGroupUploaderFormProps) => {
                     {itemForUpload && <input
                         type="hidden"
                         name={formFileType}
-                        value={typeValue}
+                        value={idValue}
                     />}
                 </React.Fragment>
             })}

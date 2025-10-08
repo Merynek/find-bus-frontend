@@ -4,9 +4,9 @@ import {ImageFileSchema} from "@/src/forms-action/Schemas";
 
 const VehicleCoreSchema = z.object({
     vehicleId: z.coerce.number(),
-    photoFiles: z.array(ImageFileSchema),
-    photoIds: z.array(z.number()),
-    photoIdsToDelete: z.array(z.number()),
+    photoFiles: z.array(ImageFileSchema).optional(),
+    photoIds: z.array(z.number()).optional(),
+    photoIdsToDelete: z.array(z.number()).optional(),
 }).strict();
 
 export const AdminVehicleSchema = z.object({

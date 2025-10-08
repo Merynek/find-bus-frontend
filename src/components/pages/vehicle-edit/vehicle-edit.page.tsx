@@ -128,7 +128,7 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
                 <FileGroupUploaderForm
                     files={getPhotoItems(VehiclePhotoType.FRONT)}
                     label={t("frontPhoto")}
-                    typeValue={VehiclePhotoType.FRONT}
+                    idValue={VehiclePhotoType.FRONT}
                     formFileUpload={FormDataEnum.imagesUpload}
                     formFileType={FormDataEnum.imagesType}
                     formIdsToDelete={FormDataEnum.photoIdsToDelete}
@@ -136,7 +136,7 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
                 <FileGroupUploaderForm
                     files={getPhotoItems(VehiclePhotoType.REAR)}
                     label={t("rearPhoto")}
-                    typeValue={VehiclePhotoType.REAR}
+                    idValue={VehiclePhotoType.REAR}
                     formFileUpload={FormDataEnum.imagesUpload}
                     formFileType={FormDataEnum.imagesType}
                     formIdsToDelete={FormDataEnum.photoIdsToDelete}
@@ -144,7 +144,7 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
                 <FileGroupUploaderForm
                     files={getPhotoItems(VehiclePhotoType.LEFT_SIDE)}
                     label={t("leftSidePhoto")}
-                    typeValue={VehiclePhotoType.LEFT_SIDE}
+                    idValue={VehiclePhotoType.LEFT_SIDE}
                     formFileUpload={FormDataEnum.imagesUpload}
                     formFileType={FormDataEnum.imagesType}
                     formIdsToDelete={FormDataEnum.photoIdsToDelete}
@@ -152,7 +152,7 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
                 <FileGroupUploaderForm
                     files={getPhotoItems(VehiclePhotoType.RIGHT_SIDE)}
                     label={t("rightSidePhoto")}
-                    typeValue={VehiclePhotoType.RIGHT_SIDE}
+                    idValue={VehiclePhotoType.RIGHT_SIDE}
                     formFileUpload={FormDataEnum.imagesUpload}
                     formFileType={FormDataEnum.imagesType}
                     formIdsToDelete={FormDataEnum.photoIdsToDelete}
@@ -160,7 +160,7 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
                 <FileGroupUploaderForm
                     files={getPhotoItems(VehiclePhotoType.INTERIOR)}
                     label={t("interiorPhoto")}
-                    typeValue={VehiclePhotoType.INTERIOR}
+                    idValue={VehiclePhotoType.INTERIOR}
                     formFileUpload={FormDataEnum.imagesUpload}
                     formFileType={FormDataEnum.imagesType}
                     formIdsToDelete={FormDataEnum.photoIdsToDelete}
@@ -168,7 +168,7 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
                 <FileGroupUploaderForm
                     files={getDocumentItems(VehicleDocumentType.TECHNICAL_CERTIFICATE)}
                     label={t("technicalCertificate")}
-                    typeValue={VehicleDocumentType.TECHNICAL_CERTIFICATE}
+                    idValue={VehicleDocumentType.TECHNICAL_CERTIFICATE}
                     formFileUpload={FormDataEnum.documentsUpload}
                     formFileType={FormDataEnum.documentsType}
                     formIdsToDelete={FormDataEnum.documentIdsToDelete}
@@ -176,7 +176,7 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
                 <FileGroupUploaderForm
                     files={getDocumentItems(VehicleDocumentType.INSURANCE)}
                     label={t("insurance")}
-                    typeValue={VehicleDocumentType.INSURANCE}
+                    idValue={VehicleDocumentType.INSURANCE}
                     formFileUpload={FormDataEnum.documentsUpload}
                     formFileType={FormDataEnum.documentsType}
                     formIdsToDelete={FormDataEnum.documentIdsToDelete}

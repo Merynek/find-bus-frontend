@@ -24,12 +24,14 @@ export class AdminVehicleFormAction extends BaseFormAction<typeof AdminVehicleSc
             photoFiles: this.getFileArrayFormValue(formData, FormDataEnum.imagesUpload),
             photoIds: this.getNumberArrayFormValue(formData, FormDataEnum.photoIds),
             photoIdsToDelete: this.getNumberArrayFormValue(formData, FormDataEnum.photoIdsToDelete),
+            locale: this.getEnumFormValue(formData, FormDataEnum.locale)
         };
     }
 
     protected async callApi(validatedData: z.infer<typeof AdminVehicleSchema>): Promise<VehicleApiResult> {
         const photos = validatedData.photoFiles || [];
         const photoIds = validatedData.photoIds || [];
+        const photoIdsToDelete = validatedData.photoIdsToDelete || [];
 
         if (photos.length !== photoIds.length) {
             throw new FindBusError({
@@ -43,9 +45,9 @@ export class AdminVehicleFormAction extends BaseFormAction<typeof AdminVehicleSc
 
         await VehicleService.uploadVehiclePublicPhotos({
             vehicleId: validatedData.vehicleId,
-            photoFiles: validatedData.photoFiles || [],
-            photoIds: validatedData.photoIds || [],
-            photoIdsToDelete: validatedData.photoIdsToDelete || [],
+            photoFiles: photos,
+            photoIds: photoIds,
+            photoIdsToDelete: photoIdsToDelete
         })
     }
 }

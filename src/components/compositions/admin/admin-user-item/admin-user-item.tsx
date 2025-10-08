@@ -1,7 +1,5 @@
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
-import {VehicleDetail} from "@/src/components/compositions/vehicle/detail-list/vehicle-detail-list";
-import {VehicleVerifyButton} from "@/src/components/pages/admin/users/vehicle-verify-button";
 import {UserVerifyButton} from "@/src/components/pages/admin/users/user-verify-button";
 import {UserAdminDetailConverter} from "@/src/converters/admin/user-admin-detail-converter";
 import React from "react";
@@ -16,7 +14,8 @@ import {UserAdminDetail} from "@/src/data/users/user-admin-detail";
 import {AdminUserConfig} from "@/src/components/compositions/admin/admin-user-config/admin-user-config";
 import {AppBusinessConfig} from "@/src/data/appBusinessConfig";
 import {AppBusinessConfigConverter} from "@/src/converters/admin/app-business-config-converter";
-import {VehicleConverter} from "@/src/converters/vehicle/vehicle-converter";
+import {ButtonLink, ButtonSize, ButtonType} from "@/src/components/components/button/button";
+import {ROUTES, URL_PARAMS} from "@/src/enums/router.enum";
 
 interface IAdminUserItemProps {
     user: UserAdminDetail;
@@ -100,15 +99,18 @@ export const AdminUserItem = (props: IAdminUserItemProps) => {
             </Group>
             <Group title={"Vehicles"}>
                 {user.vehicles.map(v => {
-                    return <Accordion
-                        style={{background: "orange"}}
-                        key={v.id}
-                        title={`${v.name} - ${v.isVerifiedForTransporting ? "Verified" : "NOT Verified"}`}
-                        content={<LayoutFlexColumn gap={FlexGap.SMALL_16}>
-                            <VehicleDetail vehicle={v} />
-                            <VehicleVerifyButton vehicle={VehicleConverter.toJson(v)} />
-                        </LayoutFlexColumn>}
-                    />
+                    return <LayoutFlexRow gap={FlexGap.SMALL_16} key={v.id}>
+                        <Text text={`${v.name} - ${v.isVerifiedForTransporting ? "Verified" : "NOT Verified"}`} fontSize={FontSize.M_22} />
+                        <ButtonLink
+                            route={{
+                                route: ROUTES.ADMIN_VEHICLE,
+                                params: { [URL_PARAMS.VEHICLE_ID]: v.id.toString() }
+                            }}
+                            label={"Open"}
+                            type={ButtonType.BLACK}
+                            size={ButtonSize.BUTTON_SIZE_M}
+                        />
+                    </LayoutFlexRow>
                 })}
             </Group>
             <Group title={"Configs"}>

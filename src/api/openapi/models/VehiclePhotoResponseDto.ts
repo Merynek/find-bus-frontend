@@ -48,16 +48,16 @@ export interface VehiclePhotoResponseDto {
     type: VehiclePhotoType;
     /**
      * 
-     * @type {boolean}
+     * @type {FileResponseDto}
      * @memberof VehiclePhotoResponseDto
      */
-    isPublic: boolean;
+    file?: FileResponseDto;
     /**
      * 
      * @type {FileResponseDto}
      * @memberof VehiclePhotoResponseDto
      */
-    file?: FileResponseDto;
+    publicFile?: FileResponseDto;
 }
 
 
@@ -68,7 +68,6 @@ export interface VehiclePhotoResponseDto {
 export function instanceOfVehiclePhotoResponseDto(value: object): value is VehiclePhotoResponseDto {
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('type' in value) || value['type'] === undefined) return false;
-    if (!('isPublic' in value) || value['isPublic'] === undefined) return false;
     return true;
 }
 
@@ -84,8 +83,8 @@ export function VehiclePhotoResponseDtoFromJSONTyped(json: any, ignoreDiscrimina
         
         'id': json['id'],
         'type': VehiclePhotoTypeFromJSON(json['type']),
-        'isPublic': json['isPublic'],
         'file': json['file'] == null ? undefined : FileResponseDtoFromJSON(json['file']),
+        'publicFile': json['publicFile'] == null ? undefined : FileResponseDtoFromJSON(json['publicFile']),
     };
 }
 
@@ -102,8 +101,8 @@ export function VehiclePhotoResponseDtoToJSONTyped(value?: VehiclePhotoResponseD
         
         'id': value['id'],
         'type': VehiclePhotoTypeToJSON(value['type']),
-        'isPublic': value['isPublic'],
         'file': FileResponseDtoToJSON(value['file']),
+        'publicFile': FileResponseDtoToJSON(value['publicFile']),
     };
 }
 

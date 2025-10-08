@@ -53,18 +53,23 @@ const AdminVehicleEditPage = (props: IAdminVehicleEditPageProps) => {
             <Text text={label} fontWeight={FontWeight.SEMIBOLD} fontSize={FontSize.M_22} />
             <LayoutFlexRow gap={FlexGap.TINY_8}>
                 {_photos.map(p => {
+                    const _files = p.publicFile ? [{id: p.id, file: p.publicFile}] : [];
                     return <div key={p.id}>
-                        {p.file && renderImage(p.file.path)}
+                        {p.file && <LayoutFlexRow gap={FlexGap.SMALL_16}>
+                            {renderImage(p.file.path)}
+                            <FileGroupUploaderForm
+                                files={_files}
+                                label={"Public version"}
+                                idValue={p.id.toString()}
+                                formFileUpload={FormDataEnum.imagesUpload}
+                                formFileType={FormDataEnum.photoIds}
+                                formIdsToDelete={FormDataEnum.photoIdsToDelete}
+                                onlyOneFile={true}
+                            />
+                        </LayoutFlexRow>}
                     </div>
                 })}
             </LayoutFlexRow>
-            <FileGroupUploaderForm
-                files={[]}
-                label={"Public version"}
-                typeValue={type}
-                formFileUpload={FormDataEnum.imagesUpload}
-                formFileType={FormDataEnum.imagesType}
-            />
         </LayoutFlexColumn>
     }
 
@@ -97,7 +102,7 @@ const AdminVehicleEditPage = (props: IAdminVehicleEditPageProps) => {
                     name={FormDataEnum.formActionType}
                     value={FormActionEnum.SAVE}
                     isDisabled={pending}
-                    label={t("verified")}
+                    label={"Save public photos"}
                 />
             </LayoutFlexColumn>
         </form>

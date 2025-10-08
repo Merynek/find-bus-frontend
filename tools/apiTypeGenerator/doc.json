@@ -4117,7 +4117,6 @@
       "VehiclePhotoResponseDto": {
         "required": [
           "id",
-          "isPublic",
           "type"
         ],
         "type": "object",
@@ -4129,10 +4128,10 @@
           "type": {
             "$ref": "#/components/schemas/VehiclePhotoType"
           },
-          "isPublic": {
-            "type": "boolean"
-          },
           "file": {
+            "$ref": "#/components/schemas/FileResponseDto"
+          },
+          "publicFile": {
             "$ref": "#/components/schemas/FileResponseDto"
           }
         },
