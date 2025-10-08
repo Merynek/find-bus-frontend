@@ -38,7 +38,7 @@ export function getRandomVehiclePhoto(): VehiclePhoto {
         id: getRandomId(),
         file: getRandomPhoto(),
         type: getRandomEnum(VehiclePhotoType),
-        isPublic: getRandomBoolean()
+        publicFile: getRandomPhoto()
     })
 }
 
