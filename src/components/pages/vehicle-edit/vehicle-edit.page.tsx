@@ -2,7 +2,14 @@
 
 import React, {useState} from "react";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
-import {Amenities, EuroStandard, VehicleResponseDto, VehiclePhotoType, VehicleDocumentType} from "@/src/api/openapi";
+import {
+    Amenities,
+    EuroStandard,
+    VehicleDocumentType,
+    VehiclePhotoType,
+    VehicleResponseDto,
+    VehicleStatus
+} from "@/src/api/openapi";
 import {useCurrentLocale, useTranslate} from "@/src/hooks/translateHook";
 import {useFormActionState} from "@/src/hooks/formHook";
 import {vehicleFormAction} from "@/src/server-actions/forms/vehicle/vehicleFormAction";
@@ -22,7 +29,8 @@ import {PlaceAutocomplete} from "@/src/components/components/inputs/place-autoco
 import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
 import {VehicleConverter} from "@/src/converters/vehicle/vehicle-converter";
 import {FormActionEnum} from "@/src/enums/form-action.enum";
-import FileGroupUploaderForm from "@/src/components/compositions/files/file-group-uploader-form/file-group-uploader-form";
+import FileGroupUploaderForm
+    from "@/src/components/compositions/files/file-group-uploader-form/file-group-uploader-form";
 import {Image} from "@/src/data/media/Image";
 
 interface IVehicleEditPageProps {
@@ -185,14 +193,31 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
         </LayoutFlexColumn>
     }
 
+    const renderWarningTextDependOnStatus = () => {
+        switch (vehicle.status) {
+            case VehicleStatus.VERIFIED:
+                return <div style={{color: "red"}}>{"Při uložení se vám zneplatní verifikace tohoto auta a budete ji muset znovu zalat k ověření."}</div>
+            case VehicleStatus.PENDING_VERIFICATION:
+                return <div style={{color: "red"}}>{"Při uložení se zruší požadavek na verifikaci a budete muset vozidlo znovu zalat k ověření."}</div>
+            case VehicleStatus.NOT_VERIFIED:
+                return <div style={{color: "red"}}>{"Upravte vozidlo a pošlete znova na ověření."}</div>
+            case VehicleStatus.DRAFT:
+            case VehicleStatus.ARCHIVED:
+                return null;
+        }
+    }
+
     return <LayoutFlexColumn gap={FlexGap.BIG_40}>
         <Heading text={t("vehicleEditHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={3}/>
-        <div style={{backgroundColor: "aquamarine"}}>
-            {vehicle.status.toString()}
-        </div>
+        <LayoutFlexColumn gap={FlexGap.TINY_8}>
+            <div style={{backgroundColor: "aquamarine"}}>
+                {vehicle.status.toString()}
+            </div>
+            {renderWarningTextDependOnStatus()}
+        </LayoutFlexColumn>
         <form action={action}>
             <LayoutFlexColumn gap={FlexGap.LARGE_32}>
-                <FormStatus state={state}/>
+            <FormStatus state={state}/>
                 <input type="hidden" name={FormDataEnum.vehicleId} value={id}/>
                 <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale}/>
                 <input
