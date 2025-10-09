@@ -91,6 +91,7 @@ declare const messages: {
       "vehicleHeading": "Nastavení vozidla",
       "uploadPublicPhotos": "Nahrát veřejné fotky",
       "feedbackLabel": "Zpětná vazba",
+      "isApproved": "Schváleno",
       "submit": "Potvrdit"
     }
   },

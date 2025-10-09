@@ -21,8 +21,8 @@ export class AdminVehicleVerificationFormAction extends BaseFormAction<typeof Ad
     protected createDataFromFormData(formData: FormData): VehicleData {
         return {
             vehicleId: this.getNumberFormValue(formData, FormDataEnum.vehicleId),
-            description: this.getStringFormValue(formData, FormDataEnum.feedback),
-            verified: this.getBooleanFormValue(formData, FormDataEnum.isApproved),
+            description: this.getStringFormValue(formData, FormDataEnum.description),
+            verified: this.getBooleanFormValue(formData, FormDataEnum.verified),
             locale: this.getEnumFormValue(formData, FormDataEnum.locale)
         };
     }
@@ -30,8 +30,8 @@ export class AdminVehicleVerificationFormAction extends BaseFormAction<typeof Ad
     protected async callApi(validatedData: z.infer<typeof AdminVehicleVerificationSchema>): Promise<VehicleApiResult> {
         await VehicleService.setVehicleVerification({
             vehicleId: validatedData.vehicleId,
-            verified: validatedData.isApproved,
-            description: validatedData.feedback
+            verified: validatedData.verified,
+            description: validatedData.description
         })
     }
 }

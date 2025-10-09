@@ -22,9 +22,6 @@ const AdminVehicleEditPage = (props: IAdminVehicleEditPageProps) => {
 
     return <LayoutFlexColumn gap={FlexGap.BIG_40}>
         <Heading text={t("vehicleHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={3}/>
-        <div style={{backgroundColor: "aquamarine"}}>
-            {vehicle.status.toString()}
-        </div>
         <VehicleDetail vehicle={vehicle}/>
         {vehicle.status === VehicleStatus.PENDING_VERIFICATION && <>
             <VehicleVerificationPhotos vehicle={vehicle} />

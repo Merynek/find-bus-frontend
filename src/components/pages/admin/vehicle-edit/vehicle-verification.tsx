@@ -23,8 +23,8 @@ const VehicleVerification = (props: IVehicleVerificationProps) => {
     const [state, action, pending] = useFormActionState(adminVehicleVerificationFormAction, {
         data: {
             vehicleId: vehicle.id,
-            isApproved: false,
-            feedback: vehicle.verificationFeedback?.description || ""
+            verified: false,
+            description: vehicle.verificationFeedback?.description || ""
         }
     });
     const locale = useCurrentLocale();
@@ -39,15 +39,16 @@ const VehicleVerification = (props: IVehicleVerificationProps) => {
                     placeholder={t("feedbackLabel")}
                     controlled={false}
                     type={TextBoxType.TEXT}
-                    name={FormDataEnum.feedback}
-                    id={FormDataEnum.feedback}
+                    name={FormDataEnum.description}
+                    id={FormDataEnum.description}
+                    defaultValue={state?.data?.description || ""}
                 />
                 <CheckBox
                     controlled={false}
-                    name={FormDataEnum.isApproved}
-                    id={FormDataEnum.isApproved}
-                    label={t("isCompany")}
-                    defaultChecked={state?.data?.isApproved || false}
+                    name={FormDataEnum.verified}
+                    id={FormDataEnum.verified}
+                    label={t("isApproved")}
+                    defaultChecked={state?.data?.verified || false}
                 />
                 <ButtonClick
                     controlled={false}
