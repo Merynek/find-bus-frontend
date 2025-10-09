@@ -86,7 +86,9 @@
     },
     "adminVehicle": {
       "vehicleHeading": "Vehicle settings",
-      "verified": "Verified"
+      "uploadPublicPhotos": "Upload public photos",
+      "feedbackLabel": "Feedback",
+      "submit": "Submit"
     }
   },
   "component":  {

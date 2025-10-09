@@ -7,6 +7,8 @@ export enum FormDataEnum {
     imagesType = "imagesType",
     documentsType = "documentsType",
     formActionType = "formActionType",
+    feedback = "feedback",
+    isApproved = "isApproved",
     userId = "userId",
     locale = "locale",
     email = "email",

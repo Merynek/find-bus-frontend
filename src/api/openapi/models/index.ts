@@ -88,3 +88,4 @@ export * from './VehicleResponseDto';
 export * from './VehicleStatus';
 export * from './VehicleTransportVerificationRequestDto';
 export * from './VehicleVerificationRequestDto';
+export * from './VerificationFeedbackResponseDto';

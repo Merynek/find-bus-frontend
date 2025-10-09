@@ -2,6 +2,7 @@ import {Amenities, EuroStandard, type VehicleStatus} from "../../api/openapi";
 import {Place} from "../place";
 import { VehicleDocument } from "./vehicleDocument";
 import {VehiclePhoto} from "@/src/data/vehicle/vehiclePhoto";
+import {VerificationFeedback} from "@/src/data/verificationFeedback";
 
 export interface IVehicleSettings {
     id: number;
@@ -19,6 +20,7 @@ export interface IVehicleSettings {
     isVerifiedForTransporting: boolean;
     photos: VehiclePhoto[];
     documents: VehicleDocument[];
+    verificationFeedback: VerificationFeedback|null;
 }
 
 export class Vehicle {
@@ -37,6 +39,7 @@ export class Vehicle {
     public isVerifiedForTransporting: boolean;
     public photos: VehiclePhoto[];
     public documents: VehicleDocument[];
+    public verificationFeedback: VerificationFeedback|null;
 
     constructor(settings: IVehicleSettings) {
         this.id = settings.id;
@@ -54,5 +57,6 @@ export class Vehicle {
         this.documents = settings.documents;
         this.departureStation = settings.departureStation;
         this.isVerifiedForTransporting = settings.isVerifiedForTransporting;
+        this.verificationFeedback = settings.verificationFeedback;
     }
 }

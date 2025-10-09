@@ -89,7 +89,9 @@ declare const messages: {
     },
     "adminVehicle": {
       "vehicleHeading": "Nastavení vozidla",
-      "verified": "Ověřeno"
+      "uploadPublicPhotos": "Nahrát veřejné fotky",
+      "feedbackLabel": "Zpětná vazba",
+      "submit": "Potvrdit"
     }
   },
   "component":  {

@@ -39,6 +39,7 @@ export interface IUploadVehicleFilesRequest extends IApiRequest {
 export interface ISetVehicleVerificationRequest extends IApiRequest {
     vehicleId: number;
     verified: boolean;
+    description: string;
 }
 export interface IAddVehicleRequest extends IApiRequest {
     vehicle: IVehicleRequest;
@@ -139,7 +140,8 @@ export class VehicleApi {
         await handleApiCall(this._api.apiVehiclesTransportVerificationPost({
             vehicleTransportVerificationRequestDto: {
                 id: req.vehicleId,
-                isVerified: req.verified
+                isVerified: req.verified,
+                description: req.description
             }
         }, req.initOverrides));
     }

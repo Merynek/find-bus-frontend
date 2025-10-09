@@ -4271,6 +4271,9 @@
           "departureStation": {
             "$ref": "#/components/schemas/PlaceResponseDto"
           },
+          "verificationFeedback": {
+            "$ref": "#/components/schemas/VerificationFeedbackResponseDto"
+          },
           "vehiclePhotos": {
             "type": "array",
             "items": {
@@ -4298,6 +4301,7 @@
       },
       "VehicleTransportVerificationRequestDto": {
         "required": [
+          "description",
           "id",
           "isVerified"
         ],
@@ -4309,6 +4313,10 @@
           },
           "isVerified": {
             "type": "boolean"
+          },
+          "description": {
+            "minLength": 1,
+            "type": "string"
           }
         },
         "additionalProperties": false
@@ -4322,6 +4330,24 @@
           "vehicleId": {
             "type": "integer",
             "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "VerificationFeedbackResponseDto": {
+        "required": [
+          "created",
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "description": {
+            "minLength": 1,
+            "type": "string"
           }
         },
         "additionalProperties": false

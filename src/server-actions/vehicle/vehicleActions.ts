@@ -5,19 +5,16 @@ import {
     IAddVehicleRequest,
     IUploadVehicleFilesRequest,
     IUpdateVehicleRequest,
-    VehicleApi, ISendVehicleToVerificationRequest, IUploadVehiclePublicPhotosRequest
+    VehicleApi, ISendVehicleToVerificationRequest, IUploadVehiclePublicPhotosRequest, ISetVehicleVerificationRequest
 } from "@/src/api/vehicleApi";
 import type {VehicleResponseDto} from "@/src/api/openapi";
 import {handleActionCall} from "@/src/server-actions/baseAction";
 
-export async function setVehicleVerification(vehicleId: number, verified: boolean) {
+export async function setVehicleVerification(req: ISetVehicleVerificationRequest) {
     await handleActionCall(async () => {
         const accessToken = await getAccessToken();
         const vehicleApi = new VehicleApi(accessToken);
-        await vehicleApi.setVehicleVerification({
-            vehicleId: vehicleId,
-            verified: verified
-        });
+        await vehicleApi.setVehicleVerification(req);
     });
 }
 

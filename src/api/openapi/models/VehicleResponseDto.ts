@@ -27,6 +27,13 @@ import {
     VehicleDocumentResponseDtoToJSON,
     VehicleDocumentResponseDtoToJSONTyped,
 } from './VehicleDocumentResponseDto';
+import type { VerificationFeedbackResponseDto } from './VerificationFeedbackResponseDto';
+import {
+    VerificationFeedbackResponseDtoFromJSON,
+    VerificationFeedbackResponseDtoFromJSONTyped,
+    VerificationFeedbackResponseDtoToJSON,
+    VerificationFeedbackResponseDtoToJSONTyped,
+} from './VerificationFeedbackResponseDto';
 import type { VehiclePhotoResponseDto } from './VehiclePhotoResponseDto';
 import {
     VehiclePhotoResponseDtoFromJSON,
@@ -142,6 +149,12 @@ export interface VehicleResponseDto {
     departureStation?: PlaceResponseDto;
     /**
      * 
+     * @type {VerificationFeedbackResponseDto}
+     * @memberof VehicleResponseDto
+     */
+    verificationFeedback?: VerificationFeedbackResponseDto;
+    /**
+     * 
      * @type {Array<VehiclePhotoResponseDto>}
      * @memberof VehicleResponseDto
      */
@@ -200,6 +213,7 @@ export function VehicleResponseDtoFromJSONTyped(json: any, ignoreDiscriminator: 
         'amenities': ((json['amenities'] as Array<any>).map(AmenitiesFromJSON)),
         'handicappedUserCount': json['handicappedUserCount'],
         'departureStation': json['departureStation'] == null ? undefined : PlaceResponseDtoFromJSON(json['departureStation']),
+        'verificationFeedback': json['verificationFeedback'] == null ? undefined : VerificationFeedbackResponseDtoFromJSON(json['verificationFeedback']),
         'vehiclePhotos': ((json['vehiclePhotos'] as Array<any>).map(VehiclePhotoResponseDtoFromJSON)),
         'vehicleDocuments': ((json['vehicleDocuments'] as Array<any>).map(VehicleDocumentResponseDtoFromJSON)),
     };
@@ -229,6 +243,7 @@ export function VehicleResponseDtoToJSONTyped(value?: VehicleResponseDto | null,
         'amenities': ((value['amenities'] as Array<any>).map(AmenitiesToJSON)),
         'handicappedUserCount': value['handicappedUserCount'],
         'departureStation': PlaceResponseDtoToJSON(value['departureStation']),
+        'verificationFeedback': VerificationFeedbackResponseDtoToJSON(value['verificationFeedback']),
         'vehiclePhotos': ((value['vehiclePhotos'] as Array<any>).map(VehiclePhotoResponseDtoToJSON)),
         'vehicleDocuments': ((value['vehicleDocuments'] as Array<any>).map(VehicleDocumentResponseDtoToJSON)),
     };

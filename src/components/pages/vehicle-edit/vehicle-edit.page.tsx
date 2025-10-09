@@ -16,7 +16,7 @@ import {vehicleFormAction} from "@/src/server-actions/forms/vehicle/vehicleFormA
 import {Place} from "@/src/data/place";
 import {ComboBox, IComboBoxItem} from "@/src/components/components/inputs/combo-box/combo-box";
 import {Heading} from "@/src/components/components/texts/heading";
-import {FontWeight} from "@/src/components/components/texts/textStyles";
+import {FontSize, FontWeight} from "@/src/components/components/texts/textStyles";
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 import {FlexGap} from "@/src/enums/layout.enum";
 import {CheckBox} from "@/src/components/components/inputs/check-box/check-box";
@@ -32,6 +32,7 @@ import {FormActionEnum} from "@/src/enums/form-action.enum";
 import FileGroupUploaderForm
     from "@/src/components/compositions/files/file-group-uploader-form/file-group-uploader-form";
 import {Image} from "@/src/data/media/Image";
+import {Text} from "@/src/components/components/texts/text";
 
 interface IVehicleEditPageProps {
     vehicle: VehicleResponseDto;
@@ -207,6 +208,16 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
         }
     }
 
+    const renderVerificationFeedback = () => {
+        if (vehicle.verificationFeedback?.description) {
+            return <LayoutFlexColumn gap={FlexGap.SMALL_16}>
+                <Text text={"Admin feedback"} fontSize={FontSize.M_24} fontWeight={FontWeight.SEMIBOLD} />
+                <Text text={vehicle.verificationFeedback.description} fontSize={FontSize.BASE_14} />
+            </LayoutFlexColumn>
+        }
+        return null;
+    }
+
     return <LayoutFlexColumn gap={FlexGap.BIG_40}>
         <Heading text={t("vehicleEditHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={3}/>
         <LayoutFlexColumn gap={FlexGap.TINY_8}>
@@ -214,6 +225,7 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
                 {vehicle.status.toString()}
             </div>
             {renderWarningTextDependOnStatus()}
+            {renderVerificationFeedback()}
         </LayoutFlexColumn>
         <form action={action}>
             <LayoutFlexColumn gap={FlexGap.LARGE_32}>

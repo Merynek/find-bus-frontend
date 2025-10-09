@@ -95,5 +95,6 @@ models/VehicleResponseDto.ts
 models/VehicleStatus.ts
 models/VehicleTransportVerificationRequestDto.ts
 models/VehicleVerificationRequestDto.ts
+models/VerificationFeedbackResponseDto.ts
 models/index.ts
 runtime.ts

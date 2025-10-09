@@ -7,15 +7,18 @@ import {
 import {
     IAddVehicleRequest,
     IUploadVehicleFilesRequest,
-    IUpdateVehicleRequest, ISendVehicleToVerificationRequest, IUploadVehiclePublicPhotosRequest
+    IUpdateVehicleRequest,
+    ISendVehicleToVerificationRequest,
+    IUploadVehiclePublicPhotosRequest,
+    ISetVehicleVerificationRequest
 } from "@/src/api/vehicleApi";
 import {BaseService} from "@/src/services/BaseService";
 import {VehicleConverter} from "@/src/converters/vehicle/vehicle-converter";
 
 export class VehicleService extends BaseService {
-    public static async setVehicleVerification(vehicleId: number, verified: boolean) {
+    public static async setVehicleVerification(req: ISetVehicleVerificationRequest) {
         await this.handleActionCall(async () => {
-            await setVehicleVerification(vehicleId, verified);
+            await setVehicleVerification(req);
         });
     }
 

@@ -8,6 +8,7 @@ import {getRandomPlace} from "./places/place";
 import {Vehicle} from "@/src/data/vehicle/vehicle";
 import {VehiclePhoto} from "@/src/data/vehicle/vehiclePhoto";
 import { VehicleDocument } from "@/src/data/vehicle/vehicleDocument";
+import {getRandomVerificationFeedback} from "@/dataGenerator/verificationFeedback";
 
 export function getRandomVehicle(): Vehicle {
     const amenities: Amenities[] = [];
@@ -29,7 +30,8 @@ export function getRandomVehicle(): Vehicle {
         handicappedUserCount: getRandomNumber(0, 5),
         photos: [getRandomVehiclePhoto(), getRandomVehiclePhoto(), getRandomVehiclePhoto()],
         documents: [getRandomVehicleDocument(), getRandomVehicleDocument(), getRandomVehicleDocument()],
-        departureStation: getRandomBoolean() ? getRandomPlace() : null
+        departureStation: getRandomBoolean() ? getRandomPlace() : null,
+        verificationFeedback: getRandomBoolean() ? getRandomVerificationFeedback() : null
     })
 }
 
