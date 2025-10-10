@@ -89,12 +89,6 @@ export interface VehicleResponseDto {
     name: string;
     /**
      * 
-     * @type {boolean}
-     * @memberof VehicleResponseDto
-     */
-    isVerifiedForTransporting: boolean;
-    /**
-     * 
      * @type {string}
      * @memberof VehicleResponseDto
      */
@@ -176,7 +170,6 @@ export function instanceOfVehicleResponseDto(value: object): value is VehicleRes
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('status' in value) || value['status'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
-    if (!('isVerifiedForTransporting' in value) || value['isVerifiedForTransporting'] === undefined) return false;
     if (!('registrationSign' in value) || value['registrationSign'] === undefined) return false;
     if (!('vin' in value) || value['vin'] === undefined) return false;
     if (!('stkExpired' in value) || value['stkExpired'] === undefined) return false;
@@ -203,7 +196,6 @@ export function VehicleResponseDtoFromJSONTyped(json: any, ignoreDiscriminator: 
         'id': json['id'],
         'status': VehicleStatusFromJSON(json['status']),
         'name': json['name'],
-        'isVerifiedForTransporting': json['isVerifiedForTransporting'],
         'registrationSign': json['registrationSign'],
         'vin': json['vin'],
         'stkExpired': (new Date(json['stkExpired'])),
@@ -233,7 +225,6 @@ export function VehicleResponseDtoToJSONTyped(value?: VehicleResponseDto | null,
         'id': value['id'],
         'status': VehicleStatusToJSON(value['status']),
         'name': value['name'],
-        'isVerifiedForTransporting': value['isVerifiedForTransporting'],
         'registrationSign': value['registrationSign'],
         'vin': value['vin'],
         'stkExpired': ((value['stkExpired']).toISOString()),

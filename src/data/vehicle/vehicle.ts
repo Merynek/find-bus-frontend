@@ -17,7 +17,6 @@ export interface IVehicleSettings {
     amenities: Amenities[];
     handicappedUserCount: number;
     departureStation: Place|null;
-    isVerifiedForTransporting: boolean;
     photos: VehiclePhoto[];
     documents: VehicleDocument[];
     verificationFeedback: VerificationFeedback|null;
@@ -36,7 +35,6 @@ export class Vehicle {
     public amenities: Amenities[];
     public handicappedUserCount: number;
     public departureStation: Place|null;
-    public isVerifiedForTransporting: boolean;
     public photos: VehiclePhoto[];
     public documents: VehicleDocument[];
     public verificationFeedback: VerificationFeedback|null;
@@ -56,7 +54,6 @@ export class Vehicle {
         this.photos = settings.photos;
         this.documents = settings.documents;
         this.departureStation = settings.departureStation;
-        this.isVerifiedForTransporting = settings.isVerifiedForTransporting;
         this.verificationFeedback = settings.verificationFeedback;
     }
 }

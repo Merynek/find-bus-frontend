@@ -11,7 +11,6 @@ export class VehicleConverter {
         return new Vehicle({
             id: vehicleDto.id,
             status: vehicleDto.status,
-            isVerifiedForTransporting: vehicleDto.isVerifiedForTransporting,
             amenities: vehicleDto.amenities,
             euroStandard: vehicleDto.euro,
             name: vehicleDto.name,
@@ -44,7 +43,6 @@ export class VehicleConverter {
             departureStation: vehicle.departureStation ? PlaceConverter.toJson(vehicle.departureStation) : undefined,
             vehiclePhotos: vehicle.photos.map(VehiclePhotoConverter.toJson),
             vehicleDocuments: vehicle.documents.map(VehicleDocumentConverter.toJson),
-            isVerifiedForTransporting: vehicle.isVerifiedForTransporting,
             verificationFeedback: vehicle.verificationFeedback ? VerificationFeedbackConverter.toJson(vehicle.verificationFeedback) : undefined
         }
     }

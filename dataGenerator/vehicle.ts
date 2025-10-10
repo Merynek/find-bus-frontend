@@ -18,7 +18,6 @@ export function getRandomVehicle(): Vehicle {
     return new Vehicle({
         id: getRandomId(),
         status: getRandomEnum(VehicleStatus),
-        isVerifiedForTransporting: getRandomBoolean(),
         personsCapacity: getRandomNumber(20, 60),
         name: getRandomText(1),
         stkExpired: getRandomDate(),

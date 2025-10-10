@@ -30,8 +30,8 @@ export const VehicleDetail = (props: IVehicleDetailListProps) => {
                     {vehicle.status.toString()}
                 </div>
                 <div className={styles.line}>
-                    <span>Is Verified:</span>
-                    <span>{vehicle.isVerifiedForTransporting.toString()}</span>
+                    <span>Status:</span>
+                    <span>{vehicle.status}</span>
                 </div>
                 <div className={styles.line}>
                     <span>Name:</span>

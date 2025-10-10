@@ -4588,7 +4588,6 @@
           "euro",
           "handicappedUserCount",
           "id",
-          "isVerifiedForTransporting",
           "name",
           "personsCapacity",
           "registrationSign",
@@ -4611,9 +4610,6 @@
           "name": {
             "minLength": 1,
             "type": "string"
-          },
-          "isVerifiedForTransporting": {
-            "type": "boolean"
           },
           "registrationSign": {
             "minLength": 1,
