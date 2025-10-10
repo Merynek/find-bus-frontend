@@ -1,19 +1,16 @@
 import {VehicleDocumentType, VehiclePhotoType} from "@/src/api/openapi";
 import {VehicleService} from "@/src/services/VehicleService";
 import {IDocumentCompleteUploadItem, IPhotoCompleteUploadItem} from "@/src/api/vehicleApi";
+import {IStorageUploadItem, StorageUploaderService} from "@/src/singletons/StorageUploaderService";
 
-export interface IPhotoUploadItem {
-    clientFileId: string;
-    file: File;
+export interface IPhotoUploadItem extends IStorageUploadItem {
     type: VehiclePhotoType;
 }
-export interface IDocumentUploadItem {
-    clientFileId: string;
-    file: File;
+export interface IDocumentUploadItem extends IStorageUploadItem {
     type: VehicleDocumentType;
 }
 
-export class FileUploaderService {
+export class VehicleFileUploaderService {
     public static async uploadVehicleFiles(vehicleId: number, photos: IPhotoUploadItem[], documents: IDocumentUploadItem[], photosToDelete: number[], documentsToDelete: number[]) {
         const response = await VehicleService.createUploadUrlForVehicleFiles({
             vehicleId: vehicleId,
@@ -32,34 +29,35 @@ export class FileUploaderService {
                 }
             })
         });
-        // TODO  upload files to storage
 
         const completePhotos: IPhotoCompleteUploadItem[] = [];
         const completeDocuments: IDocumentCompleteUploadItem[] = [];
+        const successfulPhotoUploads = await StorageUploaderService.UploadFiles(response.photos, photos);
+        const successfulDocumentUploads = await StorageUploaderService.UploadFiles(response.documents, documents);
 
-        response.photos.forEach(p => {
-            const _photo = photos.find(pp => pp.clientFileId === p.clientFileId);
+        successfulPhotoUploads.forEach(uploadSasUrl => {
+            const _photo = photos.find(pp => pp.clientFileId === uploadSasUrl.clientFileId);
             if (_photo) {
                 completePhotos.push({
-                    blobName: p.blobName,
+                    blobName: uploadSasUrl.blobName,
                     contentType: _photo.file.type,
                     fileSize: _photo.file.size,
                     originalFileName: _photo.file.name,
                     type: _photo.type
-                })
+                });
             }
         });
 
-        response.documents.forEach(p => {
-            const _document = documents.find(pp => pp.clientFileId === p.clientFileId);
+        successfulDocumentUploads.forEach(uploadSasUrl => {
+            const _document = documents.find(pp => pp.clientFileId === uploadSasUrl.clientFileId);
             if (_document) {
                 completeDocuments.push({
-                    blobName: p.blobName,
+                    blobName: uploadSasUrl.blobName,
                     contentType: _document.file.type,
                     fileSize: _document.file.size,
                     originalFileName: _document.file.name,
                     type: _document.type
-                })
+                });
             }
         });
 
