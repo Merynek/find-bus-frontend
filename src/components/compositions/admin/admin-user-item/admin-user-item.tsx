@@ -100,7 +100,7 @@ export const AdminUserItem = (props: IAdminUserItemProps) => {
             <Group title={"Vehicles"}>
                 {user.vehicles.map(v => {
                     return <LayoutFlexRow gap={FlexGap.SMALL_16} key={v.id}>
-                        <Text text={`${v.name} - ${v.status}`} fontSize={FontSize.M_22} />
+                        <Text text={`ID: ${v.id}: ${v.name} - ${v.status}`} fontSize={FontSize.M_22} />
                         <ButtonLink
                             route={{
                                 route: ROUTES.ADMIN_VEHICLE,
