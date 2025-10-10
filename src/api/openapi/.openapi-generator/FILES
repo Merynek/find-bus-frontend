@@ -17,9 +17,13 @@ models/BanUserRequestDto.ts
 models/ChangePasswordRequestDto.ts
 models/CloseTripOfferReason.ts
 models/CloseTripRequestDto.ts
+models/CompleteUploadVehicleFilesRequestDto.ts
+models/CompletedUploadDocumentItemRequestDto.ts
+models/CompletedUploadPhotoItemRequestDto.ts
 models/Country.ts
 models/CreateOfferRequestDto.ts
 models/CreateTripRequestDto.ts
+models/CreateUploadUrlForVehicleFilesRequestDto.ts
 models/Currency.ts
 models/CurrentUserDto.ts
 models/DeleteTripOfferRequestDto.ts
@@ -94,6 +98,8 @@ models/VehicleRequestDto.ts
 models/VehicleResponseDto.ts
 models/VehicleStatus.ts
 models/VehicleTransportVerificationRequestDto.ts
+models/VehicleUploadDocumentItemRequestDto.ts
+models/VehicleUploadPhotoItemRequestDto.ts
 models/VehicleVerificationRequestDto.ts
 models/VerificationFeedbackResponseDto.ts
 models/index.ts

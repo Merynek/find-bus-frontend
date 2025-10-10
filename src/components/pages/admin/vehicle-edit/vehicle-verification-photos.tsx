@@ -51,18 +51,18 @@ const VehicleVerificationPhotos = (props: IVehicleVerificationPhotosProps) => {
                 {_photos.map(p => {
                     const _files = p.publicFile ? [{id: p.id, file: p.publicFile}] : [];
                     return <div key={p.id}>
-                        {p.file && <LayoutFlexRow gap={FlexGap.SMALL_16}>
-                            {renderImage(p.file.path)}
-                            <FileGroupUploaderForm
-                                files={_files}
-                                label={"Public version"}
-                                idValue={p.id.toString()}
-                                formFileUpload={FormDataEnum.imagesUpload}
-                                formFileType={FormDataEnum.photoIds}
-                                formIdsToDelete={FormDataEnum.photoIdsToDelete}
-                                onlyOneFile={true}
-                            />
-                        </LayoutFlexRow>}
+                        {/*{p.image && <LayoutFlexRow gap={FlexGap.SMALL_16}>*/}
+                        {/*    {renderImage(p.image.path)}*/}
+                        {/*    <FileGroupUploaderForm*/}
+                        {/*        files={_files}*/}
+                        {/*        label={"Public version"}*/}
+                        {/*        idValue={p.id.toString()}*/}
+                        {/*        formFileUpload={FormDataEnum.imagesUpload}*/}
+                        {/*        formFileType={FormDataEnum.photoIds}*/}
+                        {/*        formIdsToDelete={FormDataEnum.photoIdsToDelete}*/}
+                        {/*        onlyOneFile={true}*/}
+                        {/*    />*/}
+                        {/*</LayoutFlexRow>}*/}
                     </div>
                 })}
             </LayoutFlexRow>

@@ -103,6 +103,10 @@ export function formatDistance(meters: number): IDistanceFormat {
     }
 }
 
+export const generateId = () => {
+    return new Date().getTime().toString() + Math.random().toString();
+}
+
 export function getFormattedDistance(val: number): string {
     const format = formatDistance(val);
     switch (format.unit) {

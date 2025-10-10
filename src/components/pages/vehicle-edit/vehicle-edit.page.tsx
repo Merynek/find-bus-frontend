@@ -30,12 +30,21 @@ import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/b
 import {VehicleConverter} from "@/src/converters/vehicle/vehicle-converter";
 import {FormActionEnum} from "@/src/enums/form-action.enum";
 import FileGroupUploaderForm
-    from "@/src/components/compositions/files/file-group-uploader-form/file-group-uploader-form";
-import {Image} from "@/src/data/media/Image";
+    , {
+    IFileGroupUploaderItem
+} from "@/src/components/compositions/files/file-group-uploader-form/file-group-uploader-form";
 import {Text} from "@/src/components/components/texts/text";
+import {generateId} from "@/src/utils/common";
 
 interface IVehicleEditPageProps {
     vehicle: VehicleResponseDto;
+}
+
+interface IPhotoItem extends IFileGroupUploaderItem {
+    type: VehiclePhotoType;
+}
+interface IDocumentItem extends IFileGroupUploaderItem {
+    type: VehicleDocumentType;
 }
 
 const VehicleEditPage = (props: IVehicleEditPageProps) => {
@@ -66,7 +75,92 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
             vehicleId: id
         }
     });
+    const createPhotos = (): IPhotoItem[] => {
+        const _items: IPhotoItem[] = [];
+        vehicle.photos.forEach(p => {
+            if (p.image) {
+                _items.push({
+                    id: p.id.toString(),
+                    dbId: p.id,
+                    path: p.image.path,
+                    file: p.image.file,
+                    type: p.type
+                })
+            }
+        });
+        _items.push({
+            id: generateId(),
+            dbId: undefined,
+            path: undefined,
+            file: undefined,
+            type: VehiclePhotoType.FRONT
+        })
+        _items.push({
+            id: generateId(),
+            dbId: undefined,
+            path: undefined,
+            file: undefined,
+            type: VehiclePhotoType.REAR
+        })
+        _items.push({
+            id: generateId(),
+            dbId: undefined,
+            path: undefined,
+            file: undefined,
+            type: VehiclePhotoType.LEFT_SIDE
+        })
+        _items.push({
+            id: generateId(),
+            dbId: undefined,
+            path: undefined,
+            file: undefined,
+            type: VehiclePhotoType.RIGHT_SIDE
+        })
+        _items.push({
+            id: generateId(),
+            dbId: undefined,
+            path: undefined,
+            file: undefined,
+            type: VehiclePhotoType.INTERIOR
+        })
+        return _items;
+    }
+
+    const createDocuments = (): IDocumentItem[] => {
+        const _items: IDocumentItem[] = [];
+        vehicle.documents.forEach(d => {
+            if (d.image) {
+                _items.push({
+                    id: d.id.toString(),
+                    dbId: d.id,
+                    path: d.image.path,
+                    file: d.image.file,
+                    type: d.type
+                })
+            }
+        });
+        _items.push({
+            id: generateId(),
+            dbId: undefined,
+            path: undefined,
+            file: undefined,
+            type: VehicleDocumentType.INSURANCE
+        })
+        _items.push({
+            id: generateId(),
+            dbId: undefined,
+            path: undefined,
+            file: undefined,
+            type: VehicleDocumentType.TECHNICAL_CERTIFICATE
+        })
+        return _items;
+    }
+
     const [departureStation, setDepartureStation] = useState<Place|undefined>(vehicle.departureStation || undefined);
+    const [photos, setPhotos] = useState<IPhotoItem[]>(createPhotos());
+    const [documents, setDocuments] = useState<IDocumentItem[]>(createDocuments());
+    const [photoIdsToDelete, setPhotoIdsToDelete] = useState<number[]>([]);
+    const [documentIdsToDelete, setDocumentIdsToDelete] = useState<number[]>([]);
     const locale = useCurrentLocale();
 
     const getEuroStandardOptions = (): IComboBoxItem<string>[] => {
@@ -103,32 +197,17 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
     }
 
     const getPhotoItems = (type: VehiclePhotoType) => {
-        const _inputs: {id: number; file: Image}[] = [];
-        const _photos = vehicle.photos.filter(p => p.type === type);
-        _photos.forEach(p => {
-            if (p.file) {
-                _inputs.push({
-                    id: p.id,
-                    file: p.file
-                })
-            }
-        });
-        return _inputs;
+        return photos.filter(p => p.type === type);
     }
 
     const getDocumentItems = (type: VehicleDocumentType) => {
-        const _inputs: {id: number; file: Image}[] = [];
-        const _documents = vehicle.documents.filter(p => p.type === type);
-        _documents.forEach(p => {
-            if (p.file) {
-                _inputs.push({
-                    id: p.id,
-                    file: p.file
-                })
-            }
-        });
-        return _inputs;
+        return documents.filter(p => p.type === type);
     }
+
+    console.log("Photos", photos);
+    console.log("PhotosToDelete", photoIdsToDelete);
+    console.log("Documents", documents);
+    console.log("DocumentIdsToDelete", documentIdsToDelete);
 
     const renderVehiclePhotos = () => {
         return <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
@@ -136,59 +215,115 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
             <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
                 <FileGroupUploaderForm
                     files={getPhotoItems(VehiclePhotoType.FRONT)}
+                    deleteIds={photoIdsToDelete}
                     label={t("frontPhoto")}
-                    idValue={VehiclePhotoType.FRONT}
-                    formFileUpload={FormDataEnum.imagesUpload}
-                    formFileType={FormDataEnum.imagesType}
-                    formIdsToDelete={FormDataEnum.photoIdsToDelete}
+                    onChange={(items, deleteIds) => {
+                        const cleanItems = photos.filter(p => p.type !== VehiclePhotoType.FRONT);
+                        const newItems = items.map(i => {
+                            return {
+                                ...i,
+                                type: VehiclePhotoType.FRONT
+                            }
+                        })
+                        setPhotos([...cleanItems, ...newItems]);
+                        setPhotoIdsToDelete([...photoIdsToDelete, ...deleteIds]);
+                    }}
                 />
                 <FileGroupUploaderForm
                     files={getPhotoItems(VehiclePhotoType.REAR)}
+                    deleteIds={photoIdsToDelete}
                     label={t("rearPhoto")}
-                    idValue={VehiclePhotoType.REAR}
-                    formFileUpload={FormDataEnum.imagesUpload}
-                    formFileType={FormDataEnum.imagesType}
-                    formIdsToDelete={FormDataEnum.photoIdsToDelete}
+                    onChange={(items, deleteIds) => {
+                        const cleanItems = photos.filter(p => p.type !== VehiclePhotoType.REAR);
+                        const newItems = items.map(i => {
+                            return {
+                                ...i,
+                                type: VehiclePhotoType.REAR
+                            }
+                        })
+                        setPhotos([...cleanItems, ...newItems]);
+                        setPhotoIdsToDelete([...photoIdsToDelete, ...deleteIds]);
+                    }}
                 />
                 <FileGroupUploaderForm
                     files={getPhotoItems(VehiclePhotoType.LEFT_SIDE)}
+                    deleteIds={photoIdsToDelete}
                     label={t("leftSidePhoto")}
-                    idValue={VehiclePhotoType.LEFT_SIDE}
-                    formFileUpload={FormDataEnum.imagesUpload}
-                    formFileType={FormDataEnum.imagesType}
-                    formIdsToDelete={FormDataEnum.photoIdsToDelete}
+                    onChange={(items, deleteIds) => {
+                        const cleanItems = photos.filter(p => p.type !== VehiclePhotoType.LEFT_SIDE);
+                        const newItems = items.map(i => {
+                            return {
+                                ...i,
+                                type: VehiclePhotoType.LEFT_SIDE
+                            }
+                        })
+                        setPhotos([...cleanItems, ...newItems]);
+                        setPhotoIdsToDelete([...photoIdsToDelete, ...deleteIds]);
+                    }}
                 />
                 <FileGroupUploaderForm
                     files={getPhotoItems(VehiclePhotoType.RIGHT_SIDE)}
+                    deleteIds={photoIdsToDelete}
                     label={t("rightSidePhoto")}
-                    idValue={VehiclePhotoType.RIGHT_SIDE}
-                    formFileUpload={FormDataEnum.imagesUpload}
-                    formFileType={FormDataEnum.imagesType}
-                    formIdsToDelete={FormDataEnum.photoIdsToDelete}
+                    onChange={(items, deleteIds) => {
+                        const cleanItems = photos.filter(p => p.type !== VehiclePhotoType.RIGHT_SIDE);
+                        const newItems = items.map(i => {
+                            return {
+                                ...i,
+                                type: VehiclePhotoType.RIGHT_SIDE
+                            }
+                        })
+                        setPhotos([...cleanItems, ...newItems]);
+                        setPhotoIdsToDelete([...photoIdsToDelete, ...deleteIds]);
+                    }}
                 />
                 <FileGroupUploaderForm
                     files={getPhotoItems(VehiclePhotoType.INTERIOR)}
+                    deleteIds={photoIdsToDelete}
                     label={t("interiorPhoto")}
-                    idValue={VehiclePhotoType.INTERIOR}
-                    formFileUpload={FormDataEnum.imagesUpload}
-                    formFileType={FormDataEnum.imagesType}
-                    formIdsToDelete={FormDataEnum.photoIdsToDelete}
-                />
-                <FileGroupUploaderForm
-                    files={getDocumentItems(VehicleDocumentType.TECHNICAL_CERTIFICATE)}
-                    label={t("technicalCertificate")}
-                    idValue={VehicleDocumentType.TECHNICAL_CERTIFICATE}
-                    formFileUpload={FormDataEnum.documentsUpload}
-                    formFileType={FormDataEnum.documentsType}
-                    formIdsToDelete={FormDataEnum.documentIdsToDelete}
+                    onChange={(items, deleteIds) => {
+                        const cleanItems = photos.filter(p => p.type !== VehiclePhotoType.INTERIOR);
+                        const newItems = items.map(i => {
+                            return {
+                                ...i,
+                                type: VehiclePhotoType.INTERIOR
+                            }
+                        })
+                        setPhotos([...cleanItems, ...newItems]);
+                        setPhotoIdsToDelete([...photoIdsToDelete, ...deleteIds]);
+                    }}
                 />
                 <FileGroupUploaderForm
                     files={getDocumentItems(VehicleDocumentType.INSURANCE)}
+                    deleteIds={documentIdsToDelete}
                     label={t("insurance")}
-                    idValue={VehicleDocumentType.INSURANCE}
-                    formFileUpload={FormDataEnum.documentsUpload}
-                    formFileType={FormDataEnum.documentsType}
-                    formIdsToDelete={FormDataEnum.documentIdsToDelete}
+                    onChange={(items, deleteIds) => {
+                        const cleanItems = documents.filter(p => p.type !== VehicleDocumentType.INSURANCE);
+                        const newItems = items.map(i => {
+                            return {
+                                ...i,
+                                type: VehicleDocumentType.INSURANCE
+                            }
+                        })
+                        setDocuments([...cleanItems, ...newItems]);
+                        setDocumentIdsToDelete([...documentIdsToDelete, ...deleteIds]);
+                    }}
+                />
+                <FileGroupUploaderForm
+                    files={getDocumentItems(VehicleDocumentType.TECHNICAL_CERTIFICATE)}
+                    deleteIds={documentIdsToDelete}
+                    label={t("technicalCertificate")}
+                    onChange={(items, deleteIds) => {
+                        const cleanItems = documents.filter(p => p.type !== VehicleDocumentType.TECHNICAL_CERTIFICATE);
+                        const newItems = items.map(i => {
+                            return {
+                                ...i,
+                                type: VehicleDocumentType.TECHNICAL_CERTIFICATE
+                            }
+                        })
+                        setDocuments([...cleanItems, ...newItems]);
+                        setDocumentIdsToDelete([...documentIdsToDelete, ...deleteIds]);
+                    }}
                 />
             </LayoutFlexColumn>
         </LayoutFlexColumn>

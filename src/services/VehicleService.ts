@@ -1,16 +1,17 @@
 import {
     addVehicle,
+    completeUploadVehicleFiles,
+    createUploadUrlForVehicleFiles,
     getVehicle,
     getVehicles, sendVehicleToVerificationRequest,
-    setVehicleVerification, updateVehicle, updateVehicleFiles, uploadVehiclePublicPhotos
+    setVehicleVerification, updateVehicle, uploadVehiclePublicPhotos
 } from "../server-actions/vehicle/vehicleActions";
 import {
     IAddVehicleRequest,
-    IUploadVehicleFilesRequest,
     IUpdateVehicleRequest,
     ISendVehicleToVerificationRequest,
     IUploadVehiclePublicPhotosRequest,
-    ISetVehicleVerificationRequest
+    ISetVehicleVerificationRequest, ICreateUploadUrlForVehicleFilesRequest, ICompleteUploadVehicleFilesRequest
 } from "@/src/api/vehicleApi";
 import {BaseService} from "@/src/services/BaseService";
 import {VehicleConverter} from "@/src/converters/vehicle/vehicle-converter";
@@ -54,9 +55,15 @@ export class VehicleService extends BaseService {
         });
     }
 
-    public static async uploadVehicleFiles(req: IUploadVehicleFilesRequest) {
+    public static async createUploadUrlForVehicleFiles(req: ICreateUploadUrlForVehicleFilesRequest) {
         await this.handleActionCall(async () => {
-            await updateVehicleFiles(req);
+            await createUploadUrlForVehicleFiles(req);
+        });
+    }
+
+    public static async completeUploadVehicleFiles(req: ICompleteUploadVehicleFilesRequest) {
+        await this.handleActionCall(async () => {
+            await completeUploadVehicleFiles(req);
         });
     }
 

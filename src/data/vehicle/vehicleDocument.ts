@@ -4,17 +4,17 @@ import {Image} from "../media/Image";
 interface IVehicleDocument {
     id: number;
     type: VehicleDocumentType
-    file: Image|null;
+    image: Image|null;
 }
 
 export class VehicleDocument {
     public id: number;
     public type: VehicleDocumentType;
-    public file: Image|null;
+    public image: Image|null;
 
     constructor(settings: IVehicleDocument) {
         this.id = settings.id;
         this.type = settings.type;
-        this.file = settings.file;
+        this.image = settings.image;
     }
 }

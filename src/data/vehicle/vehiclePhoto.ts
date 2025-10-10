@@ -4,20 +4,20 @@ import {Image} from "../media/Image";
 interface IVehiclePhoto {
     id: number;
     type: VehiclePhotoType
-    file: Image|null;
+    image: Image|null;
     publicFile: Image|null;
 }
 
 export class VehiclePhoto {
     public id: number;
     public type: VehiclePhotoType;
-    public file: Image|null;
+    public image: Image|null;
     public publicFile: Image|null;
 
     constructor(settings: IVehiclePhoto) {
         this.id = settings.id;
         this.type = settings.type;
-        this.file = settings.file;
+        this.image = settings.image;
         this.publicFile = settings.publicFile;
     }
 }

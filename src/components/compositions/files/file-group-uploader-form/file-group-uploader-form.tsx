@@ -4,27 +4,18 @@ import {Text} from "@/src/components/components/texts/text";
 import {FontSize, FontWeight} from "@/src/components/components/texts/textStyles";
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 import {ImageUploader} from "@/src/components/components/image-uploader/image-uploader";
-import {FormDataEnum} from "@/src/enums/form-data.enum";
-import { useState } from "react";
 import React from "react";
-import {Image} from "@/src/data/media/Image";
-
-interface IInputItems {
-    id: number;
-    file: Image;
-}
+import {generateId} from "@/src/utils/common";
 
 interface IFileGroupUploaderFormProps {
-    files: IInputItems[];
+    files: IFileGroupUploaderItem[];
+    deleteIds: number[];
     label: string;
-    idValue: string;
-    formFileUpload: FormDataEnum;
-    formFileType: FormDataEnum;
-    formIdsToDelete?: FormDataEnum;
     onlyOneFile?: boolean;
+    onChange: (items: IFileGroupUploaderItem[], deleteIds: number[]) => void;
 }
 
-interface IFileItem {
+export interface IFileGroupUploaderItem {
     id: string;
     dbId?: number;
     path?: string;
@@ -32,89 +23,53 @@ interface IFileItem {
 }
 
 const FileGroupUploaderForm = (props: IFileGroupUploaderFormProps) => {
-    const { files, label, idValue, formFileUpload, formFileType, formIdsToDelete, onlyOneFile } = props;
-    const [deletedFileIds, setDeletedFileIds] = useState<number[]>([]);
+    const { files, label, onlyOneFile, onChange, deleteIds } = props;
 
-    const generateId = () => {
-        return new Date().getTime().toString() + Math.random().toString();
-    }
-
-    const [items, setItems] = useState<IFileItem[]>(() => {
-        const _items: IFileItem[] = files
-            .map(p => ({
-                id: p.id.toString(),
-                dbId: p.id,
-                path: p.file?.path,
-                file: undefined,
-            }));
-        _items.push({
-            id: generateId(),
-            dbId: undefined,
-            path: undefined,
-            file: undefined
-        });
-        return _items;
-    });
-
-    const addItemOnIndex = (currentItems: IFileItem[], index: number, file: File) => {
+    const onAddItemOnIndex = (currentItems: IFileGroupUploaderItem[], index: number, file: File, idsToDelete: number[]) => {
         currentItems.splice(index, 0, {
             file: file,
             dbId: undefined,
             path: URL.createObjectURL(file),
             id: generateId()
         });
-        setItems(currentItems);
+        onChange(currentItems, idsToDelete);
     }
 
     return <LayoutFlexColumn gap={FlexGap.BIG_40}>
         <Text text={label} fontWeight={FontWeight.SEMIBOLD} fontSize={FontSize.M_22} />
         <LayoutFlexRow gap={FlexGap.MEDIUM_24} canWrap={true}>
-            {items.map((item, index) => {
-                const itemForUpload = item.dbId === undefined && item.path !== undefined;
-
+            {files.map((item, index) => {
                 return <React.Fragment key={index}>
                     <ImageUploader
-                        inputName={formFileUpload}
+                        inputName={""}
                         previewUrl={item.path || undefined}
                         onDelete={() => {
                             if (item.dbId) {
-                                setDeletedFileIds([...deletedFileIds, item.dbId]);
-                                setItems(prevItems => prevItems.filter(i => i.dbId !== item.dbId));
+                                onChange(files.filter(i => i.dbId !== item.dbId), [...deleteIds, item.dbId]);
                             } else {
-                                setItems(prevItems => prevItems.filter(i => i.file !== item.file));
+                                onChange(files.filter(i => i.file !== item.file), deleteIds);
                             }
                         }}
                         isExistingPhoto={item.dbId !== undefined}
                         onFileSelect={(file) => {
                             if (item.dbId) {
-                                setDeletedFileIds([...deletedFileIds, item.dbId]);
-                                const newItems = items.filter(i => i.dbId !== item.dbId);
-                                addItemOnIndex(newItems, index, file);
+                                const newItems = files.filter(i => i.dbId !== item.dbId);
+                                onAddItemOnIndex(newItems, index, file, [...deleteIds, item.dbId]);
+                            } else if (item.file) {
+                                const newItems = files.filter(i => i.file !== item.file);
+                                onAddItemOnIndex(newItems, index, file, [...deleteIds]);
                             } else {
-                                let newItems: IFileItem[] = [];
+                                let newItems: IFileGroupUploaderItem[] = [];
                                 if (!onlyOneFile) {
-                                    newItems = [...items];
+                                    newItems = [...files];
                                 }
-                                addItemOnIndex(newItems, index, file);
+                                onAddItemOnIndex(newItems, index, file, [...deleteIds]);
                             }
                         }}
                         imageId={item.id}
                     />
-                    {itemForUpload && <input
-                        type="hidden"
-                        name={formFileType}
-                        value={idValue}
-                    />}
                 </React.Fragment>
             })}
-            {formIdsToDelete && deletedFileIds.map(id => (
-                <input
-                    key={id}
-                    type="hidden"
-                    name={formIdsToDelete}
-                    value={id}
-                />
-            ))}
         </LayoutFlexRow>
     </LayoutFlexColumn>
 };

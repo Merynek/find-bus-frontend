@@ -16,9 +16,9 @@
 import * as runtime from '../runtime';
 import type {
   AddVehicleRequestDto,
+  CompleteUploadVehicleFilesRequestDto,
+  CreateUploadUrlForVehicleFilesRequestDto,
   UpdateVehicleRequestDto,
-  VehicleDocumentType,
-  VehiclePhotoType,
   VehicleResponseDto,
   VehicleTransportVerificationRequestDto,
   VehicleVerificationRequestDto,
@@ -26,12 +26,12 @@ import type {
 import {
     AddVehicleRequestDtoFromJSON,
     AddVehicleRequestDtoToJSON,
+    CompleteUploadVehicleFilesRequestDtoFromJSON,
+    CompleteUploadVehicleFilesRequestDtoToJSON,
+    CreateUploadUrlForVehicleFilesRequestDtoFromJSON,
+    CreateUploadUrlForVehicleFilesRequestDtoToJSON,
     UpdateVehicleRequestDtoFromJSON,
     UpdateVehicleRequestDtoToJSON,
-    VehicleDocumentTypeFromJSON,
-    VehicleDocumentTypeToJSON,
-    VehiclePhotoTypeFromJSON,
-    VehiclePhotoTypeToJSON,
     VehicleResponseDtoFromJSON,
     VehicleResponseDtoToJSON,
     VehicleTransportVerificationRequestDtoFromJSON,
@@ -40,14 +40,12 @@ import {
     VehicleVerificationRequestDtoToJSON,
 } from '../models/index';
 
-export interface ApiVehiclesFilesPostRequest {
-    id: number;
-    documentTypes?: Array<VehicleDocumentType>;
-    documentFiles?: Array<Blob>;
-    documentIdsToDelete?: Array<number>;
-    photoTypes?: Array<VehiclePhotoType>;
-    photoFiles?: Array<Blob>;
-    photoIdsToDelete?: Array<number>;
+export interface ApiVehiclesCompleteFileUploadPostRequest {
+    completeUploadVehicleFilesRequestDto?: CompleteUploadVehicleFilesRequestDto;
+}
+
+export interface ApiVehiclesCreateUploadFilesPostRequest {
+    createUploadUrlForVehicleFilesRequestDto?: CreateUploadUrlForVehicleFilesRequestDto;
 }
 
 export interface ApiVehiclesSendVehicleToVerificationPostRequest {
@@ -84,17 +82,12 @@ export class VehiclesApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiVehiclesFilesPostRaw(requestParameters: ApiVehiclesFilesPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['id'] == null) {
-            throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling apiVehiclesFilesPost().'
-            );
-        }
-
+    async apiVehiclesCompleteFileUploadPostRaw(requestParameters: ApiVehiclesCompleteFileUploadPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json-patch+json';
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -104,73 +97,15 @@ export class VehiclesApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
-        const consumes: runtime.Consume[] = [
-            { contentType: 'multipart/form-data' },
-        ];
-        // @ts-ignore: canConsumeForm may be unused
-        const canConsumeForm = runtime.canConsumeForm(consumes);
 
-        let formParams: { append(param: string, value: any): any };
-        let useForm = false;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        if (useForm) {
-            formParams = new FormData();
-        } else {
-            formParams = new URLSearchParams();
-        }
-
-        if (requestParameters['id'] != null) {
-            formParams.append('Id', requestParameters['id'] as any);
-        }
-
-        if (requestParameters['documentTypes'] != null) {
-            requestParameters['documentTypes'].forEach((element) => {
-                formParams.append('DocumentTypes', element as any);
-            })
-        }
-
-        if (requestParameters['documentFiles'] != null) {
-            requestParameters['documentFiles'].forEach((element) => {
-                formParams.append('DocumentFiles', element as any);
-            })
-        }
-
-        if (requestParameters['documentIdsToDelete'] != null) {
-            requestParameters['documentIdsToDelete'].forEach((element) => {
-                formParams.append('DocumentIdsToDelete', element as any);
-            })
-        }
-
-        if (requestParameters['photoTypes'] != null) {
-            requestParameters['photoTypes'].forEach((element) => {
-                formParams.append('PhotoTypes', element as any);
-            })
-        }
-
-        if (requestParameters['photoFiles'] != null) {
-            requestParameters['photoFiles'].forEach((element) => {
-                formParams.append('PhotoFiles', element as any);
-            })
-        }
-
-        if (requestParameters['photoIdsToDelete'] != null) {
-            requestParameters['photoIdsToDelete'].forEach((element) => {
-                formParams.append('PhotoIdsToDelete', element as any);
-            })
-        }
-
-
-        let urlPath = `/api/Vehicles/files`;
+        let urlPath = `/api/Vehicles/completeFileUpload`;
 
         const response = await this.request({
             path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: formParams,
+            body: CompleteUploadVehicleFilesRequestDtoToJSON(requestParameters['completeUploadVehicleFilesRequestDto']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -178,8 +113,45 @@ export class VehiclesApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiVehiclesFilesPost(requestParameters: ApiVehiclesFilesPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.apiVehiclesFilesPostRaw(requestParameters, initOverrides);
+    async apiVehiclesCompleteFileUploadPost(requestParameters: ApiVehiclesCompleteFileUploadPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.apiVehiclesCompleteFileUploadPostRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     */
+    async apiVehiclesCreateUploadFilesPostRaw(requestParameters: ApiVehiclesCreateUploadFilesPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json-patch+json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/Vehicles/createUploadFiles`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreateUploadUrlForVehicleFilesRequestDtoToJSON(requestParameters['createUploadUrlForVehicleFilesRequestDto']),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async apiVehiclesCreateUploadFilesPost(requestParameters: ApiVehiclesCreateUploadFilesPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.apiVehiclesCreateUploadFilesPostRaw(requestParameters, initOverrides);
     }
 
     /**

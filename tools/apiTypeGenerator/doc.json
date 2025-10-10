@@ -1612,88 +1612,67 @@
         }
       }
     },
-    "/api/Vehicles/files": {
+    "/api/Vehicles/completeFileUpload": {
       "post": {
         "tags": [
           "Vehicles"
         ],
         "requestBody": {
           "content": {
-            "multipart/form-data": {
+            "application/json-patch+json": {
               "schema": {
-                "required": [
-                  "Id"
-                ],
-                "type": "object",
-                "properties": {
-                  "Id": {
-                    "type": "integer",
-                    "format": "int32"
-                  },
-                  "DocumentTypes": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/VehicleDocumentType"
-                    }
-                  },
-                  "DocumentFiles": {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "format": "binary"
-                    }
-                  },
-                  "DocumentIdsToDelete": {
-                    "type": "array",
-                    "items": {
-                      "type": "integer",
-                      "format": "int32"
-                    }
-                  },
-                  "PhotoTypes": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/VehiclePhotoType"
-                    }
-                  },
-                  "PhotoFiles": {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "format": "binary"
-                    }
-                  },
-                  "PhotoIdsToDelete": {
-                    "type": "array",
-                    "items": {
-                      "type": "integer",
-                      "format": "int32"
-                    }
-                  }
-                }
-              },
-              "encoding": {
-                "Id": {
-                  "style": "form"
-                },
-                "DocumentTypes": {
-                  "style": "form"
-                },
-                "DocumentFiles": {
-                  "style": "form"
-                },
-                "DocumentIdsToDelete": {
-                  "style": "form"
-                },
-                "PhotoTypes": {
-                  "style": "form"
-                },
-                "PhotoFiles": {
-                  "style": "form"
-                },
-                "PhotoIdsToDelete": {
-                  "style": "form"
-                }
+                "$ref": "#/components/schemas/CompleteUploadVehicleFilesRequestDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompleteUploadVehicleFilesRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompleteUploadVehicleFilesRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompleteUploadVehicleFilesRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Vehicles/createUploadFiles": {
+      "post": {
+        "tags": [
+          "Vehicles"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUploadUrlForVehicleFilesRequestDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUploadUrlForVehicleFilesRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUploadUrlForVehicleFilesRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUploadUrlForVehicleFilesRequestDto"
               }
             }
           }
@@ -2116,6 +2095,113 @@
         },
         "additionalProperties": false
       },
+      "CompleteUploadVehicleFilesRequestDto": {
+        "required": [
+          "documentIdsToDelete",
+          "documents",
+          "photoIdsToDelete",
+          "photos",
+          "vehicleId"
+        ],
+        "type": "object",
+        "properties": {
+          "vehicleId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "photoIdsToDelete": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "documentIdsToDelete": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "photos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CompletedUploadPhotoItemRequestDto"
+            }
+          },
+          "documents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CompletedUploadDocumentItemRequestDto"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "CompletedUploadDocumentItemRequestDto": {
+        "required": [
+          "blobName",
+          "contentType",
+          "fileSize",
+          "originalFileName",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/VehicleDocumentType"
+          },
+          "blobName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "contentType": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "fileSize": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "originalFileName": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CompletedUploadPhotoItemRequestDto": {
+        "required": [
+          "blobName",
+          "contentType",
+          "fileSize",
+          "originalFileName",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/VehiclePhotoType"
+          },
+          "blobName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "contentType": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "fileSize": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "originalFileName": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
       "Country": {
         "enum": [
           "AF",
@@ -2438,6 +2524,33 @@
           "endOrder": {
             "type": "string",
             "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateUploadUrlForVehicleFilesRequestDto": {
+        "required": [
+          "documents",
+          "photos",
+          "vehicleId"
+        ],
+        "type": "object",
+        "properties": {
+          "vehicleId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "photos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VehicleUploadPhotoItemRequestDto"
+            }
+          },
+          "documents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VehicleUploadDocumentItemRequestDto"
+            }
           }
         },
         "additionalProperties": false
@@ -4317,6 +4430,50 @@
           "description": {
             "minLength": 1,
             "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "VehicleUploadDocumentItemRequestDto": {
+        "required": [
+          "clientFileId",
+          "fileName",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "clientFileId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "fileName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/VehicleDocumentType"
+          }
+        },
+        "additionalProperties": false
+      },
+      "VehicleUploadPhotoItemRequestDto": {
+        "required": [
+          "clientFileId",
+          "fileName",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "clientFileId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "fileName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/VehiclePhotoType"
           }
         },
         "additionalProperties": false

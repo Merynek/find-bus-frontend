@@ -19,21 +19,53 @@ export interface ISendVehicleToVerificationRequest extends IApiRequest {
     vehicleId: number;
 }
 
+export interface ICompleteUploadVehicleFilesRequest extends IApiRequest {
+    vehicleId: number;
+    photoIdsToDelete: number[];
+    documentIdsToDelete: number[];
+    photos: IPhotoCompleteUploadItem[];
+    documents: IDocumentCompleteUploadItem[];
+}
+
+interface IDocumentCompleteUploadItem {
+    blobName: string;
+    contentType: string;
+    fileSize: number;
+    originalFileName: string;
+    type: VehicleDocumentType;
+}
+
+interface IPhotoCompleteUploadItem {
+    blobName: string;
+    contentType: string;
+    fileSize: number;
+    originalFileName: string;
+    type: VehiclePhotoType;
+}
+
+export interface ICreateUploadUrlForVehicleFilesRequest extends IApiRequest {
+    vehicleId: number;
+    photos: IPhotoUploadItem[];
+    documents: IDocumentUploadItem[];
+}
+
+interface IPhotoUploadItem {
+    clientFileId: string;
+    fileName: string;
+    type: VehiclePhotoType;
+}
+
+interface IDocumentUploadItem {
+    clientFileId: string;
+    fileName: string;
+    type: VehicleDocumentType;
+}
+
 export interface IUploadVehiclePublicPhotosRequest extends IApiRequest {
     vehicleId: number;
     photoFiles: File[];
     photoIds: number[];
     photoIdsToDelete: number[];
-}
-
-export interface IUploadVehicleFilesRequest extends IApiRequest {
-    vehicleId: number;
-    photoFiles: File[];
-    documentFiles: File[];
-    photoTypes: VehiclePhotoType[];
-    documentTypes: VehicleDocumentType[];
-    photoIdsToDelete: number[];
-    documentIdsToDelete: number[];
 }
 
 export interface ISetVehicleVerificationRequest extends IApiRequest {
@@ -123,18 +155,27 @@ export class VehicleApi {
         }
     }
 
-    public async uploadVehicleFiles(req: IUploadVehicleFilesRequest): Promise<void> {
-        return await handleApiCall(this._api.apiVehiclesFilesPost({
-            id: req.vehicleId,
-            photoFiles: req.photoFiles,
-            documentFiles: req.documentFiles,
-            photoTypes: req.photoTypes,
-            documentTypes: req.documentTypes,
-            photoIdsToDelete: req.photoIdsToDelete,
-            documentIdsToDelete: req.documentIdsToDelete
+    public async createUploadUrlForVehicleFiles(req: ICreateUploadUrlForVehicleFilesRequest): Promise<void> {
+        return await handleApiCall(this._api.apiVehiclesCreateUploadFilesPost({
+            createUploadUrlForVehicleFilesRequestDto: {
+                vehicleId: req.vehicleId,
+                photos: req.photos,
+                documents: req.documents
+            }
         }, req.initOverrides));
     }
 
+    public async completeUploadVehicleFiles(req: ICompleteUploadVehicleFilesRequest): Promise<void> {
+        return await handleApiCall(this._api.apiVehiclesCompleteFileUploadPost({
+            completeUploadVehicleFilesRequestDto: {
+                vehicleId: req.vehicleId,
+                photos: req.photos,
+                documents: req.documents,
+                photoIdsToDelete: req.photoIdsToDelete,
+                documentIdsToDelete: req.documentIdsToDelete
+            }
+        }, req.initOverrides));
+    }
 
     public async setVehicleVerification(req: ISetVehicleVerificationRequest): Promise<void> {
         await handleApiCall(this._api.apiVehiclesTransportVerificationPost({

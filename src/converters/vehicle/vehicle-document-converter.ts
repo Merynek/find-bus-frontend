@@ -6,7 +6,7 @@ export class VehicleDocumentConverter {
     public static toInstance(documentDto: VehicleDocumentResponseDto): VehicleDocument {
         return new VehicleDocument({
             id: documentDto.id,
-            file: documentDto.file ? FileConverter.toPhotoInstance(documentDto.file) : null,
+            image: documentDto.file ? FileConverter.toPhotoInstance(documentDto.file) : null,
             type: documentDto.type
         });
     }
@@ -14,7 +14,7 @@ export class VehicleDocumentConverter {
     public static toJson(vehicleDocument: VehicleDocument): VehicleDocumentResponseDto {
         return {
             id: vehicleDocument.id,
-            file: vehicleDocument.file ? FileConverter.photoToJson(vehicleDocument.file) : undefined,
+            file: vehicleDocument.image ? FileConverter.photoToJson(vehicleDocument.image) : undefined,
             type: vehicleDocument.type
         }
     }

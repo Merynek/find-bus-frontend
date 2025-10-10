@@ -4,16 +4,13 @@ import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {VehicleSchema} from "@/src/forms-action/vehicle/VehicleSchema";
 import {VehicleService} from "@/src/services/VehicleService";
 import {
-    IUploadVehicleFilesRequest,
     IVehicleRequest
 } from "@/src/api/vehicleApi";
 import {Country, PlaceRequestDto} from "@/src/api/openapi";
 import {LOCALES} from "@/src/enums/locale";
 import {FormActionEnum} from "@/src/enums/form-action.enum";
-import {FindBusError} from "@/src/errors/FindBusError";
-import {FrontendErrorEnum} from "@/src/enums/frontend-error.enum";
 
-type VehicleData = Partial<IVehicleRequest & {vehicleId: number, formActionType: FormActionEnum} & IUploadVehicleFilesRequest & {locale: LOCALES}>;
+type VehicleData = Partial<IVehicleRequest & {vehicleId: number, formActionType: FormActionEnum} & {locale: LOCALES}>;
 
 type VehicleApiResult = void;
 
@@ -38,13 +35,7 @@ export class VehicleFormAction extends BaseFormAction<typeof VehicleSchema, Vehi
             yearOfManufacture: this.getNumberFormValue(formData, FormDataEnum.yearOfManufacture),
             departureStation: this._getDepartureStation(formData),
             locale: this.getEnumFormValue(formData, FormDataEnum.locale),
-            formActionType: this.getEnumFormValue(formData, FormDataEnum.formActionType),
-            photoIdsToDelete: this.getNumberArrayFormValue(formData, FormDataEnum.photoIdsToDelete),
-            documentIdsToDelete: this.getNumberArrayFormValue(formData, FormDataEnum.documentIdsToDelete),
-            photoFiles: this.getFileArrayFormValue(formData, FormDataEnum.imagesUpload),
-            documentFiles: this.getFileArrayFormValue(formData, FormDataEnum.documentsUpload),
-            photoTypes: this.getEnumArrayFormValue(formData, FormDataEnum.imagesType),
-            documentTypes: this.getEnumArrayFormValue(formData, FormDataEnum.documentsType),
+            formActionType: this.getEnumFormValue(formData, FormDataEnum.formActionType)
         };
     }
 
@@ -65,30 +56,6 @@ export class VehicleFormAction extends BaseFormAction<typeof VehicleSchema, Vehi
             }
         });
 
-        const photos = validatedData.photoFiles || [];
-        const documents = validatedData.documentFiles || [];
-        const photoTypes = validatedData.photoTypes || [];
-        const documentTypes = validatedData.documentTypes || [];
-
-        if (photos.length !== photoTypes.length || documents.length !== documentTypes.length) {
-            throw new FindBusError({
-                name: "Photos and documents",
-                errorCode: FrontendErrorEnum.UNKNOWN,
-                message: "Photos and documents must have the same length",
-                url: "VehicleFormAction.ts",
-                statusCode: 400
-            });
-        }
-
-        await VehicleService.uploadVehicleFiles({
-            vehicleId: validatedData.vehicleId,
-            photoFiles: validatedData.photoFiles || [],
-            documentFiles: validatedData.documentFiles || [],
-            photoTypes: validatedData.photoTypes || [],
-            documentTypes: validatedData.documentTypes || [],
-            photoIdsToDelete: validatedData.photoIdsToDelete || [],
-            documentIdsToDelete: validatedData.documentIdsToDelete || [],
-        })
         if (validatedData.formActionType === FormActionEnum.SAVE_AND_VERIFY) {
             await VehicleService.sendVehicleToVerificationRequest({
                 vehicleId: validatedData.vehicleId

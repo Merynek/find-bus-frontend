@@ -3,9 +3,12 @@
 import {getAccessToken} from "@/src/server-actions/auth/accessTokenActions";
 import {
     IAddVehicleRequest,
-    IUploadVehicleFilesRequest,
     IUpdateVehicleRequest,
-    VehicleApi, ISendVehicleToVerificationRequest, IUploadVehiclePublicPhotosRequest, ISetVehicleVerificationRequest
+    VehicleApi,
+    ISendVehicleToVerificationRequest,
+    IUploadVehiclePublicPhotosRequest,
+    ISetVehicleVerificationRequest,
+    ICreateUploadUrlForVehicleFilesRequest, ICompleteUploadVehicleFilesRequest
 } from "@/src/api/vehicleApi";
 import type {VehicleResponseDto} from "@/src/api/openapi";
 import {handleActionCall} from "@/src/server-actions/baseAction";
@@ -60,11 +63,19 @@ export async function sendVehicleToVerificationRequest(req: ISendVehicleToVerifi
     });
 }
 
-export async function updateVehicleFiles(req: IUploadVehicleFilesRequest) {
+export async function createUploadUrlForVehicleFiles(req: ICreateUploadUrlForVehicleFilesRequest) {
     await handleActionCall(async () => {
         const accessToken = await getAccessToken();
         const vehicleApi = new VehicleApi(accessToken);
-        await vehicleApi.uploadVehicleFiles(req);
+        await vehicleApi.createUploadUrlForVehicleFiles(req);
+    });
+}
+
+export async function completeUploadVehicleFiles(req: ICompleteUploadVehicleFilesRequest) {
+    await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const vehicleApi = new VehicleApi(accessToken);
+        await vehicleApi.completeUploadVehicleFiles(req);
     });
 }
 

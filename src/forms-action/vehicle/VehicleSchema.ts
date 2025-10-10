@@ -1,7 +1,7 @@
 import { z } from 'zod'
-import {Amenities, EuroStandard, VehiclePhotoType, VehicleDocumentType} from "@/src/api/openapi";
+import {Amenities, EuroStandard} from "@/src/api/openapi";
 import {LOCALES} from "@/src/enums/locale";
-import {ImageFileSchema, PlaceSchema} from "@/src/forms-action/Schemas";
+import {PlaceSchema} from "@/src/forms-action/Schemas";
 import {FormActionEnum} from "@/src/enums/form-action.enum";
 
 const VehicleCoreSchema = z.object({
@@ -16,13 +16,7 @@ const VehicleCoreSchema = z.object({
     stkExpired: z.date({ message: "Datum expirace STK je vyžadováno." }).min(new Date(), "Datum expirace STK nesmí být v minulosti.").optional(),
     yearOfManufacture: z.number().int().min(1900, "Neplatný rok výroby.").max(new Date().getFullYear() + 1, "Rok výroby nesmí být v budoucnosti.").optional(),
     departureStation: PlaceSchema.optional(),
-    formActionType: z.enum(FormActionEnum),
-    photoIdsToDelete: z.array(z.number()).optional(),
-    documentIdsToDelete: z.array(z.number()).optional(),
-    photoFiles: z.array(ImageFileSchema).optional(),
-    documentFiles: z.array(ImageFileSchema).optional(),
-    photoTypes: z.array(z.enum(VehiclePhotoType)).optional(),
-    documentTypes: z.array(z.enum(VehicleDocumentType)).optional()
+    formActionType: z.enum(FormActionEnum)
 }).strict();
 
 export const VehicleSchema = z.object({

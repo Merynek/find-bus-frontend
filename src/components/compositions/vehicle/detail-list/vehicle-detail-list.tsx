@@ -64,13 +64,13 @@ export const VehicleDetail = (props: IVehicleDetailListProps) => {
                 {vehicle.photos.map(photo => {
                     return <div key={photo.id}>
                         <span>{photo.type}:</span>
-                        {photo.file?.path && renderImage(photo.file.path)}
+                        {photo.image?.path && renderImage(photo.image.path)}
                     </div>
                 })}
                 {vehicle.documents.map(document => {
                     return <div key={document.id}>
                         <span>{document.type}:</span>
-                        {document.file?.path && renderImage(document.file.path)}
+                        {document.image?.path && renderImage(document.image.path)}
                     </div>
                 })}
             </LayoutFlexRow>

@@ -38,7 +38,7 @@ export function getRandomVehicle(): Vehicle {
 export function getRandomVehiclePhoto(): VehiclePhoto {
     return new VehiclePhoto({
         id: getRandomId(),
-        file: getRandomPhoto(),
+        image: getRandomPhoto(),
         type: getRandomEnum(VehiclePhotoType),
         publicFile: getRandomPhoto()
     })
@@ -47,7 +47,7 @@ export function getRandomVehiclePhoto(): VehiclePhoto {
 export function getRandomVehicleDocument(): VehicleDocument {
     return new VehicleDocument({
         id: getRandomId(),
-        file: getRandomPhoto(),
+        image: getRandomPhoto(),
         type: getRandomEnum(VehicleDocumentType)
     })
 }
