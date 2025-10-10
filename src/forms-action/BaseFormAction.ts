@@ -3,12 +3,13 @@ import {FormDataEnum} from "@/src/enums/form-data.enum";
 import { $ZodErrorTree } from 'zod/v4/core';
 import {FindBusError, IFindBusError} from "@/src/errors/FindBusError";
 
-export type TFormActionState<Schema extends z.ZodSchema> = {
+export type TFormActionState<Schema extends z.ZodSchema, ApiResult = unknown> = {
     success?: boolean;
     message?: string;
     schemaErrors?: $ZodErrorTree<z.infer<Schema>>;
     appError?: IFindBusError;
     data?: Partial<z.infer<Schema>>;
+    apiResult?: ApiResult;
 } | undefined;
 
 export abstract class BaseFormAction<Schema extends z.ZodSchema, Data, ApiResult> {
@@ -19,7 +20,7 @@ export abstract class BaseFormAction<Schema extends z.ZodSchema, Data, ApiResult
 
     protected abstract callApi(validatedData: z.infer<Schema>): Promise<ApiResult>;
 
-    public async handle(formData: FormData): Promise<TFormActionState<Schema>> {
+    public async handle(formData: FormData): Promise<TFormActionState<Schema, ApiResult>> {
         const data = this.createDataFromFormData(formData);
         const validatedFields = this.schema.safeParse(data);
 
@@ -33,10 +34,11 @@ export abstract class BaseFormAction<Schema extends z.ZodSchema, Data, ApiResult
         }
 
         try {
-            await this.callApi(validatedFields.data);
+            const apiResult = await this.callApi(validatedFields.data);
             return {
                 success: true,
                 data: data as Partial<z.infer<Schema>>,
+                apiResult: apiResult
             };
         } catch (error: unknown) {
             if (error instanceof FindBusError) {

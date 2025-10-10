@@ -12,7 +12,7 @@ import {FormActionEnum} from "@/src/enums/form-action.enum";
 
 type VehicleData = Partial<IVehicleRequest & {vehicleId: number, formActionType: FormActionEnum} & {locale: LOCALES}>;
 
-type VehicleApiResult = void;
+export type VehicleApiResult = {updatedVehicleId: number, sendVehicleToVerification: boolean};
 
 export class VehicleFormAction extends BaseFormAction<typeof VehicleSchema, VehicleData, VehicleApiResult> {
 
@@ -40,7 +40,7 @@ export class VehicleFormAction extends BaseFormAction<typeof VehicleSchema, Vehi
     }
 
     protected async callApi(validatedData: z.infer<typeof VehicleSchema>): Promise<VehicleApiResult> {
-        await VehicleService.updateVehicle({
+        const updatedVehicleId = await VehicleService.updateVehicle({
             vehicleId: validatedData.vehicleId,
             vehicle: {
                 name: validatedData.name,
@@ -55,11 +55,9 @@ export class VehicleFormAction extends BaseFormAction<typeof VehicleSchema, Vehi
                 departureStation: validatedData.departureStation
             }
         });
-
-        if (validatedData.formActionType === FormActionEnum.SAVE_AND_VERIFY) {
-            await VehicleService.sendVehicleToVerificationRequest({
-                vehicleId: validatedData.vehicleId
-            });
+        return {
+            updatedVehicleId: updatedVehicleId,
+            sendVehicleToVerification: validatedData.formActionType === FormActionEnum.SAVE_AND_VERIFY
         }
     }
 

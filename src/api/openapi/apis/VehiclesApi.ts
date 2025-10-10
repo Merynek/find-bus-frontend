@@ -95,7 +95,7 @@ export class VehiclesApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiVehiclesCompleteFileUploadPostRaw(requestParameters: ApiVehiclesCompleteFileUploadPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async apiVehiclesCompleteFileUploadPostRaw(requestParameters: ApiVehiclesCompleteFileUploadPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<number>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -121,13 +121,18 @@ export class VehiclesApi extends runtime.BaseAPI {
             body: VehicleCompleteUploadFilesRequestDtoToJSON(requestParameters['vehicleCompleteUploadFilesRequestDto']),
         }, initOverrides);
 
-        return new runtime.VoidApiResponse(response);
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<number>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
     }
 
     /**
      */
-    async apiVehiclesCompleteFileUploadPost(requestParameters: ApiVehiclesCompleteFileUploadPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.apiVehiclesCompleteFileUploadPostRaw(requestParameters, initOverrides);
+    async apiVehiclesCompleteFileUploadPost(requestParameters: ApiVehiclesCompleteFileUploadPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<number> {
+        const response = await this.apiVehiclesCompleteFileUploadPostRaw(requestParameters, initOverrides);
+        return await response.value();
     }
 
     /**
@@ -442,7 +447,7 @@ export class VehiclesApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiVehiclesVehiclePutRaw(requestParameters: ApiVehiclesVehiclePutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async apiVehiclesVehiclePutRaw(requestParameters: ApiVehiclesVehiclePutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<number>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -468,13 +473,18 @@ export class VehiclesApi extends runtime.BaseAPI {
             body: UpdateVehicleRequestDtoToJSON(requestParameters['updateVehicleRequestDto']),
         }, initOverrides);
 
-        return new runtime.VoidApiResponse(response);
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<number>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
     }
 
     /**
      */
-    async apiVehiclesVehiclePut(requestParameters: ApiVehiclesVehiclePutRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.apiVehiclesVehiclePutRaw(requestParameters, initOverrides);
+    async apiVehiclesVehiclePut(requestParameters: ApiVehiclesVehiclePutRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<number> {
+        const response = await this.apiVehiclesVehiclePutRaw(requestParameters, initOverrides);
+        return await response.value();
     }
 
 }

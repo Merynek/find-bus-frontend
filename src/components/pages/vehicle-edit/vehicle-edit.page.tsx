@@ -28,7 +28,6 @@ import {DatePicker} from "@/src/components/components/inputs/date-picker/date-pi
 import {PlaceAutocomplete} from "@/src/components/components/inputs/place-autocomplete/place-autocomplete";
 import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
 import {VehicleConverter} from "@/src/converters/vehicle/vehicle-converter";
-import {FormActionEnum} from "@/src/enums/form-action.enum";
 import {Text} from "@/src/components/components/texts/text";
 import FileGroupUploaderForm, {
 } from "@/src/components/compositions/files/file-group-uploader-form/file-group-uploader-form";
@@ -40,6 +39,8 @@ import {
 } from "@/src/components/pages/vehicle-edit/vehicle-edit-utils.page";
 import { useRouter } from '@/src/i18n/navigation';
 import {ROUTES} from "@/src/enums/router.enum";
+import {VehicleService} from "@/src/services/VehicleService";
+import {FormActionEnum} from "@/src/enums/form-action.enum";
 
 interface IVehicleEditPageProps {
     vehicle: VehicleResponseDto;
@@ -84,16 +85,20 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
     const locale = useCurrentLocale();
 
     useEffect(() => {
-        if (state?.success && state?.data) {
-            onSuccess();
-
+        if (state?.success && state?.apiResult) {
+            onSuccess(state.apiResult.updatedVehicleId, state.apiResult.sendVehicleToVerification);
         }
     }, [state]);
 
-    const onSuccess = async () => {
+    const onSuccess = async (vehicleId: number, sendVehicleToVerification: boolean) => {
         setIsUploading(true);
         try {
-            await uploadFiles(photos, documents, photoIdsToDelete, documentIdsToDelete, vehicle);
+            await uploadFiles(photos, documents, photoIdsToDelete, documentIdsToDelete, vehicleId);
+            if (sendVehicleToVerification) {
+                await VehicleService.sendVehicleToVerificationRequest({
+                    vehicleId: vehicleId
+                })
+            }
             router.push(ROUTES.VEHICLES);
         } catch (error) {
             console.error("Error during submit or upload:", error);

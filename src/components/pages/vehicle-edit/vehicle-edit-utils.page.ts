@@ -110,7 +110,7 @@ export const createInitPublicPhotosState = (vehicle: Vehicle): IPublicPhotoItem[
     return _items;
 }
 
-export const uploadFiles = async (photos: IPhotoItem[], documents: IDocumentItem[], photoIdsToDelete: number[], documentIdsToDelete: number[], vehicle: Vehicle) => {
+export const uploadFiles = async (photos: IPhotoItem[], documents: IDocumentItem[], photoIdsToDelete: number[], documentIdsToDelete: number[], vehicleId: number) => {
     const _photos: IPhotoUploadItem[] = [];
     const _documents: IDocumentUploadItem[] = [];
     photos.forEach(p => {
@@ -131,7 +131,7 @@ export const uploadFiles = async (photos: IPhotoItem[], documents: IDocumentItem
             })
         }
     });
-    await VehicleFileUploaderService.uploadVehicleFiles(vehicle.id, _photos, _documents, uniq(photoIdsToDelete), uniq(documentIdsToDelete));
+    await VehicleFileUploaderService.uploadVehicleFiles(vehicleId, _photos, _documents, uniq(photoIdsToDelete), uniq(documentIdsToDelete));
 }
 
 export const uploadPublicPhotos = async (photos: IPublicPhotoItem[], photoIdsToDelete: number[], vehicle: Vehicle) => {

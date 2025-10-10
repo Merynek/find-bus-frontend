@@ -49,9 +49,9 @@ export class VehicleService extends BaseService {
         });
     }
 
-    public static async updateVehicle(req: IUpdateVehicleRequest) {
-        await this.handleActionCall(async () => {
-            await updateVehicle(req);
+    public static async updateVehicle(req: IUpdateVehicleRequest): Promise<number> {
+        return await this.handleActionCall(async () => {
+            return await updateVehicle(req);
         });
     }
 
@@ -68,9 +68,9 @@ export class VehicleService extends BaseService {
         });
     }
 
-    public static async completeUploadVehicleFiles(req: ICompleteUploadVehicleFilesRequest) {
-        await this.handleActionCall(async () => {
-            await completeUploadVehicleFiles(req);
+    public static async completeUploadVehicleFiles(req: ICompleteUploadVehicleFilesRequest): Promise<number> {
+        return await this.handleActionCall(async () => {
+            return await completeUploadVehicleFiles(req);
         });
     }
 

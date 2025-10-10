@@ -52,11 +52,11 @@ export async function addVehicle(req: IAddVehicleRequest): Promise<number> {
     });
 }
 
-export async function updateVehicle(req: IUpdateVehicleRequest) {
-    await handleActionCall(async () => {
+export async function updateVehicle(req: IUpdateVehicleRequest): Promise<number> {
+    return await handleActionCall(async () => {
         const accessToken = await getAccessToken();
         const vehicleApi = new VehicleApi(accessToken);
-        await vehicleApi.updateVehicle(req);
+        return await vehicleApi.updateVehicle(req);
     });
 }
 
@@ -76,11 +76,11 @@ export async function createUploadUrlForVehicleFiles(req: ICreateUploadUrlForVeh
     });
 }
 
-export async function completeUploadVehicleFiles(req: ICompleteUploadVehicleFilesRequest) {
-    await handleActionCall(async () => {
+export async function completeUploadVehicleFiles(req: ICompleteUploadVehicleFilesRequest): Promise<number> {
+    return await handleActionCall(async () => {
         const accessToken = await getAccessToken();
         const vehicleApi = new VehicleApi(accessToken);
-        await vehicleApi.completeUploadVehicleFiles(req);
+        return await vehicleApi.completeUploadVehicleFiles(req);
     });
 }
 

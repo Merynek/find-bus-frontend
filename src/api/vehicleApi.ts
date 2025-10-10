@@ -143,8 +143,8 @@ export class VehicleApi {
         }, req.initOverrides));
     }
 
-    public async updateVehicle(req: IUpdateVehicleRequest): Promise<void> {
-        await handleApiCall(this._api.apiVehiclesVehiclePut({
+    public async updateVehicle(req: IUpdateVehicleRequest): Promise<number> {
+        return await handleApiCall(this._api.apiVehiclesVehiclePut({
             updateVehicleRequestDto: {
                 id: req.vehicleId,
                 info: this._createVehicleRequest(req.vehicle)
@@ -185,8 +185,8 @@ export class VehicleApi {
         }, req.initOverrides));
     }
 
-    public async completeUploadVehicleFiles(req: ICompleteUploadVehicleFilesRequest) {
-        await handleApiCall(this._api.apiVehiclesCompleteFileUploadPost({
+    public async completeUploadVehicleFiles(req: ICompleteUploadVehicleFilesRequest): Promise<number> {
+        return await handleApiCall(this._api.apiVehiclesCompleteFileUploadPost({
             vehicleCompleteUploadFilesRequestDto: {
                 vehicleId: req.vehicleId,
                 photos: req.photos,
