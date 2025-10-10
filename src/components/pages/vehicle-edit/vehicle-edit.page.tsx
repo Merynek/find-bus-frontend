@@ -90,7 +90,7 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
             await uploadFiles(photos, documents, photoIdsToDelete, documentIdsToDelete, vehicle);
             action(formData);
         } catch (error) {
-            console.error("Chyba při submitu nebo uploadu:", error);
+            console.error("Error during submit or upload:", error);
         } finally {
             setIsUploading(false);
         }
