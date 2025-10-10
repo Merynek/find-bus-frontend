@@ -29,12 +29,13 @@ import {PlaceAutocomplete} from "@/src/components/components/inputs/place-autoco
 import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
 import {VehicleConverter} from "@/src/converters/vehicle/vehicle-converter";
 import {FormActionEnum} from "@/src/enums/form-action.enum";
-import FileGroupUploaderForm
-    , {
-    IFileGroupUploaderItem
-} from "@/src/components/compositions/files/file-group-uploader-form/file-group-uploader-form";
 import {Text} from "@/src/components/components/texts/text";
 import {generateId} from "@/src/utils/common";
+import {FileUploaderService, IDocumentUploadItem, IPhotoUploadItem} from "@/src/singletons/FileUploaderService";
+import uniq from "lodash/uniq";
+import FileGroupUploaderForm, {
+    IFileGroupUploaderItem
+} from "@/src/components/compositions/files/file-group-uploader-form/file-group-uploader-form";
 
 interface IVehicleEditPageProps {
     vehicle: VehicleResponseDto;
@@ -162,6 +163,30 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
     const [photoIdsToDelete, setPhotoIdsToDelete] = useState<number[]>([]);
     const [documentIdsToDelete, setDocumentIdsToDelete] = useState<number[]>([]);
     const locale = useCurrentLocale();
+
+    const uploadFiles = async () => {
+        const _photos: IPhotoUploadItem[] = [];
+        const _documents: IDocumentUploadItem[] = [];
+        photos.forEach(p => {
+            if (p.file && p.dbId === undefined) {
+                _photos.push({
+                    clientFileId: p.id,
+                    file: p.file,
+                    type: p.type
+                })
+            }
+        });
+        documents.forEach(d => {
+            if (d.file && d.dbId === undefined) {
+                _documents.push({
+                    clientFileId: d.id,
+                    file: d.file,
+                    type: d.type
+                })
+            }
+        });
+        await FileUploaderService.uploadVehicleFiles(vehicle.id, _photos, _documents, uniq(photoIdsToDelete), uniq(documentIdsToDelete));
+    }
 
     const getEuroStandardOptions = (): IComboBoxItem<string>[] => {
         const options: IComboBoxItem<string>[] = [];

@@ -4,7 +4,7 @@ import {handleApiCall, IApiRequest} from "./toolsApi";
 import {
     Amenities,
     EuroStandard,
-    PlaceRequestDto, VehicleDocumentType,
+    PlaceRequestDto, type UploadVehicleFilesSasUrlResponseDto, VehicleDocumentType,
     VehiclePhotoType,
     type VehicleRequestDto,
     VehicleResponseDto
@@ -27,20 +27,19 @@ export interface ICompleteUploadVehicleFilesRequest extends IApiRequest {
     documents: IDocumentCompleteUploadItem[];
 }
 
-interface IDocumentCompleteUploadItem {
-    blobName: string;
-    contentType: string;
-    fileSize: number;
-    originalFileName: string;
+export interface IDocumentCompleteUploadItem extends IFileCompleteUploadItem {
     type: VehicleDocumentType;
 }
 
-interface IPhotoCompleteUploadItem {
+export interface IPhotoCompleteUploadItem extends IFileCompleteUploadItem{
+    type: VehiclePhotoType;
+}
+
+interface IFileCompleteUploadItem {
     blobName: string;
     contentType: string;
     fileSize: number;
     originalFileName: string;
-    type: VehiclePhotoType;
 }
 
 export interface ICreateUploadUrlForVehicleFilesRequest extends IApiRequest {
@@ -155,7 +154,7 @@ export class VehicleApi {
         }
     }
 
-    public async createUploadUrlForVehicleFiles(req: ICreateUploadUrlForVehicleFilesRequest): Promise<void> {
+    public async createUploadUrlForVehicleFiles(req: ICreateUploadUrlForVehicleFilesRequest): Promise<UploadVehicleFilesSasUrlResponseDto> {
         return await handleApiCall(this._api.apiVehiclesCreateUploadFilesPost({
             createUploadUrlForVehicleFilesRequestDto: {
                 vehicleId: req.vehicleId,

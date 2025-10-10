@@ -1679,7 +1679,24 @@
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadVehicleFilesSasUrlResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadVehicleFilesSasUrlResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadVehicleFilesSasUrlResponseDto"
+                }
+              }
+            }
           }
         }
       }
@@ -3943,6 +3960,51 @@
         },
         "additionalProperties": false
       },
+      "UploadSasUrlResponseDto": {
+        "required": [
+          "blobName",
+          "clientFileId",
+          "uploadUrl"
+        ],
+        "type": "object",
+        "properties": {
+          "clientFileId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "uploadUrl": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "blobName": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UploadVehicleFilesSasUrlResponseDto": {
+        "required": [
+          "documents",
+          "photos"
+        ],
+        "type": "object",
+        "properties": {
+          "photos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UploadSasUrlResponseDto"
+            }
+          },
+          "documents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UploadSasUrlResponseDto"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
       "UserActiveRequestDto": {
         "required": [
           "token"
@@ -4442,6 +4504,9 @@
         ],
         "type": "object",
         "properties": {
+          "type": {
+            "$ref": "#/components/schemas/VehicleDocumentType"
+          },
           "clientFileId": {
             "minLength": 1,
             "type": "string"
@@ -4449,9 +4514,6 @@
           "fileName": {
             "minLength": 1,
             "type": "string"
-          },
-          "type": {
-            "$ref": "#/components/schemas/VehicleDocumentType"
           }
         },
         "additionalProperties": false
@@ -4464,6 +4526,9 @@
         ],
         "type": "object",
         "properties": {
+          "type": {
+            "$ref": "#/components/schemas/VehiclePhotoType"
+          },
           "clientFileId": {
             "minLength": 1,
             "type": "string"
@@ -4471,9 +4536,6 @@
           "fileName": {
             "minLength": 1,
             "type": "string"
-          },
-          "type": {
-            "$ref": "#/components/schemas/VehiclePhotoType"
           }
         },
         "additionalProperties": false

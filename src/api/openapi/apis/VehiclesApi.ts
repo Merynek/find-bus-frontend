@@ -19,6 +19,7 @@ import type {
   CompleteUploadVehicleFilesRequestDto,
   CreateUploadUrlForVehicleFilesRequestDto,
   UpdateVehicleRequestDto,
+  UploadVehicleFilesSasUrlResponseDto,
   VehicleResponseDto,
   VehicleTransportVerificationRequestDto,
   VehicleVerificationRequestDto,
@@ -32,6 +33,8 @@ import {
     CreateUploadUrlForVehicleFilesRequestDtoToJSON,
     UpdateVehicleRequestDtoFromJSON,
     UpdateVehicleRequestDtoToJSON,
+    UploadVehicleFilesSasUrlResponseDtoFromJSON,
+    UploadVehicleFilesSasUrlResponseDtoToJSON,
     VehicleResponseDtoFromJSON,
     VehicleResponseDtoToJSON,
     VehicleTransportVerificationRequestDtoFromJSON,
@@ -119,7 +122,7 @@ export class VehiclesApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiVehiclesCreateUploadFilesPostRaw(requestParameters: ApiVehiclesCreateUploadFilesPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async apiVehiclesCreateUploadFilesPostRaw(requestParameters: ApiVehiclesCreateUploadFilesPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UploadVehicleFilesSasUrlResponseDto>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -145,13 +148,14 @@ export class VehiclesApi extends runtime.BaseAPI {
             body: CreateUploadUrlForVehicleFilesRequestDtoToJSON(requestParameters['createUploadUrlForVehicleFilesRequestDto']),
         }, initOverrides);
 
-        return new runtime.VoidApiResponse(response);
+        return new runtime.JSONApiResponse(response, (jsonValue) => UploadVehicleFilesSasUrlResponseDtoFromJSON(jsonValue));
     }
 
     /**
      */
-    async apiVehiclesCreateUploadFilesPost(requestParameters: ApiVehiclesCreateUploadFilesPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.apiVehiclesCreateUploadFilesPostRaw(requestParameters, initOverrides);
+    async apiVehiclesCreateUploadFilesPost(requestParameters: ApiVehiclesCreateUploadFilesPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UploadVehicleFilesSasUrlResponseDto> {
+        const response = await this.apiVehiclesCreateUploadFilesPostRaw(requestParameters, initOverrides);
+        return await response.value();
     }
 
     /**

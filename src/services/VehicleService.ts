@@ -15,6 +15,8 @@ import {
 } from "@/src/api/vehicleApi";
 import {BaseService} from "@/src/services/BaseService";
 import {VehicleConverter} from "@/src/converters/vehicle/vehicle-converter";
+import {VehicleFilesSasUrlConverter} from "@/src/converters/vehicle/vehicle-files-sas-url-converter";
+import {VehicleFilesSasUrl} from "@/src/data/vehicle/vehicleFilesSasUrl";
 
 export class VehicleService extends BaseService {
     public static async setVehicleVerification(req: ISetVehicleVerificationRequest) {
@@ -55,9 +57,10 @@ export class VehicleService extends BaseService {
         });
     }
 
-    public static async createUploadUrlForVehicleFiles(req: ICreateUploadUrlForVehicleFilesRequest) {
-        await this.handleActionCall(async () => {
-            await createUploadUrlForVehicleFiles(req);
+    public static async createUploadUrlForVehicleFiles(req: ICreateUploadUrlForVehicleFilesRequest): Promise<VehicleFilesSasUrl> {
+        return await this.handleActionCall(async () => {
+            const response = await createUploadUrlForVehicleFiles(req);
+            return VehicleFilesSasUrlConverter.toInstance(response);
         });
     }
 

@@ -80,6 +80,8 @@ models/UpdateEmailConfig.ts
 models/UpdateOfferRequestDto.ts
 models/UpdateUserConfigRequestDto.ts
 models/UpdateVehicleRequestDto.ts
+models/UploadSasUrlResponseDto.ts
+models/UploadVehicleFilesSasUrlResponseDto.ts
 models/UserActiveRequestDto.ts
 models/UserAddressRequestDto.ts
 models/UserAddressResponseDto.ts

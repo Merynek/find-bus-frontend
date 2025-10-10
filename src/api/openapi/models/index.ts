@@ -73,6 +73,8 @@ export * from './UpdateEmailConfig';
 export * from './UpdateOfferRequestDto';
 export * from './UpdateUserConfigRequestDto';
 export * from './UpdateVehicleRequestDto';
+export * from './UploadSasUrlResponseDto';
+export * from './UploadVehicleFilesSasUrlResponseDto';
 export * from './UserActiveRequestDto';
 export * from './UserAddressRequestDto';
 export * from './UserAddressResponseDto';

@@ -10,7 +10,7 @@ import {
     ISetVehicleVerificationRequest,
     ICreateUploadUrlForVehicleFilesRequest, ICompleteUploadVehicleFilesRequest
 } from "@/src/api/vehicleApi";
-import type {VehicleResponseDto} from "@/src/api/openapi";
+import type {UploadVehicleFilesSasUrlResponseDto, VehicleResponseDto} from "@/src/api/openapi";
 import {handleActionCall} from "@/src/server-actions/baseAction";
 
 export async function setVehicleVerification(req: ISetVehicleVerificationRequest) {
@@ -63,11 +63,11 @@ export async function sendVehicleToVerificationRequest(req: ISendVehicleToVerifi
     });
 }
 
-export async function createUploadUrlForVehicleFiles(req: ICreateUploadUrlForVehicleFilesRequest) {
-    await handleActionCall(async () => {
+export async function createUploadUrlForVehicleFiles(req: ICreateUploadUrlForVehicleFilesRequest): Promise<UploadVehicleFilesSasUrlResponseDto> {
+    return await handleActionCall(async () => {
         const accessToken = await getAccessToken();
         const vehicleApi = new VehicleApi(accessToken);
-        await vehicleApi.createUploadUrlForVehicleFiles(req);
+        return await vehicleApi.createUploadUrlForVehicleFiles(req);
     });
 }
 
