@@ -7,8 +7,15 @@ export interface IApiRequest {
 }
 
 interface IApiErrorResponse {
+    errors?: object[];
+    title?: string;
     ErrorCode: ErrorCode;
     Message: string;
+}
+
+interface IApiSchemaErrorResponse {
+    errors?: object[];
+    title?: string;
 }
 
 interface FetchError {
@@ -28,6 +35,15 @@ function isFetchError(error: unknown): error is FetchError {
         typeof (error as FetchError).response === 'object' &&
         'json' in (error as FetchError).response! &&
         typeof (error as FetchError).response!.json === 'function'
+    );
+}
+
+function isSchemaErrorResponse(obj: unknown): obj is IApiSchemaErrorResponse {
+    return (
+        typeof obj === 'object' &&
+        obj !== null &&
+        'errors' in obj &&
+        'title' in obj
     );
 }
 
@@ -56,8 +72,20 @@ export async function handleApiCall<T>(apiCall: Promise<T>): Promise<T> {
                 const jsonError = await error.response!.json();
                 if (isApiErrorResponse(jsonError)) {
                     apiErrorDetails = {
-                        errorCode: jsonError.ErrorCode || "unknown",
+                        errorCode: jsonError.ErrorCode || ErrorCode.UNKNOWN,
                         message: jsonError.Message || errorMessage,
+                        url: error.response?.url,
+                        statusCode: error.response?.status
+                    };
+                }
+                if (isSchemaErrorResponse(jsonError)) {
+                    let message = jsonError.Message || jsonError.title ||  errorMessage;
+                    if (jsonError.errors) {
+                        message += ` ${JSON.stringify(jsonError.errors)}`;
+                    }
+                    apiErrorDetails = {
+                        errorCode: ErrorCode.UNKNOWN,
+                        message: message,
                         url: error.response?.url,
                         statusCode: error.response?.status
                     };

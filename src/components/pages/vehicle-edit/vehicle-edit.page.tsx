@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {
     Amenities,
@@ -38,6 +38,8 @@ import {
     IDocumentItem,
     IPhotoItem, uploadFiles
 } from "@/src/components/pages/vehicle-edit/vehicle-edit-utils.page";
+import { useRouter } from '@/src/i18n/navigation';
+import {ROUTES} from "@/src/enums/router.enum";
 
 interface IVehicleEditPageProps {
     vehicle: VehicleResponseDto;
@@ -47,6 +49,7 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
     const id = props.vehicle.id;
     const vehicle = VehicleConverter.toInstance(props.vehicle);
     const {t} = useTranslate("page.vehicle");
+    const router = useRouter();
     const [state, action, pending] = useFormActionState(vehicleFormAction, {
         data: {
             name: vehicle.name,
@@ -80,21 +83,24 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
     const [isUploading, setIsUploading] = useState(false);
     const locale = useCurrentLocale();
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+    useEffect(() => {
+        if (state?.success && state?.data) {
+            onSuccess();
 
+        }
+    }, [state]);
+
+    const onSuccess = async () => {
         setIsUploading(true);
-        const formData = new FormData(event.currentTarget);
-
         try {
             await uploadFiles(photos, documents, photoIdsToDelete, documentIdsToDelete, vehicle);
-            action(formData);
+            router.push(ROUTES.VEHICLES);
         } catch (error) {
             console.error("Error during submit or upload:", error);
         } finally {
             setIsUploading(false);
         }
-    };
+    }
 
     const getEuroStandardOptions = (): IComboBoxItem<string>[] => {
         const options: IComboBoxItem<string>[] = [];
@@ -217,7 +223,7 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
             {renderWarningTextDependOnStatus()}
             {renderVerificationFeedback()}
         </LayoutFlexColumn>
-        <form onSubmit={handleSubmit}>
+        <form action={action}>
             <LayoutFlexColumn gap={FlexGap.LARGE_32}>
             <FormStatus state={state}/>
                 <input type="hidden" name={FormDataEnum.vehicleId} value={id}/>
