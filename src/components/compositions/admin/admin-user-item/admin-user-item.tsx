@@ -98,7 +98,7 @@ export const AdminUserItem = (props: IAdminUserItemProps) => {
                 {_renderTransporterRequirements(user.transportRequirements)}
             </Group>
             <Group title={"Vehicles"}>
-                {user.vehicles.map(v => {
+                {user.vehicles.reverse().map(v => {
                     return <LayoutFlexRow gap={FlexGap.SMALL_16} key={v.id}>
                         <Text text={`ID: ${v.id}: ${v.name} - ${v.status}`} fontSize={FontSize.M_22} />
                         <ButtonLink
