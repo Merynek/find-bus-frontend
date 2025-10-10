@@ -1,22 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {useCurrentLocale, useTranslate} from "@/src/hooks/translateHook";
-import {useFormActionState} from "@/src/hooks/formHook";
 import {FlexGap} from "@/src/enums/layout.enum";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
-import {FormStatus} from "@/src/components/components/form-status/form-status";
 import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
 import {Vehicle} from "@/src/data/vehicle/vehicle";
-import {FormActionEnum} from "@/src/enums/form-action.enum";
-import {adminVehicleFormAction} from "@/src/server-actions/forms/admin/vehicle/adminVehicleFormAction";
 import {ImageElement} from "@/src/components/components/image-element/image-element";
 import {VehiclePhotoType} from "@/src/api/openapi";
 import {Text} from "@/src/components/components/texts/text";
 import {FontSize, FontWeight} from "@/src/components/components/texts/textStyles";
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
-import FileGroupUploaderForm
-    from "@/src/components/compositions/files/file-group-uploader-form/file-group-uploader-form";
 import {Heading} from "@/src/components/components/texts/heading";
+import FileGroupUploaderForm from "@/src/components/compositions/files/file-group-uploader-form/file-group-uploader-form";
+import {
+    createEmptyPublicPhotoItem,
+    createInitPublicPhotosState, IPublicPhotoItem,
+    uploadPublicPhotos
+} from "@/src/components/pages/vehicle-edit/vehicle-edit-utils.page";
 
 interface IVehicleVerificationPhotosProps {
     vehicle: Vehicle;
@@ -26,11 +26,9 @@ const VehicleVerificationPhotos = (props: IVehicleVerificationPhotosProps) => {
     const {vehicle} = props;
     const { t: vehicleT } = useTranslate("page.vehicle");
     const { t } = useTranslate("page.adminVehicle");
-    const [state, action, pending] = useFormActionState(adminVehicleFormAction, {
-        data: {
-            vehicleId: vehicle.id
-        }
-    });
+    const [isUploading, setIsUploading] = useState(false);
+    const [photos, setPhotos] = useState<IPublicPhotoItem[]>(createInitPublicPhotosState(vehicle));
+    const [photoIdsToDelete, setPhotoIdsToDelete] = useState<number[]>([]);
     const locale = useCurrentLocale();
 
     const renderImage = (path: string) => {
@@ -49,20 +47,35 @@ const VehicleVerificationPhotos = (props: IVehicleVerificationPhotosProps) => {
             <Text text={label} fontWeight={FontWeight.SEMIBOLD} fontSize={FontSize.M_22} />
             <LayoutFlexRow gap={FlexGap.TINY_8}>
                 {_photos.map(p => {
-                    const _files = p.publicFile ? [{id: p.id, file: p.publicFile}] : [];
+                    const _currentPhoto = photos.find(pp => pp.id === p.id.toString());
+                    const _files = _currentPhoto ? [_currentPhoto] : [createEmptyPublicPhotoItem(p.id)];
                     return <div key={p.id}>
-                        {/*{p.image && <LayoutFlexRow gap={FlexGap.SMALL_16}>*/}
-                        {/*    {renderImage(p.image.path)}*/}
-                        {/*    <FileGroupUploaderForm*/}
-                        {/*        files={_files}*/}
-                        {/*        label={"Public version"}*/}
-                        {/*        idValue={p.id.toString()}*/}
-                        {/*        formFileUpload={FormDataEnum.imagesUpload}*/}
-                        {/*        formFileType={FormDataEnum.photoIds}*/}
-                        {/*        formIdsToDelete={FormDataEnum.photoIdsToDelete}*/}
-                        {/*        onlyOneFile={true}*/}
-                        {/*    />*/}
-                        {/*</LayoutFlexRow>}*/}
+                        {p.image && <LayoutFlexRow gap={FlexGap.SMALL_16}>
+                            {renderImage(p.image.path)}
+                            <FileGroupUploaderForm
+                                files={_files}
+                                deleteIds={photoIdsToDelete}
+                                label={label}
+                                onChange={(items, deleteIds) => {
+                                    const item = items[0];
+                                    if (item) {
+                                        item.id = p.id.toString();
+                                        const cleanItems = photos.filter(_p => _p.id !== item.id);
+                                        setPhotos([...cleanItems, {
+                                            ...item,
+                                            id: item.id,
+                                            originalId: p.id
+                                        }]);
+                                        setPhotoIdsToDelete([...photoIdsToDelete, ...deleteIds]);
+                                    } else {
+                                        const cleanItems = photos.filter(_p => _p.id !== p.id.toString());
+                                        setPhotos([...cleanItems]);
+                                        setPhotoIdsToDelete([...photoIdsToDelete, ...deleteIds]);
+                                    }
+                                }}
+                                onlyOneFile={true}
+                            />
+                        </LayoutFlexRow>}
                     </div>
                 })}
             </LayoutFlexRow>
@@ -82,23 +95,23 @@ const VehicleVerificationPhotos = (props: IVehicleVerificationPhotosProps) => {
         </LayoutFlexColumn>
     }
 
-    return <form action={action}>
-        <LayoutFlexColumn gap={FlexGap.LARGE_32}>
-            <FormStatus state={state}/>
-            <input type="hidden" name={FormDataEnum.vehicleId} value={vehicle.id}/>
-            <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale}/>
-            {renderVehiclePhotos()}
-            <ButtonClick
-                controlled={false}
-                type={ButtonType.BLACK}
-                size={ButtonSize.BUTTON_SIZE_M}
-                name={FormDataEnum.formActionType}
-                value={FormActionEnum.SAVE}
-                isDisabled={pending}
-                label={t("uploadPublicPhotos")}
-            />
-        </LayoutFlexColumn>
-    </form>
+    return <LayoutFlexColumn gap={FlexGap.LARGE_32}>
+        <input type="hidden" name={FormDataEnum.vehicleId} value={vehicle.id}/>
+        <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale}/>
+        {renderVehiclePhotos()}
+        <ButtonClick
+            controlled={true}
+            onClick={async () => {
+                setIsUploading(true);
+                await uploadPublicPhotos(photos, photoIdsToDelete, vehicle);
+                setIsUploading(false);
+            }}
+            type={ButtonType.BLACK}
+            size={ButtonSize.BUTTON_SIZE_M}
+            isDisabled={isUploading}
+            label={t("uploadPublicPhotos")}
+        />
+    </LayoutFlexColumn>
 };
 
 export default VehicleVerificationPhotos;

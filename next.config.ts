@@ -15,11 +15,6 @@ const nextConfig: NextConfig = {
                 hostname: 'findbusprodstorage.blob.core.windows.net',
             },
         ],
-    },
-    experimental: {
-        serverActions: {
-            bodySizeLimit: "40mb"
-        }
     }
 };
 

@@ -16,39 +16,56 @@
 import * as runtime from '../runtime';
 import type {
   AddVehicleRequestDto,
-  CompleteUploadVehicleFilesRequestDto,
-  CreateUploadUrlForVehicleFilesRequestDto,
   UpdateVehicleRequestDto,
-  UploadVehicleFilesSasUrlResponseDto,
+  VehicleCompletePublicUploadPhotosRequestDto,
+  VehicleCompleteUploadFilesRequestDto,
+  VehicleCreatePublicUploadUrlPhotosRequestDto,
+  VehicleCreateUploadUrlFilesRequestDto,
+  VehiclePublicUploadSasUrlResponseDto,
   VehicleResponseDto,
   VehicleTransportVerificationRequestDto,
+  VehicleUploadSasUrlResponseDto,
   VehicleVerificationRequestDto,
 } from '../models/index';
 import {
     AddVehicleRequestDtoFromJSON,
     AddVehicleRequestDtoToJSON,
-    CompleteUploadVehicleFilesRequestDtoFromJSON,
-    CompleteUploadVehicleFilesRequestDtoToJSON,
-    CreateUploadUrlForVehicleFilesRequestDtoFromJSON,
-    CreateUploadUrlForVehicleFilesRequestDtoToJSON,
     UpdateVehicleRequestDtoFromJSON,
     UpdateVehicleRequestDtoToJSON,
-    UploadVehicleFilesSasUrlResponseDtoFromJSON,
-    UploadVehicleFilesSasUrlResponseDtoToJSON,
+    VehicleCompletePublicUploadPhotosRequestDtoFromJSON,
+    VehicleCompletePublicUploadPhotosRequestDtoToJSON,
+    VehicleCompleteUploadFilesRequestDtoFromJSON,
+    VehicleCompleteUploadFilesRequestDtoToJSON,
+    VehicleCreatePublicUploadUrlPhotosRequestDtoFromJSON,
+    VehicleCreatePublicUploadUrlPhotosRequestDtoToJSON,
+    VehicleCreateUploadUrlFilesRequestDtoFromJSON,
+    VehicleCreateUploadUrlFilesRequestDtoToJSON,
+    VehiclePublicUploadSasUrlResponseDtoFromJSON,
+    VehiclePublicUploadSasUrlResponseDtoToJSON,
     VehicleResponseDtoFromJSON,
     VehicleResponseDtoToJSON,
     VehicleTransportVerificationRequestDtoFromJSON,
     VehicleTransportVerificationRequestDtoToJSON,
+    VehicleUploadSasUrlResponseDtoFromJSON,
+    VehicleUploadSasUrlResponseDtoToJSON,
     VehicleVerificationRequestDtoFromJSON,
     VehicleVerificationRequestDtoToJSON,
 } from '../models/index';
 
 export interface ApiVehiclesCompleteFileUploadPostRequest {
-    completeUploadVehicleFilesRequestDto?: CompleteUploadVehicleFilesRequestDto;
+    vehicleCompleteUploadFilesRequestDto?: VehicleCompleteUploadFilesRequestDto;
+}
+
+export interface ApiVehiclesCompletePublicPhotosUploadPostRequest {
+    vehicleCompletePublicUploadPhotosRequestDto?: VehicleCompletePublicUploadPhotosRequestDto;
+}
+
+export interface ApiVehiclesCreatePublicUploadPhotosPostRequest {
+    vehicleCreatePublicUploadUrlPhotosRequestDto?: VehicleCreatePublicUploadUrlPhotosRequestDto;
 }
 
 export interface ApiVehiclesCreateUploadFilesPostRequest {
-    createUploadUrlForVehicleFilesRequestDto?: CreateUploadUrlForVehicleFilesRequestDto;
+    vehicleCreateUploadUrlFilesRequestDto?: VehicleCreateUploadUrlFilesRequestDto;
 }
 
 export interface ApiVehiclesSendVehicleToVerificationPostRequest {
@@ -57,13 +74,6 @@ export interface ApiVehiclesSendVehicleToVerificationPostRequest {
 
 export interface ApiVehiclesTransportVerificationPostRequest {
     vehicleTransportVerificationRequestDto?: VehicleTransportVerificationRequestDto;
-}
-
-export interface ApiVehiclesUploadPublicVehiclePhotosPostRequest {
-    id: number;
-    photoIds?: Array<number>;
-    photoFiles?: Array<Blob>;
-    photoIdsToDelete?: Array<number>;
 }
 
 export interface ApiVehiclesVehicleGetRequest {
@@ -108,7 +118,7 @@ export class VehiclesApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: CompleteUploadVehicleFilesRequestDtoToJSON(requestParameters['completeUploadVehicleFilesRequestDto']),
+            body: VehicleCompleteUploadFilesRequestDtoToJSON(requestParameters['vehicleCompleteUploadFilesRequestDto']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -122,7 +132,82 @@ export class VehiclesApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiVehiclesCreateUploadFilesPostRaw(requestParameters: ApiVehiclesCreateUploadFilesPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UploadVehicleFilesSasUrlResponseDto>> {
+    async apiVehiclesCompletePublicPhotosUploadPostRaw(requestParameters: ApiVehiclesCompletePublicPhotosUploadPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json-patch+json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/Vehicles/completePublicPhotosUpload`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: VehicleCompletePublicUploadPhotosRequestDtoToJSON(requestParameters['vehicleCompletePublicUploadPhotosRequestDto']),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async apiVehiclesCompletePublicPhotosUploadPost(requestParameters: ApiVehiclesCompletePublicPhotosUploadPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.apiVehiclesCompletePublicPhotosUploadPostRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     */
+    async apiVehiclesCreatePublicUploadPhotosPostRaw(requestParameters: ApiVehiclesCreatePublicUploadPhotosPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<VehiclePublicUploadSasUrlResponseDto>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json-patch+json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/Vehicles/createPublicUploadPhotos`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: VehicleCreatePublicUploadUrlPhotosRequestDtoToJSON(requestParameters['vehicleCreatePublicUploadUrlPhotosRequestDto']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => VehiclePublicUploadSasUrlResponseDtoFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiVehiclesCreatePublicUploadPhotosPost(requestParameters: ApiVehiclesCreatePublicUploadPhotosPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<VehiclePublicUploadSasUrlResponseDto> {
+        const response = await this.apiVehiclesCreatePublicUploadPhotosPostRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiVehiclesCreateUploadFilesPostRaw(requestParameters: ApiVehiclesCreateUploadFilesPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<VehicleUploadSasUrlResponseDto>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -145,15 +230,15 @@ export class VehiclesApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: CreateUploadUrlForVehicleFilesRequestDtoToJSON(requestParameters['createUploadUrlForVehicleFilesRequestDto']),
+            body: VehicleCreateUploadUrlFilesRequestDtoToJSON(requestParameters['vehicleCreateUploadUrlFilesRequestDto']),
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => UploadVehicleFilesSasUrlResponseDtoFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => VehicleUploadSasUrlResponseDtoFromJSON(jsonValue));
     }
 
     /**
      */
-    async apiVehiclesCreateUploadFilesPost(requestParameters: ApiVehiclesCreateUploadFilesPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UploadVehicleFilesSasUrlResponseDto> {
+    async apiVehiclesCreateUploadFilesPost(requestParameters: ApiVehiclesCreateUploadFilesPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<VehicleUploadSasUrlResponseDto> {
         const response = await this.apiVehiclesCreateUploadFilesPostRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -265,86 +350,6 @@ export class VehiclesApi extends runtime.BaseAPI {
      */
     async apiVehiclesTransportVerificationPost(requestParameters: ApiVehiclesTransportVerificationPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.apiVehiclesTransportVerificationPostRaw(requestParameters, initOverrides);
-    }
-
-    /**
-     */
-    async apiVehiclesUploadPublicVehiclePhotosPostRaw(requestParameters: ApiVehiclesUploadPublicVehiclePhotosPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        if (requestParameters['id'] == null) {
-            throw new runtime.RequiredError(
-                'id',
-                'Required parameter "id" was null or undefined when calling apiVehiclesUploadPublicVehiclePhotosPost().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("Bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const consumes: runtime.Consume[] = [
-            { contentType: 'multipart/form-data' },
-        ];
-        // @ts-ignore: canConsumeForm may be unused
-        const canConsumeForm = runtime.canConsumeForm(consumes);
-
-        let formParams: { append(param: string, value: any): any };
-        let useForm = false;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        if (useForm) {
-            formParams = new FormData();
-        } else {
-            formParams = new URLSearchParams();
-        }
-
-        if (requestParameters['id'] != null) {
-            formParams.append('Id', requestParameters['id'] as any);
-        }
-
-        if (requestParameters['photoIds'] != null) {
-            requestParameters['photoIds'].forEach((element) => {
-                formParams.append('PhotoIds', element as any);
-            })
-        }
-
-        if (requestParameters['photoFiles'] != null) {
-            requestParameters['photoFiles'].forEach((element) => {
-                formParams.append('PhotoFiles', element as any);
-            })
-        }
-
-        if (requestParameters['photoIdsToDelete'] != null) {
-            requestParameters['photoIdsToDelete'].forEach((element) => {
-                formParams.append('PhotoIdsToDelete', element as any);
-            })
-        }
-
-
-        let urlPath = `/api/Vehicles/uploadPublicVehiclePhotos`;
-
-        const response = await this.request({
-            path: urlPath,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: formParams,
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     */
-    async apiVehiclesUploadPublicVehiclePhotosPost(requestParameters: ApiVehiclesUploadPublicVehiclePhotosPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.apiVehiclesUploadPublicVehiclePhotosPostRaw(requestParameters, initOverrides);
     }
 
     /**

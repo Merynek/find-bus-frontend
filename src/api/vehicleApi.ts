@@ -4,11 +4,12 @@ import {handleApiCall, IApiRequest} from "./toolsApi";
 import {
     Amenities,
     EuroStandard,
-    PlaceRequestDto, type UploadVehicleFilesSasUrlResponseDto, VehicleDocumentType,
-    VehiclePhotoType,
+    PlaceRequestDto, VehicleDocumentType,
+    VehiclePhotoType, type VehiclePublicUploadSasUrlResponseDto,
     type VehicleRequestDto,
     VehicleResponseDto
 } from "./openapi";
+import {UploadVehicleFilesSasUrlResponseDto} from "@/src/api/openapi/models/UploadVehicleFilesSasUrlResponseDto";
 
 export interface IUpdateVehicleRequest extends IApiRequest {
     vehicleId: number;
@@ -27,11 +28,21 @@ export interface ICompleteUploadVehicleFilesRequest extends IApiRequest {
     documents: IDocumentCompleteUploadItem[];
 }
 
+export interface ICompletePublicUploadVehiclePhotosRequest extends IApiRequest {
+    vehicleId: number;
+    photoIdsToDelete: number[];
+    photos: IPublicPhotoCompleteUploadItem[];
+}
+
+export interface IPublicPhotoCompleteUploadItem extends IFileCompleteUploadItem {
+    id: number;
+}
+
 export interface IDocumentCompleteUploadItem extends IFileCompleteUploadItem {
     type: VehicleDocumentType;
 }
 
-export interface IPhotoCompleteUploadItem extends IFileCompleteUploadItem{
+export interface IPhotoCompleteUploadItem extends IFileCompleteUploadItem {
     type: VehiclePhotoType;
 }
 
@@ -48,16 +59,26 @@ export interface ICreateUploadUrlForVehicleFilesRequest extends IApiRequest {
     documents: IDocumentUploadItem[];
 }
 
-interface IPhotoUploadItem {
-    clientFileId: string;
-    fileName: string;
+export interface ICreatePublicUploadUrlForVehiclePhotosRequest extends IApiRequest {
+    vehicleId: number;
+    photos: IPublicPhotoUploadItem[];
+}
+
+interface IPublicPhotoUploadItem extends IUploadItem {
+    id: number
+}
+
+interface IPhotoUploadItem extends IUploadItem {
     type: VehiclePhotoType;
 }
 
-interface IDocumentUploadItem {
+interface IDocumentUploadItem extends IUploadItem {
+    type: VehicleDocumentType;
+}
+
+interface IUploadItem {
     clientFileId: string;
     fileName: string;
-    type: VehicleDocumentType;
 }
 
 export interface IUploadVehiclePublicPhotosRequest extends IApiRequest {
@@ -156,7 +177,7 @@ export class VehicleApi {
 
     public async createUploadUrlForVehicleFiles(req: ICreateUploadUrlForVehicleFilesRequest): Promise<UploadVehicleFilesSasUrlResponseDto> {
         return await handleApiCall(this._api.apiVehiclesCreateUploadFilesPost({
-            createUploadUrlForVehicleFilesRequestDto: {
+            vehicleCreateUploadUrlFilesRequestDto: {
                 vehicleId: req.vehicleId,
                 photos: req.photos,
                 documents: req.documents
@@ -164,9 +185,9 @@ export class VehicleApi {
         }, req.initOverrides));
     }
 
-    public async completeUploadVehicleFiles(req: ICompleteUploadVehicleFilesRequest): Promise<void> {
-        return await handleApiCall(this._api.apiVehiclesCompleteFileUploadPost({
-            completeUploadVehicleFilesRequestDto: {
+    public async completeUploadVehicleFiles(req: ICompleteUploadVehicleFilesRequest) {
+        await handleApiCall(this._api.apiVehiclesCompleteFileUploadPost({
+            vehicleCompleteUploadFilesRequestDto: {
                 vehicleId: req.vehicleId,
                 photos: req.photos,
                 documents: req.documents,
@@ -186,12 +207,22 @@ export class VehicleApi {
         }, req.initOverrides));
     }
 
-    public async uploadVehiclePublicPhotos(req: IUploadVehiclePublicPhotosRequest): Promise<void> {
-        await handleApiCall(this._api.apiVehiclesUploadPublicVehiclePhotosPost({
-            id: req.vehicleId,
-            photoFiles: req.photoFiles,
-            photoIds: req.photoIds,
-            photoIdsToDelete: req.photoIdsToDelete,
+    public async createPublicUploadUrlForVehiclePhotos(req: ICreatePublicUploadUrlForVehiclePhotosRequest): Promise<VehiclePublicUploadSasUrlResponseDto> {
+        return await handleApiCall(this._api.apiVehiclesCreatePublicUploadPhotosPost({
+            vehicleCreatePublicUploadUrlPhotosRequestDto: {
+                vehicleId: req.vehicleId,
+                photos: req.photos
+            }
+        }, req.initOverrides));
+    }
+
+    public async completePublicUploadVehiclePhotos(req: ICompletePublicUploadVehiclePhotosRequest): Promise<void> {
+        return await handleApiCall(this._api.apiVehiclesCompletePublicPhotosUploadPost({
+            vehicleCompletePublicUploadPhotosRequestDto: {
+                vehicleId: req.vehicleId,
+                photos: req.photos,
+                photoIdsToDelete: req.photoIdsToDelete,
+            }
         }, req.initOverrides));
     }
 }

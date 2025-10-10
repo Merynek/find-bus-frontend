@@ -1,22 +1,26 @@
 import {
-    addVehicle,
-    completeUploadVehicleFiles,
+    addVehicle, completePublicUploadVehiclePhotos,
+    completeUploadVehicleFiles, createPublicUploadUrlForVehiclePhotos,
     createUploadUrlForVehicleFiles,
     getVehicle,
     getVehicles, sendVehicleToVerificationRequest,
-    setVehicleVerification, updateVehicle, uploadVehiclePublicPhotos
+    setVehicleVerification, updateVehicle
 } from "../server-actions/vehicle/vehicleActions";
 import {
     IAddVehicleRequest,
     IUpdateVehicleRequest,
     ISendVehicleToVerificationRequest,
-    IUploadVehiclePublicPhotosRequest,
-    ISetVehicleVerificationRequest, ICreateUploadUrlForVehicleFilesRequest, ICompleteUploadVehicleFilesRequest
+    ISetVehicleVerificationRequest,
+    ICreateUploadUrlForVehicleFilesRequest,
+    ICompleteUploadVehicleFilesRequest,
+    ICreatePublicUploadUrlForVehiclePhotosRequest, ICompletePublicUploadVehiclePhotosRequest
 } from "@/src/api/vehicleApi";
 import {BaseService} from "@/src/services/BaseService";
 import {VehicleConverter} from "@/src/converters/vehicle/vehicle-converter";
 import {VehicleFilesSasUrlConverter} from "@/src/converters/vehicle/vehicle-files-sas-url-converter";
 import {VehicleFilesSasUrl} from "@/src/data/vehicle/vehicleFilesSasUrl";
+import type {VehiclePublicUploadSasUrlResponseDto} from "@/src/api/openapi";
+import {VehiclePublicPhotosSasUrlConverter} from "@/src/converters/vehicle/vehicle-public-photos-sas-url-converter";
 
 export class VehicleService extends BaseService {
     public static async setVehicleVerification(req: ISetVehicleVerificationRequest) {
@@ -70,9 +74,16 @@ export class VehicleService extends BaseService {
         });
     }
 
-    public static async uploadVehiclePublicPhotos(req: IUploadVehiclePublicPhotosRequest) {
+    public static async createPublicUploadUrlForVehiclePhotos(req: ICreatePublicUploadUrlForVehiclePhotosRequest): Promise<VehiclePublicUploadSasUrlResponseDto> {
+        return await this.handleActionCall(async () => {
+            const response = await createPublicUploadUrlForVehiclePhotos(req);
+            return VehiclePublicPhotosSasUrlConverter.toInstance(response);
+        });
+    }
+
+    public static async completePublicUploadVehiclePhotos(req: ICompletePublicUploadVehiclePhotosRequest) {
         await this.handleActionCall(async () => {
-            await uploadVehiclePublicPhotos(req);
+            await completePublicUploadVehiclePhotos(req);
         });
     }
 }

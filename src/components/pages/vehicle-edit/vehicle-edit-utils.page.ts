@@ -9,7 +9,7 @@ import {
 import {Vehicle} from "@/src/data/vehicle/vehicle";
 import {
     IDocumentUploadItem,
-    IPhotoUploadItem,
+    IPhotoUploadItem, IPublicPhotoUploadItem,
     VehicleFileUploaderService
 } from "@/src/singletons/VehicleFileUploaderService";
 import uniq from "lodash/uniq";
@@ -18,11 +18,15 @@ export interface IPhotoItem extends IFileGroupUploaderItem {
     type: VehiclePhotoType;
 }
 
-export  interface IDocumentItem extends IFileGroupUploaderItem {
+export interface IDocumentItem extends IFileGroupUploaderItem {
     type: VehicleDocumentType;
 }
 
-const createEmptyPhotoItem = (type: VehiclePhotoType): IPhotoItem => {
+export interface IPublicPhotoItem extends IFileGroupUploaderItem {
+    originalId: number;
+}
+
+export const createEmptyPhotoItem = (type: VehiclePhotoType): IPhotoItem => {
     return {
         id: generateId(),
         dbId: undefined,
@@ -39,6 +43,15 @@ const createEmptyDocumentItem = (type: VehicleDocumentType): IDocumentItem => {
         path: undefined,
         file: undefined,
         type: type
+    };
+}
+
+export const createEmptyPublicPhotoItem = (id: number): IFileGroupUploaderItem => {
+    return {
+        id: id.toString(),
+        dbId: undefined,
+        path: undefined,
+        file: undefined
     };
 }
 
@@ -81,6 +94,22 @@ export const createInitDocuments = (vehicle: Vehicle): IDocumentItem[] => {
     return _items;
 }
 
+export const createInitPublicPhotosState = (vehicle: Vehicle): IPublicPhotoItem[] => {
+    const _items: IPublicPhotoItem[] = [];
+    vehicle.photos.forEach(p => {
+        if (p.publicFile) {
+            _items.push({
+                id: p.id.toString(),
+                dbId: p.id,
+                path: p.publicFile.path,
+                file: p.publicFile.file,
+                originalId: p.id,
+            })
+        }
+    });
+    return _items;
+}
+
 export const uploadFiles = async (photos: IPhotoItem[], documents: IDocumentItem[], photoIdsToDelete: number[], documentIdsToDelete: number[], vehicle: Vehicle) => {
     const _photos: IPhotoUploadItem[] = [];
     const _documents: IDocumentUploadItem[] = [];
@@ -103,4 +132,18 @@ export const uploadFiles = async (photos: IPhotoItem[], documents: IDocumentItem
         }
     });
     await VehicleFileUploaderService.uploadVehicleFiles(vehicle.id, _photos, _documents, uniq(photoIdsToDelete), uniq(documentIdsToDelete));
+}
+
+export const uploadPublicPhotos = async (photos: IPublicPhotoItem[], photoIdsToDelete: number[], vehicle: Vehicle) => {
+    const _photos: IPublicPhotoUploadItem[] = [];
+    photos.forEach(p => {
+        if (p.file && p.dbId === undefined) {
+            _photos.push({
+                clientFileId: p.id,
+                file: p.file,
+                id: p.originalId
+            })
+        }
+    });
+    await VehicleFileUploaderService.uploadPublicVehiclePhotos(vehicle.id, _photos, uniq(photoIdsToDelete));
 }

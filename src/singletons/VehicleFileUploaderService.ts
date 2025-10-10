@@ -1,6 +1,10 @@
 import {VehicleDocumentType, VehiclePhotoType} from "@/src/api/openapi";
 import {VehicleService} from "@/src/services/VehicleService";
-import {IDocumentCompleteUploadItem, IPhotoCompleteUploadItem} from "@/src/api/vehicleApi";
+import {
+    IDocumentCompleteUploadItem,
+    IPhotoCompleteUploadItem,
+    IPublicPhotoCompleteUploadItem
+} from "@/src/api/vehicleApi";
 import {IStorageUploadItem, StorageUploaderService} from "@/src/singletons/StorageUploaderService";
 
 export interface IPhotoUploadItem extends IStorageUploadItem {
@@ -8,6 +12,9 @@ export interface IPhotoUploadItem extends IStorageUploadItem {
 }
 export interface IDocumentUploadItem extends IStorageUploadItem {
     type: VehicleDocumentType;
+}
+export interface IPublicPhotoUploadItem extends IStorageUploadItem {
+    id: number;
 }
 
 export class VehicleFileUploaderService {
@@ -66,6 +73,41 @@ export class VehicleFileUploaderService {
             photos: completePhotos,
             documents: completeDocuments,
             documentIdsToDelete: documentsToDelete,
+            photoIdsToDelete: photosToDelete
+        });
+    }
+
+    public static async uploadPublicVehiclePhotos(vehicleId: number, photos: IPublicPhotoUploadItem[], photosToDelete: number[]) {
+        const response = await VehicleService.createPublicUploadUrlForVehiclePhotos({
+            vehicleId: vehicleId,
+            photos: photos.map(p => {
+                return {
+                    clientFileId: p.clientFileId,
+                    fileName: p.file.name,
+                    id: p.id
+                }
+            })
+        });
+
+        const completePhotos: IPublicPhotoCompleteUploadItem[] = [];
+        const successfulPhotoUploads = await StorageUploaderService.UploadFiles(response.photos, photos);
+
+        successfulPhotoUploads.forEach(uploadSasUrl => {
+            const _photo = photos.find(pp => pp.clientFileId === uploadSasUrl.clientFileId);
+            if (_photo) {
+                completePhotos.push({
+                    blobName: uploadSasUrl.blobName,
+                    contentType: _photo.file.type,
+                    fileSize: _photo.file.size,
+                    originalFileName: _photo.file.name,
+                    id: _photo.id
+                });
+            }
+        });
+
+        await VehicleService.completePublicUploadVehiclePhotos({
+            vehicleId: vehicleId,
+            photos: completePhotos,
             photoIdsToDelete: photosToDelete
         });
     }

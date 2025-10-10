@@ -1,6 +1,6 @@
-import {UploadVehicleFilesSasUrlResponseDto} from "@/src/api/openapi";
 import {VehicleFilesSasUrl} from "@/src/data/vehicle/vehicleFilesSasUrl";
 import {UploadSasUrlConverter} from "@/src/converters/upload-sas-url-converter";
+import {UploadVehicleFilesSasUrlResponseDto} from "@/src/api/openapi/models/UploadVehicleFilesSasUrlResponseDto";
 
 export class VehicleFilesSasUrlConverter {
     public static toInstance(response: UploadVehicleFilesSasUrlResponseDto): VehicleFilesSasUrl {

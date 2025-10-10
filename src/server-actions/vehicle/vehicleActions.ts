@@ -6,12 +6,17 @@ import {
     IUpdateVehicleRequest,
     VehicleApi,
     ISendVehicleToVerificationRequest,
-    IUploadVehiclePublicPhotosRequest,
     ISetVehicleVerificationRequest,
-    ICreateUploadUrlForVehicleFilesRequest, ICompleteUploadVehicleFilesRequest
+    ICreateUploadUrlForVehicleFilesRequest,
+    ICompleteUploadVehicleFilesRequest,
+    ICreatePublicUploadUrlForVehiclePhotosRequest, ICompletePublicUploadVehiclePhotosRequest
 } from "@/src/api/vehicleApi";
-import type {UploadVehicleFilesSasUrlResponseDto, VehicleResponseDto} from "@/src/api/openapi";
+import type {
+    VehiclePublicUploadSasUrlResponseDto,
+    VehicleResponseDto
+} from "@/src/api/openapi";
 import {handleActionCall} from "@/src/server-actions/baseAction";
+import {UploadVehicleFilesSasUrlResponseDto} from "@/src/api/openapi/models/UploadVehicleFilesSasUrlResponseDto";
 
 export async function setVehicleVerification(req: ISetVehicleVerificationRequest) {
     await handleActionCall(async () => {
@@ -79,11 +84,18 @@ export async function completeUploadVehicleFiles(req: ICompleteUploadVehicleFile
     });
 }
 
-export async function uploadVehiclePublicPhotos(req: IUploadVehiclePublicPhotosRequest) {
-    await handleActionCall(async () => {
+export async function createPublicUploadUrlForVehiclePhotos(req: ICreatePublicUploadUrlForVehiclePhotosRequest): Promise<VehiclePublicUploadSasUrlResponseDto> {
+    return await handleActionCall(async () => {
         const accessToken = await getAccessToken();
         const vehicleApi = new VehicleApi(accessToken);
-        await vehicleApi.uploadVehiclePublicPhotos(req);
+        return await vehicleApi.createPublicUploadUrlForVehiclePhotos(req);
     });
 }
 
+export async function completePublicUploadVehiclePhotos(req: ICompletePublicUploadVehiclePhotosRequest) {
+    await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const vehicleApi = new VehicleApi(accessToken);
+        await vehicleApi.completePublicUploadVehiclePhotos(req);
+    });
+}
