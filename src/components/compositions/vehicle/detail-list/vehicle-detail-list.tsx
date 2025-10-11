@@ -8,10 +8,11 @@ import {Vehicle} from "@/src/data/vehicle/vehicle";
 
 export interface IVehicleDetailListProps {
     vehicle: Vehicle;
+    noPhotos?: boolean;
 }
 
 export const VehicleDetail = (props: IVehicleDetailListProps) => {
-    const {vehicle} = props;
+    const {vehicle, noPhotos} = props;
 
     const renderImage = (path: string) => {
         return <div style={{width: "200px", height: "200px", position: "relative"}}>
@@ -61,7 +62,7 @@ export const VehicleDetail = (props: IVehicleDetailListProps) => {
                 </div>
             </LayoutFlexColumn>
             <LayoutFlexRow canWrap={true} gap={FlexGap.SMALL_16}>
-                {vehicle.photos.map(photo => {
+                {noPhotos && vehicle.photos.map(photo => {
                     return <div key={photo.id}>
                         <span>{photo.type}:</span>
                         {photo.image?.path && renderImage(photo.image.path)}

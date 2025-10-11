@@ -19,11 +19,12 @@ interface IAdminVehicleEditPageProps {
 const AdminVehicleEditPage = (props: IAdminVehicleEditPageProps) => {
     const vehicle = VehicleConverter.toInstance(props.vehicle);
     const { t } = useTranslate("page.adminVehicle");
+    const showVerification = vehicle.status === VehicleStatus.PENDING_VERIFICATION;
 
     return <LayoutFlexColumn gap={FlexGap.BIG_40}>
         <Heading text={t("vehicleHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={3}/>
-        <VehicleDetail vehicle={vehicle}/>
-        {vehicle.status === VehicleStatus.PENDING_VERIFICATION && <>
+        <VehicleDetail vehicle={vehicle} noPhotos={showVerification} />
+        {showVerification && <>
             <VehicleVerificationPhotos vehicle={vehicle} />
             <VehicleVerification vehicle={vehicle} />
         </>}
