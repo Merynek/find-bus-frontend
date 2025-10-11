@@ -1415,6 +1415,15 @@
         "tags": [
           "Vehicles"
         ],
+        "parameters": [
+          {
+            "name": "Verified",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",

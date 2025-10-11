@@ -41,10 +41,6 @@ export const routing = defineRouting({
             [LOCALES.cs_CZ]: '/vozidla',
             [LOCALES.en_US]: ROUTES.VEHICLES
         },
-        [ROUTES.VEHICLE_DETAIL]: {
-            [LOCALES.cs_CZ]: `/vozidlo/[${URL_PARAMS.VEHICLE_ID}]`,
-            [LOCALES.en_US]: ROUTES.VEHICLE_DETAIL
-        },
         [ROUTES.VEHICLE_EDIT]: {
             [LOCALES.cs_CZ]: `/nastaveni-vozidla/[${URL_PARAMS.VEHICLE_ID}]`,
             [LOCALES.en_US]: ROUTES.VEHICLE_EDIT

@@ -18,7 +18,6 @@ export enum ROUTES {
     FORGOT_PASSWORD = "/forgot-password",
     USER_SETTINGS = "/user-settings",
     VEHICLES = "/vehicles",
-    VEHICLE_DETAIL = `/vehicle/[${URL_PARAMS.VEHICLE_ID}]`,
     VEHICLE_EDIT = `/vehicle-edit/[${URL_PARAMS.VEHICLE_ID}]`,
     CREATE_TRIP = "/create-trip",
     TRIP_LIST = "/trips",

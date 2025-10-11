@@ -114,6 +114,10 @@ export interface IGetVehicleRequest extends IApiRequest {
     vehicleId: number;
 }
 
+export interface IGetVehiclesRequest extends IApiRequest {
+    verified?: boolean;
+}
+
 export class VehicleApi {
     private readonly _token: string|undefined;
 
@@ -131,8 +135,10 @@ export class VehicleApi {
         }, req.initOverrides));
     }
 
-    public async getVehicles(): Promise<VehicleResponseDto[]> {
-        return await handleApiCall(this._api.apiVehiclesGet());
+    public async getVehicles(req: IGetVehiclesRequest): Promise<VehicleResponseDto[]> {
+        return await handleApiCall(this._api.apiVehiclesGet({
+            verified: req.verified
+        }));
     }
 
     public async addVehicle(req: IAddVehicleRequest): Promise<number> {

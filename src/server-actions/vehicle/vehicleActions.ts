@@ -9,7 +9,7 @@ import {
     ISetVehicleVerificationRequest,
     ICreateUploadUrlForVehicleFilesRequest,
     ICompleteUploadVehicleFilesRequest,
-    ICreatePublicUploadUrlForVehiclePhotosRequest, ICompletePublicUploadVehiclePhotosRequest
+    ICreatePublicUploadUrlForVehiclePhotosRequest, ICompletePublicUploadVehiclePhotosRequest, IGetVehiclesRequest
 } from "@/src/api/vehicleApi";
 import type {
     VehiclePublicUploadSasUrlResponseDto,
@@ -36,11 +36,11 @@ export async function getVehicle(vehicleId: number): Promise<VehicleResponseDto>
     });
 }
 
-export async function getVehicles(): Promise<VehicleResponseDto[]> {
+export async function getVehicles(req: IGetVehiclesRequest): Promise<VehicleResponseDto[]> {
     return await handleActionCall(async () => {
         const accessToken = await getAccessToken();
         const vehicleApi = new VehicleApi(accessToken);
-        return await vehicleApi.getVehicles();
+        return await vehicleApi.getVehicles(req);
     });
 }
 

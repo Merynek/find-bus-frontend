@@ -68,6 +68,10 @@ export interface ApiVehiclesCreateUploadFilesPostRequest {
     vehicleCreateUploadUrlFilesRequestDto?: VehicleCreateUploadUrlFilesRequestDto;
 }
 
+export interface ApiVehiclesGetRequest {
+    verified?: boolean;
+}
+
 export interface ApiVehiclesSendVehicleToVerificationPostRequest {
     vehicleVerificationRequestDto?: VehicleVerificationRequestDto;
 }
@@ -250,8 +254,12 @@ export class VehiclesApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiVehiclesGetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<VehicleResponseDto>>> {
+    async apiVehiclesGetRaw(requestParameters: ApiVehiclesGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<VehicleResponseDto>>> {
         const queryParameters: any = {};
+
+        if (requestParameters['verified'] != null) {
+            queryParameters['Verified'] = requestParameters['verified'];
+        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -278,8 +286,8 @@ export class VehiclesApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiVehiclesGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<VehicleResponseDto>> {
-        const response = await this.apiVehiclesGetRaw(initOverrides);
+    async apiVehiclesGet(requestParameters: ApiVehiclesGetRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<VehicleResponseDto>> {
+        const response = await this.apiVehiclesGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -13,7 +13,7 @@ import {
     ISetVehicleVerificationRequest,
     ICreateUploadUrlForVehicleFilesRequest,
     ICompleteUploadVehicleFilesRequest,
-    ICreatePublicUploadUrlForVehiclePhotosRequest, ICompletePublicUploadVehiclePhotosRequest
+    ICreatePublicUploadUrlForVehiclePhotosRequest, ICompletePublicUploadVehiclePhotosRequest, IGetVehiclesRequest
 } from "@/src/api/vehicleApi";
 import {BaseService} from "@/src/services/BaseService";
 import {VehicleConverter} from "@/src/converters/vehicle/vehicle-converter";
@@ -36,9 +36,9 @@ export class VehicleService extends BaseService {
         });
     }
 
-    public static async getVehicles() {
+    public static async getVehicles(req: IGetVehiclesRequest) {
         return await this.handleActionCall(async () => {
-            const data = await getVehicles();
+            const data = await getVehicles(req);
             return data.map(VehicleConverter.toInstance);
         });
     }

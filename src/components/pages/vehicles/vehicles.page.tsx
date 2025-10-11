@@ -31,15 +31,6 @@ const VehiclesPage = (props: IVehiclesPageProps) => {
                     {_renderState(vehicle)}
                     <ButtonLink
                         route={{
-                            route: ROUTES.VEHICLE_DETAIL,
-                            params: { [URL_PARAMS.VEHICLE_ID]: vehicle.id.toString() }
-                        }}
-                        label={"Detail"}
-                        type={ButtonType.BLACK}
-                        size={ButtonSize.BUTTON_SIZE_M}
-                    />
-                    <ButtonLink
-                        route={{
                             route: ROUTES.VEHICLE_EDIT,
                             params: { [URL_PARAMS.VEHICLE_ID]: vehicle.id.toString() }
                         }}
