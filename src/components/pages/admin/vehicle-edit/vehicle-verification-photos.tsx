@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
-import {useCurrentLocale, useTranslate} from "@/src/hooks/translateHook";
+import {useTranslate} from "@/src/hooks/translateHook";
 import {FlexGap} from "@/src/enums/layout.enum";
-import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
 import {Vehicle} from "@/src/data/vehicle/vehicle";
 import {ImageElement} from "@/src/components/components/image-element/image-element";
@@ -11,6 +10,7 @@ import {Text} from "@/src/components/components/texts/text";
 import {FontSize, FontWeight} from "@/src/components/components/texts/textStyles";
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 import {Heading} from "@/src/components/components/texts/heading";
+import {useRouter} from "@/src/i18n/navigation";
 import FileGroupUploaderForm from "@/src/components/compositions/files/file-group-uploader-form/file-group-uploader-form";
 import {
     createEmptyPublicPhotoItem,
@@ -26,10 +26,10 @@ const VehicleVerificationPhotos = (props: IVehicleVerificationPhotosProps) => {
     const {vehicle} = props;
     const { t: vehicleT } = useTranslate("page.vehicle");
     const { t } = useTranslate("page.adminVehicle");
+    const router = useRouter();
     const [isUploading, setIsUploading] = useState(false);
     const [photos, setPhotos] = useState<IPublicPhotoItem[]>(createInitPublicPhotosState(vehicle));
     const [photoIdsToDelete, setPhotoIdsToDelete] = useState<number[]>([]);
-    const locale = useCurrentLocale();
 
     const renderImage = (path: string) => {
         return <div style={{width: "200px", height: "200px", position: "relative"}}>
@@ -96,8 +96,6 @@ const VehicleVerificationPhotos = (props: IVehicleVerificationPhotosProps) => {
     }
 
     return <LayoutFlexColumn gap={FlexGap.LARGE_32}>
-        <input type="hidden" name={FormDataEnum.vehicleId} value={vehicle.id}/>
-        <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale}/>
         {renderVehiclePhotos()}
         <ButtonClick
             controlled={true}
@@ -105,6 +103,7 @@ const VehicleVerificationPhotos = (props: IVehicleVerificationPhotosProps) => {
                 setIsUploading(true);
                 await uploadPublicPhotos(photos, photoIdsToDelete, vehicle);
                 setIsUploading(false);
+                router.refresh();
             }}
             type={ButtonType.BLACK}
             size={ButtonSize.BUTTON_SIZE_M}
