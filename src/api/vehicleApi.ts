@@ -129,6 +129,12 @@ export class VehicleApi {
         return new OpenApi.VehiclesApi(ApiConfiguration.createOpenApiConfig(this._token));
     }
 
+    public async getPublicVehicle(req: IGetVehicleRequest): Promise<VehicleResponseDto> {
+        return await handleApiCall(this._api.apiVehiclesPublicVehicleGet({
+            idVehicle: req.vehicleId
+        }, req.initOverrides));
+    }
+
     public async getVehicle(req: IGetVehicleRequest): Promise<VehicleResponseDto> {
         return await handleApiCall(this._api.apiVehiclesVehicleGet({
             idVehicle: req.vehicleId

@@ -1,7 +1,7 @@
 import {
     addVehicle, completePublicUploadVehiclePhotos,
     completeUploadVehicleFiles, createPublicUploadUrlForVehiclePhotos,
-    createUploadUrlForVehicleFiles,
+    createUploadUrlForVehicleFiles, getPublicVehicle,
     getVehicle,
     getVehicles, sendVehicleToVerificationRequest,
     setVehicleVerification, updateVehicle
@@ -26,6 +26,13 @@ export class VehicleService extends BaseService {
     public static async setVehicleVerification(req: ISetVehicleVerificationRequest) {
         await this.handleActionCall(async () => {
             await setVehicleVerification(req);
+        });
+    }
+
+    public static async getPublicVehicle(vehicleId: number) {
+        return await this.handleActionCall(async () => {
+            const data = await getPublicVehicle(vehicleId);
+            return VehicleConverter.toInstance(data);
         });
     }
 

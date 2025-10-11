@@ -26,6 +26,16 @@ export async function setVehicleVerification(req: ISetVehicleVerificationRequest
     });
 }
 
+export async function getPublicVehicle(vehicleId: number): Promise<VehicleResponseDto> {
+    return await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const vehicleApi = new VehicleApi(accessToken);
+        return await vehicleApi.getPublicVehicle({
+            vehicleId: vehicleId
+        });
+    });
+}
+
 export async function getVehicle(vehicleId: number): Promise<VehicleResponseDto> {
     return await handleActionCall(async () => {
         const accessToken = await getAccessToken();

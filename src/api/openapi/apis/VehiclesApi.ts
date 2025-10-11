@@ -72,6 +72,10 @@ export interface ApiVehiclesGetRequest {
     verified?: boolean;
 }
 
+export interface ApiVehiclesPublicVehicleGetRequest {
+    idVehicle: number;
+}
+
 export interface ApiVehiclesSendVehicleToVerificationPostRequest {
     vehicleVerificationRequestDto?: VehicleVerificationRequestDto;
 }
@@ -288,6 +292,52 @@ export class VehiclesApi extends runtime.BaseAPI {
      */
     async apiVehiclesGet(requestParameters: ApiVehiclesGetRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<VehicleResponseDto>> {
         const response = await this.apiVehiclesGetRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiVehiclesPublicVehicleGetRaw(requestParameters: ApiVehiclesPublicVehicleGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<VehicleResponseDto>> {
+        if (requestParameters['idVehicle'] == null) {
+            throw new runtime.RequiredError(
+                'idVehicle',
+                'Required parameter "idVehicle" was null or undefined when calling apiVehiclesPublicVehicleGet().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['idVehicle'] != null) {
+            queryParameters['IdVehicle'] = requestParameters['idVehicle'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/Vehicles/publicVehicle`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => VehicleResponseDtoFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiVehiclesPublicVehicleGet(requestParameters: ApiVehiclesPublicVehicleGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<VehicleResponseDto> {
+        const response = await this.apiVehiclesPublicVehicleGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
