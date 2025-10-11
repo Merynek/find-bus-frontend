@@ -62,7 +62,7 @@ export const VehicleDetail = (props: IVehicleDetailListProps) => {
                 </div>
             </LayoutFlexColumn>
             <LayoutFlexRow canWrap={true} gap={FlexGap.SMALL_16}>
-                {noPhotos && vehicle.photos.map(photo => {
+                {!noPhotos && vehicle.photos.map(photo => {
                     return <div key={photo.id}>
                         <span>{photo.type}:</span>
                         {photo.image?.path && renderImage(photo.image.path)}
