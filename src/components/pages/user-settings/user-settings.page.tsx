@@ -3,7 +3,7 @@
 import {useTranslate} from "@/src/hooks/translateHook";
 import React from "react";
 import {ButtonClick, ButtonSize, ButtonType} from "../../components/button/button";
-import {Country, NotificationsEnum, UserRole, UserSettingsResponseDto} from "@/src/api/openapi";
+import {NotificationsEnum, UserRole, UserSettingsResponseDto} from "@/src/api/openapi";
 import {LayoutFlexColumn} from "../../components/layout/layout-flex-column/layout-flex-column";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {userSettingsFormAction} from "@/src/server-actions/forms/userSettings/userSettingsFormAction";
@@ -16,8 +16,8 @@ import {Heading} from "@/src/components/components/texts/heading";
 import {FontWeight} from "@/src/components/components/texts/textStyles";
 import {TextBox, TextBoxType} from "@/src/components/components/inputs/text-box/text-box";
 import { CheckBox } from "../../components/inputs/check-box/check-box";
-import {ComboBox, IComboBoxItem} from "@/src/components/components/inputs/combo-box/combo-box";
 import {UserSettingsConverter} from "@/src/converters/users/user-settings-converter";
+import {UserSettingsAddress} from "@/src/components/pages/user-settings/user-settings-address";
 
 interface IUserSettingsPageProps {
     settings: UserSettingsResponseDto;
@@ -123,111 +123,56 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
         </>
     }
 
-    const getCountryOptions = (): IComboBoxItem<string>[] => {
-        const options: IComboBoxItem<string>[] = [];
-        Object.values(Country).map((country) => (
-            options.push({
-                value: country,
-                label: country
-            })
-        ))
-        return options;
-    }
-
     const renderAddress = () => {
-        const countryOptions = getCountryOptions();
-        return <>
-            <Heading text={t("addressHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={4}/>
-            <ComboBox
-                controlled={false}
-                items={countryOptions}
-                defaultValue={countryOptions.find(i => i.value === state?.data?.address?.country)}
-                id={FormDataEnum.address_country}
-                name={FormDataEnum.address_country}
-                placeHolder={t("country")}
-                instanceId={"address_country"}
-            />
-            <TextBox
-                controlled={false}
-                name={FormDataEnum.address_city}
-                id={FormDataEnum.address_city}
-                type={TextBoxType.TEXT}
-                placeholder={t("city")}
-                defaultValue={state?.data?.address?.city || ""}
-            />
-            <TextBox
-                controlled={false}
-                name={FormDataEnum.address_psc}
-                id={FormDataEnum.address_psc}
-                type={TextBoxType.TEXT}
-                placeholder={t("psc")}
-                defaultValue={state?.data?.address?.psc || ""}
-            />
-            <TextBox
-                controlled={false}
-                name={FormDataEnum.address_street}
-                id={FormDataEnum.address_street}
-                type={TextBoxType.TEXT}
-                placeholder={t("street")}
-                defaultValue={state?.data?.address?.street || ""}
-            />
-            <TextBox
-                controlled={false}
-                name={FormDataEnum.address_houseNumber}
-                id={FormDataEnum.address_houseNumber}
-                type={TextBoxType.TEXT}
-                placeholder={t("houseNumber")}
-                defaultValue={state?.data?.address?.houseNumber || ""}
-            />
-        </>
+        return <UserSettingsAddress
+            heading={t("addressHeading")}
+            city={{
+                name: FormDataEnum.address_city,
+                value: state?.data?.address?.city
+            }}
+            psc={{
+                name: FormDataEnum.address_psc,
+                value: state?.data?.address?.psc
+            }}
+            street={{
+                name: FormDataEnum.address_street,
+                value: state?.data?.address?.street
+            }}
+            houseNumber={{
+                name: FormDataEnum.address_houseNumber,
+                value: state?.data?.address?.houseNumber
+            }}
+            country={{
+                name: FormDataEnum.address_country,
+                value: state?.data?.address?.country
+            }}
+        />
     }
 
     const renderMailingAddress = () => {
-        const countryOptions = getCountryOptions();
-        return <>
-            <Heading text={t("mailingAddressHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={4}/>
-            <ComboBox
-                controlled={false}
-                items={countryOptions}
-                defaultValue={countryOptions.find(i => i.value === state?.data?.mailingAddress?.country)}
-                id={FormDataEnum.mailingAddress_country}
-                name={FormDataEnum.mailingAddress_country}
-                placeHolder={t("country")}
-                instanceId={"mailingAddress_country"}
-            />
-            <TextBox
-                controlled={false}
-                name={FormDataEnum.mailingAddress_city}
-                id={FormDataEnum.mailingAddress_city}
-                type={TextBoxType.TEXT}
-                placeholder={t("city")}
-                defaultValue={state?.data?.mailingAddress?.city || ""}
-            />
-            <TextBox
-                controlled={false}
-                name={FormDataEnum.mailingAddress_psc}
-                id={FormDataEnum.mailingAddress_psc}
-                type={TextBoxType.TEXT}
-                placeholder={t("psc")}
-                defaultValue={state?.data?.mailingAddress?.psc || ""}
-            />
-            <TextBox
-                controlled={false}
-                name={FormDataEnum.mailingAddress_street}
-                id={FormDataEnum.mailingAddress_street}
-                type={TextBoxType.TEXT}
-                placeholder={t("street")}
-                defaultValue={state?.data?.mailingAddress?.street || ""}
-            />
-            <TextBox
-                controlled={false}
-                name={FormDataEnum.mailingAddress_houseNumber}
-                id={FormDataEnum.mailingAddress_houseNumber}
-                type={TextBoxType.TEXT}
-                placeholder={t("houseNumber")}
-                defaultValue={state?.data?.mailingAddress?.houseNumber || ""}
-            />
-        </>
+        return <UserSettingsAddress
+            heading={t("addressHeading")}
+            city={{
+                name: FormDataEnum.mailingAddress_city,
+                value: state?.data?.mailingAddress?.city
+            }}
+            psc={{
+                name: FormDataEnum.mailingAddress_psc,
+                value: state?.data?.mailingAddress?.psc
+            }}
+            street={{
+                name: FormDataEnum.mailingAddress_street,
+                value: state?.data?.mailingAddress?.street
+            }}
+            houseNumber={{
+                name: FormDataEnum.mailingAddress_houseNumber,
+                value: state?.data?.mailingAddress?.houseNumber
+            }}
+            country={{
+                name: FormDataEnum.mailingAddress_country,
+                value: state?.data?.mailingAddress?.country
+            }}
+        />
     }
 
     const renderNotifications = () => {
@@ -306,7 +251,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                     {renderMailingAddress()}
                     {renderNotifications()}
                     {user?.role === UserRole.TRANSPORTER && renderBankInfo()}
-                    {user?.role === UserRole.TRANSPORTER && renderTransportRequirements()}
+                    {/*{user?.role === UserRole.TRANSPORTER && renderTransportRequirements()}*/}
                 </LayoutFlexColumn>
                 <ButtonClick
                     controlled={false}
