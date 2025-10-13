@@ -1966,15 +1966,10 @@
         "required": [
           "active",
           "banned",
-          "dic",
           "email",
-          "ico",
           "id",
-          "isCompany",
           "isVerifiedForTransporting",
-          "name",
           "phoneNumber",
-          "surname",
           "userConfigs",
           "vehicles"
         ],
@@ -1997,37 +1992,12 @@
           "isVerifiedForTransporting": {
             "type": "boolean"
           },
-          "name": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "surname": {
-            "minLength": 1,
-            "type": "string"
-          },
           "phoneNumber": {
             "minLength": 1,
             "type": "string"
           },
-          "ico": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "dic": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "isCompany": {
-            "type": "boolean"
-          },
-          "address": {
-            "$ref": "#/components/schemas/UserAddressResponseDto"
-          },
-          "mailingAddress": {
-            "$ref": "#/components/schemas/UserAddressResponseDto"
-          },
-          "transferInfo": {
-            "$ref": "#/components/schemas/TransferInfoResponseDto"
+          "financialSettings": {
+            "$ref": "#/components/schemas/UserFinancialSettingsResponseDto"
           },
           "transporterRequirements": {
             "$ref": "#/components/schemas/TransporterRequirementsResponseDto"
@@ -3484,34 +3454,12 @@
         },
         "additionalProperties": false
       },
-      "TransferInfoRequestDto": {
+      "TransportRequirementsRequestDto": {
         "type": "object",
         "properties": {
-          "iban": {
+          "concessionNumber": {
             "type": "string",
             "nullable": true
-          },
-          "swift": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "TransferInfoResponseDto": {
-        "required": [
-          "iban",
-          "swift"
-        ],
-        "type": "object",
-        "properties": {
-          "iban": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "swift": {
-            "minLength": 1,
-            "type": "string"
           }
         },
         "additionalProperties": false
@@ -4239,15 +4187,7 @@
         },
         "additionalProperties": false
       },
-      "UserRole": {
-        "enum": [
-          "TRANSPORTER",
-          "DEMANDER",
-          "ADMIN"
-        ],
-        "type": "string"
-      },
-      "UserSettingsRequestDto": {
+      "UserFinancialSettingsRequestDto": {
         "type": "object",
         "properties": {
           "name": {
@@ -4255,10 +4195,6 @@
             "nullable": true
           },
           "surname": {
-            "type": "string",
-            "nullable": true
-          },
-          "phoneNumber": {
             "type": "string",
             "nullable": true
           },
@@ -4278,40 +4214,33 @@
             "type": "boolean",
             "nullable": true
           },
-          "notifications": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/NotificationsEnum"
-            },
-            "nullable": true
-          },
           "address": {
             "$ref": "#/components/schemas/UserAddressRequestDto"
           },
           "mailingAddress": {
             "$ref": "#/components/schemas/UserAddressRequestDto"
           },
-          "transferInfo": {
-            "$ref": "#/components/schemas/TransferInfoRequestDto"
+          "iban": {
+            "type": "string",
+            "nullable": true
           },
-          "concessionNumber": {
+          "swift": {
             "type": "string",
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "UserSettingsResponseDto": {
+      "UserFinancialSettingsResponseDto": {
         "required": [
           "companyName",
           "dic",
+          "iban",
           "ico",
           "isCompany",
-          "isVerifiedForTransporting",
           "name",
-          "notifications",
-          "phoneNumber",
-          "surname"
+          "surname",
+          "swift"
         ],
         "type": "object",
         "properties": {
@@ -4320,10 +4249,6 @@
             "type": "string"
           },
           "surname": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "phoneNumber": {
             "minLength": 1,
             "type": "string"
           },
@@ -4339,26 +4264,84 @@
             "minLength": 1,
             "type": "string"
           },
-          "notifications": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/NotificationsEnum"
-            }
-          },
           "isCompany": {
             "type": "boolean"
           },
-          "isVerifiedForTransporting": {
-            "type": "boolean"
+          "iban": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "swift": {
+            "minLength": 1,
+            "type": "string"
           },
           "address": {
             "$ref": "#/components/schemas/UserAddressResponseDto"
           },
           "mailingAddress": {
             "$ref": "#/components/schemas/UserAddressResponseDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserRole": {
+        "enum": [
+          "TRANSPORTER",
+          "DEMANDER",
+          "ADMIN"
+        ],
+        "type": "string"
+      },
+      "UserSettingsRequestDto": {
+        "required": [
+          "transportRequirements",
+          "userFinancialSettings"
+        ],
+        "type": "object",
+        "properties": {
+          "userFinancialSettings": {
+            "$ref": "#/components/schemas/UserFinancialSettingsRequestDto"
           },
-          "transferInfo": {
-            "$ref": "#/components/schemas/TransferInfoResponseDto"
+          "transportRequirements": {
+            "$ref": "#/components/schemas/TransportRequirementsRequestDto"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "notifications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NotificationsEnum"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserSettingsResponseDto": {
+        "required": [
+          "isVerifiedForTransporting",
+          "notifications",
+          "phoneNumber"
+        ],
+        "type": "object",
+        "properties": {
+          "phoneNumber": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "notifications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NotificationsEnum"
+            }
+          },
+          "isVerifiedForTransporting": {
+            "type": "boolean"
+          },
+          "financialSettings": {
+            "$ref": "#/components/schemas/UserFinancialSettingsResponseDto"
           },
           "transporterRequirements": {
             "$ref": "#/components/schemas/TransporterRequirementsResponseDto"

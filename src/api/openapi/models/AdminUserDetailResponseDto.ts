@@ -13,13 +13,6 @@
  */
 
 import { mapValues } from '../runtime';
-import type { TransferInfoResponseDto } from './TransferInfoResponseDto';
-import {
-    TransferInfoResponseDtoFromJSON,
-    TransferInfoResponseDtoFromJSONTyped,
-    TransferInfoResponseDtoToJSON,
-    TransferInfoResponseDtoToJSONTyped,
-} from './TransferInfoResponseDto';
 import type { VehicleResponseDto } from './VehicleResponseDto';
 import {
     VehicleResponseDtoFromJSON,
@@ -34,13 +27,13 @@ import {
     UserConfigResponseDtoToJSON,
     UserConfigResponseDtoToJSONTyped,
 } from './UserConfigResponseDto';
-import type { UserAddressResponseDto } from './UserAddressResponseDto';
+import type { UserFinancialSettingsResponseDto } from './UserFinancialSettingsResponseDto';
 import {
-    UserAddressResponseDtoFromJSON,
-    UserAddressResponseDtoFromJSONTyped,
-    UserAddressResponseDtoToJSON,
-    UserAddressResponseDtoToJSONTyped,
-} from './UserAddressResponseDto';
+    UserFinancialSettingsResponseDtoFromJSON,
+    UserFinancialSettingsResponseDtoFromJSONTyped,
+    UserFinancialSettingsResponseDtoToJSON,
+    UserFinancialSettingsResponseDtoToJSONTyped,
+} from './UserFinancialSettingsResponseDto';
 import type { TransporterRequirementsResponseDto } from './TransporterRequirementsResponseDto';
 import {
     TransporterRequirementsResponseDtoFromJSON,
@@ -90,55 +83,13 @@ export interface AdminUserDetailResponseDto {
      * @type {string}
      * @memberof AdminUserDetailResponseDto
      */
-    name: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AdminUserDetailResponseDto
-     */
-    surname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AdminUserDetailResponseDto
-     */
     phoneNumber: string;
     /**
      * 
-     * @type {string}
+     * @type {UserFinancialSettingsResponseDto}
      * @memberof AdminUserDetailResponseDto
      */
-    ico: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof AdminUserDetailResponseDto
-     */
-    dic: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof AdminUserDetailResponseDto
-     */
-    isCompany: boolean;
-    /**
-     * 
-     * @type {UserAddressResponseDto}
-     * @memberof AdminUserDetailResponseDto
-     */
-    address?: UserAddressResponseDto;
-    /**
-     * 
-     * @type {UserAddressResponseDto}
-     * @memberof AdminUserDetailResponseDto
-     */
-    mailingAddress?: UserAddressResponseDto;
-    /**
-     * 
-     * @type {TransferInfoResponseDto}
-     * @memberof AdminUserDetailResponseDto
-     */
-    transferInfo?: TransferInfoResponseDto;
+    financialSettings?: UserFinancialSettingsResponseDto;
     /**
      * 
      * @type {TransporterRequirementsResponseDto}
@@ -168,12 +119,7 @@ export function instanceOfAdminUserDetailResponseDto(value: object): value is Ad
     if (!('active' in value) || value['active'] === undefined) return false;
     if (!('banned' in value) || value['banned'] === undefined) return false;
     if (!('isVerifiedForTransporting' in value) || value['isVerifiedForTransporting'] === undefined) return false;
-    if (!('name' in value) || value['name'] === undefined) return false;
-    if (!('surname' in value) || value['surname'] === undefined) return false;
     if (!('phoneNumber' in value) || value['phoneNumber'] === undefined) return false;
-    if (!('ico' in value) || value['ico'] === undefined) return false;
-    if (!('dic' in value) || value['dic'] === undefined) return false;
-    if (!('isCompany' in value) || value['isCompany'] === undefined) return false;
     if (!('vehicles' in value) || value['vehicles'] === undefined) return false;
     if (!('userConfigs' in value) || value['userConfigs'] === undefined) return false;
     return true;
@@ -194,15 +140,8 @@ export function AdminUserDetailResponseDtoFromJSONTyped(json: any, ignoreDiscrim
         'active': json['active'],
         'banned': json['banned'],
         'isVerifiedForTransporting': json['isVerifiedForTransporting'],
-        'name': json['name'],
-        'surname': json['surname'],
         'phoneNumber': json['phoneNumber'],
-        'ico': json['ico'],
-        'dic': json['dic'],
-        'isCompany': json['isCompany'],
-        'address': json['address'] == null ? undefined : UserAddressResponseDtoFromJSON(json['address']),
-        'mailingAddress': json['mailingAddress'] == null ? undefined : UserAddressResponseDtoFromJSON(json['mailingAddress']),
-        'transferInfo': json['transferInfo'] == null ? undefined : TransferInfoResponseDtoFromJSON(json['transferInfo']),
+        'financialSettings': json['financialSettings'] == null ? undefined : UserFinancialSettingsResponseDtoFromJSON(json['financialSettings']),
         'transporterRequirements': json['transporterRequirements'] == null ? undefined : TransporterRequirementsResponseDtoFromJSON(json['transporterRequirements']),
         'vehicles': ((json['vehicles'] as Array<any>).map(VehicleResponseDtoFromJSON)),
         'userConfigs': ((json['userConfigs'] as Array<any>).map(UserConfigResponseDtoFromJSON)),
@@ -225,15 +164,8 @@ export function AdminUserDetailResponseDtoToJSONTyped(value?: AdminUserDetailRes
         'active': value['active'],
         'banned': value['banned'],
         'isVerifiedForTransporting': value['isVerifiedForTransporting'],
-        'name': value['name'],
-        'surname': value['surname'],
         'phoneNumber': value['phoneNumber'],
-        'ico': value['ico'],
-        'dic': value['dic'],
-        'isCompany': value['isCompany'],
-        'address': UserAddressResponseDtoToJSON(value['address']),
-        'mailingAddress': UserAddressResponseDtoToJSON(value['mailingAddress']),
-        'transferInfo': TransferInfoResponseDtoToJSON(value['transferInfo']),
+        'financialSettings': UserFinancialSettingsResponseDtoToJSON(value['financialSettings']),
         'transporterRequirements': TransporterRequirementsResponseDtoToJSON(value['transporterRequirements']),
         'vehicles': ((value['vehicles'] as Array<any>).map(VehicleResponseDtoToJSON)),
         'userConfigs': ((value['userConfigs'] as Array<any>).map(UserConfigResponseDtoToJSON)),

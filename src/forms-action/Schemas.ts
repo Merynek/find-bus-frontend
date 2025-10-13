@@ -34,8 +34,3 @@ export const UserAddressSchema = z.object({
     street: z.string(),
     houseNumber: z.string()
 });
-
-export const TransferInfoSchema = z.object({
-    iban: z.string(),
-    swift: z.string()
-});

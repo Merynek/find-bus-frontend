@@ -13,20 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
-import type { TransferInfoResponseDto } from './TransferInfoResponseDto';
+import type { UserFinancialSettingsResponseDto } from './UserFinancialSettingsResponseDto';
 import {
-    TransferInfoResponseDtoFromJSON,
-    TransferInfoResponseDtoFromJSONTyped,
-    TransferInfoResponseDtoToJSON,
-    TransferInfoResponseDtoToJSONTyped,
-} from './TransferInfoResponseDto';
-import type { UserAddressResponseDto } from './UserAddressResponseDto';
-import {
-    UserAddressResponseDtoFromJSON,
-    UserAddressResponseDtoFromJSONTyped,
-    UserAddressResponseDtoToJSON,
-    UserAddressResponseDtoToJSONTyped,
-} from './UserAddressResponseDto';
+    UserFinancialSettingsResponseDtoFromJSON,
+    UserFinancialSettingsResponseDtoFromJSONTyped,
+    UserFinancialSettingsResponseDtoToJSON,
+    UserFinancialSettingsResponseDtoToJSONTyped,
+} from './UserFinancialSettingsResponseDto';
 import type { TransporterRequirementsResponseDto } from './TransporterRequirementsResponseDto';
 import {
     TransporterRequirementsResponseDtoFromJSON,
@@ -53,37 +46,7 @@ export interface UserSettingsResponseDto {
      * @type {string}
      * @memberof UserSettingsResponseDto
      */
-    name: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof UserSettingsResponseDto
-     */
-    surname: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof UserSettingsResponseDto
-     */
     phoneNumber: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof UserSettingsResponseDto
-     */
-    ico: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof UserSettingsResponseDto
-     */
-    dic: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof UserSettingsResponseDto
-     */
-    companyName: string;
     /**
      * 
      * @type {Array<NotificationsEnum>}
@@ -95,31 +58,13 @@ export interface UserSettingsResponseDto {
      * @type {boolean}
      * @memberof UserSettingsResponseDto
      */
-    isCompany: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof UserSettingsResponseDto
-     */
     isVerifiedForTransporting: boolean;
     /**
      * 
-     * @type {UserAddressResponseDto}
+     * @type {UserFinancialSettingsResponseDto}
      * @memberof UserSettingsResponseDto
      */
-    address?: UserAddressResponseDto;
-    /**
-     * 
-     * @type {UserAddressResponseDto}
-     * @memberof UserSettingsResponseDto
-     */
-    mailingAddress?: UserAddressResponseDto;
-    /**
-     * 
-     * @type {TransferInfoResponseDto}
-     * @memberof UserSettingsResponseDto
-     */
-    transferInfo?: TransferInfoResponseDto;
+    financialSettings?: UserFinancialSettingsResponseDto;
     /**
      * 
      * @type {TransporterRequirementsResponseDto}
@@ -132,14 +77,8 @@ export interface UserSettingsResponseDto {
  * Check if a given object implements the UserSettingsResponseDto interface.
  */
 export function instanceOfUserSettingsResponseDto(value: object): value is UserSettingsResponseDto {
-    if (!('name' in value) || value['name'] === undefined) return false;
-    if (!('surname' in value) || value['surname'] === undefined) return false;
     if (!('phoneNumber' in value) || value['phoneNumber'] === undefined) return false;
-    if (!('ico' in value) || value['ico'] === undefined) return false;
-    if (!('dic' in value) || value['dic'] === undefined) return false;
-    if (!('companyName' in value) || value['companyName'] === undefined) return false;
     if (!('notifications' in value) || value['notifications'] === undefined) return false;
-    if (!('isCompany' in value) || value['isCompany'] === undefined) return false;
     if (!('isVerifiedForTransporting' in value) || value['isVerifiedForTransporting'] === undefined) return false;
     return true;
 }
@@ -154,18 +93,10 @@ export function UserSettingsResponseDtoFromJSONTyped(json: any, ignoreDiscrimina
     }
     return {
         
-        'name': json['name'],
-        'surname': json['surname'],
         'phoneNumber': json['phoneNumber'],
-        'ico': json['ico'],
-        'dic': json['dic'],
-        'companyName': json['companyName'],
         'notifications': ((json['notifications'] as Array<any>).map(NotificationsEnumFromJSON)),
-        'isCompany': json['isCompany'],
         'isVerifiedForTransporting': json['isVerifiedForTransporting'],
-        'address': json['address'] == null ? undefined : UserAddressResponseDtoFromJSON(json['address']),
-        'mailingAddress': json['mailingAddress'] == null ? undefined : UserAddressResponseDtoFromJSON(json['mailingAddress']),
-        'transferInfo': json['transferInfo'] == null ? undefined : TransferInfoResponseDtoFromJSON(json['transferInfo']),
+        'financialSettings': json['financialSettings'] == null ? undefined : UserFinancialSettingsResponseDtoFromJSON(json['financialSettings']),
         'transporterRequirements': json['transporterRequirements'] == null ? undefined : TransporterRequirementsResponseDtoFromJSON(json['transporterRequirements']),
     };
 }
@@ -181,18 +112,10 @@ export function UserSettingsResponseDtoToJSONTyped(value?: UserSettingsResponseD
 
     return {
         
-        'name': value['name'],
-        'surname': value['surname'],
         'phoneNumber': value['phoneNumber'],
-        'ico': value['ico'],
-        'dic': value['dic'],
-        'companyName': value['companyName'],
         'notifications': ((value['notifications'] as Array<any>).map(NotificationsEnumToJSON)),
-        'isCompany': value['isCompany'],
         'isVerifiedForTransporting': value['isVerifiedForTransporting'],
-        'address': UserAddressResponseDtoToJSON(value['address']),
-        'mailingAddress': UserAddressResponseDtoToJSON(value['mailingAddress']),
-        'transferInfo': TransferInfoResponseDtoToJSON(value['transferInfo']),
+        'financialSettings': UserFinancialSettingsResponseDtoToJSON(value['financialSettings']),
         'transporterRequirements': TransporterRequirementsResponseDtoToJSON(value['transporterRequirements']),
     };
 }

@@ -10,8 +10,8 @@ import {UserSettingsRequestDto} from "@/src/api/openapi";
 import {UserSettings} from "@/src/data/users/userSettings";
 import {IUpdateTransportRequirementsPhotosRequest} from "@/src/api/usersApi";
 import {UserAdminDetailConverter} from "@/src/converters/admin/user-admin-detail-converter";
-import {UsersConverter} from "@/src/converters/users/users-converter";
 import {BaseService} from "@/src/services/BaseService";
+import {UserSettingsConverter} from "@/src/converters/users/user-settings-converter";
 
 export class UsersService extends BaseService {
     public static async getAllUsers(offset: number, limit: number): Promise<UserAdminDetail[]> {
@@ -36,7 +36,7 @@ export class UsersService extends BaseService {
     public static async getSettings(): Promise<UserSettings> {
         return await this.handleActionCall(async () => {
             const data = await getSettings();
-            return UsersConverter.userSettingsToInstance(data);
+            return UserSettingsConverter.toInstance(data);
         });
     }
 

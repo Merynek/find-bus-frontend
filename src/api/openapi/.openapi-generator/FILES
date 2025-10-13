@@ -60,8 +60,7 @@ models/RouteResponseDto.ts
 models/StartTripRequestDto.ts
 models/StopRequestDto.ts
 models/StopResponseDto.ts
-models/TransferInfoRequestDto.ts
-models/TransferInfoResponseDto.ts
+models/TransportRequirementsRequestDto.ts
 models/TransporterRequirementsResponseDto.ts
 models/TripItemResponseDto.ts
 models/TripOfferAcceptMethod.ts
@@ -89,6 +88,8 @@ models/UserAddressResponseDto.ts
 models/UserConfigRequestDto.ts
 models/UserConfigResponseDto.ts
 models/UserDetailResponseDto.ts
+models/UserFinancialSettingsRequestDto.ts
+models/UserFinancialSettingsResponseDto.ts
 models/UserRole.ts
 models/UserSettingsRequestDto.ts
 models/UserSettingsResponseDto.ts

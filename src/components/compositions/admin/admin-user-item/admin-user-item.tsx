@@ -77,21 +77,21 @@ export const AdminUserItem = (props: IAdminUserItemProps) => {
         content={<LayoutFlexColumn gap={FlexGap.SMALL_16}>
             <LayoutFlexRow gap={FlexGap.MEDIUM_24} canWrap={true} justifyContent={"flex-start"} alignItems={"flex-start"}>
                 <Group title={"Info"}>
-                    {renderTextItem("Jméno", user.name + " " + user.surname)}
-                    {renderTextItem("Je to firma", user.isCompany.toString())}
-                    {renderTextItem("ICO", user.ico)}
-                    {renderTextItem("DIC", user.dic)}
+                    {renderTextItem("Jméno", user.userFinancialSettings.name + " " + user.userFinancialSettings.surname)}
+                    {renderTextItem("Je to firma", user.userFinancialSettings.isCompany.toString())}
+                    {renderTextItem("ICO", user.userFinancialSettings.ico)}
+                    {renderTextItem("DIC", user.userFinancialSettings.dic)}
                     {renderTextItem("Telefonní číslo", user.phoneNumber)}
                 </Group>
-                <Group title={"Adresa"}>
-                    {_renderAddress(user.address)}
-                </Group>
-                <Group title={"Mailing Address"}>
-                    {_renderAddress(user.mailingAddress)}
-                </Group>
+                {user.userFinancialSettings.address && <Group title={"Adresa"}>
+                    {_renderAddress(user.userFinancialSettings.address)}
+                </Group>}
+                {user.userFinancialSettings.mailingAddress && <Group title={"Mailing Address"}>
+                    {_renderAddress(user.userFinancialSettings.mailingAddress)}
+                </Group>}
                 <Group title={"Transfer Info"}>
-                    {renderTextItem("Iban", user.transferInfo.iban)}
-                    {renderTextItem("Swift", user.transferInfo.swift)}
+                    {renderTextItem("Iban", user.userFinancialSettings.iban)}
+                    {renderTextItem("Swift", user.userFinancialSettings.swift)}
                 </Group>
             </LayoutFlexRow>
             <Group title={"Transport Requirements"}>

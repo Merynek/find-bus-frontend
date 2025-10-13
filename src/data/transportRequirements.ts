@@ -1,4 +1,3 @@
-import {computed, makeObservable, observable} from "mobx";
 import {Image} from "./media/Image";
 
 export interface ITransportRequirementsSettings {
@@ -8,20 +7,14 @@ export interface ITransportRequirementsSettings {
 }
 
 export class TransportRequirements {
-    @observable public concessionNumber: string;
-    @observable public concessionDocuments: Image|null;
-    @observable public businessRiskInsurance: Image|null;
+    public concessionNumber: string;
+    public concessionDocuments: Image|null;
+    public businessRiskInsurance: Image|null;
 
     constructor(settings: ITransportRequirementsSettings) {
         this.concessionNumber = settings.concessionNumber;
         this.concessionDocuments = settings.concessionDocuments;
         this.businessRiskInsurance = settings.businessRiskInsurance;
-        makeObservable(this);
-    }
-
-    @computed
-    get isValid(): boolean {
-        return Boolean(this.concessionNumber) && this.concessionDocuments !== null && this.businessRiskInsurance !== null;
     }
 
     public static create() {

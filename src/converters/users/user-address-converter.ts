@@ -1,4 +1,4 @@
-import {UserAddressResponseDto} from "@/src/api/openapi";
+import {type UserAddressRequestDto, UserAddressResponseDto} from "@/src/api/openapi";
 import {UserAddress} from "@/src/data/users/userAddress";
 
 export class UserAddressConverter {
@@ -13,6 +13,16 @@ export class UserAddressConverter {
     }
 
     public static toJson(address: UserAddress): UserAddressResponseDto {
+        return {
+            street: address.street,
+            city: address.city,
+            psc: address.psc,
+            houseNumber: address.houseNumber,
+            country: address.country || undefined
+        }
+    }
+
+    public static toServer(address: UserAddress): UserAddressRequestDto {
         return {
             street: address.street,
             city: address.city,

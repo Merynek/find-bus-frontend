@@ -1,10 +1,9 @@
-import {action, observable} from "mobx";
 import {Place} from "../data/place";
 
 export class PlaceManager {
     private static _instance: PlaceManager | null = null;
-    @observable public placeIds: Map<string, Place> = new Map<string, Place>();
-    @observable public geoPoints: Map<string, Place> = new Map<string, Place>();
+    public placeIds: Map<string, Place> = new Map<string, Place>();
+    public geoPoints: Map<string, Place> = new Map<string, Place>();
 
     public static get instance(): PlaceManager {
         if (!PlaceManager._instance) {
@@ -24,7 +23,6 @@ export class PlaceManager {
         });
     }
 
-    @action
     public add(place: Place): Place {
         const existsPlace = this.find(place);
         if (existsPlace) {
@@ -52,7 +50,6 @@ export class PlaceManager {
         return this.placeIds.get(placeId)
     }
 
-    @action
     private insertNewPlace(place: Place) {
         if (place.placeId) {
             this.placeIds.set(place.placeId, place);

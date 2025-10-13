@@ -1,6 +1,6 @@
 
 import {FileConverter} from "@/src/converters/file-converter";
-import {TransporterRequirementsResponseDto} from "@/src/api/openapi";
+import {TransporterRequirementsResponseDto, type TransportRequirementsRequestDto} from "@/src/api/openapi";
 import {TransportRequirements} from "@/src/data/transportRequirements";
 
 export class TransportRequirementsConverter {
@@ -17,6 +17,12 @@ export class TransportRequirementsConverter {
             concessionNumber: transportRequirements.concessionNumber,
             businessRiskInsurance: transportRequirements.businessRiskInsurance ? FileConverter.photoToJson(transportRequirements.businessRiskInsurance) : undefined,
             concessionDocuments: transportRequirements.concessionDocuments ? FileConverter.photoToJson(transportRequirements.concessionDocuments) : undefined
+        }
+    }
+
+    public static toServer(transportRequirements: TransportRequirements): TransportRequirementsRequestDto {
+        return {
+            concessionNumber: transportRequirements.concessionNumber
         }
     }
 }

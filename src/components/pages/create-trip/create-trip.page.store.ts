@@ -111,7 +111,7 @@ export class CreateTripPageStore {
     @computed
     get isValid(): boolean {
         return this.trip.isValid && this.placesAreSet && this.peopleCountIsValid && this.peopleCountIsValid &&
-            this.routesCountIsValid && this.endOrderIsValid && this.endOrderWithStartTripIsValid && (this.userSettings ? this.userSettings.isValidForCreateInvoice : false);
+            this.routesCountIsValid && this.endOrderIsValid && this.endOrderWithStartTripIsValid; // todo
     }
 
     @computed

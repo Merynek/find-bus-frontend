@@ -1,5 +1,4 @@
 import {UserDetail} from "./users/user-detail";
-import {makeObservable, observable} from "mobx";
 import {Price} from "./price";
 import {FinancialDocument} from "@/src/data/documents/financialDocument";
 import {Vehicle} from "@/src/data/vehicle/vehicle";
@@ -22,7 +21,7 @@ export class Offer {
     public price: Price;
     public accepted: boolean;
     public acceptOfferDate: Date|null;
-    @observable public endOfferDate: Date;
+    public endOfferDate: Date;
     public documents: FinancialDocument[];
 
     constructor(settings: IOfferSettings) {
@@ -34,6 +33,5 @@ export class Offer {
         this.endOfferDate = settings.endOfferDate;
         this.acceptOfferDate = settings.acceptOfferDate;
         this.documents = settings.documents;
-        makeObservable(this);
     }
 }

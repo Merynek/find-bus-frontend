@@ -5,15 +5,15 @@ import {
     logoutAction, resetPasswordAction,
     signUpAction
 } from "@/src/server-actions/auth/authActions";
-import {UsersConverter} from "@/src/converters/users/users-converter";
 import {BaseService} from "@/src/services/BaseService";
 import {User} from "@/src/data/users/user";
+import {CurrentUsersConverter} from "@/src/converters/users/current-users-converter";
 
 export class AuthorizationService extends BaseService {
     public static async getLoggerUser(): Promise<User|null> {
         return await this.handleActionCall(async () => {
             const user = await getLoggerUserSession();
-            return user ? UsersConverter.currentUserToInstance(user) : null;
+            return user ? CurrentUsersConverter.toInstance(user) : null;
         })
     }
 

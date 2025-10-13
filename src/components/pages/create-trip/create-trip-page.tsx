@@ -110,9 +110,9 @@ const CreateTripPage = observer((props: ICreateTripPageProps) => {
                         if (!_store.routesCountIsValid) {
                             errors += " @ Minimum count of routes is 1"
                         }
-                        if (!_store.userSettings?.isValidForCreateInvoice) {
-                            errors += " @ settings are not valid"
-                        }
+                        // if (!_store.userSettings?.isValidForCreateInvoice) { // todo
+                        //     errors += " @ settings are not valid"
+                        // }
                         alert(errors);
                     } else {
                         try {

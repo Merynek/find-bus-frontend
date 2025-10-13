@@ -72,7 +72,7 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
 
     const validate = () => {
         if (userSettings) {
-            return userSettings.transferInfo.isValid;
+            return true; // todo userSettings.transferInfo.isValid;
         }
         return false;
     }

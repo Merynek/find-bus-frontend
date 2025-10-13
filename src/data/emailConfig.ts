@@ -1,5 +1,4 @@
 import {EmailType, Languages} from "../api/openapi";
-import {makeObservable, observable} from "mobx";
 
 export interface IEmailConfigSettings {
     userParams: Map<string, string>;
@@ -40,11 +39,10 @@ interface IEmailConfigLocalization {
 
 export class EmailConfigLocalization {
     public language: Languages;
-    @observable public templateId: number;
+    public templateId: number;
 
     constructor(settings: IEmailConfigLocalization) {
         this.language = settings.language;
         this.templateId = settings.templateId;
-        makeObservable(this);
     }
 }

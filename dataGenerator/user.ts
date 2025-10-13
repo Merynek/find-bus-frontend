@@ -4,12 +4,13 @@ import {UserRole} from "@/src/api/openapi";
 import {UserDetail} from "@/src/data/users/user-detail";
 import {UserAdminDetail} from "@/src/data/users/user-admin-detail";
 import {getRandomText} from "./texts/texts";
-import {getRandomTransferInfo, getRandomUserAddress, getTransportRequirements} from "./userSettings";
+import {getTransportRequirements} from "./userSettings";
 import {getRandomNumber} from "@/src/utils/common";
 import {getRandomVehicle} from "./vehicle";
 import {getRandomUserConfig} from "@/dataGenerator/userConfig";
 import {UserConfig} from "@/src/data/userConfig";
 import {Vehicle} from "@/src/data/vehicle/vehicle";
+import {getRandomUserFinancialSettings} from "@/dataGenerator/userFinancialSettings";
 
 export function getRandomUser(): User {
     return new User({
@@ -37,18 +38,11 @@ export function getRandomUserAdminDetail(): UserAdminDetail {
     return new UserAdminDetail({
         id: getRandomId(),
         email: getRandomEmail(),
-        dic: getRandomText(1),
-        ico: getRandomText(1),
-        address: getRandomUserAddress(),
-        mailingAddress: getRandomUserAddress(),
+        userFinancialSettings: getRandomUserFinancialSettings(),
         isActive: getRandomBoolean(),
         isBanned: getRandomBoolean(),
-        isCompany: getRandomBoolean(),
-        name: getRandomText(1),
         isVerifiedForTransporting: getRandomBoolean(),
         phoneNumber: getRandomText(1),
-        surname: getRandomText(1),
-        transferInfo: getRandomTransferInfo(),
         vehicles: vehicles,
         transportRequirements: getTransportRequirements(),
         userConfigs: userConfigs

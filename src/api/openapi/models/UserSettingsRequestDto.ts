@@ -13,20 +13,20 @@
  */
 
 import { mapValues } from '../runtime';
-import type { TransferInfoRequestDto } from './TransferInfoRequestDto';
+import type { TransportRequirementsRequestDto } from './TransportRequirementsRequestDto';
 import {
-    TransferInfoRequestDtoFromJSON,
-    TransferInfoRequestDtoFromJSONTyped,
-    TransferInfoRequestDtoToJSON,
-    TransferInfoRequestDtoToJSONTyped,
-} from './TransferInfoRequestDto';
-import type { UserAddressRequestDto } from './UserAddressRequestDto';
+    TransportRequirementsRequestDtoFromJSON,
+    TransportRequirementsRequestDtoFromJSONTyped,
+    TransportRequirementsRequestDtoToJSON,
+    TransportRequirementsRequestDtoToJSONTyped,
+} from './TransportRequirementsRequestDto';
+import type { UserFinancialSettingsRequestDto } from './UserFinancialSettingsRequestDto';
 import {
-    UserAddressRequestDtoFromJSON,
-    UserAddressRequestDtoFromJSONTyped,
-    UserAddressRequestDtoToJSON,
-    UserAddressRequestDtoToJSONTyped,
-} from './UserAddressRequestDto';
+    UserFinancialSettingsRequestDtoFromJSON,
+    UserFinancialSettingsRequestDtoFromJSONTyped,
+    UserFinancialSettingsRequestDtoToJSON,
+    UserFinancialSettingsRequestDtoToJSONTyped,
+} from './UserFinancialSettingsRequestDto';
 import type { NotificationsEnum } from './NotificationsEnum';
 import {
     NotificationsEnumFromJSON,
@@ -43,16 +43,16 @@ import {
 export interface UserSettingsRequestDto {
     /**
      * 
-     * @type {string}
+     * @type {UserFinancialSettingsRequestDto}
      * @memberof UserSettingsRequestDto
      */
-    name?: string | null;
+    userFinancialSettings: UserFinancialSettingsRequestDto;
     /**
      * 
-     * @type {string}
+     * @type {TransportRequirementsRequestDto}
      * @memberof UserSettingsRequestDto
      */
-    surname?: string | null;
+    transportRequirements: TransportRequirementsRequestDto;
     /**
      * 
      * @type {string}
@@ -61,64 +61,18 @@ export interface UserSettingsRequestDto {
     phoneNumber?: string | null;
     /**
      * 
-     * @type {string}
-     * @memberof UserSettingsRequestDto
-     */
-    ico?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof UserSettingsRequestDto
-     */
-    dic?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof UserSettingsRequestDto
-     */
-    companyName?: string | null;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof UserSettingsRequestDto
-     */
-    isCompany?: boolean | null;
-    /**
-     * 
      * @type {Array<NotificationsEnum>}
      * @memberof UserSettingsRequestDto
      */
     notifications?: Array<NotificationsEnum> | null;
-    /**
-     * 
-     * @type {UserAddressRequestDto}
-     * @memberof UserSettingsRequestDto
-     */
-    address?: UserAddressRequestDto;
-    /**
-     * 
-     * @type {UserAddressRequestDto}
-     * @memberof UserSettingsRequestDto
-     */
-    mailingAddress?: UserAddressRequestDto;
-    /**
-     * 
-     * @type {TransferInfoRequestDto}
-     * @memberof UserSettingsRequestDto
-     */
-    transferInfo?: TransferInfoRequestDto;
-    /**
-     * 
-     * @type {string}
-     * @memberof UserSettingsRequestDto
-     */
-    concessionNumber?: string | null;
 }
 
 /**
  * Check if a given object implements the UserSettingsRequestDto interface.
  */
 export function instanceOfUserSettingsRequestDto(value: object): value is UserSettingsRequestDto {
+    if (!('userFinancialSettings' in value) || value['userFinancialSettings'] === undefined) return false;
+    if (!('transportRequirements' in value) || value['transportRequirements'] === undefined) return false;
     return true;
 }
 
@@ -132,18 +86,10 @@ export function UserSettingsRequestDtoFromJSONTyped(json: any, ignoreDiscriminat
     }
     return {
         
-        'name': json['name'] == null ? undefined : json['name'],
-        'surname': json['surname'] == null ? undefined : json['surname'],
+        'userFinancialSettings': UserFinancialSettingsRequestDtoFromJSON(json['userFinancialSettings']),
+        'transportRequirements': TransportRequirementsRequestDtoFromJSON(json['transportRequirements']),
         'phoneNumber': json['phoneNumber'] == null ? undefined : json['phoneNumber'],
-        'ico': json['ico'] == null ? undefined : json['ico'],
-        'dic': json['dic'] == null ? undefined : json['dic'],
-        'companyName': json['companyName'] == null ? undefined : json['companyName'],
-        'isCompany': json['isCompany'] == null ? undefined : json['isCompany'],
         'notifications': json['notifications'] == null ? undefined : ((json['notifications'] as Array<any>).map(NotificationsEnumFromJSON)),
-        'address': json['address'] == null ? undefined : UserAddressRequestDtoFromJSON(json['address']),
-        'mailingAddress': json['mailingAddress'] == null ? undefined : UserAddressRequestDtoFromJSON(json['mailingAddress']),
-        'transferInfo': json['transferInfo'] == null ? undefined : TransferInfoRequestDtoFromJSON(json['transferInfo']),
-        'concessionNumber': json['concessionNumber'] == null ? undefined : json['concessionNumber'],
     };
 }
 
@@ -158,18 +104,10 @@ export function UserSettingsRequestDtoToJSONTyped(value?: UserSettingsRequestDto
 
     return {
         
-        'name': value['name'],
-        'surname': value['surname'],
+        'userFinancialSettings': UserFinancialSettingsRequestDtoToJSON(value['userFinancialSettings']),
+        'transportRequirements': TransportRequirementsRequestDtoToJSON(value['transportRequirements']),
         'phoneNumber': value['phoneNumber'],
-        'ico': value['ico'],
-        'dic': value['dic'],
-        'companyName': value['companyName'],
-        'isCompany': value['isCompany'],
         'notifications': value['notifications'] == null ? undefined : ((value['notifications'] as Array<any>).map(NotificationsEnumToJSON)),
-        'address': UserAddressRequestDtoToJSON(value['address']),
-        'mailingAddress': UserAddressRequestDtoToJSON(value['mailingAddress']),
-        'transferInfo': TransferInfoRequestDtoToJSON(value['transferInfo']),
-        'concessionNumber': value['concessionNumber'],
     };
 }
 

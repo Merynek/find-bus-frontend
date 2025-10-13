@@ -8,9 +8,7 @@ import {LayoutFlexColumn} from "../../components/layout/layout-flex-column/layou
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {userSettingsFormAction} from "@/src/server-actions/forms/userSettings/userSettingsFormAction";
 import {useInit} from "@/src/hooks/lifecycleHooks";
-import {UsersConverter} from "@/src/converters/users/users-converter";
 import {useLoggedUser} from "@/src/hooks/authenticationHook";
-import {ImageUploader} from "@/src/components/components/image-uploader/image-uploader";
 import {useFormActionState} from "@/src/hooks/formHook";
 import {FormStatus} from "@/src/components/components/form-status/form-status";
 import {FlexGap} from "@/src/enums/layout.enum";
@@ -19,44 +17,43 @@ import {FontWeight} from "@/src/components/components/texts/textStyles";
 import {TextBox, TextBoxType} from "@/src/components/components/inputs/text-box/text-box";
 import { CheckBox } from "../../components/inputs/check-box/check-box";
 import {ComboBox, IComboBoxItem} from "@/src/components/components/inputs/combo-box/combo-box";
+import {UserSettingsConverter} from "@/src/converters/users/user-settings-converter";
 
 interface IUserSettingsPageProps {
     settings: UserSettingsResponseDto;
 }
 
 const UserSettingsPage = (props: IUserSettingsPageProps) => {
-    const settings = useInit(() => UsersConverter.userSettingsToInstance(props.settings));
+    const settings = useInit(() => UserSettingsConverter.toInstance(props.settings));
     const {t} = useTranslate("page.userSettings");
     const {user} = useLoggedUser();
     const [state, action, pending] = useFormActionState(userSettingsFormAction, {
         data: {
-            name: settings.name,
-            surname: settings.surname,
+            name: settings.userFinancialSettings.name,
+            surname: settings.userFinancialSettings.surname,
             phoneNumber: settings.phoneNumber,
-            ico: settings.ico,
-            dic: settings.dic,
-            companyName: settings.companyName,
-            isCompany: settings.isCompany,
+            ico: settings.userFinancialSettings.ico,
+            dic: settings.userFinancialSettings.dic,
+            companyName: settings.userFinancialSettings.companyName,
+            isCompany: settings.userFinancialSettings.isCompany,
             notifications: settings.notifications,
             address: {
-                country: settings.address.country || undefined,
-                city: settings.address.city,
-                psc: settings.address.psc,
-                street: settings.address.street,
-                houseNumber: settings.address.houseNumber,
+                country: settings.userFinancialSettings.address?.country || undefined,
+                city: settings.userFinancialSettings.address?.city,
+                psc: settings.userFinancialSettings.address?.psc,
+                street: settings.userFinancialSettings.address?.street,
+                houseNumber: settings.userFinancialSettings.address?.houseNumber,
             },
             mailingAddress: {
-                country: settings.mailingAddress.country || undefined,
-                city: settings.mailingAddress.city,
-                psc: settings.mailingAddress.psc,
-                street: settings.mailingAddress.street,
-                houseNumber: settings.mailingAddress.houseNumber
+                country: settings.userFinancialSettings.mailingAddress?.country || undefined,
+                city: settings.userFinancialSettings.mailingAddress?.city,
+                psc: settings.userFinancialSettings.mailingAddress?.psc,
+                street: settings.userFinancialSettings.mailingAddress?.street,
+                houseNumber: settings.userFinancialSettings.mailingAddress?.houseNumber
             },
             concessionNumber: settings.transportRequirements.concessionNumber,
-            transferInfo: {
-                iban: settings.transferInfo.iban,
-                swift: settings.transferInfo.swift
-            }
+            swift: settings.userFinancialSettings.swift,
+            iban: settings.userFinancialSettings.iban
         }
     })
 
@@ -256,19 +253,19 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
             <Heading text={t("bankInfoHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={4}/>
             <TextBox
                 controlled={false}
-                name={FormDataEnum.transferInfo_iban}
-                id={FormDataEnum.transferInfo_iban}
+                name={FormDataEnum.iban}
+                id={FormDataEnum.iban}
                 type={TextBoxType.TEXT}
                 placeholder={t("iban")}
-                defaultValue={state?.data?.transferInfo?.iban || ""}
+                defaultValue={state?.data?.iban || ""}
             />
             <TextBox
                 controlled={false}
-                name={FormDataEnum.transferInfo_swift}
-                id={FormDataEnum.transferInfo_swift}
+                name={FormDataEnum.swift}
+                id={FormDataEnum.swift}
                 type={TextBoxType.TEXT}
                 placeholder={t("swift")}
-                defaultValue={state?.data?.transferInfo?.swift || ""}
+                defaultValue={state?.data?.swift || ""}
             />
         </>
     }
@@ -276,7 +273,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
     const renderTransportRequirements = () => {
         return <>
             <Heading text={t("transportRequirementsHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={4}/>
-            <span>{"User => " + (settings.isVerifiedForTransporting ? t("verifiedForTransporting") : t("notVerifiedForTransporting"))}</span>
+            <span>{"User => " + t("verifiedForTransporting") + "-" +  t("notVerifiedForTransporting")}</span>
             <TextBox
                 controlled={false}
                 name={FormDataEnum.concessionNumber}
