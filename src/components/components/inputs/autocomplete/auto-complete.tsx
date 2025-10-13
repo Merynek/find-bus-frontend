@@ -25,11 +25,12 @@ export interface IAutoCompleteProps<T> {
     }) => ReactNode;
     id?: string;
     name?: string;
+    instanceId: string;
 }
 
 export function AutoComplete<T>(props: IAutoCompleteProps<T>) {
     const {autoFocus, isDisabled, placeholder, value, emptyMessage, noOptionsMessage, loadingMessage,
-        onChange, getFilteredItems, id, name} = props;
+        onChange, getFilteredItems, id, name, instanceId} = props;
     const [isFocused, setIsFocused] = useState(false);
     const [internalValue, setInternalValue] = useState<SingleValue<IAutoCompleteItem<T>>>(null);
 
@@ -45,6 +46,7 @@ export function AutoComplete<T>(props: IAutoCompleteProps<T>) {
     return <InputWrapper
         input={<AsyncSelect <IAutoCompleteItem<T>, false>
             id={id}
+            instanceId={instanceId}
             name={name}
             autoFocus={autoFocus}
             value={selectedValue}

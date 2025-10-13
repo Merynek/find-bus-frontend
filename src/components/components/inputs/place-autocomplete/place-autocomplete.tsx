@@ -12,10 +12,11 @@ export interface IPlaceAutocompleteProps {
    id?: string;
    name?: string;
    onChange: (place: Place) => void;
+   instanceId: string;
 }
 
 export const PlaceAutocomplete = (props: IPlaceAutocompleteProps) => {
-   const {onChange, place, placeHolder, disabled, emptyMessage, loadingMessage, id, name} = props;
+   const {onChange, place, placeHolder, disabled, emptyMessage, loadingMessage, id, name, instanceId} = props;
 
    const getFilteredItems = useCallback(async (filter: string): Promise<IAutoCompleteItem<Place>[]> => {
       if (filter.length < 3) {
@@ -38,6 +39,7 @@ export const PlaceAutocomplete = (props: IPlaceAutocompleteProps) => {
    return <AutoComplete
        id={id}
        name={name}
+       instanceId={instanceId}
        getFilteredItems={getFilteredItems}
        placeholder={placeHolder}
        loadingMessage={loadingMessage}

@@ -333,6 +333,7 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
                     <PlaceAutocomplete
                         place={departureStation}
                         onChange={setDepartureStation}
+                        instanceId={"vehicleDepartureStation"}
                         placeHolder={t("departureStation")}
                     />
                     {renderVehiclePhotos()}

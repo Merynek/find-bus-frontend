@@ -21,6 +21,7 @@ export const TripPlaceName = observer((props: ITripPlaceNameProps) => {
     return <div className={cn(styles.placeName, styles.autocomplete)}>
         <PlaceAutocomplete
             place={stop.place}
+            instanceId={`stop-${stop.id.toString()}`}
             onChange={(place) => {
                 runInAction(() => {
                     if (place) {
