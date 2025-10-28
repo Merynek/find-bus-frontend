@@ -1,5 +1,9 @@
 import {z} from "zod";
-import {Country, NotificationsEnum} from "@/src/api/openapi";
+import {Country} from "@/src/api/openapi";
+
+export const RequiredStringSchema = z.string().min(1, {message: "required"});
+
+export const RequiredBooleanSchema = z.boolean({message: "required"});
 
 export const GeoPointSchema = z.object({
     lat: z.number(),
@@ -7,11 +11,11 @@ export const GeoPointSchema = z.object({
 });
 
 export const PlaceSchema = z.object({
-    placeId: z.string().min(1, "ID místa je vyžadováno."),
-    point: GeoPointSchema, // Validace pro GeoPoint
+    placeId: RequiredStringSchema,
+    point: GeoPointSchema,
     country: z.enum(Country, { message: "Neplatná země." }), // Použijte z.enum pro validaci enum
-    name: z.string().min(1, "Název místa je vyžadován."),
-    placeFormatted: z.string().min(1, "Formátovaný název místa je vyžadován."),
+    name: RequiredStringSchema,
+    placeFormatted: RequiredStringSchema,
 });
 
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
@@ -29,21 +33,21 @@ export const ImageFileSchema = z.instanceof(File, { message: "Soubor je vyžadov
 
 export const UserAddressSchema = z.object({
     country: z.enum(Country),
-    city: z.string(),
-    psc: z.string(),
-    street: z.string(),
-    houseNumber: z.string()
+    city: RequiredStringSchema,
+    psc: RequiredStringSchema,
+    street: RequiredStringSchema,
+    houseNumber: RequiredStringSchema
 });
 
 export const UserFinancialSettingsSchema = z.object({
-    name: z.string().min(2, "Name je vyžadováno.").optional(),
-    surname: z.string().optional(),
-    ico: z.string().optional(),
-    dic: z.string().optional(),
-    companyName: z.string().optional(),
-    isCompany: z.boolean().optional(),
-    address: UserAddressSchema.partial().optional(),
-    mailingAddress: UserAddressSchema.partial().optional(),
-    iban: z.string().optional(),
-    swift: z.string().optional(),
+    name: RequiredStringSchema,
+    surname: RequiredStringSchema,
+    ico: RequiredStringSchema,
+    dic: RequiredStringSchema,
+    companyName: RequiredStringSchema,
+    isCompany: RequiredBooleanSchema,
+    address: UserAddressSchema,
+    mailingAddress: UserAddressSchema,
+    iban: RequiredStringSchema,
+    swift: RequiredStringSchema,
 });
