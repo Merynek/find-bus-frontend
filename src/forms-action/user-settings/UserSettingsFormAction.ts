@@ -52,18 +52,7 @@ export class UserSettingsFormAction extends BaseFormAction<typeof UserSettingsSc
         await UsersService.changeSettings({
             phoneNumber: validatedData.phoneNumber,
             notifications: validatedData.notifications,
-            userFinancialSettings: {
-                name: validatedData.name,
-                surname: validatedData.surname,
-                ico: validatedData.ico,
-                dic: validatedData.dic,
-                companyName: validatedData.companyName,
-                isCompany: validatedData.isCompany,
-                iban: validatedData.iban,
-                swift: validatedData.swift,
-                address: validatedData.address || undefined,
-                mailingAddress: validatedData.mailingAddress || undefined,
-            },
+            userFinancialSettings: validatedData.userFinancialSettings,
             transportRequirements: {
                 concessionNumber: validatedData.concessionNumber
             }}

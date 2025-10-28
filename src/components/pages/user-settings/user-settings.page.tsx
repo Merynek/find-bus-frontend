@@ -29,31 +29,33 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
     const {user} = useLoggedUser();
     const [state, action, pending] = useFormActionState(userSettingsFormAction, {
         data: {
-            name: settings.userFinancialSettings.name,
-            surname: settings.userFinancialSettings.surname,
+            userFinancialSettings: {
+                name: settings.userFinancialSettings.name,
+                surname: settings.userFinancialSettings.surname,
+                ico: settings.userFinancialSettings.ico,
+                dic: settings.userFinancialSettings.dic,
+                companyName: settings.userFinancialSettings.companyName,
+                isCompany: settings.userFinancialSettings.isCompany,
+                address: {
+                    country: settings.userFinancialSettings.address?.country || undefined,
+                    city: settings.userFinancialSettings.address?.city,
+                    psc: settings.userFinancialSettings.address?.psc,
+                    street: settings.userFinancialSettings.address?.street,
+                    houseNumber: settings.userFinancialSettings.address?.houseNumber,
+                },
+                mailingAddress: {
+                    country: settings.userFinancialSettings.mailingAddress?.country || undefined,
+                    city: settings.userFinancialSettings.mailingAddress?.city,
+                    psc: settings.userFinancialSettings.mailingAddress?.psc,
+                    street: settings.userFinancialSettings.mailingAddress?.street,
+                    houseNumber: settings.userFinancialSettings.mailingAddress?.houseNumber
+                },
+                swift: settings.userFinancialSettings.swift,
+                iban: settings.userFinancialSettings.iban
+            },
             phoneNumber: settings.phoneNumber,
-            ico: settings.userFinancialSettings.ico,
-            dic: settings.userFinancialSettings.dic,
-            companyName: settings.userFinancialSettings.companyName,
-            isCompany: settings.userFinancialSettings.isCompany,
             notifications: settings.notifications,
-            address: {
-                country: settings.userFinancialSettings.address?.country || undefined,
-                city: settings.userFinancialSettings.address?.city,
-                psc: settings.userFinancialSettings.address?.psc,
-                street: settings.userFinancialSettings.address?.street,
-                houseNumber: settings.userFinancialSettings.address?.houseNumber,
-            },
-            mailingAddress: {
-                country: settings.userFinancialSettings.mailingAddress?.country || undefined,
-                city: settings.userFinancialSettings.mailingAddress?.city,
-                psc: settings.userFinancialSettings.mailingAddress?.psc,
-                street: settings.userFinancialSettings.mailingAddress?.street,
-                houseNumber: settings.userFinancialSettings.mailingAddress?.houseNumber
-            },
-            concessionNumber: settings.transportRequirements.concessionNumber,
-            swift: settings.userFinancialSettings.swift,
-            iban: settings.userFinancialSettings.iban
+            concessionNumber: settings.transportRequirements.concessionNumber
         }
     })
 
@@ -71,7 +73,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                 id={FormDataEnum.name}
                 type={TextBoxType.TEXT}
                 placeholder={t("name")}
-                defaultValue={state?.data?.name || ""}
+                defaultValue={state?.data?.userFinancialSettings?.name || ""}
             />
             <TextBox
                 controlled={false}
@@ -79,7 +81,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                 id={FormDataEnum.surname}
                 type={TextBoxType.TEXT}
                 placeholder={t("surname")}
-                defaultValue={state?.data?.surname || ""}
+                defaultValue={state?.data?.userFinancialSettings?.surname || ""}
             />
             <TextBox
                 controlled={false}
@@ -95,7 +97,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                 id={FormDataEnum.ico}
                 type={TextBoxType.TEXT}
                 placeholder={t("ico")}
-                defaultValue={state?.data?.ico || ""}
+                defaultValue={state?.data?.userFinancialSettings?.ico || ""}
             />
             <TextBox
                 controlled={false}
@@ -103,7 +105,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                 id={FormDataEnum.dic}
                 type={TextBoxType.TEXT}
                 placeholder={t("dic")}
-                defaultValue={state?.data?.dic || ""}
+                defaultValue={state?.data?.userFinancialSettings?.dic || ""}
             />
             <TextBox
                 controlled={false}
@@ -111,14 +113,14 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                 id={FormDataEnum.companyName}
                 type={TextBoxType.TEXT}
                 placeholder={t("companyName")}
-                defaultValue={state?.data?.companyName || ""}
+                defaultValue={state?.data?.userFinancialSettings?.companyName || ""}
             />
             <CheckBox
                 controlled={false}
                 name={FormDataEnum.isCompany}
                 id={FormDataEnum.isCompany}
                 label={t("isCompany")}
-                defaultChecked={state?.data?.isCompany || false}
+                defaultChecked={state?.data?.userFinancialSettings?.isCompany || false}
             />
         </>
     }
@@ -128,23 +130,23 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
             heading={t("addressHeading")}
             city={{
                 name: FormDataEnum.address_city,
-                value: state?.data?.address?.city
+                value: state?.data?.userFinancialSettings?.address?.city
             }}
             psc={{
                 name: FormDataEnum.address_psc,
-                value: state?.data?.address?.psc
+                value: state?.data?.userFinancialSettings?.address?.psc
             }}
             street={{
                 name: FormDataEnum.address_street,
-                value: state?.data?.address?.street
+                value: state?.data?.userFinancialSettings?.address?.street
             }}
             houseNumber={{
                 name: FormDataEnum.address_houseNumber,
-                value: state?.data?.address?.houseNumber
+                value: state?.data?.userFinancialSettings?.address?.houseNumber
             }}
             country={{
                 name: FormDataEnum.address_country,
-                value: state?.data?.address?.country
+                value: state?.data?.userFinancialSettings?.address?.country
             }}
         />
     }
@@ -154,23 +156,23 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
             heading={t("addressHeading")}
             city={{
                 name: FormDataEnum.mailingAddress_city,
-                value: state?.data?.mailingAddress?.city
+                value: state?.data?.userFinancialSettings?.mailingAddress?.city
             }}
             psc={{
                 name: FormDataEnum.mailingAddress_psc,
-                value: state?.data?.mailingAddress?.psc
+                value: state?.data?.userFinancialSettings?.mailingAddress?.psc
             }}
             street={{
                 name: FormDataEnum.mailingAddress_street,
-                value: state?.data?.mailingAddress?.street
+                value: state?.data?.userFinancialSettings?.mailingAddress?.street
             }}
             houseNumber={{
                 name: FormDataEnum.mailingAddress_houseNumber,
-                value: state?.data?.mailingAddress?.houseNumber
+                value: state?.data?.userFinancialSettings?.mailingAddress?.houseNumber
             }}
             country={{
                 name: FormDataEnum.mailingAddress_country,
-                value: state?.data?.mailingAddress?.country
+                value: state?.data?.userFinancialSettings?.mailingAddress?.country
             }}
         />
     }
@@ -202,7 +204,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                 id={FormDataEnum.iban}
                 type={TextBoxType.TEXT}
                 placeholder={t("iban")}
-                defaultValue={state?.data?.iban || ""}
+                defaultValue={state?.data?.userFinancialSettings?.iban || ""}
             />
             <TextBox
                 controlled={false}
@@ -210,7 +212,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                 id={FormDataEnum.swift}
                 type={TextBoxType.TEXT}
                 placeholder={t("swift")}
-                defaultValue={state?.data?.swift || ""}
+                defaultValue={state?.data?.userFinancialSettings?.swift || ""}
             />
         </>
     }

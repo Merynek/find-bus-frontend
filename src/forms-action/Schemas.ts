@@ -1,5 +1,5 @@
 import {z} from "zod";
-import {Country} from "@/src/api/openapi";
+import {Country, NotificationsEnum} from "@/src/api/openapi";
 
 export const GeoPointSchema = z.object({
     lat: z.number(),
@@ -9,7 +9,7 @@ export const GeoPointSchema = z.object({
 export const PlaceSchema = z.object({
     placeId: z.string().min(1, "ID místa je vyžadováno."),
     point: GeoPointSchema, // Validace pro GeoPoint
-    country: z.nativeEnum(Country, { message: "Neplatná země." }), // Použijte z.nativeEnum pro validaci enum
+    country: z.enum(Country, { message: "Neplatná země." }), // Použijte z.enum pro validaci enum
     name: z.string().min(1, "Název místa je vyžadován."),
     placeFormatted: z.string().min(1, "Formátovaný název místa je vyžadován."),
 });
@@ -28,9 +28,22 @@ export const ImageFileSchema = z.instanceof(File, { message: "Soubor je vyžadov
     });
 
 export const UserAddressSchema = z.object({
-    country: z.nativeEnum(Country),
+    country: z.enum(Country),
     city: z.string(),
     psc: z.string(),
     street: z.string(),
     houseNumber: z.string()
+});
+
+export const UserFinancialSettingsSchema = z.object({
+    name: z.string().min(2, "Name je vyžadováno.").optional(),
+    surname: z.string().optional(),
+    ico: z.string().optional(),
+    dic: z.string().optional(),
+    companyName: z.string().optional(),
+    isCompany: z.boolean().optional(),
+    address: UserAddressSchema.partial().optional(),
+    mailingAddress: UserAddressSchema.partial().optional(),
+    iban: z.string().optional(),
+    swift: z.string().optional(),
 });
