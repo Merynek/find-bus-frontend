@@ -81,13 +81,6 @@ interface IUploadItem {
     fileName: string;
 }
 
-export interface IUploadVehiclePublicPhotosRequest extends IApiRequest {
-    vehicleId: number;
-    photoFiles: File[];
-    photoIds: number[];
-    photoIdsToDelete: number[];
-}
-
 export interface ISetVehicleVerificationRequest extends IApiRequest {
     vehicleId: number;
     verified: boolean;

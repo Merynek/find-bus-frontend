@@ -22,7 +22,7 @@ export function FormStatus<T extends z.ZodSchema>({state}: Props<T>) {
 
     const hasGlobalErrors = errors && errors.errors && errors.errors.length > 0;
     const hasFieldErrors = errors && 'properties' in errors && errors.properties && Object.keys(errors.properties).length > 0;
-    const appError = state?.appError
+    const appError = state?.appError;
 
     if (!message && !hasGlobalErrors && !hasFieldErrors && !appError) {
         return null;

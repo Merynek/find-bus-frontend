@@ -43,20 +43,14 @@ export class UserSettingsFormAction extends BaseFormAction<typeof UserSettingsSc
             },
             phoneNumber: this.getStringFormValue(formData, FormDataEnum.phoneNumber),
             notifications: this.getEnumArrayFormValue(formData, FormDataEnum.notifications),
-            businessRiskInsurance: this.getFileFormValue(formData, FormDataEnum.businessRiskInsurance),
-            concessionDocuments: this.getFileFormValue(formData, FormDataEnum.concessionDocuments),
+            transportRequirements: {
+                concessionNumber: this.getStringFormValue(formData, FormDataEnum.concessionNumber)
+            }
         };
     }
 
     protected async callApi(validatedData: z.infer<typeof UserSettingsSchema>): Promise<UserSettingsApiResult> {
-        await UsersService.changeSettings({
-            phoneNumber: validatedData.phoneNumber,
-            notifications: validatedData.notifications,
-            userFinancialSettings: validatedData.userFinancialSettings,
-            transportRequirements: {
-                concessionNumber: validatedData.concessionNumber
-            }}
-        );
+        await UsersService.changeSettings(validatedData);
 
         // if (validatedData.businessRiskInsurance || validatedData.concessionDocuments) { // todo
         //     await UsersService.updateTransportRequirementsPhotos({

@@ -3,7 +3,7 @@
 import {useTranslate} from "@/src/hooks/translateHook";
 import React from "react";
 import {ButtonClick, ButtonSize, ButtonType} from "../../components/button/button";
-import {NotificationsEnum, UserRole, UserSettingsResponseDto} from "@/src/api/openapi";
+import {Country, NotificationsEnum, UserRole, UserSettingsResponseDto} from "@/src/api/openapi";
 import {LayoutFlexColumn} from "../../components/layout/layout-flex-column/layout-flex-column";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {userSettingsFormAction} from "@/src/server-actions/forms/userSettings/userSettingsFormAction";
@@ -37,25 +37,27 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                 companyName: settings.userFinancialSettings.companyName,
                 isCompany: settings.userFinancialSettings.isCompany,
                 address: {
-                    country: settings.userFinancialSettings.address?.country || undefined,
-                    city: settings.userFinancialSettings.address?.city,
-                    psc: settings.userFinancialSettings.address?.psc,
-                    street: settings.userFinancialSettings.address?.street,
-                    houseNumber: settings.userFinancialSettings.address?.houseNumber,
+                    country: settings.userFinancialSettings.address?.country || Country.CZ,
+                    city: settings.userFinancialSettings.address?.city || "",
+                    psc: settings.userFinancialSettings.address?.psc || "",
+                    street: settings.userFinancialSettings.address?.street || "",
+                    houseNumber: settings.userFinancialSettings.address?.houseNumber || "",
                 },
                 mailingAddress: {
-                    country: settings.userFinancialSettings.mailingAddress?.country || undefined,
-                    city: settings.userFinancialSettings.mailingAddress?.city,
-                    psc: settings.userFinancialSettings.mailingAddress?.psc,
-                    street: settings.userFinancialSettings.mailingAddress?.street,
-                    houseNumber: settings.userFinancialSettings.mailingAddress?.houseNumber
+                    country: settings.userFinancialSettings.mailingAddress?.country || Country.CZ,
+                    city: settings.userFinancialSettings.mailingAddress?.city || "",
+                    psc: settings.userFinancialSettings.mailingAddress?.psc || "",
+                    street: settings.userFinancialSettings.mailingAddress?.street || "",
+                    houseNumber: settings.userFinancialSettings.mailingAddress?.houseNumber || ""
                 },
                 swift: settings.userFinancialSettings.swift,
                 iban: settings.userFinancialSettings.iban
             },
             phoneNumber: settings.phoneNumber,
             notifications: settings.notifications,
-            concessionNumber: settings.transportRequirements.concessionNumber
+            transportRequirements: {
+                concessionNumber: settings.transportRequirements.concessionNumber
+            }
         }
     })
 
@@ -227,7 +229,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                 id={FormDataEnum.concessionNumber}
                 type={TextBoxType.TEXT}
                 placeholder={t("concessionNumber")}
-                defaultValue={state?.data?.concessionNumber || ""}
+                defaultValue={state?.data?.transportRequirements?.concessionNumber || ""}
             />
             {/*<ImageUploader*/}
             {/*    label={t("businessRiskInsurance")}*/}
@@ -253,7 +255,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                     {renderMailingAddress()}
                     {renderNotifications()}
                     {user?.role === UserRole.TRANSPORTER && renderBankInfo()}
-                    {/*{user?.role === UserRole.TRANSPORTER && renderTransportRequirements()}*/}
+                    {user?.role === UserRole.TRANSPORTER && renderTransportRequirements()}
                 </LayoutFlexColumn>
                 <ButtonClick
                     controlled={false}

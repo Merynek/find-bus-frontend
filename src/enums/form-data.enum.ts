@@ -18,8 +18,6 @@ export enum FormDataEnum {
     isCompany = "isCompany",
     notifications = "notifications",
     concessionNumber = "concessionNumber",
-    businessRiskInsurance = "businessRiskInsurance",
-    concessionDocuments = "concessionDocuments",
     template = "template",
     language = "language",
     templateId = "templateId",
