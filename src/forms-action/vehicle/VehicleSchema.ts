@@ -4,7 +4,8 @@ import {LOCALES} from "@/src/enums/locale";
 import {PlaceSchema} from "@/src/forms-action/Schemas";
 import {FormActionEnum} from "@/src/enums/form-action.enum";
 
-const VehicleCoreSchema = z.object({
+export const VehicleSchema = z.object({
+    locale: z.enum(LOCALES),
     vehicleId: z.coerce.number(),
     name: z.string().optional(),
     personsCapacity: z.coerce.number().optional(),
@@ -18,9 +19,3 @@ const VehicleCoreSchema = z.object({
     departureStation: PlaceSchema.optional(),
     formActionType: z.enum(FormActionEnum)
 }).strict();
-
-export const VehicleSchema = z.object({
-    locale: z.enum(LOCALES)
-})
-    .extend(VehicleCoreSchema.shape)
-    .strict();
