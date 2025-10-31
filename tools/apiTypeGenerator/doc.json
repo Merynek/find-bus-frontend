@@ -1241,46 +1241,34 @@
         }
       }
     },
-    "/api/Users/transportRequirementsPhotos": {
-      "post": {
+    "/api/Users/transportRequirements": {
+      "get": {
         "tags": [
           "Users"
         ],
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "ConcessionDocuments": {
-                    "type": "string",
-                    "format": "binary"
-                  },
-                  "BusinessRiskInsurance": {
-                    "type": "string",
-                    "format": "binary"
-                  }
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransporterRequirementsResponseDto"
                 }
               },
-              "encoding": {
-                "ConcessionDocuments": {
-                  "style": "form"
-                },
-                "BusinessRiskInsurance": {
-                  "style": "form"
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransporterRequirementsResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransporterRequirementsResponseDto"
                 }
               }
             }
           }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
         }
-      }
-    },
-    "/api/Users/userTransportVerification": {
+      },
       "post": {
         "tags": [
           "Users"
@@ -1289,29 +1277,49 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/UserTransportVerificationRequestDto"
+                "$ref": "#/components/schemas/TransportRequirementsRequestDto"
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserTransportVerificationRequestDto"
+                "$ref": "#/components/schemas/TransportRequirementsRequestDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UserTransportVerificationRequestDto"
+                "$ref": "#/components/schemas/TransportRequirementsRequestDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UserTransportVerificationRequestDto"
+                "$ref": "#/components/schemas/TransportRequirementsRequestDto"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
           }
         }
       }
@@ -1370,6 +1378,151 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/Users/transportRequirementsCompleteDocumentUpload": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransportDocumentsCompleteUploadFilesRequestDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransportDocumentsCompleteUploadFilesRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransportDocumentsCompleteUploadFilesRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransportDocumentsCompleteUploadFilesRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Users/transportRequirementsCreateUploadDocument": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransportRequirementsCreateUploadUrlFilesRequestDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransportRequirementsCreateUploadUrlFilesRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransportRequirementsCreateUploadUrlFilesRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransportRequirementsCreateUploadUrlFilesRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransportRequirementsUploadSasUrlResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransportRequirementsUploadSasUrlResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransportRequirementsUploadSasUrlResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Users/transportRequirementsVerification": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransportRequirementsVerificationRequestDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransportRequirementsVerificationRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransportRequirementsVerificationRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransportRequirementsVerificationRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -2208,6 +2361,38 @@
           "id": {
             "type": "integer",
             "format": "int32"
+          },
+          "blobName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "contentType": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "fileSize": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "originalFileName": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CompletedTransportUploadDocumentItemRequestDto": {
+        "required": [
+          "blobName",
+          "contentType",
+          "fileSize",
+          "originalFileName",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/TransportRequirementsType"
           },
           "blobName": {
             "minLength": 1,
@@ -3454,10 +3639,124 @@
         },
         "additionalProperties": false
       },
+      "TransportDocumentResponseDto": {
+        "required": [
+          "id",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "$ref": "#/components/schemas/TransportRequirementsType"
+          },
+          "file": {
+            "$ref": "#/components/schemas/FileResponseDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransportDocumentsCompleteUploadFilesRequestDto": {
+        "required": [
+          "documentIdsToDelete",
+          "documents",
+          "requirementsId"
+        ],
+        "type": "object",
+        "properties": {
+          "requirementsId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "documentIdsToDelete": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "documents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CompletedTransportUploadDocumentItemRequestDto"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransportRequirementsCreateUploadUrlFilesRequestDto": {
+        "required": [
+          "documents",
+          "requirementsId"
+        ],
+        "type": "object",
+        "properties": {
+          "requirementsId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "documents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UploadTransportDocumentItemRequestDto"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
       "TransportRequirementsRequestDto": {
+        "required": [
+          "concessionNumber"
+        ],
         "type": "object",
         "properties": {
           "concessionNumber": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransportRequirementsType": {
+        "enum": [
+          "Concession",
+          "Business_risk"
+        ],
+        "type": "string"
+      },
+      "TransportRequirementsUploadSasUrlResponseDto": {
+        "required": [
+          "documents"
+        ],
+        "type": "object",
+        "properties": {
+          "documents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UploadSasUrlResponseDto"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransportRequirementsVerificationRequestDto": {
+        "required": [
+          "isVerified",
+          "requirementsId"
+        ],
+        "type": "object",
+        "properties": {
+          "requirementsId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isVerified": {
+            "type": "boolean"
+          },
+          "description": {
             "type": "string",
             "nullable": true
           }
@@ -3465,17 +3764,20 @@
         "additionalProperties": false
       },
       "TransporterRequirementsResponseDto": {
+        "required": [
+          "documents"
+        ],
         "type": "object",
         "properties": {
           "concessionNumber": {
             "type": "string",
             "nullable": true
           },
-          "concessionDocuments": {
-            "$ref": "#/components/schemas/FileResponseDto"
-          },
-          "businessRiskInsurance": {
-            "$ref": "#/components/schemas/FileResponseDto"
+          "documents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TransportDocumentResponseDto"
+            }
           }
         },
         "additionalProperties": false
@@ -4074,6 +4376,28 @@
         },
         "additionalProperties": false
       },
+      "UploadTransportDocumentItemRequestDto": {
+        "required": [
+          "clientFileId",
+          "fileName",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/TransportRequirementsType"
+          },
+          "clientFileId": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "fileName": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
       "UserActiveRequestDto": {
         "required": [
           "token"
@@ -4088,26 +4412,33 @@
         "additionalProperties": false
       },
       "UserAddressRequestDto": {
+        "required": [
+          "city",
+          "country",
+          "houseNumber",
+          "psc",
+          "street"
+        ],
         "type": "object",
         "properties": {
           "country": {
             "$ref": "#/components/schemas/Country"
           },
           "city": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "psc": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "street": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "houseNumber": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           }
         },
         "additionalProperties": false
@@ -4188,31 +4519,42 @@
         "additionalProperties": false
       },
       "UserFinancialSettingsRequestDto": {
+        "required": [
+          "address",
+          "companyName",
+          "dic",
+          "iban",
+          "ico",
+          "isCompany",
+          "mailingAddress",
+          "name",
+          "surname",
+          "swift"
+        ],
         "type": "object",
         "properties": {
           "name": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "surname": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "ico": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "dic": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "companyName": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "isCompany": {
-            "type": "boolean",
-            "nullable": true
+            "type": "boolean"
           },
           "address": {
             "$ref": "#/components/schemas/UserAddressRequestDto"
@@ -4221,12 +4563,12 @@
             "$ref": "#/components/schemas/UserAddressRequestDto"
           },
           "iban": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "swift": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           }
         },
         "additionalProperties": false
@@ -4294,16 +4636,12 @@
       },
       "UserSettingsRequestDto": {
         "required": [
-          "transportRequirements",
           "userFinancialSettings"
         ],
         "type": "object",
         "properties": {
           "userFinancialSettings": {
             "$ref": "#/components/schemas/UserFinancialSettingsRequestDto"
-          },
-          "transportRequirements": {
-            "$ref": "#/components/schemas/TransportRequirementsRequestDto"
           },
           "phoneNumber": {
             "type": "string",
@@ -4321,7 +4659,6 @@
       },
       "UserSettingsResponseDto": {
         "required": [
-          "isVerifiedForTransporting",
           "notifications",
           "phoneNumber"
         ],
@@ -4337,31 +4674,8 @@
               "$ref": "#/components/schemas/NotificationsEnum"
             }
           },
-          "isVerifiedForTransporting": {
-            "type": "boolean"
-          },
           "financialSettings": {
             "$ref": "#/components/schemas/UserFinancialSettingsResponseDto"
-          },
-          "transporterRequirements": {
-            "$ref": "#/components/schemas/TransporterRequirementsResponseDto"
-          }
-        },
-        "additionalProperties": false
-      },
-      "UserTransportVerificationRequestDto": {
-        "required": [
-          "id",
-          "isVerifiedForTransporting"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "isVerifiedForTransporting": {
-            "type": "boolean"
           }
         },
         "additionalProperties": false

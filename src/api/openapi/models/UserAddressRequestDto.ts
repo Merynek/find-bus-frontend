@@ -32,31 +32,31 @@ export interface UserAddressRequestDto {
      * @type {Country}
      * @memberof UserAddressRequestDto
      */
-    country?: Country;
+    country: Country;
     /**
      * 
      * @type {string}
      * @memberof UserAddressRequestDto
      */
-    city?: string | null;
+    city: string;
     /**
      * 
      * @type {string}
      * @memberof UserAddressRequestDto
      */
-    psc?: string | null;
+    psc: string;
     /**
      * 
      * @type {string}
      * @memberof UserAddressRequestDto
      */
-    street?: string | null;
+    street: string;
     /**
      * 
      * @type {string}
      * @memberof UserAddressRequestDto
      */
-    houseNumber?: string | null;
+    houseNumber: string;
 }
 
 
@@ -65,6 +65,11 @@ export interface UserAddressRequestDto {
  * Check if a given object implements the UserAddressRequestDto interface.
  */
 export function instanceOfUserAddressRequestDto(value: object): value is UserAddressRequestDto {
+    if (!('country' in value) || value['country'] === undefined) return false;
+    if (!('city' in value) || value['city'] === undefined) return false;
+    if (!('psc' in value) || value['psc'] === undefined) return false;
+    if (!('street' in value) || value['street'] === undefined) return false;
+    if (!('houseNumber' in value) || value['houseNumber'] === undefined) return false;
     return true;
 }
 
@@ -78,11 +83,11 @@ export function UserAddressRequestDtoFromJSONTyped(json: any, ignoreDiscriminato
     }
     return {
         
-        'country': json['country'] == null ? undefined : CountryFromJSON(json['country']),
-        'city': json['city'] == null ? undefined : json['city'],
-        'psc': json['psc'] == null ? undefined : json['psc'],
-        'street': json['street'] == null ? undefined : json['street'],
-        'houseNumber': json['houseNumber'] == null ? undefined : json['houseNumber'],
+        'country': CountryFromJSON(json['country']),
+        'city': json['city'],
+        'psc': json['psc'],
+        'street': json['street'],
+        'houseNumber': json['houseNumber'],
     };
 }
 

@@ -24,13 +24,14 @@ export interface TransportRequirementsRequestDto {
      * @type {string}
      * @memberof TransportRequirementsRequestDto
      */
-    concessionNumber?: string | null;
+    concessionNumber: string;
 }
 
 /**
  * Check if a given object implements the TransportRequirementsRequestDto interface.
  */
 export function instanceOfTransportRequirementsRequestDto(value: object): value is TransportRequirementsRequestDto {
+    if (!('concessionNumber' in value) || value['concessionNumber'] === undefined) return false;
     return true;
 }
 
@@ -44,7 +45,7 @@ export function TransportRequirementsRequestDtoFromJSONTyped(json: any, ignoreDi
     }
     return {
         
-        'concessionNumber': json['concessionNumber'] == null ? undefined : json['concessionNumber'],
+        'concessionNumber': json['concessionNumber'],
     };
 }
 

@@ -17,21 +17,36 @@ import * as runtime from '../runtime';
 import type {
   AdminUserDetailResponseDto,
   BanUserRequestDto,
+  TransportDocumentsCompleteUploadFilesRequestDto,
+  TransportRequirementsCreateUploadUrlFilesRequestDto,
+  TransportRequirementsRequestDto,
+  TransportRequirementsUploadSasUrlResponseDto,
+  TransportRequirementsVerificationRequestDto,
+  TransporterRequirementsResponseDto,
   UserSettingsRequestDto,
   UserSettingsResponseDto,
-  UserTransportVerificationRequestDto,
 } from '../models/index';
 import {
     AdminUserDetailResponseDtoFromJSON,
     AdminUserDetailResponseDtoToJSON,
     BanUserRequestDtoFromJSON,
     BanUserRequestDtoToJSON,
+    TransportDocumentsCompleteUploadFilesRequestDtoFromJSON,
+    TransportDocumentsCompleteUploadFilesRequestDtoToJSON,
+    TransportRequirementsCreateUploadUrlFilesRequestDtoFromJSON,
+    TransportRequirementsCreateUploadUrlFilesRequestDtoToJSON,
+    TransportRequirementsRequestDtoFromJSON,
+    TransportRequirementsRequestDtoToJSON,
+    TransportRequirementsUploadSasUrlResponseDtoFromJSON,
+    TransportRequirementsUploadSasUrlResponseDtoToJSON,
+    TransportRequirementsVerificationRequestDtoFromJSON,
+    TransportRequirementsVerificationRequestDtoToJSON,
+    TransporterRequirementsResponseDtoFromJSON,
+    TransporterRequirementsResponseDtoToJSON,
     UserSettingsRequestDtoFromJSON,
     UserSettingsRequestDtoToJSON,
     UserSettingsResponseDtoFromJSON,
     UserSettingsResponseDtoToJSON,
-    UserTransportVerificationRequestDtoFromJSON,
-    UserTransportVerificationRequestDtoToJSON,
 } from '../models/index';
 
 export interface ApiUsersBanPostRequest {
@@ -42,13 +57,20 @@ export interface ApiUsersSettingsPostRequest {
     userSettingsRequestDto?: UserSettingsRequestDto;
 }
 
-export interface ApiUsersTransportRequirementsPhotosPostRequest {
-    concessionDocuments?: Blob;
-    businessRiskInsurance?: Blob;
+export interface ApiUsersTransportRequirementsCompleteDocumentUploadPostRequest {
+    transportDocumentsCompleteUploadFilesRequestDto?: TransportDocumentsCompleteUploadFilesRequestDto;
 }
 
-export interface ApiUsersUserTransportVerificationPostRequest {
-    userTransportVerificationRequestDto?: UserTransportVerificationRequestDto;
+export interface ApiUsersTransportRequirementsCreateUploadDocumentPostRequest {
+    transportRequirementsCreateUploadUrlFilesRequestDto?: TransportRequirementsCreateUploadUrlFilesRequestDto;
+}
+
+export interface ApiUsersTransportRequirementsPostRequest {
+    transportRequirementsRequestDto?: TransportRequirementsRequestDto;
+}
+
+export interface ApiUsersTransportRequirementsVerificationPostRequest {
+    transportRequirementsVerificationRequestDto?: TransportRequirementsVerificationRequestDto;
 }
 
 export interface ApiUsersUsersGetRequest {
@@ -172,68 +194,7 @@ export class UsersApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiUsersTransportRequirementsPhotosPostRaw(requestParameters: ApiUsersTransportRequirementsPhotosPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("Bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const consumes: runtime.Consume[] = [
-            { contentType: 'multipart/form-data' },
-        ];
-        // @ts-ignore: canConsumeForm may be unused
-        const canConsumeForm = runtime.canConsumeForm(consumes);
-
-        let formParams: { append(param: string, value: any): any };
-        let useForm = false;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        // use FormData to transmit files using content-type "multipart/form-data"
-        useForm = canConsumeForm;
-        if (useForm) {
-            formParams = new FormData();
-        } else {
-            formParams = new URLSearchParams();
-        }
-
-        if (requestParameters['concessionDocuments'] != null) {
-            formParams.append('ConcessionDocuments', requestParameters['concessionDocuments'] as any);
-        }
-
-        if (requestParameters['businessRiskInsurance'] != null) {
-            formParams.append('BusinessRiskInsurance', requestParameters['businessRiskInsurance'] as any);
-        }
-
-
-        let urlPath = `/api/Users/transportRequirementsPhotos`;
-
-        const response = await this.request({
-            path: urlPath,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: formParams,
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     */
-    async apiUsersTransportRequirementsPhotosPost(requestParameters: ApiUsersTransportRequirementsPhotosPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.apiUsersTransportRequirementsPhotosPostRaw(requestParameters, initOverrides);
-    }
-
-    /**
-     */
-    async apiUsersUserTransportVerificationPostRaw(requestParameters: ApiUsersUserTransportVerificationPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async apiUsersTransportRequirementsCompleteDocumentUploadPostRaw(requestParameters: ApiUsersTransportRequirementsCompleteDocumentUploadPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<number>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -249,14 +210,171 @@ export class UsersApi extends runtime.BaseAPI {
             }
         }
 
-        let urlPath = `/api/Users/userTransportVerification`;
+        let urlPath = `/api/Users/transportRequirementsCompleteDocumentUpload`;
 
         const response = await this.request({
             path: urlPath,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: UserTransportVerificationRequestDtoToJSON(requestParameters['userTransportVerificationRequestDto']),
+            body: TransportDocumentsCompleteUploadFilesRequestDtoToJSON(requestParameters['transportDocumentsCompleteUploadFilesRequestDto']),
+        }, initOverrides);
+
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<number>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     */
+    async apiUsersTransportRequirementsCompleteDocumentUploadPost(requestParameters: ApiUsersTransportRequirementsCompleteDocumentUploadPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<number> {
+        const response = await this.apiUsersTransportRequirementsCompleteDocumentUploadPostRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiUsersTransportRequirementsCreateUploadDocumentPostRaw(requestParameters: ApiUsersTransportRequirementsCreateUploadDocumentPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TransportRequirementsUploadSasUrlResponseDto>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json-patch+json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/Users/transportRequirementsCreateUploadDocument`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: TransportRequirementsCreateUploadUrlFilesRequestDtoToJSON(requestParameters['transportRequirementsCreateUploadUrlFilesRequestDto']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TransportRequirementsUploadSasUrlResponseDtoFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiUsersTransportRequirementsCreateUploadDocumentPost(requestParameters: ApiUsersTransportRequirementsCreateUploadDocumentPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TransportRequirementsUploadSasUrlResponseDto> {
+        const response = await this.apiUsersTransportRequirementsCreateUploadDocumentPostRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiUsersTransportRequirementsGetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TransporterRequirementsResponseDto>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/Users/transportRequirements`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TransporterRequirementsResponseDtoFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiUsersTransportRequirementsGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TransporterRequirementsResponseDto> {
+        const response = await this.apiUsersTransportRequirementsGetRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiUsersTransportRequirementsPostRaw(requestParameters: ApiUsersTransportRequirementsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<number>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json-patch+json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/Users/transportRequirements`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: TransportRequirementsRequestDtoToJSON(requestParameters['transportRequirementsRequestDto']),
+        }, initOverrides);
+
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<number>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     */
+    async apiUsersTransportRequirementsPost(requestParameters: ApiUsersTransportRequirementsPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<number> {
+        const response = await this.apiUsersTransportRequirementsPostRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiUsersTransportRequirementsVerificationPostRaw(requestParameters: ApiUsersTransportRequirementsVerificationPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json-patch+json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/Users/transportRequirementsVerification`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: TransportRequirementsVerificationRequestDtoToJSON(requestParameters['transportRequirementsVerificationRequestDto']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -264,8 +382,8 @@ export class UsersApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiUsersUserTransportVerificationPost(requestParameters: ApiUsersUserTransportVerificationPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.apiUsersUserTransportVerificationPostRaw(requestParameters, initOverrides);
+    async apiUsersTransportRequirementsVerificationPost(requestParameters: ApiUsersTransportRequirementsVerificationPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.apiUsersTransportRequirementsVerificationPostRaw(requestParameters, initOverrides);
     }
 
     /**

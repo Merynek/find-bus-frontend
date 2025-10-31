@@ -13,13 +13,6 @@
  */
 
 import { mapValues } from '../runtime';
-import type { TransportRequirementsRequestDto } from './TransportRequirementsRequestDto';
-import {
-    TransportRequirementsRequestDtoFromJSON,
-    TransportRequirementsRequestDtoFromJSONTyped,
-    TransportRequirementsRequestDtoToJSON,
-    TransportRequirementsRequestDtoToJSONTyped,
-} from './TransportRequirementsRequestDto';
 import type { UserFinancialSettingsRequestDto } from './UserFinancialSettingsRequestDto';
 import {
     UserFinancialSettingsRequestDtoFromJSON,
@@ -49,12 +42,6 @@ export interface UserSettingsRequestDto {
     userFinancialSettings: UserFinancialSettingsRequestDto;
     /**
      * 
-     * @type {TransportRequirementsRequestDto}
-     * @memberof UserSettingsRequestDto
-     */
-    transportRequirements: TransportRequirementsRequestDto;
-    /**
-     * 
      * @type {string}
      * @memberof UserSettingsRequestDto
      */
@@ -72,7 +59,6 @@ export interface UserSettingsRequestDto {
  */
 export function instanceOfUserSettingsRequestDto(value: object): value is UserSettingsRequestDto {
     if (!('userFinancialSettings' in value) || value['userFinancialSettings'] === undefined) return false;
-    if (!('transportRequirements' in value) || value['transportRequirements'] === undefined) return false;
     return true;
 }
 
@@ -87,7 +73,6 @@ export function UserSettingsRequestDtoFromJSONTyped(json: any, ignoreDiscriminat
     return {
         
         'userFinancialSettings': UserFinancialSettingsRequestDtoFromJSON(json['userFinancialSettings']),
-        'transportRequirements': TransportRequirementsRequestDtoFromJSON(json['transportRequirements']),
         'phoneNumber': json['phoneNumber'] == null ? undefined : json['phoneNumber'],
         'notifications': json['notifications'] == null ? undefined : ((json['notifications'] as Array<any>).map(NotificationsEnumFromJSON)),
     };
@@ -105,7 +90,6 @@ export function UserSettingsRequestDtoToJSONTyped(value?: UserSettingsRequestDto
     return {
         
         'userFinancialSettings': UserFinancialSettingsRequestDtoToJSON(value['userFinancialSettings']),
-        'transportRequirements': TransportRequirementsRequestDtoToJSON(value['transportRequirements']),
         'phoneNumber': value['phoneNumber'],
         'notifications': value['notifications'] == null ? undefined : ((value['notifications'] as Array<any>).map(NotificationsEnumToJSON)),
     };

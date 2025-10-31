@@ -13,13 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
-import type { FileResponseDto } from './FileResponseDto';
+import type { TransportDocumentResponseDto } from './TransportDocumentResponseDto';
 import {
-    FileResponseDtoFromJSON,
-    FileResponseDtoFromJSONTyped,
-    FileResponseDtoToJSON,
-    FileResponseDtoToJSONTyped,
-} from './FileResponseDto';
+    TransportDocumentResponseDtoFromJSON,
+    TransportDocumentResponseDtoFromJSONTyped,
+    TransportDocumentResponseDtoToJSON,
+    TransportDocumentResponseDtoToJSONTyped,
+} from './TransportDocumentResponseDto';
 
 /**
  * 
@@ -35,22 +35,17 @@ export interface TransporterRequirementsResponseDto {
     concessionNumber?: string | null;
     /**
      * 
-     * @type {FileResponseDto}
+     * @type {Array<TransportDocumentResponseDto>}
      * @memberof TransporterRequirementsResponseDto
      */
-    concessionDocuments?: FileResponseDto;
-    /**
-     * 
-     * @type {FileResponseDto}
-     * @memberof TransporterRequirementsResponseDto
-     */
-    businessRiskInsurance?: FileResponseDto;
+    documents: Array<TransportDocumentResponseDto>;
 }
 
 /**
  * Check if a given object implements the TransporterRequirementsResponseDto interface.
  */
 export function instanceOfTransporterRequirementsResponseDto(value: object): value is TransporterRequirementsResponseDto {
+    if (!('documents' in value) || value['documents'] === undefined) return false;
     return true;
 }
 
@@ -65,8 +60,7 @@ export function TransporterRequirementsResponseDtoFromJSONTyped(json: any, ignor
     return {
         
         'concessionNumber': json['concessionNumber'] == null ? undefined : json['concessionNumber'],
-        'concessionDocuments': json['concessionDocuments'] == null ? undefined : FileResponseDtoFromJSON(json['concessionDocuments']),
-        'businessRiskInsurance': json['businessRiskInsurance'] == null ? undefined : FileResponseDtoFromJSON(json['businessRiskInsurance']),
+        'documents': ((json['documents'] as Array<any>).map(TransportDocumentResponseDtoFromJSON)),
     };
 }
 
@@ -82,8 +76,7 @@ export function TransporterRequirementsResponseDtoToJSONTyped(value?: Transporte
     return {
         
         'concessionNumber': value['concessionNumber'],
-        'concessionDocuments': FileResponseDtoToJSON(value['concessionDocuments']),
-        'businessRiskInsurance': FileResponseDtoToJSON(value['businessRiskInsurance']),
+        'documents': ((value['documents'] as Array<any>).map(TransportDocumentResponseDtoToJSON)),
     };
 }
 

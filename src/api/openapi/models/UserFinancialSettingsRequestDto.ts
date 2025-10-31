@@ -32,67 +32,77 @@ export interface UserFinancialSettingsRequestDto {
      * @type {string}
      * @memberof UserFinancialSettingsRequestDto
      */
-    name?: string | null;
+    name: string;
     /**
      * 
      * @type {string}
      * @memberof UserFinancialSettingsRequestDto
      */
-    surname?: string | null;
+    surname: string;
     /**
      * 
      * @type {string}
      * @memberof UserFinancialSettingsRequestDto
      */
-    ico?: string | null;
+    ico: string;
     /**
      * 
      * @type {string}
      * @memberof UserFinancialSettingsRequestDto
      */
-    dic?: string | null;
+    dic: string;
     /**
      * 
      * @type {string}
      * @memberof UserFinancialSettingsRequestDto
      */
-    companyName?: string | null;
+    companyName: string;
     /**
      * 
      * @type {boolean}
      * @memberof UserFinancialSettingsRequestDto
      */
-    isCompany?: boolean | null;
+    isCompany: boolean;
     /**
      * 
      * @type {UserAddressRequestDto}
      * @memberof UserFinancialSettingsRequestDto
      */
-    address?: UserAddressRequestDto;
+    address: UserAddressRequestDto;
     /**
      * 
      * @type {UserAddressRequestDto}
      * @memberof UserFinancialSettingsRequestDto
      */
-    mailingAddress?: UserAddressRequestDto;
+    mailingAddress: UserAddressRequestDto;
     /**
      * 
      * @type {string}
      * @memberof UserFinancialSettingsRequestDto
      */
-    iban?: string | null;
+    iban: string;
     /**
      * 
      * @type {string}
      * @memberof UserFinancialSettingsRequestDto
      */
-    swift?: string | null;
+    swift: string;
 }
 
 /**
  * Check if a given object implements the UserFinancialSettingsRequestDto interface.
  */
 export function instanceOfUserFinancialSettingsRequestDto(value: object): value is UserFinancialSettingsRequestDto {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('surname' in value) || value['surname'] === undefined) return false;
+    if (!('ico' in value) || value['ico'] === undefined) return false;
+    if (!('dic' in value) || value['dic'] === undefined) return false;
+    if (!('companyName' in value) || value['companyName'] === undefined) return false;
+    if (!('isCompany' in value) || value['isCompany'] === undefined) return false;
+    if (!('address' in value) || value['address'] === undefined) return false;
+    if (!('mailingAddress' in value) || value['mailingAddress'] === undefined) return false;
+    if (!('iban' in value) || value['iban'] === undefined) return false;
+    if (!('swift' in value) || value['swift'] === undefined) return false;
     return true;
 }
 
@@ -106,16 +116,16 @@ export function UserFinancialSettingsRequestDtoFromJSONTyped(json: any, ignoreDi
     }
     return {
         
-        'name': json['name'] == null ? undefined : json['name'],
-        'surname': json['surname'] == null ? undefined : json['surname'],
-        'ico': json['ico'] == null ? undefined : json['ico'],
-        'dic': json['dic'] == null ? undefined : json['dic'],
-        'companyName': json['companyName'] == null ? undefined : json['companyName'],
-        'isCompany': json['isCompany'] == null ? undefined : json['isCompany'],
-        'address': json['address'] == null ? undefined : UserAddressRequestDtoFromJSON(json['address']),
-        'mailingAddress': json['mailingAddress'] == null ? undefined : UserAddressRequestDtoFromJSON(json['mailingAddress']),
-        'iban': json['iban'] == null ? undefined : json['iban'],
-        'swift': json['swift'] == null ? undefined : json['swift'],
+        'name': json['name'],
+        'surname': json['surname'],
+        'ico': json['ico'],
+        'dic': json['dic'],
+        'companyName': json['companyName'],
+        'isCompany': json['isCompany'],
+        'address': UserAddressRequestDtoFromJSON(json['address']),
+        'mailingAddress': UserAddressRequestDtoFromJSON(json['mailingAddress']),
+        'iban': json['iban'],
+        'swift': json['swift'],
     };
 }
 

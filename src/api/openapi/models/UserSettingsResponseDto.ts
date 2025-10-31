@@ -20,13 +20,6 @@ import {
     UserFinancialSettingsResponseDtoToJSON,
     UserFinancialSettingsResponseDtoToJSONTyped,
 } from './UserFinancialSettingsResponseDto';
-import type { TransporterRequirementsResponseDto } from './TransporterRequirementsResponseDto';
-import {
-    TransporterRequirementsResponseDtoFromJSON,
-    TransporterRequirementsResponseDtoFromJSONTyped,
-    TransporterRequirementsResponseDtoToJSON,
-    TransporterRequirementsResponseDtoToJSONTyped,
-} from './TransporterRequirementsResponseDto';
 import type { NotificationsEnum } from './NotificationsEnum';
 import {
     NotificationsEnumFromJSON,
@@ -55,22 +48,10 @@ export interface UserSettingsResponseDto {
     notifications: Array<NotificationsEnum>;
     /**
      * 
-     * @type {boolean}
-     * @memberof UserSettingsResponseDto
-     */
-    isVerifiedForTransporting: boolean;
-    /**
-     * 
      * @type {UserFinancialSettingsResponseDto}
      * @memberof UserSettingsResponseDto
      */
     financialSettings?: UserFinancialSettingsResponseDto;
-    /**
-     * 
-     * @type {TransporterRequirementsResponseDto}
-     * @memberof UserSettingsResponseDto
-     */
-    transporterRequirements?: TransporterRequirementsResponseDto;
 }
 
 /**
@@ -79,7 +60,6 @@ export interface UserSettingsResponseDto {
 export function instanceOfUserSettingsResponseDto(value: object): value is UserSettingsResponseDto {
     if (!('phoneNumber' in value) || value['phoneNumber'] === undefined) return false;
     if (!('notifications' in value) || value['notifications'] === undefined) return false;
-    if (!('isVerifiedForTransporting' in value) || value['isVerifiedForTransporting'] === undefined) return false;
     return true;
 }
 
@@ -95,9 +75,7 @@ export function UserSettingsResponseDtoFromJSONTyped(json: any, ignoreDiscrimina
         
         'phoneNumber': json['phoneNumber'],
         'notifications': ((json['notifications'] as Array<any>).map(NotificationsEnumFromJSON)),
-        'isVerifiedForTransporting': json['isVerifiedForTransporting'],
         'financialSettings': json['financialSettings'] == null ? undefined : UserFinancialSettingsResponseDtoFromJSON(json['financialSettings']),
-        'transporterRequirements': json['transporterRequirements'] == null ? undefined : TransporterRequirementsResponseDtoFromJSON(json['transporterRequirements']),
     };
 }
 
@@ -114,9 +92,7 @@ export function UserSettingsResponseDtoToJSONTyped(value?: UserSettingsResponseD
         
         'phoneNumber': value['phoneNumber'],
         'notifications': ((value['notifications'] as Array<any>).map(NotificationsEnumToJSON)),
-        'isVerifiedForTransporting': value['isVerifiedForTransporting'],
         'financialSettings': UserFinancialSettingsResponseDtoToJSON(value['financialSettings']),
-        'transporterRequirements': TransporterRequirementsResponseDtoToJSON(value['transporterRequirements']),
     };
 }
 
