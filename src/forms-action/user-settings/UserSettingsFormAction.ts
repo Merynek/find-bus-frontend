@@ -2,10 +2,11 @@ import {BaseFormAction} from "@/src/forms-action/BaseFormAction";
 import {UsersService} from "@/src/services/UsersService";
 import {z} from "zod";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
-import {ApiUsersTransportRequirementsPhotosPostRequest, UserSettingsRequestDto} from "@/src/api/openapi";
+import {UserSettingsRequestDto} from "@/src/api/openapi";
 import {UserSettingsSchema} from "@/src/forms-action/user-settings/UserSettingsSchema";
+import {DeepPartial} from "@/src/utils/common";
 
-type UserSettingsData = Partial<UserSettingsRequestDto & ApiUsersTransportRequirementsPhotosPostRequest>;
+type UserSettingsData = DeepPartial<UserSettingsRequestDto>;
 
 type UserSettingsApiResult = void;
 
@@ -42,21 +43,11 @@ export class UserSettingsFormAction extends BaseFormAction<typeof UserSettingsSc
                 }
             },
             phoneNumber: this.getStringFormValue(formData, FormDataEnum.phoneNumber),
-            notifications: this.getEnumArrayFormValue(formData, FormDataEnum.notifications),
-            transportRequirements: {
-                concessionNumber: this.getStringFormValue(formData, FormDataEnum.concessionNumber)
-            }
+            notifications: this.getEnumArrayFormValue(formData, FormDataEnum.notifications)
         };
     }
 
     protected async callApi(validatedData: z.infer<typeof UserSettingsSchema>): Promise<UserSettingsApiResult> {
         await UsersService.changeSettings(validatedData);
-
-        // if (validatedData.businessRiskInsurance || validatedData.concessionDocuments) { // todo
-        //     await UsersService.updateTransportRequirementsPhotos({
-        //         businessRiskInsurance: validatedData.businessRiskInsurance || undefined,
-        //         concessionDocuments: validatedData.concessionDocuments || undefined
-        //     });
-        // }
     }
 }

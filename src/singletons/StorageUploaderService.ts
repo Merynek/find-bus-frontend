@@ -1,4 +1,4 @@
-import {UploadSasUrl} from "@/src/data/vehicle/uploadSasUrl";
+import {UploadSasUrl} from "@/src/data/uploadSasUrl";
 
 export interface IStorageUploadItem {
     clientFileId: string;

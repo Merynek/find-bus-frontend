@@ -1241,6 +1241,46 @@
         }
       }
     },
+    "/api/Users/userTransportRequirements": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "UserId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransporterRequirementsResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransporterRequirementsResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransporterRequirementsResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Users/transportRequirements": {
       "get": {
         "tags": [
@@ -1320,6 +1360,42 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/Users/sendTransportRequirementsToVerification": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransportRequirementsSendToVerificationRequestDto"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransportRequirementsSendToVerificationRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransportRequirementsSendToVerificationRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransportRequirementsSendToVerificationRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -2121,7 +2197,6 @@
           "banned",
           "email",
           "id",
-          "isVerifiedForTransporting",
           "phoneNumber",
           "userConfigs",
           "vehicles"
@@ -2140,9 +2215,6 @@
             "type": "boolean"
           },
           "banned": {
-            "type": "boolean"
-          },
-          "isVerifiedForTransporting": {
             "type": "boolean"
           },
           "phoneNumber": {
@@ -3687,6 +3759,16 @@
         },
         "additionalProperties": false
       },
+      "TransportRequirementStatus": {
+        "enum": [
+          "Draft",
+          "PendingVerification",
+          "Verified",
+          "Archived",
+          "NotVerified"
+        ],
+        "type": "string"
+      },
       "TransportRequirementsCreateUploadUrlFilesRequestDto": {
         "required": [
           "documents",
@@ -3716,6 +3798,19 @@
           "concessionNumber": {
             "minLength": 1,
             "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransportRequirementsSendToVerificationRequestDto": {
+        "required": [
+          "requirementsId"
+        ],
+        "type": "object",
+        "properties": {
+          "requirementsId": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -3765,13 +3860,26 @@
       },
       "TransporterRequirementsResponseDto": {
         "required": [
-          "documents"
+          "concessionNumber",
+          "documents",
+          "id",
+          "status"
         ],
         "type": "object",
         "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
           "concessionNumber": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/TransportRequirementStatus"
+          },
+          "verificationFeedback": {
+            "$ref": "#/components/schemas/VerificationFeedbackResponseDto"
           },
           "documents": {
             "type": "array",
@@ -4676,6 +4784,11 @@
           },
           "financialSettings": {
             "$ref": "#/components/schemas/UserFinancialSettingsResponseDto"
+          },
+          "transportRequirementsId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
           }
         },
         "additionalProperties": false

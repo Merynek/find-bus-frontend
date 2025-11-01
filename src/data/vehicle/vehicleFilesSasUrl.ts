@@ -1,4 +1,4 @@
-import {UploadSasUrl} from "@/src/data/vehicle/uploadSasUrl";
+import {UploadSasUrl} from "@/src/data/uploadSasUrl";
 
 interface IVehicleFilesSasUrl {
     photos: UploadSasUrl[];

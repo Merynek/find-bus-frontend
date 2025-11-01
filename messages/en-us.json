@@ -23,6 +23,19 @@
       "activeAccountMessageInvalidCode": "A valid code is required to activate the account. Please check the link from your email.",
       "loginAfterActivation": "You can now log in"
     },
+    "transportRequirements": {
+      "transportRequirementsHeading": "Transport requirements",
+      "concessionNumber": "Concession Number",
+      "verifiedForTransporting": "Verified for transporting",
+      "notVerifiedForTransporting": "Not verified for transporting",
+      "businessRisk": "Business risk",
+      "concession": "Concession",
+      "saveButton": "Save",
+      "saveAndPostToVerification": "Save and sent to verification"
+    },
+    "adminTransportRequirements": {
+      "transportRequirementsHeading": "Transport requirements"
+    },
     "userSettings": {
       "userSettingsHeading": "User Settings",
       "name": "Name",
@@ -33,7 +46,6 @@
       "save": "save",
       "iban": "IBAN",
       "swift": "SWIFT",
-      "concessionNumber": "Concession Number",
       "companyName": "Company Name",
       "country": "Country",
       "city": "City",
@@ -43,9 +55,6 @@
       "isCompany": "Are you a company?",
       "notificationsHeading": "Notifications",
       "bankInfoHeading": "Bank connection",
-      "transportRequirementsHeading": "Transport requirements",
-      "verifiedForTransporting": "Verified for transporting",
-      "notVerifiedForTransporting": "Not verified for transporting",
       "businessRiskInsurance": "Insurance for business",
       "concessionDocuments": "Concession documents",
       "saveButton": "Save",

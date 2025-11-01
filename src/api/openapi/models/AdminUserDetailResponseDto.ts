@@ -74,12 +74,6 @@ export interface AdminUserDetailResponseDto {
     banned: boolean;
     /**
      * 
-     * @type {boolean}
-     * @memberof AdminUserDetailResponseDto
-     */
-    isVerifiedForTransporting: boolean;
-    /**
-     * 
      * @type {string}
      * @memberof AdminUserDetailResponseDto
      */
@@ -118,7 +112,6 @@ export function instanceOfAdminUserDetailResponseDto(value: object): value is Ad
     if (!('email' in value) || value['email'] === undefined) return false;
     if (!('active' in value) || value['active'] === undefined) return false;
     if (!('banned' in value) || value['banned'] === undefined) return false;
-    if (!('isVerifiedForTransporting' in value) || value['isVerifiedForTransporting'] === undefined) return false;
     if (!('phoneNumber' in value) || value['phoneNumber'] === undefined) return false;
     if (!('vehicles' in value) || value['vehicles'] === undefined) return false;
     if (!('userConfigs' in value) || value['userConfigs'] === undefined) return false;
@@ -139,7 +132,6 @@ export function AdminUserDetailResponseDtoFromJSONTyped(json: any, ignoreDiscrim
         'email': json['email'],
         'active': json['active'],
         'banned': json['banned'],
-        'isVerifiedForTransporting': json['isVerifiedForTransporting'],
         'phoneNumber': json['phoneNumber'],
         'financialSettings': json['financialSettings'] == null ? undefined : UserFinancialSettingsResponseDtoFromJSON(json['financialSettings']),
         'transporterRequirements': json['transporterRequirements'] == null ? undefined : TransporterRequirementsResponseDtoFromJSON(json['transporterRequirements']),
@@ -163,7 +155,6 @@ export function AdminUserDetailResponseDtoToJSONTyped(value?: AdminUserDetailRes
         'email': value['email'],
         'active': value['active'],
         'banned': value['banned'],
-        'isVerifiedForTransporting': value['isVerifiedForTransporting'],
         'phoneNumber': value['phoneNumber'],
         'financialSettings': UserFinancialSettingsResponseDtoToJSON(value['financialSettings']),
         'transporterRequirements': TransporterRequirementsResponseDtoToJSON(value['transporterRequirements']),

@@ -1,6 +1,6 @@
 import {ApiConfiguration} from "./apiConfiguration";
 import * as OpenApi from "./openapi";
-import {handleApiCall, IApiRequest} from "./toolsApi";
+import {handleApiCall, IApiRequest, IFileCompleteUploadItem, IUploadItem} from "./toolsApi";
 import {
     Amenities,
     EuroStandard,
@@ -46,12 +46,6 @@ export interface IPhotoCompleteUploadItem extends IFileCompleteUploadItem {
     type: VehiclePhotoType;
 }
 
-interface IFileCompleteUploadItem {
-    blobName: string;
-    contentType: string;
-    fileSize: number;
-    originalFileName: string;
-}
 
 export interface ICreateUploadUrlForVehicleFilesRequest extends IApiRequest {
     vehicleId: number;
@@ -74,11 +68,6 @@ interface IPhotoUploadItem extends IUploadItem {
 
 interface IDocumentUploadItem extends IUploadItem {
     type: VehicleDocumentType;
-}
-
-interface IUploadItem {
-    clientFileId: string;
-    fileName: string;
 }
 
 export interface ISetVehicleVerificationRequest extends IApiRequest {

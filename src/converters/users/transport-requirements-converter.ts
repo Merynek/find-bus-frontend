@@ -1,22 +1,26 @@
-
-import {FileConverter} from "@/src/converters/file-converter";
 import {TransporterRequirementsResponseDto, type TransportRequirementsRequestDto} from "@/src/api/openapi";
 import {TransportRequirements} from "@/src/data/transportRequirements";
+import {TransportDocumentConverter} from "@/src/converters/users/transport-document-converter";
+import {VerificationFeedbackConverter} from "@/src/converters/verification-feedback-converter";
 
 export class TransportRequirementsConverter {
     public static toInstance(response: TransporterRequirementsResponseDto): TransportRequirements {
         return new TransportRequirements({
+            id: response.id,
             concessionNumber: response.concessionNumber || "",
-            businessRiskInsurance: response.businessRiskInsurance ? FileConverter.toPhotoInstance(response.businessRiskInsurance) : null,
-            concessionDocuments: response.concessionDocuments ? FileConverter.toPhotoInstance(response.concessionDocuments) : null,
+            status: response.status,
+            documents: response.documents.map(TransportDocumentConverter.toInstance),
+            verificationFeedback: response.verificationFeedback ? VerificationFeedbackConverter.toInstance(response.verificationFeedback) : null
         })
     }
 
     public static toJson(transportRequirements: TransportRequirements): TransporterRequirementsResponseDto {
         return {
+            id: transportRequirements.id,
             concessionNumber: transportRequirements.concessionNumber,
-            businessRiskInsurance: transportRequirements.businessRiskInsurance ? FileConverter.photoToJson(transportRequirements.businessRiskInsurance) : undefined,
-            concessionDocuments: transportRequirements.concessionDocuments ? FileConverter.photoToJson(transportRequirements.concessionDocuments) : undefined
+            status: transportRequirements.status,
+            documents: transportRequirements.documents.map(TransportDocumentConverter.toJson),
+            verificationFeedback: transportRequirements.verificationFeedback ? VerificationFeedbackConverter.toJson(transportRequirements.verificationFeedback) : undefined
         }
     }
 

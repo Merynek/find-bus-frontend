@@ -1,4 +1,4 @@
-import {type UserAddressRequestDto, UserAddressResponseDto} from "@/src/api/openapi";
+import {Country, type UserAddressRequestDto, UserAddressResponseDto} from "@/src/api/openapi";
 import {UserAddress} from "@/src/data/users/userAddress";
 
 export class UserAddressConverter {
@@ -28,7 +28,7 @@ export class UserAddressConverter {
             city: address.city,
             psc: address.psc,
             houseNumber: address.houseNumber,
-            country: address.country || undefined
+            country: address.country || Country.CZ
         }
     }
 }

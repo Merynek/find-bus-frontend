@@ -1,29 +1,59 @@
-import {handleApiCall, IApiRequest} from "./toolsApi";
+import {handleApiCall, IApiRequest, IFileCompleteUploadItem, IUploadItem} from "./toolsApi";
 import * as OpenApi from "./openapi";
 import {ApiConfiguration} from "./apiConfiguration";
-import {AdminUserDetailResponseDto, UserSettingsRequestDto, type UserSettingsResponseDto} from "./openapi";
-
-export interface IUpdateTransportRequirementsPhotosRequest extends IApiRequest {
-    concessionDocuments: File|undefined;
-    businessRiskInsurance: File|undefined;
-}
+import {
+    AdminUserDetailResponseDto,
+    type TransporterRequirementsResponseDto,
+    TransportRequirementsType,
+    type TransportRequirementsUploadSasUrlResponseDto,
+    UserSettingsRequestDto,
+    type UserSettingsResponseDto
+} from "./openapi";
 
 export interface IChangeSettingsRequest extends IApiRequest {
     settings: UserSettingsRequestDto;
 }
 
-export interface ISendEmailRequest extends IApiRequest {
-    email: string;
+export interface IGetUserTransportRequirementsRequest extends IApiRequest {
+    userId: number;
+}
+
+export interface ISendTransportRequirementsToVerificationRequest extends IApiRequest {
+    transportRequirementsId: number;
+}
+
+export interface IUpdateTransportRequirementsRequest extends IApiRequest {
+    concessionNumber: string;
+}
+
+export interface ICreateUploadUrlForTransportRequirementsFilesRequest extends IApiRequest {
+    transportRequirementsId: number;
+    documents: ITransportDocumentUploadItem[];
+}
+
+interface ITransportDocumentUploadItem extends IUploadItem {
+    type: TransportRequirementsType;
+}
+
+export interface ICompleteUploadTransportRequirementsDocumentsRequest extends IApiRequest {
+    transportRequirementsId: number;
+    documentIdsToDelete: number[];
+    documents: ITransportDocumentCompleteUploadItem[];
+}
+
+export interface ITransportDocumentCompleteUploadItem extends IFileCompleteUploadItem {
+    type: TransportRequirementsType;
+}
+
+export interface ISetTransportRequirementsVerificationRequest extends IApiRequest {
+    transportRequirementsId: number;
+    verified: boolean;
+    description: string;
 }
 
 export interface IGetAdminUsersRequest extends IApiRequest {
     limit: number;
     offset: number;
-}
-
-export interface ISetUserVerificationRequest extends IApiRequest {
-    userId: number;
-    verified: boolean;
 }
 
 export class UsersApi {
@@ -47,20 +77,55 @@ export class UsersApi {
         return await handleApiCall(this._api.apiUsersSettingsGet());
     }
 
-    public async updateTransportRequirementsPhotos(req: IUpdateTransportRequirementsPhotosRequest): Promise<void> {
-        const businessRiskInsurance = req.businessRiskInsurance;
-        const concessionDocuments = req.concessionDocuments;
-        await handleApiCall(this._api.apiUsersTransportRequirementsPhotosPost({
-            businessRiskInsurance: businessRiskInsurance || undefined,
-            concessionDocuments: concessionDocuments || undefined
+    public async getUserTransportRequirements(req: IGetUserTransportRequirementsRequest): Promise<TransporterRequirementsResponseDto> {
+        return await handleApiCall(this._api.apiUsersUserTransportRequirementsGet(req));
+    }
+
+    public async getTransportRequirements(): Promise<TransporterRequirementsResponseDto> {
+        return await handleApiCall(this._api.apiUsersTransportRequirementsGet());
+    }
+
+    public async sendTransportRequirementsToVerification(req: ISendTransportRequirementsToVerificationRequest): Promise<void> {
+        await handleApiCall(this._api.apiUsersSendTransportRequirementsToVerificationPost({
+            transportRequirementsSendToVerificationRequestDto: {
+                requirementsId: req.transportRequirementsId
+            },
         }, req.initOverrides));
     }
 
-    public async setUserVerification(req: ISetUserVerificationRequest): Promise<void> {
-        await handleApiCall(this._api.apiUsersUserTransportVerificationPost({
-            userTransportVerificationRequestDto: {
-                id: req.userId,
-                isVerifiedForTransporting: req.verified
+    public async updateTransportRequirements(req: IUpdateTransportRequirementsRequest): Promise<number> {
+        return await handleApiCall(this._api.apiUsersTransportRequirementsPost({
+            transportRequirementsRequestDto: {
+                concessionNumber: req.concessionNumber
+            },
+        }, req.initOverrides));
+    }
+
+    public async createUploadUrlForTransportRequirementDocuments(req: ICreateUploadUrlForTransportRequirementsFilesRequest): Promise<TransportRequirementsUploadSasUrlResponseDto> {
+        return await handleApiCall(this._api.apiUsersTransportRequirementsCreateUploadDocumentPost({
+            transportRequirementsCreateUploadUrlFilesRequestDto: {
+                requirementsId: req.transportRequirementsId,
+                documents: req.documents
+            }
+        }, req.initOverrides));
+    }
+
+    public async completeUploadTransportRequirementsDocuments(req: ICompleteUploadTransportRequirementsDocumentsRequest): Promise<number> {
+        return await handleApiCall(this._api.apiUsersTransportRequirementsCompleteDocumentUploadPost({
+            transportDocumentsCompleteUploadFilesRequestDto: {
+                requirementsId: req.transportRequirementsId,
+                documents: req.documents,
+                documentIdsToDelete: req.documentIdsToDelete
+            }
+        }, req.initOverrides));
+    }
+
+    public async transportRequirementsVerification(req: ISetTransportRequirementsVerificationRequest): Promise<void> {
+        await handleApiCall(this._api.apiUsersTransportRequirementsVerificationPost({
+            transportRequirementsVerificationRequestDto: {
+                requirementsId: req.transportRequirementsId,
+                isVerified: req.verified,
+                description: req.description
             }
         }, req.initOverrides));
     }

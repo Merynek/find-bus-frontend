@@ -55,6 +55,7 @@ export enum FormDataEnum {
     yearOfManufacture = "yearOfManufacture",
     personsCapacity = "personsCapacity",
     vehicleId = "vehicleId",
+    requirementsId = "requirementsId",
     handicappedUserCount = "handicappedUserCount",
     euro = "euro",
     amenities = "amenities",

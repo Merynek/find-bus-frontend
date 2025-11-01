@@ -63,8 +63,10 @@ models/StopRequestDto.ts
 models/StopResponseDto.ts
 models/TransportDocumentResponseDto.ts
 models/TransportDocumentsCompleteUploadFilesRequestDto.ts
+models/TransportRequirementStatus.ts
 models/TransportRequirementsCreateUploadUrlFilesRequestDto.ts
 models/TransportRequirementsRequestDto.ts
+models/TransportRequirementsSendToVerificationRequestDto.ts
 models/TransportRequirementsType.ts
 models/TransportRequirementsUploadSasUrlResponseDto.ts
 models/TransportRequirementsVerificationRequestDto.ts

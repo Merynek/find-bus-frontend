@@ -4,13 +4,13 @@ import {UserRole} from "@/src/api/openapi";
 import {UserDetail} from "@/src/data/users/user-detail";
 import {UserAdminDetail} from "@/src/data/users/user-admin-detail";
 import {getRandomText} from "./texts/texts";
-import {getTransportRequirements} from "./userSettings";
 import {getRandomNumber} from "@/src/utils/common";
 import {getRandomVehicle} from "./vehicle";
 import {getRandomUserConfig} from "@/dataGenerator/userConfig";
 import {UserConfig} from "@/src/data/userConfig";
 import {Vehicle} from "@/src/data/vehicle/vehicle";
 import {getRandomUserFinancialSettings} from "@/dataGenerator/userFinancialSettings";
+import {getRandomTransportRequirements} from "@/dataGenerator/transportRequirements";
 
 export function getRandomUser(): User {
     return new User({
@@ -41,10 +41,9 @@ export function getRandomUserAdminDetail(): UserAdminDetail {
         userFinancialSettings: getRandomUserFinancialSettings(),
         isActive: getRandomBoolean(),
         isBanned: getRandomBoolean(),
-        isVerifiedForTransporting: getRandomBoolean(),
         phoneNumber: getRandomText(1),
         vehicles: vehicles,
-        transportRequirements: getTransportRequirements(),
+        transportRequirements: getRandomTransportRequirements(),
         userConfigs: userConfigs
     })
 }

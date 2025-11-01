@@ -1,11 +1,8 @@
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
-import {UserVerifyButton} from "@/src/components/pages/admin/users/user-verify-button";
 import {UserAdminDetailConverter} from "@/src/converters/admin/user-admin-detail-converter";
 import React from "react";
 import {UserAddress} from "@/src/data/users/userAddress";
-import {TransportRequirements} from "@/src/data/transportRequirements";
-import {ImageElement} from "@/src/components/components/image-element/image-element";
 import {Accordion} from "@/src/components/components/accordion/accordion";
 import {Text} from "@/src/components/components/texts/text";
 import {FontSize, FontWeight} from "@/src/components/components/texts/textStyles";
@@ -25,36 +22,6 @@ interface IAdminUserItemProps {
 export const AdminUserItem = (props: IAdminUserItemProps) => {
     const {user, config} = props;
 
-    const _renderTransporterRequirements = (requirements: TransportRequirements) => {
-        return <LayoutFlexRow gap={FlexGap.MEDIUM_24} canWrap={true} justifyContent={"flex-start"} alignItems={"flex-start"}>
-            {renderTextItem("ConcessionNumber", requirements.concessionNumber)}
-            <LayoutFlexColumn>
-                <Text text={`ConcessionDocuments: `} fontSize={FontSize.BASE_14} fontWeight={FontWeight.SEMIBOLD} />
-                {requirements.concessionDocuments && <div>
-                    <div style={{width: "200px", height: "200px", position: "relative"}}>
-                        <ImageElement
-                            src={requirements.concessionDocuments.path}
-                            alt={""}
-                            fill={true}
-                        />
-                    </div>
-                </div>}
-            </LayoutFlexColumn>
-            <LayoutFlexColumn>
-                <Text text={`BusinessRiskInsurance: `} fontSize={FontSize.BASE_14} fontWeight={FontWeight.SEMIBOLD} />
-                {requirements.businessRiskInsurance && <div>
-                    <div style={{width: "200px", height: "200px", position: "relative"}}>
-                        <ImageElement
-                            src={requirements.businessRiskInsurance.path}
-                            alt={""}
-                            fill={true}
-                        />
-                    </div>
-                </div>}
-            </LayoutFlexColumn>
-        </LayoutFlexRow>
-    }
-
     const _renderAddress = (address: UserAddress) => {
         return <>
             {renderTextItem("Address", address.street + " " + address.houseNumber)}
@@ -73,7 +40,7 @@ export const AdminUserItem = (props: IAdminUserItemProps) => {
 
     return <Accordion
         style={{background: "chocolate"}}
-        title={<Text text={`${user.email} - ${user.isVerifiedForTransporting ? "Verified" : "NOT Verified"}`} fontSize={FontSize.M_22} fontWeight={FontWeight.SEMIBOLD} />}
+        title={<Text text={user.email} fontSize={FontSize.M_22} fontWeight={FontWeight.SEMIBOLD} />}
         content={<LayoutFlexColumn gap={FlexGap.SMALL_16}>
             <LayoutFlexRow gap={FlexGap.MEDIUM_24} canWrap={true} justifyContent={"flex-start"} alignItems={"flex-start"}>
                 <Group title={"Info"}>
@@ -95,7 +62,15 @@ export const AdminUserItem = (props: IAdminUserItemProps) => {
                 </Group>
             </LayoutFlexRow>
             <Group title={"Transport Requirements"}>
-                {_renderTransporterRequirements(user.transportRequirements)}
+                <ButtonLink
+                    route={{
+                        route: ROUTES.ADMIN_TRANSPORT_REQUIREMENTS,
+                        params: { [URL_PARAMS.REQUIREMENTS_ID]: user.transportRequirements.id.toString()}
+                    }}
+                    label={"Open"}
+                    type={ButtonType.BLACK}
+                    size={ButtonSize.BUTTON_SIZE_M}
+                />
             </Group>
             <Group title={"Vehicles"}>
                 {user.vehicles.reverse().map(v => {
@@ -119,7 +94,6 @@ export const AdminUserItem = (props: IAdminUserItemProps) => {
                     appConfig={AppBusinessConfigConverter.toJson(config)}
                 />
             </Group>
-            <UserVerifyButton user={UserAdminDetailConverter.toJson(user)} />
         </LayoutFlexColumn>}
     />
 }

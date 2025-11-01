@@ -20,6 +20,7 @@ import type {
   TransportDocumentsCompleteUploadFilesRequestDto,
   TransportRequirementsCreateUploadUrlFilesRequestDto,
   TransportRequirementsRequestDto,
+  TransportRequirementsSendToVerificationRequestDto,
   TransportRequirementsUploadSasUrlResponseDto,
   TransportRequirementsVerificationRequestDto,
   TransporterRequirementsResponseDto,
@@ -37,6 +38,8 @@ import {
     TransportRequirementsCreateUploadUrlFilesRequestDtoToJSON,
     TransportRequirementsRequestDtoFromJSON,
     TransportRequirementsRequestDtoToJSON,
+    TransportRequirementsSendToVerificationRequestDtoFromJSON,
+    TransportRequirementsSendToVerificationRequestDtoToJSON,
     TransportRequirementsUploadSasUrlResponseDtoFromJSON,
     TransportRequirementsUploadSasUrlResponseDtoToJSON,
     TransportRequirementsVerificationRequestDtoFromJSON,
@@ -51,6 +54,10 @@ import {
 
 export interface ApiUsersBanPostRequest {
     banUserRequestDto?: BanUserRequestDto;
+}
+
+export interface ApiUsersSendTransportRequirementsToVerificationPostRequest {
+    transportRequirementsSendToVerificationRequestDto?: TransportRequirementsSendToVerificationRequestDto;
 }
 
 export interface ApiUsersSettingsPostRequest {
@@ -71,6 +78,10 @@ export interface ApiUsersTransportRequirementsPostRequest {
 
 export interface ApiUsersTransportRequirementsVerificationPostRequest {
     transportRequirementsVerificationRequestDto?: TransportRequirementsVerificationRequestDto;
+}
+
+export interface ApiUsersUserTransportRequirementsGetRequest {
+    userId: number;
 }
 
 export interface ApiUsersUsersGetRequest {
@@ -118,6 +129,43 @@ export class UsersApi extends runtime.BaseAPI {
      */
     async apiUsersBanPost(requestParameters: ApiUsersBanPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.apiUsersBanPostRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     */
+    async apiUsersSendTransportRequirementsToVerificationPostRaw(requestParameters: ApiUsersSendTransportRequirementsToVerificationPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json-patch+json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/Users/sendTransportRequirementsToVerification`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: TransportRequirementsSendToVerificationRequestDtoToJSON(requestParameters['transportRequirementsSendToVerificationRequestDto']),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async apiUsersSendTransportRequirementsToVerificationPost(requestParameters: ApiUsersSendTransportRequirementsToVerificationPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.apiUsersSendTransportRequirementsToVerificationPostRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -384,6 +432,52 @@ export class UsersApi extends runtime.BaseAPI {
      */
     async apiUsersTransportRequirementsVerificationPost(requestParameters: ApiUsersTransportRequirementsVerificationPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.apiUsersTransportRequirementsVerificationPostRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     */
+    async apiUsersUserTransportRequirementsGetRaw(requestParameters: ApiUsersUserTransportRequirementsGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TransporterRequirementsResponseDto>> {
+        if (requestParameters['userId'] == null) {
+            throw new runtime.RequiredError(
+                'userId',
+                'Required parameter "userId" was null or undefined when calling apiUsersUserTransportRequirementsGet().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['userId'] != null) {
+            queryParameters['UserId'] = requestParameters['userId'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("Bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/Users/userTransportRequirements`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TransporterRequirementsResponseDtoFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiUsersUserTransportRequirementsGet(requestParameters: ApiUsersUserTransportRequirementsGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TransporterRequirementsResponseDto> {
+        const response = await this.apiUsersUserTransportRequirementsGetRaw(requestParameters, initOverrides);
+        return await response.value();
     }
 
     /**

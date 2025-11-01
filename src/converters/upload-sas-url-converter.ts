@@ -1,5 +1,5 @@
 import {type UploadSasUrlResponseDto} from "../api/openapi";
-import {UploadSasUrl} from "@/src/data/vehicle/uploadSasUrl";
+import {UploadSasUrl} from "@/src/data/uploadSasUrl";
 
 export class UploadSasUrlConverter {
     public static toInstance(response: UploadSasUrlResponseDto): UploadSasUrl {

@@ -51,7 +51,3 @@ export const UserFinancialSettingsSchema = z.object({
     iban: RequiredStringSchema,
     swift: RequiredStringSchema,
 });
-
-export const TransportRequirementsSchema = z.object({
-    concessionNumber: RequiredStringSchema
-});

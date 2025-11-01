@@ -3,8 +3,6 @@ import {
     UserSettingsResponseDto
 } from "@/src/api/openapi";
 import { UserSettings } from "@/src/data/users/userSettings";
-import {TransportRequirementsConverter} from "@/src/converters/users/transport-requirements-converter";
-import {TransportRequirements} from "@/src/data/transportRequirements";
 import {UserFinancialSettings} from "@/src/data/users/userFinancialSettings";
 import {UserFinancialSettingsConverter} from "@/src/converters/users/users-financial-settings-converter";
 
@@ -13,8 +11,8 @@ export class UserSettingsConverter {
         return new UserSettings({
             phoneNumber: settings.phoneNumber || "",
             notifications: settings.notifications || [],
-            transportRequirements: settings.transporterRequirements ? TransportRequirementsConverter.toInstance(settings.transporterRequirements) : TransportRequirements.create(),
-            userFinancialSettings: settings.financialSettings ? UserFinancialSettingsConverter.toInstance(settings.financialSettings) : UserFinancialSettings.create()
+            userFinancialSettings: settings.financialSettings ? UserFinancialSettingsConverter.toInstance(settings.financialSettings) : UserFinancialSettings.create(),
+            transportRequirementsId: settings.transportRequirementsId || null
         })
     }
 
@@ -23,7 +21,6 @@ export class UserSettingsConverter {
         return {
             userFinancialSettings: UserFinancialSettingsConverter.toServer(financialSettings),
             phoneNumber: settings.phoneNumber,
-            transportRequirements: TransportRequirementsConverter.toServer(settings.transportRequirements),
             notifications: settings.notifications
         }
     }
@@ -33,8 +30,7 @@ export class UserSettingsConverter {
             financialSettings: UserFinancialSettingsConverter.toJson(settings.userFinancialSettings),
             phoneNumber: settings.phoneNumber,
             notifications: settings.notifications,
-            transporterRequirements: TransportRequirementsConverter.toJson(settings.transportRequirements),
-            isVerifiedForTransporting: false
+            transportRequirementsId: settings.transportRequirementsId
         }
     }
 }

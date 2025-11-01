@@ -26,6 +26,19 @@ declare const messages: {
       "activeAccountMessageInvalidCode": "Je vyžadován platný kód pro aktivaci účtu. Zkontrolujte prosím odkaz z vaší e-mailové schránky.",
       "loginAfterActivation": "Nyní se můžete přihlásit"
     },
+    "transportRequirements": {
+      "transportRequirementsHeading": "Požadavky na dopravu",
+      "concessionNumber": "Koncesialni čislo",
+      "verifiedForTransporting": "Ověřený pro dopravu",
+      "notVerifiedForTransporting": "Neověřený pro dopravu",
+      "businessRisk": "Pojistštění podnikatelských rizik",
+      "concession": "Koncese dokument",
+      "saveButton": "Uložit",
+      "saveAndPostToVerification": "Uložit a poslat na ověření"
+    },
+    "adminTransportRequirements": {
+      "transportRequirementsHeading": "Požadavky na dopravu"
+    },
     "userSettings": {
       "userSettingsHeading": "Nastavení uživatele",
       "name": "Jméno",
@@ -36,7 +49,6 @@ declare const messages: {
       "save": "Uložit",
       "iban": "IBAN",
       "swift": "SWIFT",
-      "concessionNumber": "Koncesialni cislo",
       "companyName": "Nazev firmy",
       "country": "Země",
       "city": "Mesto",
@@ -46,9 +58,6 @@ declare const messages: {
       "isCompany": "Jste firma?",
       "notificationsHeading": "Notifikace",
       "bankInfoHeading": "Bankovní spojení",
-      "transportRequirementsHeading": "Požadavky na dopravce",
-      "verifiedForTransporting": "Ověřený pro dopravu",
-      "notVerifiedForTransporting": "Neověřený pro dopravu",
       "businessRiskInsurance": "Pojištění podnikatelských rizik",
       "concessionDocuments": "Koncesní listina",
       "saveButton": "Uložit",

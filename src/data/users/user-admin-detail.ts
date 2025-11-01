@@ -8,7 +8,6 @@ export interface IUserAdminDetailSettings extends IUserDetailSettings {
     email: string;
     isActive: boolean;
     isBanned: boolean;
-    isVerifiedForTransporting: boolean;
     phoneNumber: string;
     vehicles: Vehicle[];
     userFinancialSettings: UserFinancialSettings;
@@ -20,7 +19,6 @@ export class UserAdminDetail extends UserDetail {
     public email: string;
     public isActive: boolean;
     public isBanned: boolean;
-    public isVerifiedForTransporting: boolean;
     public userFinancialSettings: UserFinancialSettings;
     public phoneNumber: string;
     public vehicles: Vehicle[];
@@ -32,7 +30,6 @@ export class UserAdminDetail extends UserDetail {
         this.email = settings.email;
         this.isActive = settings.isActive;
         this.isBanned = settings.isBanned;
-        this.isVerifiedForTransporting = settings.isVerifiedForTransporting;
         this.phoneNumber = settings.phoneNumber;
         this.userFinancialSettings = settings.userFinancialSettings;
         this.vehicles = settings.vehicles;

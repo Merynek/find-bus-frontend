@@ -2,7 +2,7 @@
 
 import {useTranslate} from "@/src/hooks/translateHook";
 import React from "react";
-import {ButtonClick, ButtonSize, ButtonType} from "../../components/button/button";
+import {ButtonClick, ButtonLink, ButtonSize, ButtonType} from "../../components/button/button";
 import {Country, NotificationsEnum, UserRole, UserSettingsResponseDto} from "@/src/api/openapi";
 import {LayoutFlexColumn} from "../../components/layout/layout-flex-column/layout-flex-column";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
@@ -18,6 +18,9 @@ import {TextBox, TextBoxType} from "@/src/components/components/inputs/text-box/
 import { CheckBox } from "../../components/inputs/check-box/check-box";
 import {UserSettingsConverter} from "@/src/converters/users/user-settings-converter";
 import {UserSettingsAddress} from "@/src/components/pages/user-settings/user-settings-address";
+import {ROUTES, URL_PARAMS} from "@/src/enums/router.enum";
+import {UsersService} from "@/src/services/UsersService";
+import {useRouter} from "@/src/i18n/navigation";
 
 interface IUserSettingsPageProps {
     settings: UserSettingsResponseDto;
@@ -27,6 +30,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
     const settings = useInit(() => UserSettingsConverter.toInstance(props.settings));
     const {t} = useTranslate("page.userSettings");
     const {user} = useLoggedUser();
+    const router = useRouter();
     const [state, action, pending] = useFormActionState(userSettingsFormAction, {
         data: {
             userFinancialSettings: {
@@ -54,10 +58,7 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                 iban: settings.userFinancialSettings.iban
             },
             phoneNumber: settings.phoneNumber,
-            notifications: settings.notifications,
-            transportRequirements: {
-                concessionNumber: settings.transportRequirements.concessionNumber
-            }
+            notifications: settings.notifications
         }
     })
 
@@ -220,28 +221,33 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
     }
 
     const renderTransportRequirements = () => {
-        return <>
-            <Heading text={t("transportRequirementsHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={4}/>
-            <span>{"User => " + t("verifiedForTransporting") + "-" +  t("notVerifiedForTransporting")}</span>
-            <TextBox
-                controlled={false}
-                name={FormDataEnum.concessionNumber}
-                id={FormDataEnum.concessionNumber}
-                type={TextBoxType.TEXT}
-                placeholder={t("concessionNumber")}
-                defaultValue={state?.data?.transportRequirements?.concessionNumber || ""}
+        if (settings.transportRequirementsId) {
+            return <ButtonLink
+                route={{
+                    route: ROUTES.TRANSPORT_REQUIREMENTS,
+                    params: { [URL_PARAMS.REQUIREMENTS_ID]: settings.transportRequirementsId.toString()}
+                }}
+                label={t("transportRequirementsHeading")}
+                type={ButtonType.YELLOW}
+                size={ButtonSize.BUTTON_SIZE_M}
             />
-            {/*<ImageUploader*/}
-            {/*    label={t("businessRiskInsurance")}*/}
-            {/*    inputName={FormDataEnum.businessRiskInsurance}*/}
-            {/*    initialImage={settings.transportRequirements.businessRiskInsurance?.path}*/}
-            {/*/>*/}
-            {/*<ImageUploader*/}
-            {/*    label={t("concessionDocuments")}*/}
-            {/*    inputName={FormDataEnum.concessionDocuments}*/}
-            {/*    initialImage={settings.transportRequirements.concessionDocuments?.path}*/}
-            {/*/>*/}
-        </>
+        }
+
+        return <ButtonClick
+            controlled={true}
+            onClick={async () => {
+                const newId = await UsersService.updateTransportRequirements({
+                    concessionNumber: ""
+                })
+                router.push({
+                    pathname: ROUTES.TRANSPORT_REQUIREMENTS,
+                    params: {[URL_PARAMS.REQUIREMENTS_ID]: newId.toString()}
+                })
+            }}
+            label={t("transportRequirementsHeading")}
+            type={ButtonType.YELLOW}
+            size={ButtonSize.BUTTON_SIZE_M}
+        />
     }
 
     return <LayoutFlexColumn gap={FlexGap.BIG_40}>

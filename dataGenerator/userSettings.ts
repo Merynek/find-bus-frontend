@@ -3,24 +3,15 @@ import {getRandomText} from "./texts/texts";
 import {getRandomBoolean, getRandomEnum} from "./tools";
 import {Country, NotificationsEnum} from "@/src/api/openapi";
 import {UserAddress} from "@/src/data/users/userAddress";
-import {TransportRequirements} from "@/src/data/transportRequirements";
-import {getRandomPhoto} from "./photos/photos";
 import {getRandomUserFinancialSettings} from "@/dataGenerator/userFinancialSettings";
+import {getRandomNumber} from "@/src/utils/common";
 
 export const getRandomUserSettings = (): UserSettings => {
     return new UserSettings({
         userFinancialSettings: getRandomUserFinancialSettings(),
         phoneNumber: getRandomText(1),
         notifications: [getRandomEnum(NotificationsEnum), getRandomEnum(NotificationsEnum)],
-        transportRequirements: getTransportRequirements()
-    })
-}
-
-export const getTransportRequirements = () => {
-    return new TransportRequirements({
-        concessionNumber: getRandomText(2),
-        concessionDocuments: getRandomBoolean() ? null : getRandomPhoto(),
-        businessRiskInsurance: getRandomBoolean() ? null : getRandomPhoto()
+        transportRequirementsId: getRandomBoolean() ? getRandomNumber(1, 100) : null
     })
 }
 

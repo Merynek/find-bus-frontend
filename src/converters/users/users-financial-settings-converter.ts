@@ -48,8 +48,8 @@ export class UserFinancialSettingsConverter {
             isCompany: settings.isCompany,
             iban: settings.iban,
             swift: settings.swift,
-            address: settings.address ? UserAddressConverter.toJson(settings.address) : undefined,
-            mailingAddress: settings.mailingAddress ? UserAddressConverter.toJson(settings.mailingAddress) : undefined
+            address: UserAddressConverter.toServer(settings.address || UserAddress.create()),
+            mailingAddress: UserAddressConverter.toServer(settings.mailingAddress || UserAddress.create())
         }
     }
 

@@ -26,6 +26,19 @@ interface FetchError {
     };
 }
 
+export interface IUploadItem {
+    clientFileId: string;
+    fileName: string;
+}
+
+export interface IFileCompleteUploadItem {
+    blobName: string;
+    contentType: string;
+    fileSize: number;
+    originalFileName: string;
+}
+
+
 function isFetchError(error: unknown): error is FetchError {
     return (
         !!error &&

@@ -37,6 +37,10 @@ export const routing = defineRouting({
             [LOCALES.cs_CZ]: '/nastaveni-uzivatele',
             [LOCALES.en_US]: ROUTES.USER_SETTINGS
         },
+        [ROUTES.TRANSPORT_REQUIREMENTS]: {
+            [LOCALES.cs_CZ]: `/nastaveni-vozidla/[${URL_PARAMS.REQUIREMENTS_ID}]`,
+            [LOCALES.en_US]: ROUTES.TRANSPORT_REQUIREMENTS
+        },
         [ROUTES.VEHICLES]: {
             [LOCALES.cs_CZ]: '/vozidla',
             [LOCALES.en_US]: ROUTES.VEHICLES
@@ -80,6 +84,10 @@ export const routing = defineRouting({
         [ROUTES.ADMIN_VEHICLE]: {
             [LOCALES.cs_CZ]: `/admin/vozidlo/[${URL_PARAMS.VEHICLE_ID}]`,
             [LOCALES.en_US]: ROUTES.ADMIN_VEHICLE
+        },
+        [ROUTES.ADMIN_TRANSPORT_REQUIREMENTS]: {
+            [LOCALES.cs_CZ]: `/admin/transport-pozadavky/[${URL_PARAMS.REQUIREMENTS_ID}]`,
+            [LOCALES.en_US]: ROUTES.ADMIN_TRANSPORT_REQUIREMENTS
         }
     }
 });

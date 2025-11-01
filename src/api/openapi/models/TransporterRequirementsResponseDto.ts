@@ -13,6 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
+import type { TransportRequirementStatus } from './TransportRequirementStatus';
+import {
+    TransportRequirementStatusFromJSON,
+    TransportRequirementStatusFromJSONTyped,
+    TransportRequirementStatusToJSON,
+    TransportRequirementStatusToJSONTyped,
+} from './TransportRequirementStatus';
 import type { TransportDocumentResponseDto } from './TransportDocumentResponseDto';
 import {
     TransportDocumentResponseDtoFromJSON,
@@ -20,6 +27,13 @@ import {
     TransportDocumentResponseDtoToJSON,
     TransportDocumentResponseDtoToJSONTyped,
 } from './TransportDocumentResponseDto';
+import type { VerificationFeedbackResponseDto } from './VerificationFeedbackResponseDto';
+import {
+    VerificationFeedbackResponseDtoFromJSON,
+    VerificationFeedbackResponseDtoFromJSONTyped,
+    VerificationFeedbackResponseDtoToJSON,
+    VerificationFeedbackResponseDtoToJSONTyped,
+} from './VerificationFeedbackResponseDto';
 
 /**
  * 
@@ -29,10 +43,28 @@ import {
 export interface TransporterRequirementsResponseDto {
     /**
      * 
+     * @type {number}
+     * @memberof TransporterRequirementsResponseDto
+     */
+    id: number;
+    /**
+     * 
      * @type {string}
      * @memberof TransporterRequirementsResponseDto
      */
-    concessionNumber?: string | null;
+    concessionNumber: string;
+    /**
+     * 
+     * @type {TransportRequirementStatus}
+     * @memberof TransporterRequirementsResponseDto
+     */
+    status: TransportRequirementStatus;
+    /**
+     * 
+     * @type {VerificationFeedbackResponseDto}
+     * @memberof TransporterRequirementsResponseDto
+     */
+    verificationFeedback?: VerificationFeedbackResponseDto;
     /**
      * 
      * @type {Array<TransportDocumentResponseDto>}
@@ -41,10 +73,15 @@ export interface TransporterRequirementsResponseDto {
     documents: Array<TransportDocumentResponseDto>;
 }
 
+
+
 /**
  * Check if a given object implements the TransporterRequirementsResponseDto interface.
  */
 export function instanceOfTransporterRequirementsResponseDto(value: object): value is TransporterRequirementsResponseDto {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('concessionNumber' in value) || value['concessionNumber'] === undefined) return false;
+    if (!('status' in value) || value['status'] === undefined) return false;
     if (!('documents' in value) || value['documents'] === undefined) return false;
     return true;
 }
@@ -59,7 +96,10 @@ export function TransporterRequirementsResponseDtoFromJSONTyped(json: any, ignor
     }
     return {
         
-        'concessionNumber': json['concessionNumber'] == null ? undefined : json['concessionNumber'],
+        'id': json['id'],
+        'concessionNumber': json['concessionNumber'],
+        'status': TransportRequirementStatusFromJSON(json['status']),
+        'verificationFeedback': json['verificationFeedback'] == null ? undefined : VerificationFeedbackResponseDtoFromJSON(json['verificationFeedback']),
         'documents': ((json['documents'] as Array<any>).map(TransportDocumentResponseDtoFromJSON)),
     };
 }
@@ -75,7 +115,10 @@ export function TransporterRequirementsResponseDtoToJSONTyped(value?: Transporte
 
     return {
         
+        'id': value['id'],
         'concessionNumber': value['concessionNumber'],
+        'status': TransportRequirementStatusToJSON(value['status']),
+        'verificationFeedback': VerificationFeedbackResponseDtoToJSON(value['verificationFeedback']),
         'documents': ((value['documents'] as Array<any>).map(TransportDocumentResponseDtoToJSON)),
     };
 }

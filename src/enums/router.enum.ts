@@ -6,7 +6,8 @@ export interface IRoute {
 
 export enum URL_PARAMS {
     TRIP_ID = "tripId",
-    VEHICLE_ID = "vehicleId"
+    VEHICLE_ID = "vehicleId",
+    REQUIREMENTS_ID = "requirementsId"
 }
 
 export enum ROUTES {
@@ -17,6 +18,7 @@ export enum ROUTES {
     RESET_PASSWORD = "/reset-password",
     FORGOT_PASSWORD = "/forgot-password",
     USER_SETTINGS = "/user-settings",
+    TRANSPORT_REQUIREMENTS = `/transport-requirements/[${URL_PARAMS.REQUIREMENTS_ID}]`,
     VEHICLES = "/vehicles",
     VEHICLE_EDIT = `/vehicle-edit/[${URL_PARAMS.VEHICLE_ID}]`,
     CREATE_TRIP = "/create-trip",
@@ -27,7 +29,8 @@ export enum ROUTES {
     EMAIL_CONFIG = "/admin/emails",
     ADMIN_USERS = "/admin/users",
     ADMIN_TRIP_DETAIL = `/admin/trip/[${URL_PARAMS.TRIP_ID}]`,
-    ADMIN_VEHICLE = `/admin/vehicle/[${URL_PARAMS.VEHICLE_ID}]`
+    ADMIN_VEHICLE = `/admin/vehicle/[${URL_PARAMS.VEHICLE_ID}]`,
+    ADMIN_TRANSPORT_REQUIREMENTS = `/admin/transport-requirements/[${URL_PARAMS.REQUIREMENTS_ID}]`
 }
 
 export enum SEARCH_PARAMS {

@@ -52,6 +52,12 @@ export interface UserSettingsResponseDto {
      * @memberof UserSettingsResponseDto
      */
     financialSettings?: UserFinancialSettingsResponseDto;
+    /**
+     * 
+     * @type {number}
+     * @memberof UserSettingsResponseDto
+     */
+    transportRequirementsId?: number | null;
 }
 
 /**
@@ -76,6 +82,7 @@ export function UserSettingsResponseDtoFromJSONTyped(json: any, ignoreDiscrimina
         'phoneNumber': json['phoneNumber'],
         'notifications': ((json['notifications'] as Array<any>).map(NotificationsEnumFromJSON)),
         'financialSettings': json['financialSettings'] == null ? undefined : UserFinancialSettingsResponseDtoFromJSON(json['financialSettings']),
+        'transportRequirementsId': json['transportRequirementsId'] == null ? undefined : json['transportRequirementsId'],
     };
 }
 
@@ -93,6 +100,7 @@ export function UserSettingsResponseDtoToJSONTyped(value?: UserSettingsResponseD
         'phoneNumber': value['phoneNumber'],
         'notifications': ((value['notifications'] as Array<any>).map(NotificationsEnumToJSON)),
         'financialSettings': UserFinancialSettingsResponseDtoToJSON(value['financialSettings']),
+        'transportRequirementsId': value['transportRequirementsId'],
     };
 }
 
