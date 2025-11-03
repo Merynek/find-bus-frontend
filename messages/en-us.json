@@ -37,6 +37,7 @@
       "transportRequirementsHeading": "Transport requirements"
     },
     "userSettings": {
+      "transportRequirements": "Transport requirements",
       "userSettingsHeading": "User Settings",
       "name": "Name",
       "surname": "Surname",

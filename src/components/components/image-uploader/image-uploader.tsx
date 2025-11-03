@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, useId} from "react";
 import styles from "./image-uploader.module.scss";
 import {ImageElement} from "@/src/components/components/image-element/image-element";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
@@ -18,7 +18,8 @@ interface ImageUploaderProps {
 
 export const ImageUploader = (props: ImageUploaderProps) => {
     const { inputName, previewUrl, isExistingPhoto, onDelete, onFileSelect, imageId } = props;
-    const uniqueInputId = `${inputName}-${imageId}`;
+    const generatedId = useId();
+    const uniqueInputId = `${inputName}-${generatedId}`;
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         const selectedFile = e.target.files?.[0] || null;

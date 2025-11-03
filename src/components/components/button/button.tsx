@@ -79,6 +79,7 @@ export const ButtonClick = (props: IClickButtonProps) => {
         return <button
             onClick={props.onClick}
             {...buttonProps}
+            type={"button"}
         >
             <ButtonContent {...props} />
         </button>

@@ -40,6 +40,7 @@ declare const messages: {
       "transportRequirementsHeading": "Požadavky na dopravu"
     },
     "userSettings": {
+      "transportRequirements": "Požadavky na dopravu",
       "userSettingsHeading": "Nastavení uživatele",
       "name": "Jméno",
       "surname": "Příjmení",

@@ -224,10 +224,9 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
         if (settings.transportRequirementsId) {
             return <ButtonLink
                 route={{
-                    route: ROUTES.TRANSPORT_REQUIREMENTS,
-                    params: { [URL_PARAMS.REQUIREMENTS_ID]: settings.transportRequirementsId.toString()}
+                    route: ROUTES.TRANSPORT_REQUIREMENTS
                 }}
-                label={t("transportRequirementsHeading")}
+                label={t("transportRequirements")}
                 type={ButtonType.YELLOW}
                 size={ButtonSize.BUTTON_SIZE_M}
             />
@@ -236,15 +235,14 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
         return <ButtonClick
             controlled={true}
             onClick={async () => {
-                const newId = await UsersService.updateTransportRequirements({
+                await UsersService.updateTransportRequirements({
                     concessionNumber: ""
                 })
                 router.push({
-                    pathname: ROUTES.TRANSPORT_REQUIREMENTS,
-                    params: {[URL_PARAMS.REQUIREMENTS_ID]: newId.toString()}
+                    pathname: ROUTES.TRANSPORT_REQUIREMENTS
                 })
             }}
-            label={t("transportRequirementsHeading")}
+            label={t("transportRequirements")}
             type={ButtonType.YELLOW}
             size={ButtonSize.BUTTON_SIZE_M}
         />

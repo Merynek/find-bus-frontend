@@ -3790,14 +3790,11 @@
         "additionalProperties": false
       },
       "TransportRequirementsRequestDto": {
-        "required": [
-          "concessionNumber"
-        ],
         "type": "object",
         "properties": {
           "concessionNumber": {
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

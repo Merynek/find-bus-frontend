@@ -38,7 +38,7 @@ export const routing = defineRouting({
             [LOCALES.en_US]: ROUTES.USER_SETTINGS
         },
         [ROUTES.TRANSPORT_REQUIREMENTS]: {
-            [LOCALES.cs_CZ]: `/nastaveni-vozidla/[${URL_PARAMS.REQUIREMENTS_ID}]`,
+            [LOCALES.cs_CZ]: `/transport-pozadavky`,
             [LOCALES.en_US]: ROUTES.TRANSPORT_REQUIREMENTS
         },
         [ROUTES.VEHICLES]: {

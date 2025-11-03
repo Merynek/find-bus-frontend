@@ -64,7 +64,7 @@ const TransportRequirementsPage = (props: ITransportRequirementsPageProps) => {
                     transportRequirementsId: requirementsId
                 })
             }
-            router.push(ROUTES.USER_SETTINGS);
+            router.refresh();
         } catch (error) {
             console.error("Error during submit or upload:", error);
         } finally {
@@ -127,7 +127,6 @@ const TransportRequirementsPage = (props: ITransportRequirementsPageProps) => {
 
     const renderTransportRequirements = () => {
         return <>
-            <Heading text={t("transportRequirementsHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={4}/>
             <span>{"User => " + t("verifiedForTransporting") + "-" +  t("notVerifiedForTransporting")}</span>
             <TextBox
                 controlled={false}
