@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "tool--generate-api-types": "node tools/apiTypeGenerator/apiGen.js"
@@ -39,7 +39,6 @@
     "zod": "^4.1.12"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.1",
     "@openapitools/openapi-generator-cli": "^2.25.2",
     "@storybook/addon-docs": "^10.0.8",
     "@storybook/nextjs": "^10.0.8",
