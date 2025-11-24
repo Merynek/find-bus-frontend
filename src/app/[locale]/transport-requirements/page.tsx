@@ -6,12 +6,13 @@ import {TransportRequirementsConverter} from "@/src/converters/users/transport-r
 
 async function PageWrapper(props: PageProps) {
     const params = await props.params;
+    let transportRequirements;
     try {
-        const transportRequirements = await UsersService.getTransportRequirements();
-        return <TransportRequirementsPage transportRequirements={TransportRequirementsConverter.toJson(transportRequirements)} />;
+        transportRequirements = await UsersService.getTransportRequirements();
     } catch (e: unknown) {
         handleApiUnauthorizedError(e, params.locale);
     }
+    return <TransportRequirementsPage transportRequirements={TransportRequirementsConverter.toJson(transportRequirements)} />;
 }
 
 export default PageWrapper;

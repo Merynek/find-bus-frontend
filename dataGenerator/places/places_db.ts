@@ -1,4 +1,4 @@
-import {Country, PlaceRequestDto} from "../../src/api/openapi";
+import {Country} from "../../src/api/openapi";
 import {IPlace} from "../../src/data/place";
 import {GeoPoint} from "../../src/data/geoPoint";
 

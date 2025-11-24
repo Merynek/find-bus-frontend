@@ -5,12 +5,13 @@ import {handleApiUnauthorizedError} from "@/src/utils/handleApiErrors";
 
 async function PageWrapper(props: PageProps) {
     const params = await props.params;
+    let vehicles;
     try {
-        const vehicles = await VehicleService.getVehicles({});
-        return <VehiclesPage vehicles={vehicles} />;
+        vehicles = await VehicleService.getVehicles({});
     } catch (e: unknown) {
         handleApiUnauthorizedError(e, params.locale);
     }
+    return <VehiclesPage vehicles={vehicles} />;
 }
 
 export default PageWrapper;

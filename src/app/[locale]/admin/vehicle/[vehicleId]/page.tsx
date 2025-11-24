@@ -11,13 +11,13 @@ interface IParams {
 
 async function PageWrapper(props: PageProps<IParams>) {
     const params = await props.params;
+    let vehicle;
     try {
-        const vehicle = await VehicleService.getVehicle(Number(params[URL_PARAMS.VEHICLE_ID]));
-
-        return <AdminVehicleEditPage vehicle={VehicleConverter.toJson(vehicle)} />;
+        vehicle = await VehicleService.getVehicle(Number(params[URL_PARAMS.VEHICLE_ID]));
     } catch (e: unknown) {
         handleApiUnauthorizedError(e, params.locale);
     }
+    return <AdminVehicleEditPage vehicle={VehicleConverter.toJson(vehicle)} />;
 }
 
 export default PageWrapper;

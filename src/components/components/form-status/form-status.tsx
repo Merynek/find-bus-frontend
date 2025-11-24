@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {TFormActionState} from "@/src/forms-action/BaseFormAction";
 import {z} from "zod";
 import {useTranslate} from "@/src/hooks/translateHook";
@@ -11,14 +11,9 @@ type Props<T extends z.ZodSchema> = {
 };
 
 export function FormStatus<T extends z.ZodSchema>({state}: Props<T>) {
-    const [message, setMessage] = useState(state?.message);
-    const [errors, setErrors] = useState(state?.schemaErrors);
     const {t} = useTranslate("errors");
-
-    useEffect(() => {
-        setMessage(state?.message);
-        setErrors(state?.schemaErrors);
-    }, [state]);
+    const message = state?.message;
+    const errors = state?.schemaErrors;
 
     const hasGlobalErrors = errors && errors.errors && errors.errors.length > 0;
     const hasFieldErrors = errors && 'properties' in errors && errors.properties && Object.keys(errors.properties).length > 0;
@@ -29,7 +24,7 @@ export function FormStatus<T extends z.ZodSchema>({state}: Props<T>) {
     }
 
     return (
-        <div className="">asdasd
+        <div className="">
             {message && !Boolean(state?.success) && <p className={"bg-red-100 text-red-700 p-3 mb-2"}>
                 {// @ts-expect-error Expected error bcs of dynamic key
                     t("schemaErrors." + message)

@@ -18,7 +18,7 @@ import {TextBox, TextBoxType} from "@/src/components/components/inputs/text-box/
 import { CheckBox } from "../../components/inputs/check-box/check-box";
 import {UserSettingsConverter} from "@/src/converters/users/user-settings-converter";
 import {UserSettingsAddress} from "@/src/components/pages/user-settings/user-settings-address";
-import {ROUTES, URL_PARAMS} from "@/src/enums/router.enum";
+import {ROUTES} from "@/src/enums/router.enum";
 import {UsersService} from "@/src/services/UsersService";
 import {useRouter} from "@/src/i18n/navigation";
 

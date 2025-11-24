@@ -5,7 +5,6 @@ import {FontSize, FontWeight} from "@/src/components/components/texts/textStyles
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 import {ImageUploader} from "@/src/components/components/image-uploader/image-uploader";
 import React from "react";
-import {generateId} from "@/src/utils/common";
 
 interface IFileGroupUploaderFormProps {
     files: IFileGroupUploaderItem[];
@@ -16,7 +15,6 @@ interface IFileGroupUploaderFormProps {
 }
 
 export interface IFileGroupUploaderItem {
-    id: string;
     dbId?: number;
     path?: string;
     file?: File;
@@ -30,7 +28,6 @@ const FileGroupUploaderForm = (props: IFileGroupUploaderFormProps) => {
             file: file,
             dbId: undefined,
             path: URL.createObjectURL(file),
-            id: generateId()
         });
         onChange(currentItems, idsToDelete);
     }
@@ -66,7 +63,6 @@ const FileGroupUploaderForm = (props: IFileGroupUploaderFormProps) => {
                                 onAddItemOnIndex(newItems, index, file, [...deleteIds]);
                             }
                         }}
-                        imageId={item.id}
                     />
                 </React.Fragment>
             })}

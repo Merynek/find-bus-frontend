@@ -11,18 +11,19 @@ interface ISearchParams {
 
 async function PageWrapper(props: PageProps<Record<string, never>, ISearchParams>) {
     const params = await props.params;
+    let users;
+    let appConfig;
 
     try {
-        const users = await UsersService.getAllUsers(0, 50);
-        const appConfig = await AdminService.getAppBusinessConfig();
-
-        return <AdminUsersPage
-            users={users}
-            config={appConfig}
-        />
+        users = await UsersService.getAllUsers(0, 50);
+        appConfig = await AdminService.getAppBusinessConfig();
     } catch (e: unknown) {
         handleApiUnauthorizedError(e, params.locale);
     }
+    return <AdminUsersPage
+        users={users}
+        config={appConfig}
+    />
 }
 
 export default PageWrapper;

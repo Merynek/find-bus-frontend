@@ -13,11 +13,10 @@ interface ImageUploaderProps {
     onFileSelect: (file: File) => void;
     onDelete: () => void;
     isExistingPhoto: boolean;
-    imageId: string;
 }
 
 export const ImageUploader = (props: ImageUploaderProps) => {
-    const { inputName, previewUrl, isExistingPhoto, onDelete, onFileSelect, imageId } = props;
+    const { inputName, previewUrl, isExistingPhoto, onDelete, onFileSelect } = props;
     const generatedId = useId();
     const uniqueInputId = `${inputName}-${generatedId}`;
 

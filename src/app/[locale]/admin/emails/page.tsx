@@ -5,12 +5,13 @@ import {handleApiUnauthorizedError} from "@/src/utils/handleApiErrors";
 
 async function PageWrapper(props: PageProps) {
     const params = await props.params;
+    let config;
     try {
-        const config = await AdminService.getEmailConfig();
-        return <EmailConfigPage cfg={config}/>;
+        config = await AdminService.getEmailConfig();
     } catch (e: unknown) {
         handleApiUnauthorizedError(e, params.locale);
     }
+    return <EmailConfigPage cfg={config}/>;
 }
 
 export default PageWrapper;

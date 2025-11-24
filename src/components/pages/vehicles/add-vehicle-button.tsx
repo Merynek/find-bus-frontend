@@ -26,7 +26,7 @@ const AddVehicleButton = () => {
                     }
                 });
             } catch (e: unknown) {
-                // error
+                console.log(e);
             }
             setDisabled(false);
         }}

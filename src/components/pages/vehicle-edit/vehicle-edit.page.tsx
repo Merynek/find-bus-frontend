@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useEffectEvent, useState} from "react";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {
     Amenities,
@@ -84,13 +84,7 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
     const [isUploading, setIsUploading] = useState(false);
     const locale = useCurrentLocale();
 
-    useEffect(() => {
-        if (state?.success && state?.apiResult) {
-            onSuccess(state.apiResult.updatedVehicleId, state.apiResult.sendVehicleToVerification);
-        }
-    }, [state]);
-
-    const onSuccess = async (vehicleId: number, sendVehicleToVerification: boolean) => {
+    const onSuccess = useEffectEvent(async (vehicleId: number, sendVehicleToVerification: boolean) => {
         setIsUploading(true);
         try {
             await uploadFiles(photos, documents, photoIdsToDelete, documentIdsToDelete, vehicleId);
@@ -105,7 +99,13 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
         } finally {
             setIsUploading(false);
         }
-    }
+    })
+
+    useEffect(() => {
+        if (state?.success && state?.apiResult) {
+            onSuccess(state.apiResult.updatedVehicleId, state.apiResult.sendVehicleToVerification);
+        }
+    }, [state]);
 
     const getEuroStandardOptions = (): IComboBoxItem<string>[] => {
         const options: IComboBoxItem<string>[] = [];

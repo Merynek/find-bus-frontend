@@ -1,7 +1,7 @@
 "use client";
 
 import {useTranslate} from "@/src/hooks/translateHook";
-import React, {useEffect, useState } from "react";
+import React, {useEffect, useEffectEvent, useState } from "react";
 import {ButtonClick, ButtonSize, ButtonType} from "../../components/button/button";
 import {
     TransporterRequirementsResponseDto, TransportRequirementStatus,
@@ -24,7 +24,6 @@ import {
     createInitDocuments,
     IDocumentItem, uploadFiles
 } from "@/src/components/pages/transport-requirements/transport-requirements-utils.page";
-import {ROUTES} from "@/src/enums/router.enum";
 import {UsersService} from "@/src/services/UsersService";
 import {useRouter} from "@/src/i18n/navigation";
 import FileGroupUploaderForm
@@ -49,13 +48,7 @@ const TransportRequirementsPage = (props: ITransportRequirementsPageProps) => {
         }
     })
 
-    useEffect(() => {
-        if (state?.success && state?.apiResult) {
-            onSuccess(state.apiResult.updatedRequirementsId, state.apiResult.sendRequirementsToVerification);
-        }
-    }, [state]);
-
-    const onSuccess = async (requirementsId: number, sendRequirementsToVerification: boolean) => {
+    const onSuccess = useEffectEvent(async (requirementsId: number, sendRequirementsToVerification: boolean) => {
         setIsUploading(true);
         try {
             await uploadFiles(documents, documentIdsToDelete, requirementsId);
@@ -70,7 +63,13 @@ const TransportRequirementsPage = (props: ITransportRequirementsPageProps) => {
         } finally {
             setIsUploading(false);
         }
-    }
+    })
+
+    useEffect(() => {
+        if (state?.success && state?.apiResult) {
+            onSuccess(state.apiResult.updatedRequirementsId, state.apiResult.sendRequirementsToVerification);
+        }
+    }, [state]);
 
     const renderDocumentUploader = (type: TransportRequirementsType, label: string) => {
         const _files = documents.filter(p => p.type === type);

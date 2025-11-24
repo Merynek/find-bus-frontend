@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "tool--generate-api-types": "node tools/apiTypeGenerator/apiGen.js"
+    "tool--generate-api-types": "node tools/apiTypeGenerator/apiGen.mjs"
   },
   "dependencies": {
     "@emotion/styled": "^11.14.1",

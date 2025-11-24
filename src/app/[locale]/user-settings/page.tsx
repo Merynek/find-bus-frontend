@@ -6,12 +6,13 @@ import {UserSettingsConverter} from "@/src/converters/users/user-settings-conver
 
 async function PageWrapper(props: PageProps) {
     const params = await props.params;
+    let userSettings;
     try {
-        const userSettings = await UsersService.getSettings();
-        return <UserSettingsPage settings={UserSettingsConverter.toJson(userSettings)} />;
+        userSettings = await UsersService.getSettings();
     } catch (e: unknown) {
         handleApiUnauthorizedError(e, params.locale);
     }
+    return <UserSettingsPage settings={UserSettingsConverter.toJson(userSettings)} />;
 }
 
 export default PageWrapper;

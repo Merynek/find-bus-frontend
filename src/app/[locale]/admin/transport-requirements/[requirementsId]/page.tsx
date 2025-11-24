@@ -12,13 +12,13 @@ interface IParams {
 
 async function PageWrapper(props: PageProps<IParams>) {
     const params = await props.params;
+    let requirements;
     try {
-        const requirements = await UsersService.getUserTransportRequirements(Number(params[URL_PARAMS.REQUIREMENTS_ID]));
-
-        return <AdminTransportRequirementsPage requirements={TransportRequirementsConverter.toJson(requirements)} />;
+        requirements = await UsersService.getUserTransportRequirements(Number(params[URL_PARAMS.REQUIREMENTS_ID]));
     } catch (e: unknown) {
         handleApiUnauthorizedError(e, params.locale);
     }
+    return <AdminTransportRequirementsPage requirements={TransportRequirementsConverter.toJson(requirements)} />;
 }
 
 export default PageWrapper;

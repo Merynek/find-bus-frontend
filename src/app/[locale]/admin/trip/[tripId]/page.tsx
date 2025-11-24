@@ -11,21 +11,25 @@ interface ITripParams {
 
 async function PageWrapper(props: PageProps<ITripParams>) {
     const params = await props.params;
-    try {
-        const tripId = parseInt(params[URL_PARAMS.TRIP_ID]);
-        const trip = await TripService.getTrip(tripId);
-        const offerMovements = await TripOfferService.getOfferStateMovements(tripId);
-        const offers = await TripOfferService.getTripOffers(tripId);
+    let tripId;
+    let trip;
+    let offerMovements;
+    let offers;
 
-        return <AdminTripDetailPage
-            trip={trip}
-            offerMovements={offerMovements}
-            offers={offers}
-            locale={params.locale}
-        />;
+    try {
+        tripId = parseInt(params[URL_PARAMS.TRIP_ID]);
+        trip = await TripService.getTrip(tripId);
+        offerMovements = await TripOfferService.getOfferStateMovements(tripId);
+        offers = await TripOfferService.getTripOffers(tripId);
     } catch (e: unknown) {
         handleApiUnauthorizedError(e, params.locale);
     }
+    return <AdminTripDetailPage
+        trip={trip}
+        offerMovements={offerMovements}
+        offers={offers}
+        locale={params.locale}
+    />;
 }
 
 export default PageWrapper;

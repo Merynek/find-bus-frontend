@@ -6,12 +6,13 @@ import {handleApiUnauthorizedError} from "@/src/utils/handleApiErrors";
 
 async function PageWrapper(props: PageProps) {
     const params = await props.params;
+    let appConfig;
     try {
-        const appConfig = await AdminService.getAppBusinessConfig();
-        return <AppConfigPage cfg={AppBusinessConfigConverter.toJson(appConfig)} />;
+        appConfig = await AdminService.getAppBusinessConfig();
     } catch (e: unknown) {
         handleApiUnauthorizedError(e, params.locale);
     }
+    return <AppConfigPage cfg={AppBusinessConfigConverter.toJson(appConfig)} />;
 }
 
 export default PageWrapper;

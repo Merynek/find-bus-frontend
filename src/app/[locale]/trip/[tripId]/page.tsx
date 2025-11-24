@@ -11,14 +11,17 @@ interface IParams {
 
 async function PageWrapper(props: PageProps<IParams>) {
     const params = await props.params;
-    try {
-        const trip = await TripService.getTrip(Number(params[URL_PARAMS.TRIP_ID]));
-        const config = await AdminService.getAppBusinessConfig();
+    let trip;
+    let config;
 
-        return <TripDetailPage trip={trip} config={config} />;
+    try {
+        trip = await TripService.getTrip(Number(params[URL_PARAMS.TRIP_ID]));
+        config = await AdminService.getAppBusinessConfig();
     } catch (e: unknown) {
         handleApiUnauthorizedError(e, params.locale);
     }
+
+    return <TripDetailPage trip={trip} config={config} />;
 }
 
 export default PageWrapper;
