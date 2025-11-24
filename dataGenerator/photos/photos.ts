@@ -7,7 +7,7 @@ export function getRandomPhoto(): Image {
     const photo = photos[Math.floor(Math.random() * photos.length)];
     return new Image({
         id: getRandomId(),
-        path: photo,
+        path: photo.src,
         type: getRandomEnum(FileType),
         storageCategory: getRandomEnum(FileStorageCategory),
     });
@@ -18,7 +18,7 @@ export function getAllPhotos(): Image[] {
     return shuffledPhotos.map((photo, index) => {
         return new Image({
             id: index,
-            path: photo,
+            path: photo.src,
             type: getRandomEnum(FileType),
             storageCategory: getRandomEnum(FileStorageCategory),
         });
