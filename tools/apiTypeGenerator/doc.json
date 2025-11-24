@@ -3385,6 +3385,7 @@
         "type": "object",
         "properties": {
           "amount": {
+            "maximum": 1.7976931348623157E+308,
             "minimum": 0,
             "type": "number",
             "format": "double"
@@ -5030,9 +5031,9 @@
       }
     },
     "securitySchemes": {
-      "Bearer": {
+      "bearer": {
         "type": "http",
-        "description": "Put ONLY your JWT Bearer token on textbox below!",
+        "description": "JWT Authorization header using the Bearer scheme.",
         "scheme": "bearer",
         "bearerFormat": "JWT"
       }
@@ -5040,7 +5041,30 @@
   },
   "security": [
     {
-      "Bearer": [ ]
+      "bearer": [ ]
+    }
+  ],
+  "tags": [
+    {
+      "name": "Admin"
+    },
+    {
+      "name": "Authorize"
+    },
+    {
+      "name": "Registration"
+    },
+    {
+      "name": "Trip"
+    },
+    {
+      "name": "TripOffer"
+    },
+    {
+      "name": "Users"
+    },
+    {
+      "name": "Vehicles"
     }
   ]
 }
