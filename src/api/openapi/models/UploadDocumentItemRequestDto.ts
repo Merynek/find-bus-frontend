@@ -29,12 +29,6 @@ import {
 export interface UploadDocumentItemRequestDto {
     /**
      * 
-     * @type {VehicleDocumentType}
-     * @memberof UploadDocumentItemRequestDto
-     */
-    type: VehicleDocumentType;
-    /**
-     * 
      * @type {string}
      * @memberof UploadDocumentItemRequestDto
      */
@@ -45,6 +39,12 @@ export interface UploadDocumentItemRequestDto {
      * @memberof UploadDocumentItemRequestDto
      */
     fileName: string;
+    /**
+     * 
+     * @type {VehicleDocumentType}
+     * @memberof UploadDocumentItemRequestDto
+     */
+    type: VehicleDocumentType;
 }
 
 
@@ -53,9 +53,9 @@ export interface UploadDocumentItemRequestDto {
  * Check if a given object implements the UploadDocumentItemRequestDto interface.
  */
 export function instanceOfUploadDocumentItemRequestDto(value: object): value is UploadDocumentItemRequestDto {
-    if (!('type' in value) || value['type'] === undefined) return false;
     if (!('clientFileId' in value) || value['clientFileId'] === undefined) return false;
     if (!('fileName' in value) || value['fileName'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
     return true;
 }
 
@@ -69,9 +69,9 @@ export function UploadDocumentItemRequestDtoFromJSONTyped(json: any, ignoreDiscr
     }
     return {
         
-        'type': VehicleDocumentTypeFromJSON(json['type']),
         'clientFileId': json['clientFileId'],
         'fileName': json['fileName'],
+        'type': VehicleDocumentTypeFromJSON(json['type']),
     };
 }
 
@@ -86,9 +86,9 @@ export function UploadDocumentItemRequestDtoToJSONTyped(value?: UploadDocumentIt
 
     return {
         
-        'type': VehicleDocumentTypeToJSON(value['type']),
         'clientFileId': value['clientFileId'],
         'fileName': value['fileName'],
+        'type': VehicleDocumentTypeToJSON(value['type']),
     };
 }
 

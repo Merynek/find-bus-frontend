@@ -107,10 +107,10 @@ export function RouteRequestDtoToJSONTyped(value?: RouteRequestDto | null, ignor
 
     return {
         
-        'start': ((value['start']).toISOString()),
+        'start': value['start'].toISOString(),
         'from': StopRequestDtoToJSON(value['from']),
         'to': StopRequestDtoToJSON(value['to']),
-        'end': ((value['end']).toISOString()),
+        'end': value['end'].toISOString(),
         'direction': DirectionRequestDtoToJSON(value['direction']),
     };
 }

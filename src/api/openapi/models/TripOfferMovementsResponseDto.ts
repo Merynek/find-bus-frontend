@@ -127,7 +127,7 @@ export function TripOfferMovementsResponseDtoToJSONTyped(value?: TripOfferMoveme
         'tripId': value['tripId'],
         'from': TripOfferStateToJSON(value['from']),
         'to': TripOfferStateToJSON(value['to']),
-        'datetime': ((value['datetime']).toISOString()),
+        'datetime': value['datetime'].toISOString(),
         'reason': CloseTripOfferReasonToJSON(value['reason']),
         'customReason': value['customReason'],
     };

@@ -69,7 +69,7 @@ export function AccessTokenDtoToJSONTyped(value?: AccessTokenDto | null, ignoreD
     return {
         
         'token': value['token'],
-        'expireDate': ((value['expireDate']).toISOString()),
+        'expireDate': value['expireDate'].toISOString(),
     };
 }
 

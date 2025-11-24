@@ -29,12 +29,6 @@ import {
 export interface CompletedTransportUploadDocumentItemRequestDto {
     /**
      * 
-     * @type {TransportRequirementsType}
-     * @memberof CompletedTransportUploadDocumentItemRequestDto
-     */
-    type: TransportRequirementsType;
-    /**
-     * 
      * @type {string}
      * @memberof CompletedTransportUploadDocumentItemRequestDto
      */
@@ -57,6 +51,12 @@ export interface CompletedTransportUploadDocumentItemRequestDto {
      * @memberof CompletedTransportUploadDocumentItemRequestDto
      */
     originalFileName: string;
+    /**
+     * 
+     * @type {TransportRequirementsType}
+     * @memberof CompletedTransportUploadDocumentItemRequestDto
+     */
+    type: TransportRequirementsType;
 }
 
 
@@ -65,11 +65,11 @@ export interface CompletedTransportUploadDocumentItemRequestDto {
  * Check if a given object implements the CompletedTransportUploadDocumentItemRequestDto interface.
  */
 export function instanceOfCompletedTransportUploadDocumentItemRequestDto(value: object): value is CompletedTransportUploadDocumentItemRequestDto {
-    if (!('type' in value) || value['type'] === undefined) return false;
     if (!('blobName' in value) || value['blobName'] === undefined) return false;
     if (!('contentType' in value) || value['contentType'] === undefined) return false;
     if (!('fileSize' in value) || value['fileSize'] === undefined) return false;
     if (!('originalFileName' in value) || value['originalFileName'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
     return true;
 }
 
@@ -83,11 +83,11 @@ export function CompletedTransportUploadDocumentItemRequestDtoFromJSONTyped(json
     }
     return {
         
-        'type': TransportRequirementsTypeFromJSON(json['type']),
         'blobName': json['blobName'],
         'contentType': json['contentType'],
         'fileSize': json['fileSize'],
         'originalFileName': json['originalFileName'],
+        'type': TransportRequirementsTypeFromJSON(json['type']),
     };
 }
 
@@ -102,11 +102,11 @@ export function CompletedTransportUploadDocumentItemRequestDtoToJSONTyped(value?
 
     return {
         
-        'type': TransportRequirementsTypeToJSON(value['type']),
         'blobName': value['blobName'],
         'contentType': value['contentType'],
         'fileSize': value['fileSize'],
         'originalFileName': value['originalFileName'],
+        'type': TransportRequirementsTypeToJSON(value['type']),
     };
 }
 

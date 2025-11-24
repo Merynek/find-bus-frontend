@@ -92,7 +92,7 @@ export function CreateOfferRequestDtoToJSONTyped(value?: CreateOfferRequestDto |
 
     return {
         
-        'endOfferDate': ((value['endOfferDate']).toISOString()),
+        'endOfferDate': value['endOfferDate'].toISOString(),
         'tripId': value['tripId'],
         'vehicleId': value['vehicleId'],
         'price': PriceDtoToJSON(value['price']),

@@ -92,7 +92,7 @@ export class TripApi extends runtime.BaseAPI {
         }
 
         if (requestParameters['start'] != null) {
-            queryParameters['Start'] = (requestParameters['start'] as any).toISOString();
+            queryParameters['Start'] = requestParameters['start'];
         }
 
         if (requestParameters['maxNumberOfPersons'] != null) {
@@ -160,7 +160,7 @@ export class TripApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        headerParameters['Content-Type'] = 'application/json-patch+json';
+        headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;
@@ -197,7 +197,7 @@ export class TripApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        headerParameters['Content-Type'] = 'application/json-patch+json';
+        headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && this.configuration.accessToken) {
             const token = this.configuration.accessToken;

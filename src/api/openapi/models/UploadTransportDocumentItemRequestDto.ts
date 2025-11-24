@@ -29,12 +29,6 @@ import {
 export interface UploadTransportDocumentItemRequestDto {
     /**
      * 
-     * @type {TransportRequirementsType}
-     * @memberof UploadTransportDocumentItemRequestDto
-     */
-    type: TransportRequirementsType;
-    /**
-     * 
      * @type {string}
      * @memberof UploadTransportDocumentItemRequestDto
      */
@@ -45,6 +39,12 @@ export interface UploadTransportDocumentItemRequestDto {
      * @memberof UploadTransportDocumentItemRequestDto
      */
     fileName: string;
+    /**
+     * 
+     * @type {TransportRequirementsType}
+     * @memberof UploadTransportDocumentItemRequestDto
+     */
+    type: TransportRequirementsType;
 }
 
 
@@ -53,9 +53,9 @@ export interface UploadTransportDocumentItemRequestDto {
  * Check if a given object implements the UploadTransportDocumentItemRequestDto interface.
  */
 export function instanceOfUploadTransportDocumentItemRequestDto(value: object): value is UploadTransportDocumentItemRequestDto {
-    if (!('type' in value) || value['type'] === undefined) return false;
     if (!('clientFileId' in value) || value['clientFileId'] === undefined) return false;
     if (!('fileName' in value) || value['fileName'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
     return true;
 }
 
@@ -69,9 +69,9 @@ export function UploadTransportDocumentItemRequestDtoFromJSONTyped(json: any, ig
     }
     return {
         
-        'type': TransportRequirementsTypeFromJSON(json['type']),
         'clientFileId': json['clientFileId'],
         'fileName': json['fileName'],
+        'type': TransportRequirementsTypeFromJSON(json['type']),
     };
 }
 
@@ -86,9 +86,9 @@ export function UploadTransportDocumentItemRequestDtoToJSONTyped(value?: UploadT
 
     return {
         
-        'type': TransportRequirementsTypeToJSON(value['type']),
         'clientFileId': value['clientFileId'],
         'fileName': value['fileName'],
+        'type': TransportRequirementsTypeToJSON(value['type']),
     };
 }
 

@@ -21,12 +21,6 @@ import { mapValues } from '../runtime';
 export interface UploadPublicPhotoItemRequestDto {
     /**
      * 
-     * @type {number}
-     * @memberof UploadPublicPhotoItemRequestDto
-     */
-    id: number;
-    /**
-     * 
      * @type {string}
      * @memberof UploadPublicPhotoItemRequestDto
      */
@@ -37,15 +31,21 @@ export interface UploadPublicPhotoItemRequestDto {
      * @memberof UploadPublicPhotoItemRequestDto
      */
     fileName: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof UploadPublicPhotoItemRequestDto
+     */
+    id: number;
 }
 
 /**
  * Check if a given object implements the UploadPublicPhotoItemRequestDto interface.
  */
 export function instanceOfUploadPublicPhotoItemRequestDto(value: object): value is UploadPublicPhotoItemRequestDto {
-    if (!('id' in value) || value['id'] === undefined) return false;
     if (!('clientFileId' in value) || value['clientFileId'] === undefined) return false;
     if (!('fileName' in value) || value['fileName'] === undefined) return false;
+    if (!('id' in value) || value['id'] === undefined) return false;
     return true;
 }
 
@@ -59,9 +59,9 @@ export function UploadPublicPhotoItemRequestDtoFromJSONTyped(json: any, ignoreDi
     }
     return {
         
-        'id': json['id'],
         'clientFileId': json['clientFileId'],
         'fileName': json['fileName'],
+        'id': json['id'],
     };
 }
 
@@ -76,9 +76,9 @@ export function UploadPublicPhotoItemRequestDtoToJSONTyped(value?: UploadPublicP
 
     return {
         
-        'id': value['id'],
         'clientFileId': value['clientFileId'],
         'fileName': value['fileName'],
+        'id': value['id'],
     };
 }
 

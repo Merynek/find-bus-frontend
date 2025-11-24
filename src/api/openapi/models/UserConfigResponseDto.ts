@@ -68,7 +68,7 @@ export function UserConfigResponseDtoToJSONTyped(value?: UserConfigResponseDto |
 
     return {
         
-        'created': ((value['created']).toISOString()),
+        'created': value['created'].toISOString(),
         'tripOfferCommissionPercentage': value['tripOfferCommissionPercentage'],
     };
 }

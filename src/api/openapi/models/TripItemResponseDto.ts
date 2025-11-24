@@ -195,13 +195,13 @@ export function TripItemResponseDtoToJSONTyped(value?: TripItemResponseDto | nul
         'totalDistanceInMeters': value['totalDistanceInMeters'],
         'handicappedUserCount': value['handicappedUserCount'],
         'dietForTransporter': value['dietForTransporter'],
-        'endOffer': ((value['endOffer']).toISOString()),
+        'endOffer': value['endOffer'].toISOString(),
         'offerHasEnded': value['offerHasEnded'],
         'offerState': TripOfferStateToJSON(value['offerState']),
         'alreadyOffered': value['alreadyOffered'],
         'isMine': value['isMine'],
         'hasOffers': value['hasOffers'],
-        'created': ((value['created']).toISOString()),
+        'created': value['created'].toISOString(),
     };
 }
 

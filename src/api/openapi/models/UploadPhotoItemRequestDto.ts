@@ -29,12 +29,6 @@ import {
 export interface UploadPhotoItemRequestDto {
     /**
      * 
-     * @type {VehiclePhotoType}
-     * @memberof UploadPhotoItemRequestDto
-     */
-    type: VehiclePhotoType;
-    /**
-     * 
      * @type {string}
      * @memberof UploadPhotoItemRequestDto
      */
@@ -45,6 +39,12 @@ export interface UploadPhotoItemRequestDto {
      * @memberof UploadPhotoItemRequestDto
      */
     fileName: string;
+    /**
+     * 
+     * @type {VehiclePhotoType}
+     * @memberof UploadPhotoItemRequestDto
+     */
+    type: VehiclePhotoType;
 }
 
 
@@ -53,9 +53,9 @@ export interface UploadPhotoItemRequestDto {
  * Check if a given object implements the UploadPhotoItemRequestDto interface.
  */
 export function instanceOfUploadPhotoItemRequestDto(value: object): value is UploadPhotoItemRequestDto {
-    if (!('type' in value) || value['type'] === undefined) return false;
     if (!('clientFileId' in value) || value['clientFileId'] === undefined) return false;
     if (!('fileName' in value) || value['fileName'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
     return true;
 }
 
@@ -69,9 +69,9 @@ export function UploadPhotoItemRequestDtoFromJSONTyped(json: any, ignoreDiscrimi
     }
     return {
         
-        'type': VehiclePhotoTypeFromJSON(json['type']),
         'clientFileId': json['clientFileId'],
         'fileName': json['fileName'],
+        'type': VehiclePhotoTypeFromJSON(json['type']),
     };
 }
 
@@ -86,9 +86,9 @@ export function UploadPhotoItemRequestDtoToJSONTyped(value?: UploadPhotoItemRequ
 
     return {
         
-        'type': VehiclePhotoTypeToJSON(value['type']),
         'clientFileId': value['clientFileId'],
         'fileName': value['fileName'],
+        'type': VehiclePhotoTypeToJSON(value['type']),
     };
 }
 

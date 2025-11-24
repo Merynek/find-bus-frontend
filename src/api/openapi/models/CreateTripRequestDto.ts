@@ -120,7 +120,7 @@ export function CreateTripRequestDtoToJSONTyped(value?: CreateTripRequestDto | n
         'amenities': ((value['amenities'] as Array<any>).map(AmenitiesToJSON)),
         'handicappedUserCount': value['handicappedUserCount'],
         'dietForTransporter': value['dietForTransporter'],
-        'endOrder': ((value['endOrder']).toISOString()),
+        'endOrder': value['endOrder'].toISOString(),
     };
 }
 

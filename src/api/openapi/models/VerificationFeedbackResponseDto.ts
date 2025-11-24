@@ -68,7 +68,7 @@ export function VerificationFeedbackResponseDtoToJSONTyped(value?: VerificationF
 
     return {
         
-        'created': ((value['created']).toISOString()),
+        'created': value['created'].toISOString(),
         'description': value['description'],
     };
 }

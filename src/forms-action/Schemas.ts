@@ -48,6 +48,6 @@ export const UserFinancialSettingsSchema = z.object({
     isCompany: RequiredBooleanSchema,
     address: UserAddressSchema,
     mailingAddress: UserAddressSchema,
-    iban: RequiredStringSchema,
-    swift: RequiredStringSchema,
+    iban: z.string().optional(),
+    swift: z.string().optional(),
 });

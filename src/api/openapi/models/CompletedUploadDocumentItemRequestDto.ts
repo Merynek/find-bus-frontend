@@ -29,12 +29,6 @@ import {
 export interface CompletedUploadDocumentItemRequestDto {
     /**
      * 
-     * @type {VehicleDocumentType}
-     * @memberof CompletedUploadDocumentItemRequestDto
-     */
-    type: VehicleDocumentType;
-    /**
-     * 
      * @type {string}
      * @memberof CompletedUploadDocumentItemRequestDto
      */
@@ -57,6 +51,12 @@ export interface CompletedUploadDocumentItemRequestDto {
      * @memberof CompletedUploadDocumentItemRequestDto
      */
     originalFileName: string;
+    /**
+     * 
+     * @type {VehicleDocumentType}
+     * @memberof CompletedUploadDocumentItemRequestDto
+     */
+    type: VehicleDocumentType;
 }
 
 
@@ -65,11 +65,11 @@ export interface CompletedUploadDocumentItemRequestDto {
  * Check if a given object implements the CompletedUploadDocumentItemRequestDto interface.
  */
 export function instanceOfCompletedUploadDocumentItemRequestDto(value: object): value is CompletedUploadDocumentItemRequestDto {
-    if (!('type' in value) || value['type'] === undefined) return false;
     if (!('blobName' in value) || value['blobName'] === undefined) return false;
     if (!('contentType' in value) || value['contentType'] === undefined) return false;
     if (!('fileSize' in value) || value['fileSize'] === undefined) return false;
     if (!('originalFileName' in value) || value['originalFileName'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
     return true;
 }
 
@@ -83,11 +83,11 @@ export function CompletedUploadDocumentItemRequestDtoFromJSONTyped(json: any, ig
     }
     return {
         
-        'type': VehicleDocumentTypeFromJSON(json['type']),
         'blobName': json['blobName'],
         'contentType': json['contentType'],
         'fileSize': json['fileSize'],
         'originalFileName': json['originalFileName'],
+        'type': VehicleDocumentTypeFromJSON(json['type']),
     };
 }
 
@@ -102,11 +102,11 @@ export function CompletedUploadDocumentItemRequestDtoToJSONTyped(value?: Complet
 
     return {
         
-        'type': VehicleDocumentTypeToJSON(value['type']),
         'blobName': value['blobName'],
         'contentType': value['contentType'],
         'fileSize': value['fileSize'],
         'originalFileName': value['originalFileName'],
+        'type': VehicleDocumentTypeToJSON(value['type']),
     };
 }
 

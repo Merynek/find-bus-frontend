@@ -180,10 +180,10 @@ export function TripResponseDtoToJSONTyped(value?: TripResponseDto | null, ignor
         'handicappedUserCount': value['handicappedUserCount'],
         'totalDistanceInMeters': value['totalDistanceInMeters'],
         'dietForTransporter': value['dietForTransporter'],
-        'endOrder': ((value['endOrder']).toISOString()),
+        'endOrder': value['endOrder'].toISOString(),
         'offerHasEnded': value['offerHasEnded'],
         'offerState': TripOfferStateToJSON(value['offerState']),
-        'created': ((value['created']).toISOString()),
+        'created': value['created'].toISOString(),
     };
 }
 

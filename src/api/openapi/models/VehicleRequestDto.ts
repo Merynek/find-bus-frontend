@@ -149,7 +149,7 @@ export function VehicleRequestDtoToJSONTyped(value?: VehicleRequestDto | null, i
         'name': value['name'],
         'registrationSign': value['registrationSign'],
         'vin': value['vin'],
-        'stkExpired': value['stkExpired'] === null ? null : ((value['stkExpired'] as any)?.toISOString()),
+        'stkExpired': value['stkExpired'] == null ? value['stkExpired'] : value['stkExpired'].toISOString(),
         'yearOfManufacture': value['yearOfManufacture'],
         'personsCapacity': value['personsCapacity'],
         'euro': EuroStandardToJSON(value['euro']),

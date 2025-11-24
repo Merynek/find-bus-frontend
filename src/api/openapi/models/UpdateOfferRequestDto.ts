@@ -69,7 +69,7 @@ export function UpdateOfferRequestDtoToJSONTyped(value?: UpdateOfferRequestDto |
     return {
         
         'offerId': value['offerId'],
-        'endOfferDate': ((value['endOfferDate']).toISOString()),
+        'endOfferDate': value['endOfferDate'].toISOString(),
     };
 }
 

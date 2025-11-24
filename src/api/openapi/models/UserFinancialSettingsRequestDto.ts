@@ -80,13 +80,13 @@ export interface UserFinancialSettingsRequestDto {
      * @type {string}
      * @memberof UserFinancialSettingsRequestDto
      */
-    iban: string;
+    iban?: string | null;
     /**
      * 
      * @type {string}
      * @memberof UserFinancialSettingsRequestDto
      */
-    swift: string;
+    swift?: string | null;
 }
 
 /**
@@ -101,8 +101,6 @@ export function instanceOfUserFinancialSettingsRequestDto(value: object): value 
     if (!('isCompany' in value) || value['isCompany'] === undefined) return false;
     if (!('address' in value) || value['address'] === undefined) return false;
     if (!('mailingAddress' in value) || value['mailingAddress'] === undefined) return false;
-    if (!('iban' in value) || value['iban'] === undefined) return false;
-    if (!('swift' in value) || value['swift'] === undefined) return false;
     return true;
 }
 
@@ -124,8 +122,8 @@ export function UserFinancialSettingsRequestDtoFromJSONTyped(json: any, ignoreDi
         'isCompany': json['isCompany'],
         'address': UserAddressRequestDtoFromJSON(json['address']),
         'mailingAddress': UserAddressRequestDtoFromJSON(json['mailingAddress']),
-        'iban': json['iban'],
-        'swift': json['swift'],
+        'iban': json['iban'] == null ? undefined : json['iban'],
+        'swift': json['swift'] == null ? undefined : json['swift'],
     };
 }
 

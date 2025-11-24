@@ -29,12 +29,6 @@ import {
 export interface CompletedUploadPhotoItemRequestDto {
     /**
      * 
-     * @type {VehiclePhotoType}
-     * @memberof CompletedUploadPhotoItemRequestDto
-     */
-    type: VehiclePhotoType;
-    /**
-     * 
      * @type {string}
      * @memberof CompletedUploadPhotoItemRequestDto
      */
@@ -57,6 +51,12 @@ export interface CompletedUploadPhotoItemRequestDto {
      * @memberof CompletedUploadPhotoItemRequestDto
      */
     originalFileName: string;
+    /**
+     * 
+     * @type {VehiclePhotoType}
+     * @memberof CompletedUploadPhotoItemRequestDto
+     */
+    type: VehiclePhotoType;
 }
 
 
@@ -65,11 +65,11 @@ export interface CompletedUploadPhotoItemRequestDto {
  * Check if a given object implements the CompletedUploadPhotoItemRequestDto interface.
  */
 export function instanceOfCompletedUploadPhotoItemRequestDto(value: object): value is CompletedUploadPhotoItemRequestDto {
-    if (!('type' in value) || value['type'] === undefined) return false;
     if (!('blobName' in value) || value['blobName'] === undefined) return false;
     if (!('contentType' in value) || value['contentType'] === undefined) return false;
     if (!('fileSize' in value) || value['fileSize'] === undefined) return false;
     if (!('originalFileName' in value) || value['originalFileName'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
     return true;
 }
 
@@ -83,11 +83,11 @@ export function CompletedUploadPhotoItemRequestDtoFromJSONTyped(json: any, ignor
     }
     return {
         
-        'type': VehiclePhotoTypeFromJSON(json['type']),
         'blobName': json['blobName'],
         'contentType': json['contentType'],
         'fileSize': json['fileSize'],
         'originalFileName': json['originalFileName'],
+        'type': VehiclePhotoTypeFromJSON(json['type']),
     };
 }
 
@@ -102,11 +102,11 @@ export function CompletedUploadPhotoItemRequestDtoToJSONTyped(value?: CompletedU
 
     return {
         
-        'type': VehiclePhotoTypeToJSON(value['type']),
         'blobName': value['blobName'],
         'contentType': value['contentType'],
         'fileSize': value['fileSize'],
         'originalFileName': value['originalFileName'],
+        'type': VehiclePhotoTypeToJSON(value['type']),
     };
 }
 

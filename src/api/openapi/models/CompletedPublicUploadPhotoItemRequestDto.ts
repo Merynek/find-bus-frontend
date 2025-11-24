@@ -21,12 +21,6 @@ import { mapValues } from '../runtime';
 export interface CompletedPublicUploadPhotoItemRequestDto {
     /**
      * 
-     * @type {number}
-     * @memberof CompletedPublicUploadPhotoItemRequestDto
-     */
-    id: number;
-    /**
-     * 
      * @type {string}
      * @memberof CompletedPublicUploadPhotoItemRequestDto
      */
@@ -49,17 +43,23 @@ export interface CompletedPublicUploadPhotoItemRequestDto {
      * @memberof CompletedPublicUploadPhotoItemRequestDto
      */
     originalFileName: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof CompletedPublicUploadPhotoItemRequestDto
+     */
+    id: number;
 }
 
 /**
  * Check if a given object implements the CompletedPublicUploadPhotoItemRequestDto interface.
  */
 export function instanceOfCompletedPublicUploadPhotoItemRequestDto(value: object): value is CompletedPublicUploadPhotoItemRequestDto {
-    if (!('id' in value) || value['id'] === undefined) return false;
     if (!('blobName' in value) || value['blobName'] === undefined) return false;
     if (!('contentType' in value) || value['contentType'] === undefined) return false;
     if (!('fileSize' in value) || value['fileSize'] === undefined) return false;
     if (!('originalFileName' in value) || value['originalFileName'] === undefined) return false;
+    if (!('id' in value) || value['id'] === undefined) return false;
     return true;
 }
 
@@ -73,11 +73,11 @@ export function CompletedPublicUploadPhotoItemRequestDtoFromJSONTyped(json: any,
     }
     return {
         
-        'id': json['id'],
         'blobName': json['blobName'],
         'contentType': json['contentType'],
         'fileSize': json['fileSize'],
         'originalFileName': json['originalFileName'],
+        'id': json['id'],
     };
 }
 
@@ -92,11 +92,11 @@ export function CompletedPublicUploadPhotoItemRequestDtoToJSONTyped(value?: Comp
 
     return {
         
-        'id': value['id'],
         'blobName': value['blobName'],
         'contentType': value['contentType'],
         'fileSize': value['fileSize'],
         'originalFileName': value['originalFileName'],
+        'id': value['id'],
     };
 }
 

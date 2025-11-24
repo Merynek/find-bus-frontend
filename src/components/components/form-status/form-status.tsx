@@ -29,7 +29,7 @@ export function FormStatus<T extends z.ZodSchema>({state}: Props<T>) {
     }
 
     return (
-        <div className="">
+        <div className="">asdasd
             {message && !Boolean(state?.success) && <p className={"bg-red-100 text-red-700 p-3 mb-2"}>
                 {// @ts-expect-error Expected error bcs of dynamic key
                     t("schemaErrors." + message)
