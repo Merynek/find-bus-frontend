@@ -15,13 +15,16 @@ export const VehicleDetail = (props: IVehicleDetailListProps) => {
     const {vehicle, noPhotos} = props;
 
     const renderImage = (path: string) => {
-        return <div style={{width: "200px", height: "200px", position: "relative"}}>
-            <ImageElement
-                src={path}
-                alt={""}
-                fill={true}
-            />
-        </div>
+        if (path) {
+            return <div style={{width: "200px", height: "200px", position: "relative"}}>
+                <ImageElement
+                    src={path}
+                    alt={""}
+                    fill={true}
+                />
+            </div>
+        }
+        return <></>
     }
 
     return <div className={styles.layout}>
@@ -65,7 +68,7 @@ export const VehicleDetail = (props: IVehicleDetailListProps) => {
                 {!noPhotos && vehicle.photos.map(photo => {
                     return <div key={photo.id}>
                         <span>{photo.type}:</span>
-                        {photo.image?.path && renderImage(photo.image.path)}
+                        {photo.publicFile ? renderImage(photo.publicFile.path) : (photo.image ? renderImage(photo.image.path) : <></>)}
                     </div>
                 })}
                 {vehicle.documents.map(document => {

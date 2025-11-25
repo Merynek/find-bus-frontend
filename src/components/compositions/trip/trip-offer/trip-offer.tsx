@@ -49,7 +49,7 @@ export const TripOffer = observer((props: ITripOfferProps) => {
                 onClick={async () => {
                     if (vehicle.id) {
                         showLoader();
-                        const detailVehicle = await VehicleService.getPublicVehicle(vehicle.id)
+                        const detailVehicle = await VehicleService.getPublicVehicle(vehicle.id);
                         hideLoader();
                         setVehicleDetail(detailVehicle);
                     }
