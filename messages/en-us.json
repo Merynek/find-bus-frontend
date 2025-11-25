@@ -34,7 +34,10 @@
       "saveAndPostToVerification": "Save and sent to verification"
     },
     "adminTransportRequirements": {
-      "transportRequirementsHeading": "Transport requirements"
+      "transportRequirementsHeading": "Transport requirements",
+      "feedbackLabel": "Feedback",
+      "isApproved": "Approved",
+      "submit": "Submit"
     },
     "userSettings": {
       "transportRequirements": "Transport requirements",
@@ -96,10 +99,7 @@
     },
     "adminVehicle": {
       "vehicleHeading": "Vehicle settings",
-      "uploadPublicPhotos": "Upload public photos",
-      "feedbackLabel": "Feedback",
-      "isApproved": "Approved",
-      "submit": "Submit"
+      "uploadPublicPhotos": "Upload public photos"
     }
   },
   "component":  {

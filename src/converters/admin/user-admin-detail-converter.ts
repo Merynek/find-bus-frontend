@@ -2,8 +2,6 @@ import {
     AdminUserDetailResponseDto
 } from "@/src/api/openapi";
 import {UserAdminDetail} from "@/src/data/users/user-admin-detail";
-import {TransportRequirements} from "@/src/data/transportRequirements";
-import {TransportRequirementsConverter} from "@/src/converters/users/transport-requirements-converter";
 import {UserConfigConverter} from "@/src/converters/admin/user-config-converter";
 import {VehicleConverter} from "@/src/converters/vehicle/vehicle-converter";
 import {UserFinancialSettings} from "@/src/data/users/userFinancialSettings";
@@ -20,7 +18,7 @@ export class UserAdminDetailConverter {
             userFinancialSettings: response.financialSettings ? UserFinancialSettingsConverter.toInstance(response.financialSettings) : UserFinancialSettings.create(),
             phoneNumber: response.phoneNumber,
             vehicles: response.vehicles.map(VehicleConverter.toInstance),
-            transportRequirements: response.transporterRequirements ? TransportRequirementsConverter.toInstance(response.transporterRequirements) : TransportRequirements.create(),
+            transportRequirementsId: response.transportRequirementsId || null,
             userConfigs: response.userConfigs.map(UserConfigConverter.toInstance)
         })
     }
@@ -34,7 +32,7 @@ export class UserAdminDetailConverter {
             financialSettings: UserFinancialSettingsConverter.toJson(user.userFinancialSettings),
             phoneNumber: user.phoneNumber,
             vehicles: user.vehicles.map(v => VehicleConverter.toJson(v)),
-            transporterRequirements: TransportRequirementsConverter.toJson(user.transportRequirements),
+            transportRequirementsId: user.transportRequirementsId || null,
             userConfigs: user.userConfigs.map(UserConfigConverter.toJson)
         }
     }

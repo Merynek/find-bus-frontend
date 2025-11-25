@@ -16,7 +16,6 @@ import {TripOfferAccept} from "../trip-offer-accept/trip-offer-accept";
 import {useInit, useMount} from "@/src/hooks/lifecycleHooks";
 import {Offer} from "@/src/data/offer";
 import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
-import { useRouter } from '@/src/i18n/navigation';
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {FlexGap} from "@/src/enums/layout.enum";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
@@ -24,6 +23,7 @@ import {TripOfferService} from "@/src/services/TripOfferService";
 import {useApp} from "@/src/context/AppContext";
 import {useLoggedUser} from "@/src/hooks/authenticationHook";
 import {AppBusinessConfigConverter} from "@/src/converters/admin/app-business-config-converter";
+import {reloadPage} from "@/src/utils/common";
 
 export interface ITripOfferSectionProps {
     trip: TripResponseDto;
@@ -36,7 +36,6 @@ export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
     const {user} = useLoggedUser();
     const {showLoader, hideLoader} = useApp();
     const [offers, setOffers] = useState<Offer[]>([]);
-    const router = useRouter();
 
     const loadOffers = async () => {
         showLoader();
@@ -107,7 +106,7 @@ export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
                 showLoader();
                 await TripOfferService.forceCloseTrip(trip.id, CloseTripOfferReason.DEMANDER_GENERAL, "");
                 hideLoader();
-                router.refresh();
+                reloadPage();
             }}
             label={"Ukončit trip"}
             type={ButtonType.BLACK}

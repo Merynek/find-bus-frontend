@@ -86,7 +86,7 @@ export const routing = defineRouting({
             [LOCALES.en_US]: ROUTES.ADMIN_VEHICLE
         },
         [ROUTES.ADMIN_TRANSPORT_REQUIREMENTS]: {
-            [LOCALES.cs_CZ]: `/admin/transport-pozadavky/[${URL_PARAMS.REQUIREMENTS_ID}]`,
+            [LOCALES.cs_CZ]: `/admin/transport-pozadavky/[${URL_PARAMS.USER_ID}]`,
             [LOCALES.en_US]: ROUTES.ADMIN_TRANSPORT_REQUIREMENTS
         }
     }

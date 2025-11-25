@@ -22,7 +22,7 @@ const AdminTransportRequirementsVerification = (props: IAdminTransportRequiremen
     const { t } = useTranslate("page.adminTransportRequirements");
     const [state, action, pending] = useFormActionState(adminTransportRequirementsVerificationFormAction, {
         data: {
-            requirementsId: transportRequirements.id,
+            transportRequirementsId: transportRequirements.id,
             verified: false,
             description: transportRequirements.verificationFeedback?.description || ""
         }
@@ -32,7 +32,7 @@ const AdminTransportRequirementsVerification = (props: IAdminTransportRequiremen
     return <LayoutFlexColumn gap={FlexGap.BIG_40}>
         <form action={action}>
             <LayoutFlexColumn gap={FlexGap.LARGE_32}>
-                <FormStatus state={state}/>
+                <FormStatus state={state} locKey={"page.adminTransportRequirements"}/>
                 <input type="hidden" name={FormDataEnum.requirementsId} value={transportRequirements.id}/>
                 <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale}/>
                 <TextBox

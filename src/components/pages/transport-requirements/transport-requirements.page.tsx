@@ -25,11 +25,11 @@ import {
     IDocumentItem, uploadFiles
 } from "@/src/components/pages/transport-requirements/transport-requirements-utils.page";
 import {UsersService} from "@/src/services/UsersService";
-import {useRouter} from "@/src/i18n/navigation";
 import FileGroupUploaderForm
     from "@/src/components/compositions/files/file-group-uploader-form/file-group-uploader-form";
 import {Text} from "@/src/components/components/texts/text";
 import {FormActionEnum} from "@/src/enums/form-action.enum";
+import {reloadPage} from "@/src/utils/common";
 
 interface ITransportRequirementsPageProps {
     transportRequirements: TransporterRequirementsResponseDto;
@@ -40,7 +40,6 @@ const TransportRequirementsPage = (props: ITransportRequirementsPageProps) => {
     const [documents, setDocuments] = useState<IDocumentItem[]>(createInitDocuments(transportRequirements));
     const [documentIdsToDelete, setDocumentIdsToDelete] = useState<number[]>([]);
     const [isUploading, setIsUploading] = useState(false);
-    const router = useRouter();
     const {t} = useTranslate("page.transportRequirements");
     const [state, action, pending] = useFormActionState(transportRequirementsFormAction, {
         data: {
@@ -57,7 +56,7 @@ const TransportRequirementsPage = (props: ITransportRequirementsPageProps) => {
                     transportRequirementsId: requirementsId
                 })
             }
-            router.refresh();
+            reloadPage();
         } catch (error) {
             console.error("Error during submit or upload:", error);
         } finally {
@@ -150,7 +149,7 @@ const TransportRequirementsPage = (props: ITransportRequirementsPageProps) => {
         </LayoutFlexColumn>
         <form action={action}>
             <LayoutFlexColumn gap={FlexGap.LARGE_32}>
-                <FormStatus state={state}/>
+                <FormStatus state={state} locKey={"page.transportRequirements"}/>
                 <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
                     {renderTransportRequirements()}
                 </LayoutFlexColumn>

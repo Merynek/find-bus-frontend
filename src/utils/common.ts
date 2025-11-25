@@ -7,13 +7,15 @@ export const setWindowScrolling = (enable: boolean) => {
     document.body.style.overflowY = enable ? "auto" : "hidden";
 }
 
+export const wait = (ms: number) => new Promise(res => setTimeout(res, ms));
+
 export type DeepPartial<T> = T extends object
     ? {
         [P in keyof T]?: DeepPartial<T[P]>;
     }
     : T;
 
-export const resetPage = () => {
+export const reloadPage = () => {
     window.location.reload();
 }
 

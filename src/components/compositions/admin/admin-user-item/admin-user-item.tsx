@@ -61,17 +61,17 @@ export const AdminUserItem = (props: IAdminUserItemProps) => {
                     {renderTextItem("Swift", user.userFinancialSettings.swift)}
                 </Group>
             </LayoutFlexRow>
-            <Group title={"Transport Requirements"}>
+            {user.transportRequirementsId && <Group title={"Transport Requirements"}>
                 <ButtonLink
                     route={{
                         route: ROUTES.ADMIN_TRANSPORT_REQUIREMENTS,
-                        params: { [URL_PARAMS.REQUIREMENTS_ID]: user.transportRequirements.id.toString()}
+                        params: { [URL_PARAMS.USER_ID]: user.id.toString()}
                     }}
                     label={"Open"}
                     type={ButtonType.BLACK}
                     size={ButtonSize.BUTTON_SIZE_M}
                 />
-            </Group>
+            </Group>}
             <Group title={"Vehicles"}>
                 {user.vehicles.reverse().map(v => {
                     return <LayoutFlexRow gap={FlexGap.SMALL_16} key={v.id}>

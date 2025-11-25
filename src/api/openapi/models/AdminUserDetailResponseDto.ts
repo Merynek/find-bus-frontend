@@ -34,13 +34,6 @@ import {
     UserFinancialSettingsResponseDtoToJSON,
     UserFinancialSettingsResponseDtoToJSONTyped,
 } from './UserFinancialSettingsResponseDto';
-import type { TransporterRequirementsResponseDto } from './TransporterRequirementsResponseDto';
-import {
-    TransporterRequirementsResponseDtoFromJSON,
-    TransporterRequirementsResponseDtoFromJSONTyped,
-    TransporterRequirementsResponseDtoToJSON,
-    TransporterRequirementsResponseDtoToJSONTyped,
-} from './TransporterRequirementsResponseDto';
 
 /**
  * 
@@ -86,10 +79,10 @@ export interface AdminUserDetailResponseDto {
     financialSettings?: UserFinancialSettingsResponseDto;
     /**
      * 
-     * @type {TransporterRequirementsResponseDto}
+     * @type {number}
      * @memberof AdminUserDetailResponseDto
      */
-    transporterRequirements?: TransporterRequirementsResponseDto;
+    transportRequirementsId?: number | null;
     /**
      * 
      * @type {Array<VehicleResponseDto>}
@@ -134,7 +127,7 @@ export function AdminUserDetailResponseDtoFromJSONTyped(json: any, ignoreDiscrim
         'banned': json['banned'],
         'phoneNumber': json['phoneNumber'],
         'financialSettings': json['financialSettings'] == null ? undefined : UserFinancialSettingsResponseDtoFromJSON(json['financialSettings']),
-        'transporterRequirements': json['transporterRequirements'] == null ? undefined : TransporterRequirementsResponseDtoFromJSON(json['transporterRequirements']),
+        'transportRequirementsId': json['transportRequirementsId'] == null ? undefined : json['transportRequirementsId'],
         'vehicles': ((json['vehicles'] as Array<any>).map(VehicleResponseDtoFromJSON)),
         'userConfigs': ((json['userConfigs'] as Array<any>).map(UserConfigResponseDtoFromJSON)),
     };
@@ -157,7 +150,7 @@ export function AdminUserDetailResponseDtoToJSONTyped(value?: AdminUserDetailRes
         'banned': value['banned'],
         'phoneNumber': value['phoneNumber'],
         'financialSettings': UserFinancialSettingsResponseDtoToJSON(value['financialSettings']),
-        'transporterRequirements': TransporterRequirementsResponseDtoToJSON(value['transporterRequirements']),
+        'transportRequirementsId': value['transportRequirementsId'],
         'vehicles': ((value['vehicles'] as Array<any>).map(VehicleResponseDtoToJSON)),
         'userConfigs': ((value['userConfigs'] as Array<any>).map(UserConfigResponseDtoToJSON)),
     };

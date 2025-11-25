@@ -3,7 +3,7 @@ import {LOCALES} from "@/src/enums/locale";
 
 export const AdminTransportRequirementsVerificationSchema = z.object({
     locale: z.enum(LOCALES),
-    requirementsId: z.coerce.number(),
+    transportRequirementsId: z.coerce.number(),
     description: z.string(),
     verified: z.boolean()
 }).strict();

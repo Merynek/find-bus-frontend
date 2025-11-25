@@ -37,7 +37,10 @@ declare const messages: {
       "saveAndPostToVerification": "Uložit a poslat na ověření"
     },
     "adminTransportRequirements": {
-      "transportRequirementsHeading": "Požadavky na dopravu"
+      "transportRequirementsHeading": "Požadavky na dopravu",
+      "feedbackLabel": "Zpětná vazba",
+      "isApproved": "Schváleno",
+      "submit": "Potvrdit"
     },
     "userSettings": {
       "transportRequirements": "Požadavky na dopravu",

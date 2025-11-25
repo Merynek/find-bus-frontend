@@ -10,7 +10,7 @@ import {TripConverter} from "@/src/converters/trip/trip-converter";
 import {useApp} from "@/src/context/AppContext";
 import {TripOfferService} from "@/src/services/TripOfferService";
 import {useInit} from "@/src/hooks/lifecycleHooks";
-import {resetPage} from "@/src/utils/common";
+import {reloadPage} from "@/src/utils/common";
 
 interface IAdminTripMoveActionsProps {
     trip: TripResponseDto;
@@ -59,7 +59,7 @@ export const AdminTripMoveActions = (props: IAdminTripMoveActionsProps) => {
                 showLoader();
                 await TripOfferService.payedOffer(offer.id);
                 hideLoader();
-                resetPage();
+                reloadPage();
             }}
             label={"Payed Offer"}
             type={ButtonType.YELLOW}
@@ -74,7 +74,7 @@ export const AdminTripMoveActions = (props: IAdminTripMoveActionsProps) => {
                 showLoader();
                 await TripOfferService.startTrip(trip.id);
                 hideLoader();
-                resetPage();
+                reloadPage();
             }}
             label={"Start Trip"}
             type={ButtonType.YELLOW}
@@ -89,7 +89,7 @@ export const AdminTripMoveActions = (props: IAdminTripMoveActionsProps) => {
                 showLoader();
                 await TripOfferService.finishTrip(trip.id);
                 hideLoader();
-                resetPage();
+                reloadPage();
             }}
             label={"Finish Trip"}
             type={ButtonType.YELLOW}

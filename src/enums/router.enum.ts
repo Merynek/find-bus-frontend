@@ -7,7 +7,7 @@ export interface IRoute {
 export enum URL_PARAMS {
     TRIP_ID = "tripId",
     VEHICLE_ID = "vehicleId",
-    REQUIREMENTS_ID = "requirementsId"
+    USER_ID = "userId"
 }
 
 export enum ROUTES {
@@ -30,7 +30,7 @@ export enum ROUTES {
     ADMIN_USERS = "/admin/users",
     ADMIN_TRIP_DETAIL = `/admin/trip/[${URL_PARAMS.TRIP_ID}]`,
     ADMIN_VEHICLE = `/admin/vehicle/[${URL_PARAMS.VEHICLE_ID}]`,
-    ADMIN_TRANSPORT_REQUIREMENTS = `/admin/transport-requirements/[${URL_PARAMS.REQUIREMENTS_ID}]`
+    ADMIN_TRANSPORT_REQUIREMENTS = `/admin/transport-requirements/[${URL_PARAMS.USER_ID}]`
 }
 
 export enum SEARCH_PARAMS {

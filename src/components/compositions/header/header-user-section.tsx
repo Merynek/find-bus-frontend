@@ -14,6 +14,7 @@ import {Icon} from "@/src/components/components/icon/icon";
 import {User} from "@/src/data/users/user";
 import {FlexGap} from "@/src/enums/layout.enum";
 import {LocaleSwitcherSelect} from "@/src/components/components/locale-switcher-select/locale-switcher-select";
+import {reloadPage} from "@/src/utils/common";
 
 export const HeaderUserSection = () => {
     const router = useRouter();
@@ -66,7 +67,7 @@ export const HeaderUserSection = () => {
             onClick={async () => {
                 await AuthorizationService.logout();
                 router.push(ROUTES.SIGN_IN);
-                router.refresh();
+                reloadPage();
             }}
             type={ButtonType.BASE}
         />

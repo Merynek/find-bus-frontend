@@ -1,5 +1,4 @@
 import {IUserDetailSettings, UserDetail} from "./user-detail";
-import {TransportRequirements} from "../transportRequirements";
 import {UserConfig} from "@/src/data/userConfig";
 import {Vehicle} from "@/src/data/vehicle/vehicle";
 import {UserFinancialSettings} from "@/src/data/users/userFinancialSettings";
@@ -11,7 +10,7 @@ export interface IUserAdminDetailSettings extends IUserDetailSettings {
     phoneNumber: string;
     vehicles: Vehicle[];
     userFinancialSettings: UserFinancialSettings;
-    transportRequirements: TransportRequirements;
+    transportRequirementsId: number|null;
     userConfigs: UserConfig[];
 }
 
@@ -22,7 +21,7 @@ export class UserAdminDetail extends UserDetail {
     public userFinancialSettings: UserFinancialSettings;
     public phoneNumber: string;
     public vehicles: Vehicle[];
-    public transportRequirements: TransportRequirements;
+    public transportRequirementsId: number|null;
     public userConfigs: UserConfig[];
 
     constructor(settings: IUserAdminDetailSettings) {
@@ -33,7 +32,7 @@ export class UserAdminDetail extends UserDetail {
         this.phoneNumber = settings.phoneNumber;
         this.userFinancialSettings = settings.userFinancialSettings;
         this.vehicles = settings.vehicles;
-        this.transportRequirements = settings.transportRequirements;
+        this.transportRequirementsId = settings.transportRequirementsId;
         this.userConfigs = settings.userConfigs;
     }
 

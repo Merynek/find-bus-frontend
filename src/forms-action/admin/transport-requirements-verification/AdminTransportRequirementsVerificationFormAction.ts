@@ -29,7 +29,7 @@ export class AdminTransportRequirementsVerificationFormAction extends BaseFormAc
 
     protected async callApi(validatedData: z.infer<typeof AdminTransportRequirementsVerificationSchema>): Promise<RequirementsApiResult> {
         await UsersService.transportRequirementsVerification({
-            transportRequirementsId: validatedData.requirementsId,
+            transportRequirementsId: validatedData.transportRequirementsId,
             verified: validatedData.verified,
             description: validatedData.description
         })

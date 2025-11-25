@@ -9,7 +9,7 @@ import {TripConverter} from "@/src/converters/trip/trip-converter";
 import {useApp} from "@/src/context/AppContext";
 import {TripOfferService} from "@/src/services/TripOfferService";
 import {useInit} from "@/src/hooks/lifecycleHooks";
-import {resetPage} from "@/src/utils/common";
+import {reloadPage} from "@/src/utils/common";
 
 interface IAdminTripActionsProps {
     trip: TripResponseDto;
@@ -31,7 +31,7 @@ export const AdminTripCloseActions = (props: IAdminTripActionsProps) => {
                 showLoader();
                 await TripOfferService.forceCloseTrip(trip.id, reason, "");
                 hideLoader();
-                resetPage();
+                reloadPage();
             }}
             label={"Force Close"}
             type={ButtonType.YELLOW}
