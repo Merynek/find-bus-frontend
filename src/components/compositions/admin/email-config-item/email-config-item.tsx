@@ -75,7 +75,7 @@ export const EmailConfigLocalizationItem = (props: IEmailConfigLocalizationItemP
 
     return <form action={action}>
         <LayoutFlexColumn gap={FlexGap.SMALL_16}>
-            <FormStatus state={state}/>
+            <FormStatus state={state} locKey={"email."}/>
             <input type="hidden" name={FormDataEnum.language} value={state?.data?.language}/>
             <input type="hidden" name={FormDataEnum.template} value={state?.data?.template}/>
             <LayoutFlexRow>

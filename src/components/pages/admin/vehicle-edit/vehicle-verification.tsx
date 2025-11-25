@@ -32,7 +32,7 @@ const VehicleVerification = (props: IVehicleVerificationProps) => {
     return <LayoutFlexColumn gap={FlexGap.BIG_40}>
         <form action={action}>
             <LayoutFlexColumn gap={FlexGap.LARGE_32}>
-                <FormStatus state={state}/>
+                <FormStatus state={state} locKey={"page.adminVehicle"} />
                 <input type="hidden" name={FormDataEnum.vehicleId} value={vehicle.id}/>
                 <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale}/>
                 <TextBox

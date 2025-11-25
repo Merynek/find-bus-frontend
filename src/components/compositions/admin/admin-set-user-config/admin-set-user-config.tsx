@@ -27,7 +27,7 @@ export const AdminSetUserConfig = (props: IAdminSetUserConfigProps) => {
 
     return <form action={action}>
         <LayoutFlexColumn gap={FlexGap.SMALL_16}>
-            <FormStatus state={state}/>
+            <FormStatus state={state} locKey={"page."}/>
             <input type="hidden" name={FormDataEnum.userId} value={userId}/>
             <LayoutFlexColumn gap={FlexGap.TINY_8}>
                 <NumberBox

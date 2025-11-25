@@ -23,7 +23,7 @@ const ForgotPasswordPage = () => {
             <Heading text={t("forgetPasswordHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={3} />
             <form action={action}>
                 <LayoutFlexColumn gap={FlexGap.LARGE_32}>
-                    <FormStatus state={state}/>
+                    <FormStatus state={state} locKey={"page.sign"} />
                     <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
                         <TextBox
                             controlled={false}

@@ -46,7 +46,7 @@ const AppConfigPage = (props: IAppConfigPageProps) => {
 
     return <LayoutFlexColumn>
         <form action={action}>
-            <FormStatus state={state}/>
+            <FormStatus state={state} locKey={"admin."} />
             <LayoutFlexColumn gap={FlexGap.LARGE_32}>
                 <Heading text={"Create Trip"} fontWeight={FontWeight.SEMIBOLD} headingLevel={4}/>
                 <AppConfigItem

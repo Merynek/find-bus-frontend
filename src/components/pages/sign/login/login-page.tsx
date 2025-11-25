@@ -43,7 +43,7 @@ const LoginPage = () => {
                 <form action={action}>
                     <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale}/>
                     <LayoutFlexColumn gap={FlexGap.LARGE_32}>
-                        <FormStatus state={state}/>
+                        <FormStatus state={state} locKey={"page.sign"} />
                         <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
                             <TextBox
                                 controlled={false}

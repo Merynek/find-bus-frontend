@@ -230,7 +230,7 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
         </LayoutFlexColumn>
         <form action={action}>
             <LayoutFlexColumn gap={FlexGap.LARGE_32}>
-            <FormStatus state={state}/>
+            <FormStatus state={state} locKey={"page.vehicle"} />
                 <input type="hidden" name={FormDataEnum.vehicleId} value={id}/>
                 <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale}/>
                 <input
