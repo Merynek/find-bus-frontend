@@ -7,6 +7,7 @@ export interface IRegistrationRequest extends IApiRequest {
     email: string;
     password: string;
     role: UserRole;
+    clientUrl: string;
 }
 
 export interface IActiveUserRequest extends IApiRequest {
@@ -30,7 +31,8 @@ export class RegistrationApi {
                 email: req.email,
                 password: req.password,
                 confirmPassword: req.password,
-                role: req.role
+                role: req.role,
+                clientUrl: req.clientUrl
             }
         }, req.initOverrides));
     }

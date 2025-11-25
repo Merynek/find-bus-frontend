@@ -51,6 +51,12 @@ export interface RegistrationUserRequestDto {
      * @memberof RegistrationUserRequestDto
      */
     role: UserRole;
+    /**
+     * 
+     * @type {string}
+     * @memberof RegistrationUserRequestDto
+     */
+    clientUrl: string;
 }
 
 
@@ -63,6 +69,7 @@ export function instanceOfRegistrationUserRequestDto(value: object): value is Re
     if (!('password' in value) || value['password'] === undefined) return false;
     if (!('confirmPassword' in value) || value['confirmPassword'] === undefined) return false;
     if (!('role' in value) || value['role'] === undefined) return false;
+    if (!('clientUrl' in value) || value['clientUrl'] === undefined) return false;
     return true;
 }
 
@@ -80,6 +87,7 @@ export function RegistrationUserRequestDtoFromJSONTyped(json: any, ignoreDiscrim
         'password': json['password'],
         'confirmPassword': json['confirmPassword'],
         'role': UserRoleFromJSON(json['role']),
+        'clientUrl': json['clientUrl'],
     };
 }
 
@@ -98,6 +106,7 @@ export function RegistrationUserRequestDtoToJSONTyped(value?: RegistrationUserRe
         'password': value['password'],
         'confirmPassword': value['confirmPassword'],
         'role': UserRoleToJSON(value['role']),
+        'clientUrl': value['clientUrl'],
     };
 }
 

@@ -22,11 +22,12 @@ export class SignUpFormAction extends BaseFormAction<typeof SignupFormSchema, Si
             password: this.getStringFormValue(formData, FormDataEnum.password),
             passwordConfirm: this.getStringFormValue(formData, FormDataEnum.password_confirm),
             role: this.getEnumFormValue(formData, FormDataEnum.role),
-            locale: this.getEnumFormValue(formData, FormDataEnum.locale)
+            locale: this.getEnumFormValue(formData, FormDataEnum.locale),
+            clientUrl: this.getStringFormValue(formData, FormDataEnum.activeUrl)
         };
     }
 
     protected async callApi(validatedData: z.infer<typeof SignupFormSchema>): Promise<SignUpApiResult> {
-        await AuthorizationService.signUp(validatedData.email, validatedData.password, validatedData.role);
+        await AuthorizationService.signUp(validatedData.email, validatedData.password, validatedData.role, validatedData.clientUrl);
     }
 }

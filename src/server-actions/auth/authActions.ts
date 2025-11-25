@@ -49,14 +49,15 @@ export async function logoutAction(): Promise<void> {
     })
 }
 
-export const signUpAction = async (email: string, password: string, role: UserRole) => {
+export const signUpAction = async (email: string, password: string, role: UserRole, clientUrl: string) => {
     await handleActionCall(async () => {
         const registrationApi = new RegistrationApi(undefined);
 
         await registrationApi.registration({
             email: email,
             password: password,
-            role: role
+            role: role,
+            clientUrl: clientUrl
         });
     })
 }

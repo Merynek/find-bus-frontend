@@ -29,9 +29,9 @@ export class AuthorizationService extends BaseService {
         });
     }
 
-    public static async signUp(email: string, password: string, role: UserRole) {
+    public static async signUp(email: string, password: string, role: UserRole, clientUrl: string) {
         return await this.handleActionCall(async () => {
-            return await signUpAction(email, password, role);
+            return await signUpAction(email, password, role, clientUrl);
         });
     }
 

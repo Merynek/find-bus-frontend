@@ -22,7 +22,7 @@ export const routing = defineRouting({
             [LOCALES.en_US]: ROUTES.SIGN_UP
         },
         [ROUTES.ACTIVE_USER]: {
-            [LOCALES.cs_CZ]: '/aktivace-uctu',
+            [LOCALES.cs_CZ]: `/aktivace-uctu/[${URL_PARAMS.TOKEN}]`,
             [LOCALES.en_US]: ROUTES.ACTIVE_USER
         },
         [ROUTES.RESET_PASSWORD]: {

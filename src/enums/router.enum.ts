@@ -7,14 +7,15 @@ export interface IRoute {
 export enum URL_PARAMS {
     TRIP_ID = "tripId",
     VEHICLE_ID = "vehicleId",
-    USER_ID = "userId"
+    USER_ID = "userId",
+    TOKEN = "token"
 }
 
 export enum ROUTES {
     HOME = "/",
     SIGN_IN = "/sign/in",
     SIGN_UP = "/sign/up",
-    ACTIVE_USER = "/active-user",
+    ACTIVE_USER = `/active-user/[${URL_PARAMS.TOKEN}]`,
     RESET_PASSWORD = "/reset-password",
     FORGOT_PASSWORD = "/forgot-password",
     USER_SETTINGS = "/user-settings",

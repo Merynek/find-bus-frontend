@@ -1,5 +1,6 @@
 import {routing} from "@/src/i18n/routing";
 import {ROUTES} from "@/src/enums/router.enum";
+import {LOCALES} from "@/src/enums/locale";
 
 export function getBaseRouteFromLocalizedPathname(localizedPathname: string, currentLocale: string): ROUTES | null {
     const normalizedLocalizedPathname = localizedPathname.toLowerCase();
@@ -50,4 +51,37 @@ export function getBaseRouteFromLocalizedPathname(localizedPathname: string, cur
         }
     }
     return null;
+}
+
+export function getLocalizedRouteUrl(route: ROUTES, locale: LOCALES, protocol: string, host: string): string {
+    const defaultLocale = routing.defaultLocale.toLowerCase();
+    const currentLocaleLower = locale.toLowerCase();
+    const pathNamesMap = routing.pathnames[route];
+    let localizedPathCandidate = pathNamesMap?.[currentLocaleLower as keyof typeof pathNamesMap];
+
+    if (!localizedPathCandidate) {
+        localizedPathCandidate = pathNamesMap?.[defaultLocale as keyof typeof pathNamesMap];
+    }
+    let localizedPath: string = (localizedPathCandidate || route) as string;
+    if (localizedPath && !localizedPath.startsWith('/')) {
+        localizedPath = `/${localizedPath}`;
+    }
+
+    const localePrefix = `/${currentLocaleLower}`;
+
+    let pathSegment = localizedPath.startsWith('/') ? localizedPath.substring(1) : localizedPath;
+
+    if (route === ROUTES.HOME) {
+        pathSegment = '';
+    }
+
+    let fullUrl = `${protocol}//${host}${localePrefix}`;
+
+    if (pathSegment.length > 0) {
+        fullUrl += `/${pathSegment}`;
+    } else if (fullUrl.slice(-1) !== '/') {
+        fullUrl += '/';
+    }
+
+    return fullUrl;
 }

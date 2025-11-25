@@ -3413,6 +3413,7 @@
       },
       "RegistrationUserRequestDto": {
         "required": [
+          "clientUrl",
           "confirmPassword",
           "email",
           "password",
@@ -3438,6 +3439,10 @@
           },
           "role": {
             "$ref": "#/components/schemas/UserRole"
+          },
+          "clientUrl": {
+            "minLength": 1,
+            "type": "string"
           }
         },
         "additionalProperties": false
