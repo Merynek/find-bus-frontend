@@ -10,7 +10,6 @@ import {getRandomUserConfig} from "@/dataGenerator/userConfig";
 import {UserConfig} from "@/src/data/userConfig";
 import {Vehicle} from "@/src/data/vehicle/vehicle";
 import {getRandomUserFinancialSettings} from "@/dataGenerator/userFinancialSettings";
-import {getRandomTransportRequirements} from "@/dataGenerator/transportRequirements";
 
 export function getRandomUser(): User {
     return new User({
@@ -43,7 +42,7 @@ export function getRandomUserAdminDetail(): UserAdminDetail {
         isBanned: getRandomBoolean(),
         phoneNumber: getRandomText(1),
         vehicles: vehicles,
-        transportRequirements: getRandomTransportRequirements(),
+        transportRequirementsId: null,
         userConfigs: userConfigs
     })
 }
