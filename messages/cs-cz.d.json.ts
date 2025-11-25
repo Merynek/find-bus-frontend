@@ -160,6 +160,7 @@ declare const messages: {
   },
   "errors": {
     "schemaErrors": {
+      "required": "Povinné pole",
       "formStatusLabel": "Vyskytla se chyba",
       "unexpectedError": "Neočekovaná chyba",
       "invalidEmail": "Neplatný email",
