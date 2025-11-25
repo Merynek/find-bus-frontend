@@ -7,6 +7,7 @@ export interface IStorageUploadItem {
 
 export class StorageUploaderService {
     public static async UploadFiles(uploadSasUrls: UploadSasUrl[], files: IStorageUploadItem[]): Promise<UploadSasUrl[]> {
+        console.log("MERYNEK [UploadFiles]", JSON.stringify(uploadSasUrls), "files length: " + files.length)
         const uploadPromises: Promise<UploadSasUrl|null>[] = [];
         uploadSasUrls.forEach(us => {
             const _photo = files.find(pp => pp.clientFileId === us.clientFileId);
@@ -41,6 +42,7 @@ export class StorageUploaderService {
 
         if (!response.ok) {
             const errorBody = await response.text();
+            console.log("MERYNEK [uploadFile error]", `Upload to Azure failed with HTTP ${response.status}: ${errorBody}`)
             throw new Error(`Upload to Azure failed with HTTP ${response.status}: ${errorBody}`);
         }
     }
