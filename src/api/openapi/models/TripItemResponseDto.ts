@@ -65,7 +65,7 @@ export interface TripItemResponseDto {
      * @type {Array<Amenities>}
      * @memberof TripItemResponseDto
      */
-    amenities: Array<Amenities>;
+    amenities?: Array<Amenities> | null;
     /**
      * 
      * @type {TripState}
@@ -148,7 +148,6 @@ export interface TripItemResponseDto {
 export function instanceOfTripItemResponseDto(value: object): value is TripItemResponseDto {
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('routes' in value) || value['routes'] === undefined) return false;
-    if (!('amenities' in value) || value['amenities'] === undefined) return false;
     if (!('state' in value) || value['state'] === undefined) return false;
     if (!('totalDistanceInMeters' in value) || value['totalDistanceInMeters'] === undefined) return false;
     if (!('orderHasEnded' in value) || value['orderHasEnded'] === undefined) return false;
@@ -172,7 +171,7 @@ export function TripItemResponseDtoFromJSONTyped(json: any, ignoreDiscriminator:
         
         'id': json['id'],
         'routes': ((json['routes'] as Array<any>).map(RouteResponseDtoFromJSON)),
-        'amenities': ((json['amenities'] as Array<any>).map(AmenitiesFromJSON)),
+        'amenities': json['amenities'] == null ? undefined : ((json['amenities'] as Array<any>).map(AmenitiesFromJSON)),
         'state': TripStateFromJSON(json['state']),
         'numberOfPersons': json['numberOfPersons'] == null ? undefined : json['numberOfPersons'],
         'totalDistanceInMeters': json['totalDistanceInMeters'],
@@ -201,7 +200,7 @@ export function TripItemResponseDtoToJSONTyped(value?: TripItemResponseDto | nul
         
         'id': value['id'],
         'routes': ((value['routes'] as Array<any>).map(RouteResponseDtoToJSON)),
-        'amenities': ((value['amenities'] as Array<any>).map(AmenitiesToJSON)),
+        'amenities': value['amenities'] == null ? undefined : ((value['amenities'] as Array<any>).map(AmenitiesToJSON)),
         'state': TripStateToJSON(value['state']),
         'numberOfPersons': value['numberOfPersons'],
         'totalDistanceInMeters': value['totalDistanceInMeters'],

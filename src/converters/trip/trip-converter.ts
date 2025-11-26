@@ -15,7 +15,7 @@ export class TripConverter {
         return new Trip({
             id: apiTrip.id,
             ownerId: apiTrip.ownerId,
-            amenities: apiTrip.amenities,
+            amenities: apiTrip.amenities || [],
             dietForTransporter: apiTrip.dietForTransporter == null ? undefined : apiTrip.dietForTransporter,
             numberOfPersons: apiTrip.numberOfPersons == null ? undefined : apiTrip.numberOfPersons,
             routes: apiTrip.routes.map((r) => RouteConverter.toInstance(r)),

@@ -14,7 +14,7 @@ export class TripItemConverter {
     public static toInstance(apiTrip: TripItemResponseDto): TripItem {
         return new TripItem({
             id: apiTrip.id,
-            amenities: apiTrip.amenities,
+            amenities: apiTrip.amenities || [],
             dietForTransporter: apiTrip.dietForTransporter == null ? undefined : apiTrip.dietForTransporter,
             numberOfPersons: apiTrip.numberOfPersons == null ? undefined : apiTrip.numberOfPersons,
             routes: apiTrip.routes.map(TripItemConverter._routeToInstance),

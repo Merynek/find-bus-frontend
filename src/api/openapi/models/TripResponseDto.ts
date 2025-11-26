@@ -77,7 +77,7 @@ export interface TripResponseDto {
      * @type {Array<Amenities>}
      * @memberof TripResponseDto
      */
-    amenities: Array<Amenities>;
+    amenities?: Array<Amenities> | null;
     /**
      * 
      * @type {number}
@@ -138,7 +138,6 @@ export function instanceOfTripResponseDto(value: object): value is TripResponseD
     if (!('ownerId' in value) || value['ownerId'] === undefined) return false;
     if (!('state' in value) || value['state'] === undefined) return false;
     if (!('routes' in value) || value['routes'] === undefined) return false;
-    if (!('amenities' in value) || value['amenities'] === undefined) return false;
     if (!('totalDistanceInMeters' in value) || value['totalDistanceInMeters'] === undefined) return false;
     if (!('orderHasEnded' in value) || value['orderHasEnded'] === undefined) return false;
     if (!('offerState' in value) || value['offerState'] === undefined) return false;
@@ -160,7 +159,7 @@ export function TripResponseDtoFromJSONTyped(json: any, ignoreDiscriminator: boo
         'ownerId': json['ownerId'],
         'state': TripStateFromJSON(json['state']),
         'routes': ((json['routes'] as Array<any>).map(RouteResponseDtoFromJSON)),
-        'amenities': ((json['amenities'] as Array<any>).map(AmenitiesFromJSON)),
+        'amenities': json['amenities'] == null ? undefined : ((json['amenities'] as Array<any>).map(AmenitiesFromJSON)),
         'numberOfPersons': json['numberOfPersons'] == null ? undefined : json['numberOfPersons'],
         'handicappedUserCount': json['handicappedUserCount'] == null ? undefined : json['handicappedUserCount'],
         'totalDistanceInMeters': json['totalDistanceInMeters'],
@@ -187,7 +186,7 @@ export function TripResponseDtoToJSONTyped(value?: TripResponseDto | null, ignor
         'ownerId': value['ownerId'],
         'state': TripStateToJSON(value['state']),
         'routes': ((value['routes'] as Array<any>).map(RouteResponseDtoToJSON)),
-        'amenities': ((value['amenities'] as Array<any>).map(AmenitiesToJSON)),
+        'amenities': value['amenities'] == null ? undefined : ((value['amenities'] as Array<any>).map(AmenitiesToJSON)),
         'numberOfPersons': value['numberOfPersons'],
         'handicappedUserCount': value['handicappedUserCount'],
         'totalDistanceInMeters': value['totalDistanceInMeters'],

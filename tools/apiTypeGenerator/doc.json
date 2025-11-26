@@ -3865,7 +3865,6 @@
       "TripItemResponseDto": {
         "required": [
           "alreadyOffered",
-          "amenities",
           "created",
           "hasOffers",
           "id",
@@ -3892,7 +3891,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Amenities"
-            }
+            },
+            "nullable": true
           },
           "state": {
             "$ref": "#/components/schemas/TripState"
@@ -4142,7 +4142,6 @@
       },
       "TripResponseDto": {
         "required": [
-          "amenities",
           "created",
           "id",
           "offerState",
@@ -4175,7 +4174,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Amenities"
-            }
+            },
+            "nullable": true
           },
           "numberOfPersons": {
             "type": "integer",
