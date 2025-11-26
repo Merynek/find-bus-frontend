@@ -11,7 +11,8 @@ const meta: Meta<typeof NumberBox> = {
         disabled: false,
         iconProps: {
             icon: IconType.MENU
-        }
+        },
+        minValue: 0
     },
     argTypes: {
     },

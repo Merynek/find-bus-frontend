@@ -150,7 +150,7 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
                 placeholder={"Kolik"}
                 controlled={true}
                 value={priceAmount === undefined ? undefined : price.current.amount}
-                minValue={0}
+                minValue={1}
                 onChange={(val) => {
                     if (val !== undefined) {
                         price.current.amount = val
