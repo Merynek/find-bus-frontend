@@ -23,7 +23,6 @@ import {TripOfferService} from "@/src/services/TripOfferService";
 import {useApp} from "@/src/context/AppContext";
 import {useLoggedUser} from "@/src/hooks/authenticationHook";
 import {AppBusinessConfigConverter} from "@/src/converters/admin/app-business-config-converter";
-import {reloadPage} from "@/src/utils/common";
 
 export interface ITripOfferSectionProps {
     trip: TripResponseDto;
@@ -91,6 +90,7 @@ export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
             onClick={async () => {
                 showLoader();
                 await TripOfferService.deleteOffer(trip.id);
+                await loadOffers();
                 hideLoader();
             }}
             label={"Zrušit nabídku"}
@@ -105,8 +105,8 @@ export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
             onClick={async () => {
                 showLoader();
                 await TripOfferService.forceCloseTrip(trip.id, CloseTripOfferReason.DEMANDER_GENERAL, "");
+                await loadOffers();
                 hideLoader();
-                reloadPage();
             }}
             label={"Ukončit trip"}
             type={ButtonType.BLACK}
