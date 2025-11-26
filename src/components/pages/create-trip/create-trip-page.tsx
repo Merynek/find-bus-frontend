@@ -142,7 +142,7 @@ const CreateTripPage = observer((props: ICreateTripPageProps) => {
                         router.replace({
                             pathname: ROUTES.CREATE_TRIP,
                             params: {
-                                [URL_PARAMS.TRIP_ID]: tripId.toString()
+                                [URL_PARAMS.TRIP_ID]: [tripId.toString()]
                             }
                         });
                         hideLoader();

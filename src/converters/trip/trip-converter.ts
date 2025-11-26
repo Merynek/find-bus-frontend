@@ -32,11 +32,11 @@ export class TripConverter {
     public static toServer(trip: Trip): SaveTripRequestDto {
         return {
             routes: trip.routes.map((r) => RouteConverter.toServer(r)),
-            numberOfPersons: trip.numberOfPersons || 0,
+            numberOfPersons: trip.numberOfPersons,
             dietForTransporter: trip.dietForTransporter,
             amenities: toJS(trip.amenities),
             endOrder: trip.endOrder,
-            handicappedUserCount: trip.handicappedUserCount || 0
+            handicappedUserCount: trip.handicappedUserCount
         }
     }
 

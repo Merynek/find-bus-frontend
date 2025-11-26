@@ -50,7 +50,7 @@ export const routing = defineRouting({
             [LOCALES.en_US]: ROUTES.VEHICLE_EDIT
         },
         [ROUTES.CREATE_TRIP]: {
-            [LOCALES.cs_CZ]: `/nova-cesta/[${URL_PARAMS.TRIP_ID}]`,
+            [LOCALES.cs_CZ]: `/nova-cesta/[[...${URL_PARAMS.TRIP_ID}]]`,
             [LOCALES.en_US]: ROUTES.CREATE_TRIP
         },
         [ROUTES.TRIP_LIST]: {

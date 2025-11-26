@@ -20,6 +20,16 @@ export async function getTrip(id: number): Promise<TripResponseDto> {
     })
 }
 
+export async function getTripDraft(id: number): Promise<TripResponseDto> {
+    return await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const tripApi = new TripApi(accessToken);
+        return await tripApi.getTripDraft({
+            id
+        })
+    })
+}
+
 export async function getTrips(req: IGetTripsRequest): Promise<TripItemResponseDto[]> {
     return await handleActionCall(async () => {
         const accessToken = await getAccessToken();

@@ -33,6 +33,10 @@ export interface IGetTrip extends IApiRequest {
     id: number;
 }
 
+export interface IGetTripDraft extends IApiRequest {
+    id: number;
+}
+
 export interface IGetTripRecommendation extends IApiRequest {
     trip: TripRecommendationRequestDto;
 }
@@ -88,6 +92,12 @@ export class TripApi {
 
     public async getTrip(req: IGetTrip): Promise<TripResponseDto> {
         return await handleApiCall(this._api.apiTripTripGet({
+            tripId: req.id
+        }, req.initOverrides));
+    }
+
+    public async getTripDraft(req: IGetTripDraft): Promise<TripResponseDto> {
+        return await handleApiCall(this._api.apiTripDraftGet({
             tripId: req.id
         }, req.initOverrides));
     }

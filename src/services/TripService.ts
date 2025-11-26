@@ -1,5 +1,5 @@
 import {Trip} from "@/src/data/trip/trip";
-import {saveTrip, getDraftTrips, getTrip, getTripRecommendation, getTrips, publishTrip} from "@/src/server-actions/trips/tripsActions";
+import {saveTrip, getDraftTrips, getTrip, getTripRecommendation, getTrips, publishTrip, getTripDraft} from "@/src/server-actions/trips/tripsActions";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
 import {TripItemConverter} from "@/src/converters/trip-item-converter";
 import {TripItem} from "@/src/data/tripItem";
@@ -12,6 +12,13 @@ export class TripService extends BaseService {
     public static async getTrip(id: number): Promise<Trip> {
         return await this.handleActionCall(async () => {
             const data = await getTrip(id);
+            return TripConverter.toInstance(data);
+        });
+    }
+
+    public static async getTripDraft(id: number): Promise<Trip> {
+        return await this.handleActionCall(async () => {
+            const data = await getTripDraft(id);
             return TripConverter.toInstance(data);
         });
     }

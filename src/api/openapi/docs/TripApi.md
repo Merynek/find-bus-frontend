@@ -4,6 +4,7 @@ All URIs are relative to *http://localhost*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
+| [**apiTripDraftGet**](TripApi.md#apitripdraftget) | **GET** /api/Trip/draft |  |
 | [**apiTripDraftsGet**](TripApi.md#apitripdraftsget) | **GET** /api/Trip/drafts |  |
 | [**apiTripListGet**](TripApi.md#apitriplistget) | **GET** /api/Trip/list |  |
 | [**apiTripPost**](TripApi.md#apitrippost) | **POST** /api/Trip |  |
@@ -11,6 +12,75 @@ All URIs are relative to *http://localhost*
 | [**apiTripRecommendationPost**](TripApi.md#apitriprecommendationpost) | **POST** /api/Trip/recommendation |  |
 | [**apiTripTripGet**](TripApi.md#apitriptripget) | **GET** /api/Trip/trip |  |
 
+
+
+## apiTripDraftGet
+
+> TripResponseDto apiTripDraftGet(tripId)
+
+
+
+### Example
+
+```ts
+import {
+  Configuration,
+  TripApi,
+} from '';
+import type { ApiTripDraftGetRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new TripApi(config);
+
+  const body = {
+    // number
+    tripId: 56,
+  } satisfies ApiTripDraftGetRequest;
+
+  try {
+    const data = await api.apiTripDraftGet(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **tripId** | `number` |  | [Defaults to `undefined`] |
+
+### Return type
+
+[**TripResponseDto**](TripResponseDto.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `text/plain`, `application/json`, `text/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
 ## apiTripDraftsGet

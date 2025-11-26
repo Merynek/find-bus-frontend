@@ -13,11 +13,12 @@ interface IParams {
 
 async function PageWrapper(props: PageProps<IParams>) {
     const params = await props.params;
-    const tripParam = params[URL_PARAMS.TRIP_ID];
+    const tripParamArray = params[URL_PARAMS.TRIP_ID];
+    const tripParam = tripParamArray && tripParamArray.length > 0 ? tripParamArray[0] : undefined;
     const tripId = tripParam ? Number(tripParam) : undefined;
     let trip: TripResponseDto|undefined = undefined;
     if (tripId) {
-        const tripInstance = await TripService.getTrip(tripId);
+        const tripInstance = await TripService.getTripDraft(tripId);
         trip = TripConverter.toJson(tripInstance);
     }
 

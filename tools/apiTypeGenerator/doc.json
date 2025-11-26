@@ -644,6 +644,46 @@
         }
       }
     },
+    "/api/Trip/draft": {
+      "get": {
+        "tags": [
+          "Trip"
+        ],
+        "parameters": [
+          {
+            "name": "TripId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TripResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TripResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TripResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Trip": {
       "post": {
         "tags": [
@@ -3581,8 +3621,6 @@
             "nullable": true
           },
           "numberOfPersons": {
-            "maximum": 2147483647,
-            "minimum": 1,
             "type": "integer",
             "format": "int32",
             "nullable": true

@@ -37,6 +37,10 @@ import {
     TripResponseDtoToJSON,
 } from '../models/index';
 
+export interface ApiTripDraftGetRequest {
+    tripId: number;
+}
+
 export interface ApiTripListGetRequest {
     limit: number;
     offset: number;
@@ -70,6 +74,52 @@ export interface ApiTripTripGetRequest {
  * 
  */
 export class TripApi extends runtime.BaseAPI {
+
+    /**
+     */
+    async apiTripDraftGetRaw(requestParameters: ApiTripDraftGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TripResponseDto>> {
+        if (requestParameters['tripId'] == null) {
+            throw new runtime.RequiredError(
+                'tripId',
+                'Required parameter "tripId" was null or undefined when calling apiTripDraftGet().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['tripId'] != null) {
+            queryParameters['TripId'] = requestParameters['tripId'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/Trip/draft`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TripResponseDtoFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiTripDraftGet(requestParameters: ApiTripDraftGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TripResponseDto> {
+        const response = await this.apiTripDraftGetRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      */
