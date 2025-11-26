@@ -29,7 +29,7 @@ export class Trip {
     @observable public routes: Route[];
     @observable public numberOfPersons: number|undefined;
     @observable public amenities: Amenities[];
-    @observable public dietForTransporter: boolean|undefined;
+    @observable public dietForTransporter: boolean;
     @observable public endOrder: Date|undefined;
     @observable public orderHasEnded: boolean;
     @observable public handicappedUserCount: number|undefined;
@@ -48,7 +48,7 @@ export class Trip {
         });
         this.numberOfPersons = settings.numberOfPersons;
         this.amenities = settings.amenities;
-        this.dietForTransporter = settings.dietForTransporter;
+        this.dietForTransporter = settings.dietForTransporter || false;
         this.endOrder = settings.endOrder;
         this.orderHasEnded = settings.orderHasEnded;
         this.offerState = settings.offerState;

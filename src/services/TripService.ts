@@ -5,7 +5,7 @@ import {TripItemConverter} from "@/src/converters/trip-item-converter";
 import {TripItem} from "@/src/data/tripItem";
 import {ICreateTripRequest, IGetTripsRequest} from "@/src/api/tripApi";
 import {TripRecommendation} from "@/src/data/tripRecommendation";
-import {TripItemResponseDto, TripRecommendationRequestDto} from "@/src/api/openapi";
+import {TripRecommendationRequestDto} from "@/src/api/openapi";
 import {BaseService} from "@/src/services/BaseService";
 
 export class TripService extends BaseService {

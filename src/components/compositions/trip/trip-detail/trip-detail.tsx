@@ -53,7 +53,7 @@ export const TripDetail = observer((props: ITripDetailProps) => {
             <span>ID:</span>
             <span>{trip.id}</span>
         </div>
-        {!trip.orderHasEnded && <div>
+        {trip.endOrder && !trip.orderHasEnded && <div>
             <span>Odpočet:</span>
             <Countdown
                 deadLine={trip.endOrder}
@@ -62,13 +62,13 @@ export const TripDetail = observer((props: ITripDetailProps) => {
                 }}
             />
         </div>}
-        <div className={styles.line}>
+        {trip.endOrder && <div className={styles.line}>
             <span>Nabídka končí:</span>
             <span>{formatDateTime({
                 date: trip.endOrder,
                 locale: locale
             })}</span>
-        </div>
+        </div>}
         <div className={styles.line}>
             <span>Diety Pro řidiče:</span>
             <Icon icon={trip.dietForTransporter ? IconType.CHECK : IconType.CLOSE} />

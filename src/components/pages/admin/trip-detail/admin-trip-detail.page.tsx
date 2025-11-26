@@ -50,10 +50,10 @@ const AdminTripDetailPage = (props: TripDetailPageProps) => {
                     <Text text={"Distance: "} fontSize={FontSize.BASE_14} fontWeight={FontWeight.SEMIBOLD} />
                     <Text text={trip.totalDistanceInMeters.toString()} fontSize={FontSize.BASE_14} />
                 </LayoutFlexRow>
-                <LayoutFlexRow gap={FlexGap.SMALLEST_4}>
-                    <Text text={"End offer: "} fontSize={FontSize.BASE_14} fontWeight={FontWeight.SEMIBOLD} />
+                {trip.endOrder && <LayoutFlexRow gap={FlexGap.SMALLEST_4}>
+                    <Text text={"End endOrder: "} fontSize={FontSize.BASE_14} fontWeight={FontWeight.SEMIBOLD} />
                     <Text text={DateTimeManager.dateTimeFormat(DateTimeFormat.FORMAT_DMY, trip.endOrder)} fontSize={FontSize.BASE_14} />
-                </LayoutFlexRow>
+                </LayoutFlexRow>}
             </LayoutFlexRow>
         </LayoutFlexColumn>
     }

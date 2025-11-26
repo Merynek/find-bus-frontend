@@ -45,7 +45,7 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
     }
 
     const price = useRef(Price.create());
-    const [selectedEndOfferDate, setSelectedEndOfferDate] = useState<Date|null>(alreadyOffered() ? offers[0].endOfferDate : props.trip.endOrder);
+    const [selectedEndOfferDate, setSelectedEndOfferDate] = useState<Date|null>(alreadyOffered() ? offers[0].endOfferDate : (props.trip.endOrder || null));
     const [currentBus, setCurrentBus] = useState<IBusComboItem|undefined>(undefined);
     const [priceAmount, setPriceAmount] = useState<number|undefined>(undefined);
     const [userSettings, setUserSettings] = useState<UserSettings|null>(null);
@@ -84,8 +84,8 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
         return new Date();
     }
 
-    const maxDate = (): Date => {
-        return trip.endOrder;
+    const maxDate = (): Date|null => {
+        return trip.endOrder || null;
     }
 
     const _renderDateTimePicker = () => {

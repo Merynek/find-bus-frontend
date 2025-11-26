@@ -149,6 +149,7 @@ declare const messages: {
       "home": "Domů",
       "createTrip": "Nová cesta",
       "tripList": "Cesty",
+      "tripDraftList": "Koncepty",
       "adminUsers": "Uživatelé",
       "adminTrips": "Admin Cesty",
       "userSettings": "Uživatelské nastavení",
