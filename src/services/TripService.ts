@@ -1,11 +1,11 @@
 import {Trip} from "@/src/data/trip/trip";
-import {createTrip, getTrip, getTripRecommendation, getTrips} from "@/src/server-actions/trips/tripsActions";
+import {createTrip, getDraftTrips, getTrip, getTripRecommendation, getTrips} from "@/src/server-actions/trips/tripsActions";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
 import {TripItemConverter} from "@/src/converters/trip-item-converter";
 import {TripItem} from "@/src/data/tripItem";
 import {ICreateTripRequest, IGetTripsRequest} from "@/src/api/tripApi";
 import {TripRecommendation} from "@/src/data/tripRecommendation";
-import {TripRecommendationRequestDto} from "@/src/api/openapi";
+import {TripItemResponseDto, TripRecommendationRequestDto} from "@/src/api/openapi";
 import {BaseService} from "@/src/services/BaseService";
 
 export class TripService extends BaseService {
@@ -18,7 +18,14 @@ export class TripService extends BaseService {
 
     public static async getTrips(req: IGetTripsRequest): Promise<TripItem[]> {
         return await this.handleActionCall(async () => {
-            const data = await getTrips(req) ;
+            const data = await getTrips(req);
+            return data.map(TripItemConverter.toInstance);
+        });
+    }
+
+    public static async getDraftTrips(): Promise<TripItem[]> {
+        return await this.handleActionCall(async () => {
+            const data = await getDraftTrips();
             return data.map(TripItemConverter.toInstance);
         });
     }

@@ -24,6 +24,7 @@ export enum ROUTES {
     VEHICLE_EDIT = `/vehicle-edit/[${URL_PARAMS.VEHICLE_ID}]`,
     CREATE_TRIP = "/create-trip",
     TRIP_LIST = "/trips",
+    TRIP_DRAFT_LIST = "/drafts",
     TRIP = `/trip/[${URL_PARAMS.TRIP_ID}]`,
     ADMIN_TRIPS = "/admin/trips",
     APP_CONFIG = "/admin/config",

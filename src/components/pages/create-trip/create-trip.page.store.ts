@@ -79,7 +79,10 @@ export class CreateTripPageStore {
 
     @computed
     get endOrderIsValid() {
-        return this.trip.endOrder >= addHours(new Date(), this.appBusinessConfig.minEndOrderFromNowInHours);
+        if (this.trip.endOrder) {
+            return this.trip.endOrder >= addHours(new Date(), this.appBusinessConfig.minEndOrderFromNowInHours);
+        }
+        return true;
     }
 
     @computed

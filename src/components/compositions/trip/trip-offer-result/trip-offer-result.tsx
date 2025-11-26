@@ -26,7 +26,7 @@ export const TripOfferResult = observer((props: ITripOfferResultProps) => {
 
     const offer = getOffer();
 
-    return trip.offerHasEnded && offer ? <LayoutFlexColumn>
+    return trip.orderHasEnded && offer ? <LayoutFlexColumn>
         {_renderLabel()}
         <TripOffer offer={offer}/>
     </LayoutFlexColumn> : <></>

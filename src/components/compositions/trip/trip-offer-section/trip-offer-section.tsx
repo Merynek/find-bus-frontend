@@ -53,7 +53,7 @@ export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
 
     const _actionsForTransporter = () => {
         return trip && <div>
-            {trip.offerHasEnded ? <TripOfferResult trip={trip} offers={offers} /> : <LayoutFlexColumn gap={FlexGap.TINY_8}>
+            {trip.orderHasEnded ? <TripOfferResult trip={trip} offers={offers} /> : <LayoutFlexColumn gap={FlexGap.TINY_8}>
                 <h2>Make offer: </h2>
                 <TripCreateOffer
                     trip={trip}

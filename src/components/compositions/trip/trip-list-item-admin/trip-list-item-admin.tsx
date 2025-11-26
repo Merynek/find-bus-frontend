@@ -29,7 +29,7 @@ export const TripListItemAdmin = (props: ITripListItemAdminProps) => {
             </LayoutFlexRow>
             <LayoutFlexRow gap={FlexGap.SMALLEST_4}>
                 <Text text={"End offer: "} fontSize={FontSize.BASE_14} fontWeight={FontWeight.SEMIBOLD} />
-                <Text text={DateTimeManager.dateTimeFormat(DateTimeFormat.FORMAT_DMY, tripItem.endOffer)} fontSize={FontSize.BASE_14} />
+                <Text text={DateTimeManager.dateTimeFormat(DateTimeFormat.FORMAT_DMY, tripItem.endOrder)} fontSize={FontSize.BASE_14} />
             </LayoutFlexRow>
             <LayoutFlexRow gap={FlexGap.SMALLEST_4}>
                 <Text text={"State: "} fontSize={FontSize.BASE_14} fontWeight={FontWeight.SEMIBOLD} />

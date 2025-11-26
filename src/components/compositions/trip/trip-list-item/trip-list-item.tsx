@@ -5,7 +5,7 @@ import styles from "./trip-list-item.module.scss";
 import {formatDateTime} from "@/src/utils/date-time.format";
 import {cn, getFormattedDistance} from "@/src/utils/common";
 import {Countdown} from "../../../components/countdown/countdown";
-import {TripItemResponseDto, TripOfferState, UserRole} from "@/src/api/openapi";
+import {TripItemResponseDto, TripOfferState, TripState, UserRole} from "@/src/api/openapi";
 import {ButtonSize, ButtonType, ButtonLink} from "../../../components/button/button";
 import {Route} from "@/src/data/trip/route";
 import {ROUTES, URL_PARAMS} from "@/src/enums/router.enum";
@@ -24,7 +24,8 @@ export const TripListItem = (props: ITripListItemProps) => {
     const tripItem = TripItemConverter.toInstance(props.tripItem);
     const {user} = useLoggedUser();
     const locale = useCurrentLocale();
-    const [offerHasEnded, setOfferHasEnded] = useState(tripItem.offerHasEnded);
+    const [offerHasEnded, setOfferHasEnded] = useState(tripItem.orderHasEnded);
+    const isDraft = tripItem.state == TripState.DRAFT;
 
     const _renderRoute = (route: Route, index: number) => {
         return <div key={index}>
@@ -78,23 +79,23 @@ export const TripListItem = (props: ITripListItemProps) => {
             <span>ID:</span>
             <span>{tripItem.id}</span>
         </div>
-        {!offerHasEnded && <div>
+        {!isDraft && tripItem.endOrder && !offerHasEnded && <div>
             <span>Odpočet:</span>
             <Countdown
-                deadLine={tripItem.endOffer}
+                deadLine={tripItem.endOrder}
                 onDone={() => {
                     setOfferHasEnded(true);
                 }}
             />
         </div>}
-        {user?.role === UserRole.TRANSPORTER && _renderForTransporter()}
-        <div className={styles.line}>
+        {!isDraft && user?.role === UserRole.TRANSPORTER && _renderForTransporter()}
+        {!isDraft && tripItem.endOrder && <div className={styles.line}>
             <span>Nabídka končí:</span>
             <span>{formatDateTime({
-                date: tripItem.endOffer,
+                date: tripItem.endOrder,
                 locale: locale
             })}</span>
-        </div>
+        </div>}
         <div className={styles.line}>
             <span>Diety Pro řidiče:</span>
             <Icon icon={tripItem.dietForTransporter ? IconType.CHECK : IconType.CLOSE} />

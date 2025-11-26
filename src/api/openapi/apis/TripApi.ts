@@ -66,6 +66,41 @@ export class TripApi extends runtime.BaseAPI {
 
     /**
      */
+    async apiTripDraftsGetRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<TripItemResponseDto>>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/Trip/drafts`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(TripItemResponseDtoFromJSON));
+    }
+
+    /**
+     */
+    async apiTripDraftsGet(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<TripItemResponseDto>> {
+        const response = await this.apiTripDraftsGetRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
     async apiTripListGetRaw(requestParameters: ApiTripListGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<TripItemResponseDto>>> {
         if (requestParameters['limit'] == null) {
             throw new runtime.RequiredError(

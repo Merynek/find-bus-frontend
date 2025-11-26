@@ -1,4 +1,4 @@
-import {Amenities, TripOfferState} from "../../api/openapi";
+import {Amenities, TripOfferState, TripState} from "../../api/openapi";
 import {action, computed, makeObservable, observable} from "mobx";
 import {Direction} from "./direction";
 import {Route} from "./route";
@@ -11,14 +11,15 @@ interface ITrip {
     id: number;
     ownerId: number;
     routes: Route[];
-    numberOfPersons: number;
+    numberOfPersons: number|undefined;
     amenities: Amenities[];
-    dietForTransporter: boolean;
-    endOrder: Date;
-    offerHasEnded: boolean;
+    dietForTransporter: boolean|undefined;
+    endOrder: Date|undefined;
+    orderHasEnded: boolean;
     offerState: TripOfferState;
-    handicappedUserCount: number;
+    handicappedUserCount: number|undefined;
     totalDistanceInMeters: number;
+    state: TripState;
     created: Date;
 }
 
@@ -28,11 +29,12 @@ export class Trip {
     @observable public routes: Route[];
     @observable public numberOfPersons: number|undefined;
     @observable public amenities: Amenities[];
-    @observable public dietForTransporter: boolean;
-    @observable public endOrder: Date;
-    @observable public offerHasEnded: boolean;
+    @observable public dietForTransporter: boolean|undefined;
+    @observable public endOrder: Date|undefined;
+    @observable public orderHasEnded: boolean;
     @observable public handicappedUserCount: number|undefined;
     public totalDistanceInMeters: number;
+    public state: TripState;
     public offerState: TripOfferState;
     private _observeChangesStarted: boolean;
     public created: Date;
@@ -48,8 +50,9 @@ export class Trip {
         this.amenities = settings.amenities;
         this.dietForTransporter = settings.dietForTransporter;
         this.endOrder = settings.endOrder;
-        this.offerHasEnded = settings.offerHasEnded;
+        this.orderHasEnded = settings.orderHasEnded;
         this.offerState = settings.offerState;
+        this.state = settings.state;
         this.handicappedUserCount = settings.handicappedUserCount;
         this.totalDistanceInMeters = settings.totalDistanceInMeters;
         this._observeChangesStarted = false;
@@ -178,9 +181,10 @@ export class Trip {
             dietForTransporter: tripSettings.dietForTransporter || false,
             amenities: tripSettings.amenities || [],
             endOrder: tripSettings.endOrder || new Date(),
-            offerHasEnded: tripSettings.offerHasEnded || false,
+            orderHasEnded: tripSettings.orderHasEnded || false,
             handicappedUserCount: tripSettings.handicappedUserCount || 0,
             offerState: tripSettings.offerState || TripOfferState.CREATED,
+            state: tripSettings.state || TripState.DRAFT,
             totalDistanceInMeters: tripSettings.totalDistanceInMeters || 0,
             created: tripSettings.created || new Date()
         })

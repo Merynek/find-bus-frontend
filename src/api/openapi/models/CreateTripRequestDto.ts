@@ -36,52 +36,52 @@ import {
 export interface CreateTripRequestDto {
     /**
      * 
+     * @type {number}
+     * @memberof CreateTripRequestDto
+     */
+    tripId?: number | null;
+    /**
+     * 
      * @type {Array<RouteRequestDto>}
      * @memberof CreateTripRequestDto
      */
-    routes: Array<RouteRequestDto>;
+    routes?: Array<RouteRequestDto> | null;
     /**
      * 
      * @type {number}
      * @memberof CreateTripRequestDto
      */
-    numberOfPersons: number;
+    numberOfPersons?: number | null;
     /**
      * 
      * @type {Array<Amenities>}
      * @memberof CreateTripRequestDto
      */
-    amenities: Array<Amenities>;
+    amenities?: Array<Amenities> | null;
     /**
      * 
      * @type {number}
      * @memberof CreateTripRequestDto
      */
-    handicappedUserCount: number;
+    handicappedUserCount?: number | null;
     /**
      * 
      * @type {boolean}
      * @memberof CreateTripRequestDto
      */
-    dietForTransporter: boolean;
+    dietForTransporter?: boolean | null;
     /**
      * 
      * @type {Date}
      * @memberof CreateTripRequestDto
      */
-    endOrder: Date;
+    endOrder?: Date | null;
 }
 
 /**
  * Check if a given object implements the CreateTripRequestDto interface.
  */
 export function instanceOfCreateTripRequestDto(value: object): value is CreateTripRequestDto {
-    if (!('routes' in value) || value['routes'] === undefined) return false;
-    if (!('numberOfPersons' in value) || value['numberOfPersons'] === undefined) return false;
-    if (!('amenities' in value) || value['amenities'] === undefined) return false;
-    if (!('handicappedUserCount' in value) || value['handicappedUserCount'] === undefined) return false;
-    if (!('dietForTransporter' in value) || value['dietForTransporter'] === undefined) return false;
-    if (!('endOrder' in value) || value['endOrder'] === undefined) return false;
     return true;
 }
 
@@ -95,12 +95,13 @@ export function CreateTripRequestDtoFromJSONTyped(json: any, ignoreDiscriminator
     }
     return {
         
-        'routes': ((json['routes'] as Array<any>).map(RouteRequestDtoFromJSON)),
-        'numberOfPersons': json['numberOfPersons'],
-        'amenities': ((json['amenities'] as Array<any>).map(AmenitiesFromJSON)),
-        'handicappedUserCount': json['handicappedUserCount'],
-        'dietForTransporter': json['dietForTransporter'],
-        'endOrder': (new Date(json['endOrder'])),
+        'tripId': json['tripId'] == null ? undefined : json['tripId'],
+        'routes': json['routes'] == null ? undefined : ((json['routes'] as Array<any>).map(RouteRequestDtoFromJSON)),
+        'numberOfPersons': json['numberOfPersons'] == null ? undefined : json['numberOfPersons'],
+        'amenities': json['amenities'] == null ? undefined : ((json['amenities'] as Array<any>).map(AmenitiesFromJSON)),
+        'handicappedUserCount': json['handicappedUserCount'] == null ? undefined : json['handicappedUserCount'],
+        'dietForTransporter': json['dietForTransporter'] == null ? undefined : json['dietForTransporter'],
+        'endOrder': json['endOrder'] == null ? undefined : (new Date(json['endOrder'])),
     };
 }
 
@@ -115,12 +116,13 @@ export function CreateTripRequestDtoToJSONTyped(value?: CreateTripRequestDto | n
 
     return {
         
-        'routes': ((value['routes'] as Array<any>).map(RouteRequestDtoToJSON)),
+        'tripId': value['tripId'],
+        'routes': value['routes'] == null ? undefined : ((value['routes'] as Array<any>).map(RouteRequestDtoToJSON)),
         'numberOfPersons': value['numberOfPersons'],
-        'amenities': ((value['amenities'] as Array<any>).map(AmenitiesToJSON)),
+        'amenities': value['amenities'] == null ? undefined : ((value['amenities'] as Array<any>).map(AmenitiesToJSON)),
         'handicappedUserCount': value['handicappedUserCount'],
         'dietForTransporter': value['dietForTransporter'],
-        'endOrder': value['endOrder'].toISOString(),
+        'endOrder': value['endOrder'] == null ? value['endOrder'] : value['endOrder'].toISOString(),
     };
 }
 

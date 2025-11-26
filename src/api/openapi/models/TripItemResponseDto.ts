@@ -20,6 +20,13 @@ import {
     RouteResponseDtoToJSON,
     RouteResponseDtoToJSONTyped,
 } from './RouteResponseDto';
+import type { TripState } from './TripState';
+import {
+    TripStateFromJSON,
+    TripStateFromJSONTyped,
+    TripStateToJSON,
+    TripStateToJSONTyped,
+} from './TripState';
 import type { Amenities } from './Amenities';
 import {
     AmenitiesFromJSON,
@@ -61,10 +68,16 @@ export interface TripItemResponseDto {
     amenities: Array<Amenities>;
     /**
      * 
+     * @type {TripState}
+     * @memberof TripItemResponseDto
+     */
+    state: TripState;
+    /**
+     * 
      * @type {number}
      * @memberof TripItemResponseDto
      */
-    numberOfPersons: number;
+    numberOfPersons?: number | null;
     /**
      * 
      * @type {number}
@@ -76,25 +89,25 @@ export interface TripItemResponseDto {
      * @type {number}
      * @memberof TripItemResponseDto
      */
-    handicappedUserCount: number;
+    handicappedUserCount?: number | null;
     /**
      * 
      * @type {boolean}
      * @memberof TripItemResponseDto
      */
-    dietForTransporter: boolean;
+    dietForTransporter?: boolean | null;
     /**
      * 
      * @type {Date}
      * @memberof TripItemResponseDto
      */
-    endOffer: Date;
+    endOrder?: Date | null;
     /**
      * 
      * @type {boolean}
      * @memberof TripItemResponseDto
      */
-    offerHasEnded: boolean;
+    orderHasEnded: boolean;
     /**
      * 
      * @type {TripOfferState}
@@ -136,12 +149,9 @@ export function instanceOfTripItemResponseDto(value: object): value is TripItemR
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('routes' in value) || value['routes'] === undefined) return false;
     if (!('amenities' in value) || value['amenities'] === undefined) return false;
-    if (!('numberOfPersons' in value) || value['numberOfPersons'] === undefined) return false;
+    if (!('state' in value) || value['state'] === undefined) return false;
     if (!('totalDistanceInMeters' in value) || value['totalDistanceInMeters'] === undefined) return false;
-    if (!('handicappedUserCount' in value) || value['handicappedUserCount'] === undefined) return false;
-    if (!('dietForTransporter' in value) || value['dietForTransporter'] === undefined) return false;
-    if (!('endOffer' in value) || value['endOffer'] === undefined) return false;
-    if (!('offerHasEnded' in value) || value['offerHasEnded'] === undefined) return false;
+    if (!('orderHasEnded' in value) || value['orderHasEnded'] === undefined) return false;
     if (!('offerState' in value) || value['offerState'] === undefined) return false;
     if (!('alreadyOffered' in value) || value['alreadyOffered'] === undefined) return false;
     if (!('isMine' in value) || value['isMine'] === undefined) return false;
@@ -163,12 +173,13 @@ export function TripItemResponseDtoFromJSONTyped(json: any, ignoreDiscriminator:
         'id': json['id'],
         'routes': ((json['routes'] as Array<any>).map(RouteResponseDtoFromJSON)),
         'amenities': ((json['amenities'] as Array<any>).map(AmenitiesFromJSON)),
-        'numberOfPersons': json['numberOfPersons'],
+        'state': TripStateFromJSON(json['state']),
+        'numberOfPersons': json['numberOfPersons'] == null ? undefined : json['numberOfPersons'],
         'totalDistanceInMeters': json['totalDistanceInMeters'],
-        'handicappedUserCount': json['handicappedUserCount'],
-        'dietForTransporter': json['dietForTransporter'],
-        'endOffer': (new Date(json['endOffer'])),
-        'offerHasEnded': json['offerHasEnded'],
+        'handicappedUserCount': json['handicappedUserCount'] == null ? undefined : json['handicappedUserCount'],
+        'dietForTransporter': json['dietForTransporter'] == null ? undefined : json['dietForTransporter'],
+        'endOrder': json['endOrder'] == null ? undefined : (new Date(json['endOrder'])),
+        'orderHasEnded': json['orderHasEnded'],
         'offerState': TripOfferStateFromJSON(json['offerState']),
         'alreadyOffered': json['alreadyOffered'],
         'isMine': json['isMine'],
@@ -191,12 +202,13 @@ export function TripItemResponseDtoToJSONTyped(value?: TripItemResponseDto | nul
         'id': value['id'],
         'routes': ((value['routes'] as Array<any>).map(RouteResponseDtoToJSON)),
         'amenities': ((value['amenities'] as Array<any>).map(AmenitiesToJSON)),
+        'state': TripStateToJSON(value['state']),
         'numberOfPersons': value['numberOfPersons'],
         'totalDistanceInMeters': value['totalDistanceInMeters'],
         'handicappedUserCount': value['handicappedUserCount'],
         'dietForTransporter': value['dietForTransporter'],
-        'endOffer': value['endOffer'].toISOString(),
-        'offerHasEnded': value['offerHasEnded'],
+        'endOrder': value['endOrder'] == null ? value['endOrder'] : value['endOrder'].toISOString(),
+        'orderHasEnded': value['orderHasEnded'],
         'offerState': TripOfferStateToJSON(value['offerState']),
         'alreadyOffered': value['alreadyOffered'],
         'isMine': value['isMine'],

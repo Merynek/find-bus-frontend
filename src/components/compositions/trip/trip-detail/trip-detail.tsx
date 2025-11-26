@@ -48,17 +48,17 @@ export const TripDetail = observer((props: ITripDetailProps) => {
         </div>
     }
 
-    return <div className={cn(styles.layout, trip.offerHasEnded && styles.end)}>
+    return <div className={cn(styles.layout, trip.orderHasEnded && styles.end)}>
         <div className={styles.line}>
             <span>ID:</span>
             <span>{trip.id}</span>
         </div>
-        {!trip.offerHasEnded && <div>
+        {!trip.orderHasEnded && <div>
             <span>Odpočet:</span>
             <Countdown
                 deadLine={trip.endOrder}
                 onDone={() =>{
-                    trip.offerHasEnded = true;
+                    trip.orderHasEnded = true;
                 }}
             />
         </div>}

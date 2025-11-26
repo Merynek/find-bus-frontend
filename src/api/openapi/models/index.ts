@@ -75,6 +75,7 @@ export * from './TripRecommendationRouteRequestDto';
 export * from './TripRecommendationRouteResponseDto';
 export * from './TripRecommendationType';
 export * from './TripResponseDto';
+export * from './TripState';
 export * from './UpdateAppBusinessConfigRequestDto';
 export * from './UpdateEmailConfig';
 export * from './UpdateOfferRequestDto';

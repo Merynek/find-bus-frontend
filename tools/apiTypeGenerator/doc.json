@@ -566,6 +566,44 @@
         }
       }
     },
+    "/api/Trip/drafts": {
+      "get": {
+        "tags": [
+          "Trip"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TripItemResponseDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TripItemResponseDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TripItemResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Trip/trip": {
       "get": {
         "tags": [
@@ -2659,45 +2697,47 @@
         "additionalProperties": false
       },
       "CreateTripRequestDto": {
-        "required": [
-          "amenities",
-          "dietForTransporter",
-          "endOrder",
-          "handicappedUserCount",
-          "numberOfPersons",
-          "routes"
-        ],
         "type": "object",
         "properties": {
+          "tripId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
           "routes": {
-            "minItems": 1,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/RouteRequestDto"
-            }
+            },
+            "nullable": true
           },
           "numberOfPersons": {
             "maximum": 2147483647,
             "minimum": 1,
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "amenities": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Amenities"
-            }
+            },
+            "nullable": true
           },
           "handicappedUserCount": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "dietForTransporter": {
-            "type": "boolean"
+            "type": "boolean",
+            "nullable": true
           },
           "endOrder": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -3725,16 +3765,13 @@
           "alreadyOffered",
           "amenities",
           "created",
-          "dietForTransporter",
-          "endOffer",
-          "handicappedUserCount",
           "hasOffers",
           "id",
           "isMine",
-          "numberOfPersons",
-          "offerHasEnded",
           "offerState",
+          "orderHasEnded",
           "routes",
+          "state",
           "totalDistanceInMeters"
         ],
         "type": "object",
@@ -3755,9 +3792,13 @@
               "$ref": "#/components/schemas/Amenities"
             }
           },
+          "state": {
+            "$ref": "#/components/schemas/TripState"
+          },
           "numberOfPersons": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "totalDistanceInMeters": {
             "type": "integer",
@@ -3765,16 +3806,19 @@
           },
           "handicappedUserCount": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "dietForTransporter": {
-            "type": "boolean"
+            "type": "boolean",
+            "nullable": true
           },
-          "endOffer": {
+          "endOrder": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "nullable": true
           },
-          "offerHasEnded": {
+          "orderHasEnded": {
             "type": "boolean"
           },
           "offerState": {
@@ -3998,15 +4042,12 @@
         "required": [
           "amenities",
           "created",
-          "dietForTransporter",
-          "endOrder",
-          "handicappedUserCount",
           "id",
-          "numberOfPersons",
-          "offerHasEnded",
           "offerState",
+          "orderHasEnded",
           "ownerId",
           "routes",
+          "state",
           "totalDistanceInMeters"
         ],
         "type": "object",
@@ -4018,6 +4059,9 @@
           "ownerId": {
             "type": "integer",
             "format": "int32"
+          },
+          "state": {
+            "$ref": "#/components/schemas/TripState"
           },
           "routes": {
             "type": "array",
@@ -4033,24 +4077,28 @@
           },
           "numberOfPersons": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "handicappedUserCount": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "totalDistanceInMeters": {
             "type": "integer",
             "format": "int32"
           },
           "dietForTransporter": {
-            "type": "boolean"
+            "type": "boolean",
+            "nullable": true
           },
           "endOrder": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "nullable": true
           },
-          "offerHasEnded": {
+          "orderHasEnded": {
             "type": "boolean"
           },
           "offerState": {
@@ -4062,6 +4110,13 @@
           }
         },
         "additionalProperties": false
+      },
+      "TripState": {
+        "enum": [
+          "DRAFT",
+          "PUBLISHED"
+        ],
+        "type": "string"
       },
       "UpdateAppBusinessConfigRequestDto": {
         "required": [

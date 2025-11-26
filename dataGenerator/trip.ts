@@ -1,7 +1,7 @@
 import {Trip} from "@/src/data/trip/trip";
 import {getRandomNumber} from "@/src/utils/common";
 import {getRandomBoolean, getRandomEnum, getRandomId} from "./tools";
-import {Amenities, CloseTripOfferReason, TripOfferState, TripRecommendationType} from "@/src/api/openapi";
+import {Amenities, CloseTripOfferReason, TripOfferState, TripRecommendationType, TripState} from "@/src/api/openapi";
 import {getRandomDate} from "./time";
 import {Offer} from "@/src/data/offer";
 import {getRandomVehicle} from "./vehicle";
@@ -24,7 +24,8 @@ export function getRandomTrip(): Trip {
         amenities: [getRandomEnum(Amenities), getRandomEnum(Amenities)],
         dietForTransporter: getRandomBoolean(),
         endOrder: getRandomDate(),
-        offerHasEnded: getRandomBoolean(),
+        orderHasEnded: getRandomBoolean(),
+        state: getRandomEnum(TripState),
         offerState: getRandomEnum(TripOfferState),
         handicappedUserCount: getRandomNumber(0, 5),
         totalDistanceInMeters: getRandomNumber(10000, 35000),
@@ -39,8 +40,9 @@ export function getRandomTripItem(): TripItem {
         numberOfPersons: getRandomNumber(1, 5),
         amenities: [getRandomEnum(Amenities), getRandomEnum(Amenities)],
         dietForTransporter: getRandomBoolean(),
-        endOffer: getRandomDate(),
-        offerHasEnded: getRandomBoolean(),
+        endOrder: getRandomDate(),
+        orderHasEnded: getRandomBoolean(),
+        state: getRandomEnum(TripState),
         offerState: getRandomEnum(TripOfferState),
         alreadyOffered: getRandomBoolean(),
         isMine: getRandomBoolean(),

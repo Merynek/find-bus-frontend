@@ -71,6 +71,10 @@ export class TripApi {
         return await handleApiCall(this._api.apiTripListGet(params, req.initOverrides));
     }
 
+    public async getDraftTrip(): Promise<TripItemResponseDto[]> {
+        return await handleApiCall(this._api.apiTripDraftsGet());
+    }
+
     public async getTrip(req: IGetTrip): Promise<TripResponseDto> {
         return await handleApiCall(this._api.apiTripTripGet({
             tripId: req.id
