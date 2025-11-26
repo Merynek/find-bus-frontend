@@ -72,7 +72,8 @@
       "dietForTransporter": "Diets for transporter",
       "removeRoute": "Remove route",
       "addRoute": "Add route",
-      "createDemand": "Create demand"
+      "createDemand": "Create demand",
+      "saveButton": "Save trip"
     },
     "vehicle": {
       "vehicleEditHeading": "Edit vehicle",

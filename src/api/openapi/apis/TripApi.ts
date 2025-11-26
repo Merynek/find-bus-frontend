@@ -15,15 +15,18 @@
 
 import * as runtime from '../runtime';
 import type {
-  CreateTripRequestDto,
+  PublishTripRequestDto,
+  SaveTripRequestDto,
   TripItemResponseDto,
   TripRecommendationRequestDto,
   TripRecommendationResponseDto,
   TripResponseDto,
 } from '../models/index';
 import {
-    CreateTripRequestDtoFromJSON,
-    CreateTripRequestDtoToJSON,
+    PublishTripRequestDtoFromJSON,
+    PublishTripRequestDtoToJSON,
+    SaveTripRequestDtoFromJSON,
+    SaveTripRequestDtoToJSON,
     TripItemResponseDtoFromJSON,
     TripItemResponseDtoToJSON,
     TripRecommendationRequestDtoFromJSON,
@@ -48,7 +51,11 @@ export interface ApiTripListGetRequest {
 }
 
 export interface ApiTripPostRequest {
-    createTripRequestDto?: CreateTripRequestDto;
+    saveTripRequestDto?: SaveTripRequestDto;
+}
+
+export interface ApiTripPublishPostRequest {
+    publishTripRequestDto?: PublishTripRequestDto;
 }
 
 export interface ApiTripRecommendationPostRequest {
@@ -190,7 +197,7 @@ export class TripApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiTripPostRaw(requestParameters: ApiTripPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+    async apiTripPostRaw(requestParameters: ApiTripPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<number>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -213,7 +220,49 @@ export class TripApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: CreateTripRequestDtoToJSON(requestParameters['createTripRequestDto']),
+            body: SaveTripRequestDtoToJSON(requestParameters['saveTripRequestDto']),
+        }, initOverrides);
+
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<number>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     */
+    async apiTripPost(requestParameters: ApiTripPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<number> {
+        const response = await this.apiTripPostRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiTripPublishPostRaw(requestParameters: ApiTripPublishPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/Trip/publish`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: PublishTripRequestDtoToJSON(requestParameters['publishTripRequestDto']),
         }, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -221,8 +270,8 @@ export class TripApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiTripPost(requestParameters: ApiTripPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.apiTripPostRaw(requestParameters, initOverrides);
+    async apiTripPublishPost(requestParameters: ApiTripPublishPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.apiTripPublishPostRaw(requestParameters, initOverrides);
     }
 
     /**

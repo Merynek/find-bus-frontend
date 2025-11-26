@@ -653,17 +653,68 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateTripRequestDto"
+                "$ref": "#/components/schemas/SaveTripRequestDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateTripRequestDto"
+                "$ref": "#/components/schemas/SaveTripRequestDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateTripRequestDto"
+                "$ref": "#/components/schemas/SaveTripRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Trip/publish": {
+      "post": {
+        "tags": [
+          "Trip"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublishTripRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublishTripRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PublishTripRequestDto"
               }
             }
           }
@@ -2696,52 +2747,6 @@
         },
         "additionalProperties": false
       },
-      "CreateTripRequestDto": {
-        "type": "object",
-        "properties": {
-          "tripId": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "routes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/RouteRequestDto"
-            },
-            "nullable": true
-          },
-          "numberOfPersons": {
-            "maximum": 2147483647,
-            "minimum": 1,
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "amenities": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Amenities"
-            },
-            "nullable": true
-          },
-          "handicappedUserCount": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "dietForTransporter": {
-            "type": "boolean",
-            "nullable": true
-          },
-          "endOrder": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "Currency": {
         "enum": [
           "ALL",
@@ -3438,6 +3443,19 @@
         },
         "additionalProperties": false
       },
+      "PublishTripRequestDto": {
+        "required": [
+          "tripId"
+        ],
+        "type": "object",
+        "properties": {
+          "tripId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "RefreshTokenRequestDto": {
         "required": [
           "refreshToken"
@@ -3543,6 +3561,52 @@
           },
           "direction": {
             "$ref": "#/components/schemas/DirectionResponseDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SaveTripRequestDto": {
+        "type": "object",
+        "properties": {
+          "tripId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "routes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RouteRequestDto"
+            },
+            "nullable": true
+          },
+          "numberOfPersons": {
+            "maximum": 2147483647,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "amenities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Amenities"
+            },
+            "nullable": true
+          },
+          "handicappedUserCount": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "dietForTransporter": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "endOrder": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
           }
         },
         "additionalProperties": false

@@ -1,5 +1,5 @@
 import {
-    CreateTripRequestDto,
+    SaveTripRequestDto,
     TripResponseDto,
     TripRecommendationRequestDto,
     TripRecommendationRouteRequestDto, TripRecommendationResponseDto
@@ -29,7 +29,7 @@ export class TripConverter {
         })
     }
 
-    public static toServer(trip: Trip): CreateTripRequestDto {
+    public static toServer(trip: Trip): SaveTripRequestDto {
         return {
             routes: trip.routes.map((r) => RouteConverter.toServer(r)),
             numberOfPersons: trip.numberOfPersons || 0,

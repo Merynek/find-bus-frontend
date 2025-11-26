@@ -75,7 +75,8 @@ declare const messages: {
       "dietForTransporter": "Diety pro řidiče",
       "removeRoute": "Odstranit trasu",
       "addRoute": "Přidat trasu",
-      "createDemand": "Vytvořit poptávku"
+      "createDemand": "Vytvořit poptávku",
+      "saveButton": "Uložit poptávku"
     },
     "vehicle": {
       "vehicleEditHeading": "Upravit vozidlo",

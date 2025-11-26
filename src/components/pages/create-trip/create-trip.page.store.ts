@@ -24,12 +24,12 @@ export class CreateTripPageStore {
     private _routesCountReactionDisposer: IReactionDisposer|null;
     public appBusinessConfig: AppBusinessConfig;
 
-    constructor(cfg: AppBusinessConfig) {
+    constructor(cfg: AppBusinessConfig, trip: Trip|undefined) {
         this.appBusinessConfig = cfg;
         this.tripRecommendation = null;
         this.reduceRoutesHours = null;
         this.reduceTimeHours = null;
-        this.trip = Trip.create({});
+        this.trip = trip || Trip.create({});
         this._directionTimesReactionDisposer = null;
         this._personCountReactionDisposer = null;
         this._routesCountReactionDisposer = null;
@@ -122,10 +122,23 @@ export class CreateTripPageStore {
         return this.trip.isValid;
     }
 
-    public async createTrip() {
+    public async publishTrip() {
         try {
-            await TripService.createTrip({
-                trip: TripConverter.toServer(this.trip)
+            await TripService.publishTrip({
+                triId: this.trip.id
+            });
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    public async saveTrip(): Promise<number> {
+        try {
+            return await TripService.saveTrip({
+                trip: {
+                    ...TripConverter.toServer(this.trip),
+                    tripId: this.trip.id || undefined
+                }
             });
         } catch (e) {
             throw e;

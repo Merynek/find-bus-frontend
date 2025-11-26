@@ -1,13 +1,13 @@
 'use server';
 
 import {
-    CreateTripRequestDto,
+    SaveTripRequestDto,
     TripItemResponseDto,
     TripRecommendationRequestDto, type TripRecommendationResponseDto,
     TripResponseDto
 } from "@/src/api/openapi";
 import {getAccessToken} from "@/src/server-actions/auth/accessTokenActions";
-import {IGetTripsRequest, TripApi} from "@/src/api/tripApi";
+import {IGetTripsRequest, IPublishTripRequest, TripApi} from "@/src/api/tripApi";
 import {handleActionCall} from "@/src/server-actions/baseAction";
 
 export async function getTrip(id: number): Promise<TripResponseDto> {
@@ -36,14 +36,21 @@ export async function getDraftTrips(): Promise<TripItemResponseDto[]> {
     })
 }
 
-export async function createTrip(trip: CreateTripRequestDto) {
+export async function saveTrip(trip: SaveTripRequestDto): Promise<number> {
+    return await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const tripApi = new TripApi(accessToken);
+        return await tripApi.saveTrip({
+            trip: trip
+        })
+    })
+}
+
+export async function publishTrip(req: IPublishTripRequest) {
     await handleActionCall(async () => {
         const accessToken = await getAccessToken();
         const tripApi = new TripApi(accessToken);
-
-        return await tripApi.createTrip({
-            trip: trip
-        })
+        return await tripApi.publishTrip(req)
     })
 }
 

@@ -2,15 +2,18 @@ import {ApiConfiguration} from "./apiConfiguration";
 import * as OpenApi from "./openapi";
 import {handleApiCall, IApiRequest} from "./toolsApi";
 import {
-    ApiTripListGetRequest,
-    CreateTripRequestDto,
+    ApiTripListGetRequest, type SaveTripRequestDto,
     type TripItemResponseDto,
     TripRecommendationRequestDto, type TripRecommendationResponseDto,
     type TripResponseDto
 } from "./openapi";
 
-export interface ICreateTripRequest extends IApiRequest {
-    trip: CreateTripRequestDto;
+export interface ISaveTripRequest extends IApiRequest {
+    trip: SaveTripRequestDto;
+}
+
+export interface IPublishTripRequest extends IApiRequest {
+    triId: number;
 }
 
 export interface IGetTripsRequest extends IApiRequest {
@@ -49,9 +52,17 @@ export class TripApi {
         return new OpenApi.TripApi(ApiConfiguration.createOpenApiConfig(this._token));
     }
 
-    public async createTrip(req: ICreateTripRequest): Promise<void> {
-        await handleApiCall(this._api.apiTripPost({
-            createTripRequestDto: req.trip
+    public async publishTrip(req: IPublishTripRequest): Promise<void> {
+        await handleApiCall(this._api.apiTripPublishPost({
+            publishTripRequestDto: {
+                tripId: req.triId
+            }
+        }, req.initOverrides));
+    }
+
+    public async saveTrip(req: ISaveTripRequest): Promise<number> {
+        return await handleApiCall(this._api.apiTripPost({
+            saveTripRequestDto: req.trip
         }, req.initOverrides));
     }
 

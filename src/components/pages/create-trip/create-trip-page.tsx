@@ -10,7 +10,7 @@ import {DatePicker} from "../../components/inputs/date-picker/date-picker";
 import {DirectionsMap} from "../../components/directions-map/directions-map";
 import {GeoPoint} from "@/src/data/geoPoint";
 import {NumberBox} from "../../components/inputs/number-box/number-box";
-import {ROUTES} from "@/src/enums/router.enum";
+import {ROUTES, URL_PARAMS} from "@/src/enums/router.enum";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {FlexGap} from "@/src/enums/layout.enum";
 import {useInit, useMount, useUnmount} from "@/src/hooks/lifecycleHooks";
@@ -22,18 +22,21 @@ import {
     CreateTripRecommendations
 } from "@/src/components/pages/create-trip/components/create-trip-routes";
 import {CreateTripRoutes} from "@/src/components/pages/create-trip/components/create-trip-recommendation";
-import {AppBusinessConfigResponseDto} from "@/src/api/openapi";
+import {AppBusinessConfigResponseDto, TripResponseDto} from "@/src/api/openapi";
 import {AppBusinessConfigConverter} from "@/src/converters/admin/app-business-config-converter";
+import {TripConverter} from "@/src/converters/trip/trip-converter";
+import {Trip} from "@/src/data/trip/trip";
 
 interface ICreateTripPageProps {
     cfg: AppBusinessConfigResponseDto;
+    trip?: TripResponseDto;
 }
 
 const CreateTripPage = observer((props: ICreateTripPageProps) => {
     const config = AppBusinessConfigConverter.toInstance(props.cfg);
     const router = useRouter();
     const {showLoader, hideLoader} = useApp();
-    const _store = useInit(() => new CreateTripPageStore(config));
+    const _store = useInit(() => new CreateTripPageStore(config, props.trip ? TripConverter.toInstance(props.trip) : Trip.create({})));
     const locale = useCurrentLocale();
     const {t} = useTranslate("page.trip");
 
@@ -117,13 +120,35 @@ const CreateTripPage = observer((props: ICreateTripPageProps) => {
                     } else {
                         try {
                             showLoader();
-                            await _store.createTrip();
+                            await _store.publishTrip();
                             hideLoader();
                             router.push(ROUTES.TRIP_LIST);
                         }
                         catch (e) {
                             console.log("error during create trip", JSON.stringify(e));
                         }
+                    }
+                }}
+            />
+            <ButtonClick
+                controlled={true}
+                size={ButtonSize.BY_CONTENT}
+                label={t("saveButton")}
+                type={ButtonType.YELLOW}
+                onClick={async () => {
+                    try {
+                        showLoader();
+                        const tripId = await _store.saveTrip();
+                        router.replace({
+                            pathname: ROUTES.CREATE_TRIP,
+                            params: {
+                                [URL_PARAMS.TRIP_ID]: tripId.toString()
+                            }
+                        });
+                        hideLoader();
+                    }
+                    catch (e) {
+                        console.log("error during create trip", JSON.stringify(e));
                     }
                 }}
             />
