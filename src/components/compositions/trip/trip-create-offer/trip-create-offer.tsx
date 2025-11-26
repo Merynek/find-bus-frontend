@@ -155,7 +155,7 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
                     if (val !== undefined) {
                         price.current.amount = val
                     } else {
-                        price.current.amount = 0;
+                        price.current.amount = 1;
                     }
                     setPriceAmount(val)
                 }}
