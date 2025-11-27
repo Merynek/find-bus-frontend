@@ -20,7 +20,7 @@ All URIs are relative to *http://localhost*
 
 ## apiVehiclesCompleteFileUploadPost
 
-> number apiVehiclesCompleteFileUploadPost(vehicleCompleteUploadFilesRequestDto)
+> apiVehiclesCompleteFileUploadPost(vehicleCompleteUploadFilesRequestDto)
 
 
 
@@ -67,7 +67,7 @@ example().catch(console.error);
 
 ### Return type
 
-**number**
+`void` (Empty response body)
 
 ### Authorization
 
@@ -76,7 +76,7 @@ example().catch(console.error);
 ### HTTP request headers
 
 - **Content-Type**: `application/json`, `text/json`, `application/*+json`
-- **Accept**: `text/plain`, `application/json`, `text/json`
+- **Accept**: Not defined
 
 
 ### HTTP response details

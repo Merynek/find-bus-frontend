@@ -86,7 +86,7 @@ export async function createUploadUrlForVehicleFiles(req: ICreateUploadUrlForVeh
     });
 }
 
-export async function completeUploadVehicleFiles(req: ICompleteUploadVehicleFilesRequest): Promise<number> {
+export async function completeUploadVehicleFiles(req: ICompleteUploadVehicleFilesRequest): Promise<void> {
     return await handleActionCall(async () => {
         const accessToken = await getAccessToken();
         const vehicleApi = new VehicleApi(accessToken);

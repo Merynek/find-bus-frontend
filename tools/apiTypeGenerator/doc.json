@@ -1915,27 +1915,7 @@
         },
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "integer",
-                  "format": "int32"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "integer",
-                  "format": "int32"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "integer",
-                  "format": "int32"
-                }
-              }
-            }
+            "description": "OK"
           }
         }
       }
@@ -4050,7 +4030,6 @@
         "type": "object",
         "properties": {
           "routes": {
-            "minItems": 1,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/TripRecommendationRouteRequestDto"

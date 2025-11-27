@@ -75,7 +75,7 @@ export class VehicleService extends BaseService {
         });
     }
 
-    public static async completeUploadVehicleFiles(req: ICompleteUploadVehicleFilesRequest): Promise<number> {
+    public static async completeUploadVehicleFiles(req: ICompleteUploadVehicleFilesRequest): Promise<void> {
         return await this.handleActionCall(async () => {
             return await completeUploadVehicleFiles(req);
         });

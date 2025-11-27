@@ -179,7 +179,7 @@ export class VehicleApi {
         }, req.initOverrides));
     }
 
-    public async completeUploadVehicleFiles(req: ICompleteUploadVehicleFilesRequest): Promise<number> {
+    public async completeUploadVehicleFiles(req: ICompleteUploadVehicleFilesRequest): Promise<void> {
         return await handleApiCall(this._api.apiVehiclesCompleteFileUploadPost({
             vehicleCompleteUploadFilesRequestDto: {
                 vehicleId: req.vehicleId,
