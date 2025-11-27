@@ -37,6 +37,7 @@ export class CreateTripPageStore {
     }
 
     public async init() {
+        await this._computeDirectionTimesApi();
         this.trip.startObservingChanges();
         this._directionTimesReactionDisposer = reaction(() => this.trip.directionTimes + this.trip.pauses, () => {
             this._computeDirectionTimesApi();

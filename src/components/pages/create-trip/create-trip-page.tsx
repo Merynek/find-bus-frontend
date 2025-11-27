@@ -148,7 +148,6 @@ const CreateTripPage = observer((props: ICreateTripPageProps) => {
                         hideLoader();
                     }
                     catch (e) {
-                        debugger;
                         console.log("error during save trip", JSON.stringify(e));
                     }
                 }}
