@@ -29,11 +29,9 @@ export const useCreateFullUrl = (route: ROUTES): string => {
     const locale = useCurrentLocale();
 
     if (typeof window !== "undefined") {
-        if (typeof window !== "undefined") {
-            const protocol = window.location.protocol;
-            const host = window.location.host;
-            return getLocalizedRouteUrl(route, locale, protocol, host);
-        }
+        const protocol = window.location.protocol;
+        const host = window.location.host;
+        return getLocalizedRouteUrl(route, locale, protocol, host);
     }
 
     return "";
