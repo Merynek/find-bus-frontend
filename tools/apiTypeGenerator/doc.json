@@ -2945,7 +2945,6 @@
             "format": "int32"
           },
           "polyline": {
-            "minLength": 1,
             "type": "string"
           }
         },
@@ -3413,7 +3412,6 @@
         "type": "object",
         "properties": {
           "placeId": {
-            "minLength": 1,
             "type": "string"
           },
           "point": {
@@ -3423,11 +3421,9 @@
             "$ref": "#/components/schemas/Country"
           },
           "name": {
-            "minLength": 1,
             "type": "string"
           },
           "placeFormatted": {
-            "minLength": 1,
             "type": "string"
           }
         },
