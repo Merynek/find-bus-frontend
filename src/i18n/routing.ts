@@ -49,8 +49,12 @@ export const routing = defineRouting({
             [LOCALES.cs_CZ]: `/nastaveni-vozidla/[${URL_PARAMS.VEHICLE_ID}]`,
             [LOCALES.en_US]: ROUTES.VEHICLE_EDIT
         },
+        [ROUTES.DRAFT_TRIP]: {
+            [LOCALES.cs_CZ]: `/nova-cesta/[${URL_PARAMS.TRIP_ID}]`,
+            [LOCALES.en_US]: ROUTES.DRAFT_TRIP
+        },
         [ROUTES.CREATE_TRIP]: {
-            [LOCALES.cs_CZ]: `/nova-cesta/[[...${URL_PARAMS.TRIP_ID}]]`,
+            [LOCALES.cs_CZ]: `/nova-cesta`,
             [LOCALES.en_US]: ROUTES.CREATE_TRIP
         },
         [ROUTES.TRIP_LIST]: {

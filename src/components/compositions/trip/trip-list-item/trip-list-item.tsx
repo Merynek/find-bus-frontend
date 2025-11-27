@@ -6,7 +6,7 @@ import {formatDateTime} from "@/src/utils/date-time.format";
 import {cn, getFormattedDistance} from "@/src/utils/common";
 import {Countdown} from "../../../components/countdown/countdown";
 import {TripItemResponseDto, TripOfferState, TripState, UserRole} from "@/src/api/openapi";
-import {ButtonSize, ButtonType, ButtonLink} from "../../../components/button/button";
+import {ButtonLink, ButtonSize, ButtonType} from "../../../components/button/button";
 import {Route} from "@/src/data/trip/route";
 import {ROUTES, URL_PARAMS} from "@/src/enums/router.enum";
 import {IconType} from "@/src/enums/icon.enum";
@@ -65,8 +65,21 @@ export const TripListItem = (props: ITripListItemProps) => {
         return tripItem.isMine && tripItem.hasOffers && tripItem.offerState === TripOfferState.CREATED;
     }
 
-    return <div className={cn(styles.layout, offerHasEnded && styles.end, hasOffersForAccept() && styles.offers)}>
-        <ButtonLink
+    const renderLink = () => {
+        if (isDraft) {
+            return <ButtonLink
+                route={{
+                    route: ROUTES.DRAFT_TRIP,
+                    params: {
+                        [URL_PARAMS.TRIP_ID]: tripItem.id.toString()
+                    }
+                }}
+                label={"Zobrazit koncept"}
+                type={ButtonType.YELLOW}
+                size={ButtonSize.BUTTON_SIZE_M}
+            />
+        }
+        return <ButtonLink
             route={{
                 route: ROUTES.TRIP,
                 params: { [URL_PARAMS.TRIP_ID]: tripItem.id.toString() }
@@ -75,6 +88,10 @@ export const TripListItem = (props: ITripListItemProps) => {
             type={ButtonType.YELLOW}
             size={ButtonSize.BUTTON_SIZE_M}
         />
+    }
+
+    return <div className={cn(styles.layout, offerHasEnded && styles.end, hasOffersForAccept() && styles.offers)}>
+        {renderLink()}
         <div className={styles.line}>
             <span>ID:</span>
             <span>{tripItem.id}</span>
