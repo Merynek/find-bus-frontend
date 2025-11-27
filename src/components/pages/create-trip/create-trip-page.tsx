@@ -27,6 +27,7 @@ import {AppBusinessConfigConverter} from "@/src/converters/admin/app-business-co
 import {TripConverter} from "@/src/converters/trip/trip-converter";
 import {Trip} from "@/src/data/trip/trip";
 import {SignModal} from "@/src/components/compositions/sign/sign-modal/sign-modal";
+import {useLoggedUser} from "@/src/hooks/authenticationHook";
 
 interface ICreateTripPageProps {
     cfg: AppBusinessConfigResponseDto;
@@ -40,6 +41,7 @@ const CreateTripPage = observer((props: ICreateTripPageProps) => {
     const _store = useInit(() => new CreateTripPageStore(config, props.trip ? TripConverter.toInstance(props.trip) : Trip.create({})));
     const locale = useCurrentLocale();
     const {t} = useTranslate("page.trip");
+    const {user} = useLoggedUser();
     const [signDialogOpen, setSignDialogOpen] = useState(false);
 
     useMount(() => {
@@ -62,17 +64,84 @@ const CreateTripPage = observer((props: ICreateTripPageProps) => {
         />
     }
 
-    return <LayoutFlexColumn gap={FlexGap.MEDIUM_24} style={{padding: "20px"}}>
-        {renderSignModal()}
-        <ButtonClick
+    const renderPublishButton = () => {
+        return <ButtonClick
             controlled={true}
+            size={ButtonSize.BY_CONTENT}
+            label={t("createDemand")}
+            type={ButtonType.BLACK}
             onClick={async () => {
+                let errors = "";
+                _store.validate();
+                if (!_store.isValid) {
+                    if (!_store.placesAreSet) {
+                        errors += " @ All places are required, "
+                    }
+                    if (!_store.peopleCountIsValid) {
+                        errors += " @ Minimum count of people is 1, "
+                    }
+                    if (!_store.routesCountIsValid) {
+                        errors += " @ Minimum count of routes is 1"
+                    }
+                    // if (!_store.userSettings?.isValidForCreateInvoice) { // todo
+                    //     errors += " @ settings are not valid"
+                    // }
+                    alert(errors);
+                } else {
+                    try {
+                        showLoader();
+                        await _store.saveTrip();
+                        await _store.publishTrip();
+                        hideLoader();
+                        router.push(ROUTES.TRIP_LIST);
+                    }
+                    catch (e) {
+                        console.log("error during create trip", JSON.stringify(e));
+                    }
+                }
+            }}
+        />
+    }
+
+    const renderSaveButton = () => {
+        return <ButtonClick
+            controlled={true}
+            size={ButtonSize.BY_CONTENT}
+            label={t("saveButton")}
+            type={ButtonType.YELLOW}
+            onClick={async () => {
+                try {
+                    showLoader();
+                    const tripId = await _store.saveTrip();
+                    router.replace({
+                        pathname: ROUTES.DRAFT_TRIP,
+                        params: {
+                            [URL_PARAMS.TRIP_ID]: tripId.toString()
+                        }
+                    });
+                    hideLoader();
+                }
+                catch (e) {
+                    console.log("error during save trip", JSON.stringify(e));
+                }
+            }}
+        />
+    }
+
+    const renderRegisterAndSaveButton = () => {
+        return <ButtonClick
+            controlled={true}
+            size={ButtonSize.BY_CONTENT}
+            label={"Registrovat se a uložit cestu"}
+            type={ButtonType.YELLOW}
+            onClick={() => {
                 setSignDialogOpen(true);
             }}
-            label={"Sign Modal"}
-            type={ButtonType.YELLOW}
-            size={ButtonSize.BUTTON_SIZE_M}
         />
+    }
+
+    return <LayoutFlexColumn gap={FlexGap.MEDIUM_24} style={{padding: "20px"}}>
+        {renderSignModal()}
         <NumberBox
             placeholder={t("handicappedUserCount")}
             controlled={true}
@@ -119,64 +188,9 @@ const CreateTripPage = observer((props: ICreateTripPageProps) => {
             {_store.displayRecommendation && <CreateTripRecommendations store={_store}/>}
         </LayoutFlexRow>
         <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
-            <ButtonClick
-                controlled={true}
-                size={ButtonSize.BY_CONTENT}
-                label={t("createDemand")}
-                type={ButtonType.BLACK}
-                onClick={async () => {
-                    let errors = "";
-                    _store.validate();
-                    if (!_store.isValid) {
-                        if (!_store.placesAreSet) {
-                            errors += " @ All places are required, "
-                        }
-                        if (!_store.peopleCountIsValid) {
-                            errors += " @ Minimum count of people is 1, "
-                        }
-                        if (!_store.routesCountIsValid) {
-                            errors += " @ Minimum count of routes is 1"
-                        }
-                        // if (!_store.userSettings?.isValidForCreateInvoice) { // todo
-                        //     errors += " @ settings are not valid"
-                        // }
-                        alert(errors);
-                    } else {
-                        try {
-                            showLoader();
-                            await _store.saveTrip();
-                            await _store.publishTrip();
-                            hideLoader();
-                            router.push(ROUTES.TRIP_LIST);
-                        }
-                        catch (e) {
-                            console.log("error during create trip", JSON.stringify(e));
-                        }
-                    }
-                }}
-            />
-            <ButtonClick
-                controlled={true}
-                size={ButtonSize.BY_CONTENT}
-                label={t("saveButton")}
-                type={ButtonType.YELLOW}
-                onClick={async () => {
-                    try {
-                        showLoader();
-                        const tripId = await _store.saveTrip();
-                        router.replace({
-                            pathname: ROUTES.DRAFT_TRIP,
-                            params: {
-                                [URL_PARAMS.TRIP_ID]: tripId.toString()
-                            }
-                        });
-                        hideLoader();
-                    }
-                    catch (e) {
-                        console.log("error during save trip", JSON.stringify(e));
-                    }
-                }}
-            />
+            {user == null && renderRegisterAndSaveButton()}
+            {user && renderSaveButton()}
+            {user && renderPublishButton()}
         </LayoutFlexColumn>
         <div style={{position: "relative", width: "100%", height: "300px"}}>
             <DirectionsMap
