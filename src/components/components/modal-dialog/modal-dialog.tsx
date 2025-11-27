@@ -18,7 +18,7 @@ export interface IModalDialogProps {
     children: React.ReactNode;
 }
 
-export const ModalDialog = observer((props: IModalDialogProps) => {
+export const ModalDialog = (props: IModalDialogProps) => {
     const {
         headerText,
         footerContent,
@@ -85,4 +85,4 @@ export const ModalDialog = observer((props: IModalDialogProps) => {
             {renderFooter()}
         </div>
     </Modal>
-})
+};

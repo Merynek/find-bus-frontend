@@ -1,5 +1,4 @@
 import React from "react";
-import {observer} from "mobx-react";
 import styles from "./modal.module.scss";
 import Dialog from '@mui/material/Dialog';
 
@@ -15,7 +14,7 @@ export interface IModalProps {
     children: React.ReactNode;
 }
 
-export const Modal = observer((props: IModalProps) => {
+export const Modal = (props: IModalProps) => {
     const {onClose, open, children} = props;
 
     return <Dialog
@@ -26,4 +25,4 @@ export const Modal = observer((props: IModalProps) => {
             {children}
         </div>
     </Dialog>
-});
+};
