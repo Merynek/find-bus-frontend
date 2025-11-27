@@ -120,6 +120,7 @@ const CreateTripPage = observer((props: ICreateTripPageProps) => {
                     } else {
                         try {
                             showLoader();
+                            await _store.saveTrip();
                             await _store.publishTrip();
                             hideLoader();
                             router.push(ROUTES.TRIP_LIST);
