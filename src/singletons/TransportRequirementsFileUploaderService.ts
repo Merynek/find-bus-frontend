@@ -19,7 +19,6 @@ export class TransportRequirementsFileUploaderService {
                 }
             })
         });
-        console.log("MERYNEK [uploadDocumentFiles]", `response: ${JSON.stringify(response)}`)
 
         const completeDocuments: ITransportDocumentCompleteUploadItem[] = [];
         const successfulDocumentUploads = await StorageUploaderService.UploadFiles(response.documents, documents);
@@ -37,7 +36,6 @@ export class TransportRequirementsFileUploaderService {
             }
         });
 
-        console.log("MERYNEK [completeUploadTransportRequirementsDocuments]", `completeDocuments: ${JSON.stringify(completeDocuments)}`)
         await UsersService.completeUploadTransportRequirementsDocuments({
             transportRequirementsId: transportRequirementsId,
             documents: completeDocuments,

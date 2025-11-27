@@ -86,7 +86,7 @@ export async function createUploadUrlForTransportRequirementDocuments(req: ICrea
     });
 }
 
-export async function completeUploadTransportRequirementsDocuments(req: ICompleteUploadTransportRequirementsDocumentsRequest): Promise<number> {
+export async function completeUploadTransportRequirementsDocuments(req: ICompleteUploadTransportRequirementsDocumentsRequest): Promise<void> {
     return await handleActionCall(async () => {
         const accessToken = await getAccessToken();
         const usersApi = new UsersApi(accessToken);

@@ -242,7 +242,7 @@ export class UsersApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiUsersTransportRequirementsCompleteDocumentUploadPostRaw(requestParameters: ApiUsersTransportRequirementsCompleteDocumentUploadPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<number>> {
+    async apiUsersTransportRequirementsCompleteDocumentUploadPostRaw(requestParameters: ApiUsersTransportRequirementsCompleteDocumentUploadPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -268,18 +268,13 @@ export class UsersApi extends runtime.BaseAPI {
             body: TransportDocumentsCompleteUploadFilesRequestDtoToJSON(requestParameters['transportDocumentsCompleteUploadFilesRequestDto']),
         }, initOverrides);
 
-        if (this.isJsonMime(response.headers.get('content-type'))) {
-            return new runtime.JSONApiResponse<number>(response);
-        } else {
-            return new runtime.TextApiResponse(response) as any;
-        }
+        return new runtime.VoidApiResponse(response);
     }
 
     /**
      */
-    async apiUsersTransportRequirementsCompleteDocumentUploadPost(requestParameters: ApiUsersTransportRequirementsCompleteDocumentUploadPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<number> {
-        const response = await this.apiUsersTransportRequirementsCompleteDocumentUploadPostRaw(requestParameters, initOverrides);
-        return await response.value();
+    async apiUsersTransportRequirementsCompleteDocumentUploadPost(requestParameters: ApiUsersTransportRequirementsCompleteDocumentUploadPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.apiUsersTransportRequirementsCompleteDocumentUploadPostRaw(requestParameters, initOverrides);
     }
 
     /**

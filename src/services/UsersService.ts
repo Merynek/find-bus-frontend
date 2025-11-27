@@ -70,7 +70,7 @@ export class UsersService extends BaseService {
         });
     }
 
-    public static async completeUploadTransportRequirementsDocuments(req: ICompleteUploadTransportRequirementsDocumentsRequest): Promise<number> {
+    public static async completeUploadTransportRequirementsDocuments(req: ICompleteUploadTransportRequirementsDocumentsRequest): Promise<void> {
         return await this.handleActionCall(async () => {
             return await completeUploadTransportRequirementsDocuments(req);
         });

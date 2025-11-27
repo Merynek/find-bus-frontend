@@ -110,7 +110,7 @@ export class UsersApi {
         }, req.initOverrides));
     }
 
-    public async completeUploadTransportRequirementsDocuments(req: ICompleteUploadTransportRequirementsDocumentsRequest): Promise<number> {
+    public async completeUploadTransportRequirementsDocuments(req: ICompleteUploadTransportRequirementsDocumentsRequest): Promise<void> {
         return await handleApiCall(this._api.apiUsersTransportRequirementsCompleteDocumentUploadPost({
             transportDocumentsCompleteUploadFilesRequestDto: {
                 requirementsId: req.transportRequirementsId,
