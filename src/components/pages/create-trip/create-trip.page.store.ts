@@ -4,10 +4,8 @@ import {TripRecommendationType} from "@/src/api/openapi";
 import {hoursToSeconds} from "@/src/utils/common";
 import {addHours} from "@/src/utils/date-time.common";
 import moment from "moment";
-import {UserSettings} from "@/src/data/users/userSettings";
 import {TripService} from "@/src/services/TripService";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
-import {UsersService} from "@/src/services/UsersService";
 import {AppBusinessConfig} from "@/src/data/appBusinessConfig";
 
 export class CreateTripPageStore {
