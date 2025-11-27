@@ -33,14 +33,12 @@ export const HeaderUserSection = () => {
                 }
             }
         ]
-        if (user?.role === UserRole.DEMANDER) {
-            items.push({
-                label: t("tripDraftList"),
-                onClick: () => {
-                    router.push(ROUTES.TRIP_DRAFT_LIST);
-                }
-            })
-        }
+        items.push({
+            label: t("tripDraftList"),
+            onClick: () => {
+                router.push(ROUTES.TRIP_DRAFT_LIST);
+            }
+        })
         if (user?.role === UserRole.TRANSPORTER) {
             items.push({
                 label: t("vehicles"),
