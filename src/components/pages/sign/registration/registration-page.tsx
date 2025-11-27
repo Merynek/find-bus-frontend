@@ -6,7 +6,7 @@ import {SignUpForm} from "@/src/components/compositions/sign/sign-up/sign-up-for
 
 const RegistrationPage = () => {
     return <SignLayout>
-        <SignUpForm redirectToSingIn={true} />
+        <SignUpForm />
     </SignLayout>
 };
 

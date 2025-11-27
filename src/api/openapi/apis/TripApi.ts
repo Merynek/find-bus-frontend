@@ -17,6 +17,7 @@ import * as runtime from '../runtime';
 import type {
   PublishTripRequestDto,
   SaveTripRequestDto,
+  SaveUnauthorizedTripRequestDto,
   TripItemResponseDto,
   TripRecommendationRequestDto,
   TripRecommendationResponseDto,
@@ -27,6 +28,8 @@ import {
     PublishTripRequestDtoToJSON,
     SaveTripRequestDtoFromJSON,
     SaveTripRequestDtoToJSON,
+    SaveUnauthorizedTripRequestDtoFromJSON,
+    SaveUnauthorizedTripRequestDtoToJSON,
     TripItemResponseDtoFromJSON,
     TripItemResponseDtoToJSON,
     TripRecommendationRequestDtoFromJSON,
@@ -68,6 +71,10 @@ export interface ApiTripRecommendationPostRequest {
 
 export interface ApiTripTripGetRequest {
     tripId: number;
+}
+
+export interface ApiTripUnauthorizedDraftPostRequest {
+    saveUnauthorizedTripRequestDto?: SaveUnauthorizedTripRequestDto;
 }
 
 /**
@@ -405,6 +412,48 @@ export class TripApi extends runtime.BaseAPI {
      */
     async apiTripTripGet(requestParameters: ApiTripTripGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TripResponseDto> {
         const response = await this.apiTripTripGetRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async apiTripUnauthorizedDraftPostRaw(requestParameters: ApiTripUnauthorizedDraftPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<number>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/Trip/unauthorizedDraft`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: SaveUnauthorizedTripRequestDtoToJSON(requestParameters['saveUnauthorizedTripRequestDto']),
+        }, initOverrides);
+
+        if (this.isJsonMime(response.headers.get('content-type'))) {
+            return new runtime.JSONApiResponse<number>(response);
+        } else {
+            return new runtime.TextApiResponse(response) as any;
+        }
+    }
+
+    /**
+     */
+    async apiTripUnauthorizedDraftPost(requestParameters: ApiTripUnauthorizedDraftPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<number> {
+        const response = await this.apiTripUnauthorizedDraftPostRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

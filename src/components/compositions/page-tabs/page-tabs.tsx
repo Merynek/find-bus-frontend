@@ -28,14 +28,12 @@ export const PageTabs = (props: IPageTabsProps) => {
                     size={ButtonSize.BUTTON_SIZE_M}
                 />
             </li>
-            {user?.role === UserRole.DEMANDER && <li>
-                <ButtonLink
-                    route={{route: ROUTES.CREATE_TRIP}}
-                    label={t("createTrip")}
-                    type={route === ROUTES.CREATE_TRIP ? ButtonType.YELLOW : ButtonType.BASE}
-                    size={ButtonSize.BUTTON_SIZE_M}
-                />
-            </li>}
+            <ButtonLink
+                route={{route: ROUTES.CREATE_TRIP}}
+                label={t("createTrip")}
+                type={route === ROUTES.CREATE_TRIP ? ButtonType.YELLOW : ButtonType.BASE}
+                size={ButtonSize.BUTTON_SIZE_M}
+            />
             <li>
                 <ButtonLink
                     route={{route: ROUTES.TRIP_LIST}}

@@ -2,7 +2,7 @@ import {ApiConfiguration} from "./apiConfiguration";
 import * as OpenApi from "./openapi";
 import {handleApiCall, IApiRequest} from "./toolsApi";
 import {
-    ApiTripListGetRequest, type SaveTripRequestDto,
+    ApiTripListGetRequest, type SaveTripRequestDto, type SaveUnauthorizedTripRequestDto,
     type TripItemResponseDto,
     TripRecommendationRequestDto, type TripRecommendationResponseDto,
     type TripResponseDto
@@ -10,6 +10,10 @@ import {
 
 export interface ISaveTripRequest extends IApiRequest {
     trip: SaveTripRequestDto;
+}
+
+export interface ISaveUnauthorizedTripRequest extends IApiRequest {
+    trip: SaveUnauthorizedTripRequestDto;
 }
 
 export interface IPublishTripRequest extends IApiRequest {
@@ -67,6 +71,12 @@ export class TripApi {
     public async saveTrip(req: ISaveTripRequest): Promise<number> {
         return await handleApiCall(this._api.apiTripPost({
             saveTripRequestDto: req.trip
+        }, req.initOverrides));
+    }
+
+    public async saveUnauthorizedTrip(req: ISaveUnauthorizedTripRequest): Promise<number> {
+        return await handleApiCall(this._api.apiTripUnauthorizedDraftPost({
+            saveUnauthorizedTripRequestDto: req.trip
         }, req.initOverrides));
     }
 

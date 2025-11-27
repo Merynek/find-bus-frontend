@@ -1,4 +1,3 @@
-import {observer} from "mobx-react";
 import React from "react";
 import {ModalDialog} from "../../../components/modal-dialog/modal-dialog";
 import {VehicleDetail} from "../detail-list/vehicle-detail-list";
@@ -10,7 +9,7 @@ export interface IModalVehicleDetailProps {
     open: boolean;
 }
 
-export const VehicleDetailModal = observer((props: IModalVehicleDetailProps) => {
+export const VehicleDetailModal = (props: IModalVehicleDetailProps) => {
     const {open, onClose, vehicle} = props;
     return (
         <ModalDialog
@@ -23,4 +22,4 @@ export const VehicleDetailModal = observer((props: IModalVehicleDetailProps) => 
             />
         </ModalDialog>
     )
-});
+};

@@ -61,6 +61,7 @@ docs/RegistrationUserRequestDto.md
 docs/RouteRequestDto.md
 docs/RouteResponseDto.md
 docs/SaveTripRequestDto.md
+docs/SaveUnauthorizedTripRequestDto.md
 docs/StartTripRequestDto.md
 docs/StopRequestDto.md
 docs/StopResponseDto.md
@@ -180,6 +181,7 @@ models/RegistrationUserRequestDto.ts
 models/RouteRequestDto.ts
 models/RouteResponseDto.ts
 models/SaveTripRequestDto.ts
+models/SaveUnauthorizedTripRequestDto.ts
 models/StartTripRequestDto.ts
 models/StopRequestDto.ts
 models/StopResponseDto.ts

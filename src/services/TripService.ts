@@ -1,9 +1,14 @@
 import {Trip} from "@/src/data/trip/trip";
-import {saveTrip, getDraftTrips, getTrip, getTripRecommendation, getTrips, publishTrip, getTripDraft} from "@/src/server-actions/trips/tripsActions";
+import {saveTrip, getDraftTrips, getTrip, getTripRecommendation, getTrips, publishTrip, getTripDraft, saveUnauthorizedTrip} from "@/src/server-actions/trips/tripsActions";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
 import {TripItemConverter} from "@/src/converters/trip-item-converter";
 import {TripItem} from "@/src/data/tripItem";
-import {ISaveTripRequest, IGetTripsRequest, IPublishTripRequest} from "@/src/api/tripApi";
+import {
+    ISaveTripRequest,
+    IGetTripsRequest,
+    IPublishTripRequest,
+    ISaveUnauthorizedTripRequest
+} from "@/src/api/tripApi";
 import {TripRecommendation} from "@/src/data/tripRecommendation";
 import {TripRecommendationRequestDto} from "@/src/api/openapi";
 import {BaseService} from "@/src/services/BaseService";
@@ -39,7 +44,13 @@ export class TripService extends BaseService {
 
     public static async saveTrip(req: ISaveTripRequest): Promise<number> {
         return await this.handleActionCall(async () => {
-            return await saveTrip(req.trip);
+            return await saveTrip(req);
+        });
+    }
+
+    public static async saveUnauthorizedTrip(req: ISaveUnauthorizedTripRequest): Promise<number> {
+        return await this.handleActionCall(async () => {
+            return await saveUnauthorizedTrip(req);
         });
     }
 

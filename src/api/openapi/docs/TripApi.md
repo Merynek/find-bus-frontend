@@ -11,6 +11,7 @@ All URIs are relative to *http://localhost*
 | [**apiTripPublishPost**](TripApi.md#apitrippublishpost) | **POST** /api/Trip/publish |  |
 | [**apiTripRecommendationPost**](TripApi.md#apitriprecommendationpost) | **POST** /api/Trip/recommendation |  |
 | [**apiTripTripGet**](TripApi.md#apitriptripget) | **GET** /api/Trip/trip |  |
+| [**apiTripUnauthorizedDraftPost**](TripApi.md#apitripunauthorizeddraftpost) | **POST** /api/Trip/unauthorizedDraft |  |
 
 
 
@@ -505,6 +506,75 @@ example().catch(console.error);
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: `text/plain`, `application/json`, `text/json`
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## apiTripUnauthorizedDraftPost
+
+> number apiTripUnauthorizedDraftPost(saveUnauthorizedTripRequestDto)
+
+
+
+### Example
+
+```ts
+import {
+  Configuration,
+  TripApi,
+} from '';
+import type { ApiTripUnauthorizedDraftPostRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new TripApi(config);
+
+  const body = {
+    // SaveUnauthorizedTripRequestDto (optional)
+    saveUnauthorizedTripRequestDto: ...,
+  } satisfies ApiTripUnauthorizedDraftPostRequest;
+
+  try {
+    const data = await api.apiTripUnauthorizedDraftPost(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **saveUnauthorizedTripRequestDto** | [SaveUnauthorizedTripRequestDto](SaveUnauthorizedTripRequestDto.md) |  | [Optional] |
+
+### Return type
+
+**number**
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`, `text/json`, `application/*+json`
 - **Accept**: `text/plain`, `application/json`, `text/json`
 
 

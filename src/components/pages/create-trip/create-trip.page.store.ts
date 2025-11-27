@@ -18,7 +18,6 @@ export class CreateTripPageStore {
     @observable public placesAreSet: boolean = true;
     @observable public peopleCountIsValid: boolean = true;
     @observable public routesCountIsValid: boolean = true;
-    @observable public userSettings: UserSettings|null = null;
     private _directionTimesReactionDisposer: IReactionDisposer|null;
     private _personCountReactionDisposer: IReactionDisposer|null;
     private _routesCountReactionDisposer: IReactionDisposer|null;
@@ -49,7 +48,6 @@ export class CreateTripPageStore {
         this._routesCountReactionDisposer = reaction(() => this.trip.routes.length, () => {
             this.routesCountIsValid = true;
         });
-        this.userSettings = await UsersService.getSettings();
     }
 
     public destroy() {
@@ -139,6 +137,19 @@ export class CreateTripPageStore {
                 trip: {
                     ...TripConverter.toServer(this.trip),
                     tripId: this.trip.id || undefined
+                }
+            });
+        } catch (e) {
+            throw e;
+        }
+    }
+
+    public async saveUnauthorizedTrip(email: string): Promise<number> {
+        try {
+            return await TripService.saveUnauthorizedTrip({
+                trip: {
+                    ...TripConverter.toServer(this.trip),
+                    email: email
                 }
             });
         } catch (e) {

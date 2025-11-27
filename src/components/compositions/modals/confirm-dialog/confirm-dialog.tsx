@@ -2,7 +2,6 @@ import {ModalDialog} from "../../../components/modal-dialog/modal-dialog";
 import {ButtonClick, ButtonSize, ButtonType} from "../../../components/button/button";
 import React from "react";
 import {ModalButtons} from "../../../components/modal-dialog/components/modal-dialog-buttons/modal-dialog-buttons";
-import {observer} from "mobx-react";
 
 export interface IConfirmDialogProps {
     onClose: () => void;
@@ -15,7 +14,7 @@ export interface IConfirmDialogProps {
     open: boolean;
 }
 
-export const ConfirmDialog = observer((props: IConfirmDialogProps) => {
+export const ConfirmDialog = (props: IConfirmDialogProps) => {
     const {open, submitButtonText, cancelButtonText, title, onClose, message, submitButtonDisabled} = props;
     return (
         <ModalDialog
@@ -47,4 +46,4 @@ export const ConfirmDialog = observer((props: IConfirmDialogProps) => {
             {message}
         </ModalDialog>
     )
-});
+};

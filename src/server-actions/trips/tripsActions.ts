@@ -1,13 +1,18 @@
 'use server';
 
 import {
-    SaveTripRequestDto,
     TripItemResponseDto,
     TripRecommendationRequestDto, type TripRecommendationResponseDto,
     TripResponseDto
 } from "@/src/api/openapi";
 import {getAccessToken} from "@/src/server-actions/auth/accessTokenActions";
-import {IGetTripsRequest, IPublishTripRequest, TripApi} from "@/src/api/tripApi";
+import {
+    IGetTripsRequest,
+    IPublishTripRequest,
+    ISaveTripRequest,
+    ISaveUnauthorizedTripRequest,
+    TripApi
+} from "@/src/api/tripApi";
 import {handleActionCall} from "@/src/server-actions/baseAction";
 
 export async function getTrip(id: number): Promise<TripResponseDto> {
@@ -46,13 +51,19 @@ export async function getDraftTrips(): Promise<TripItemResponseDto[]> {
     })
 }
 
-export async function saveTrip(trip: SaveTripRequestDto): Promise<number> {
+export async function saveTrip(req: ISaveTripRequest): Promise<number> {
     return await handleActionCall(async () => {
         const accessToken = await getAccessToken();
         const tripApi = new TripApi(accessToken);
-        return await tripApi.saveTrip({
-            trip: trip
-        })
+        return await tripApi.saveTrip(req);
+    })
+}
+
+export async function saveUnauthorizedTrip(req: ISaveUnauthorizedTripRequest): Promise<number> {
+    return await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const tripApi = new TripApi(accessToken);
+        return await tripApi.saveUnauthorizedTrip(req);
     })
 }
 

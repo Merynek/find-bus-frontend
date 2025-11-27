@@ -1,7 +1,7 @@
 "use client";
 
 import {useCurrentLocale, useTranslate} from "@/src/hooks/translateHook";
-import React from "react";
+import React, {useState} from "react";
 import {observer} from "mobx-react";
 import {CreateTripPageStore} from "./create-trip.page.store";
 import {ButtonClick, ButtonSize, ButtonType} from "../../components/button/button";
@@ -26,6 +26,7 @@ import {AppBusinessConfigResponseDto, TripResponseDto} from "@/src/api/openapi";
 import {AppBusinessConfigConverter} from "@/src/converters/admin/app-business-config-converter";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
 import {Trip} from "@/src/data/trip/trip";
+import {SignModal} from "@/src/components/compositions/sign/sign-modal/sign-modal";
 
 interface ICreateTripPageProps {
     cfg: AppBusinessConfigResponseDto;
@@ -39,6 +40,7 @@ const CreateTripPage = observer((props: ICreateTripPageProps) => {
     const _store = useInit(() => new CreateTripPageStore(config, props.trip ? TripConverter.toInstance(props.trip) : Trip.create({})));
     const locale = useCurrentLocale();
     const {t} = useTranslate("page.trip");
+    const [signDialogOpen, setSignDialogOpen] = useState(false);
 
     useMount(() => {
         _store.init();
@@ -48,7 +50,29 @@ const CreateTripPage = observer((props: ICreateTripPageProps) => {
         _store.destroy();
     })
 
+    const renderSignModal = () => {
+        return signDialogOpen && <SignModal
+            open={signDialogOpen}
+            afterRegistration={async (email) => {
+                await _store.saveUnauthorizedTrip(email);
+            }}
+            onClose={() => {
+                setSignDialogOpen(false);
+            }}
+        />
+    }
+
     return <LayoutFlexColumn gap={FlexGap.MEDIUM_24} style={{padding: "20px"}}>
+        {renderSignModal()}
+        <ButtonClick
+            controlled={true}
+            onClick={async () => {
+                setSignDialogOpen(true);
+            }}
+            label={"Sign Modal"}
+            type={ButtonType.YELLOW}
+            size={ButtonSize.BUTTON_SIZE_M}
+        />
         <NumberBox
             placeholder={t("handicappedUserCount")}
             controlled={true}

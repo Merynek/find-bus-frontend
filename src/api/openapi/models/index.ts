@@ -52,6 +52,7 @@ export * from './RegistrationUserRequestDto';
 export * from './RouteRequestDto';
 export * from './RouteResponseDto';
 export * from './SaveTripRequestDto';
+export * from './SaveUnauthorizedTripRequestDto';
 export * from './StartTripRequestDto';
 export * from './StopRequestDto';
 export * from './StopResponseDto';

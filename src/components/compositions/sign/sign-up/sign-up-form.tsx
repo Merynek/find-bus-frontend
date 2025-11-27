@@ -8,24 +8,39 @@ import {TextBox, TextBoxType} from "@/src/components/components/inputs/text-box/
 import {RadioInput} from "@/src/components/components/inputs/radio-input/radio-input";
 import {UserRole} from "@/src/api/openapi";
 import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
-import React from "react";
+import React, {useEffect, useEffectEvent} from "react";
 import {useCurrentLocale, useTranslate} from "@/src/hooks/translateHook";
 import {useCreateFullUrl} from "@/src/hooks/routesHook";
 import {ROUTES} from "@/src/enums/router.enum";
 import {useFormActionState} from "@/src/hooks/formHook";
 import {signupFormAction} from "@/src/server-actions/forms/signUp/signupFormAction";
+import {useRouter} from "@/src/i18n/navigation";
 
 interface ISignUpFormProps {
-    redirectToSingIn: boolean;
+    afterRegistration?: (email: string) => Promise<void>;
 }
 
 export const SignUpForm = (props: ISignUpFormProps) => {
-    const {redirectToSingIn} = props;
+    const {afterRegistration} = props;
     const {t} = useTranslate("page.sign");
     const {t: commonT} = useTranslate("common");
     const locale = useCurrentLocale();
     const activeLink = useCreateFullUrl(ROUTES.ACTIVE_USER);
+    const router = useRouter();
     const [state, action, pending] = useFormActionState(signupFormAction, undefined);
+
+    const onSuccess = useEffectEvent(async () => {
+        if (afterRegistration && state?.data?.email) {
+            await afterRegistration(state?.data?.email);
+        }
+        router.push(ROUTES.SIGN_IN);
+    })
+
+    useEffect(() => {
+        if (state?.success) {
+            onSuccess();
+        }
+    }, [state]);
 
     return <LayoutFlexColumn gap={FlexGap.BIG_40}>
         <Heading text={t("registrationHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={3}/>
@@ -34,7 +49,6 @@ export const SignUpForm = (props: ISignUpFormProps) => {
                 <FormStatus state={state} locKey={"page.sign"} />
                 <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale}/>
                 <input type={"hidden"} id={FormDataEnum.activeUrl} name={FormDataEnum.activeUrl} value={activeLink}/>
-                <input type={"hidden"} id={FormDataEnum.redirectToSingIn} name={FormDataEnum.redirectToSingIn} value={redirectToSingIn.toString()}/>
                 <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
                     <TextBox
                         controlled={false}
