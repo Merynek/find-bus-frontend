@@ -6,7 +6,7 @@ import {SignupFormSchema} from "@/src/forms-action/sign-up/SignUpSchema";
 import {LOCALES} from "@/src/enums/locale";
 import {IRegistrationRequest} from "@/src/api/registrationApi";
 
-type SignUpData = Partial<IRegistrationRequest & {passwordConfirm: string, locale: LOCALES}>;
+type SignUpData = Partial<IRegistrationRequest & {passwordConfirm: string, locale: LOCALES, redirectToSingIn: boolean}>;
 
 type SignUpApiResult = void;
 
@@ -23,7 +23,8 @@ export class SignUpFormAction extends BaseFormAction<typeof SignupFormSchema, Si
             passwordConfirm: this.getStringFormValue(formData, FormDataEnum.password_confirm),
             role: this.getEnumFormValue(formData, FormDataEnum.role),
             locale: this.getEnumFormValue(formData, FormDataEnum.locale),
-            clientUrl: this.getStringFormValue(formData, FormDataEnum.activeUrl)
+            clientUrl: this.getStringFormValue(formData, FormDataEnum.activeUrl),
+            redirectToSingIn: this.getBooleanFormValue(formData, FormDataEnum.redirectToSingIn)
         };
     }
 

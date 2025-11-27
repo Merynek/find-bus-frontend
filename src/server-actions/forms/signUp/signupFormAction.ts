@@ -3,7 +3,6 @@
 import { redirect } from "@/src/i18n/navigation";
 import {ROUTES} from "@/src/enums/router.enum";
 import {TFormActionState} from "@/src/forms-action/BaseFormAction";
-import {Locale} from "next-intl";
 import {SignUpFormAction} from "@/src/forms-action/sign-up/SignUpFormAction";
 import {SignupFormSchema} from "@/src/forms-action/sign-up/SignUpSchema";
 
@@ -15,10 +14,12 @@ export async function signupFormAction(
 ): Promise<TFormActionState<typeof SignupFormSchema>> {
     const result = await signUpFormActionHandler.handle(formData);
 
-    if (result?.success && result?.data) {
+    if (result?.success && result.data && result.data.locale && result.data.redirectToSingIn) {
         redirect({
-            locale: result.data.locale as Locale,
-            href: ROUTES.SIGN_IN
+            locale: result.data.locale,
+            href: {
+                pathname: ROUTES.SIGN_IN
+            }
         });
     }
 

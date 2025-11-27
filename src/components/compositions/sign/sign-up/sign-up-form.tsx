@@ -15,7 +15,12 @@ import {ROUTES} from "@/src/enums/router.enum";
 import {useFormActionState} from "@/src/hooks/formHook";
 import {signupFormAction} from "@/src/server-actions/forms/signUp/signupFormAction";
 
-export const SignUpForm = () => {
+interface ISignUpFormProps {
+    redirectToSingIn: boolean;
+}
+
+export const SignUpForm = (props: ISignUpFormProps) => {
+    const {redirectToSingIn} = props;
     const {t} = useTranslate("page.sign");
     const {t: commonT} = useTranslate("common");
     const locale = useCurrentLocale();
@@ -28,7 +33,8 @@ export const SignUpForm = () => {
             <LayoutFlexColumn gap={FlexGap.LARGE_32}>
                 <FormStatus state={state} locKey={"page.sign"} />
                 <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale}/>
-                <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.activeUrl} value={activeLink}/>
+                <input type={"hidden"} id={FormDataEnum.activeUrl} name={FormDataEnum.activeUrl} value={activeLink}/>
+                <input type={"hidden"} id={FormDataEnum.redirectToSingIn} name={FormDataEnum.redirectToSingIn} value={redirectToSingIn.toString()}/>
                 <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
                     <TextBox
                         controlled={false}
