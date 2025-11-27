@@ -17,8 +17,7 @@ interface ImageUploaderProps {
 
 export const ImageUploader = (props: ImageUploaderProps) => {
     const { inputName, previewUrl, isExistingPhoto, onDelete, onFileSelect } = props;
-    const generatedId = useId();
-    const uniqueInputId = `${inputName}-${generatedId}`;
+    const fileInputId = useId();
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         const selectedFile = e.target.files?.[0] || null;
@@ -30,7 +29,7 @@ export const ImageUploader = (props: ImageUploaderProps) => {
     const handleDelete = () => {
         onDelete();
         if (!isExistingPhoto) {
-            const fileInput = document.getElementById(uniqueInputId) as HTMLInputElement;
+            const fileInput = document.getElementById(fileInputId) as HTMLInputElement;
             if (fileInput) {
                 fileInput.value = '';
             }
@@ -40,7 +39,7 @@ export const ImageUploader = (props: ImageUploaderProps) => {
     const hasImage = !!previewUrl;
 
     return <LayoutFlexColumn>
-        <label htmlFor={uniqueInputId} className="block text-sm font-medium text-gray-700">
+        <label htmlFor={fileInputId} className="block text-sm font-medium text-gray-700">
             <LayoutFlexColumn>
                 <Text text={"-> Vyberte fotku <-"} fontSize={FontSize.BASE_14} fontWeight={FontWeight.SEMIBOLD}/>
             </LayoutFlexColumn>
@@ -64,7 +63,7 @@ export const ImageUploader = (props: ImageUploaderProps) => {
             </LayoutFlexRow>
         )}
         <input
-            id={uniqueInputId}
+            id={fileInputId}
             name={inputName}
             type="file"
             accept="image/*"
