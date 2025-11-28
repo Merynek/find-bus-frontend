@@ -1,9 +1,10 @@
 import React, {useCallback} from "react";
 import {AutoComplete, IAutoCompleteItem} from "../autocomplete/auto-complete";
 import {Place} from "@/src/data/place";
-import styles from "./place-autocomplete.module.scss";
 import {LocationService} from "@/src/singletons/LocationService";
 import {MapPicker} from "@/src/components/compositions/map-picker/map-picker";
+import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
+import {FlexGap} from "@/src/enums/layout.enum";
 
 export interface IPlaceAutocompleteProps {
    place?: Place;
@@ -40,31 +41,30 @@ export const PlaceAutocomplete = (props: IPlaceAutocompleteProps) => {
    }, [])
 
     const renderMapPicker = () => {
-        return <div className={styles.mapPicker}>
-            <MapPicker
-                id={instanceId}
-                place={place}
-                onChange={(place) => {
-                    onChange(place);
-                }}
-            />
-        </div>
+        return <MapPicker
+            id={instanceId}
+            place={place}
+            onChange={(place) => {
+                onChange(place);
+            }}
+        />
     }
 
-   return <div className={styles.wrapper}>
-       {withMapPicker && renderMapPicker()}
-       <AutoComplete
-           id={id}
-           name={name}
-           instanceId={instanceId}
-           getFilteredItems={getFilteredItems}
-           placeholder={placeHolder}
-           loadingMessage={loadingMessage}
-           emptyMessage={emptyMessage}
-           isDisabled={disabled}
-           value={place ? getValue(place) : undefined}
-           onChange={(value) => {
-               onChange(value.value);
-           }}
-       />
-   </div>}
+    return <LayoutFlexRow gap={FlexGap.TINY_8}>
+        <AutoComplete
+            id={id}
+            name={name}
+            instanceId={instanceId}
+            getFilteredItems={getFilteredItems}
+            placeholder={placeHolder}
+            loadingMessage={loadingMessage}
+            emptyMessage={emptyMessage}
+            isDisabled={disabled}
+            value={place ? getValue(place) : undefined}
+            onChange={(value) => {
+                onChange(value.value);
+            }}
+        />
+        {withMapPicker && renderMapPicker()}
+    </LayoutFlexRow>
+}
