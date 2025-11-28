@@ -14,15 +14,14 @@ import {Icon} from "@/src/components/components/icon/icon";
 import {User} from "@/src/data/users/user";
 import {FlexGap} from "@/src/enums/layout.enum";
 import {LocaleSwitcherSelect} from "@/src/components/components/locale-switcher-select/locale-switcher-select";
-import { signOut } from "next-auth/react"
-import {useCreateFullUrl} from "@/src/hooks/routesHook";
+import {useSession} from "next-auth/react"
 
 export const HeaderUserSection = () => {
     const router = useRouter();
     const {user} = useLoggedUser();
     const {t} = useTranslate("component.pageNames");
     const {t: tHeader} = useTranslate("component.header");
-    const signInLink = useCreateFullUrl(ROUTES.SIGN_IN);
+    const { update } = useSession();
 
     const createContextItems = (): IContextItem[] => {
         const items: IContextItem[] = [
@@ -74,9 +73,8 @@ export const HeaderUserSection = () => {
             label={tHeader("logoutButton")}
             onClick={async () => {
                 await AuthorizationService.logout();
-                signOut({
-                    redirectTo: signInLink
-                });
+                await update();
+                router.push(ROUTES.SIGN_IN);
             }}
             type={ButtonType.BASE}
         />

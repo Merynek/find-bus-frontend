@@ -7,20 +7,47 @@ import {FormStatus} from "@/src/components/components/form-status/form-status";
 import {TextBox, TextBoxType} from "@/src/components/components/inputs/text-box/text-box";
 import {ButtonClick, ButtonLink, ButtonSize, ButtonType} from "@/src/components/components/button/button";
 import {ROUTES} from "@/src/enums/router.enum";
-import React from "react";
-import {useCurrentLocale, useTranslate} from "@/src/hooks/translateHook";
+import React, {useEffect, useEffectEvent} from "react";
+import {useTranslate} from "@/src/hooks/translateHook";
 import {useFormActionState} from "@/src/hooks/formHook";
-import {userSettingsFormAction} from "@/src/server-actions/forms/signIn/signInFormAction";
+import {signInFormAction} from "@/src/server-actions/forms/signIn/signInFormAction";
+import {useRouter} from "@/src/i18n/navigation";
+import { useSession } from "next-auth/react"
 
-export const SignInForm = () => {
+interface ISignInFormProps {
+    showRegistrationSection: boolean;
+    afterLoginAction?: () => Promise<void>;
+}
+
+export const SignInForm = (props: ISignInFormProps) => {
+    const {showRegistrationSection, afterLoginAction} = props;
     const {t} = useTranslate("page.sign");
-    const [state, action, pending] = useFormActionState(userSettingsFormAction, undefined);
-    const locale = useCurrentLocale();
+    const [state, action, pending] = useFormActionState(signInFormAction, undefined);
+    const router = useRouter();
+    const { update } = useSession();
+
+    const onSuccess = useEffectEvent(async () => {
+        await update();
+        if (afterLoginAction) {
+            try {
+                await afterLoginAction();
+            } catch (e) {
+                console.error(e);
+            }
+        } else {
+            router.push(ROUTES.HOME);
+        }
+    })
+
+    useEffect(() => {
+        if (state?.success) {
+            onSuccess();
+        }
+    }, [state]);
 
     return <LayoutFlexColumn gap={FlexGap.BIG_40}>
         <Heading text={t("loginHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={3} />
         <form action={action}>
-            <input type={"hidden"} id={FormDataEnum.locale} name={FormDataEnum.locale} value={locale}/>
             <LayoutFlexColumn gap={FlexGap.LARGE_32}>
                 <FormStatus state={state} locKey={"page.sign"} />
                 <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
@@ -52,7 +79,7 @@ export const SignInForm = () => {
                 </LayoutFlexColumn>
             </LayoutFlexColumn>
         </form>
-        <LayoutFlexColumn gap={FlexGap.TINY_8}>
+        {showRegistrationSection && <LayoutFlexColumn gap={FlexGap.TINY_8}>
             <ButtonLink
                 route={{route: ROUTES.FORGOT_PASSWORD}}
                 label={t("forgetPassword")}
@@ -65,6 +92,6 @@ export const SignInForm = () => {
                 type={ButtonType.BLACK}
                 size={ButtonSize.BUTTON_SIZE_M}
             />
-        </LayoutFlexColumn>
+        </LayoutFlexColumn>}
     </LayoutFlexColumn>
 }

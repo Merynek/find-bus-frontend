@@ -53,10 +53,13 @@ const CreateTripPage = observer((props: ICreateTripPageProps) => {
     })
 
     const renderSignModal = () => {
-        return signDialogOpen && <SignModal
+        return <SignModal
             open={signDialogOpen}
             afterRegistration={async (email) => {
                 await _store.saveUnauthorizedTrip(email);
+            }}
+            afterLogin={async () => {
+                await _store.saveTrip();
             }}
             onClose={() => {
                 setSignDialogOpen(false);

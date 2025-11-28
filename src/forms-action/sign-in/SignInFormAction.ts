@@ -22,8 +22,7 @@ export class SignInFormAction extends BaseFormAction<typeof SignInFormSchema, Si
     protected createDataFromFormData(formData: FormData): SignInData {
         return {
             email: this.getStringFormValue(formData, FormDataEnum.email),
-            password: this.getStringFormValue(formData, FormDataEnum.password),
-            locale: this.getEnumFormValue(formData, FormDataEnum.locale)
+            password: this.getStringFormValue(formData, FormDataEnum.password)
         };
     }
 

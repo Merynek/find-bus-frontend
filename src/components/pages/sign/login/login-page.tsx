@@ -1,6 +1,6 @@
 'use client'
 
-import React, {useCallback, useEffect} from "react";
+import React, {useEffect, useEffectEvent} from "react";
 import {ROUTES, SEARCH_PARAMS} from "@/src/enums/router.enum";
 import {logoutAction} from "@/src/server-actions/auth/authActions";
 import {useSearchParams} from "next/navigation";
@@ -12,20 +12,20 @@ const LoginPage = () => {
     const searchParams = useSearchParams();
     const router = useRouter();
 
-    const handleUnauthorizedLogout = useCallback(async () => {
+    const handleUnauthorizedLogout = useEffectEvent(async () => {
         await logoutAction();
         router.push(ROUTES.SIGN_IN);
-    }, [router]);
+    });
 
     useEffect(() => {
         const unauthorized = searchParams.get(SEARCH_PARAMS.UNAUTHORIZED);
         if (unauthorized) {
             handleUnauthorizedLogout();
         }
-    }, [searchParams, handleUnauthorizedLogout]);
+    }, [searchParams]);
 
     return <SignLayout>
-        <SignInForm />
+        <SignInForm showRegistrationSection={true} />
     </SignLayout>
 };
 
