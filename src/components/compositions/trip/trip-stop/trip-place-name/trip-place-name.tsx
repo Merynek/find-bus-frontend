@@ -29,6 +29,7 @@ export const TripPlaceName = observer((props: ITripPlaceNameProps) => {
                     }
                 })
             }}
+            withMapPicker={true}
         />
     </div>
 });

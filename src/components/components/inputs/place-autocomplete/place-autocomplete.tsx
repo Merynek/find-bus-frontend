@@ -1,13 +1,16 @@
 import React, {useCallback} from "react";
 import {AutoComplete, IAutoCompleteItem} from "../autocomplete/auto-complete";
 import {Place} from "@/src/data/place";
+import styles from "./place-autocomplete.module.scss";
 import {LocationService} from "@/src/singletons/LocationService";
+import {MapPicker} from "@/src/components/compositions/map-picker/map-picker";
 
 export interface IPlaceAutocompleteProps {
    place?: Place;
    placeHolder?: string;
    emptyMessage?: string;
    loadingMessage?: string;
+   withMapPicker?: boolean;
    disabled?: boolean;
    id?: string;
    name?: string;
@@ -16,7 +19,7 @@ export interface IPlaceAutocompleteProps {
 }
 
 export const PlaceAutocomplete = (props: IPlaceAutocompleteProps) => {
-   const {onChange, place, placeHolder, disabled, emptyMessage, loadingMessage, id, name, instanceId} = props;
+   const {onChange, place, placeHolder, disabled, emptyMessage, loadingMessage, withMapPicker, id, name, instanceId} = props;
 
    const getValue = (p: Place): IAutoCompleteItem<Place> => {
       return {
@@ -36,18 +39,32 @@ export const PlaceAutocomplete = (props: IPlaceAutocompleteProps) => {
       })
    }, [])
 
-   return <AutoComplete
-       id={id}
-       name={name}
-       instanceId={instanceId}
-       getFilteredItems={getFilteredItems}
-       placeholder={placeHolder}
-       loadingMessage={loadingMessage}
-       emptyMessage={emptyMessage}
-       isDisabled={disabled}
-       value={place ? getValue(place) : undefined}
-       onChange={(value) => {
-          onChange(value.value);
-       }}
-   />
-}
+    const renderMapPicker = () => {
+        return <div className={styles.mapPicker}>
+            <MapPicker
+                id={instanceId}
+                place={place}
+                onChange={(place) => {
+                    onChange(place);
+                }}
+            />
+        </div>
+    }
+
+   return <div className={styles.wrapper}>
+       {withMapPicker && renderMapPicker()}
+       <AutoComplete
+           id={id}
+           name={name}
+           instanceId={instanceId}
+           getFilteredItems={getFilteredItems}
+           placeholder={placeHolder}
+           loadingMessage={loadingMessage}
+           emptyMessage={emptyMessage}
+           isDisabled={disabled}
+           value={place ? getValue(place) : undefined}
+           onChange={(value) => {
+               onChange(value.value);
+           }}
+       />
+   </div>}

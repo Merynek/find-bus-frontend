@@ -9,7 +9,8 @@ const meta: Meta<typeof PlaceAutocomplete> = {
         disabled: false,
         emptyMessage: "Empty message",
         loadingMessage: "Loading Message",
-        placeHolder: "PlaceHolder"
+        placeHolder: "PlaceHolder",
+        withMapPicker: true
     },
     argTypes: {
     },

@@ -11,7 +11,7 @@ import {IMapMarker} from "./map-box-types";
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || "";
 
-type TInitView = {
+export type TInitView = {
     countries?: Country[]; // priority 1
     points?: GeoPoint[]; // priority 2
     zoom?: number

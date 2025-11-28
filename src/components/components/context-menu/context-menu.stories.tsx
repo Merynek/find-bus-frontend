@@ -13,6 +13,7 @@ export default meta;
 export const Default: StoryObj<typeof ContextMenu> = {
     render: (args) => <ContextMenu
         {...args}
+        id={"example"}
         items={[
             {
                 label: "Delete",

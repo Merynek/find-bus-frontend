@@ -4,6 +4,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import MenuIcon from '@mui/icons-material/Menu';
+import MapIcon from '@mui/icons-material/Map';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowUpIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownIcon from '@mui/icons-material/ArrowDownward';
@@ -11,7 +12,6 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import PersonIcon from '@mui/icons-material/Person';
-import LanguageIcon from '@mui/icons-material/Language';
 import {SvgIconProps} from "@mui/material";
 
 interface IIconFromEnumProps {
@@ -45,7 +45,7 @@ export const IconFromEnum = (props: IIconFromEnumProps) => {
             return <AddIcon {...options} />;
         case IconType.PERSON:
             return <PersonIcon {...options} />;
-        case IconType.LANGUAGE:
-            return <LanguageIcon {...options} />;
+        case IconType.MAP:
+            return <MapIcon {...options} />;
     }
 }

@@ -10,5 +10,6 @@ export enum IconType {
     LOCATION_ON = "LOCATION_ON",
     ADD = "ADD",
     PERSON = "PERSON",
-    LANGUAGE = "LANGUAGE"
+    LANGUAGE = "LANGUAGE",
+    MAP = "MAP"
 }

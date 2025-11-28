@@ -26,6 +26,31 @@ export class MapboxUtils {
         throw new Error('Environment variable NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN is not defined.');
     }
 
+    public async searchByCoordinate(point: GeoPoint): Promise<Place|null> {
+        const result = await this._geocodeService.reverseGeocode({
+            longitude: point.lng,
+            latitude: point.lat
+        }).send();
+
+        const results = result.body.features.map(feature => {
+            const context = feature.properties.context;
+            return new Place({
+                placeId: feature.id,
+                point: new GeoPoint({
+                    lng: feature.geometry.coordinates[0],
+                    lat: feature.geometry.coordinates[1]
+                }),
+                country: context.country?.country_code?.toUpperCase() as Country,
+                name: feature.properties.name,
+                placeFormatted: feature.properties.place_formatted
+            })
+        })
+        if (results.length) {
+            return results[0];
+        }
+        return null;
+    }
+
     public async searchPlaces(searchText: string): Promise<Place[]> {
         try {
             const result = await this._geocodeService.forwardGeocode({

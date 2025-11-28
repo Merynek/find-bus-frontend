@@ -97,6 +97,7 @@ export const HeaderUserSection = () => {
         {user !== null && _renderUserName(user)}
         {user !== null && _renderLogoutButton()}
         {user !== null && <ContextMenu
+            id={"header-user-section-menu"}
             opener={<Icon icon={IconType.MENU}/>}
             items={createContextItems()}
         />}

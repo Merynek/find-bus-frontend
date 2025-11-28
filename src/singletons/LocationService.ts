@@ -3,6 +3,7 @@ import {debouncedFn} from "../utils/common";
 import {Place} from "../data/place";
 import {MapboxUtils} from "./MapboxUtils";
 import {IDirectionData} from "../data/trip/direction";
+import {GeoPoint} from "@/src/data/geoPoint";
 
 export class LocationService {
     private static _instance: LocationService | null = null;
@@ -27,6 +28,10 @@ export class LocationService {
 
     public async searchPlace(searchText: string): Promise<Place[]> {
         return await this._mapboxUtils.searchPlaces(searchText);
+    }
+
+    public async searchByCoordinate(point: GeoPoint): Promise<Place|null> {
+        return await this._mapboxUtils.searchByCoordinate(point);
     }
 
     public async getDirectionData(from: Place, to: Place, priority: Priority): Promise<IDirectionData> {

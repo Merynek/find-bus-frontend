@@ -48,6 +48,7 @@ export const LocaleSwitcherSelect = () => {
     }
 
     return <ContextMenu
+        id={"locale-switcher-select"}
         opener={<LayoutFlexRow gap={FlexGap.SMALLEST_4}>
             <Icon icon={IconType.LANGUAGE}/>
             <Text text={_getLocaleText(locale)} fontSize={FontSize.BASE_14} fontWeight={FontWeight.SEMIBOLD}/>
