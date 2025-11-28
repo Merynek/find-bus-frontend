@@ -1,45 +1,33 @@
 "use client";
 
-import {useCurrentLocale, useTranslate} from "@/src/hooks/translateHook";
+import {useTranslate} from "@/src/hooks/translateHook";
 import React, {useState} from "react";
-import {observer} from "mobx-react";
 import {CreateTripPageStore} from "./create-trip.page.store";
 import {ButtonClick, ButtonSize, ButtonType} from "../../components/button/button";
-import {CheckBox} from "../../components/inputs/check-box/check-box";
-import {DatePicker} from "../../components/inputs/date-picker/date-picker";
-import {DirectionsMap} from "../../components/directions-map/directions-map";
-import {GeoPoint} from "@/src/data/geoPoint";
-import {NumberBox} from "../../components/inputs/number-box/number-box";
 import {ROUTES, URL_PARAMS} from "@/src/enums/router.enum";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {FlexGap} from "@/src/enums/layout.enum";
 import {useInit, useMount, useUnmount} from "@/src/hooks/lifecycleHooks";
 import {useApp} from "@/src/context/AppContext";
 import { useRouter } from "@/src/i18n/navigation";
-import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
-import {SelectTripAmenities} from "@/src/components/compositions/trip/trip-amenities/select-trip-amenities";
-import {
-    CreateTripRecommendations
-} from "@/src/components/pages/create-trip/components/create-trip-routes";
-import {CreateTripRoutes} from "@/src/components/pages/create-trip/components/create-trip-recommendation";
 import {AppBusinessConfigResponseDto, TripResponseDto} from "@/src/api/openapi";
 import {AppBusinessConfigConverter} from "@/src/converters/admin/app-business-config-converter";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
 import {Trip} from "@/src/data/trip/trip";
 import {SignModal} from "@/src/components/compositions/sign/sign-modal/sign-modal";
 import {useLoggedUser} from "@/src/hooks/authenticationHook";
+import {CreateTripForm} from "@/src/components/pages/create-trip/components/create-trip-form";
 
 interface ICreateTripPageProps {
     cfg: AppBusinessConfigResponseDto;
     trip?: TripResponseDto;
 }
 
-const CreateTripPage = observer((props: ICreateTripPageProps) => {
+const CreateTripPage = (props: ICreateTripPageProps) => {
     const config = AppBusinessConfigConverter.toInstance(props.cfg);
     const router = useRouter();
     const {showLoader, hideLoader} = useApp();
     const _store = useInit(() => new CreateTripPageStore(config, props.trip ? TripConverter.toInstance(props.trip) : Trip.create({})));
-    const locale = useCurrentLocale();
     const {t} = useTranslate("page.trip");
     const {user} = useLoggedUser();
     const [signDialogOpen, setSignDialogOpen] = useState(false);
@@ -145,67 +133,13 @@ const CreateTripPage = observer((props: ICreateTripPageProps) => {
 
     return <LayoutFlexColumn gap={FlexGap.MEDIUM_24} style={{padding: "20px"}}>
         {renderSignModal()}
-        <NumberBox
-            placeholder={t("handicappedUserCount")}
-            controlled={true}
-            value={_store.trip.handicappedUserCount}
-            onChange={(val) => {
-                _store.trip.handicappedUserCount = val;
-            }}
-            minValue={0}
-        />
-        <DatePicker
-            controlled={true}
-            value={_store.trip.endOrder}
-            onChange={(val) => {
-                if (val) {
-                    _store.trip.endOrder = val;
-                }
-            }}
-            placeholderText={t("endDemand")}
-            showTimeSelect={true}
-            locale={locale}
-        />
-        <LayoutFlexColumn gap={FlexGap.SMALL_16}>
-            {!_store.endOrderIsValid && <p style={{color: "red"}}>Min EndOrder From Now is {config.minEndOrderFromNowInHours} in Hours</p>}
-            {!_store.endOrderWithStartTripIsValid && <p style={{color: "red"}}>Min diff between EndOrder and StartTrip is {config.minDiffBetweenStartTripAndEndOrderInHours} in Hours</p>}
-        </LayoutFlexColumn>
-        <NumberBox
-            placeholder={t("numberOfPassengers")}
-            controlled={true}
-            value={_store.trip.numberOfPersons}
-            onChange={(val) => {
-                _store.trip.numberOfPersons = val;
-            }}
-            minValue={0}
-        />
-        <CheckBox
-            controlled={true}
-            label={t("dietForTransporter")}
-            checked={_store.trip.dietForTransporter}
-            onChange={(val) => _store.trip.dietForTransporter = val}
-        />
-        <SelectTripAmenities trip={_store.trip}/>
-        <LayoutFlexRow>
-            <CreateTripRoutes trip={_store.trip}/>
-            {_store.displayRecommendation && <CreateTripRecommendations store={_store}/>}
-        </LayoutFlexRow>
+        <CreateTripForm store={_store} config={config} />
         <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
             {user == null && renderRegisterAndSaveButton()}
             {user && renderSaveButton()}
             {user && renderPublishButton()}
         </LayoutFlexColumn>
-        <div style={{position: "relative", width: "100%", height: "300px"}}>
-            <DirectionsMap
-                polyLines={_store.trip.directions.map(d => d.polyline).map(p => p)}
-                markers={_store.trip.markers}
-                center={_store.trip.stops.map(s => s.place.point).filter<GeoPoint>((p) : p is GeoPoint => p !== undefined)}
-                initialView={{
-                    zoom: 11
-                }}
-            />
-        </div>
     </LayoutFlexColumn>
-});
+};
 
 export default CreateTripPage;

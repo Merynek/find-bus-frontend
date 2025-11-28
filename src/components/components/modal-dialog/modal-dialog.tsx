@@ -2,7 +2,6 @@ import {Modal, ModalSize} from "../modal/modal";
 import React from "react";
 import styles from "./modal-dialog.module.scss";
 import {cn} from "@/src/utils/common";
-import {observer} from "mobx-react";
 import {Text} from "../texts/text";
 import {ButtonClick, ButtonSize, ButtonType} from "../button/button";
 import {Icon} from "../icon/icon";
