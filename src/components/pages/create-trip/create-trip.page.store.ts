@@ -129,9 +129,9 @@ export class CreateTripPageStore {
         }
     }
 
-    public async saveTrip(): Promise<number> {
+    public async saveTrip() {
         try {
-            return await TripService.saveTrip({
+            this.trip.id = await TripService.saveTrip({
                 trip: {
                     ...TripConverter.toServer(this.trip),
                     tripId: this.trip.id || undefined
@@ -142,9 +142,9 @@ export class CreateTripPageStore {
         }
     }
 
-    public async saveUnauthorizedTrip(email: string): Promise<number> {
+    public async saveUnauthorizedTrip(email: string) {
         try {
-            return await TripService.saveUnauthorizedTrip({
+            this.trip.id = await TripService.saveUnauthorizedTrip({
                 trip: {
                     ...TripConverter.toServer(this.trip),
                     email: email

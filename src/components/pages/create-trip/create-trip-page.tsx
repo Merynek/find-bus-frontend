@@ -112,11 +112,11 @@ const CreateTripPage = observer((props: ICreateTripPageProps) => {
             onClick={async () => {
                 try {
                     showLoader();
-                    const tripId = await _store.saveTrip();
+                    await _store.saveTrip();
                     router.replace({
                         pathname: ROUTES.DRAFT_TRIP,
                         params: {
-                            [URL_PARAMS.TRIP_ID]: tripId.toString()
+                            [URL_PARAMS.TRIP_ID]: _store.trip.id.toString()
                         }
                     });
                     hideLoader();
