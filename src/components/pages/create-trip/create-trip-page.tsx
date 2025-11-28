@@ -40,14 +40,28 @@ const CreateTripPage = (props: ICreateTripPageProps) => {
         _store.destroy();
     })
 
+    const saveTrip = async () => {
+        showLoader();
+        await _store.saveTrip();
+        router.replace({
+            pathname: ROUTES.DRAFT_TRIP,
+            params: {
+                [URL_PARAMS.TRIP_ID]: _store.trip.id.toString()
+            }
+        });
+        hideLoader();
+    }
+
     const renderSignModal = () => {
         return <SignModal
             open={signDialogOpen}
             afterRegistration={async (email) => {
                 await _store.saveUnauthorizedTrip(email);
+                setSignDialogOpen(false);
             }}
             afterLogin={async () => {
-                await _store.saveTrip();
+                await saveTrip();
+                setSignDialogOpen(false);
             }}
             onClose={() => {
                 setSignDialogOpen(false);
@@ -103,13 +117,7 @@ const CreateTripPage = (props: ICreateTripPageProps) => {
             onClick={async () => {
                 try {
                     showLoader();
-                    await _store.saveTrip();
-                    router.replace({
-                        pathname: ROUTES.DRAFT_TRIP,
-                        params: {
-                            [URL_PARAMS.TRIP_ID]: _store.trip.id.toString()
-                        }
-                    });
+                    await saveTrip();
                     hideLoader();
                 }
                 catch (e) {

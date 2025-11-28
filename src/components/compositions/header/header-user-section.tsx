@@ -1,7 +1,6 @@
 import React from "react";
 import {ButtonClick, ButtonLink, ButtonSize, ButtonType} from "../../components/button/button";
 import {ROUTES} from "@/src/enums/router.enum";
-import {AuthorizationService} from "@/src/services/AuthorizationService";
 import {useRouter} from "@/src/i18n/navigation";
 import {useLoggedUser} from "@/src/hooks/authenticationHook";
 import {useTranslate} from "@/src/hooks/translateHook";
@@ -14,14 +13,15 @@ import {Icon} from "@/src/components/components/icon/icon";
 import {User} from "@/src/data/users/user";
 import {FlexGap} from "@/src/enums/layout.enum";
 import {LocaleSwitcherSelect} from "@/src/components/components/locale-switcher-select/locale-switcher-select";
-import {useSession} from "next-auth/react"
+import { signOut } from "next-auth/react"
+import {useCreateFullUrl} from "@/src/hooks/routesHook";
 
 export const HeaderUserSection = () => {
     const router = useRouter();
     const {user} = useLoggedUser();
     const {t} = useTranslate("component.pageNames");
     const {t: tHeader} = useTranslate("component.header");
-    const { update } = useSession();
+    const signInLink = useCreateFullUrl(ROUTES.SIGN_IN);
 
     const createContextItems = (): IContextItem[] => {
         const items: IContextItem[] = [
@@ -72,9 +72,9 @@ export const HeaderUserSection = () => {
             size={ButtonSize.BY_CONTENT}
             label={tHeader("logoutButton")}
             onClick={async () => {
-                await AuthorizationService.logout();
-                await update();
-                router.push(ROUTES.SIGN_IN);
+                await signOut({
+                    redirectTo: signInLink
+                });
             }}
             type={ButtonType.BASE}
         />
