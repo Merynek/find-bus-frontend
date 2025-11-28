@@ -47,5 +47,10 @@ export enum SEARCH_PARAMS {
     MAX_DISTANCE_IN_METERS = "maxDistanceInMeters",
     ME_OFFERED = "meOffered",
     ID = "id",
-    UNAUTHORIZED = "unauthorized"
+    UNAUTHORIZED = "unauthorized",
+    ACTION = "action"
+}
+
+export enum SEARCH_PARAMS_VALUE {
+    LOGIN_REQUIRED = "login_required"
 }

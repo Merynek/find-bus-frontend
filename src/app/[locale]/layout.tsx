@@ -12,6 +12,7 @@ import {AuthorizationService} from "@/src/services/AuthorizationService";
 import {PageLayout} from "@/src/components/components/layout/page-layout/page-layout";
 import React from "react";
 import {TagManager} from "@/src/components/head-components/TagManager";
+import {SignInModalWatcher} from "@/src/components/compositions/sign/sign-in-modal-watcher/sign-in-modal-watcher";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,12 +44,14 @@ export default async function RootLayout(props: IRootLayoutProps) {
             <NextAuthProvider userId={user?.id || 0}>
                 <AppProvider>
                     <AppLoader/>
-                    <PageLayout>
-                        <div className={"mb-20"}>
-                            <Header/>
-                        </div>
-                        {children}
-                    </PageLayout>
+                    <SignInModalWatcher>
+                        <PageLayout>
+                            <div className={"mb-20"}>
+                                <Header/>
+                            </div>
+                            {children}
+                        </PageLayout>
+                    </SignInModalWatcher>
                 </AppProvider>
             </NextAuthProvider>
         </NextIntlClientProvider>
