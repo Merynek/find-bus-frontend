@@ -1,5 +1,4 @@
 import {RouteResponseDto, RouteRequestDto} from "../../api/openapi";
-import { Direction } from "../../data/trip/direction";
 import {Route} from "../../data/trip/route";
 import {DirectionConverter} from "./direction-converter";
 import {StopConverter} from "./stop-converter";
@@ -12,7 +11,7 @@ export class RouteConverter {
             trip: null,
             end: apiRoute.end,
             start: apiRoute.start,
-            direction: new Direction({})
+            direction: DirectionConverter.toInstance(apiRoute.direction)
         })
     }
 
