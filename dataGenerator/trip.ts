@@ -67,7 +67,8 @@ export function getRandomOffer(): Offer {
         endOfferDate: getRandomDate(),
         accepted: getRandomBoolean(),
         acceptOfferDate: getRandomBoolean() ? getRandomDate() : null,
-        documents: documents
+        documents: documents,
+        clientRowVersion: getRandomText(2)
     })
 }
 

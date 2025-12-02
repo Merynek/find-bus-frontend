@@ -13,6 +13,14 @@
  */
 
 import { mapValues } from '../runtime';
+import type { PriceDto } from './PriceDto';
+import {
+    PriceDtoFromJSON,
+    PriceDtoFromJSONTyped,
+    PriceDtoToJSON,
+    PriceDtoToJSONTyped,
+} from './PriceDto';
+
 /**
  * 
  * @export
@@ -31,6 +39,12 @@ export interface UpdateOfferRequestDto {
      * @memberof UpdateOfferRequestDto
      */
     endOfferDate: Date;
+    /**
+     * 
+     * @type {PriceDto}
+     * @memberof UpdateOfferRequestDto
+     */
+    price: PriceDto;
 }
 
 /**
@@ -39,6 +53,7 @@ export interface UpdateOfferRequestDto {
 export function instanceOfUpdateOfferRequestDto(value: object): value is UpdateOfferRequestDto {
     if (!('offerId' in value) || value['offerId'] === undefined) return false;
     if (!('endOfferDate' in value) || value['endOfferDate'] === undefined) return false;
+    if (!('price' in value) || value['price'] === undefined) return false;
     return true;
 }
 
@@ -54,6 +69,7 @@ export function UpdateOfferRequestDtoFromJSONTyped(json: any, ignoreDiscriminato
         
         'offerId': json['offerId'],
         'endOfferDate': (new Date(json['endOfferDate'])),
+        'price': PriceDtoFromJSON(json['price']),
     };
 }
 
@@ -70,6 +86,7 @@ export function UpdateOfferRequestDtoToJSONTyped(value?: UpdateOfferRequestDto |
         
         'offerId': value['offerId'],
         'endOfferDate': value['endOfferDate'].toISOString(),
+        'price': PriceDtoToJSON(value['price']),
     };
 }
 

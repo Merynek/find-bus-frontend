@@ -8,6 +8,7 @@ Name | Type
 ------------ | -------------
 `offerId` | number
 `acceptMethod` | [TripOfferAcceptMethod](TripOfferAcceptMethod.md)
+`clientRowVersion` | string
 
 ## Example
 
@@ -18,6 +19,7 @@ import type { AcceptOfferRequestDto } from ''
 const example = {
   "offerId": null,
   "acceptMethod": null,
+  "clientRowVersion": null,
 } satisfies AcceptOfferRequestDto
 
 console.log(example)

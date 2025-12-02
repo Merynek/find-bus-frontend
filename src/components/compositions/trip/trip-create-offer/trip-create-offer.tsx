@@ -8,7 +8,7 @@ import {DatePicker} from "../../../components/inputs/date-picker/date-picker";
 import {Price} from "@/src/data/price";
 import {NumberBox} from "../../../components/inputs/number-box/number-box";
 import {UserSettings} from "@/src/data/users/userSettings";
-import {UserRole} from "@/src/api/openapi";
+import {Currency, UserRole} from "@/src/api/openapi";
 import {useMount} from "@/src/hooks/lifecycleHooks";
 import {Offer} from "@/src/data/offer";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
@@ -109,14 +109,34 @@ export const TripCreateOffer = observer((props: ITripCreateOfferProps) => {
         return offers.length &&
             <LayoutFlexColumn gap={FlexGap.TINY_8}>
                 {_renderDateTimePicker()}
-                <span>Kolik: {offers[0].price.amount} ,-</span>
+                <NumberBox
+                    placeholder={"Kolik"}
+                    controlled={true}
+                    value={priceAmount === undefined ? undefined : price.current.amount}
+                    minValue={1}
+                    onChange={(val) => {
+                        if (val !== undefined) {
+                            price.current.amount = val
+                        } else {
+                            price.current.amount = 1;
+                        }
+                        setPriceAmount(val)
+                    }}
+                />
                 <ButtonClick
                     controlled={true}
                     onClick={async () => {
                         const isValid = validate();
                         if (selectedEndOfferDate && isValid) {
                             showLoader();
-                            await TripOfferService.updateOffer(offers[0].id, selectedEndOfferDate);
+                            await TripOfferService.updateOffer({
+                                offerId: offers[0].id,
+                                endOfferDate: selectedEndOfferDate,
+                                price: {
+                                    amount: priceAmount || 0,
+                                    currency: Currency.CZK
+                                }
+                            });
                             hideLoader();
                             onMakeOffer();
                         } else {

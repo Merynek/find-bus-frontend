@@ -8,6 +8,7 @@ Name | Type
 ------------ | -------------
 `id` | number
 `user` | [UserDetailResponseDto](UserDetailResponseDto.md)
+`clientRowVersion` | string
 `vehicle` | [VehicleResponseDto](VehicleResponseDto.md)
 `price` | [PriceDto](PriceDto.md)
 `accepted` | boolean
@@ -24,6 +25,7 @@ import type { TripOfferResponseDto } from ''
 const example = {
   "id": null,
   "user": null,
+  "clientRowVersion": null,
   "vehicle": null,
   "price": null,
   "accepted": null,

@@ -8,6 +8,7 @@ Name | Type
 ------------ | -------------
 `offerId` | number
 `endOfferDate` | Date
+`price` | [PriceDto](PriceDto.md)
 
 ## Example
 
@@ -18,6 +19,7 @@ import type { UpdateOfferRequestDto } from ''
 const example = {
   "offerId": null,
   "endOfferDate": null,
+  "price": null,
 } satisfies UpdateOfferRequestDto
 
 console.log(example)

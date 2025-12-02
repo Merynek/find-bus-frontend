@@ -2115,6 +2115,7 @@
       "AcceptOfferRequestDto": {
         "required": [
           "acceptMethod",
+          "clientRowVersion",
           "offerId"
         ],
         "type": "object",
@@ -2125,6 +2126,10 @@
           },
           "acceptMethod": {
             "$ref": "#/components/schemas/TripOfferAcceptMethod"
+          },
+          "clientRowVersion": {
+            "minLength": 1,
+            "type": "string"
           }
         },
         "additionalProperties": false
@@ -4048,6 +4053,7 @@
       "TripOfferResponseDto": {
         "required": [
           "accepted",
+          "clientRowVersion",
           "endOfferDate",
           "id",
           "price",
@@ -4062,6 +4068,10 @@
           },
           "user": {
             "$ref": "#/components/schemas/UserDetailResponseDto"
+          },
+          "clientRowVersion": {
+            "minLength": 1,
+            "type": "string"
           },
           "vehicle": {
             "$ref": "#/components/schemas/VehicleResponseDto"
@@ -4389,7 +4399,8 @@
       "UpdateOfferRequestDto": {
         "required": [
           "endOfferDate",
-          "offerId"
+          "offerId",
+          "price"
         ],
         "type": "object",
         "properties": {
@@ -4400,6 +4411,9 @@
           "endOfferDate": {
             "type": "string",
             "format": "date-time"
+          },
+          "price": {
+            "$ref": "#/components/schemas/PriceDto"
           }
         },
         "additionalProperties": false

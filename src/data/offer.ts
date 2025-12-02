@@ -11,6 +11,7 @@ export interface IOfferSettings {
     endOfferDate: Date;
     accepted: boolean;
     acceptOfferDate: Date|null;
+    clientRowVersion: string;
     documents: FinancialDocument[];
 }
 
@@ -22,6 +23,7 @@ export class Offer {
     public accepted: boolean;
     public acceptOfferDate: Date|null;
     public endOfferDate: Date;
+    public clientRowVersion: string;
     public documents: FinancialDocument[];
 
     constructor(settings: IOfferSettings) {
@@ -30,6 +32,7 @@ export class Offer {
         this.vehicle = settings.vehicle;
         this.price = settings.price;
         this.accepted = settings.accepted;
+        this.clientRowVersion = settings.clientRowVersion;
         this.endOfferDate = settings.endOfferDate;
         this.acceptOfferDate = settings.acceptOfferDate;
         this.documents = settings.documents;

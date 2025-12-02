@@ -16,7 +16,8 @@ export class TripOfferConverter {
             accepted: response.accepted,
             endOfferDate: response.endOfferDate,
             acceptOfferDate: response.acceptOfferDate || null,
-            documents: response.documents ? response.documents.map(FinancialDocumentConverter.toInstance) : []
+            documents: response.documents ? response.documents.map(FinancialDocumentConverter.toInstance) : [],
+            clientRowVersion: response.clientRowVersion
         })
     }
 
@@ -42,7 +43,8 @@ export class TripOfferConverter {
             accepted: offer.accepted,
             endOfferDate: offer.endOfferDate,
             acceptOfferDate: offer.acceptOfferDate,
-            documents: offer.documents.map(d => FinancialDocumentConverter.toJson(d))
+            documents: offer.documents.map(d => FinancialDocumentConverter.toJson(d)),
+            clientRowVersion: offer.clientRowVersion
         }
     }
 }

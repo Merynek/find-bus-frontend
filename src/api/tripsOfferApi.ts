@@ -39,6 +39,7 @@ export interface ICreateOfferRequest extends IApiRequest {
 export interface IUpdateOfferRequest extends IApiRequest {
     offerId: number;
     endOfferDate: Date;
+    price: PriceDto;
 }
 
 export interface IGetTripOffersRequest extends IApiRequest {
@@ -53,6 +54,7 @@ export interface IDownloadDocumentRequest extends IApiRequest {
 export interface IAcceptOfferRequest extends IApiRequest {
     offerId: number;
     acceptMethod: TripOfferAcceptMethod;
+    clientRowVersion: string;
 }
 
 export interface IDeleteOfferRequest extends IApiRequest {
@@ -80,7 +82,8 @@ export class TripsOfferApi {
         await handleApiCall(this._api.apiTripOfferAcceptOfferPost({
             acceptOfferRequestDto: {
                 offerId: req.offerId,
-                acceptMethod: req.acceptMethod
+                acceptMethod: req.acceptMethod,
+                clientRowVersion: req.clientRowVersion
             }
         }, req.initOverrides));
     }
@@ -89,7 +92,8 @@ export class TripsOfferApi {
         await handleApiCall(this._api.apiTripOfferOfferPut({
             updateOfferRequestDto: {
                 offerId: req.offerId,
-                endOfferDate: req.endOfferDate
+                endOfferDate: req.endOfferDate,
+                price: req.price
             }
         }, req.initOverrides));
     }

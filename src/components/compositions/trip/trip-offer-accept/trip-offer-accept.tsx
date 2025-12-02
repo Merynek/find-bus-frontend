@@ -62,7 +62,11 @@ export const TripOfferAccept = observer((props: ITripOfferAcceptProps) => {
             controlled={true}
             onClick={async () => {
                 showLoader();
-                await TripOfferService.acceptOffer(offer.id, acceptMethod);
+                await TripOfferService.acceptOffer({
+                    offerId: offer.id,
+                    acceptMethod: acceptMethod,
+                    clientRowVersion: offer.clientRowVersion
+                });
                 hideLoader();
                 onAcceptOffer();
             }}

@@ -12,7 +12,12 @@ import {TripOfferConverter} from "@/src/converters/trip-offer-converter";
 import {TripOfferMovement} from "@/src/data/tripOfferMovement";
 import {Offer} from "@/src/data/offer";
 import {CloseTripOfferReason, TripOfferAcceptMethod} from "@/src/api/openapi";
-import {ICreateOfferRequest, IDownloadDocumentRequest} from "@/src/api/tripsOfferApi";
+import {
+    IAcceptOfferRequest,
+    ICreateOfferRequest,
+    IDownloadDocumentRequest,
+    IUpdateOfferRequest
+} from "@/src/api/tripsOfferApi";
 import {BaseService} from "@/src/services/BaseService";
 
 export class TripOfferService extends BaseService {
@@ -60,15 +65,15 @@ export class TripOfferService extends BaseService {
         });
     }
 
-    public static async acceptOffer(offerId: number, acceptMethod: TripOfferAcceptMethod) {
+    public static async acceptOffer(req: IAcceptOfferRequest) {
         await this.handleActionCall(async () => {
-            await acceptOffer(offerId, acceptMethod);
+            await acceptOffer(req);
         });
     }
 
-    public static async updateOffer(offerId: number, endOfferDate: Date) {
+    public static async updateOffer(req: IUpdateOfferRequest) {
         await this.handleActionCall(async () => {
-            await updateOffer(offerId, endOfferDate);
+            await updateOffer(req);
         });
     }
 

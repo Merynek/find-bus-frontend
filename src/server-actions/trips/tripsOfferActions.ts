@@ -1,7 +1,13 @@
 'use server';
 
 import {getAccessToken} from "@/src/server-actions/auth/accessTokenActions";
-import {ICreateOfferRequest, IDownloadDocumentRequest, TripsOfferApi} from "@/src/api/tripsOfferApi";
+import {
+    IAcceptOfferRequest,
+    ICreateOfferRequest,
+    IDownloadDocumentRequest,
+    IUpdateOfferRequest,
+    TripsOfferApi
+} from "@/src/api/tripsOfferApi";
 import {
     CloseTripOfferReason,
     TripOfferAcceptMethod,
@@ -82,25 +88,19 @@ export async function deleteOffer(tripId: number) {
     });
 }
 
-export async function acceptOffer(offerId: number, acceptMethod: TripOfferAcceptMethod) {
+export async function acceptOffer(req: IAcceptOfferRequest) {
     return await handleActionCall(async () => {
         const accessToken = await getAccessToken();
         const tripsOfferApi = new TripsOfferApi(accessToken);
-        return await tripsOfferApi.acceptOffer({
-            offerId: offerId,
-            acceptMethod: acceptMethod
-        });
+        return await tripsOfferApi.acceptOffer(req);
     });
 }
 
-export async function updateOffer(offerId: number, endOfferDate: Date) {
+export async function updateOffer(req: IUpdateOfferRequest) {
     await handleActionCall(async () => {
         const accessToken = await getAccessToken();
         const tripsOfferApi = new TripsOfferApi(accessToken);
-        return await tripsOfferApi.updateOffer({
-            offerId: offerId,
-            endOfferDate: endOfferDate
-        });
+        return await tripsOfferApi.updateOffer(req);
     });
 }
 

@@ -39,6 +39,12 @@ export interface AcceptOfferRequestDto {
      * @memberof AcceptOfferRequestDto
      */
     acceptMethod: TripOfferAcceptMethod;
+    /**
+     * 
+     * @type {string}
+     * @memberof AcceptOfferRequestDto
+     */
+    clientRowVersion: string;
 }
 
 
@@ -49,6 +55,7 @@ export interface AcceptOfferRequestDto {
 export function instanceOfAcceptOfferRequestDto(value: object): value is AcceptOfferRequestDto {
     if (!('offerId' in value) || value['offerId'] === undefined) return false;
     if (!('acceptMethod' in value) || value['acceptMethod'] === undefined) return false;
+    if (!('clientRowVersion' in value) || value['clientRowVersion'] === undefined) return false;
     return true;
 }
 
@@ -64,6 +71,7 @@ export function AcceptOfferRequestDtoFromJSONTyped(json: any, ignoreDiscriminato
         
         'offerId': json['offerId'],
         'acceptMethod': TripOfferAcceptMethodFromJSON(json['acceptMethod']),
+        'clientRowVersion': json['clientRowVersion'],
     };
 }
 
@@ -80,6 +88,7 @@ export function AcceptOfferRequestDtoToJSONTyped(value?: AcceptOfferRequestDto |
         
         'offerId': value['offerId'],
         'acceptMethod': TripOfferAcceptMethodToJSON(value['acceptMethod']),
+        'clientRowVersion': value['clientRowVersion'],
     };
 }
 

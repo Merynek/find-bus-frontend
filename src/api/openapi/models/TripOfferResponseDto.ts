@@ -62,6 +62,12 @@ export interface TripOfferResponseDto {
     user: UserDetailResponseDto;
     /**
      * 
+     * @type {string}
+     * @memberof TripOfferResponseDto
+     */
+    clientRowVersion: string;
+    /**
+     * 
      * @type {VehicleResponseDto}
      * @memberof TripOfferResponseDto
      */
@@ -104,6 +110,7 @@ export interface TripOfferResponseDto {
 export function instanceOfTripOfferResponseDto(value: object): value is TripOfferResponseDto {
     if (!('id' in value) || value['id'] === undefined) return false;
     if (!('user' in value) || value['user'] === undefined) return false;
+    if (!('clientRowVersion' in value) || value['clientRowVersion'] === undefined) return false;
     if (!('vehicle' in value) || value['vehicle'] === undefined) return false;
     if (!('price' in value) || value['price'] === undefined) return false;
     if (!('accepted' in value) || value['accepted'] === undefined) return false;
@@ -123,6 +130,7 @@ export function TripOfferResponseDtoFromJSONTyped(json: any, ignoreDiscriminator
         
         'id': json['id'],
         'user': UserDetailResponseDtoFromJSON(json['user']),
+        'clientRowVersion': json['clientRowVersion'],
         'vehicle': VehicleResponseDtoFromJSON(json['vehicle']),
         'price': PriceDtoFromJSON(json['price']),
         'accepted': json['accepted'],
@@ -145,6 +153,7 @@ export function TripOfferResponseDtoToJSONTyped(value?: TripOfferResponseDto | n
         
         'id': value['id'],
         'user': UserDetailResponseDtoToJSON(value['user']),
+        'clientRowVersion': value['clientRowVersion'],
         'vehicle': VehicleResponseDtoToJSON(value['vehicle']),
         'price': PriceDtoToJSON(value['price']),
         'accepted': value['accepted'],
