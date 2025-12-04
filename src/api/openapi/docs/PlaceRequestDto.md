@@ -10,6 +10,7 @@ Name | Type
 `point` | [GeoPointDto](GeoPointDto.md)
 `country` | [Country](Country.md)
 `name` | string
+`city` | string
 `placeFormatted` | string
 
 ## Example
@@ -23,6 +24,7 @@ const example = {
   "point": null,
   "country": null,
   "name": null,
+  "city": null,
   "placeFormatted": null,
 } satisfies PlaceRequestDto
 

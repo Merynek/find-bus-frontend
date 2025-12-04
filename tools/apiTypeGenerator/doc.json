@@ -3419,6 +3419,7 @@
       },
       "PlaceRequestDto": {
         "required": [
+          "city",
           "country",
           "name",
           "placeFormatted",
@@ -3439,6 +3440,9 @@
           "name": {
             "type": "string"
           },
+          "city": {
+            "type": "string"
+          },
           "placeFormatted": {
             "type": "string"
           }
@@ -3447,6 +3451,7 @@
       },
       "PlaceResponseDto": {
         "required": [
+          "city",
           "country",
           "name",
           "placeFormatted",
@@ -3463,6 +3468,10 @@
             "$ref": "#/components/schemas/GeoPointDto"
           },
           "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "city": {
             "minLength": 1,
             "type": "string"
           },

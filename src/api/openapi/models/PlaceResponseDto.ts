@@ -57,6 +57,12 @@ export interface PlaceResponseDto {
      * @type {string}
      * @memberof PlaceResponseDto
      */
+    city: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PlaceResponseDto
+     */
     placeFormatted: string;
     /**
      * 
@@ -75,6 +81,7 @@ export function instanceOfPlaceResponseDto(value: object): value is PlaceRespons
     if (!('placeId' in value) || value['placeId'] === undefined) return false;
     if (!('point' in value) || value['point'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('city' in value) || value['city'] === undefined) return false;
     if (!('placeFormatted' in value) || value['placeFormatted'] === undefined) return false;
     if (!('country' in value) || value['country'] === undefined) return false;
     return true;
@@ -93,6 +100,7 @@ export function PlaceResponseDtoFromJSONTyped(json: any, ignoreDiscriminator: bo
         'placeId': json['placeId'],
         'point': GeoPointDtoFromJSON(json['point']),
         'name': json['name'],
+        'city': json['city'],
         'placeFormatted': json['placeFormatted'],
         'country': CountryFromJSON(json['country']),
     };
@@ -112,6 +120,7 @@ export function PlaceResponseDtoToJSONTyped(value?: PlaceResponseDto | null, ign
         'placeId': value['placeId'],
         'point': GeoPointDtoToJSON(value['point']),
         'name': value['name'],
+        'city': value['city'],
         'placeFormatted': value['placeFormatted'],
         'country': CountryToJSON(value['country']),
     };

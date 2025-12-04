@@ -9,6 +9,7 @@ Name | Type
 `placeId` | string
 `point` | [GeoPointDto](GeoPointDto.md)
 `name` | string
+`city` | string
 `placeFormatted` | string
 `country` | [Country](Country.md)
 
@@ -22,6 +23,7 @@ const example = {
   "placeId": null,
   "point": null,
   "name": null,
+  "city": null,
   "placeFormatted": null,
   "country": null,
 } satisfies PlaceResponseDto

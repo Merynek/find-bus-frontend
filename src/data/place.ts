@@ -6,6 +6,7 @@ export interface IPlace {
     placeId?: string;
     point?: GeoPoint;
     name?: string;
+    city?: string;
     placeFormatted?: string;
     country?: Country;
 }
@@ -14,6 +15,7 @@ export class Place {
     @observable public placeId?: string;
     @observable public point?: GeoPoint;
     @observable public name?: string;
+    @observable public city?: string;
     @observable public placeFormatted?: string;
     @observable public country?: Country;
 
@@ -21,6 +23,7 @@ export class Place {
         this.placeId = settings.placeId;
         this.point = settings.point || undefined;
         this.name = settings.name;
+        this.city = settings.city;
         this.placeFormatted = settings.placeFormatted;
         this.country = settings.country;
         makeObservable(this);
@@ -49,6 +52,7 @@ export class Place {
     public clone(): Place {
         return new Place({
             name: this.name,
+            city: this.city,
             placeId: this.placeId,
             country: this.country,
             point: this.point,

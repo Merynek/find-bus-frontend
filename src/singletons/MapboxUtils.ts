@@ -1,9 +1,10 @@
 import {GeoPoint} from "../data/geoPoint";
 import Direction, { DirectionsService } from "@mapbox/mapbox-sdk/services/directions";
-import GeocodingV6, {GeocodeService}  from "@mapbox/mapbox-sdk/services/geocoding-v6";
+import GeocodingV6, {GeocodeResponse, GeocodeService}  from "@mapbox/mapbox-sdk/services/geocoding-v6";
 import {Place} from "../data/place";
 import {Country} from "../api/openapi";
 import {IDirectionData} from "../data/trip/direction";
+import { MapiResponse } from "@mapbox/mapbox-sdk/lib/classes/mapi-response";
 
 export class MapboxUtils {
     private _directionService: DirectionsService;
@@ -32,19 +33,7 @@ export class MapboxUtils {
             latitude: point.lat
         }).send();
 
-        const results = result.body.features.map(feature => {
-            const context = feature.properties.context;
-            return new Place({
-                placeId: feature.id,
-                point: new GeoPoint({
-                    lng: feature.geometry.coordinates[0],
-                    lat: feature.geometry.coordinates[1]
-                }),
-                country: context.country?.country_code?.toUpperCase() as Country,
-                name: feature.properties.name,
-                placeFormatted: feature.properties.place_formatted
-            })
-        })
+        const results = this._createPlace(result);
         if (results.length) {
             return results[0];
         }
@@ -58,19 +47,7 @@ export class MapboxUtils {
                 query: searchText
             }).send();
 
-            return result.body.features.map(feature => {
-                const context = feature.properties.context;
-                return new Place({
-                    placeId: feature.id,
-                    point: new GeoPoint({
-                        lng: feature.geometry.coordinates[0],
-                        lat: feature.geometry.coordinates[1]
-                    }),
-                    country: context.country?.country_code?.toUpperCase() as Country,
-                    name: feature.properties.name,
-                    placeFormatted: feature.properties.place_formatted
-                })
-            })
+            return this._createPlace(result);
         } catch (e) {
             console.warn("Error during search places", JSON.stringify(e));
             return [];
@@ -101,5 +78,22 @@ export class MapboxUtils {
             console.warn("Error during get direction data", JSON.stringify(e));
             return {};
         }
+    }
+
+    private _createPlace(response: MapiResponse<GeocodeResponse>) {
+        return response.body.features.map(feature => {
+            const context = feature.properties.context;
+            return new Place({
+                placeId: feature.id,
+                point: new GeoPoint({
+                    lng: feature.geometry.coordinates[0],
+                    lat: feature.geometry.coordinates[1]
+                }),
+                city: context.place?.name,
+                country: context.country?.country_code?.toUpperCase() as Country,
+                name: feature.properties.name,
+                placeFormatted: feature.properties.place_formatted
+            })
+        })
     }
 }

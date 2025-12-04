@@ -63,6 +63,12 @@ export interface PlaceRequestDto {
      * @type {string}
      * @memberof PlaceRequestDto
      */
+    city: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PlaceRequestDto
+     */
     placeFormatted: string;
 }
 
@@ -76,6 +82,7 @@ export function instanceOfPlaceRequestDto(value: object): value is PlaceRequestD
     if (!('point' in value) || value['point'] === undefined) return false;
     if (!('country' in value) || value['country'] === undefined) return false;
     if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('city' in value) || value['city'] === undefined) return false;
     if (!('placeFormatted' in value) || value['placeFormatted'] === undefined) return false;
     return true;
 }
@@ -94,6 +101,7 @@ export function PlaceRequestDtoFromJSONTyped(json: any, ignoreDiscriminator: boo
         'point': GeoPointDtoFromJSON(json['point']),
         'country': CountryFromJSON(json['country']),
         'name': json['name'],
+        'city': json['city'],
         'placeFormatted': json['placeFormatted'],
     };
 }
@@ -113,6 +121,7 @@ export function PlaceRequestDtoToJSONTyped(value?: PlaceRequestDto | null, ignor
         'point': GeoPointDtoToJSON(value['point']),
         'country': CountryToJSON(value['country']),
         'name': value['name'],
+        'city': value['city'],
         'placeFormatted': value['placeFormatted'],
     };
 }
