@@ -7,7 +7,7 @@
 Name | Type
 ------------ | -------------
 `id` | number
-`routes` | [Array&lt;RouteResponseDto&gt;](RouteResponseDto.md)
+`routes` | [Array&lt;RouteItemResponseDto&gt;](RouteItemResponseDto.md)
 `amenities` | [Array&lt;Amenities&gt;](Amenities.md)
 `state` | [TripState](TripState.md)
 `numberOfPersons` | number

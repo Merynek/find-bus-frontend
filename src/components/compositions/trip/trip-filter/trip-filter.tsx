@@ -15,6 +15,7 @@ import {Color, FontSize} from "@/src/components/components/texts/textStyles";
 import {Text} from "@/src/components/components/texts/text";
 import {GENERAL_GA_EVENTS} from "@/src/enums/ga.enums";
 import {useGtm} from "@/src/hooks/gtmHook";
+import {useLoggedUser} from "@/src/hooks/authenticationHook";
 
 export interface ITripFilterProps {
     params: ITripFilterParams;
@@ -23,6 +24,7 @@ export interface ITripFilterProps {
 export const TripFilter = (props: ITripFilterProps) => {
     const {params} = props;
     const router = useRouter();
+    const {user} = useLoggedUser();
     const {sendEvent} = useGtm();
     const searchParams = useSearchParams();
     const [page, setPage] = useState<number|undefined>(params.page);
@@ -117,22 +119,22 @@ export const TripFilter = (props: ITripFilterProps) => {
             />
         </LayoutFlexRow>
         <LayoutFlexRow gap={FlexGap.MEDIUM_24} canWrap={true}>
-            <CheckBox
+            {user && <CheckBox
                 controlled={true}
                 checked={onlyMine || false}
                 onChange={(val) => {
                     setOnlyMine(val);
                 }}
                 label={"Only Mine"}
-            />
-            <CheckBox
+            />}
+            {user && <CheckBox
                 controlled={true}
                 checked={meOffered || false}
                 onChange={(val) => {
                     setMeOffered(val);
                 }}
                 label={"Me Offered"}
-            />
+            />}
             <CheckBox
                 controlled={true}
                 checked={dietForTransporter || false}
@@ -165,7 +167,7 @@ export const TripFilter = (props: ITripFilterProps) => {
                 }}
                 placeholder={"Distance To"}
             />
-            <NumberBox
+            {user && <NumberBox
                 controlled={true}
                 value={maxDistanceInMeters}
                 onChange={(val) => {
@@ -173,7 +175,7 @@ export const TripFilter = (props: ITripFilterProps) => {
                     sendEvent(GENERAL_GA_EVENTS.SYSEL_TEST, {value: val});
                 }}
                 placeholder={"Distance from start point in meters"}
-            />
+            />}
         </LayoutFlexRow>
         <ButtonClick
             controlled={true}

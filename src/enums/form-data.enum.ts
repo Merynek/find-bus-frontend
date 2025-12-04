@@ -65,5 +65,6 @@ export enum FormDataEnum {
     departureStation_point_lng = "departureStation.point.lng",
     departureStation_country = "departureStation.country",
     departureStation_name = "departureStation.name",
+    departureStation_city = "departureStation.city",
     departureStation_placeFormatted = "departureStation.placeFormatted",
 }

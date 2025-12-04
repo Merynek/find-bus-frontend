@@ -67,9 +67,10 @@ export class VehicleFormAction extends BaseFormAction<typeof VehicleSchema, Vehi
         const pointLng = this.getNumberFormValue(formData, FormDataEnum.departureStation_point_lng);
         const country = this.getEnumFormValue<Country>(formData, FormDataEnum.departureStation_country);
         const name = this.getStringFormValue(formData, FormDataEnum.departureStation_name);
+        const city = this.getStringFormValue(formData, FormDataEnum.departureStation_city);
         const placeFormatted = this.getStringFormValue(formData, FormDataEnum.departureStation_placeFormatted);
 
-        if (placeId && pointLat && pointLng && country && name && placeFormatted) {
+        if (placeId && pointLat && pointLng && country && name && placeFormatted && city) {
             return {
                 placeId: placeId,
                 point: {
@@ -78,7 +79,8 @@ export class VehicleFormAction extends BaseFormAction<typeof VehicleSchema, Vehi
                 },
                 country: country,
                 name: name,
-                placeFormatted: placeFormatted
+                placeFormatted: placeFormatted,
+                city: city
             }
         }
         return undefined;

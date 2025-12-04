@@ -15,6 +15,7 @@ export const PlaceSchema = z.object({
     point: GeoPointSchema,
     country: z.enum(Country, { message: "Neplatná země." }), // Použijte z.enum pro validaci enum
     name: RequiredStringSchema,
+    city: RequiredStringSchema,
     placeFormatted: RequiredStringSchema,
 });
 

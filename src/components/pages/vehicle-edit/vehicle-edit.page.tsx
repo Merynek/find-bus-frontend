@@ -62,8 +62,9 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
             registrationSign: vehicle.registrationSign,
             stkExpired: vehicle.stkExpired,
             yearOfManufacture: vehicle.yearOfManufacture,
-            departureStation: (vehicle.departureStation && vehicle.departureStation.placeFormatted && vehicle.departureStation.name && vehicle.departureStation.placeId && vehicle.departureStation.point && vehicle.departureStation.country) ? {
+            departureStation: (vehicle.departureStation && vehicle.departureStation.placeFormatted && vehicle.departureStation.name && vehicle.departureStation.city && vehicle.departureStation.placeId && vehicle.departureStation.point && vehicle.departureStation.country) ? {
                 name: vehicle.departureStation.name,
+                city: vehicle.departureStation.city,
                 placeId: vehicle.departureStation.placeId,
                 point: {
                     lat: vehicle.departureStation.point.lat,
@@ -257,6 +258,11 @@ const VehicleEditPage = (props: IVehicleEditPageProps) => {
                     type="hidden"
                     name={FormDataEnum.departureStation_name}
                     value={departureStation?.name || ''}
+                />
+                <input
+                    type="hidden"
+                    name={FormDataEnum.departureStation_city}
+                    value={departureStation?.city || ''}
                 />
                 <input
                     type="hidden"

@@ -39,6 +39,10 @@ export class Place {
         return this.placeId !== undefined && this.point !== undefined;
     }
 
+    get displayName() {
+        return this.name || this.city || "";
+    }
+
     public equals(place: Place): boolean {
         if (this.placeId && place.placeId) {
             return this.placeId === place.placeId;

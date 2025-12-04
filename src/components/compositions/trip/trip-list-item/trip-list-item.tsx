@@ -37,10 +37,10 @@ export const TripListItem = (props: ITripListItemProps) => {
                     })}</span>
                 </div>
                 <div className={styles.line}>
-                    <span>Z - {route.from.place.name}</span>
+                    <span>Z - {route.from.place.displayName}</span>
                 </div>
                 <div className={styles.line}>
-                    <span>Do - {route.to.place.name}</span>
+                    <span>Do - {route.to.place.displayName}</span>
                 </div>
                 <div className={styles.line}>
                     <span>Přijezd - {formatDateTime({
@@ -79,15 +79,18 @@ export const TripListItem = (props: ITripListItemProps) => {
                 size={ButtonSize.BUTTON_SIZE_M}
             />
         }
-        return <ButtonLink
-            route={{
-                route: ROUTES.TRIP,
-                params: { [URL_PARAMS.TRIP_ID]: tripItem.id.toString() }
-            }}
-            label={"Zobrazit detail"}
-            type={ButtonType.YELLOW}
-            size={ButtonSize.BUTTON_SIZE_M}
-        />
+        if (user) {
+            return <ButtonLink
+                route={{
+                    route: ROUTES.TRIP,
+                    params: { [URL_PARAMS.TRIP_ID]: tripItem.id.toString() }
+                }}
+                label={"Zobrazit detail"}
+                type={ButtonType.YELLOW}
+                size={ButtonSize.BUTTON_SIZE_M}
+            />
+        }
+        return <></>;
     }
 
     return <div className={cn(styles.layout, offerHasEnded && styles.end, hasOffersForAccept() && styles.offers)}>

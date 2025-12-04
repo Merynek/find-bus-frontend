@@ -13,13 +13,6 @@
  */
 
 import { mapValues } from '../runtime';
-import type { RouteResponseDto } from './RouteResponseDto';
-import {
-    RouteResponseDtoFromJSON,
-    RouteResponseDtoFromJSONTyped,
-    RouteResponseDtoToJSON,
-    RouteResponseDtoToJSONTyped,
-} from './RouteResponseDto';
 import type { TripState } from './TripState';
 import {
     TripStateFromJSON,
@@ -27,6 +20,13 @@ import {
     TripStateToJSON,
     TripStateToJSONTyped,
 } from './TripState';
+import type { RouteItemResponseDto } from './RouteItemResponseDto';
+import {
+    RouteItemResponseDtoFromJSON,
+    RouteItemResponseDtoFromJSONTyped,
+    RouteItemResponseDtoToJSON,
+    RouteItemResponseDtoToJSONTyped,
+} from './RouteItemResponseDto';
 import type { Amenities } from './Amenities';
 import {
     AmenitiesFromJSON,
@@ -56,10 +56,10 @@ export interface TripItemResponseDto {
     id: number;
     /**
      * 
-     * @type {Array<RouteResponseDto>}
+     * @type {Array<RouteItemResponseDto>}
      * @memberof TripItemResponseDto
      */
-    routes: Array<RouteResponseDto>;
+    routes: Array<RouteItemResponseDto>;
     /**
      * 
      * @type {Array<Amenities>}
@@ -170,7 +170,7 @@ export function TripItemResponseDtoFromJSONTyped(json: any, ignoreDiscriminator:
     return {
         
         'id': json['id'],
-        'routes': ((json['routes'] as Array<any>).map(RouteResponseDtoFromJSON)),
+        'routes': ((json['routes'] as Array<any>).map(RouteItemResponseDtoFromJSON)),
         'amenities': json['amenities'] == null ? undefined : ((json['amenities'] as Array<any>).map(AmenitiesFromJSON)),
         'state': TripStateFromJSON(json['state']),
         'numberOfPersons': json['numberOfPersons'] == null ? undefined : json['numberOfPersons'],
@@ -199,7 +199,7 @@ export function TripItemResponseDtoToJSONTyped(value?: TripItemResponseDto | nul
     return {
         
         'id': value['id'],
-        'routes': ((value['routes'] as Array<any>).map(RouteResponseDtoToJSON)),
+        'routes': ((value['routes'] as Array<any>).map(RouteItemResponseDtoToJSON)),
         'amenities': value['amenities'] == null ? undefined : ((value['amenities'] as Array<any>).map(AmenitiesToJSON)),
         'state': TripStateToJSON(value['state']),
         'numberOfPersons': value['numberOfPersons'],

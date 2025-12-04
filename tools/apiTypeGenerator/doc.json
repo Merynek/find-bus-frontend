@@ -3417,6 +3417,23 @@
         },
         "additionalProperties": false
       },
+      "PlaceItemResponseDto": {
+        "required": [
+          "city",
+          "country"
+        ],
+        "type": "object",
+        "properties": {
+          "city": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "country": {
+            "$ref": "#/components/schemas/Country"
+          }
+        },
+        "additionalProperties": false
+      },
       "PlaceRequestDto": {
         "required": [
           "city",
@@ -3562,6 +3579,32 @@
           "clientUrl": {
             "minLength": 1,
             "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RouteItemResponseDto": {
+        "required": [
+          "end",
+          "from",
+          "start",
+          "to"
+        ],
+        "type": "object",
+        "properties": {
+          "start": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "end": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "from": {
+            "$ref": "#/components/schemas/StopItemResponseDto"
+          },
+          "to": {
+            "$ref": "#/components/schemas/StopItemResponseDto"
           }
         },
         "additionalProperties": false
@@ -3730,6 +3773,18 @@
           "tripId": {
             "type": "integer",
             "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "StopItemResponseDto": {
+        "required": [
+          "place"
+        ],
+        "type": "object",
+        "properties": {
+          "place": {
+            "$ref": "#/components/schemas/PlaceItemResponseDto"
           }
         },
         "additionalProperties": false
@@ -3956,7 +4011,7 @@
           "routes": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/RouteResponseDto"
+              "$ref": "#/components/schemas/RouteItemResponseDto"
             }
           },
           "amenities": {

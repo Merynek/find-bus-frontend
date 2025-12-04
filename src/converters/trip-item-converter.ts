@@ -1,14 +1,11 @@
 import {
-    StopResponseDto,
-    RouteResponseDto,
-    TripItemResponseDto
+    TripItemResponseDto, RouteItemResponseDto, type StopItemResponseDto
 } from "../api/openapi";
-import {PlaceConverter} from "./place-converter";
 import {Stop} from "../data/trip/stop";
 import {Route} from "../data/trip/route";
 import {TripItem} from "../data/tripItem";
 import {Direction} from "../data/trip/direction";
-import {DirectionConverter} from "@/src/converters/trip/direction-converter";
+import {PlaceItemConverter} from "@/src/converters/place-item-converter";
 
 export class TripItemConverter {
     public static toInstance(apiTrip: TripItemResponseDto): TripItem {
@@ -51,17 +48,16 @@ export class TripItemConverter {
         }
     }
 
-    private static _routeToJson(route: Route): RouteResponseDto {
+    private static _routeToJson(route: Route): RouteItemResponseDto {
         return {
             from: TripItemConverter._stopToJson(route.from),
             to: TripItemConverter._stopToJson(route.to),
             end: route.end,
-            start: route.start,
-            direction: DirectionConverter.toJson(route.direction)
+            start: route.start
         }
     }
 
-    private static _routeToInstance(route: RouteResponseDto): Route {
+    private static _routeToInstance(route: RouteItemResponseDto): Route {
         return new Route({
             from: TripItemConverter._stopToInstance(route.from),
             to: TripItemConverter._stopToInstance(route.to),
@@ -72,15 +68,15 @@ export class TripItemConverter {
         })
     }
 
-    private static _stopToJson(stop: Stop): StopResponseDto {
-        const place = PlaceConverter.toJson(stop.place);
+    private static _stopToJson(stop: Stop): StopItemResponseDto {
+        const place = PlaceItemConverter.toJson(stop.place);
         return {
             place: place
         }
     }
 
-    private static _stopToInstance(stop: StopResponseDto): Stop {
-        const place = PlaceConverter.toInstance(stop.place);
+    private static _stopToInstance(stop: StopItemResponseDto): Stop {
+        const place = PlaceItemConverter.toInstance(stop.place);
         return new Stop({
             place: place,
             route: null
