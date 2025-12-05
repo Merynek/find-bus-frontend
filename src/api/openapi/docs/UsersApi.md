@@ -13,6 +13,7 @@ All URIs are relative to *http://localhost*
 | [**apiUsersTransportRequirementsGet**](UsersApi.md#apiuserstransportrequirementsget) | **GET** /api/Users/transportRequirements |  |
 | [**apiUsersTransportRequirementsPost**](UsersApi.md#apiuserstransportrequirementspost) | **POST** /api/Users/transportRequirements |  |
 | [**apiUsersTransportRequirementsVerificationPost**](UsersApi.md#apiuserstransportrequirementsverificationpost) | **POST** /api/Users/transportRequirementsVerification |  |
+| [**apiUsersUserGet**](UsersApi.md#apiusersuserget) | **GET** /api/Users/user |  |
 | [**apiUsersUserTransportRequirementsGet**](UsersApi.md#apiusersusertransportrequirementsget) | **GET** /api/Users/userTransportRequirements |  |
 | [**apiUsersUsersGet**](UsersApi.md#apiusersusersget) | **GET** /api/Users/users |  |
 
@@ -613,6 +614,75 @@ example().catch(console.error);
 
 - **Content-Type**: `application/json`, `text/json`, `application/*+json`
 - **Accept**: Not defined
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | OK |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+
+## apiUsersUserGet
+
+> AdminUserDetailResponseDto apiUsersUserGet(userId)
+
+
+
+### Example
+
+```ts
+import {
+  Configuration,
+  UsersApi,
+} from '';
+import type { ApiUsersUserGetRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const config = new Configuration({ 
+    // Configure HTTP bearer authorization: bearer
+    accessToken: "YOUR BEARER TOKEN",
+  });
+  const api = new UsersApi(config);
+
+  const body = {
+    // number
+    userId: 56,
+  } satisfies ApiUsersUserGetRequest;
+
+  try {
+    const data = await api.apiUsersUserGet(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+
+| Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **userId** | `number` |  | [Defaults to `undefined`] |
+
+### Return type
+
+[**AdminUserDetailResponseDto**](AdminUserDetailResponseDto.md)
+
+### Authorization
+
+[bearer](../README.md#bearer)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `text/plain`, `application/json`, `text/json`
 
 
 ### HTTP response details

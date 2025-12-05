@@ -31,6 +31,7 @@ export enum ROUTES {
     APP_CONFIG = "/admin/config",
     EMAIL_CONFIG = "/admin/emails",
     ADMIN_USERS = "/admin/users",
+    ADMIN_USER = `/admin/user/[${URL_PARAMS.USER_ID}]`,
     ADMIN_TRIP_DETAIL = `/admin/trip/[${URL_PARAMS.TRIP_ID}]`,
     ADMIN_VEHICLE = `/admin/vehicle/[${URL_PARAMS.VEHICLE_ID}]`,
     ADMIN_TRANSPORT_REQUIREMENTS = `/admin/transport-requirements/[${URL_PARAMS.USER_ID}]`

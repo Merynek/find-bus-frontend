@@ -85,6 +85,10 @@ export const routing = defineRouting({
             [LOCALES.cs_CZ]: '/admin/uzivatele',
             [LOCALES.en_US]: ROUTES.ADMIN_USERS
         },
+        [ROUTES.ADMIN_USER]: {
+            [LOCALES.cs_CZ]: `/admin/uzivatel/[${URL_PARAMS.USER_ID}]`,
+            [LOCALES.en_US]: ROUTES.ADMIN_USER
+        },
         [ROUTES.ADMIN_TRIP_DETAIL]: {
             [LOCALES.cs_CZ]: `/admin/cesta/[${URL_PARAMS.TRIP_ID}]`,
             [LOCALES.en_US]: ROUTES.ADMIN_TRIP_DETAIL

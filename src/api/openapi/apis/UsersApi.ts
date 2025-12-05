@@ -80,6 +80,10 @@ export interface ApiUsersTransportRequirementsVerificationPostRequest {
     transportRequirementsVerificationRequestDto?: TransportRequirementsVerificationRequestDto;
 }
 
+export interface ApiUsersUserGetRequest {
+    userId: number;
+}
+
 export interface ApiUsersUserTransportRequirementsGetRequest {
     userId: number;
 }
@@ -427,6 +431,52 @@ export class UsersApi extends runtime.BaseAPI {
      */
     async apiUsersTransportRequirementsVerificationPost(requestParameters: ApiUsersTransportRequirementsVerificationPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.apiUsersTransportRequirementsVerificationPostRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     */
+    async apiUsersUserGetRaw(requestParameters: ApiUsersUserGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AdminUserDetailResponseDto>> {
+        if (requestParameters['userId'] == null) {
+            throw new runtime.RequiredError(
+                'userId',
+                'Required parameter "userId" was null or undefined when calling apiUsersUserGet().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['userId'] != null) {
+            queryParameters['UserId'] = requestParameters['userId'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/Users/user`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => AdminUserDetailResponseDtoFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async apiUsersUserGet(requestParameters: ApiUsersUserGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AdminUserDetailResponseDto> {
+        const response = await this.apiUsersUserGetRaw(requestParameters, initOverrides);
+        return await response.value();
     }
 
     /**

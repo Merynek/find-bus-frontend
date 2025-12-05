@@ -15,6 +15,8 @@ import {TripOfferMovement} from "@/src/data/tripOfferMovement";
 import {Offer} from "@/src/data/offer";
 import {LOCALES} from "@/src/enums/locale";
 import {FontSize, FontWeight} from "@/src/components/components/texts/textStyles";
+import {ButtonLink, ButtonSize, ButtonType} from "@/src/components/components/button/button";
+import {ROUTES, URL_PARAMS} from "@/src/enums/router.enum";
 
 interface TripDetailPageProps {
     trip: Trip;
@@ -29,6 +31,7 @@ const AdminTripDetailPage = (props: TripDetailPageProps) => {
     const renderInfo = () => {
         return <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
             <TripStatesFlow trip={trip} />
+            {renderOwner()}
             <LayoutFlexRow gap={FlexGap.TINY_8} alignItems={"center"}>
                 <LayoutFlexRow gap={FlexGap.SMALLEST_4}>
                     <Text text={"ID: "} fontSize={FontSize.BASE_14} fontWeight={FontWeight.SEMIBOLD} />
@@ -65,6 +68,18 @@ const AdminTripDetailPage = (props: TripDetailPageProps) => {
                 return <div className={cn(offer.accepted && styles.acceptedOffer)} key={offer.id}>
                     <LayoutFlexColumn gap={FlexGap.TINY_8}>
                         <LayoutFlexRow gap={FlexGap.SMALLEST_4}>
+                            <Text text={"Offer owner: "} fontSize={FontSize.BASE_14} fontWeight={FontWeight.SEMIBOLD} />
+                            <ButtonLink
+                                route={{
+                                    route: ROUTES.ADMIN_USER,
+                                    params: { [URL_PARAMS.USER_ID]: offer.user.id.toString()}
+                                }}
+                                label={"User Detail"}
+                                type={ButtonType.BLACK}
+                                size={ButtonSize.BUTTON_SIZE_M}
+                            />
+                        </LayoutFlexRow>
+                        <LayoutFlexRow gap={FlexGap.SMALLEST_4}>
                             <Text text={"Id: "} fontSize={FontSize.BASE_14} fontWeight={FontWeight.SEMIBOLD} />
                             <Text text={offer.id.toString()} fontSize={FontSize.BASE_14} />
                         </LayoutFlexRow>
@@ -90,6 +105,21 @@ const AdminTripDetailPage = (props: TripDetailPageProps) => {
             trip={trip}
             offers={offers}
         />
+    }
+
+    const renderOwner = () => {
+        return <LayoutFlexRow gap={FlexGap.MEDIUM_24}>
+            <Text text={"Trip owner"} fontSize={FontSize.M_22} />
+            <ButtonLink
+                route={{
+                    route: ROUTES.ADMIN_USER,
+                    params: { [URL_PARAMS.USER_ID]: trip.ownerId.toString()}
+                }}
+                label={"User Detail"}
+                type={ButtonType.BLACK}
+                size={ButtonSize.BUTTON_SIZE_M}
+            />
+        </LayoutFlexRow>
     }
 
     return <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>

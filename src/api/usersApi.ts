@@ -56,6 +56,10 @@ export interface IGetAdminUsersRequest extends IApiRequest {
     offset: number;
 }
 
+export interface IGetUserDetailRequest extends IApiRequest {
+    userId: number;
+}
+
 export class UsersApi {
     private readonly _token: string|undefined;
 
@@ -134,6 +138,12 @@ export class UsersApi {
         return await handleApiCall(this._api.apiUsersUsersGet({
             limit: req.limit,
             offset: req.offset
+        }, req.initOverrides));
+    }
+
+    public async getUserDetail(req: IGetUserDetailRequest): Promise<AdminUserDetailResponseDto> {
+        return await handleApiCall(this._api.apiUsersUserGet({
+            userId: req.userId
         }, req.initOverrides));
     }
 }

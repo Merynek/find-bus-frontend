@@ -5,7 +5,7 @@ import {
     createUploadUrlForTransportRequirementDocuments,
     getAllUsers,
     getSettings,
-    getTransportRequirements,
+    getTransportRequirements, getUserDetail,
     getUserTransportRequirements,
     sendTransportRequirementsToVerification,
     transportRequirementsVerification,
@@ -27,12 +27,21 @@ import {TransportDocumentsSasUrl} from "@/src/data/users/transportDocumentsSasUr
 import {TransportDocumentsSasUrlConverter} from "@/src/converters/users/transport-documents-sas-url-converter";
 import {TransportRequirements} from "@/src/data/transportRequirements";
 import {TransportRequirementsConverter} from "@/src/converters/users/transport-requirements-converter";
+import {UserAdminItem} from "@/src/data/users/user-admin-item";
+import {UserAdminItemConverter} from "@/src/converters/admin/user-admin-item-converter";
 
 export class UsersService extends BaseService {
-    public static async getAllUsers(offset: number, limit: number): Promise<UserAdminDetail[]> {
+    public static async getAllUsers(offset: number, limit: number): Promise<UserAdminItem[]> {
         return await this.handleActionCall(async () => {
             const data = await getAllUsers(offset, limit);
-            return data.map(UserAdminDetailConverter.toInstance);
+            return data.map(UserAdminItemConverter.toInstance);
+        });
+    }
+
+    public static async getUserDetail(userId: number): Promise<UserAdminDetail> {
+        return await this.handleActionCall(async () => {
+            const data = await getUserDetail(userId);
+            return UserAdminDetailConverter.toInstance(data);
         });
     }
 

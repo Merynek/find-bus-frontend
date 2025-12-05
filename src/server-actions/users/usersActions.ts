@@ -27,6 +27,16 @@ export async function getAllUsers(offset: number, limit: number): Promise<AdminU
     });
 }
 
+export async function getUserDetail(userId: number): Promise<AdminUserDetailResponseDto> {
+    return await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const usersApi = new UsersApi(accessToken);
+        return await usersApi.getUserDetail({
+            userId: userId
+        });
+    });
+}
+
 export async function changeSettings(settings: UserSettingsRequestDto) {
     await handleActionCall(async () => {
         const accessToken = await getAccessToken();
