@@ -1,7 +1,7 @@
 "use client";
 
 import {useTranslate} from "@/src/hooks/translateHook";
-import React from "react";
+import React, {useEffect, useState } from "react";
 import {ButtonClick, ButtonLink, ButtonSize, ButtonType} from "../../components/button/button";
 import {Country, NotificationResponseDto, UserRole, UserSettingsResponseDto} from "@/src/api/openapi";
 import {LayoutFlexColumn} from "../../components/layout/layout-flex-column/layout-flex-column";
@@ -35,6 +35,7 @@ type ZodNotificationArrayType = z.infer<typeof UserSettingsSchema>['notification
 
 const UserSettingsPage = (props: IUserSettingsPageProps) => {
     const settings = useInit(() => UserSettingsConverter.toInstance(props.settings));
+    const [notifications, setNotifications] = useState<Notification[]>(settings.notifications);
     const {t} = useTranslate("page.userSettings");
     const {user} = useLoggedUser();
     const router = useRouter();
@@ -70,6 +71,15 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
             notifications: initialNotificationsData
         }
     })
+
+    useEffect(() => {
+        if (state?.data?.notifications) {
+            const data = (state.data.notifications as NotificationResponseDto[]).map(NotificationConverter.toInstance);
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            setNotifications(data);
+        }
+    }, [state?.data?.notifications]);
+
 
     const renderBaseInfo = () => {
         return <>
@@ -184,13 +194,12 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
     }
 
     const renderNotifications = () => {
-        const notificationsData = state?.data?.notifications;
-        const notifications: Notification[] = notificationsData
-            ? (notificationsData as NotificationResponseDto[]).map(NotificationConverter.toInstance)
-            : [];
         return <>
             <Heading text={t("notificationsHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={4}/>
-            <Notifications notifications={notifications} />
+            <Notifications
+                notifications={notifications}
+                onChange={setNotifications}
+            />
         </>
     }
 
