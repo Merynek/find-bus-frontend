@@ -3,7 +3,7 @@
 import {useTranslate} from "@/src/hooks/translateHook";
 import React from "react";
 import {ButtonClick, ButtonLink, ButtonSize, ButtonType} from "../../components/button/button";
-import {Country, NotificationsEnum, UserRole, UserSettingsResponseDto} from "@/src/api/openapi";
+import {Country, NotificationResponseDto, UserRole, UserSettingsResponseDto} from "@/src/api/openapi";
 import {LayoutFlexColumn} from "../../components/layout/layout-flex-column/layout-flex-column";
 import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {userSettingsFormAction} from "@/src/server-actions/forms/userSettings/userSettingsFormAction";
@@ -21,16 +21,25 @@ import {UserSettingsAddress} from "@/src/components/pages/user-settings/user-set
 import {ROUTES} from "@/src/enums/router.enum";
 import {UsersService} from "@/src/services/UsersService";
 import {useRouter} from "@/src/i18n/navigation";
+import {Notifications} from "@/src/components/compositions/notifications/notifications";
+import {NotificationConverter} from "@/src/converters/notifications/notification-converter";
+import {z} from "zod";
+import {Notification} from "@/src/data/notifications/notification";
+import {UserSettingsSchema} from "@/src/forms-action/user-settings/UserSettingsSchema";
 
 interface IUserSettingsPageProps {
     settings: UserSettingsResponseDto;
 }
+
+type ZodNotificationArrayType = z.infer<typeof UserSettingsSchema>['notifications'];
 
 const UserSettingsPage = (props: IUserSettingsPageProps) => {
     const settings = useInit(() => UserSettingsConverter.toInstance(props.settings));
     const {t} = useTranslate("page.userSettings");
     const {user} = useLoggedUser();
     const router = useRouter();
+    const initialNotificationsData = settings.notifications.map(NotificationConverter.toJson) as ZodNotificationArrayType;
+
     const [state, action, pending] = useFormActionState(userSettingsFormAction, {
         data: {
             userFinancialSettings: {
@@ -58,15 +67,9 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                 iban: settings.userFinancialSettings.iban
             },
             phoneNumber: settings.phoneNumber,
-            notifications: settings.notifications
+            notifications: initialNotificationsData
         }
     })
-
-    const allNotifications = (): NotificationsEnum[] => {
-        return Object.values(NotificationsEnum).map(key => {
-            return key;
-        })
-    }
 
     const renderBaseInfo = () => {
         return <>
@@ -181,20 +184,13 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
     }
 
     const renderNotifications = () => {
+        const notificationsData = state?.data?.notifications;
+        const notifications: Notification[] = notificationsData
+            ? (notificationsData as NotificationResponseDto[]).map(NotificationConverter.toInstance)
+            : [];
         return <>
             <Heading text={t("notificationsHeading")} fontWeight={FontWeight.SEMIBOLD} headingLevel={4}/>
-            {allNotifications().map((option) => {
-                const notifications = state?.data?.notifications || [];
-                return <CheckBox
-                    controlled={false}
-                    name={FormDataEnum.notifications}
-                    id={`${FormDataEnum.notifications}-${option}`}
-                    label={option}
-                    value={option}
-                    defaultChecked={notifications.includes(option)}
-                    key={option}
-                />
-            })}
+            <Notifications notifications={notifications} />
         </>
     }
 

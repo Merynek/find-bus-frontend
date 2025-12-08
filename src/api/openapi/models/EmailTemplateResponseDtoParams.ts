@@ -30,6 +30,12 @@ export interface EmailTemplateResponseDtoParams {
      * @type {string}
      * @memberof EmailTemplateResponseDtoParams
      */
+    tRIPDISTANCE?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EmailTemplateResponseDtoParams
+     */
     pERCENT?: string;
     /**
      * 
@@ -81,6 +87,7 @@ export function EmailTemplateResponseDtoParamsFromJSONTyped(json: any, ignoreDis
     return {
         
         'tRIPDETAILLINK': json['TRIP_DETAIL_LINK'] == null ? undefined : json['TRIP_DETAIL_LINK'],
+        'tRIPDISTANCE': json['TRIP_DISTANCE'] == null ? undefined : json['TRIP_DISTANCE'],
         'pERCENT': json['PERCENT'] == null ? undefined : json['PERCENT'],
         'rEASON': json['REASON'] == null ? undefined : json['REASON'],
         'rESETPASSWORDLINK': json['RESET_PASSWORD_LINK'] == null ? undefined : json['RESET_PASSWORD_LINK'],
@@ -102,6 +109,7 @@ export function EmailTemplateResponseDtoParamsToJSONTyped(value?: EmailTemplateR
     return {
         
         'TRIP_DETAIL_LINK': value['tRIPDETAILLINK'],
+        'TRIP_DISTANCE': value['tRIPDISTANCE'],
         'PERCENT': value['pERCENT'],
         'REASON': value['rEASON'],
         'RESET_PASSWORD_LINK': value['rESETPASSWORDLINK'],

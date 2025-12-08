@@ -20,13 +20,13 @@ import {
     UserFinancialSettingsRequestDtoToJSON,
     UserFinancialSettingsRequestDtoToJSONTyped,
 } from './UserFinancialSettingsRequestDto';
-import type { NotificationsEnum } from './NotificationsEnum';
+import type { NotificationSettingsRequestDto } from './NotificationSettingsRequestDto';
 import {
-    NotificationsEnumFromJSON,
-    NotificationsEnumFromJSONTyped,
-    NotificationsEnumToJSON,
-    NotificationsEnumToJSONTyped,
-} from './NotificationsEnum';
+    NotificationSettingsRequestDtoFromJSON,
+    NotificationSettingsRequestDtoFromJSONTyped,
+    NotificationSettingsRequestDtoToJSON,
+    NotificationSettingsRequestDtoToJSONTyped,
+} from './NotificationSettingsRequestDto';
 
 /**
  * 
@@ -48,10 +48,10 @@ export interface UserSettingsRequestDto {
     phoneNumber?: string | null;
     /**
      * 
-     * @type {Array<NotificationsEnum>}
+     * @type {Array<NotificationSettingsRequestDto>}
      * @memberof UserSettingsRequestDto
      */
-    notifications?: Array<NotificationsEnum> | null;
+    notifications?: Array<NotificationSettingsRequestDto> | null;
 }
 
 /**
@@ -74,7 +74,7 @@ export function UserSettingsRequestDtoFromJSONTyped(json: any, ignoreDiscriminat
         
         'userFinancialSettings': UserFinancialSettingsRequestDtoFromJSON(json['userFinancialSettings']),
         'phoneNumber': json['phoneNumber'] == null ? undefined : json['phoneNumber'],
-        'notifications': json['notifications'] == null ? undefined : ((json['notifications'] as Array<any>).map(NotificationsEnumFromJSON)),
+        'notifications': json['notifications'] == null ? undefined : ((json['notifications'] as Array<any>).map(NotificationSettingsRequestDtoFromJSON)),
     };
 }
 
@@ -91,7 +91,7 @@ export function UserSettingsRequestDtoToJSONTyped(value?: UserSettingsRequestDto
         
         'userFinancialSettings': UserFinancialSettingsRequestDtoToJSON(value['userFinancialSettings']),
         'phoneNumber': value['phoneNumber'],
-        'notifications': value['notifications'] == null ? undefined : ((value['notifications'] as Array<any>).map(NotificationsEnumToJSON)),
+        'notifications': value['notifications'] == null ? undefined : ((value['notifications'] as Array<any>).map(NotificationSettingsRequestDtoToJSON)),
     };
 }
 

@@ -1,16 +1,24 @@
 import {UserSettings} from "@/src/data/users/userSettings";
 import {getRandomText} from "./texts/texts";
 import {getRandomBoolean, getRandomEnum} from "./tools";
-import {Country, NotificationsEnum} from "@/src/api/openapi";
+import {Country} from "@/src/api/openapi";
 import {UserAddress} from "@/src/data/users/userAddress";
 import {getRandomUserFinancialSettings} from "@/dataGenerator/userFinancialSettings";
 import {getRandomNumber} from "@/src/utils/common";
+import {Notification} from "@/src/data/notifications/notification";
+import {getRandomNotification} from "@/dataGenerator/notifications/notifications";
 
 export const getRandomUserSettings = (): UserSettings => {
+    const notifications: Notification[] = [];
+
+    for (let i = 0; i < getRandomNumber(1, 4); i++) {
+        notifications.push(getRandomNotification());
+    }
+
     return new UserSettings({
         userFinancialSettings: getRandomUserFinancialSettings(),
         phoneNumber: getRandomText(1),
-        notifications: [getRandomEnum(NotificationsEnum), getRandomEnum(NotificationsEnum)],
+        notifications: notifications,
         transportRequirementsId: getRandomBoolean() ? getRandomNumber(1, 100) : null
     })
 }

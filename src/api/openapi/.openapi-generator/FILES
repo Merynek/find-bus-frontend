@@ -49,6 +49,12 @@ docs/GeoPointDto.md
 docs/Languages.md
 docs/LoginRequestDto.md
 docs/LoginResponseDto.md
+docs/NotificationResponseDto.md
+docs/NotificationSettingsDataRequestDto.md
+docs/NotificationSettingsDataResponseDto.md
+docs/NotificationSettingsNewTripDataRequestDto.md
+docs/NotificationSettingsNewTripDataResponseDto.md
+docs/NotificationSettingsRequestDto.md
 docs/NotificationsEnum.md
 docs/PayedOfferRequestDto.md
 docs/PlaceItemResponseDto.md
@@ -173,6 +179,12 @@ models/GeoPointDto.ts
 models/Languages.ts
 models/LoginRequestDto.ts
 models/LoginResponseDto.ts
+models/NotificationResponseDto.ts
+models/NotificationSettingsDataRequestDto.ts
+models/NotificationSettingsDataResponseDto.ts
+models/NotificationSettingsNewTripDataRequestDto.ts
+models/NotificationSettingsNewTripDataResponseDto.ts
+models/NotificationSettingsRequestDto.ts
 models/NotificationsEnum.ts
 models/PayedOfferRequestDto.ts
 models/PlaceItemResponseDto.ts

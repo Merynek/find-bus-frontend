@@ -6,6 +6,8 @@ import {UserSettingsRequestDto} from "@/src/api/openapi";
 import {UserSettingsSchema} from "@/src/forms-action/user-settings/UserSettingsSchema";
 import {DeepPartial} from "@/src/utils/common";
 
+type NotificationsValidatedType = z.infer<typeof UserSettingsSchema>['notifications'];
+
 type UserSettingsData = DeepPartial<UserSettingsRequestDto>;
 
 type UserSettingsApiResult = void;
@@ -17,6 +19,18 @@ export class UserSettingsFormAction extends BaseFormAction<typeof UserSettingsSc
     }
 
     protected createDataFromFormData(formData: FormData): UserSettingsData {
+        const notificationsString = this.getStringFormValue(formData, FormDataEnum.notifications);
+        let notificationsArray: NotificationsValidatedType | undefined = undefined;
+
+        if (notificationsString) {
+            try {
+                notificationsArray = JSON.parse(notificationsString) as NotificationsValidatedType;
+            } catch (e) {
+                console.error("Chyba při parsování JSON notifikací:", e);
+                notificationsArray = undefined;
+            }
+        }
+
         return {
             userFinancialSettings: {
                 name: this.getStringFormValue(formData, FormDataEnum.name),
@@ -43,7 +57,7 @@ export class UserSettingsFormAction extends BaseFormAction<typeof UserSettingsSc
                 }
             },
             phoneNumber: this.getStringFormValue(formData, FormDataEnum.phoneNumber),
-            notifications: this.getEnumArrayFormValue(formData, FormDataEnum.notifications)
+            notifications: notificationsArray
         };
     }
 

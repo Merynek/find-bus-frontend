@@ -7,7 +7,7 @@
 Name | Type
 ------------ | -------------
 `phoneNumber` | string
-`notifications` | [Array&lt;NotificationsEnum&gt;](NotificationsEnum.md)
+`notifications` | [Array&lt;NotificationResponseDto&gt;](NotificationResponseDto.md)
 `financialSettings` | [UserFinancialSettingsResponseDto](UserFinancialSettingsResponseDto.md)
 `transportRequirementsId` | number
 

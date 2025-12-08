@@ -20,13 +20,13 @@ import {
     UserFinancialSettingsResponseDtoToJSON,
     UserFinancialSettingsResponseDtoToJSONTyped,
 } from './UserFinancialSettingsResponseDto';
-import type { NotificationsEnum } from './NotificationsEnum';
+import type { NotificationResponseDto } from './NotificationResponseDto';
 import {
-    NotificationsEnumFromJSON,
-    NotificationsEnumFromJSONTyped,
-    NotificationsEnumToJSON,
-    NotificationsEnumToJSONTyped,
-} from './NotificationsEnum';
+    NotificationResponseDtoFromJSON,
+    NotificationResponseDtoFromJSONTyped,
+    NotificationResponseDtoToJSON,
+    NotificationResponseDtoToJSONTyped,
+} from './NotificationResponseDto';
 
 /**
  * 
@@ -42,10 +42,10 @@ export interface UserSettingsResponseDto {
     phoneNumber: string;
     /**
      * 
-     * @type {Array<NotificationsEnum>}
+     * @type {Array<NotificationResponseDto>}
      * @memberof UserSettingsResponseDto
      */
-    notifications: Array<NotificationsEnum>;
+    notifications: Array<NotificationResponseDto>;
     /**
      * 
      * @type {UserFinancialSettingsResponseDto}
@@ -80,7 +80,7 @@ export function UserSettingsResponseDtoFromJSONTyped(json: any, ignoreDiscrimina
     return {
         
         'phoneNumber': json['phoneNumber'],
-        'notifications': ((json['notifications'] as Array<any>).map(NotificationsEnumFromJSON)),
+        'notifications': ((json['notifications'] as Array<any>).map(NotificationResponseDtoFromJSON)),
         'financialSettings': json['financialSettings'] == null ? undefined : UserFinancialSettingsResponseDtoFromJSON(json['financialSettings']),
         'transportRequirementsId': json['transportRequirementsId'] == null ? undefined : json['transportRequirementsId'],
     };
@@ -98,7 +98,7 @@ export function UserSettingsResponseDtoToJSONTyped(value?: UserSettingsResponseD
     return {
         
         'phoneNumber': value['phoneNumber'],
-        'notifications': ((value['notifications'] as Array<any>).map(NotificationsEnumToJSON)),
+        'notifications': ((value['notifications'] as Array<any>).map(NotificationResponseDtoToJSON)),
         'financialSettings': UserFinancialSettingsResponseDtoToJSON(value['financialSettings']),
         'transportRequirementsId': value['transportRequirementsId'],
     };

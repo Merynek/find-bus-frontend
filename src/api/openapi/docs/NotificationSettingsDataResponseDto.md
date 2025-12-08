@@ -1,26 +1,22 @@
 
-# UserSettingsRequestDto
+# NotificationSettingsDataResponseDto
 
 
 ## Properties
 
 Name | Type
 ------------ | -------------
-`userFinancialSettings` | [UserFinancialSettingsRequestDto](UserFinancialSettingsRequestDto.md)
-`phoneNumber` | string
-`notifications` | [Array&lt;NotificationSettingsRequestDto&gt;](NotificationSettingsRequestDto.md)
+`newTrip` | [NotificationSettingsNewTripDataResponseDto](NotificationSettingsNewTripDataResponseDto.md)
 
 ## Example
 
 ```typescript
-import type { UserSettingsRequestDto } from ''
+import type { NotificationSettingsDataResponseDto } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "userFinancialSettings": null,
-  "phoneNumber": null,
-  "notifications": null,
-} satisfies UserSettingsRequestDto
+  "newTrip": null,
+} satisfies NotificationSettingsDataResponseDto
 
 console.log(example)
 
@@ -29,7 +25,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as UserSettingsRequestDto
+const exampleParsed = JSON.parse(exampleJSON) as NotificationSettingsDataResponseDto
 console.log(exampleParsed)
 ```
 

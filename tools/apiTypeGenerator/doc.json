@@ -3094,6 +3094,9 @@
               "TRIP_DETAIL_LINK": {
                 "type": "string"
               },
+              "TRIP_DISTANCE": {
+                "type": "string"
+              },
               "PERCENT": {
                 "type": "string"
               },
@@ -3200,7 +3203,8 @@
           "TRIP_CLOSE_NO_ACCEPTED_OFFER_FOR_DEMANDER",
           "TRIP_CANCELED_BY_DEMANDER_DEPOSIT_PAID_FOR_DEMANDER",
           "TRIP_CLOSE_BY_ADMIN_FOR_DEMANDER",
-          "TRIP_CLOSE_BY_ADMIN_FOR_TRANSPORTER"
+          "TRIP_CLOSE_BY_ADMIN_FOR_TRANSPORTER",
+          "NEW_TRIP_NOTIFICATION"
         ],
         "type": "string"
       },
@@ -3438,9 +3442,110 @@
         },
         "additionalProperties": false
       },
+      "NotificationResponseDto": {
+        "required": [
+          "isAppPushEnabled",
+          "isEmailEnabled",
+          "isSmsEnabled",
+          "settingsJson",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "isEmailEnabled": {
+            "type": "boolean"
+          },
+          "isSmsEnabled": {
+            "type": "boolean"
+          },
+          "isAppPushEnabled": {
+            "type": "boolean"
+          },
+          "type": {
+            "$ref": "#/components/schemas/NotificationsEnum"
+          },
+          "settingsJson": {
+            "$ref": "#/components/schemas/NotificationSettingsDataResponseDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "NotificationSettingsDataRequestDto": {
+        "type": "object",
+        "properties": {
+          "newTrip": {
+            "$ref": "#/components/schemas/NotificationSettingsNewTripDataRequestDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "NotificationSettingsDataResponseDto": {
+        "type": "object",
+        "properties": {
+          "newTrip": {
+            "$ref": "#/components/schemas/NotificationSettingsNewTripDataResponseDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "NotificationSettingsNewTripDataRequestDto": {
+        "required": [
+          "radiusInMeters"
+        ],
+        "type": "object",
+        "properties": {
+          "radiusInMeters": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "NotificationSettingsNewTripDataResponseDto": {
+        "required": [
+          "radiusInMeters"
+        ],
+        "type": "object",
+        "properties": {
+          "radiusInMeters": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "NotificationSettingsRequestDto": {
+        "required": [
+          "isAppPushEnabled",
+          "isEmailEnabled",
+          "isSmsEnabled",
+          "settingsJson",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "isEmailEnabled": {
+            "type": "boolean"
+          },
+          "isSmsEnabled": {
+            "type": "boolean"
+          },
+          "isAppPushEnabled": {
+            "type": "boolean"
+          },
+          "type": {
+            "$ref": "#/components/schemas/NotificationsEnum"
+          },
+          "settingsJson": {
+            "$ref": "#/components/schemas/NotificationSettingsDataRequestDto"
+          }
+        },
+        "additionalProperties": false
+      },
       "NotificationsEnum": {
         "enum": [
-          "NEW_OFFER_FROM_TRANSPORTER"
+          "NEW_OFFER_FROM_TRANSPORTER",
+          "NEW_TRIP"
         ],
         "type": "string"
       },
@@ -4918,7 +5023,7 @@
           "notifications": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/NotificationsEnum"
+              "$ref": "#/components/schemas/NotificationSettingsRequestDto"
             },
             "nullable": true
           }
@@ -4939,7 +5044,7 @@
           "notifications": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/NotificationsEnum"
+              "$ref": "#/components/schemas/NotificationResponseDto"
             }
           },
           "financialSettings": {

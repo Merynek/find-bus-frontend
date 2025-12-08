@@ -18,7 +18,8 @@
  * @export
  */
 export const NotificationsEnum = {
-    NEW_OFFER_FROM_TRANSPORTER: 'NEW_OFFER_FROM_TRANSPORTER'
+    NEW_OFFER_FROM_TRANSPORTER: 'NEW_OFFER_FROM_TRANSPORTER',
+    NEW_TRIP: 'NEW_TRIP'
 } as const;
 export type NotificationsEnum = typeof NotificationsEnum[keyof typeof NotificationsEnum];
 
