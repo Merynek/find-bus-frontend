@@ -17,6 +17,7 @@ export const PageTabs = (props: IPageTabsProps) => {
     const {user} = props;
     const {t} = useTranslate("component.pageNames");
     const route = useCurrentRoute();
+    const isNotAdmin = user ? user.role !== UserRole.ADMIN : true;
 
     return <nav className={styles.layout}>
         <LayoutFlexRow htmlTag={"ul"} style={{width: "100%"}} gap={FlexGap.LARGE_32}>
@@ -28,20 +29,20 @@ export const PageTabs = (props: IPageTabsProps) => {
                     size={ButtonSize.BUTTON_SIZE_M}
                 />
             </li>
-            <ButtonLink
+            {isNotAdmin && <ButtonLink
                 route={{route: ROUTES.CREATE_TRIP}}
                 label={t("createTrip")}
                 type={route === ROUTES.CREATE_TRIP ? ButtonType.YELLOW : ButtonType.BASE}
                 size={ButtonSize.BUTTON_SIZE_M}
-            />
-            <li>
+            />}
+            {isNotAdmin && <li>
                 <ButtonLink
                     route={{route: ROUTES.TRIP_LIST}}
                     label={t("tripList")}
                     type={route === ROUTES.TRIP_LIST ? ButtonType.YELLOW : ButtonType.BASE}
                     size={ButtonSize.BUTTON_SIZE_M}
                 />
-            </li>
+            </li>}
             {user?.role === UserRole.ADMIN && <li>
                 <ButtonLink
                     route={{route: ROUTES.ADMIN_TRIPS}}

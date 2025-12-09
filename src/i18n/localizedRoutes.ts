@@ -85,3 +85,47 @@ export function getLocalizedRouteUrl(route: ROUTES, locale: LOCALES, protocol: s
 
     return fullUrl;
 }
+
+export function getLocaleFromPathname(pathname: string): LOCALES|null {
+    const allPathNames = routing.pathnames;
+    const allLocales = routing.locales;
+
+    const normalizedPathname = pathname.toLowerCase().startsWith('/')
+        ? pathname.toLowerCase().substring(1)
+        : pathname.toLowerCase();
+
+    if (normalizedPathname === '' || normalizedPathname === '/') {
+        return routing.defaultLocale;
+    }
+
+    const firstSegment = normalizedPathname.split('/')[0];
+
+    for (const locale of allLocales) {
+        if (firstSegment.toLowerCase() === locale.toLowerCase()) {
+            return locale as LOCALES;
+        }
+    }
+
+    for (const routeKey in allPathNames) {
+        const localizedPathDefinition = allPathNames[routeKey as ROUTES];
+        for (const localeKey of allLocales) {
+            const locale = localeKey.toLowerCase();
+            const localizedPath = localizedPathDefinition[locale as keyof typeof localizedPathDefinition];
+
+            if (localizedPath && typeof localizedPath === 'string') {
+                const pathSegment = localizedPath.toLowerCase().startsWith('/')
+                    ? localizedPath.toLowerCase().substring(1).split('/')[0]
+                    : localizedPath.toLowerCase().split('/')[0];
+
+                const segmentToCompare = pathSegment.includes('[')
+                    ? pathSegment.substring(0, pathSegment.indexOf('['))
+                    : pathSegment;
+
+                if (firstSegment === segmentToCompare) {
+                    return localeKey as LOCALES;
+                }
+            }
+        }
+    }
+    return null;
+}
