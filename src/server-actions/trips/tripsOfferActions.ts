@@ -10,7 +10,6 @@ import {
 } from "@/src/api/tripsOfferApi";
 import {
     CloseTripOfferReason,
-    TripOfferAcceptMethod,
     TripOfferMovementsResponseDto,
     TripOfferResponseDto
 } from "@/src/api/openapi";

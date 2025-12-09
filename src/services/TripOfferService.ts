@@ -11,7 +11,7 @@ import {
 import {TripOfferConverter} from "@/src/converters/trip-offer-converter";
 import {TripOfferMovement} from "@/src/data/tripOfferMovement";
 import {Offer} from "@/src/data/offer";
-import {CloseTripOfferReason, TripOfferAcceptMethod} from "@/src/api/openapi";
+import {CloseTripOfferReason} from "@/src/api/openapi";
 import {
     IAcceptOfferRequest,
     ICreateOfferRequest,
