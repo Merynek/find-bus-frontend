@@ -14,6 +14,8 @@ import {TripOfferService} from "@/src/services/TripOfferService";
 import {useApp} from "@/src/context/AppContext";
 import {useCurrentLocale} from "@/src/hooks/translateHook";
 import {FlexGap} from "@/src/enums/layout.enum";
+import {Text} from "@/src/components/components/texts/text";
+import {FontSize} from "@/src/components/components/texts/textStyles";
 
 interface ITripChangeOfferProps {
     trip: Trip;
@@ -29,7 +31,6 @@ export const TripChangeOffer = observer((props: ITripChangeOfferProps) => {
     const price = useRef(Price.create());
     const [selectedEndOfferDate, setSelectedEndOfferDate] = useState<Date|null>(offer.endOfferDate);
     const [priceAmount, setPriceAmount] = useState<number|undefined>(offer.price.amount);
-    debugger;
 
     const validate = () => {
         if (userSettings) {
@@ -64,7 +65,10 @@ export const TripChangeOffer = observer((props: ITripChangeOfferProps) => {
     }
 
     return <div className={styles.layout}>
-        <LayoutFlexColumn gap={FlexGap.TINY_8}>
+        <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
+            <LayoutFlexColumn>
+                <Text text={"Vozidlo: " + offer.vehicle.name} fontSize={FontSize.BASE_14} />
+            </LayoutFlexColumn>
             {_renderDateTimePicker()}
             <NumberBox
                 placeholder={"Kolik"}
