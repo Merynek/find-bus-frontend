@@ -3822,6 +3822,10 @@
             "format": "int32",
             "nullable": true
           },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
           "routes": {
             "type": "array",
             "items": {
@@ -3867,6 +3871,10 @@
           "tripId": {
             "type": "integer",
             "format": "int32",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
             "nullable": true
           },
           "routes": {
@@ -4166,6 +4174,10 @@
             },
             "nullable": true
           },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
           "state": {
             "$ref": "#/components/schemas/TripState"
           },
@@ -4451,6 +4463,10 @@
             "items": {
               "$ref": "#/components/schemas/Amenities"
             },
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
             "nullable": true
           },
           "numberOfPersons": {

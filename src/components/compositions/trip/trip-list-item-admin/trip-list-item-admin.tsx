@@ -24,6 +24,10 @@ export const TripListItemAdmin = (props: ITripListItemAdminProps) => {
                 <Text text={tripItem.id.toString()} fontSize={FontSize.BASE_14} />
             </LayoutFlexRow>
             <LayoutFlexRow gap={FlexGap.SMALLEST_4}>
+                <Text text={"Name: "} fontSize={FontSize.BASE_14} fontWeight={FontWeight.SEMIBOLD} />
+                <Text text={tripItem.name} fontSize={FontSize.BASE_14} />
+            </LayoutFlexRow>
+            <LayoutFlexRow gap={FlexGap.SMALLEST_4}>
                 <Text text={"Created: "} fontSize={FontSize.BASE_14} fontWeight={FontWeight.SEMIBOLD} />
                 <Text text={DateTimeManager.dateTimeFormat(DateTimeFormat.FORMAT_DATE_TIME, tripItem.created)} fontSize={FontSize.BASE_14} />
             </LayoutFlexRow>

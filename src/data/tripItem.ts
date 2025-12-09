@@ -4,6 +4,7 @@ import {Route} from "./trip/route";
 interface ITripItem {
     id: number;
     routes: Route[];
+    name: string;
     numberOfPersons: number|undefined;
     amenities: Amenities[];
     dietForTransporter: boolean|undefined;
@@ -21,6 +22,7 @@ interface ITripItem {
 
 export class TripItem {
     public id: number;
+    public name: string;
     public routes: Route[];
     public numberOfPersons: number;
     public amenities: Amenities[];
@@ -38,6 +40,7 @@ export class TripItem {
 
     constructor(settings: ITripItem) {
         this.id = settings.id;
+        this.name = settings.name;
         this.routes = settings.routes;
         this.numberOfPersons = settings.numberOfPersons || 0;
         this.amenities = settings.amenities;

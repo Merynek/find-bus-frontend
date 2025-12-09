@@ -7,6 +7,7 @@
 Name | Type
 ------------ | -------------
 `tripId` | number
+`name` | string
 `routes` | [Array&lt;RouteRequestDto&gt;](RouteRequestDto.md)
 `numberOfPersons` | number
 `amenities` | [Array&lt;Amenities&gt;](Amenities.md)
@@ -23,6 +24,7 @@ import type { SaveUnauthorizedTripRequestDto } from ''
 // TODO: Update the object below with actual values
 const example = {
   "tripId": null,
+  "name": null,
   "routes": null,
   "numberOfPersons": null,
   "amenities": null,

@@ -99,6 +99,10 @@ export const TripListItem = (props: ITripListItemProps) => {
             <span>ID:</span>
             <span>{tripItem.id}</span>
         </div>
+        <div className={styles.line}>
+            <span>Name:</span>
+            <span>{tripItem.name}</span>
+        </div>
         {!isDraft && tripItem.endOrder && !offerHasEnded && <div>
             <span>Odpočet:</span>
             <Countdown

@@ -80,6 +80,12 @@ export interface TripResponseDto {
     amenities?: Array<Amenities> | null;
     /**
      * 
+     * @type {string}
+     * @memberof TripResponseDto
+     */
+    name?: string | null;
+    /**
+     * 
      * @type {number}
      * @memberof TripResponseDto
      */
@@ -160,6 +166,7 @@ export function TripResponseDtoFromJSONTyped(json: any, ignoreDiscriminator: boo
         'state': TripStateFromJSON(json['state']),
         'routes': ((json['routes'] as Array<any>).map(RouteResponseDtoFromJSON)),
         'amenities': json['amenities'] == null ? undefined : ((json['amenities'] as Array<any>).map(AmenitiesFromJSON)),
+        'name': json['name'] == null ? undefined : json['name'],
         'numberOfPersons': json['numberOfPersons'] == null ? undefined : json['numberOfPersons'],
         'handicappedUserCount': json['handicappedUserCount'] == null ? undefined : json['handicappedUserCount'],
         'totalDistanceInMeters': json['totalDistanceInMeters'],
@@ -187,6 +194,7 @@ export function TripResponseDtoToJSONTyped(value?: TripResponseDto | null, ignor
         'state': TripStateToJSON(value['state']),
         'routes': ((value['routes'] as Array<any>).map(RouteResponseDtoToJSON)),
         'amenities': value['amenities'] == null ? undefined : ((value['amenities'] as Array<any>).map(AmenitiesToJSON)),
+        'name': value['name'],
         'numberOfPersons': value['numberOfPersons'],
         'handicappedUserCount': value['handicappedUserCount'],
         'totalDistanceInMeters': value['totalDistanceInMeters'],

@@ -68,6 +68,12 @@ export interface TripItemResponseDto {
     amenities?: Array<Amenities> | null;
     /**
      * 
+     * @type {string}
+     * @memberof TripItemResponseDto
+     */
+    name?: string | null;
+    /**
+     * 
      * @type {TripState}
      * @memberof TripItemResponseDto
      */
@@ -172,6 +178,7 @@ export function TripItemResponseDtoFromJSONTyped(json: any, ignoreDiscriminator:
         'id': json['id'],
         'routes': ((json['routes'] as Array<any>).map(RouteItemResponseDtoFromJSON)),
         'amenities': json['amenities'] == null ? undefined : ((json['amenities'] as Array<any>).map(AmenitiesFromJSON)),
+        'name': json['name'] == null ? undefined : json['name'],
         'state': TripStateFromJSON(json['state']),
         'numberOfPersons': json['numberOfPersons'] == null ? undefined : json['numberOfPersons'],
         'totalDistanceInMeters': json['totalDistanceInMeters'],
@@ -201,6 +208,7 @@ export function TripItemResponseDtoToJSONTyped(value?: TripItemResponseDto | nul
         'id': value['id'],
         'routes': ((value['routes'] as Array<any>).map(RouteItemResponseDtoToJSON)),
         'amenities': value['amenities'] == null ? undefined : ((value['amenities'] as Array<any>).map(AmenitiesToJSON)),
+        'name': value['name'],
         'state': TripStateToJSON(value['state']),
         'numberOfPersons': value['numberOfPersons'],
         'totalDistanceInMeters': value['totalDistanceInMeters'],

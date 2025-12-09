@@ -18,6 +18,7 @@ import {getRandomFinancialDocument} from "@/dataGenerator/financialDocuments";
 export function getRandomTrip(): Trip {
     return new Trip({
         id: getRandomId(),
+        name: getRandomText(1),
         ownerId: getRandomId(),
         routes: [getRandomRoute()],
         numberOfPersons: getRandomNumber(1, 5),
@@ -36,6 +37,7 @@ export function getRandomTrip(): Trip {
 export function getRandomTripItem(): TripItem {
     return new TripItem({
         id: getRandomId(),
+        name: getRandomText(1),
         routes: [getRandomRoute()],
         numberOfPersons: getRandomNumber(1, 5),
         amenities: [getRandomEnum(Amenities), getRandomEnum(Amenities)],

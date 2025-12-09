@@ -14,6 +14,7 @@ import {CreateTripRoutes} from "@/src/components/pages/create-trip/components/cr
 import {CreateTripRecommendations} from "@/src/components/pages/create-trip/components/create-trip-routes";
 import {GeoPoint} from "@/src/data/geoPoint";
 import {DirectionsMap} from "@/src/components/components/directions-map/directions-map";
+import {TextBox, TextBoxType} from "@/src/components/components/inputs/text-box/text-box";
 
 interface ICreateTripFormProps {
     store: CreateTripPageStore;
@@ -26,6 +27,15 @@ export const CreateTripForm = observer((props: ICreateTripFormProps) => {
     const locale = useCurrentLocale();
 
     return <>
+        <TextBox
+            placeholder={t("name")}
+            controlled={true}
+            type={TextBoxType.TEXT}
+            value={store.trip.name}
+            onChange={(val) => {
+                store.trip.name = val;
+            }}
+        />
         <NumberBox
             placeholder={t("handicappedUserCount")}
             controlled={true}

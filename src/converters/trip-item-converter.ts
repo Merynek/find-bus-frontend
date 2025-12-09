@@ -11,6 +11,7 @@ export class TripItemConverter {
     public static toInstance(apiTrip: TripItemResponseDto): TripItem {
         return new TripItem({
             id: apiTrip.id,
+            name: apiTrip.name || "",
             amenities: apiTrip.amenities || [],
             dietForTransporter: apiTrip.dietForTransporter == null ? undefined : apiTrip.dietForTransporter,
             numberOfPersons: apiTrip.numberOfPersons == null ? undefined : apiTrip.numberOfPersons,
@@ -31,6 +32,7 @@ export class TripItemConverter {
     public static toJson(item: TripItem): TripItemResponseDto {
         return {
             id: item.id,
+            name: item.name,
             amenities: item.amenities,
             dietForTransporter: item.dietForTransporter,
             numberOfPersons: item.numberOfPersons,

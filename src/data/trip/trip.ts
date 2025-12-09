@@ -10,6 +10,7 @@ import {GeoPoint} from "../geoPoint";
 interface ITrip {
     id: number;
     ownerId: number;
+    name: string;
     routes: Route[];
     numberOfPersons: number|undefined;
     amenities: Amenities[];
@@ -26,6 +27,7 @@ interface ITrip {
 export class Trip {
     public id: number;
     public ownerId: number;
+    @observable public name: string;
     @observable public routes: Route[];
     @observable public numberOfPersons: number|undefined;
     @observable public amenities: Amenities[];
@@ -42,6 +44,7 @@ export class Trip {
     constructor(settings: ITrip) {
         this.id = settings.id;
         this.ownerId = settings.ownerId;
+        this.name = settings.name;
         this.routes = settings.routes;
         this.routes.forEach(route => {
             this.setAddedRoute(route);
@@ -176,6 +179,7 @@ export class Trip {
         return new Trip({
             id: tripSettings.id || 0,
             ownerId: tripSettings.ownerId || 0,
+            name: tripSettings.name || "",
             routes: tripSettings.routes || [],
             numberOfPersons: tripSettings.numberOfPersons || 0,
             dietForTransporter: tripSettings.dietForTransporter || false,

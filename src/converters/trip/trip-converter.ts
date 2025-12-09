@@ -15,6 +15,7 @@ export class TripConverter {
         return new Trip({
             id: apiTrip.id,
             ownerId: apiTrip.ownerId,
+            name: apiTrip.name || "",
             amenities: apiTrip.amenities || [],
             dietForTransporter: apiTrip.dietForTransporter == null ? undefined : apiTrip.dietForTransporter,
             numberOfPersons: apiTrip.numberOfPersons == null ? undefined : apiTrip.numberOfPersons,
@@ -31,6 +32,7 @@ export class TripConverter {
 
     public static toServer(trip: Trip): SaveTripRequestDto {
         return {
+            name: trip.name,
             routes: trip.routes.map((r) => RouteConverter.toServer(r)),
             numberOfPersons: trip.numberOfPersons,
             dietForTransporter: trip.dietForTransporter,
@@ -72,6 +74,7 @@ export class TripConverter {
         return {
             id: trip.id,
             ownerId: trip.ownerId,
+            name: trip.name,
             routes: trip.routes.map(r => RouteConverter.toJson(r)),
             numberOfPersons: trip.numberOfPersons,
             amenities: toJS(trip.amenities),

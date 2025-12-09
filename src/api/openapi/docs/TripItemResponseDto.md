@@ -9,6 +9,7 @@ Name | Type
 `id` | number
 `routes` | [Array&lt;RouteItemResponseDto&gt;](RouteItemResponseDto.md)
 `amenities` | [Array&lt;Amenities&gt;](Amenities.md)
+`name` | string
 `state` | [TripState](TripState.md)
 `numberOfPersons` | number
 `totalDistanceInMeters` | number
@@ -32,6 +33,7 @@ const example = {
   "id": null,
   "routes": null,
   "amenities": null,
+  "name": null,
   "state": null,
   "numberOfPersons": null,
   "totalDistanceInMeters": null,

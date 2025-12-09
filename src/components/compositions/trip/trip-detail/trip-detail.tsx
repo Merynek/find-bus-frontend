@@ -26,6 +26,9 @@ export const TripDetail = observer((props: ITripDetailProps) => {
         return <div key={index}>
             <div className={styles.stop}>
                 <div className={styles.line}>
+                    <span>Název - {trip.name}</span>
+                </div>
+                <div className={styles.line}>
                     <span>Odjezd - {formatDateTime({
                         date: route.start,
                         locale: locale

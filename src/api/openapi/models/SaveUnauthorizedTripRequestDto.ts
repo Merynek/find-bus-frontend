@@ -42,6 +42,12 @@ export interface SaveUnauthorizedTripRequestDto {
     tripId?: number | null;
     /**
      * 
+     * @type {string}
+     * @memberof SaveUnauthorizedTripRequestDto
+     */
+    name?: string | null;
+    /**
+     * 
      * @type {Array<RouteRequestDto>}
      * @memberof SaveUnauthorizedTripRequestDto
      */
@@ -103,6 +109,7 @@ export function SaveUnauthorizedTripRequestDtoFromJSONTyped(json: any, ignoreDis
     return {
         
         'tripId': json['tripId'] == null ? undefined : json['tripId'],
+        'name': json['name'] == null ? undefined : json['name'],
         'routes': json['routes'] == null ? undefined : ((json['routes'] as Array<any>).map(RouteRequestDtoFromJSON)),
         'numberOfPersons': json['numberOfPersons'] == null ? undefined : json['numberOfPersons'],
         'amenities': json['amenities'] == null ? undefined : ((json['amenities'] as Array<any>).map(AmenitiesFromJSON)),
@@ -125,6 +132,7 @@ export function SaveUnauthorizedTripRequestDtoToJSONTyped(value?: SaveUnauthoriz
     return {
         
         'tripId': value['tripId'],
+        'name': value['name'],
         'routes': value['routes'] == null ? undefined : ((value['routes'] as Array<any>).map(RouteRequestDtoToJSON)),
         'numberOfPersons': value['numberOfPersons'],
         'amenities': value['amenities'] == null ? undefined : ((value['amenities'] as Array<any>).map(AmenitiesToJSON)),

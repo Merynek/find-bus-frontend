@@ -69,6 +69,7 @@ declare const messages: {
       "mailingAddressHeading": "Poštovní adresa"
     },
     "trip": {
+      "name": "Název",
       "handicappedUserCount": "Počet vozíčkářů",
       "endDemand": "Kdy končí nabídka",
       "numberOfPassengers": "Počet cestujících",

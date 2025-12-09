@@ -66,6 +66,7 @@
       "mailingAddressHeading": "Mailing address"
     },
     "trip": {
+      "name": "Name",
       "handicappedUserCount": "Number of handicapped",
       "endDemand": "When does the demand end",
       "numberOfPassengers": "Number of passengers",
