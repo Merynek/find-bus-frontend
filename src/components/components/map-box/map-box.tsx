@@ -57,7 +57,7 @@ const MapBox = (props: IMapBoxProps) => {
             bounds: initBounds,
             center: initCenter,
             zoom: initialView?.zoom || 1,
-            maxZoom: 15,
+            maxZoom: 19,
             fitBoundsOptions: { padding: {top: 40, bottom: 40, left: 40, right: 40}}
         });
         map.on("load", async () => {
