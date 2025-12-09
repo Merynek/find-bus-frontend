@@ -2,124 +2,104 @@ import {defineRouting} from 'next-intl/routing';
 import {LOCALES} from "@/src/enums/locale";
 import {ROUTES, URL_PARAMS} from "@/src/enums/router.enum";
 
-export const getSingleRoutePathname = (route: ROUTES) => {
-    let cs_CZ_path: string;
-
-    switch (route) {
-        case ROUTES.HOME:
-            cs_CZ_path = ROUTES.HOME;
-            break;
-        case ROUTES.SIGN_IN:
-            cs_CZ_path = '/prihlaseni';
-            break;
-        case ROUTES.SIGN_UP:
-            cs_CZ_path = '/registrace';
-            break;
-        case ROUTES.ACTIVE_USER:
-            cs_CZ_path = `/aktivace-uctu/[${URL_PARAMS.TOKEN}]`;
-            break;
-        case ROUTES.RESET_PASSWORD:
-            cs_CZ_path = '/obnoveni-hesla';
-            break;
-        case ROUTES.FORGOT_PASSWORD:
-            cs_CZ_path = '/zapomenute-heslo';
-            break;
-        case ROUTES.USER_SETTINGS:
-            cs_CZ_path = '/nastaveni-uzivatele';
-            break;
-        case ROUTES.TRANSPORT_REQUIREMENTS:
-            cs_CZ_path = `/transport-pozadavky`;
-            break;
-        case ROUTES.VEHICLES:
-            cs_CZ_path = '/vozidla';
-            break;
-        case ROUTES.VEHICLE_EDIT:
-            cs_CZ_path = `/nastaveni-vozidla/[${URL_PARAMS.VEHICLE_ID}]`;
-            break;
-        case ROUTES.DRAFT_TRIP:
-            cs_CZ_path = `/nova-cesta/[${URL_PARAMS.TRIP_ID}]`;
-            break;
-        case ROUTES.CREATE_TRIP:
-            cs_CZ_path = `/nova-cesta`;
-            break;
-        case ROUTES.TRIP_LIST:
-            cs_CZ_path = '/cesty';
-            break;
-        case ROUTES.TRIP_DRAFT_LIST:
-            cs_CZ_path = '/koncepty';
-            break;
-        case ROUTES.TRIP:
-            cs_CZ_path = `/cesta/[${URL_PARAMS.TRIP_ID}]`;
-            break;
-        case ROUTES.ADMIN_TRIPS:
-            cs_CZ_path = '/admin/cesty';
-            break;
-        case ROUTES.APP_CONFIG:
-            cs_CZ_path = '/admin/nastaveni';
-            break;
-        case ROUTES.EMAIL_CONFIG:
-            cs_CZ_path = '/admin/emaily';
-            break;
-        case ROUTES.ADMIN_USERS:
-            cs_CZ_path = '/admin/uzivatele';
-            break;
-        case ROUTES.ADMIN_USER:
-            cs_CZ_path = `/admin/uzivatel/[${URL_PARAMS.USER_ID}]`;
-            break;
-        case ROUTES.ADMIN_TRIP_DETAIL:
-            cs_CZ_path = `/admin/cesta/[${URL_PARAMS.TRIP_ID}]`;
-            break;
-        case ROUTES.ADMIN_VEHICLE:
-            cs_CZ_path = `/admin/vozidlo/[${URL_PARAMS.VEHICLE_ID}]`;
-            break;
-        case ROUTES.ADMIN_TRANSPORT_REQUIREMENTS:
-            cs_CZ_path = `/admin/transport-pozadavky/[${URL_PARAMS.USER_ID}]`;
-            break;
-        default:
-            cs_CZ_path = route;
-            break;
-    }
-    return {
-        [route]: {
-            [LOCALES.cs_CZ]: cs_CZ_path,
-            [LOCALES.en_US]: route
-        }
-    }
-};
-
-export const createPathNames = () => {
-    return {
-        ...getSingleRoutePathname(ROUTES.HOME),
-        ...getSingleRoutePathname(ROUTES.SIGN_IN),
-        ...getSingleRoutePathname(ROUTES.SIGN_UP),
-        ...getSingleRoutePathname(ROUTES.ACTIVE_USER),
-        ...getSingleRoutePathname(ROUTES.RESET_PASSWORD),
-        ...getSingleRoutePathname(ROUTES.FORGOT_PASSWORD),
-        ...getSingleRoutePathname(ROUTES.USER_SETTINGS),
-        ...getSingleRoutePathname(ROUTES.TRANSPORT_REQUIREMENTS),
-        ...getSingleRoutePathname(ROUTES.VEHICLES),
-        ...getSingleRoutePathname(ROUTES.VEHICLE_EDIT),
-        ...getSingleRoutePathname(ROUTES.DRAFT_TRIP),
-        ...getSingleRoutePathname(ROUTES.CREATE_TRIP),
-        ...getSingleRoutePathname(ROUTES.TRIP_LIST),
-        ...getSingleRoutePathname(ROUTES.TRIP_DRAFT_LIST),
-        ...getSingleRoutePathname(ROUTES.TRIP),
-        ...getSingleRoutePathname(ROUTES.ADMIN_TRIPS),
-        ...getSingleRoutePathname(ROUTES.APP_CONFIG),
-        ...getSingleRoutePathname(ROUTES.EMAIL_CONFIG),
-        ...getSingleRoutePathname(ROUTES.ADMIN_USERS),
-        ...getSingleRoutePathname(ROUTES.ADMIN_USER),
-        ...getSingleRoutePathname(ROUTES.ADMIN_TRIP_DETAIL),
-        ...getSingleRoutePathname(ROUTES.ADMIN_VEHICLE),
-        ...getSingleRoutePathname(ROUTES.ADMIN_TRANSPORT_REQUIREMENTS),
-    }
-};
-
 export const routing = defineRouting({
     locales: [LOCALES.cs_CZ, LOCALES.en_US],
     defaultLocale: LOCALES.cs_CZ,
     localePrefix: {
         mode: 'always'
     },
-    pathnames: createPathNames()
+    pathnames: {
+        [ROUTES.HOME]: {
+            [LOCALES.cs_CZ]: ROUTES.HOME,
+            [LOCALES.en_US]: ROUTES.HOME
+        },
+        [ROUTES.SIGN_IN]: {
+            [LOCALES.cs_CZ]: '/prihlaseni',
+            [LOCALES.en_US]: ROUTES.SIGN_IN
+        },
+        [ROUTES.SIGN_UP]: {
+            [LOCALES.cs_CZ]: '/registrace',
+            [LOCALES.en_US]: ROUTES.SIGN_UP
+        },
+        [ROUTES.ACTIVE_USER]: {
+            [LOCALES.cs_CZ]: `/aktivace-uctu/[${URL_PARAMS.TOKEN}]`,
+            [LOCALES.en_US]: ROUTES.ACTIVE_USER
+        },
+        [ROUTES.RESET_PASSWORD]: {
+            [LOCALES.cs_CZ]: '/obnoveni-hesla',
+            [LOCALES.en_US]: ROUTES.RESET_PASSWORD
+        },
+        [ROUTES.FORGOT_PASSWORD]: {
+            [LOCALES.cs_CZ]: '/zapomenute-heslo',
+            [LOCALES.en_US]: ROUTES.FORGOT_PASSWORD
+        },
+        [ROUTES.USER_SETTINGS]: {
+            [LOCALES.cs_CZ]: '/nastaveni-uzivatele',
+            [LOCALES.en_US]: ROUTES.USER_SETTINGS
+        },
+        [ROUTES.TRANSPORT_REQUIREMENTS]: {
+            [LOCALES.cs_CZ]: `/transport-pozadavky`,
+            [LOCALES.en_US]: ROUTES.TRANSPORT_REQUIREMENTS
+        },
+        [ROUTES.VEHICLES]: {
+            [LOCALES.cs_CZ]: '/vozidla',
+            [LOCALES.en_US]: ROUTES.VEHICLES
+        },
+        [ROUTES.VEHICLE_EDIT]: {
+            [LOCALES.cs_CZ]: `/nastaveni-vozidla/[${URL_PARAMS.VEHICLE_ID}]`,
+            [LOCALES.en_US]: ROUTES.VEHICLE_EDIT
+        },
+        [ROUTES.DRAFT_TRIP]: {
+            [LOCALES.cs_CZ]: `/nova-cesta/[${URL_PARAMS.TRIP_ID}]`,
+            [LOCALES.en_US]: ROUTES.DRAFT_TRIP
+        },
+        [ROUTES.CREATE_TRIP]: {
+            [LOCALES.cs_CZ]: `/nova-cesta`,
+            [LOCALES.en_US]: ROUTES.CREATE_TRIP
+        },
+        [ROUTES.TRIP_LIST]: {
+            [LOCALES.cs_CZ]: '/cesty',
+            [LOCALES.en_US]: ROUTES.TRIP_LIST
+        },
+        [ROUTES.TRIP_DRAFT_LIST]: {
+            [LOCALES.cs_CZ]: '/koncepty',
+            [LOCALES.en_US]: ROUTES.TRIP_DRAFT_LIST
+        },
+        [ROUTES.TRIP]: {
+            [LOCALES.cs_CZ]: `/cesta/[${URL_PARAMS.TRIP_ID}]`,
+            [LOCALES.en_US]: ROUTES.TRIP
+        },
+        [ROUTES.ADMIN_TRIPS]: {
+            [LOCALES.cs_CZ]: '/admin/cesty',
+            [LOCALES.en_US]: ROUTES.ADMIN_TRIPS
+        },
+        [ROUTES.APP_CONFIG]: {
+            [LOCALES.cs_CZ]: '/admin/nastaveni',
+            [LOCALES.en_US]: ROUTES.APP_CONFIG
+        },
+        [ROUTES.EMAIL_CONFIG]: {
+            [LOCALES.cs_CZ]: '/admin/emaily',
+            [LOCALES.en_US]: ROUTES.EMAIL_CONFIG
+        },
+        [ROUTES.ADMIN_USERS]: {
+            [LOCALES.cs_CZ]: '/admin/uzivatele',
+            [LOCALES.en_US]: ROUTES.ADMIN_USERS
+        },
+        [ROUTES.ADMIN_USER]: {
+            [LOCALES.cs_CZ]: `/admin/uzivatel/[${URL_PARAMS.USER_ID}]`,
+            [LOCALES.en_US]: ROUTES.ADMIN_USER
+        },
+        [ROUTES.ADMIN_TRIP_DETAIL]: {
+            [LOCALES.cs_CZ]: `/admin/cesta/[${URL_PARAMS.TRIP_ID}]`,
+            [LOCALES.en_US]: ROUTES.ADMIN_TRIP_DETAIL
+        },
+        [ROUTES.ADMIN_VEHICLE]: {
+            [LOCALES.cs_CZ]: `/admin/vozidlo/[${URL_PARAMS.VEHICLE_ID}]`,
+            [LOCALES.en_US]: ROUTES.ADMIN_VEHICLE
+        },
+        [ROUTES.ADMIN_TRANSPORT_REQUIREMENTS]: {
+            [LOCALES.cs_CZ]: `/admin/transport-pozadavky/[${URL_PARAMS.USER_ID}]`,
+            [LOCALES.en_US]: ROUTES.ADMIN_TRANSPORT_REQUIREMENTS
+        }
+    }
 });
