@@ -70,10 +70,11 @@ export const DatePicker = (props: IDatePickerProps) => {
     }
 
     const handleChange = useCallback((newValue: PickerValue) => {
+        const dateToReturn = (newValue && newValue.isValid()) ? newValue.toDate() : null;
         if (controlled) {
-            onChange(newValue ? newValue.toDate() : null);
+            onChange(dateToReturn);
         }
-        setInternalValue(newValue ? newValue.toDate() : null);
+        setInternalValue(dateToReturn);
     }, [controlled, onChange]);
 
     const selectedValue = value !== undefined ? value : internalValue || defaultValue;
