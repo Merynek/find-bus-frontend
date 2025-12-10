@@ -1,6 +1,7 @@
 'use server';
 
 import {
+    IBanUserRequest,
     ICompleteUploadTransportRequirementsDocumentsRequest,
     ICreateUploadUrlForTransportRequirementsFilesRequest,
     ISendTransportRequirementsToVerificationRequest, ISetTransportRequirementsVerificationRequest,
@@ -34,6 +35,14 @@ export async function getUserDetail(userId: number): Promise<AdminUserDetailResp
         return await usersApi.getUserDetail({
             userId: userId
         });
+    });
+}
+
+export async function banUser(req: IBanUserRequest): Promise<void> {
+    return await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const usersApi = new UsersApi(accessToken);
+        return await usersApi.banUser(req);
     });
 }
 

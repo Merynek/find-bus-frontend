@@ -1,5 +1,6 @@
 import {UserAdminDetail} from "@/src/data/users/user-admin-detail";
 import {
+    banUser,
     changeSettings,
     completeUploadTransportRequirementsDocuments,
     createUploadUrlForTransportRequirementDocuments,
@@ -17,6 +18,7 @@ import {UserAdminDetailConverter} from "@/src/converters/admin/user-admin-detail
 import {BaseService} from "@/src/services/BaseService";
 import {UserSettingsConverter} from "@/src/converters/users/user-settings-converter";
 import {
+    IBanUserRequest,
     ICompleteUploadTransportRequirementsDocumentsRequest,
     ICreateUploadUrlForTransportRequirementsFilesRequest,
     ISendTransportRequirementsToVerificationRequest,
@@ -31,6 +33,13 @@ import {UserAdminItem} from "@/src/data/users/user-admin-item";
 import {UserAdminItemConverter} from "@/src/converters/admin/user-admin-item-converter";
 
 export class UsersService extends BaseService {
+
+    public static async banUser(req: IBanUserRequest): Promise<void> {
+        return await this.handleActionCall(async () => {
+            await banUser(req)
+        });
+    }
+
     public static async getAllUsers(offset: number, limit: number): Promise<UserAdminItem[]> {
         return await this.handleActionCall(async () => {
             const data = await getAllUsers(offset, limit);

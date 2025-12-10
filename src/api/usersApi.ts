@@ -60,6 +60,11 @@ export interface IGetUserDetailRequest extends IApiRequest {
     userId: number;
 }
 
+export interface IBanUserRequest extends IApiRequest {
+    userId: number;
+    ban: boolean;
+}
+
 export class UsersApi {
     private readonly _token: string|undefined;
 
@@ -144,6 +149,15 @@ export class UsersApi {
     public async getUserDetail(req: IGetUserDetailRequest): Promise<AdminUserDetailResponseDto> {
         return await handleApiCall(this._api.apiUsersUserGet({
             userId: req.userId
+        }, req.initOverrides));
+    }
+
+    public async banUser(req: IBanUserRequest): Promise<void> {
+        return await handleApiCall(this._api.apiUsersBanPost({
+            banUserRequestDto: {
+                ban: req.ban,
+                idUser: req.userId
+            }
         }, req.initOverrides));
     }
 }

@@ -12,6 +12,10 @@ import {AppBusinessConfig} from "@/src/data/appBusinessConfig";
 import {AppBusinessConfigConverter} from "@/src/converters/admin/app-business-config-converter";
 import {ButtonLink, ButtonSize, ButtonType} from "@/src/components/components/button/button";
 import {ROUTES, URL_PARAMS} from "@/src/enums/router.enum";
+import {Group} from "@/src/components/compositions/admin/admin-user-detail/admin-user-detail-group";
+import {
+    AccessControlSection
+} from "@/src/components/compositions/admin/admin-user-detail/admin-user-access-control-section";
 
 interface IAdminUserDetailProps {
     user: UserAdminDetail;
@@ -58,6 +62,7 @@ export const AdminUserDetail = (props: IAdminUserDetailProps) => {
                 {renderTextItem("Swift", user.userFinancialSettings.swift)}
             </Group>
         </LayoutFlexRow>
+        <AccessControlSection user={UserAdminDetailConverter.toJson(user)} />
         {user.transportRequirementsId && <Group title={"Transport Requirements"}>
             <ButtonLink
                 route={{
@@ -91,18 +96,5 @@ export const AdminUserDetail = (props: IAdminUserDetailProps) => {
                 appConfig={AppBusinessConfigConverter.toJson(config)}
             />
         </Group>
-    </LayoutFlexColumn>
-}
-
-interface IGroupProps {
-    title: string;
-    children: React.ReactNode;
-}
-
-const Group = (props: IGroupProps) => {
-    const {title, children} = props;
-    return <LayoutFlexColumn gap={FlexGap.SMALL_16}>
-        <Text text={title} fontSize={FontSize.M_22} fontWeight={FontWeight.SEMIBOLD} />
-        {children}
     </LayoutFlexColumn>
 }
