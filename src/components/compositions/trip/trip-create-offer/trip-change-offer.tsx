@@ -17,6 +17,9 @@ import {FlexGap} from "@/src/enums/layout.enum";
 import {Text} from "@/src/components/components/texts/text";
 import {FontSize} from "@/src/components/components/texts/textStyles";
 import {getApiErrorMessage} from "@/src/utils/handleApiErrors";
+import {VehicleDetailModal} from "@/src/components/compositions/vehicle/modal-vehicle-detail/vehicle-detail-modal";
+import {Vehicle} from "@/src/data/vehicle/vehicle";
+import {VehicleService} from "@/src/services/VehicleService";
 
 interface ITripChangeOfferProps {
     trip: Trip;
@@ -30,6 +33,7 @@ export const TripChangeOffer = observer((props: ITripChangeOfferProps) => {
     const {showLoader, hideLoader} = useApp();
     const locale = useCurrentLocale();
     const price = useRef(Price.create());
+    const [vehicleDetail, setVehicleDetail] = useState<Vehicle|null>(null);
     const [selectedEndOfferDate, setSelectedEndOfferDate] = useState<Date|null>(offer.endOfferDate);
     const [priceAmount, setPriceAmount] = useState<number|undefined>(offer.price.amount);
 
@@ -46,6 +50,16 @@ export const TripChangeOffer = observer((props: ITripChangeOfferProps) => {
 
     const maxDate = (): Date|null => {
         return trip.endOrder || null;
+    }
+
+    const renderVehicleModal = () => {
+        return vehicleDetail && <VehicleDetailModal
+            open={Boolean(vehicleDetail)}
+            vehicle={vehicleDetail}
+            onClose={() => {
+                setVehicleDetail(null);
+            }}
+        />
     }
 
     const _renderDateTimePicker = () => {
@@ -66,9 +80,22 @@ export const TripChangeOffer = observer((props: ITripChangeOfferProps) => {
     }
 
     return <div className={styles.layout}>
+        {renderVehicleModal()}
         <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
             <LayoutFlexColumn>
                 <Text text={"Vozidlo: " + offer.vehicle.name} fontSize={FontSize.BASE_14} />
+                <ButtonClick
+                    controlled={true}
+                    onClick={async () => {
+                        showLoader();
+                        const detailVehicle = await VehicleService.getPublicVehicle(offer.vehicle.id);
+                        hideLoader();
+                        setVehicleDetail(detailVehicle);
+                    }}
+                    label={"Vehicle Detail"}
+                    type={ButtonType.YELLOW}
+                    size={ButtonSize.BUTTON_SIZE_M}
+                />
             </LayoutFlexColumn>
             {_renderDateTimePicker()}
             <NumberBox
