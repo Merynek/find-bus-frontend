@@ -27,3 +27,11 @@ export function isUnauthorizedError(error: unknown): boolean {
     }
     return false;
 }
+
+export function getApiErrorMessage(error: unknown): string {
+    if (error instanceof FindBusError) {
+        const json = error.toJson();
+        return json.message;
+    }
+    return JSON.stringify(error);
+}

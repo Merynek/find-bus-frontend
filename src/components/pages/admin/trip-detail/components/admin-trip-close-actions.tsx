@@ -10,6 +10,7 @@ import {useApp} from "@/src/context/AppContext";
 import {TripOfferService} from "@/src/services/TripOfferService";
 import {useInit} from "@/src/hooks/lifecycleHooks";
 import {reloadPage} from "@/src/utils/common";
+import {getApiErrorMessage} from "@/src/utils/handleApiErrors";
 
 interface IAdminTripActionsProps {
     trip: TripResponseDto;
@@ -29,7 +30,11 @@ export const AdminTripCloseActions = (props: IAdminTripActionsProps) => {
             controlled={true}
             onClick={async () => {
                 showLoader();
-                await TripOfferService.forceCloseTrip(trip.id, reason, "");
+                try {
+                    await TripOfferService.forceCloseTrip(trip.id, reason, "");
+                } catch (e) {
+                    alert(getApiErrorMessage(e));
+                }
                 hideLoader();
                 reloadPage();
             }}

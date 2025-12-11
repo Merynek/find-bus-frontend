@@ -16,6 +16,7 @@ import {useCurrentLocale} from "@/src/hooks/translateHook";
 import {FlexGap} from "@/src/enums/layout.enum";
 import {Text} from "@/src/components/components/texts/text";
 import {FontSize} from "@/src/components/components/texts/textStyles";
+import {getApiErrorMessage} from "@/src/utils/handleApiErrors";
 
 interface ITripChangeOfferProps {
     trip: Trip;
@@ -90,14 +91,18 @@ export const TripChangeOffer = observer((props: ITripChangeOfferProps) => {
                     const isValid = validate();
                     if (selectedEndOfferDate && isValid) {
                         showLoader();
-                        await TripOfferService.updateOffer({
-                            offerId: offer.id,
-                            endOfferDate: selectedEndOfferDate,
-                            price: {
-                                amount: priceAmount || 0,
-                                currency: Currency.CZK
-                            }
-                        });
+                        try {
+                            await TripOfferService.updateOffer({
+                                offerId: offer.id,
+                                endOfferDate: selectedEndOfferDate,
+                                price: {
+                                    amount: priceAmount || 0,
+                                    currency: Currency.CZK
+                                }
+                            });
+                        } catch (e) {
+                            alert(getApiErrorMessage(e));
+                        }
                         hideLoader();
                         onChangeOffer();
                     } else {
@@ -113,7 +118,11 @@ export const TripChangeOffer = observer((props: ITripChangeOfferProps) => {
                 controlled={true}
                 onClick={async () => {
                     showLoader();
-                    await TripOfferService.deleteOffer(trip.id);
+                    try {
+                        await TripOfferService.deleteOffer(trip.id);
+                    } catch (e) {
+                        alert(getApiErrorMessage(e));
+                    }
                     hideLoader();
                     onChangeOffer();
                 }}

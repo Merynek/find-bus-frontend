@@ -11,6 +11,7 @@ import {useApp} from "@/src/context/AppContext";
 import {TripOfferService} from "@/src/services/TripOfferService";
 import {useInit} from "@/src/hooks/lifecycleHooks";
 import {reloadPage} from "@/src/utils/common";
+import {getApiErrorMessage} from "@/src/utils/handleApiErrors";
 
 interface IAdminTripMoveActionsProps {
     trip: TripResponseDto;
@@ -57,7 +58,11 @@ export const AdminTripMoveActions = (props: IAdminTripMoveActionsProps) => {
             controlled={true}
             onClick={async () => {
                 showLoader();
-                await TripOfferService.payedOffer(offer.id);
+                try {
+                    await TripOfferService.payedOffer(offer.id);
+                } catch (e) {
+                    alert(getApiErrorMessage(e));
+                }
                 hideLoader();
                 reloadPage();
             }}
@@ -72,7 +77,11 @@ export const AdminTripMoveActions = (props: IAdminTripMoveActionsProps) => {
             controlled={true}
             onClick={async () => {
                 showLoader();
-                await TripOfferService.startTrip(trip.id);
+                try {
+                    await TripOfferService.startTrip(trip.id);
+                } catch (e) {
+                    alert(getApiErrorMessage(e));
+                }
                 hideLoader();
                 reloadPage();
             }}
@@ -87,7 +96,11 @@ export const AdminTripMoveActions = (props: IAdminTripMoveActionsProps) => {
             controlled={true}
             onClick={async () => {
                 showLoader();
-                await TripOfferService.finishTrip(trip.id);
+                try {
+                    await TripOfferService.finishTrip(trip.id);
+                } catch (e) {
+                    alert(getApiErrorMessage(e));
+                }
                 hideLoader();
                 reloadPage();
             }}

@@ -120,38 +120,26 @@ export class CreateTripPageStore {
     }
 
     public async publishTrip() {
-        try {
-            await TripService.publishTrip({
-                triId: this.trip.id
-            });
-        } catch (e) {
-            throw e;
-        }
+        await TripService.publishTrip({
+            triId: this.trip.id
+        });
     }
 
     public async saveTrip() {
-        try {
-            this.trip.id = await TripService.saveTrip({
-                trip: {
-                    ...TripConverter.toServer(this.trip),
-                    tripId: this.trip.id || undefined
-                }
-            });
-        } catch (e) {
-            throw e;
-        }
+        this.trip.id = await TripService.saveTrip({
+            trip: {
+                ...TripConverter.toServer(this.trip),
+                tripId: this.trip.id || undefined
+            }
+        });
     }
 
     public async saveUnauthorizedTrip(email: string) {
-        try {
-            this.trip.id = await TripService.saveUnauthorizedTrip({
-                trip: {
-                    ...TripConverter.toServer(this.trip),
-                    email: email
-                }
-            });
-        } catch (e) {
-            throw e;
-        }
+        this.trip.id = await TripService.saveUnauthorizedTrip({
+            trip: {
+                ...TripConverter.toServer(this.trip),
+                email: email
+            }
+        });
     }
 }

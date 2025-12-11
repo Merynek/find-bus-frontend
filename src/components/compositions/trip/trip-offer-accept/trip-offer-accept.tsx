@@ -11,6 +11,7 @@ import moment from "moment";
 import {TripOfferService} from "@/src/services/TripOfferService";
 import {useApp} from "@/src/context/AppContext";
 import {AppBusinessConfig} from "@/src/data/appBusinessConfig";
+import {getApiErrorMessage} from "@/src/utils/handleApiErrors";
 
 export interface ITripOfferAcceptProps {
     offer: Offer;
@@ -62,11 +63,15 @@ export const TripOfferAccept = observer((props: ITripOfferAcceptProps) => {
             controlled={true}
             onClick={async () => {
                 showLoader();
-                await TripOfferService.acceptOffer({
-                    offerId: offer.id,
-                    acceptMethod: acceptMethod,
-                    clientRowVersion: offer.clientRowVersion
-                });
+                try {
+                    await TripOfferService.acceptOffer({
+                        offerId: offer.id,
+                        acceptMethod: acceptMethod,
+                        clientRowVersion: offer.clientRowVersion
+                    });
+                } catch (e) {
+                    alert(getApiErrorMessage(e));
+                }
                 hideLoader();
                 onAcceptOffer();
             }}

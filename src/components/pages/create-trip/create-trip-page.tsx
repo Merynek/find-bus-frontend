@@ -17,6 +17,7 @@ import {Trip} from "@/src/data/trip/trip";
 import {SignModal} from "@/src/components/compositions/sign/sign-modal/sign-modal";
 import {useLoggedUser} from "@/src/hooks/authenticationHook";
 import {CreateTripForm} from "@/src/components/pages/create-trip/components/create-trip-form";
+import {getApiErrorMessage} from "@/src/utils/handleApiErrors";
 
 interface ICreateTripPageProps {
     cfg: AppBusinessConfigResponseDto;
@@ -42,13 +43,17 @@ const CreateTripPage = (props: ICreateTripPageProps) => {
 
     const saveTrip = async () => {
         showLoader();
-        await _store.saveTrip();
-        router.replace({
-            pathname: ROUTES.DRAFT_TRIP,
-            params: {
-                [URL_PARAMS.TRIP_ID]: _store.trip.id.toString()
-            }
-        });
+        try {
+            await _store.saveTrip();
+            router.replace({
+                pathname: ROUTES.DRAFT_TRIP,
+                params: {
+                    [URL_PARAMS.TRIP_ID]: _store.trip.id.toString()
+                }
+            });
+        } catch (e) {
+            alert(getApiErrorMessage(e));
+        }
         hideLoader();
     }
 
@@ -95,8 +100,12 @@ const CreateTripPage = (props: ICreateTripPageProps) => {
                 } else {
                     try {
                         showLoader();
-                        await _store.saveTrip();
-                        await _store.publishTrip();
+                        try {
+                            await _store.saveTrip();
+                            await _store.publishTrip();
+                        } catch (e) {
+                            alert(getApiErrorMessage(e));
+                        }
                         hideLoader();
                         router.push(ROUTES.TRIP_LIST);
                     }

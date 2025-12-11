@@ -23,6 +23,7 @@ import {TripOfferService} from "@/src/services/TripOfferService";
 import {useApp} from "@/src/context/AppContext";
 import {useLoggedUser} from "@/src/hooks/authenticationHook";
 import {AppBusinessConfigConverter} from "@/src/converters/admin/app-business-config-converter";
+import {getApiErrorMessage} from "@/src/utils/handleApiErrors";
 
 export interface ITripOfferSectionProps {
     trip: TripResponseDto;
@@ -89,8 +90,12 @@ export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
             controlled={true}
             onClick={async () => {
                 showLoader();
-                await TripOfferService.deleteOffer(trip.id);
-                await loadOffers();
+                try {
+                    await TripOfferService.deleteOffer(trip.id);
+                    await loadOffers();
+                } catch (e) {
+                    alert(getApiErrorMessage(e));
+                }
                 hideLoader();
             }}
             label={"Zrušit nabídku"}
@@ -104,8 +109,12 @@ export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
             controlled={true}
             onClick={async () => {
                 showLoader();
-                await TripOfferService.forceCloseTrip(trip.id, CloseTripOfferReason.DEMANDER_GENERAL, "");
-                await loadOffers();
+                try {
+                    await TripOfferService.forceCloseTrip(trip.id, CloseTripOfferReason.DEMANDER_GENERAL, "");
+                    await loadOffers();
+                } catch (e) {
+                    alert(getApiErrorMessage(e));
+                }
                 hideLoader();
             }}
             label={"Ukončit trip"}

@@ -19,6 +19,7 @@ import {useCurrentLocale} from "@/src/hooks/translateHook";
 import {PriceConverter} from "@/src/converters/price-converter";
 import {FlexGap} from "@/src/enums/layout.enum";
 import {Vehicle} from "@/src/data/vehicle/vehicle";
+import {getApiErrorMessage} from "@/src/utils/handleApiErrors";
 
 interface ITripNewOfferProps {
     trip: Trip;
@@ -128,12 +129,16 @@ export const TripNewOffer = observer((props: ITripNewOfferProps) => {
                     const isValid = validate();
                     if (isValid && selectedEndOfferDate) {
                         showLoader();
-                        await TripOfferService.createOffer({
-                            tripId: trip.id,
-                            vehicleId: currentBus ? Number(currentBus.value) : 0,
-                            price: PriceConverter.toJson(price.current),
-                            endOfferDate: selectedEndOfferDate
-                        });
+                        try {
+                            await TripOfferService.createOffer({
+                                tripId: trip.id,
+                                vehicleId: currentBus ? Number(currentBus.value) : 0,
+                                price: PriceConverter.toJson(price.current),
+                                endOfferDate: selectedEndOfferDate
+                            });
+                        } catch (e) {
+                            alert(getApiErrorMessage(e));
+                        }
                         hideLoader();
                         onNewOffer();
                     } else {
