@@ -3549,6 +3549,13 @@
         ],
         "type": "string"
       },
+      "OfferCanceledReason": {
+        "enum": [
+          "SELF_CANCELED",
+          "CANCELED_DUE_TO_OFFER_CONFLICT"
+        ],
+        "type": "string"
+      },
       "PayedOfferRequestDto": {
         "required": [
           "offerId"
@@ -4274,6 +4281,7 @@
       "TripOfferResponseDto": {
         "required": [
           "accepted",
+          "canceled",
           "clientRowVersion",
           "endOfferDate",
           "id",
@@ -4300,12 +4308,18 @@
           "price": {
             "$ref": "#/components/schemas/PriceDto"
           },
+          "canceled": {
+            "type": "boolean"
+          },
           "accepted": {
             "type": "boolean"
           },
           "endOfferDate": {
             "type": "string",
             "format": "date-time"
+          },
+          "canceledReason": {
+            "$ref": "#/components/schemas/OfferCanceledReason"
           },
           "acceptOfferDate": {
             "type": "string",

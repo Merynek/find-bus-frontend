@@ -2,6 +2,7 @@ import {UserDetail} from "./users/user-detail";
 import {Price} from "./price";
 import {FinancialDocument} from "@/src/data/documents/financialDocument";
 import {Vehicle} from "@/src/data/vehicle/vehicle";
+import type {OfferCanceledReason} from "@/src/api/openapi";
 
 export interface IOfferSettings {
     id: number;
@@ -10,6 +11,8 @@ export interface IOfferSettings {
     price: Price;
     endOfferDate: Date;
     accepted: boolean;
+    canceled: boolean;
+    canceledReason?: OfferCanceledReason;
     acceptOfferDate: Date|null;
     clientRowVersion: string;
     documents: FinancialDocument[];
@@ -21,6 +24,8 @@ export class Offer {
     public vehicle: Vehicle;
     public price: Price;
     public accepted: boolean;
+    public canceled: boolean;
+    public canceledReason?: OfferCanceledReason;
     public acceptOfferDate: Date|null;
     public endOfferDate: Date;
     public clientRowVersion: string;
@@ -32,6 +37,8 @@ export class Offer {
         this.vehicle = settings.vehicle;
         this.price = settings.price;
         this.accepted = settings.accepted;
+        this.canceled = settings.canceled;
+        this.canceledReason = settings.canceledReason;
         this.clientRowVersion = settings.clientRowVersion;
         this.endOfferDate = settings.endOfferDate;
         this.acceptOfferDate = settings.acceptOfferDate;

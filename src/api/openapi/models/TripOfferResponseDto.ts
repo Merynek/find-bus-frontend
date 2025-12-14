@@ -34,6 +34,13 @@ import {
     UserDetailResponseDtoToJSON,
     UserDetailResponseDtoToJSONTyped,
 } from './UserDetailResponseDto';
+import type { OfferCanceledReason } from './OfferCanceledReason';
+import {
+    OfferCanceledReasonFromJSON,
+    OfferCanceledReasonFromJSONTyped,
+    OfferCanceledReasonToJSON,
+    OfferCanceledReasonToJSONTyped,
+} from './OfferCanceledReason';
 import type { FinancialDocumentResponseDto } from './FinancialDocumentResponseDto';
 import {
     FinancialDocumentResponseDtoFromJSON,
@@ -83,6 +90,12 @@ export interface TripOfferResponseDto {
      * @type {boolean}
      * @memberof TripOfferResponseDto
      */
+    canceled: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof TripOfferResponseDto
+     */
     accepted: boolean;
     /**
      * 
@@ -90,6 +103,12 @@ export interface TripOfferResponseDto {
      * @memberof TripOfferResponseDto
      */
     endOfferDate: Date;
+    /**
+     * 
+     * @type {OfferCanceledReason}
+     * @memberof TripOfferResponseDto
+     */
+    canceledReason?: OfferCanceledReason;
     /**
      * 
      * @type {Date}
@@ -104,6 +123,8 @@ export interface TripOfferResponseDto {
     documents?: Array<FinancialDocumentResponseDto> | null;
 }
 
+
+
 /**
  * Check if a given object implements the TripOfferResponseDto interface.
  */
@@ -113,6 +134,7 @@ export function instanceOfTripOfferResponseDto(value: object): value is TripOffe
     if (!('clientRowVersion' in value) || value['clientRowVersion'] === undefined) return false;
     if (!('vehicle' in value) || value['vehicle'] === undefined) return false;
     if (!('price' in value) || value['price'] === undefined) return false;
+    if (!('canceled' in value) || value['canceled'] === undefined) return false;
     if (!('accepted' in value) || value['accepted'] === undefined) return false;
     if (!('endOfferDate' in value) || value['endOfferDate'] === undefined) return false;
     return true;
@@ -133,8 +155,10 @@ export function TripOfferResponseDtoFromJSONTyped(json: any, ignoreDiscriminator
         'clientRowVersion': json['clientRowVersion'],
         'vehicle': VehicleResponseDtoFromJSON(json['vehicle']),
         'price': PriceDtoFromJSON(json['price']),
+        'canceled': json['canceled'],
         'accepted': json['accepted'],
         'endOfferDate': (new Date(json['endOfferDate'])),
+        'canceledReason': json['canceledReason'] == null ? undefined : OfferCanceledReasonFromJSON(json['canceledReason']),
         'acceptOfferDate': json['acceptOfferDate'] == null ? undefined : (new Date(json['acceptOfferDate'])),
         'documents': json['documents'] == null ? undefined : ((json['documents'] as Array<any>).map(FinancialDocumentResponseDtoFromJSON)),
     };
@@ -156,8 +180,10 @@ export function TripOfferResponseDtoToJSONTyped(value?: TripOfferResponseDto | n
         'clientRowVersion': value['clientRowVersion'],
         'vehicle': VehicleResponseDtoToJSON(value['vehicle']),
         'price': PriceDtoToJSON(value['price']),
+        'canceled': value['canceled'],
         'accepted': value['accepted'],
         'endOfferDate': value['endOfferDate'].toISOString(),
+        'canceledReason': OfferCanceledReasonToJSON(value['canceledReason']),
         'acceptOfferDate': value['acceptOfferDate'] == null ? value['acceptOfferDate'] : value['acceptOfferDate'].toISOString(),
         'documents': value['documents'] == null ? undefined : ((value['documents'] as Array<any>).map(FinancialDocumentResponseDtoToJSON)),
     };

@@ -56,6 +56,7 @@ docs/NotificationSettingsNewTripDataRequestDto.md
 docs/NotificationSettingsNewTripDataResponseDto.md
 docs/NotificationSettingsRequestDto.md
 docs/NotificationsEnum.md
+docs/OfferCanceledReason.md
 docs/PayedOfferRequestDto.md
 docs/PlaceItemResponseDto.md
 docs/PlaceRequestDto.md
@@ -186,6 +187,7 @@ models/NotificationSettingsNewTripDataRequestDto.ts
 models/NotificationSettingsNewTripDataResponseDto.ts
 models/NotificationSettingsRequestDto.ts
 models/NotificationsEnum.ts
+models/OfferCanceledReason.ts
 models/PayedOfferRequestDto.ts
 models/PlaceItemResponseDto.ts
 models/PlaceRequestDto.ts

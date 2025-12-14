@@ -11,8 +11,10 @@ Name | Type
 `clientRowVersion` | string
 `vehicle` | [VehicleResponseDto](VehicleResponseDto.md)
 `price` | [PriceDto](PriceDto.md)
+`canceled` | boolean
 `accepted` | boolean
 `endOfferDate` | Date
+`canceledReason` | [OfferCanceledReason](OfferCanceledReason.md)
 `acceptOfferDate` | Date
 `documents` | [Array&lt;FinancialDocumentResponseDto&gt;](FinancialDocumentResponseDto.md)
 
@@ -28,8 +30,10 @@ const example = {
   "clientRowVersion": null,
   "vehicle": null,
   "price": null,
+  "canceled": null,
   "accepted": null,
   "endOfferDate": null,
+  "canceledReason": null,
   "acceptOfferDate": null,
   "documents": null,
 } satisfies TripOfferResponseDto

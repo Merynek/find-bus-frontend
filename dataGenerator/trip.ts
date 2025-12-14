@@ -1,7 +1,14 @@
 import {Trip} from "@/src/data/trip/trip";
 import {getRandomNumber} from "@/src/utils/common";
 import {getRandomBoolean, getRandomEnum, getRandomId} from "./tools";
-import {Amenities, CloseTripOfferReason, TripOfferState, TripRecommendationType, TripState} from "@/src/api/openapi";
+import {
+    Amenities,
+    CloseTripOfferReason,
+    OfferCanceledReason,
+    TripOfferState,
+    TripRecommendationType,
+    TripState
+} from "@/src/api/openapi";
 import {getRandomDate} from "./time";
 import {Offer} from "@/src/data/offer";
 import {getRandomVehicle} from "./vehicle";
@@ -68,6 +75,8 @@ export function getRandomOffer(): Offer {
         price: getRandomPrice(),
         endOfferDate: getRandomDate(),
         accepted: getRandomBoolean(),
+        canceled: getRandomBoolean(),
+        canceledReason: getRandomBoolean() ? getRandomEnum(OfferCanceledReason) : undefined,
         acceptOfferDate: getRandomBoolean() ? getRandomDate() : null,
         documents: documents,
         clientRowVersion: getRandomText(2)

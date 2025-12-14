@@ -48,6 +48,7 @@ export * from './NotificationSettingsNewTripDataRequestDto';
 export * from './NotificationSettingsNewTripDataResponseDto';
 export * from './NotificationSettingsRequestDto';
 export * from './NotificationsEnum';
+export * from './OfferCanceledReason';
 export * from './PayedOfferRequestDto';
 export * from './PlaceItemResponseDto';
 export * from './PlaceRequestDto';
