@@ -50,7 +50,7 @@ export class VehicleFormAction extends BaseFormAction<typeof VehicleSchema, Vehi
                 handicappedUserCount: validatedData.handicappedUserCount,
                 vin: validatedData.vin,
                 registrationSign: validatedData.registrationSign,
-                stkExpired: validatedData.stkExpired,
+                stkExpired: validatedData.stkExpired ? new Date(validatedData.stkExpired) : undefined,
                 yearOfManufacture: validatedData.yearOfManufacture,
                 departureStation: validatedData.departureStation
             }

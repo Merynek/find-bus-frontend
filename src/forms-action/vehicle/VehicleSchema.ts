@@ -14,7 +14,7 @@ export const VehicleSchema = z.object({
     handicappedUserCount: z.coerce.number().optional(),
     vin: z.string().optional(),
     registrationSign: z.string().optional(),
-    stkExpired: z.date({ message: "Datum expirace STK je vyžadováno." }).min(new Date(), "Datum expirace STK nesmí být v minulosti.").optional(),
+    stkExpired: z.date().optional(),
     yearOfManufacture: z.number().int().min(1900, "Neplatný rok výroby.").max(new Date().getFullYear() + 1, "Rok výroby nesmí být v budoucnosti.").optional(),
     departureStation: PlaceSchema.optional(),
     formActionType: z.enum(FormActionEnum)
