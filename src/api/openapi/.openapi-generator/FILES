@@ -15,7 +15,6 @@ docs/Amenities.md
 docs/AppBusinessConfigResponseDto.md
 docs/AuthorizeApi.md
 docs/BanUserRequestDto.md
-docs/ChangeOfferRequestDto.md
 docs/ChangePasswordRequestDto.md
 docs/CloseTripOfferReason.md
 docs/CloseTripRequestDto.md
@@ -58,6 +57,7 @@ docs/NotificationSettingsNewTripDataResponseDto.md
 docs/NotificationSettingsRequestDto.md
 docs/NotificationsEnum.md
 docs/OfferCanceledReason.md
+docs/OfferRequestDto.md
 docs/PayedOfferRequestDto.md
 docs/PlaceItemResponseDto.md
 docs/PlaceRequestDto.md
@@ -147,7 +147,6 @@ models/AdminUserDetailResponseDto.ts
 models/Amenities.ts
 models/AppBusinessConfigResponseDto.ts
 models/BanUserRequestDto.ts
-models/ChangeOfferRequestDto.ts
 models/ChangePasswordRequestDto.ts
 models/CloseTripOfferReason.ts
 models/CloseTripRequestDto.ts
@@ -190,6 +189,7 @@ models/NotificationSettingsNewTripDataResponseDto.ts
 models/NotificationSettingsRequestDto.ts
 models/NotificationsEnum.ts
 models/OfferCanceledReason.ts
+models/OfferRequestDto.ts
 models/PayedOfferRequestDto.ts
 models/PlaceItemResponseDto.ts
 models/PlaceRequestDto.ts

@@ -13,13 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
-import type { ChangeOfferRequestDto } from './ChangeOfferRequestDto';
+import type { OfferRequestDto } from './OfferRequestDto';
 import {
-    ChangeOfferRequestDtoFromJSON,
-    ChangeOfferRequestDtoFromJSONTyped,
-    ChangeOfferRequestDtoToJSON,
-    ChangeOfferRequestDtoToJSONTyped,
-} from './ChangeOfferRequestDto';
+    OfferRequestDtoFromJSON,
+    OfferRequestDtoFromJSONTyped,
+    OfferRequestDtoToJSON,
+    OfferRequestDtoToJSONTyped,
+} from './OfferRequestDto';
 
 /**
  * 
@@ -35,10 +35,10 @@ export interface CreateOfferRequestDto {
     tripId: number;
     /**
      * 
-     * @type {ChangeOfferRequestDto}
+     * @type {OfferRequestDto}
      * @memberof CreateOfferRequestDto
      */
-    changeOffer: ChangeOfferRequestDto;
+    offer: OfferRequestDto;
 }
 
 /**
@@ -46,7 +46,7 @@ export interface CreateOfferRequestDto {
  */
 export function instanceOfCreateOfferRequestDto(value: object): value is CreateOfferRequestDto {
     if (!('tripId' in value) || value['tripId'] === undefined) return false;
-    if (!('changeOffer' in value) || value['changeOffer'] === undefined) return false;
+    if (!('offer' in value) || value['offer'] === undefined) return false;
     return true;
 }
 
@@ -61,7 +61,7 @@ export function CreateOfferRequestDtoFromJSONTyped(json: any, ignoreDiscriminato
     return {
         
         'tripId': json['tripId'],
-        'changeOffer': ChangeOfferRequestDtoFromJSON(json['changeOffer']),
+        'offer': OfferRequestDtoFromJSON(json['offer']),
     };
 }
 
@@ -77,7 +77,7 @@ export function CreateOfferRequestDtoToJSONTyped(value?: CreateOfferRequestDto |
     return {
         
         'tripId': value['tripId'],
-        'changeOffer': ChangeOfferRequestDtoToJSON(value['changeOffer']),
+        'offer': OfferRequestDtoToJSON(value['offer']),
     };
 }
 

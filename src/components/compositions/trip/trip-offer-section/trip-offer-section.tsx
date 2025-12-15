@@ -75,7 +75,7 @@ export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
         }
         if (user?.role === UserRole.TRANSPORTER &&
             trip.offerState !== TripOfferState.HAS_OFFERS &&
-            trip.offerState !== TripOfferState.CREATED) {
+            trip.offerState !== TripOfferState.NEW_NO_OFFERS) {
             if (offers.length) {
                 return _transporterCloseButton();
             }

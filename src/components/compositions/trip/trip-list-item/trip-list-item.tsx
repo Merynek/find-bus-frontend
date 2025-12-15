@@ -59,7 +59,7 @@ export const TripListItem = (props: ITripListItemProps) => {
     }
 
     const hasOffersForAccept = (): boolean => {
-        const relevantOfferState = tripItem.offerState === TripOfferState.CREATED || tripItem.offerState === TripOfferState.HAS_OFFERS;
+        const relevantOfferState = tripItem.offerState === TripOfferState.NEW_NO_OFFERS || tripItem.offerState === TripOfferState.HAS_OFFERS;
         if (user?.role === UserRole.TRANSPORTER) {
             return relevantOfferState && tripItem.alreadyOffered;
         }

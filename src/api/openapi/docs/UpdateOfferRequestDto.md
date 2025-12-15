@@ -6,8 +6,9 @@
 
 Name | Type
 ------------ | -------------
+`tripId` | number
 `offerId` | number
-`changeOffer` | [ChangeOfferRequestDto](ChangeOfferRequestDto.md)
+`offer` | [OfferRequestDto](OfferRequestDto.md)
 
 ## Example
 
@@ -16,8 +17,9 @@ import type { UpdateOfferRequestDto } from ''
 
 // TODO: Update the object below with actual values
 const example = {
+  "tripId": null,
   "offerId": null,
-  "changeOffer": null,
+  "offer": null,
 } satisfies UpdateOfferRequestDto
 
 console.log(example)

@@ -13,13 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
-import type { ChangeOfferRequestDto } from './ChangeOfferRequestDto';
+import type { OfferRequestDto } from './OfferRequestDto';
 import {
-    ChangeOfferRequestDtoFromJSON,
-    ChangeOfferRequestDtoFromJSONTyped,
-    ChangeOfferRequestDtoToJSON,
-    ChangeOfferRequestDtoToJSONTyped,
-} from './ChangeOfferRequestDto';
+    OfferRequestDtoFromJSON,
+    OfferRequestDtoFromJSONTyped,
+    OfferRequestDtoToJSON,
+    OfferRequestDtoToJSONTyped,
+} from './OfferRequestDto';
 
 /**
  * 
@@ -32,21 +32,28 @@ export interface UpdateOfferRequestDto {
      * @type {number}
      * @memberof UpdateOfferRequestDto
      */
+    tripId: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdateOfferRequestDto
+     */
     offerId: number;
     /**
      * 
-     * @type {ChangeOfferRequestDto}
+     * @type {OfferRequestDto}
      * @memberof UpdateOfferRequestDto
      */
-    changeOffer: ChangeOfferRequestDto;
+    offer: OfferRequestDto;
 }
 
 /**
  * Check if a given object implements the UpdateOfferRequestDto interface.
  */
 export function instanceOfUpdateOfferRequestDto(value: object): value is UpdateOfferRequestDto {
+    if (!('tripId' in value) || value['tripId'] === undefined) return false;
     if (!('offerId' in value) || value['offerId'] === undefined) return false;
-    if (!('changeOffer' in value) || value['changeOffer'] === undefined) return false;
+    if (!('offer' in value) || value['offer'] === undefined) return false;
     return true;
 }
 
@@ -60,8 +67,9 @@ export function UpdateOfferRequestDtoFromJSONTyped(json: any, ignoreDiscriminato
     }
     return {
         
+        'tripId': json['tripId'],
         'offerId': json['offerId'],
-        'changeOffer': ChangeOfferRequestDtoFromJSON(json['changeOffer']),
+        'offer': OfferRequestDtoFromJSON(json['offer']),
     };
 }
 
@@ -76,8 +84,9 @@ export function UpdateOfferRequestDtoToJSONTyped(value?: UpdateOfferRequestDto |
 
     return {
         
+        'tripId': value['tripId'],
         'offerId': value['offerId'],
-        'changeOffer': ChangeOfferRequestDtoToJSON(value['changeOffer']),
+        'offer': OfferRequestDtoToJSON(value['offer']),
     };
 }
 

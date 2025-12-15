@@ -11,7 +11,7 @@ interface ITripStateProps {
 export const TripStatesFlow = (props: ITripStateProps) => {
     const {trip} = props;
     const states = [
-        TripOfferState.CREATED,
+        TripOfferState.NEW_NO_OFFERS,
         TripOfferState.HAS_OFFERS,
         TripOfferState.ACCEPTED_TRANSPORTER_PAY_DEPOSIT,
         TripOfferState.ACCEPTED_TRANSPORTER_PAY_FULL,

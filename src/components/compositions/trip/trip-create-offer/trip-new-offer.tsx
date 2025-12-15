@@ -119,7 +119,7 @@ export const TripNewOffer = observer((props: ITripNewOfferProps) => {
                         try {
                             await TripOfferService.createOffer({
                                 tripId: trip.id,
-                                changeOffer: {
+                                offer: {
                                     vehicleId: currentBus ? Number(currentBus.value) : 0,
                                     price: PriceConverter.toJson(price.current),
                                     endOfferDate: selectedEndOfferDate

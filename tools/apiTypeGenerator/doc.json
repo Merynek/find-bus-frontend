@@ -2156,10 +2156,15 @@
         "required": [
           "acceptMethod",
           "clientRowVersion",
-          "offerId"
+          "offerId",
+          "tripId"
         ],
         "type": "object",
         "properties": {
+          "tripId": {
+            "type": "integer",
+            "format": "int32"
+          },
           "offerId": {
             "type": "integer",
             "format": "int32"
@@ -2374,28 +2379,6 @@
           },
           "ban": {
             "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "ChangeOfferRequestDto": {
-        "required": [
-          "endOfferDate",
-          "price",
-          "vehicleId"
-        ],
-        "type": "object",
-        "properties": {
-          "endOfferDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "vehicleId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "price": {
-            "$ref": "#/components/schemas/PriceDto"
           }
         },
         "additionalProperties": false
@@ -2840,7 +2823,7 @@
       },
       "CreateOfferRequestDto": {
         "required": [
-          "changeOffer",
+          "offer",
           "tripId"
         ],
         "type": "object",
@@ -2849,8 +2832,8 @@
             "type": "integer",
             "format": "int32"
           },
-          "changeOffer": {
-            "$ref": "#/components/schemas/ChangeOfferRequestDto"
+          "offer": {
+            "$ref": "#/components/schemas/OfferRequestDto"
           }
         },
         "additionalProperties": false
@@ -3572,6 +3555,28 @@
           "CANCELED_DUE_TO_OFFER_CONFLICT"
         ],
         "type": "string"
+      },
+      "OfferRequestDto": {
+        "required": [
+          "endOfferDate",
+          "price",
+          "vehicleId"
+        ],
+        "type": "object",
+        "properties": {
+          "endOfferDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "vehicleId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "price": {
+            "$ref": "#/components/schemas/PriceDto"
+          }
+        },
+        "additionalProperties": false
       },
       "PayedOfferRequestDto": {
         "required": [
@@ -4355,7 +4360,7 @@
       },
       "TripOfferState": {
         "enum": [
-          "CREATED",
+          "NEW_NO_OFFERS",
           "HAS_OFFERS",
           "ACCEPTED_TRANSPORTER_PAY_DEPOSIT",
           "ACCEPTED_TRANSPORTER_PAY_FULL",
@@ -4654,17 +4659,22 @@
       },
       "UpdateOfferRequestDto": {
         "required": [
-          "changeOffer",
-          "offerId"
+          "offer",
+          "offerId",
+          "tripId"
         ],
         "type": "object",
         "properties": {
+          "tripId": {
+            "type": "integer",
+            "format": "int32"
+          },
           "offerId": {
             "type": "integer",
             "format": "int32"
           },
-          "changeOffer": {
-            "$ref": "#/components/schemas/ChangeOfferRequestDto"
+          "offer": {
+            "$ref": "#/components/schemas/OfferRequestDto"
           }
         },
         "additionalProperties": false

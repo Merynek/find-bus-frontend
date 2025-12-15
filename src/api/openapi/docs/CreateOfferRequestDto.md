@@ -7,7 +7,7 @@
 Name | Type
 ------------ | -------------
 `tripId` | number
-`changeOffer` | [ChangeOfferRequestDto](ChangeOfferRequestDto.md)
+`offer` | [OfferRequestDto](OfferRequestDto.md)
 
 ## Example
 
@@ -17,7 +17,7 @@ import type { CreateOfferRequestDto } from ''
 // TODO: Update the object below with actual values
 const example = {
   "tripId": null,
-  "changeOffer": null,
+  "offer": null,
 } satisfies CreateOfferRequestDto
 
 console.log(example)

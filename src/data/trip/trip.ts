@@ -187,7 +187,7 @@ export class Trip {
             endOrder: tripSettings.endOrder || new Date(),
             orderHasEnded: tripSettings.orderHasEnded || false,
             handicappedUserCount: tripSettings.handicappedUserCount || 0,
-            offerState: tripSettings.offerState || TripOfferState.CREATED,
+            offerState: tripSettings.offerState || TripOfferState.NEW_NO_OFFERS,
             state: tripSettings.state || TripState.DRAFT,
             totalDistanceInMeters: tripSettings.totalDistanceInMeters || 0,
             created: tripSettings.created || new Date()

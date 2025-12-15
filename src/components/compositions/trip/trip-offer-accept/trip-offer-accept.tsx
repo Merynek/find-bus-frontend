@@ -65,6 +65,7 @@ export const TripOfferAccept = observer((props: ITripOfferAcceptProps) => {
                 showLoader();
                 try {
                     await TripOfferService.acceptOffer({
+                        tripId: trip.id,
                         offerId: offer.id,
                         acceptMethod: acceptMethod,
                         clientRowVersion: offer.clientRowVersion

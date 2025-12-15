@@ -8,7 +8,7 @@ const meta: Meta<typeof TripState> = {
     args: {
         isActive: false,
         isCompleted: false,
-        state: TripOfferState.CREATED
+        state: TripOfferState.NEW_NO_OFFERS
     },
     argTypes: {
         state: {

@@ -6,6 +6,7 @@
 
 Name | Type
 ------------ | -------------
+`tripId` | number
 `offerId` | number
 `acceptMethod` | [TripOfferAcceptMethod](TripOfferAcceptMethod.md)
 `clientRowVersion` | string
@@ -17,6 +18,7 @@ import type { AcceptOfferRequestDto } from ''
 
 // TODO: Update the object below with actual values
 const example = {
+  "tripId": null,
   "offerId": null,
   "acceptMethod": null,
   "clientRowVersion": null,

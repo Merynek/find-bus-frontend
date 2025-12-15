@@ -148,8 +148,9 @@ export const TripChangeOffer = observer((props: ITripChangeOfferProps) => {
                         showLoader();
                         try {
                             await TripOfferService.updateOffer({
+                                tripId: trip.id,
                                 offerId: offer.id,
-                                changeOffer: {
+                                offer: {
                                     vehicleId: vehicleId,
                                     price: {
                                         amount: priceAmount || 0,
