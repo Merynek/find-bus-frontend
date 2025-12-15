@@ -7,6 +7,7 @@ export * from './AdminUserDetailResponseDto';
 export * from './Amenities';
 export * from './AppBusinessConfigResponseDto';
 export * from './BanUserRequestDto';
+export * from './ChangeOfferRequestDto';
 export * from './ChangePasswordRequestDto';
 export * from './CloseTripOfferReason';
 export * from './CloseTripRequestDto';

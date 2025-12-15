@@ -8,23 +8,21 @@ import {DatePicker} from "../../../components/inputs/date-picker/date-picker";
 import {Price} from "@/src/data/price";
 import {NumberBox} from "../../../components/inputs/number-box/number-box";
 import {UserSettings} from "@/src/data/users/userSettings";
-import {UserRole} from "@/src/api/openapi";
-import {useMount} from "@/src/hooks/lifecycleHooks";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {TripOfferService} from "@/src/services/TripOfferService";
-import {VehicleService} from "@/src/services/VehicleService";
 import {useApp} from "@/src/context/AppContext";
-import {useLoggedUser} from "@/src/hooks/authenticationHook";
 import {useCurrentLocale} from "@/src/hooks/translateHook";
 import {PriceConverter} from "@/src/converters/price-converter";
 import {FlexGap} from "@/src/enums/layout.enum";
 import {Vehicle} from "@/src/data/vehicle/vehicle";
 import {getApiErrorMessage} from "@/src/utils/handleApiErrors";
+import {Heading} from "@/src/components/components/texts/heading";
 
 interface ITripNewOfferProps {
     trip: Trip;
     onNewOffer: () => void;
     userSettings: UserSettings;
+    availableVehicles: Vehicle[];
 }
 
 interface IBusComboItem {
@@ -33,29 +31,17 @@ interface IBusComboItem {
 }
 
 export const TripNewOffer = observer((props: ITripNewOfferProps) => {
-    const {trip, onNewOffer, userSettings} = props;
+    const {trip, onNewOffer, userSettings, availableVehicles} = props;
     const {showLoader, hideLoader} = useApp();
-    const {user} = useLoggedUser();
     const locale = useCurrentLocale();
-    const [vehicles, setVehicles] = useState<Vehicle[]>([]);
 
     const price = useRef(Price.create());
     const [selectedEndOfferDate, setSelectedEndOfferDate] = useState<Date|null>(props.trip.endOrder || null);
     const [currentBus, setCurrentBus] = useState<IBusComboItem|undefined>(undefined);
     const [priceAmount, setPriceAmount] = useState<number|undefined>(undefined);
 
-    useMount(() => {
-        _init();
-    })
-
-    const _init = async () => {
-        if (user?.role === UserRole.TRANSPORTER) {
-            setVehicles(await VehicleService.getVehicles({verified: true}));
-        }
-    }
-
     const getBusItems = (): IBusComboItem[] => {
-        return vehicles.map(vehicle => {
+        return availableVehicles.map(vehicle => {
             return {
                 value: vehicle.id?.toString() || "",
                 label: vehicle.name
@@ -96,6 +82,7 @@ export const TripNewOffer = observer((props: ITripNewOfferProps) => {
     }
 
     return <div className={styles.layout}>
+        <Heading text={"Nová Nabídka"} headingLevel={2} />
         <LayoutFlexColumn gap={FlexGap.LARGE_32}>
             <NumberBox
                 placeholder={"Kolik"}
@@ -132,9 +119,11 @@ export const TripNewOffer = observer((props: ITripNewOfferProps) => {
                         try {
                             await TripOfferService.createOffer({
                                 tripId: trip.id,
-                                vehicleId: currentBus ? Number(currentBus.value) : 0,
-                                price: PriceConverter.toJson(price.current),
-                                endOfferDate: selectedEndOfferDate
+                                changeOffer: {
+                                    vehicleId: currentBus ? Number(currentBus.value) : 0,
+                                    price: PriceConverter.toJson(price.current),
+                                    endOfferDate: selectedEndOfferDate
+                                }
                             });
                         } catch (e) {
                             alert(getApiErrorMessage(e));

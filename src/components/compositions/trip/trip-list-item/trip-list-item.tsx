@@ -59,10 +59,11 @@ export const TripListItem = (props: ITripListItemProps) => {
     }
 
     const hasOffersForAccept = (): boolean => {
+        const relevantOfferState = tripItem.offerState === TripOfferState.CREATED || tripItem.offerState === TripOfferState.HAS_OFFERS;
         if (user?.role === UserRole.TRANSPORTER) {
-            return tripItem.alreadyOffered && tripItem.offerState === TripOfferState.CREATED;
+            return relevantOfferState && tripItem.alreadyOffered;
         }
-        return tripItem.isMine && tripItem.hasOffers && tripItem.offerState === TripOfferState.CREATED;
+        return relevantOfferState && tripItem.isMine && tripItem.hasOffers;
     }
 
     const renderLink = () => {

@@ -7,6 +7,7 @@
 Name | Type
 ------------ | -------------
 `tripId` | number
+`vehicleId` | number
 
 ## Example
 
@@ -16,6 +17,7 @@ import type { DeleteTripOfferRequestDto } from ''
 // TODO: Update the object below with actual values
 const example = {
   "tripId": null,
+  "vehicleId": null,
 } satisfies DeleteTripOfferRequestDto
 
 console.log(example)

@@ -3,7 +3,7 @@
 import {getAccessToken} from "@/src/server-actions/auth/accessTokenActions";
 import {
     IAcceptOfferRequest,
-    ICreateOfferRequest,
+    ICreateOfferRequest, IDeleteOfferRequest,
     IDownloadDocumentRequest,
     IUpdateOfferRequest,
     TripsOfferApi
@@ -77,13 +77,11 @@ export async function forceCloseTrip(tripId: number, reason: CloseTripOfferReaso
     });
 }
 
-export async function deleteOffer(tripId: number) {
+export async function deleteOffer(req: IDeleteOfferRequest) {
     await handleActionCall(async () => {
         const accessToken = await getAccessToken();
         const tripsOfferApi = new TripsOfferApi(accessToken);
-        return await tripsOfferApi.deleteOffer({
-            tripId: tripId
-        });
+        return await tripsOfferApi.deleteOffer(req);
     });
 }
 

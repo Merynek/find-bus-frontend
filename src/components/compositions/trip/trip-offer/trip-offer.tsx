@@ -71,6 +71,10 @@ export const TripOffer = observer((props: ITripOfferProps) => {
             <span>User: </span>
             <div>{offer.user.id}</div>
         </div>
+        {offer.canceled && <div className={styles.line}>
+            <span>Is Canceled: </span>
+            <div>{offer.canceledReason?.toString()}</div>
+        </div>}
         <div className={styles.line}>
             <span>Price: </span>
             <div>{offer.price.amount} ,-</div>

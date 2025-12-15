@@ -14,7 +14,7 @@ import {Offer} from "@/src/data/offer";
 import {CloseTripOfferReason} from "@/src/api/openapi";
 import {
     IAcceptOfferRequest,
-    ICreateOfferRequest,
+    ICreateOfferRequest, IDeleteOfferRequest,
     IDownloadDocumentRequest,
     IUpdateOfferRequest
 } from "@/src/api/tripsOfferApi";
@@ -59,9 +59,9 @@ export class TripOfferService extends BaseService {
         });
     }
 
-    public static async deleteOffer(tripId: number) {
+    public static async deleteOffer(req: IDeleteOfferRequest) {
         await this.handleActionCall(async () => {
-            await deleteOffer(tripId);
+            await deleteOffer(req);
         });
     }
 

@@ -6,10 +6,8 @@
 
 Name | Type
 ------------ | -------------
-`endOfferDate` | Date
 `tripId` | number
-`vehicleId` | number
-`price` | [PriceDto](PriceDto.md)
+`changeOffer` | [ChangeOfferRequestDto](ChangeOfferRequestDto.md)
 
 ## Example
 
@@ -18,10 +16,8 @@ import type { CreateOfferRequestDto } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "endOfferDate": null,
   "tripId": null,
-  "vehicleId": null,
-  "price": null,
+  "changeOffer": null,
 } satisfies CreateOfferRequestDto
 
 console.log(example)

@@ -31,15 +31,18 @@ export interface IPostFinishTripRequest extends IApiRequest {
 
 export interface ICreateOfferRequest extends IApiRequest {
     tripId: number;
-    vehicleId: number;
-    price: PriceDto;
-    endOfferDate: Date;
+    changeOffer: IChangeOfferRequest;
 }
 
 export interface IUpdateOfferRequest extends IApiRequest {
     offerId: number;
+    changeOffer: IChangeOfferRequest;
+}
+
+export interface IChangeOfferRequest extends IApiRequest {
     endOfferDate: Date;
     price: PriceDto;
+    vehicleId: number;
 }
 
 export interface IGetTripOffersRequest extends IApiRequest {
@@ -59,6 +62,7 @@ export interface IAcceptOfferRequest extends IApiRequest {
 
 export interface IDeleteOfferRequest extends IApiRequest {
     tripId: number;
+    vehicleId?: number;
 }
 
 export class TripsOfferApi {
@@ -92,8 +96,11 @@ export class TripsOfferApi {
         await handleApiCall(this._api.apiTripOfferOfferPut({
             updateOfferRequestDto: {
                 offerId: req.offerId,
-                endOfferDate: req.endOfferDate,
-                price: req.price
+                changeOffer: {
+                    price: req.changeOffer.price,
+                    endOfferDate: req.changeOffer.endOfferDate,
+                    vehicleId: req.changeOffer.vehicleId
+                }
             }
         }, req.initOverrides));
     }
@@ -101,7 +108,8 @@ export class TripsOfferApi {
     public async deleteOffer(req: IDeleteOfferRequest): Promise<void> {
         await handleApiCall(this._api.apiTripOfferOfferDelete({
             deleteTripOfferRequestDto: {
-                tripId: req.tripId
+                tripId: req.tripId,
+                vehicleId: req.vehicleId
             }
         }, req.initOverrides));
     }
@@ -116,10 +124,12 @@ export class TripsOfferApi {
     public async createOffer(req: ICreateOfferRequest): Promise<void> {
         await handleApiCall(this._api.apiTripOfferOfferPost({
             createOfferRequestDto: {
-                price: req.price,
                 tripId: req.tripId,
-                vehicleId: req.vehicleId,
-                endOfferDate: req.endOfferDate
+                changeOffer: {
+                    price: req.changeOffer.price,
+                    endOfferDate: req.changeOffer.endOfferDate,
+                    vehicleId: req.changeOffer.vehicleId
+                }
             }
         }, req.initOverrides));
     }

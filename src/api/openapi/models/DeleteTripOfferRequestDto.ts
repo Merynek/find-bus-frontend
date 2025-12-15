@@ -25,6 +25,12 @@ export interface DeleteTripOfferRequestDto {
      * @memberof DeleteTripOfferRequestDto
      */
     tripId: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof DeleteTripOfferRequestDto
+     */
+    vehicleId?: number | null;
 }
 
 /**
@@ -46,6 +52,7 @@ export function DeleteTripOfferRequestDtoFromJSONTyped(json: any, ignoreDiscrimi
     return {
         
         'tripId': json['tripId'],
+        'vehicleId': json['vehicleId'] == null ? undefined : json['vehicleId'],
     };
 }
 
@@ -61,6 +68,7 @@ export function DeleteTripOfferRequestDtoToJSONTyped(value?: DeleteTripOfferRequ
     return {
         
         'tripId': value['tripId'],
+        'vehicleId': value['vehicleId'],
     };
 }
 

@@ -2378,6 +2378,28 @@
         },
         "additionalProperties": false
       },
+      "ChangeOfferRequestDto": {
+        "required": [
+          "endOfferDate",
+          "price",
+          "vehicleId"
+        ],
+        "type": "object",
+        "properties": {
+          "endOfferDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "vehicleId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "price": {
+            "$ref": "#/components/schemas/PriceDto"
+          }
+        },
+        "additionalProperties": false
+      },
       "ChangePasswordRequestDto": {
         "required": [
           "newPassword",
@@ -2818,27 +2840,17 @@
       },
       "CreateOfferRequestDto": {
         "required": [
-          "endOfferDate",
-          "price",
-          "tripId",
-          "vehicleId"
+          "changeOffer",
+          "tripId"
         ],
         "type": "object",
         "properties": {
-          "endOfferDate": {
-            "type": "string",
-            "format": "date-time"
-          },
           "tripId": {
             "type": "integer",
             "format": "int32"
           },
-          "vehicleId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "price": {
-            "$ref": "#/components/schemas/PriceDto"
+          "changeOffer": {
+            "$ref": "#/components/schemas/ChangeOfferRequestDto"
           }
         },
         "additionalProperties": false
@@ -2980,6 +2992,11 @@
           "tripId": {
             "type": "integer",
             "format": "int32"
+          },
+          "vehicleId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -4637,9 +4654,8 @@
       },
       "UpdateOfferRequestDto": {
         "required": [
-          "endOfferDate",
-          "offerId",
-          "price"
+          "changeOffer",
+          "offerId"
         ],
         "type": "object",
         "properties": {
@@ -4647,12 +4663,8 @@
             "type": "integer",
             "format": "int32"
           },
-          "endOfferDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "price": {
-            "$ref": "#/components/schemas/PriceDto"
+          "changeOffer": {
+            "$ref": "#/components/schemas/ChangeOfferRequestDto"
           }
         },
         "additionalProperties": false

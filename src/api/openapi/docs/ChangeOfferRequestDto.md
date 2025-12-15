@@ -1,24 +1,26 @@
 
-# UpdateOfferRequestDto
+# ChangeOfferRequestDto
 
 
 ## Properties
 
 Name | Type
 ------------ | -------------
-`offerId` | number
-`changeOffer` | [ChangeOfferRequestDto](ChangeOfferRequestDto.md)
+`endOfferDate` | Date
+`vehicleId` | number
+`price` | [PriceDto](PriceDto.md)
 
 ## Example
 
 ```typescript
-import type { UpdateOfferRequestDto } from ''
+import type { ChangeOfferRequestDto } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "offerId": null,
-  "changeOffer": null,
-} satisfies UpdateOfferRequestDto
+  "endOfferDate": null,
+  "vehicleId": null,
+  "price": null,
+} satisfies ChangeOfferRequestDto
 
 console.log(example)
 
@@ -27,7 +29,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as UpdateOfferRequestDto
+const exampleParsed = JSON.parse(exampleJSON) as ChangeOfferRequestDto
 console.log(exampleParsed)
 ```
 

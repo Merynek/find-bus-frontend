@@ -15,6 +15,7 @@ docs/Amenities.md
 docs/AppBusinessConfigResponseDto.md
 docs/AuthorizeApi.md
 docs/BanUserRequestDto.md
+docs/ChangeOfferRequestDto.md
 docs/ChangePasswordRequestDto.md
 docs/CloseTripOfferReason.md
 docs/CloseTripRequestDto.md
@@ -146,6 +147,7 @@ models/AdminUserDetailResponseDto.ts
 models/Amenities.ts
 models/AppBusinessConfigResponseDto.ts
 models/BanUserRequestDto.ts
+models/ChangeOfferRequestDto.ts
 models/ChangePasswordRequestDto.ts
 models/CloseTripOfferReason.ts
 models/CloseTripRequestDto.ts

@@ -14,22 +14,28 @@ import {TripOfferService} from "@/src/services/TripOfferService";
 import {useApp} from "@/src/context/AppContext";
 import {useCurrentLocale} from "@/src/hooks/translateHook";
 import {FlexGap} from "@/src/enums/layout.enum";
-import {Text} from "@/src/components/components/texts/text";
-import {FontSize} from "@/src/components/components/texts/textStyles";
 import {getApiErrorMessage} from "@/src/utils/handleApiErrors";
 import {VehicleDetailModal} from "@/src/components/compositions/vehicle/modal-vehicle-detail/vehicle-detail-modal";
 import {Vehicle} from "@/src/data/vehicle/vehicle";
 import {VehicleService} from "@/src/services/VehicleService";
+import {Heading} from "@/src/components/components/texts/heading";
+import {ComboBox} from "@/src/components/components/inputs/combo-box/combo-box";
 
 interface ITripChangeOfferProps {
     trip: Trip;
     offer: Offer;
     onChangeOffer: () => void;
     userSettings: UserSettings;
+    availableVehicles: Vehicle[];
+}
+
+interface IBusComboItem {
+    value: string;
+    label: string;
 }
 
 export const TripChangeOffer = observer((props: ITripChangeOfferProps) => {
-    const {trip, onChangeOffer, offer, userSettings} = props;
+    const {trip, onChangeOffer, offer, userSettings, availableVehicles} = props;
     const {showLoader, hideLoader} = useApp();
     const locale = useCurrentLocale();
     const price = useRef(Price.create());
@@ -51,6 +57,17 @@ export const TripChangeOffer = observer((props: ITripChangeOfferProps) => {
     const maxDate = (): Date|null => {
         return trip.endOrder || null;
     }
+
+    const getBusItems = (): IBusComboItem[] => {
+        return availableVehicles.map(vehicle => {
+            return {
+                value: vehicle.id?.toString() || "",
+                label: vehicle.name
+            }
+        });
+    }
+    const initBus = getBusItems().find(b => b.value === offer.vehicle.id.toString());
+    const [currentBus, setCurrentBus] = useState<IBusComboItem|undefined>(initBus);
 
     const renderVehicleModal = () => {
         return vehicleDetail && <VehicleDetailModal
@@ -80,22 +97,22 @@ export const TripChangeOffer = observer((props: ITripChangeOfferProps) => {
     }
 
     return <div className={styles.layout}>
+        {offer.canceled && <Heading text={"Nabídka smazána"} headingLevel={3} />}
         {renderVehicleModal()}
         <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
             <LayoutFlexColumn>
-                <Text text={"Vozidlo: " + offer.vehicle.name} fontSize={FontSize.BASE_14} />
-                <ButtonClick
+                {currentBus && Number(currentBus.value) && <ButtonClick
                     controlled={true}
                     onClick={async () => {
                         showLoader();
-                        const detailVehicle = await VehicleService.getPublicVehicle(offer.vehicle.id);
+                        const detailVehicle = await VehicleService.getPublicVehicle(Number(currentBus.value));
                         hideLoader();
                         setVehicleDetail(detailVehicle);
                     }}
                     label={"Vehicle Detail"}
                     type={ButtonType.YELLOW}
                     size={ButtonSize.BUTTON_SIZE_M}
-                />
+                />}
             </LayoutFlexColumn>
             {_renderDateTimePicker()}
             <NumberBox
@@ -112,19 +129,33 @@ export const TripChangeOffer = observer((props: ITripChangeOfferProps) => {
                     setPriceAmount(val)
                 }}
             />
+            <ComboBox
+                placeHolder={"Vozidlo"}
+                instanceId={"bus"}
+                controlled={true}
+                items={getBusItems()}
+                value={currentBus}
+                onChange={(val) => {
+                    setCurrentBus(val);
+                }}
+            />
             <ButtonClick
                 controlled={true}
                 onClick={async () => {
                     const isValid = validate();
-                    if (selectedEndOfferDate && isValid) {
+                    const vehicleId = currentBus ? Number(currentBus.value) : 0;
+                    if (selectedEndOfferDate && isValid && vehicleId) {
                         showLoader();
                         try {
                             await TripOfferService.updateOffer({
                                 offerId: offer.id,
-                                endOfferDate: selectedEndOfferDate,
-                                price: {
-                                    amount: priceAmount || 0,
-                                    currency: Currency.CZK
+                                changeOffer: {
+                                    vehicleId: vehicleId,
+                                    price: {
+                                        amount: priceAmount || 0,
+                                        currency: Currency.CZK
+                                    },
+                                    endOfferDate: selectedEndOfferDate,
                                 }
                             });
                         } catch (e) {
@@ -137,16 +168,19 @@ export const TripChangeOffer = observer((props: ITripChangeOfferProps) => {
                     }
                 }}
                 isDisabled={selectedEndOfferDate === null}
-                label={"Prodloužit nabídku"}
+                label={offer.canceled ? "Znovu podat" : "Prodloužit nabídku"}
                 type={ButtonType.YELLOW}
                 size={ButtonSize.BUTTON_SIZE_M}
             />
-            <ButtonClick
+            {!offer.canceled && <ButtonClick
                 controlled={true}
                 onClick={async () => {
                     showLoader();
                     try {
-                        await TripOfferService.deleteOffer(trip.id);
+                        await TripOfferService.deleteOffer({
+                            tripId: trip.id,
+                            vehicleId: offer.vehicle.id
+                        });
                     } catch (e) {
                         alert(getApiErrorMessage(e));
                     }
@@ -157,7 +191,7 @@ export const TripChangeOffer = observer((props: ITripChangeOfferProps) => {
                 label={"Smazat nabídku"}
                 type={ButtonType.YELLOW}
                 size={ButtonSize.BUTTON_SIZE_M}
-            />
+            />}
         </LayoutFlexColumn>
 
     </div>

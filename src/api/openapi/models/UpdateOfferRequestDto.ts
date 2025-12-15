@@ -13,13 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
-import type { PriceDto } from './PriceDto';
+import type { ChangeOfferRequestDto } from './ChangeOfferRequestDto';
 import {
-    PriceDtoFromJSON,
-    PriceDtoFromJSONTyped,
-    PriceDtoToJSON,
-    PriceDtoToJSONTyped,
-} from './PriceDto';
+    ChangeOfferRequestDtoFromJSON,
+    ChangeOfferRequestDtoFromJSONTyped,
+    ChangeOfferRequestDtoToJSON,
+    ChangeOfferRequestDtoToJSONTyped,
+} from './ChangeOfferRequestDto';
 
 /**
  * 
@@ -35,16 +35,10 @@ export interface UpdateOfferRequestDto {
     offerId: number;
     /**
      * 
-     * @type {Date}
+     * @type {ChangeOfferRequestDto}
      * @memberof UpdateOfferRequestDto
      */
-    endOfferDate: Date;
-    /**
-     * 
-     * @type {PriceDto}
-     * @memberof UpdateOfferRequestDto
-     */
-    price: PriceDto;
+    changeOffer: ChangeOfferRequestDto;
 }
 
 /**
@@ -52,8 +46,7 @@ export interface UpdateOfferRequestDto {
  */
 export function instanceOfUpdateOfferRequestDto(value: object): value is UpdateOfferRequestDto {
     if (!('offerId' in value) || value['offerId'] === undefined) return false;
-    if (!('endOfferDate' in value) || value['endOfferDate'] === undefined) return false;
-    if (!('price' in value) || value['price'] === undefined) return false;
+    if (!('changeOffer' in value) || value['changeOffer'] === undefined) return false;
     return true;
 }
 
@@ -68,8 +61,7 @@ export function UpdateOfferRequestDtoFromJSONTyped(json: any, ignoreDiscriminato
     return {
         
         'offerId': json['offerId'],
-        'endOfferDate': (new Date(json['endOfferDate'])),
-        'price': PriceDtoFromJSON(json['price']),
+        'changeOffer': ChangeOfferRequestDtoFromJSON(json['changeOffer']),
     };
 }
 
@@ -85,8 +77,7 @@ export function UpdateOfferRequestDtoToJSONTyped(value?: UpdateOfferRequestDto |
     return {
         
         'offerId': value['offerId'],
-        'endOfferDate': value['endOfferDate'].toISOString(),
-        'price': PriceDtoToJSON(value['price']),
+        'changeOffer': ChangeOfferRequestDtoToJSON(value['changeOffer']),
     };
 }
 

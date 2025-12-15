@@ -55,7 +55,6 @@ export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
     const _actionsForTransporter = () => {
         return trip && <div>
             {trip.orderHasEnded ? <TripOfferResult trip={trip} offers={offers} /> : <LayoutFlexColumn gap={FlexGap.TINY_8}>
-                <h2>Make offer: </h2>
                 <TripCreateOffer
                     trip={trip}
                     offers={offers}
@@ -74,7 +73,9 @@ export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
             case TripOfferState.STARTED:
                 return null;
         }
-        if (user?.role === UserRole.TRANSPORTER) {
+        if (user?.role === UserRole.TRANSPORTER &&
+            trip.offerState !== TripOfferState.HAS_OFFERS &&
+            trip.offerState !== TripOfferState.CREATED) {
             if (offers.length) {
                 return _transporterCloseButton();
             }
@@ -91,7 +92,9 @@ export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
             onClick={async () => {
                 showLoader();
                 try {
-                    await TripOfferService.deleteOffer(trip.id);
+                    await TripOfferService.deleteOffer({
+                        tripId: trip.id
+                    });
                     await loadOffers();
                 } catch (e) {
                     alert(getApiErrorMessage(e));
@@ -127,7 +130,7 @@ export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
         return user?.id === trip.ownerId;
     }
 
-    const _actionsForDemander = () => {
+    const  _actionsForDemander = () => {
         if (trip && isOwner()) {
             if (offerAccepted()) {
                 return <TripOfferResult trip={trip} offers={offers} />;
@@ -140,14 +143,14 @@ export const TripOfferSection = observer((props: ITripOfferSectionProps) => {
                         {offers.map(offer => {
                             return <div key={offer.id}>
                                 <TripOffer offer={offer} />
-                                <TripOfferAccept
+                                {!offer.canceled && <TripOfferAccept
                                     offer={offer}
                                     trip={trip}
                                     config={config}
                                     onAcceptOffer={async () => {
                                         await loadOffers();
                                     }}
-                                />
+                                />}
                             </div>
                         })}
                     </LayoutFlexColumn>

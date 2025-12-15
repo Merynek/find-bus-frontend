@@ -13,13 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
-import type { PriceDto } from './PriceDto';
+import type { ChangeOfferRequestDto } from './ChangeOfferRequestDto';
 import {
-    PriceDtoFromJSON,
-    PriceDtoFromJSONTyped,
-    PriceDtoToJSON,
-    PriceDtoToJSONTyped,
-} from './PriceDto';
+    ChangeOfferRequestDtoFromJSON,
+    ChangeOfferRequestDtoFromJSONTyped,
+    ChangeOfferRequestDtoToJSON,
+    ChangeOfferRequestDtoToJSONTyped,
+} from './ChangeOfferRequestDto';
 
 /**
  * 
@@ -29,38 +29,24 @@ import {
 export interface CreateOfferRequestDto {
     /**
      * 
-     * @type {Date}
-     * @memberof CreateOfferRequestDto
-     */
-    endOfferDate: Date;
-    /**
-     * 
      * @type {number}
      * @memberof CreateOfferRequestDto
      */
     tripId: number;
     /**
      * 
-     * @type {number}
+     * @type {ChangeOfferRequestDto}
      * @memberof CreateOfferRequestDto
      */
-    vehicleId: number;
-    /**
-     * 
-     * @type {PriceDto}
-     * @memberof CreateOfferRequestDto
-     */
-    price: PriceDto;
+    changeOffer: ChangeOfferRequestDto;
 }
 
 /**
  * Check if a given object implements the CreateOfferRequestDto interface.
  */
 export function instanceOfCreateOfferRequestDto(value: object): value is CreateOfferRequestDto {
-    if (!('endOfferDate' in value) || value['endOfferDate'] === undefined) return false;
     if (!('tripId' in value) || value['tripId'] === undefined) return false;
-    if (!('vehicleId' in value) || value['vehicleId'] === undefined) return false;
-    if (!('price' in value) || value['price'] === undefined) return false;
+    if (!('changeOffer' in value) || value['changeOffer'] === undefined) return false;
     return true;
 }
 
@@ -74,10 +60,8 @@ export function CreateOfferRequestDtoFromJSONTyped(json: any, ignoreDiscriminato
     }
     return {
         
-        'endOfferDate': (new Date(json['endOfferDate'])),
         'tripId': json['tripId'],
-        'vehicleId': json['vehicleId'],
-        'price': PriceDtoFromJSON(json['price']),
+        'changeOffer': ChangeOfferRequestDtoFromJSON(json['changeOffer']),
     };
 }
 
@@ -92,10 +76,8 @@ export function CreateOfferRequestDtoToJSONTyped(value?: CreateOfferRequestDto |
 
     return {
         
-        'endOfferDate': value['endOfferDate'].toISOString(),
         'tripId': value['tripId'],
-        'vehicleId': value['vehicleId'],
-        'price': PriceDtoToJSON(value['price']),
+        'changeOffer': ChangeOfferRequestDtoToJSON(value['changeOffer']),
     };
 }
 

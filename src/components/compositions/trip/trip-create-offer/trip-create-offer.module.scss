@@ -5,7 +5,6 @@
 .layout {
   display: flex;
   flex-direction: column;
-  background: colors.$gray;
   padding: variables.$itemOffset * 5;
 
   .line {
