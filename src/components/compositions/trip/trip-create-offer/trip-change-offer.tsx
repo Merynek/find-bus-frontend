@@ -97,7 +97,7 @@ export const TripChangeOffer = observer((props: ITripChangeOfferProps) => {
     }
 
     return <div className={styles.layout}>
-        {offer.canceled && <Heading text={"Nabídka smazána"} headingLevel={3} />}
+        {offer.canceled && <Heading text={"Nabídka smazána - " + offer.canceledReason?.toString()} headingLevel={3} />}
         {renderVehicleModal()}
         <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
             <LayoutFlexColumn>
