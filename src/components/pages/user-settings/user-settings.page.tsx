@@ -26,6 +26,8 @@ import {NotificationConverter} from "@/src/converters/notifications/notification
 import {z} from "zod";
 import {Notification} from "@/src/data/notifications/notification";
 import {UserSettingsSchema} from "@/src/forms-action/user-settings/UserSettingsSchema";
+import {ComboBox} from "@/src/components/components/inputs/combo-box/combo-box";
+import {LOCALES} from "@/src/enums/locale";
 
 interface IUserSettingsPageProps {
     settings: UserSettingsResponseDto;
@@ -68,7 +70,8 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
                 iban: settings.userFinancialSettings.iban
             },
             phoneNumber: settings.phoneNumber,
-            notifications: initialNotificationsData
+            notifications: initialNotificationsData,
+            locale: settings.locale
         }
     })
 
@@ -80,9 +83,25 @@ const UserSettingsPage = (props: IUserSettingsPageProps) => {
         }
     }, [state?.data?.notifications]);
 
+    const localeOptions = useInit(() => {
+        return Object.values(LOCALES).map(locale => ({
+            value: locale,
+            label: locale
+        }))
+    });
+
 
     const renderBaseInfo = () => {
         return <>
+            <ComboBox
+                controlled={false}
+                items={localeOptions}
+                defaultValue={localeOptions.find(i => i.value === state?.data?.locale)}
+                id={FormDataEnum.locale}
+                name={FormDataEnum.locale}
+                placeHolder={t("locale")}
+                instanceId={"user_locale"}
+            />
             <TextBox
                 controlled={false}
                 name={FormDataEnum.name}

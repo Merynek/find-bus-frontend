@@ -5,6 +5,7 @@ import {FormDataEnum} from "@/src/enums/form-data.enum";
 import {UserSettingsRequestDto} from "@/src/api/openapi";
 import {UserSettingsSchema} from "@/src/forms-action/user-settings/UserSettingsSchema";
 import {DeepPartial} from "@/src/utils/common";
+import {LocaleConverter} from "@/src/converters/locale-converter";
 
 type NotificationsValidatedType = z.infer<typeof UserSettingsSchema>['notifications'];
 
@@ -56,12 +57,16 @@ export class UserSettingsFormAction extends BaseFormAction<typeof UserSettingsSc
                     houseNumber: this.getStringFormValue(formData, FormDataEnum.mailingAddress_houseNumber),
                 }
             },
+            locale: this.getEnumFormValue(formData, FormDataEnum.locale),
             phoneNumber: this.getStringFormValue(formData, FormDataEnum.phoneNumber),
             notifications: notificationsArray
         };
     }
 
     protected async callApi(validatedData: z.infer<typeof UserSettingsSchema>): Promise<UserSettingsApiResult> {
-        await UsersService.changeSettings(validatedData);
+        await UsersService.changeSettings({
+            ...validatedData,
+            locale: LocaleConverter.toServer(validatedData.locale)
+        });
     }
 }

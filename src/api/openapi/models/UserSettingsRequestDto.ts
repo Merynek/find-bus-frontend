@@ -27,6 +27,13 @@ import {
     NotificationSettingsRequestDtoToJSON,
     NotificationSettingsRequestDtoToJSONTyped,
 } from './NotificationSettingsRequestDto';
+import type { Locales } from './Locales';
+import {
+    LocalesFromJSON,
+    LocalesFromJSONTyped,
+    LocalesToJSON,
+    LocalesToJSONTyped,
+} from './Locales';
 
 /**
  * 
@@ -48,11 +55,19 @@ export interface UserSettingsRequestDto {
     phoneNumber?: string | null;
     /**
      * 
+     * @type {Locales}
+     * @memberof UserSettingsRequestDto
+     */
+    locale?: Locales;
+    /**
+     * 
      * @type {Array<NotificationSettingsRequestDto>}
      * @memberof UserSettingsRequestDto
      */
     notifications?: Array<NotificationSettingsRequestDto> | null;
 }
+
+
 
 /**
  * Check if a given object implements the UserSettingsRequestDto interface.
@@ -74,6 +89,7 @@ export function UserSettingsRequestDtoFromJSONTyped(json: any, ignoreDiscriminat
         
         'userFinancialSettings': UserFinancialSettingsRequestDtoFromJSON(json['userFinancialSettings']),
         'phoneNumber': json['phoneNumber'] == null ? undefined : json['phoneNumber'],
+        'locale': json['locale'] == null ? undefined : LocalesFromJSON(json['locale']),
         'notifications': json['notifications'] == null ? undefined : ((json['notifications'] as Array<any>).map(NotificationSettingsRequestDtoFromJSON)),
     };
 }
@@ -91,6 +107,7 @@ export function UserSettingsRequestDtoToJSONTyped(value?: UserSettingsRequestDto
         
         'userFinancialSettings': UserFinancialSettingsRequestDtoToJSON(value['userFinancialSettings']),
         'phoneNumber': value['phoneNumber'],
+        'locale': LocalesToJSON(value['locale']),
         'notifications': value['notifications'] == null ? undefined : ((value['notifications'] as Array<any>).map(NotificationSettingsRequestDtoToJSON)),
     };
 }

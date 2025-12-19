@@ -43,6 +43,7 @@ declare const messages: {
       "submit": "Potvrdit"
     },
     "userSettings": {
+      "locale": "Jazyk",
       "transportRequirements": "Požadavky na dopravu",
       "userSettingsHeading": "Nastavení uživatele",
       "name": "Jméno",

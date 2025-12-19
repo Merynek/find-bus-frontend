@@ -1,13 +1,13 @@
 import {handleApiCall, IApiRequest} from "./toolsApi";
 import * as OpenApi from "./openapi";
-import {UserRole} from "./openapi";
+import {Locales, UserRole} from "./openapi";
 import {ApiConfiguration} from "./apiConfiguration";
 
 export interface IRegistrationRequest extends IApiRequest {
     email: string;
     password: string;
     role: UserRole;
-    clientUrl: string;
+    locale: Locales
 }
 
 export interface IActiveUserRequest extends IApiRequest {
@@ -32,7 +32,7 @@ export class RegistrationApi {
                 password: req.password,
                 confirmPassword: req.password,
                 role: req.role,
-                clientUrl: req.clientUrl
+                locale: req.locale
             }
         }, req.initOverrides));
     }

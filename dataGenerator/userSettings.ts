@@ -7,6 +7,7 @@ import {getRandomUserFinancialSettings} from "@/dataGenerator/userFinancialSetti
 import {getRandomNumber} from "@/src/utils/common";
 import {Notification} from "@/src/data/notifications/notification";
 import {getRandomNotification} from "@/dataGenerator/notifications/notifications";
+import {LOCALES} from "@/src/enums/locale";
 
 export const getRandomUserSettings = (): UserSettings => {
     const notifications: Notification[] = [];
@@ -19,7 +20,8 @@ export const getRandomUserSettings = (): UserSettings => {
         userFinancialSettings: getRandomUserFinancialSettings(),
         phoneNumber: getRandomText(1),
         notifications: notifications,
-        transportRequirementsId: getRandomBoolean() ? getRandomNumber(1, 100) : null
+        transportRequirementsId: getRandomBoolean() ? getRandomNumber(1, 100) : null,
+        locale: getRandomEnum(LOCALES)
     })
 }
 

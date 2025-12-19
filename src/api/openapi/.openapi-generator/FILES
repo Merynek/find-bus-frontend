@@ -47,6 +47,7 @@ docs/FinishTripRequestDto.md
 docs/ForgetPasswordRequestDto.md
 docs/GeoPointDto.md
 docs/Languages.md
+docs/Locales.md
 docs/LoginRequestDto.md
 docs/LoginResponseDto.md
 docs/NotificationResponseDto.md
@@ -179,6 +180,7 @@ models/FinishTripRequestDto.ts
 models/ForgetPasswordRequestDto.ts
 models/GeoPointDto.ts
 models/Languages.ts
+models/Locales.ts
 models/LoginRequestDto.ts
 models/LoginResponseDto.ts
 models/NotificationResponseDto.ts

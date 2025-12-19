@@ -27,6 +27,13 @@ import {
     NotificationResponseDtoToJSON,
     NotificationResponseDtoToJSONTyped,
 } from './NotificationResponseDto';
+import type { Locales } from './Locales';
+import {
+    LocalesFromJSON,
+    LocalesFromJSONTyped,
+    LocalesToJSON,
+    LocalesToJSONTyped,
+} from './Locales';
 
 /**
  * 
@@ -40,6 +47,12 @@ export interface UserSettingsResponseDto {
      * @memberof UserSettingsResponseDto
      */
     phoneNumber: string;
+    /**
+     * 
+     * @type {Locales}
+     * @memberof UserSettingsResponseDto
+     */
+    locale: Locales;
     /**
      * 
      * @type {Array<NotificationResponseDto>}
@@ -60,11 +73,14 @@ export interface UserSettingsResponseDto {
     transportRequirementsId?: number | null;
 }
 
+
+
 /**
  * Check if a given object implements the UserSettingsResponseDto interface.
  */
 export function instanceOfUserSettingsResponseDto(value: object): value is UserSettingsResponseDto {
     if (!('phoneNumber' in value) || value['phoneNumber'] === undefined) return false;
+    if (!('locale' in value) || value['locale'] === undefined) return false;
     if (!('notifications' in value) || value['notifications'] === undefined) return false;
     return true;
 }
@@ -80,6 +96,7 @@ export function UserSettingsResponseDtoFromJSONTyped(json: any, ignoreDiscrimina
     return {
         
         'phoneNumber': json['phoneNumber'],
+        'locale': LocalesFromJSON(json['locale']),
         'notifications': ((json['notifications'] as Array<any>).map(NotificationResponseDtoFromJSON)),
         'financialSettings': json['financialSettings'] == null ? undefined : UserFinancialSettingsResponseDtoFromJSON(json['financialSettings']),
         'transportRequirementsId': json['transportRequirementsId'] == null ? undefined : json['transportRequirementsId'],
@@ -98,6 +115,7 @@ export function UserSettingsResponseDtoToJSONTyped(value?: UserSettingsResponseD
     return {
         
         'phoneNumber': value['phoneNumber'],
+        'locale': LocalesToJSON(value['locale']),
         'notifications': ((value['notifications'] as Array<any>).map(NotificationResponseDtoToJSON)),
         'financialSettings': UserFinancialSettingsResponseDtoToJSON(value['financialSettings']),
         'transportRequirementsId': value['transportRequirementsId'],

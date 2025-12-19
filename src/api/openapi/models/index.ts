@@ -39,6 +39,7 @@ export * from './FinishTripRequestDto';
 export * from './ForgetPasswordRequestDto';
 export * from './GeoPointDto';
 export * from './Languages';
+export * from './Locales';
 export * from './LoginRequestDto';
 export * from './LoginResponseDto';
 export * from './NotificationResponseDto';

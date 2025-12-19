@@ -1,7 +1,7 @@
 'use server';
 
 import {AuthorizeApi} from "@/src/api/authorizeApi";
-import {type CurrentUserDto, UserRole} from "@/src/api/openapi";
+import {type CurrentUserDto, Locales, UserRole} from "@/src/api/openapi";
 import {RegistrationApi} from "@/src/api/registrationApi";
 import {signIn, signOut, auth} from "@/src/auth/auth";
 import {handleActionCall} from "@/src/server-actions/baseAction";
@@ -49,7 +49,7 @@ export async function logoutAction(): Promise<void> {
     })
 }
 
-export const signUpAction = async (email: string, password: string, role: UserRole, clientUrl: string) => {
+export const signUpAction = async (email: string, password: string, role: UserRole, locale: Locales) => {
     await handleActionCall(async () => {
         const registrationApi = new RegistrationApi(undefined);
 
@@ -57,7 +57,7 @@ export const signUpAction = async (email: string, password: string, role: UserRo
             email: email,
             password: password,
             role: role,
-            clientUrl: clientUrl
+            locale: locale
         });
     })
 }

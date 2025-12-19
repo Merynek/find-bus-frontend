@@ -26,7 +26,7 @@ export const routing = defineRouting({
             [LOCALES.en_US]: ROUTES.ACTIVE_USER
         },
         [ROUTES.RESET_PASSWORD]: {
-            [LOCALES.cs_CZ]: '/obnoveni-hesla',
+            [LOCALES.cs_CZ]: `/obnoveni-hesla/[${URL_PARAMS.TOKEN}]`,
             [LOCALES.en_US]: ROUTES.RESET_PASSWORD
         },
         [ROUTES.FORGOT_PASSWORD]: {

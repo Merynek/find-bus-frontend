@@ -20,6 +20,13 @@ import {
     UserRoleToJSON,
     UserRoleToJSONTyped,
 } from './UserRole';
+import type { Locales } from './Locales';
+import {
+    LocalesFromJSON,
+    LocalesFromJSONTyped,
+    LocalesToJSON,
+    LocalesToJSONTyped,
+} from './Locales';
 
 /**
  * 
@@ -53,10 +60,10 @@ export interface RegistrationUserRequestDto {
     role: UserRole;
     /**
      * 
-     * @type {string}
+     * @type {Locales}
      * @memberof RegistrationUserRequestDto
      */
-    clientUrl: string;
+    locale: Locales;
 }
 
 
@@ -69,7 +76,7 @@ export function instanceOfRegistrationUserRequestDto(value: object): value is Re
     if (!('password' in value) || value['password'] === undefined) return false;
     if (!('confirmPassword' in value) || value['confirmPassword'] === undefined) return false;
     if (!('role' in value) || value['role'] === undefined) return false;
-    if (!('clientUrl' in value) || value['clientUrl'] === undefined) return false;
+    if (!('locale' in value) || value['locale'] === undefined) return false;
     return true;
 }
 
@@ -87,7 +94,7 @@ export function RegistrationUserRequestDtoFromJSONTyped(json: any, ignoreDiscrim
         'password': json['password'],
         'confirmPassword': json['confirmPassword'],
         'role': UserRoleFromJSON(json['role']),
-        'clientUrl': json['clientUrl'],
+        'locale': LocalesFromJSON(json['locale']),
     };
 }
 
@@ -106,7 +113,7 @@ export function RegistrationUserRequestDtoToJSONTyped(value?: RegistrationUserRe
         'password': value['password'],
         'confirmPassword': value['confirmPassword'],
         'role': UserRoleToJSON(value['role']),
-        'clientUrl': value['clientUrl'],
+        'locale': LocalesToJSON(value['locale']),
     };
 }
 

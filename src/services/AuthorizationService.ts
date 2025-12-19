@@ -8,6 +8,8 @@ import {
 import {BaseService} from "@/src/services/BaseService";
 import {User} from "@/src/data/users/user";
 import {CurrentUsersConverter} from "@/src/converters/users/current-users-converter";
+import {LOCALES} from "@/src/enums/locale";
+import {LocaleConverter} from "@/src/converters/locale-converter";
 
 export class AuthorizationService extends BaseService {
     public static async getLoggerUser(): Promise<User|null> {
@@ -29,9 +31,9 @@ export class AuthorizationService extends BaseService {
         });
     }
 
-    public static async signUp(email: string, password: string, role: UserRole, clientUrl: string) {
+    public static async signUp(email: string, password: string, role: UserRole, locale: LOCALES) {
         return await this.handleActionCall(async () => {
-            return await signUpAction(email, password, role, clientUrl);
+            return await signUpAction(email, password, role, LocaleConverter.toServer(locale));
         });
     }
 

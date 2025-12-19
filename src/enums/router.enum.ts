@@ -16,7 +16,7 @@ export enum ROUTES {
     SIGN_IN = "/sign/in",
     SIGN_UP = "/sign/up",
     ACTIVE_USER = `/active-user/[${URL_PARAMS.TOKEN}]`,
-    RESET_PASSWORD = "/reset-password",
+    RESET_PASSWORD = `/reset-password/[${URL_PARAMS.TOKEN}]`,
     FORGOT_PASSWORD = "/forgot-password",
     USER_SETTINGS = "/user-settings",
     TRANSPORT_REQUIREMENTS = `/transport-requirements`,

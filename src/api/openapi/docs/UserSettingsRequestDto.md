@@ -8,6 +8,7 @@ Name | Type
 ------------ | -------------
 `userFinancialSettings` | [UserFinancialSettingsRequestDto](UserFinancialSettingsRequestDto.md)
 `phoneNumber` | string
+`locale` | [Locales](Locales.md)
 `notifications` | [Array&lt;NotificationSettingsRequestDto&gt;](NotificationSettingsRequestDto.md)
 
 ## Example
@@ -19,6 +20,7 @@ import type { UserSettingsRequestDto } from ''
 const example = {
   "userFinancialSettings": null,
   "phoneNumber": null,
+  "locale": null,
   "notifications": null,
 } satisfies UserSettingsRequestDto
 

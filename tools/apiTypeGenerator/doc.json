@@ -3399,6 +3399,13 @@
         ],
         "type": "string"
       },
+      "Locales": {
+        "enum": [
+          "CS_CZ",
+          "EN_US"
+        ],
+        "type": "string"
+      },
       "LoginRequestDto": {
         "required": [
           "email",
@@ -3723,9 +3730,9 @@
       },
       "RegistrationUserRequestDto": {
         "required": [
-          "clientUrl",
           "confirmPassword",
           "email",
+          "locale",
           "password",
           "role"
         ],
@@ -3750,9 +3757,8 @@
           "role": {
             "$ref": "#/components/schemas/UserRole"
           },
-          "clientUrl": {
-            "minLength": 1,
-            "type": "string"
+          "locale": {
+            "$ref": "#/components/schemas/Locales"
           }
         },
         "additionalProperties": false
@@ -5072,6 +5078,9 @@
             "type": "string",
             "nullable": true
           },
+          "locale": {
+            "$ref": "#/components/schemas/Locales"
+          },
           "notifications": {
             "type": "array",
             "items": {
@@ -5084,6 +5093,7 @@
       },
       "UserSettingsResponseDto": {
         "required": [
+          "locale",
           "notifications",
           "phoneNumber"
         ],
@@ -5092,6 +5102,9 @@
           "phoneNumber": {
             "minLength": 1,
             "type": "string"
+          },
+          "locale": {
+            "$ref": "#/components/schemas/Locales"
           },
           "notifications": {
             "type": "array",

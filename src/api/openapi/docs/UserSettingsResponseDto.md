@@ -7,6 +7,7 @@
 Name | Type
 ------------ | -------------
 `phoneNumber` | string
+`locale` | [Locales](Locales.md)
 `notifications` | [Array&lt;NotificationResponseDto&gt;](NotificationResponseDto.md)
 `financialSettings` | [UserFinancialSettingsResponseDto](UserFinancialSettingsResponseDto.md)
 `transportRequirementsId` | number
@@ -19,6 +20,7 @@ import type { UserSettingsResponseDto } from ''
 // TODO: Update the object below with actual values
 const example = {
   "phoneNumber": null,
+  "locale": null,
   "notifications": null,
   "financialSettings": null,
   "transportRequirementsId": null,

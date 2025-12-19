@@ -10,7 +10,7 @@ Name | Type
 `password` | string
 `confirmPassword` | string
 `role` | [UserRole](UserRole.md)
-`clientUrl` | string
+`locale` | [Locales](Locales.md)
 
 ## Example
 
@@ -23,7 +23,7 @@ const example = {
   "password": null,
   "confirmPassword": null,
   "role": null,
-  "clientUrl": null,
+  "locale": null,
 } satisfies RegistrationUserRequestDto
 
 console.log(example)
