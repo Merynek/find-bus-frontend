@@ -12,7 +12,7 @@ export default {
 export const TripInvoiceDetailStory: StoryObj<IFinancialDocumentProps> = {
     render: (args) => <FinancialDocumentDetail
         {...args}
-        document={getRandomFinancialDocument()}
+        financialDocument={getRandomFinancialDocument()}
     />,
     args: {}
 };

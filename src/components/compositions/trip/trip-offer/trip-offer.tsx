@@ -62,7 +62,7 @@ export const TripOffer = observer((props: ITripOfferProps) => {
     }
 
     const _renderDocument = (document: FinancialDocument) => {
-        return <FinancialDocumentDetail document={document} key={document.id} />
+        return <FinancialDocumentDetail financialDocument={document} key={document.id} />
     }
 
     return <div className={styles.layout}>

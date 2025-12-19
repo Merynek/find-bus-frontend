@@ -109,19 +109,13 @@ export async function createOffer(req: ICreateOfferRequest) {
     });
 }
 
-export async function downloadFinancialDocument(req: IDownloadDocumentRequest): Promise<Response> {
+export async function downloadFinancialDocument(req: IDownloadDocumentRequest): Promise<Blob> {
     return await handleActionCall(async () => {
         const accessToken = await getAccessToken();
         const tripsOfferApi = new TripsOfferApi(accessToken);
-        const blob = await tripsOfferApi.downloadFinancialDocument({
+        return await tripsOfferApi.downloadFinancialDocument({
             documentId: req.documentId,
             type: req.type
         });
-
-        const headers = new Headers();
-        headers.set('Content-Type', blob.type);
-        headers.set('Content-Disposition', `attachment; filename="document_${req.documentId}.${blob.type.split('/')[1] || 'bin'}"`);
-
-        return new Response(blob, { headers });
     });
 }
