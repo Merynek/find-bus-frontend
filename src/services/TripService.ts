@@ -7,11 +7,13 @@ import {
     ISaveTripRequest,
     IGetTripsRequest,
     IPublishTripRequest,
-    ISaveUnauthorizedTripRequest
+    ISaveUnauthorizedTripRequest, IGetTripReview, TripApi, ISubmitTripReview
 } from "@/src/api/tripApi";
 import {TripRecommendation} from "@/src/data/tripRecommendation";
-import {TripRecommendationRequestDto} from "@/src/api/openapi";
+import {TripRecommendationRequestDto, type TripReviewResponseDto} from "@/src/api/openapi";
 import {BaseService} from "@/src/services/BaseService";
+import {handleActionCall} from "@/src/server-actions/baseAction";
+import {getAccessToken} from "@/src/server-actions/auth/accessTokenActions";
 
 export class TripService extends BaseService {
     public static async getTrip(id: number): Promise<Trip> {

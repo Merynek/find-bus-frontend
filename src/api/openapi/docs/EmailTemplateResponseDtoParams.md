@@ -7,6 +7,7 @@
 Name | Type
 ------------ | -------------
 `tRIPDETAILLINK` | string
+`tRIPREVIEWLINK` | string
 `tRIPDISTANCE` | string
 `pERCENT` | string
 `rEASON` | string
@@ -23,6 +24,7 @@ import type { EmailTemplateResponseDtoParams } from ''
 // TODO: Update the object below with actual values
 const example = {
   "tRIPDETAILLINK": null,
+  "tRIPREVIEWLINK": null,
   "tRIPDISTANCE": null,
   "pERCENT": null,
   "rEASON": null,

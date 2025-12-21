@@ -865,6 +865,77 @@
         }
       }
     },
+    "/api/Trip/submitReview": {
+      "post": {
+        "tags": [
+          "Trip"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubmitReviewRequestDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubmitReviewRequestDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubmitReviewRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Trip/tripReview": {
+      "get": {
+        "tags": [
+          "Trip"
+        ],
+        "parameters": [
+          {
+            "name": "Token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TripReviewResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TripReviewResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TripReviewResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/TripOffer/offer": {
       "post": {
         "tags": [
@@ -2984,6 +3055,30 @@
         },
         "additionalProperties": false
       },
+      "DetailReviewRequestDto": {
+        "required": [
+          "comment",
+          "criterion",
+          "rating"
+        ],
+        "type": "object",
+        "properties": {
+          "criterion": {
+            "$ref": "#/components/schemas/ReviewCriterionType"
+          },
+          "comment": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "rating": {
+            "maximum": 5,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "DirectionRequestDto": {
         "required": [
           "distance",
@@ -3092,6 +3187,9 @@
             "type": "object",
             "properties": {
               "TRIP_DETAIL_LINK": {
+                "type": "string"
+              },
+              "TRIP_REVIEW_LINK": {
                 "type": "string"
               },
               "TRIP_DISTANCE": {
@@ -3449,6 +3547,14 @@
         },
         "additionalProperties": false
       },
+      "ModerationStatus": {
+        "enum": [
+          "Approved",
+          "Flagged",
+          "Rejected"
+        ],
+        "type": "string"
+      },
       "NotificationResponseDto": {
         "required": [
           "isAppPushEnabled",
@@ -3763,6 +3869,114 @@
         },
         "additionalProperties": false
       },
+      "ReviewCriterionType": {
+        "enum": [
+          "BusCleanliness",
+          "BusTechnicalCondition",
+          "DriverProfessionalism",
+          "CommunicationClarity",
+          "PaymentPromptness",
+          "AppUserExperience"
+        ],
+        "type": "string"
+      },
+      "ReviewDetailResponseDto": {
+        "required": [
+          "comment",
+          "criterion",
+          "rating"
+        ],
+        "type": "object",
+        "properties": {
+          "criterion": {
+            "$ref": "#/components/schemas/ReviewCriterionType"
+          },
+          "rating": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "comment": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReviewRequestDto": {
+        "required": [
+          "comment",
+          "details",
+          "overallRating"
+        ],
+        "type": "object",
+        "properties": {
+          "overallRating": {
+            "maximum": 5,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "comment": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DetailReviewRequestDto"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReviewResponseDto": {
+        "required": [
+          "comment",
+          "details",
+          "moderation",
+          "overallRating",
+          "targetType",
+          "trip",
+          "visibility"
+        ],
+        "type": "object",
+        "properties": {
+          "targetType": {
+            "$ref": "#/components/schemas/ReviewTargetType"
+          },
+          "visibility": {
+            "$ref": "#/components/schemas/VisibilityStatus"
+          },
+          "trip": {
+            "$ref": "#/components/schemas/TripResponseDto"
+          },
+          "overallRating": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "comment": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "moderation": {
+            "$ref": "#/components/schemas/ModerationStatus"
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReviewDetailResponseDto"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReviewTargetType": {
+        "enum": [
+          "User",
+          "Platform"
+        ],
+        "type": "string"
+      },
       "RouteItemResponseDto": {
         "required": [
           "end",
@@ -4001,6 +4215,27 @@
         },
         "additionalProperties": false
       },
+      "SubmitReviewRequestDto": {
+        "required": [
+          "platformReview",
+          "token",
+          "userReview"
+        ],
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "userReview": {
+            "$ref": "#/components/schemas/ReviewRequestDto"
+          },
+          "platformReview": {
+            "$ref": "#/components/schemas/ReviewRequestDto"
+          }
+        },
+        "additionalProperties": false
+      },
       "TransportDocumentResponseDto": {
         "required": [
           "id",
@@ -4173,6 +4408,38 @@
             "items": {
               "$ref": "#/components/schemas/TransportDocumentResponseDto"
             }
+          }
+        },
+        "additionalProperties": false
+      },
+      "TripBaseInfoItemResponseDto": {
+        "required": [
+          "created",
+          "id",
+          "totalDistanceInMeters"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "numberOfPersons": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "totalDistanceInMeters": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
           }
         },
         "additionalProperties": false
@@ -4543,6 +4810,26 @@
           "created": {
             "type": "string",
             "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TripReviewResponseDto": {
+        "required": [
+          "platformReview",
+          "trip",
+          "userReview"
+        ],
+        "type": "object",
+        "properties": {
+          "trip": {
+            "$ref": "#/components/schemas/TripBaseInfoItemResponseDto"
+          },
+          "userReview": {
+            "$ref": "#/components/schemas/ReviewResponseDto"
+          },
+          "platformReview": {
+            "$ref": "#/components/schemas/ReviewResponseDto"
           }
         },
         "additionalProperties": false
@@ -5537,6 +5824,13 @@
           }
         },
         "additionalProperties": false
+      },
+      "VisibilityStatus": {
+        "enum": [
+          "Pending",
+          "Published"
+        ],
+        "type": "string"
       }
     },
     "securitySchemes": {

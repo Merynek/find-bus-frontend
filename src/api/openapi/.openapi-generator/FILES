@@ -27,6 +27,7 @@ docs/CreateOfferRequestDto.md
 docs/Currency.md
 docs/CurrentUserDto.md
 docs/DeleteTripOfferRequestDto.md
+docs/DetailReviewRequestDto.md
 docs/DirectionRequestDto.md
 docs/DirectionResponseDto.md
 docs/EmailConfigLocalizationResponseDto.md
@@ -50,6 +51,7 @@ docs/Languages.md
 docs/Locales.md
 docs/LoginRequestDto.md
 docs/LoginResponseDto.md
+docs/ModerationStatus.md
 docs/NotificationResponseDto.md
 docs/NotificationSettingsDataRequestDto.md
 docs/NotificationSettingsDataResponseDto.md
@@ -68,6 +70,11 @@ docs/PublishTripRequestDto.md
 docs/RefreshTokenRequestDto.md
 docs/RegistrationApi.md
 docs/RegistrationUserRequestDto.md
+docs/ReviewCriterionType.md
+docs/ReviewDetailResponseDto.md
+docs/ReviewRequestDto.md
+docs/ReviewResponseDto.md
+docs/ReviewTargetType.md
 docs/RouteItemResponseDto.md
 docs/RouteRequestDto.md
 docs/RouteResponseDto.md
@@ -77,6 +84,7 @@ docs/StartTripRequestDto.md
 docs/StopItemResponseDto.md
 docs/StopRequestDto.md
 docs/StopResponseDto.md
+docs/SubmitReviewRequestDto.md
 docs/TransportDocumentResponseDto.md
 docs/TransportDocumentsCompleteUploadFilesRequestDto.md
 docs/TransportRequirementStatus.md
@@ -88,6 +96,7 @@ docs/TransportRequirementsUploadSasUrlResponseDto.md
 docs/TransportRequirementsVerificationRequestDto.md
 docs/TransporterRequirementsResponseDto.md
 docs/TripApi.md
+docs/TripBaseInfoItemResponseDto.md
 docs/TripItemResponseDto.md
 docs/TripOfferAcceptMethod.md
 docs/TripOfferApi.md
@@ -100,6 +109,7 @@ docs/TripRecommendationRouteRequestDto.md
 docs/TripRecommendationRouteResponseDto.md
 docs/TripRecommendationType.md
 docs/TripResponseDto.md
+docs/TripReviewResponseDto.md
 docs/TripState.md
 docs/UpdateAppBusinessConfigRequestDto.md
 docs/UpdateEmailConfig.md
@@ -140,6 +150,7 @@ docs/VehicleUploadSasUrlResponseDto.md
 docs/VehicleVerificationRequestDto.md
 docs/VehiclesApi.md
 docs/VerificationFeedbackResponseDto.md
+docs/VisibilityStatus.md
 index.ts
 models/AcceptOfferRequestDto.ts
 models/AccessTokenDto.ts
@@ -160,6 +171,7 @@ models/CreateOfferRequestDto.ts
 models/Currency.ts
 models/CurrentUserDto.ts
 models/DeleteTripOfferRequestDto.ts
+models/DetailReviewRequestDto.ts
 models/DirectionRequestDto.ts
 models/DirectionResponseDto.ts
 models/EmailConfigLocalizationResponseDto.ts
@@ -183,6 +195,7 @@ models/Languages.ts
 models/Locales.ts
 models/LoginRequestDto.ts
 models/LoginResponseDto.ts
+models/ModerationStatus.ts
 models/NotificationResponseDto.ts
 models/NotificationSettingsDataRequestDto.ts
 models/NotificationSettingsDataResponseDto.ts
@@ -200,6 +213,11 @@ models/PriceDto.ts
 models/PublishTripRequestDto.ts
 models/RefreshTokenRequestDto.ts
 models/RegistrationUserRequestDto.ts
+models/ReviewCriterionType.ts
+models/ReviewDetailResponseDto.ts
+models/ReviewRequestDto.ts
+models/ReviewResponseDto.ts
+models/ReviewTargetType.ts
 models/RouteItemResponseDto.ts
 models/RouteRequestDto.ts
 models/RouteResponseDto.ts
@@ -209,6 +227,7 @@ models/StartTripRequestDto.ts
 models/StopItemResponseDto.ts
 models/StopRequestDto.ts
 models/StopResponseDto.ts
+models/SubmitReviewRequestDto.ts
 models/TransportDocumentResponseDto.ts
 models/TransportDocumentsCompleteUploadFilesRequestDto.ts
 models/TransportRequirementStatus.ts
@@ -219,6 +238,7 @@ models/TransportRequirementsType.ts
 models/TransportRequirementsUploadSasUrlResponseDto.ts
 models/TransportRequirementsVerificationRequestDto.ts
 models/TransporterRequirementsResponseDto.ts
+models/TripBaseInfoItemResponseDto.ts
 models/TripItemResponseDto.ts
 models/TripOfferAcceptMethod.ts
 models/TripOfferMovementsResponseDto.ts
@@ -230,6 +250,7 @@ models/TripRecommendationRouteRequestDto.ts
 models/TripRecommendationRouteResponseDto.ts
 models/TripRecommendationType.ts
 models/TripResponseDto.ts
+models/TripReviewResponseDto.ts
 models/TripState.ts
 models/UpdateAppBusinessConfigRequestDto.ts
 models/UpdateEmailConfig.ts
@@ -268,5 +289,6 @@ models/VehicleTransportVerificationRequestDto.ts
 models/VehicleUploadSasUrlResponseDto.ts
 models/VehicleVerificationRequestDto.ts
 models/VerificationFeedbackResponseDto.ts
+models/VisibilityStatus.ts
 models/index.ts
 runtime.ts

@@ -2,10 +2,10 @@ import {ApiConfiguration} from "./apiConfiguration";
 import * as OpenApi from "./openapi";
 import {handleApiCall, IApiRequest} from "./toolsApi";
 import {
-    ApiTripListGetRequest, type SaveTripRequestDto, type SaveUnauthorizedTripRequestDto,
+    ApiTripListGetRequest, type SaveTripRequestDto, type SaveUnauthorizedTripRequestDto, SubmitReviewRequestDto,
     type TripItemResponseDto,
     TripRecommendationRequestDto, type TripRecommendationResponseDto,
-    type TripResponseDto
+    type TripResponseDto, type TripReviewResponseDto
 } from "./openapi";
 
 export interface ISaveTripRequest extends IApiRequest {
@@ -43,6 +43,12 @@ export interface IGetTripDraft extends IApiRequest {
 
 export interface IGetTripRecommendation extends IApiRequest {
     trip: TripRecommendationRequestDto;
+}
+export interface IGetTripReview extends IApiRequest {
+    token: string;
+}
+export interface ISubmitTripReview extends IApiRequest {
+    review: SubmitReviewRequestDto;
 }
 
 export interface IPostStopTripOrderRequest extends IApiRequest {
@@ -115,6 +121,18 @@ export class TripApi {
     public async getTripRecommendation(req: IGetTripRecommendation): Promise<TripRecommendationResponseDto> {
         return await handleApiCall(this._api.apiTripRecommendationPost({
             tripRecommendationRequestDto: req.trip
+        }));
+    }
+
+    public async getTripReview(req: IGetTripReview): Promise<TripReviewResponseDto> {
+        return await handleApiCall(this._api.apiTripTripReviewGet({
+            token: req.token
+        }));
+    }
+
+    public async submitTripReview(req: ISubmitTripReview): Promise<void> {
+        return await handleApiCall(this._api.apiTripSubmitReviewPost({
+            submitReviewRequestDto: req.review
         }));
     }
 }
