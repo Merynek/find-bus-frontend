@@ -22,6 +22,7 @@ export enum ROUTES {
     TRANSPORT_REQUIREMENTS = `/transport-requirements`,
     VEHICLES = "/vehicles",
     VEHICLE_EDIT = `/vehicle-edit/[${URL_PARAMS.VEHICLE_ID}]`,
+    REVIEW = `/review/[${URL_PARAMS.TOKEN}]`,
     CREATE_TRIP = `/create-trip`,
     DRAFT_TRIP = `/create-trip/[${URL_PARAMS.TRIP_ID}]`,
     TRIP_LIST = "/trips",

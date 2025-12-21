@@ -3,6 +3,9 @@
 
 declare const messages: {
   "page": {
+    "review": {
+      "heading": "Hodnoceni"
+    },
     "sign": {
       "loginHeading": "Přihlášení",
       "registrationHeading": "Registrace",

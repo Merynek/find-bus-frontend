@@ -1,5 +1,8 @@
 {
   "page": {
+    "review": {
+      "heading": "Review"
+    },
     "sign": {
       "loginHeading": "Login",
       "registrationHeading": "Registration",
