@@ -3936,7 +3936,6 @@
           "moderation",
           "overallRating",
           "targetType",
-          "trip",
           "visibility"
         ],
         "type": "object",
@@ -3946,9 +3945,6 @@
           },
           "visibility": {
             "$ref": "#/components/schemas/VisibilityStatus"
-          },
-          "trip": {
-            "$ref": "#/components/schemas/TripResponseDto"
           },
           "overallRating": {
             "type": "integer",
