@@ -15,12 +15,13 @@ import {getRandomVehicle} from "./vehicle";
 import {getRandomUserDetail} from "./user";
 import {getRandomRoute} from "./route";
 import {TripRecommendation, TripRecommendationRoute} from "@/src/data/tripRecommendation";
-import {TripItem} from "@/src/data/tripItem";
+import {TripItem} from "@/src/data/trip/tripItem";
 import {TripOfferMovement} from "@/src/data/tripOfferMovement";
 import {getRandomPrice} from "./price";
 import {getRandomText} from "@/dataGenerator/texts/texts";
 import {FinancialDocument} from "@/src/data/documents/financialDocument";
 import {getRandomFinancialDocument} from "@/dataGenerator/financialDocuments";
+import {TripInfo} from "@/src/data/trip/tripInfo";
 
 export function getRandomTrip(): Trip {
     return new Trip({
@@ -113,5 +114,15 @@ export function getRandomTripRouteRecommendation(): TripRecommendationRoute {
         dJInHours: getRandomNumber(0.5, 12),
         mInHours: getRandomNumber(0.5, 12),
         realTimeInHours: getRandomNumber(0.5, 12)
+    })
+}
+
+export function getRandomTripInfo(): TripInfo {
+    return new TripInfo({
+        id: getRandomId(),
+        created: getRandomDate(),
+        name: getRandomText(3),
+        numberOfPersons: getRandomNumber(20, 60),
+        totalDistanceInMeters: getRandomNumber(15000, 35000)
     })
 }

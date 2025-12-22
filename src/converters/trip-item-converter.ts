@@ -3,7 +3,7 @@ import {
 } from "../api/openapi";
 import {Stop} from "../data/trip/stop";
 import {Route} from "../data/trip/route";
-import {TripItem} from "../data/tripItem";
+import {TripItem} from "../data/trip/tripItem";
 import {Direction} from "../data/trip/direction";
 import {PlaceItemConverter} from "@/src/converters/place-item-converter";
 

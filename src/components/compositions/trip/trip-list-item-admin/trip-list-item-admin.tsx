@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./trip-list-item-admin.module.scss";
-import {TripItem} from "@/src/data/tripItem";
+import {TripItem} from "@/src/data/trip/tripItem";
 import {ROUTES, URL_PARAMS} from "@/src/enums/router.enum";
 import {LayoutFlexRow} from "@/src/components/components/layout/layout-flex-row/layout-flex-row";
 import {Text} from "@/src/components/components/texts/text";

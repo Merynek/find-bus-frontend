@@ -1,5 +1,5 @@
-import {Amenities, TripOfferState, TripState} from "../api/openapi";
-import {Route} from "./trip/route";
+import {Route} from "@/src/data/trip/route";
+import {Amenities, TripOfferState, TripState} from "@/src/api/openapi";
 
 interface ITripItem {
     id: number;

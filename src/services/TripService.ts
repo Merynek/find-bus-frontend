@@ -1,19 +1,23 @@
 import {Trip} from "@/src/data/trip/trip";
-import {saveTrip, getDraftTrips, getTrip, getTripRecommendation, getTrips, publishTrip, getTripDraft, saveUnauthorizedTrip} from "@/src/server-actions/trips/tripsActions";
+import {
+    saveTrip, getDraftTrips, getTrip, getTripRecommendation, getTrips, publishTrip, getTripDraft, saveUnauthorizedTrip,
+    getTripReview
+} from "@/src/server-actions/trips/tripsActions";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
 import {TripItemConverter} from "@/src/converters/trip-item-converter";
-import {TripItem} from "@/src/data/tripItem";
+import {TripItem} from "@/src/data/trip/tripItem";
 import {
     ISaveTripRequest,
     IGetTripsRequest,
     IPublishTripRequest,
-    ISaveUnauthorizedTripRequest, IGetTripReview, TripApi, ISubmitTripReview
+    ISaveUnauthorizedTripRequest, IGetTripReview
 } from "@/src/api/tripApi";
 import {TripRecommendation} from "@/src/data/tripRecommendation";
-import {TripRecommendationRequestDto, type TripReviewResponseDto} from "@/src/api/openapi";
+import {TripRecommendationRequestDto} from "@/src/api/openapi";
 import {BaseService} from "@/src/services/BaseService";
-import {handleActionCall} from "@/src/server-actions/baseAction";
-import {getAccessToken} from "@/src/server-actions/auth/accessTokenActions";
+import {ReviewConverter} from "@/src/converters/review/review-converter";
+import {TripReview} from "@/src/data/review/trip-review";
+import {TripInfoConverter} from "@/src/converters/trip/trip-info-converter";
 
 export class TripService extends BaseService {
     public static async getTrip(id: number): Promise<Trip> {
@@ -66,6 +70,17 @@ export class TripService extends BaseService {
         return await this.handleActionCall(async () => {
             const data = await getTripRecommendation(trip);
             return TripConverter.tripRecommendationToInstance(data);
+        });
+    }
+
+    public static async getTripReview(trip: IGetTripReview): Promise<TripReview> {
+        return await this.handleActionCall(async () => {
+            const data = await getTripReview(trip);
+            return new TripReview({
+                trip: TripInfoConverter.toInstance(data.trip),
+                userReview: ReviewConverter.toInstance(data.userReview),
+                platformReview: ReviewConverter.toInstance(data.platformReview)
+            })
         });
     }
 }

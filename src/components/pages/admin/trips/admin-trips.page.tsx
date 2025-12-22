@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./admin-trips.page.module.scss";
 import {TripListItemAdmin} from "../../../compositions/trip/trip-list-item-admin/trip-list-item-admin";
-import {TripItem} from "@/src/data/tripItem";
+import {TripItem} from "@/src/data/trip/tripItem";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {FlexGap} from "@/src/enums/layout.enum";
 
