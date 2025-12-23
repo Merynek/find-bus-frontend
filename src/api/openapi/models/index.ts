@@ -98,6 +98,7 @@ export * from './TripRecommendationRouteRequestDto';
 export * from './TripRecommendationRouteResponseDto';
 export * from './TripRecommendationType';
 export * from './TripResponseDto';
+export * from './TripReviewDataResponseDto';
 export * from './TripReviewResponseDto';
 export * from './TripState';
 export * from './UpdateAppBusinessConfigRequestDto';

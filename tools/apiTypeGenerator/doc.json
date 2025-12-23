@@ -4810,7 +4810,7 @@
         },
         "additionalProperties": false
       },
-      "TripReviewResponseDto": {
+      "TripReviewDataResponseDto": {
         "required": [
           "platformReview",
           "trip",
@@ -4826,6 +4826,15 @@
           },
           "platformReview": {
             "$ref": "#/components/schemas/ReviewResponseDto"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TripReviewResponseDto": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "$ref": "#/components/schemas/TripReviewDataResponseDto"
           }
         },
         "additionalProperties": false

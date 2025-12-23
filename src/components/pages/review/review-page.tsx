@@ -2,15 +2,16 @@
 
 import React from "react";
 import {useTranslate} from "@/src/hooks/translateHook";
+import {TripReviewDataResponseDto} from "@/src/api/openapi";
+import {TripReviewDataConverter} from "@/src/converters/review/trip-review-data-converter";
 
 interface IReviewPageProps {
-    token: string;
+    data: TripReviewDataResponseDto|null;
 }
 
 export const ReviewPage = (props: IReviewPageProps) => {
-    const {token} = props;
+    const reviewData = props.data ? TripReviewDataConverter.toInstance(props.data) : null;
     const {t} = useTranslate("page.review");
 
-
-    return <div>{token}</div>
+    return <div>{"asda"}</div>
 };

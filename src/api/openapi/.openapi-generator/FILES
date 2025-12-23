@@ -109,6 +109,7 @@ docs/TripRecommendationRouteRequestDto.md
 docs/TripRecommendationRouteResponseDto.md
 docs/TripRecommendationType.md
 docs/TripResponseDto.md
+docs/TripReviewDataResponseDto.md
 docs/TripReviewResponseDto.md
 docs/TripState.md
 docs/UpdateAppBusinessConfigRequestDto.md
@@ -250,6 +251,7 @@ models/TripRecommendationRouteRequestDto.ts
 models/TripRecommendationRouteResponseDto.ts
 models/TripRecommendationType.ts
 models/TripResponseDto.ts
+models/TripReviewDataResponseDto.ts
 models/TripReviewResponseDto.ts
 models/TripState.ts
 models/UpdateAppBusinessConfigRequestDto.ts

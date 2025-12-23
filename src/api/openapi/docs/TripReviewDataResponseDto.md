@@ -1,22 +1,26 @@
 
-# TripReviewResponseDto
+# TripReviewDataResponseDto
 
 
 ## Properties
 
 Name | Type
 ------------ | -------------
-`result` | [TripReviewDataResponseDto](TripReviewDataResponseDto.md)
+`trip` | [TripBaseInfoItemResponseDto](TripBaseInfoItemResponseDto.md)
+`userReview` | [ReviewResponseDto](ReviewResponseDto.md)
+`platformReview` | [ReviewResponseDto](ReviewResponseDto.md)
 
 ## Example
 
 ```typescript
-import type { TripReviewResponseDto } from ''
+import type { TripReviewDataResponseDto } from ''
 
 // TODO: Update the object below with actual values
 const example = {
-  "result": null,
-} satisfies TripReviewResponseDto
+  "trip": null,
+  "userReview": null,
+  "platformReview": null,
+} satisfies TripReviewDataResponseDto
 
 console.log(example)
 
@@ -25,7 +29,7 @@ const exampleJSON: string = JSON.stringify(example)
 console.log(exampleJSON)
 
 // Parse the JSON string back to an object
-const exampleParsed = JSON.parse(exampleJSON) as TripReviewResponseDto
+const exampleParsed = JSON.parse(exampleJSON) as TripReviewDataResponseDto
 console.log(exampleParsed)
 ```
 

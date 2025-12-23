@@ -13,20 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
-import type { TripBaseInfoItemResponseDto } from './TripBaseInfoItemResponseDto';
+import type { TripReviewDataResponseDto } from './TripReviewDataResponseDto';
 import {
-    TripBaseInfoItemResponseDtoFromJSON,
-    TripBaseInfoItemResponseDtoFromJSONTyped,
-    TripBaseInfoItemResponseDtoToJSON,
-    TripBaseInfoItemResponseDtoToJSONTyped,
-} from './TripBaseInfoItemResponseDto';
-import type { ReviewResponseDto } from './ReviewResponseDto';
-import {
-    ReviewResponseDtoFromJSON,
-    ReviewResponseDtoFromJSONTyped,
-    ReviewResponseDtoToJSON,
-    ReviewResponseDtoToJSONTyped,
-} from './ReviewResponseDto';
+    TripReviewDataResponseDtoFromJSON,
+    TripReviewDataResponseDtoFromJSONTyped,
+    TripReviewDataResponseDtoToJSON,
+    TripReviewDataResponseDtoToJSONTyped,
+} from './TripReviewDataResponseDto';
 
 /**
  * 
@@ -36,31 +29,16 @@ import {
 export interface TripReviewResponseDto {
     /**
      * 
-     * @type {TripBaseInfoItemResponseDto}
+     * @type {TripReviewDataResponseDto}
      * @memberof TripReviewResponseDto
      */
-    trip: TripBaseInfoItemResponseDto;
-    /**
-     * 
-     * @type {ReviewResponseDto}
-     * @memberof TripReviewResponseDto
-     */
-    userReview: ReviewResponseDto;
-    /**
-     * 
-     * @type {ReviewResponseDto}
-     * @memberof TripReviewResponseDto
-     */
-    platformReview: ReviewResponseDto;
+    result?: TripReviewDataResponseDto;
 }
 
 /**
  * Check if a given object implements the TripReviewResponseDto interface.
  */
 export function instanceOfTripReviewResponseDto(value: object): value is TripReviewResponseDto {
-    if (!('trip' in value) || value['trip'] === undefined) return false;
-    if (!('userReview' in value) || value['userReview'] === undefined) return false;
-    if (!('platformReview' in value) || value['platformReview'] === undefined) return false;
     return true;
 }
 
@@ -74,9 +52,7 @@ export function TripReviewResponseDtoFromJSONTyped(json: any, ignoreDiscriminato
     }
     return {
         
-        'trip': TripBaseInfoItemResponseDtoFromJSON(json['trip']),
-        'userReview': ReviewResponseDtoFromJSON(json['userReview']),
-        'platformReview': ReviewResponseDtoFromJSON(json['platformReview']),
+        'result': json['result'] == null ? undefined : TripReviewDataResponseDtoFromJSON(json['result']),
     };
 }
 
@@ -91,9 +67,7 @@ export function TripReviewResponseDtoToJSONTyped(value?: TripReviewResponseDto |
 
     return {
         
-        'trip': TripBaseInfoItemResponseDtoToJSON(value['trip']),
-        'userReview': ReviewResponseDtoToJSON(value['userReview']),
-        'platformReview': ReviewResponseDtoToJSON(value['platformReview']),
+        'result': TripReviewDataResponseDtoToJSON(value['result']),
     };
 }
 

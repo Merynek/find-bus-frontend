@@ -18,6 +18,7 @@ import {BaseService} from "@/src/services/BaseService";
 import {ReviewConverter} from "@/src/converters/review/review-converter";
 import {TripReview} from "@/src/data/review/trip-review";
 import {TripInfoConverter} from "@/src/converters/trip/trip-info-converter";
+import {TripReviewDataConverter} from "@/src/converters/review/trip-review-data-converter";
 
 export class TripService extends BaseService {
     public static async getTrip(id: number): Promise<Trip> {
@@ -73,14 +74,10 @@ export class TripService extends BaseService {
         });
     }
 
-    public static async getTripReview(trip: IGetTripReview): Promise<TripReview> {
+    public static async getTripReview(trip: IGetTripReview): Promise<TripReview|null> {
         return await this.handleActionCall(async () => {
             const data = await getTripReview(trip);
-            return new TripReview({
-                trip: TripInfoConverter.toInstance(data.trip),
-                userReview: ReviewConverter.toInstance(data.userReview),
-                platformReview: ReviewConverter.toInstance(data.platformReview)
-            })
+            return data.result ? TripReviewDataConverter.toInstance(data.result) : null;
         });
     }
 }
