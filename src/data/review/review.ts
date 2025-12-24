@@ -1,5 +1,6 @@
 import type {ModerationStatus, ReviewTargetType, VisibilityStatus} from "@/src/api/openapi";
 import {DetailReview} from "@/src/data/review/detail-review";
+import { makeObservable, observable } from "mobx";
 
 interface IReview {
     targetType: ReviewTargetType;
@@ -13,8 +14,8 @@ interface IReview {
 export class Review {
     public targetType: ReviewTargetType;
     public visibility: VisibilityStatus;
-    public overallRating: number;
-    public comment: string;
+    @observable public overallRating: number;
+    @observable public comment: string;
     public moderation: ModerationStatus;
     public details: DetailReview[];
 
@@ -25,5 +26,6 @@ export class Review {
         this.comment = data.comment;
         this.moderation = data.moderation;
         this.details = data.details;
+        makeObservable(this);
     }
 }

@@ -1,4 +1,5 @@
 import type {ReviewCriterionType} from "@/src/api/openapi";
+import { makeObservable, observable } from "mobx";
 
 interface IDetailReview {
     criterion: ReviewCriterionType;
@@ -8,12 +9,13 @@ interface IDetailReview {
 
 export class DetailReview {
     public criterion: ReviewCriterionType;
-    public rating: number;
-    public comment: string;
+    @observable public rating: number;
+    @observable public comment: string;
 
     constructor(data: IDetailReview) {
         this.criterion = data.criterion;
         this.rating = data.rating;
         this.comment = data.comment;
+        makeObservable(this);
     }
 }

@@ -11,5 +11,7 @@ export enum IconType {
     ADD = "ADD",
     PERSON = "PERSON",
     LANGUAGE = "LANGUAGE",
-    MAP = "MAP"
+    MAP = "MAP",
+    STAR = "STAR",
+    STAR_BORDER = "STAR_BORDER"
 }

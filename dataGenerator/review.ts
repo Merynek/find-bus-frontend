@@ -9,6 +9,22 @@ import {
 import {DetailReview} from "@/src/data/review/detail-review";
 import {getRandomText} from "@/dataGenerator/texts/texts";
 import {Review} from "@/src/data/review/review";
+import {TripReview} from "@/src/data/review/trip-review";
+import {getRandomTripInfo} from "@/dataGenerator/trip";
+
+export function getRandomTripReview() {
+    const platform = getRandomReview();
+    const user = getRandomReview();
+
+    platform.targetType = ReviewTargetType.PLATFORM;
+    user.targetType = ReviewTargetType.USER;
+
+    return new TripReview({
+        trip: getRandomTripInfo(),
+        platformReview: platform,
+        userReview: user
+    })
+}
 
 export function getRandomReview() {
     const details: DetailReview[] = [];

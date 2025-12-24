@@ -15,7 +15,6 @@ import {
     TripApi
 } from "@/src/api/tripApi";
 import {handleActionCall} from "@/src/server-actions/baseAction";
-import {handleApiCall} from "@/src/api/toolsApi";
 
 export async function getTrip(id: number): Promise<TripResponseDto> {
     return await handleActionCall(async () => {

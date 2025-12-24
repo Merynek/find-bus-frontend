@@ -10,10 +10,12 @@ interface IParams {
 
 async function PageWrapper(props: PageProps<IParams>) {
     const params = await props.params;
-    const tripReview = await TripService.getTripReview({token: params[URL_PARAMS.TOKEN]});
+    const token = params[URL_PARAMS.TOKEN];
+    const tripReview = await TripService.getTripReview({token: token});
 
     return <ReviewPage
         data={tripReview ? TripReviewDataConverter.toJson(tripReview) : null}
+        token={token}
     />;
 }
 

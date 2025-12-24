@@ -1,7 +1,8 @@
 import {Trip} from "@/src/data/trip/trip";
 import {
     saveTrip, getDraftTrips, getTrip, getTripRecommendation, getTrips, publishTrip, getTripDraft, saveUnauthorizedTrip,
-    getTripReview
+    getTripReview,
+    submitTripReview
 } from "@/src/server-actions/trips/tripsActions";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
 import {TripItemConverter} from "@/src/converters/trip-item-converter";
@@ -10,14 +11,12 @@ import {
     ISaveTripRequest,
     IGetTripsRequest,
     IPublishTripRequest,
-    ISaveUnauthorizedTripRequest, IGetTripReview
+    ISaveUnauthorizedTripRequest, IGetTripReview, ISubmitTripReview
 } from "@/src/api/tripApi";
 import {TripRecommendation} from "@/src/data/tripRecommendation";
 import {TripRecommendationRequestDto} from "@/src/api/openapi";
 import {BaseService} from "@/src/services/BaseService";
-import {ReviewConverter} from "@/src/converters/review/review-converter";
 import {TripReview} from "@/src/data/review/trip-review";
-import {TripInfoConverter} from "@/src/converters/trip/trip-info-converter";
 import {TripReviewDataConverter} from "@/src/converters/review/trip-review-data-converter";
 
 export class TripService extends BaseService {
@@ -78,6 +77,12 @@ export class TripService extends BaseService {
         return await this.handleActionCall(async () => {
             const data = await getTripReview(trip);
             return data.result ? TripReviewDataConverter.toInstance(data.result) : null;
+        });
+    }
+
+    public static async submitTripReview(req: ISubmitTripReview): Promise<void> {
+        return await this.handleActionCall(async () => {
+            await submitTripReview(req);
         });
     }
 }

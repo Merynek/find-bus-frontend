@@ -11,6 +11,8 @@ import ArrowDownIcon from '@mui/icons-material/ArrowDownward';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
+import StarIcon from '@mui/icons-material/Star';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 import PersonIcon from '@mui/icons-material/Person';
 import {SvgIconProps} from "@mui/material";
 
@@ -47,5 +49,9 @@ export const IconFromEnum = (props: IIconFromEnumProps) => {
             return <PersonIcon {...options} />;
         case IconType.MAP:
             return <MapIcon {...options} />;
+        case IconType.STAR:
+            return <StarIcon {...options} />;
+        case IconType.STAR_BORDER:
+            return <StarBorderIcon {...options} />;
     }
 }
