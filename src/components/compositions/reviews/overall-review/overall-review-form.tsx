@@ -10,10 +10,12 @@ import {FlexGap} from "@/src/enums/layout.enum";
 
 interface IOverallReviewFormProps {
     review: Review;
+    readonly?: boolean;
 }
 
 export const OverallReviewForm = observer((props: IOverallReviewFormProps) => {
-    const {review} = props;
+    const {review, readonly} = props;
+
     return <LayoutFlexColumn gap={FlexGap.TINY_8}>
         <Text text={"TARGET:" + review.targetType.toString()} fontSize={FontSize.L_32} />
         <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
@@ -25,7 +27,8 @@ export const OverallReviewForm = observer((props: IOverallReviewFormProps) => {
             />
             <TextBox
                 controlled={true}
-                placeholder={"Napište něco"}
+                disabled={readonly}
+                placeholder={readonly ? "text" : "Napište něco"}
                 type={TextBoxType.TEXT}
                 value={review.comment}
                 onChange={(val) => {
@@ -39,6 +42,7 @@ export const OverallReviewForm = observer((props: IOverallReviewFormProps) => {
                 {review.details.map((d, i) => {
                     return <div key={i} style={{border: "2px solid black", padding: "8px"}}>
                         <ReviewDetailForm
+                            readonly={readonly}
                             detailReview={d}
                         />
                     </div>

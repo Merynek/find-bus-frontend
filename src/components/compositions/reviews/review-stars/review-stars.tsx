@@ -6,15 +6,17 @@ import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/b
 interface IReviewStarsProps {
     rating: number;
     onChange: (rating: number) => void;
+    readonly?: boolean;
 }
 
 export const ReviewStars = (props: IReviewStarsProps) => {
-    const {rating, onChange} = props;
+    const {rating, onChange, readonly} = props;
     const maxStars = [1, 2, 3, 4, 5];
 
     return <LayoutFlexRow>
         {maxStars.map((starIndex) => (
             <ButtonClick
+                isDisabled={readonly}
                 key={starIndex}
                 controlled={true}
                 onClick={() => {
