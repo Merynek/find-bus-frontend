@@ -104,6 +104,7 @@ export * from './TripState';
 export * from './UpdateAppBusinessConfigRequestDto';
 export * from './UpdateEmailConfig';
 export * from './UpdateOfferRequestDto';
+export * from './UpdateTripReviewRequestDto';
 export * from './UpdateUserConfigRequestDto';
 export * from './UpdateVehicleRequestDto';
 export * from './UploadDocumentItemRequestDto';

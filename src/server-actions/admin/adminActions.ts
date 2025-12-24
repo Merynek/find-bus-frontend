@@ -4,11 +4,11 @@ import {
     AppBusinessConfigResponseDto,
     type EmailConfigResponseDto,
     EmailType,
-    Languages,
+    Languages, type TripReviewDataResponseDto,
     UpdateAppBusinessConfigRequestDto
 } from "@/src/api/openapi";
 import {getAccessToken} from "@/src/server-actions/auth/accessTokenActions";
-import {AdminApi, ISetUSerConfigRequest} from "@/src/api/adminApi";
+import {AdminApi, IGetTripReviewsRequest, ISetUSerConfigRequest, IUpdateTripReviewRequest} from "@/src/api/adminApi";
 import {handleActionCall} from "@/src/server-actions/baseAction";
 
 export async function getEmailConfig(): Promise<EmailConfigResponseDto> {
@@ -16,6 +16,22 @@ export async function getEmailConfig(): Promise<EmailConfigResponseDto> {
         const accessToken = await getAccessToken();
         const adminApi = new AdminApi(accessToken);
         return await adminApi.getEmailConfig();
+    })
+}
+
+export async function getTripReviews(req: IGetTripReviewsRequest): Promise<TripReviewDataResponseDto[]> {
+    return await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const adminApi = new AdminApi(accessToken);
+        return await adminApi.getTripReviews(req);
+    })
+}
+
+export async function updateTripReview(req: IUpdateTripReviewRequest): Promise<void> {
+    return await handleActionCall(async () => {
+        const accessToken = await getAccessToken();
+        const adminApi = new AdminApi(accessToken);
+        return await adminApi.updateTripReview(req);
     })
 }
 

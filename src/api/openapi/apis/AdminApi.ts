@@ -17,8 +17,10 @@ import * as runtime from '../runtime';
 import type {
   AppBusinessConfigResponseDto,
   EmailConfigResponseDto,
+  TripReviewDataResponseDto,
   UpdateAppBusinessConfigRequestDto,
   UpdateEmailConfig,
+  UpdateTripReviewRequestDto,
   UpdateUserConfigRequestDto,
   UserConfigRequestDto,
   UserConfigResponseDto,
@@ -28,10 +30,14 @@ import {
     AppBusinessConfigResponseDtoToJSON,
     EmailConfigResponseDtoFromJSON,
     EmailConfigResponseDtoToJSON,
+    TripReviewDataResponseDtoFromJSON,
+    TripReviewDataResponseDtoToJSON,
     UpdateAppBusinessConfigRequestDtoFromJSON,
     UpdateAppBusinessConfigRequestDtoToJSON,
     UpdateEmailConfigFromJSON,
     UpdateEmailConfigToJSON,
+    UpdateTripReviewRequestDtoFromJSON,
+    UpdateTripReviewRequestDtoToJSON,
     UpdateUserConfigRequestDtoFromJSON,
     UpdateUserConfigRequestDtoToJSON,
     UserConfigRequestDtoFromJSON,
@@ -40,12 +46,21 @@ import {
     UserConfigResponseDtoToJSON,
 } from '../models/index';
 
+export interface ApiAdminAllReviewsGetRequest {
+    limit: number;
+    offset: number;
+}
+
 export interface ApiAdminAppConfigPostRequest {
     updateAppBusinessConfigRequestDto?: UpdateAppBusinessConfigRequestDto;
 }
 
 export interface ApiAdminEmailConfigPostRequest {
     updateEmailConfig?: UpdateEmailConfig;
+}
+
+export interface ApiAdminUpdateReviewPostRequest {
+    updateTripReviewRequestDto?: UpdateTripReviewRequestDto;
 }
 
 export interface ApiAdminUserConfigGetRequest {
@@ -60,6 +75,63 @@ export interface ApiAdminUserConfigPostRequest {
  * 
  */
 export class AdminApi extends runtime.BaseAPI {
+
+    /**
+     */
+    async apiAdminAllReviewsGetRaw(requestParameters: ApiAdminAllReviewsGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<TripReviewDataResponseDto>>> {
+        if (requestParameters['limit'] == null) {
+            throw new runtime.RequiredError(
+                'limit',
+                'Required parameter "limit" was null or undefined when calling apiAdminAllReviewsGet().'
+            );
+        }
+
+        if (requestParameters['offset'] == null) {
+            throw new runtime.RequiredError(
+                'offset',
+                'Required parameter "offset" was null or undefined when calling apiAdminAllReviewsGet().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        if (requestParameters['limit'] != null) {
+            queryParameters['Limit'] = requestParameters['limit'];
+        }
+
+        if (requestParameters['offset'] != null) {
+            queryParameters['Offset'] = requestParameters['offset'];
+        }
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/Admin/allReviews`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(TripReviewDataResponseDtoFromJSON));
+    }
+
+    /**
+     */
+    async apiAdminAllReviewsGet(requestParameters: ApiAdminAllReviewsGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<TripReviewDataResponseDto>> {
+        const response = await this.apiAdminAllReviewsGetRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
 
     /**
      */
@@ -203,6 +275,43 @@ export class AdminApi extends runtime.BaseAPI {
      */
     async apiAdminEmailConfigPost(requestParameters: ApiAdminEmailConfigPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.apiAdminEmailConfigPostRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     */
+    async apiAdminUpdateReviewPostRaw(requestParameters: ApiAdminUpdateReviewPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearer", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+
+        let urlPath = `/api/Admin/updateReview`;
+
+        const response = await this.request({
+            path: urlPath,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdateTripReviewRequestDtoToJSON(requestParameters['updateTripReviewRequestDto']),
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async apiAdminUpdateReviewPost(requestParameters: ApiAdminUpdateReviewPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.apiAdminUpdateReviewPostRaw(requestParameters, initOverrides);
     }
 
     /**

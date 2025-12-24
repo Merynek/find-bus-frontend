@@ -115,6 +115,7 @@ docs/TripState.md
 docs/UpdateAppBusinessConfigRequestDto.md
 docs/UpdateEmailConfig.md
 docs/UpdateOfferRequestDto.md
+docs/UpdateTripReviewRequestDto.md
 docs/UpdateUserConfigRequestDto.md
 docs/UpdateVehicleRequestDto.md
 docs/UploadDocumentItemRequestDto.md
@@ -257,6 +258,7 @@ models/TripState.ts
 models/UpdateAppBusinessConfigRequestDto.ts
 models/UpdateEmailConfig.ts
 models/UpdateOfferRequestDto.ts
+models/UpdateTripReviewRequestDto.ts
 models/UpdateUserConfigRequestDto.ts
 models/UpdateVehicleRequestDto.ts
 models/UploadDocumentItemRequestDto.ts
