@@ -2,13 +2,18 @@ import {ApiConfiguration} from "./apiConfiguration";
 import * as OpenApi from "./openapi";
 import {handleApiCall, IApiRequest} from "./toolsApi";
 import {
-    ModerationStatus,
+    ModerationStatus, type ReviewResponseDto,
     SubmitReviewRequestDto,
     type TripReviewDataResponseDto,
     TripReviewResponseDto
 } from "./openapi";
 
 export interface IGetTripReviewsRequest extends IApiRequest {
+    offset: number;
+    limit: number;
+}
+
+export interface IGetPlatformReviewsRequest extends IApiRequest {
     offset: number;
     limit: number;
 }
@@ -24,6 +29,10 @@ export interface IGetTripReviewForSubmit extends IApiRequest {
 
 export interface ISubmitTripReview extends IApiRequest {
     review: SubmitReviewRequestDto;
+}
+
+export interface IGetUserTripReviews extends IApiRequest {
+    userId: number;
 }
 
 export class ReviewApi {
@@ -62,6 +71,19 @@ export class ReviewApi {
     public async submitTripReview(req: ISubmitTripReview): Promise<void> {
         return await handleApiCall(this._api.apiReviewSubmitReviewPost({
             submitReviewRequestDto: req.review
+        }));
+    }
+
+    public async getUserTripReviews(req: IGetUserTripReviews): Promise<ReviewResponseDto[]> {
+        return await handleApiCall(this._api.apiReviewUserReviewsGet({
+            userId: req.userId
+        }));
+    }
+
+    public async getPlatformReviews(req: IGetPlatformReviewsRequest): Promise<ReviewResponseDto[]> {
+        return await handleApiCall(this._api.apiReviewPlatformReviewsGet({
+            limit: req.limit,
+            offset: req.offset
         }));
     }
 }

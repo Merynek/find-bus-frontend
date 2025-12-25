@@ -15,6 +15,7 @@ import {VehicleService} from "@/src/services/VehicleService";
 import {useApp} from "@/src/context/AppContext";
 import {useCurrentLocale} from "@/src/hooks/translateHook";
 import {Vehicle} from "@/src/data/vehicle/vehicle";
+import {UserReviews} from "@/src/components/compositions/reviews/user-reviews/user-reviews";
 
 export interface ITripOfferProps {
     offer: Offer;
@@ -90,6 +91,7 @@ export const TripOffer = observer((props: ITripOfferProps) => {
             <span>Vehicle: </span>
             <div>{_renderVehicle(offer.vehicle)}</div>
         </div>
+        <UserReviews userId={offer.user.id} />
         {offer.documents.length > 0 && <div className={styles.line}>
             <span>Invoices: </span>
             <div>{offer.documents.map(_renderDocument)}</div>

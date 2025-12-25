@@ -13,6 +13,7 @@ import {Icon} from "../../../components/icon/icon";
 import {IconType} from "@/src/enums/icon.enum";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
 import {observer} from "mobx-react";
+import {UserReviews} from "@/src/components/compositions/reviews/user-reviews/user-reviews";
 
 export interface ITripDetailProps {
     trip: TripResponseDto;
@@ -90,5 +91,6 @@ export const TripDetail = observer((props: ITripDetailProps) => {
         <div>
             {trip.routes.map(_renderRoute)}
         </div>
+        <UserReviews userId={trip.ownerId} />
     </div>
 });
