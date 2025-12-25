@@ -21,6 +21,7 @@ const HomePage = (props: IHomePageProps) => {
             return <OverallReviewForm
                 key={r.id}
                 review={r}
+                readonly={true}
             />
         })}
     </div>

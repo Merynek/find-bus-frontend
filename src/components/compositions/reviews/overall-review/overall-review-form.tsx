@@ -20,6 +20,7 @@ export const OverallReviewForm = observer((props: IOverallReviewFormProps) => {
         <Text text={"TARGET:" + review.targetType.toString()} fontSize={FontSize.L_32} />
         <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
             <ReviewStars
+                readonly={readonly}
                 rating={review.overallRating}
                 onChange={(val) => {
                     review.overallRating = val;

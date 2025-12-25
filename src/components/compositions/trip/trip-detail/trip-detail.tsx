@@ -14,6 +14,7 @@ import {IconType} from "@/src/enums/icon.enum";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
 import {observer} from "mobx-react";
 import {UserReviews} from "@/src/components/compositions/reviews/user-reviews/user-reviews";
+import {useLoggedUser} from "@/src/hooks/authenticationHook";
 
 export interface ITripDetailProps {
     trip: TripResponseDto;
@@ -22,6 +23,7 @@ export interface ITripDetailProps {
 export const TripDetail = observer((props: ITripDetailProps) => {
     const trip = useInit(() => TripConverter.toInstance(props.trip));
     const locale = useCurrentLocale();
+    const {user} = useLoggedUser();
 
     const _renderRoute = (route: Route, index: number) => {
         return <div key={index}>
@@ -91,6 +93,6 @@ export const TripDetail = observer((props: ITripDetailProps) => {
         <div>
             {trip.routes.map(_renderRoute)}
         </div>
-        <UserReviews userId={trip.ownerId} />
+        {user && <UserReviews userId={trip.ownerId} />}
     </div>
 });

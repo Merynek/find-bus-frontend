@@ -28,6 +28,7 @@ export enum ROUTES {
     TRIP_LIST = "/trips",
     TRIP_DRAFT_LIST = "/drafts",
     TRIP = `/trip/[${URL_PARAMS.TRIP_ID}]`,
+    ADMIN_REVIEWS = "/admin/reviews",
     ADMIN_TRIPS = "/admin/trips",
     APP_CONFIG = "/admin/config",
     EMAIL_CONFIG = "/admin/emails",

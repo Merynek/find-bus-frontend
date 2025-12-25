@@ -73,6 +73,10 @@ export const routing = defineRouting({
             [LOCALES.cs_CZ]: `/cesta/[${URL_PARAMS.TRIP_ID}]`,
             [LOCALES.en_US]: ROUTES.TRIP
         },
+        [ROUTES.ADMIN_REVIEWS]: {
+            [LOCALES.cs_CZ]: '/admin/recenze',
+            [LOCALES.en_US]: ROUTES.ADMIN_REVIEWS
+        },
         [ROUTES.ADMIN_TRIPS]: {
             [LOCALES.cs_CZ]: '/admin/cesty',
             [LOCALES.en_US]: ROUTES.ADMIN_TRIPS

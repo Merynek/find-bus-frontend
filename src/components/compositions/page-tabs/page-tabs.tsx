@@ -21,14 +21,14 @@ export const PageTabs = (props: IPageTabsProps) => {
 
     return <nav className={styles.layout}>
         <LayoutFlexRow htmlTag={"ul"} style={{width: "100%"}} gap={FlexGap.LARGE_32}>
-            <li>
+            {isNotAdmin && <li>
                 <ButtonLink
                     route={{route: ROUTES.HOME}}
                     label={t("home")}
                     type={route === ROUTES.HOME ? ButtonType.YELLOW : ButtonType.BASE}
                     size={ButtonSize.BUTTON_SIZE_M}
                 />
-            </li>
+            </li>}
             {isNotAdmin && <ButtonLink
                 route={{route: ROUTES.CREATE_TRIP}}
                 label={t("createTrip")}
@@ -40,6 +40,14 @@ export const PageTabs = (props: IPageTabsProps) => {
                     route={{route: ROUTES.TRIP_LIST}}
                     label={t("tripList")}
                     type={route === ROUTES.TRIP_LIST ? ButtonType.YELLOW : ButtonType.BASE}
+                    size={ButtonSize.BUTTON_SIZE_M}
+                />
+            </li>}
+            {user?.role === UserRole.ADMIN && <li>
+                <ButtonLink
+                    route={{route: ROUTES.ADMIN_REVIEWS}}
+                    label={t("adminReviews")}
+                    type={route === ROUTES.ADMIN_REVIEWS ? ButtonType.YELLOW : ButtonType.BASE}
                     size={ButtonSize.BUTTON_SIZE_M}
                 />
             </li>}

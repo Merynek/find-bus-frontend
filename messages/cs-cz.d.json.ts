@@ -158,6 +158,7 @@ declare const messages: {
       "tripDraftList": "Koncepty",
       "adminUsers": "Uživatelé",
       "adminTrips": "Admin Cesty",
+      "adminReviews": "Admin recenze",
       "userSettings": "Uživatelské nastavení",
       "vehicles" : "Vozidla",
       "appConfig": "Nastavení aplikace",

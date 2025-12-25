@@ -14,9 +14,13 @@ interface IUserReviewsProps {
 export const UserReviews = (props: IUserReviewsProps) => {
     const [reviews, setReviews] = useState<Review[]>([]);
 
-    useMount(async () => {
+    const init = async () => {
         const _userReviews = await ReviewService.getUserTripReviews({userId: props.userId});
         setReviews(_userReviews);
+    }
+
+    useMount(() => {
+        init();
     })
 
     return reviews.length > 0 ? <LayoutFlexColumn>

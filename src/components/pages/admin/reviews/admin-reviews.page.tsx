@@ -14,7 +14,7 @@ const AdminReviewsPage = (props: IAdminReviewsPageProps) => {
     const {reviews} = props;
 
     const renderReview = (data: TripReview, index: number) => {
-        return <LayoutFlexColumn gap={FlexGap.SMALL_16} key={index} style={{border: "2px solid orange"}}>
+        return <LayoutFlexColumn gap={FlexGap.SMALL_16} key={index} style={{border: "5px solid orange"}}>
             <TripInfoView tripInfo={data.trip} />
             <AdminReviewItem review={ReviewConverter.toJson(data.userReview)} />
             <AdminReviewItem review={ReviewConverter.toJson(data.platformReview)} />
@@ -22,7 +22,7 @@ const AdminReviewsPage = (props: IAdminReviewsPageProps) => {
     }
 
     return <div>
-        <LayoutFlexColumn gap={FlexGap.TINY_8}>
+        <LayoutFlexColumn gap={FlexGap.MEDIUM_24}>
             {reviews.map((r, i) => renderReview(r, i))}
         </LayoutFlexColumn>
     </div>

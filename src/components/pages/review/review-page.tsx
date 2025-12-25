@@ -15,6 +15,8 @@ import {ReviewConverter} from "@/src/converters/review/review-converter";
 import {useApp} from "@/src/context/AppContext";
 import {getApiErrorMessage} from "@/src/utils/handleApiErrors";
 import {ReviewService} from "@/src/services/ReviewService";
+import {ROUTES, URL_PARAMS} from "@/src/enums/router.enum";
+import {useRouter} from "@/src/i18n/navigation";
 
 interface IReviewPageProps {
     token: string;
@@ -24,6 +26,7 @@ interface IReviewPageProps {
 export const ReviewPage = (props: IReviewPageProps) => {
     const {token} = props;
     const {showLoader, hideLoader} = useApp();
+    const router = useRouter();
     const reviewData = props.data ? TripReviewDataConverter.toInstance(props.data) : null;
 
     const renderReviewForm = (data: TripReview) => {
@@ -50,6 +53,9 @@ export const ReviewPage = (props: IReviewPageProps) => {
                                 token: token
                             }
                         })
+                        router.push({
+                            pathname: ROUTES.HOME
+                        });
                     } catch (e) {
                         alert(getApiErrorMessage(e));
                     }
@@ -60,7 +66,7 @@ export const ReviewPage = (props: IReviewPageProps) => {
     }
 
     return reviewData ? renderReviewForm(reviewData): <Text
-        text={"Review nenalezeno nebo již bylo vyplněno"}
+        text={"Review nenalezeno nebo to neni urceno pro vas a nebo již bylo vyplněno"}
         fontSize={FontSize.L_32}
     />
 };
