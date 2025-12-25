@@ -50,6 +50,12 @@ import {
 export interface ReviewResponseDto {
     /**
      * 
+     * @type {number}
+     * @memberof ReviewResponseDto
+     */
+    id: number;
+    /**
+     * 
      * @type {ReviewTargetType}
      * @memberof ReviewResponseDto
      */
@@ -92,6 +98,7 @@ export interface ReviewResponseDto {
  * Check if a given object implements the ReviewResponseDto interface.
  */
 export function instanceOfReviewResponseDto(value: object): value is ReviewResponseDto {
+    if (!('id' in value) || value['id'] === undefined) return false;
     if (!('targetType' in value) || value['targetType'] === undefined) return false;
     if (!('visibility' in value) || value['visibility'] === undefined) return false;
     if (!('overallRating' in value) || value['overallRating'] === undefined) return false;
@@ -111,6 +118,7 @@ export function ReviewResponseDtoFromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         
+        'id': json['id'],
         'targetType': ReviewTargetTypeFromJSON(json['targetType']),
         'visibility': VisibilityStatusFromJSON(json['visibility']),
         'overallRating': json['overallRating'],
@@ -131,6 +139,7 @@ export function ReviewResponseDtoToJSONTyped(value?: ReviewResponseDto | null, i
 
     return {
         
+        'id': value['id'],
         'targetType': ReviewTargetTypeToJSON(value['targetType']),
         'visibility': VisibilityStatusToJSON(value['visibility']),
         'overallRating': value['overallRating'],

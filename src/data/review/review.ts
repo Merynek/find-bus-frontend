@@ -3,6 +3,7 @@ import {DetailReview} from "@/src/data/review/detail-review";
 import { makeObservable, observable } from "mobx";
 
 interface IReview {
+    id: number;
     targetType: ReviewTargetType;
     visibility: VisibilityStatus;
     overallRating: number;
@@ -12,14 +13,16 @@ interface IReview {
 }
 
 export class Review {
+    public id: number;
     public targetType: ReviewTargetType;
     public visibility: VisibilityStatus;
     @observable public overallRating: number;
     @observable public comment: string;
-    public moderation: ModerationStatus;
+    @observable public moderation: ModerationStatus;
     public details: DetailReview[];
 
     constructor(data: IReview) {
+        this.id = data.id;
         this.targetType = data.targetType;
         this.visibility = data.visibility;
         this.overallRating = data.overallRating;

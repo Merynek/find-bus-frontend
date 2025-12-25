@@ -6,6 +6,7 @@
 
 Name | Type
 ------------ | -------------
+`id` | number
 `targetType` | [ReviewTargetType](ReviewTargetType.md)
 `visibility` | [VisibilityStatus](VisibilityStatus.md)
 `overallRating` | number
@@ -20,6 +21,7 @@ import type { ReviewResponseDto } from ''
 
 // TODO: Update the object below with actual values
 const example = {
+  "id": null,
   "targetType": null,
   "visibility": null,
   "overallRating": null,

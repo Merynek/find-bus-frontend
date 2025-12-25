@@ -8,6 +8,7 @@ import {DetailReviewConverter} from "@/src/converters/review/detail-review-conve
 export class ReviewConverter {
     public static toInstance(response: ReviewResponseDto): Review {
         return new Review({
+            id: response.id,
             visibility: response.visibility,
             comment: response.comment,
             overallRating: response.overallRating,
@@ -19,6 +20,7 @@ export class ReviewConverter {
 
     public static toJson(review: Review): ReviewResponseDto {
         return {
+            id: review.id,
             comment: review.comment,
             overallRating: review.overallRating,
             targetType: review.targetType,
