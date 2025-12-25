@@ -1,7 +1,7 @@
 import {PageProps} from "@/types/page.types";
 import {handleApiUnauthorizedError} from "@/src/utils/handleApiErrors";
-import {AdminService} from "@/src/services/AdminService";
 import AdminReviewsPage from "@/src/components/pages/admin/reviews/admin-reviews.page";
+import {ReviewService} from "@/src/services/ReviewService";
 
 interface ISearchParams {
     offset?: string;
@@ -12,7 +12,7 @@ async function PageWrapper(props: PageProps<Record<string, never>, ISearchParams
     const searchParams = await props.searchParams;
     const params = await props.params;
     try {
-        const reviews = await AdminService.getTripReviews({
+        const reviews = await ReviewService.getTripReviews({
             offset: searchParams?.offset ? Number(searchParams?.offset) : 0,
             limit: searchParams?.limit ? Number(searchParams?.limit) : 200
         });

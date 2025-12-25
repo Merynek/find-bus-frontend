@@ -3,15 +3,14 @@
 import {
     TripItemResponseDto,
     TripRecommendationRequestDto, type TripRecommendationResponseDto,
-    TripResponseDto, type TripReviewResponseDto
+    TripResponseDto
 } from "@/src/api/openapi";
 import {getAccessToken} from "@/src/server-actions/auth/accessTokenActions";
 import {
-    IGetTripReview,
     IGetTripsRequest,
     IPublishTripRequest,
     ISaveTripRequest,
-    ISaveUnauthorizedTripRequest, ISubmitTripReview,
+    ISaveUnauthorizedTripRequest,
     TripApi
 } from "@/src/api/tripApi";
 import {handleActionCall} from "@/src/server-actions/baseAction";
@@ -84,23 +83,5 @@ export async function getTripRecommendation(tripRecommendation: TripRecommendati
         return await tripApi.getTripRecommendation({
             trip: tripRecommendation
         })
-    })
-}
-
-export async function getTripReview(req: IGetTripReview): Promise<TripReviewResponseDto> {
-    return await handleActionCall(async () => {
-        const accessToken = await getAccessToken();
-        const tripApi = new TripApi(accessToken);
-
-        return await tripApi.getTripReview(req)
-    })
-}
-
-export async function submitTripReview(req: ISubmitTripReview): Promise<void> {
-    return await handleActionCall(async () => {
-        const accessToken = await getAccessToken();
-        const tripApi = new TripApi(accessToken);
-
-        return await tripApi.submitTripReview(req)
     })
 }

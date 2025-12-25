@@ -11,10 +11,10 @@ import {FlexGap} from "@/src/enums/layout.enum";
 import {TripReview} from "@/src/data/review/trip-review";
 import {TripInfoView} from "@/src/components/compositions/trip/trip-info-view/trip-info-view";
 import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
-import {TripService} from "@/src/services/TripService";
 import {ReviewConverter} from "@/src/converters/review/review-converter";
 import {useApp} from "@/src/context/AppContext";
 import {getApiErrorMessage} from "@/src/utils/handleApiErrors";
+import {ReviewService} from "@/src/services/ReviewService";
 
 interface IReviewPageProps {
     token: string;
@@ -43,7 +43,7 @@ export const ReviewPage = (props: IReviewPageProps) => {
                 onClick={async () => {
                     showLoader();
                     try {
-                        await TripService.submitTripReview({
+                        await ReviewService.submitTripReview({
                             review: {
                                 userReview: ReviewConverter.toServer(data.userReview),
                                 platformReview: ReviewConverter.toServer(data.platformReview),

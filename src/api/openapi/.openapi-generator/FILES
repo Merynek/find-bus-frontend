@@ -1,6 +1,7 @@
 apis/AdminApi.ts
 apis/AuthorizeApi.ts
 apis/RegistrationApi.ts
+apis/ReviewApi.ts
 apis/TripApi.ts
 apis/TripOfferApi.ts
 apis/UsersApi.ts
@@ -70,6 +71,7 @@ docs/PublishTripRequestDto.md
 docs/RefreshTokenRequestDto.md
 docs/RegistrationApi.md
 docs/RegistrationUserRequestDto.md
+docs/ReviewApi.md
 docs/ReviewCriterionType.md
 docs/ReviewDetailResponseDto.md
 docs/ReviewRequestDto.md

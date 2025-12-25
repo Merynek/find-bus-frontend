@@ -59,7 +59,8 @@ export function getRandomTripItem(): TripItem {
         handicappedUserCount: getRandomNumber(0, 5),
         hasOffers: getRandomBoolean(),
         totalDistanceInMeters: getRandomNumber(10000, 35000),
-        created: getRandomDate()
+        created: getRandomDate(),
+        ownerRating: getRandomBoolean() ? getRandomNumber(1, 5) : null
     })
 }
 

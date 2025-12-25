@@ -22,6 +22,7 @@ Name | Type
 `isMine` | boolean
 `hasOffers` | boolean
 `created` | Date
+`rating` | number
 
 ## Example
 
@@ -46,6 +47,7 @@ const example = {
   "isMine": null,
   "hasOffers": null,
   "created": null,
+  "rating": null,
 } satisfies TripItemResponseDto
 
 console.log(example)

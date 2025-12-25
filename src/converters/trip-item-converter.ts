@@ -25,7 +25,8 @@ export class TripItemConverter {
             endOrder: apiTrip.endOrder == null ? undefined : apiTrip.endOrder,
             hasOffers: apiTrip.hasOffers,
             totalDistanceInMeters: apiTrip.totalDistanceInMeters,
-            created: apiTrip.created
+            created: apiTrip.created,
+            ownerRating: apiTrip.rating || null
         })
     }
 
@@ -46,7 +47,8 @@ export class TripItemConverter {
             state: item.state,
             hasOffers: item.hasOffers,
             totalDistanceInMeters: item.totalDistanceInMeters,
-            created: item.created
+            created: item.created,
+            rating: item.ownerRating
         }
     }
 

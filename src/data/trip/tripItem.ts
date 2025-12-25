@@ -18,6 +18,7 @@ interface ITripItem {
     hasOffers: boolean;
     totalDistanceInMeters: number;
     created: Date;
+    ownerRating: number|null;
 }
 
 export class TripItem {
@@ -37,6 +38,7 @@ export class TripItem {
     public hasOffers: boolean;
     public totalDistanceInMeters: number;
     public created: Date;
+    public ownerRating: number|null;
 
     constructor(settings: ITripItem) {
         this.id = settings.id;
@@ -55,5 +57,6 @@ export class TripItem {
         this.hasOffers = settings.hasOffers;
         this.totalDistanceInMeters = settings.totalDistanceInMeters;
         this.created = settings.created;
+        this.ownerRating = settings.ownerRating;
     }
 }

@@ -1,5 +1,5 @@
 import {getRandomNumber} from "@/src/utils/common";
-import {getRandomEnum} from "./tools";
+import {getRandomEnum, getRandomId} from "./tools";
 import {
     ModerationStatus,
     ReviewCriterionType,
@@ -33,6 +33,7 @@ export function getRandomReview() {
     }
 
     return new Review({
+        id: getRandomId(),
         comment: getRandomText(5),
         moderation: getRandomEnum(ModerationStatus),
         targetType: getRandomEnum(ReviewTargetType),

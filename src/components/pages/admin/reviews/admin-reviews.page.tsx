@@ -4,6 +4,7 @@ import {FlexGap} from "@/src/enums/layout.enum";
 import {TripReview} from "@/src/data/review/trip-review";
 import {TripInfoView} from "@/src/components/compositions/trip/trip-info-view/trip-info-view";
 import {AdminReviewItem} from "@/src/components/compositions/reviews/admin-review-item/admin-review-item";
+import {ReviewConverter} from "@/src/converters/review/review-converter";
 
 interface IAdminReviewsPageProps {
     reviews: TripReview[];
@@ -15,8 +16,8 @@ const AdminReviewsPage = (props: IAdminReviewsPageProps) => {
     const renderReview = (data: TripReview, index: number) => {
         return <LayoutFlexColumn gap={FlexGap.SMALL_16} key={index} style={{border: "2px solid orange"}}>
             <TripInfoView tripInfo={data.trip} />
-            <AdminReviewItem review={data.userReview} />
-            <AdminReviewItem review={data.platformReview} />
+            <AdminReviewItem review={ReviewConverter.toJson(data.userReview)} />
+            <AdminReviewItem review={ReviewConverter.toJson(data.platformReview)} />
         </LayoutFlexColumn>;
     }
 

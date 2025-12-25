@@ -144,5 +144,8 @@ export const TripListItem = (props: ITripListItemProps) => {
         <div>
             {tripItem.routes.map(_renderRoute)}
         </div>
+        {tripItem.ownerRating && <div>
+            RATING: {tripItem.ownerRating}
+        </div>}
     </div>
 };

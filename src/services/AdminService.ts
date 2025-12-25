@@ -4,36 +4,19 @@ import {
     changeAppBusinessConfig,
     getAppBusinessConfig,
     getEmailConfig,
-    getTripReviews,
-    setEmailConfig, setUserConfig,
-    updateTripReview
+    setEmailConfig, setUserConfig
 } from "@/src/server-actions/admin/adminActions";
 import {EmailType, Languages} from "@/src/api/openapi";
 import {EmailConfigConverter} from "@/src/converters/admin/email-config-converter";
 import {AppBusinessConfigConverter} from "@/src/converters/admin/app-business-config-converter";
 import {BaseService} from "@/src/services/BaseService";
-import {IGetTripReviewsRequest, ISetUSerConfigRequest, IUpdateTripReviewRequest} from "@/src/api/adminApi";
-import {TripReviewDataConverter} from "@/src/converters/review/trip-review-data-converter";
-import {TripReview} from "@/src/data/review/trip-review";
+import {ISetUSerConfigRequest} from "@/src/api/adminApi";
 
 export class AdminService extends BaseService {
     public static async getEmailConfig(): Promise<EmailConfig> {
         return await this.handleActionCall(async () => {
             const data = await getEmailConfig();
             return EmailConfigConverter.toInstance(data);
-        });
-    }
-
-    public static async getTripReviews(req: IGetTripReviewsRequest): Promise<TripReview[]> {
-        return await this.handleActionCall(async () => {
-            const data = await getTripReviews(req);
-            return data.map(TripReviewDataConverter.toInstance)
-        });
-    }
-
-    public static async updateTripReview(req: IUpdateTripReviewRequest): Promise<void> {
-        return await this.handleActionCall(async () => {
-            return await updateTripReview(req);
         });
     }
 

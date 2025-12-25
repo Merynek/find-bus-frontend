@@ -18,12 +18,10 @@ import type {
   PublishTripRequestDto,
   SaveTripRequestDto,
   SaveUnauthorizedTripRequestDto,
-  SubmitReviewRequestDto,
   TripItemResponseDto,
   TripRecommendationRequestDto,
   TripRecommendationResponseDto,
   TripResponseDto,
-  TripReviewResponseDto,
 } from '../models/index';
 import {
     PublishTripRequestDtoFromJSON,
@@ -32,8 +30,6 @@ import {
     SaveTripRequestDtoToJSON,
     SaveUnauthorizedTripRequestDtoFromJSON,
     SaveUnauthorizedTripRequestDtoToJSON,
-    SubmitReviewRequestDtoFromJSON,
-    SubmitReviewRequestDtoToJSON,
     TripItemResponseDtoFromJSON,
     TripItemResponseDtoToJSON,
     TripRecommendationRequestDtoFromJSON,
@@ -42,8 +38,6 @@ import {
     TripRecommendationResponseDtoToJSON,
     TripResponseDtoFromJSON,
     TripResponseDtoToJSON,
-    TripReviewResponseDtoFromJSON,
-    TripReviewResponseDtoToJSON,
 } from '../models/index';
 
 export interface ApiTripDraftGetRequest {
@@ -75,16 +69,8 @@ export interface ApiTripRecommendationPostRequest {
     tripRecommendationRequestDto?: TripRecommendationRequestDto;
 }
 
-export interface ApiTripSubmitReviewPostRequest {
-    submitReviewRequestDto?: SubmitReviewRequestDto;
-}
-
 export interface ApiTripTripGetRequest {
     tripId: number;
-}
-
-export interface ApiTripTripReviewGetRequest {
-    token: string;
 }
 
 export interface ApiTripUnauthorizedDraftPostRequest {
@@ -385,43 +371,6 @@ export class TripApi extends runtime.BaseAPI {
 
     /**
      */
-    async apiTripSubmitReviewPostRaw(requestParameters: ApiTripSubmitReviewPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        headerParameters['Content-Type'] = 'application/json';
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/api/Trip/submitReview`;
-
-        const response = await this.request({
-            path: urlPath,
-            method: 'POST',
-            headers: headerParameters,
-            query: queryParameters,
-            body: SubmitReviewRequestDtoToJSON(requestParameters['submitReviewRequestDto']),
-        }, initOverrides);
-
-        return new runtime.VoidApiResponse(response);
-    }
-
-    /**
-     */
-    async apiTripSubmitReviewPost(requestParameters: ApiTripSubmitReviewPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
-        await this.apiTripSubmitReviewPostRaw(requestParameters, initOverrides);
-    }
-
-    /**
-     */
     async apiTripTripGetRaw(requestParameters: ApiTripTripGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TripResponseDto>> {
         if (requestParameters['tripId'] == null) {
             throw new runtime.RequiredError(
@@ -463,52 +412,6 @@ export class TripApi extends runtime.BaseAPI {
      */
     async apiTripTripGet(requestParameters: ApiTripTripGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TripResponseDto> {
         const response = await this.apiTripTripGetRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     */
-    async apiTripTripReviewGetRaw(requestParameters: ApiTripTripReviewGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TripReviewResponseDto>> {
-        if (requestParameters['token'] == null) {
-            throw new runtime.RequiredError(
-                'token',
-                'Required parameter "token" was null or undefined when calling apiTripTripReviewGet().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        if (requestParameters['token'] != null) {
-            queryParameters['Token'] = requestParameters['token'];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearer", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-
-        let urlPath = `/api/Trip/tripReview`;
-
-        const response = await this.request({
-            path: urlPath,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => TripReviewResponseDtoFromJSON(jsonValue));
-    }
-
-    /**
-     */
-    async apiTripTripReviewGet(requestParameters: ApiTripTripReviewGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TripReviewResponseDto> {
-        const response = await this.apiTripTripReviewGetRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

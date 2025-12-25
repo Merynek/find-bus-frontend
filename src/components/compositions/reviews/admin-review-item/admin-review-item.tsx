@@ -1,19 +1,25 @@
+"use client"
+
 import {OverallReviewForm} from "@/src/components/compositions/reviews/overall-review/overall-review-form";
-import {Review} from "@/src/data/review/review";
 import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-column/layout-flex-column";
 import {ComboBox, IComboBoxItem} from "@/src/components/components/inputs/combo-box/combo-box";
-import {type ModerationStatus} from "@/src/api/openapi";
+import {ModerationStatus, type ReviewResponseDto} from "@/src/api/openapi";
 import {ButtonClick, ButtonSize, ButtonType} from "@/src/components/components/button/button";
 import {getApiErrorMessage} from "@/src/utils/handleApiErrors";
-import {AdminService} from "@/src/services/AdminService";
 import {reloadPage} from "@/src/utils/common";
+import {useApp} from "@/src/context/AppContext";
+import {ReviewService} from "@/src/services/ReviewService";
+import { observer } from "mobx-react";
+import {useInit} from "@/src/hooks/lifecycleHooks";
+import {ReviewConverter} from "@/src/converters/review/review-converter";
 
 interface IAdminReviewItemProps {
-    review: Review;
+    review: ReviewResponseDto;
 }
 
-export const AdminReviewItem = (props: IAdminReviewItemProps) => {
-    const {review} = props;
+export const AdminReviewItem = observer((props: IAdminReviewItemProps) => {
+    const review = useInit(() => ReviewConverter.toInstance(props.review));
+    const {showLoader, hideLoader} = useApp();
 
     const _createOption = (status: ModerationStatus): IComboBoxItem<string> => {
         return {
@@ -37,9 +43,9 @@ export const AdminReviewItem = (props: IAdminReviewItemProps) => {
             instanceId={"moderation status"}
             controlled={true}
             items={options}
-            value={options.find(i => i.value === reason)}
+            value={options.find(i => i.value === review.moderation)}
             onChange={(item) => {
-                onChange(item.value as ModerationStatus);
+                review.moderation = item.value as ModerationStatus;
             }}
         />
         <ButtonClick
@@ -50,7 +56,7 @@ export const AdminReviewItem = (props: IAdminReviewItemProps) => {
             onClick={async () => {
                 showLoader();
                 try {
-                    await AdminService.updateTripReview({
+                    await ReviewService.updateTripReview({
                         reviewId: review.id,
                         moderation: review.moderation
                     })
@@ -62,4 +68,4 @@ export const AdminReviewItem = (props: IAdminReviewItemProps) => {
             }}
         />
     </LayoutFlexColumn>
-}
+});

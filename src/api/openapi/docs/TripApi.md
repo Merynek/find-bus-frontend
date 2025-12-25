@@ -10,9 +10,7 @@ All URIs are relative to *http://localhost*
 | [**apiTripPost**](TripApi.md#apitrippost) | **POST** /api/Trip |  |
 | [**apiTripPublishPost**](TripApi.md#apitrippublishpost) | **POST** /api/Trip/publish |  |
 | [**apiTripRecommendationPost**](TripApi.md#apitriprecommendationpost) | **POST** /api/Trip/recommendation |  |
-| [**apiTripSubmitReviewPost**](TripApi.md#apitripsubmitreviewpost) | **POST** /api/Trip/submitReview |  |
 | [**apiTripTripGet**](TripApi.md#apitriptripget) | **GET** /api/Trip/trip |  |
-| [**apiTripTripReviewGet**](TripApi.md#apitriptripreviewget) | **GET** /api/Trip/tripReview |  |
 | [**apiTripUnauthorizedDraftPost**](TripApi.md#apitripunauthorizeddraftpost) | **POST** /api/Trip/unauthorizedDraft |  |
 
 
@@ -450,75 +448,6 @@ example().catch(console.error);
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 
-## apiTripSubmitReviewPost
-
-> apiTripSubmitReviewPost(submitReviewRequestDto)
-
-
-
-### Example
-
-```ts
-import {
-  Configuration,
-  TripApi,
-} from '';
-import type { ApiTripSubmitReviewPostRequest } from '';
-
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearer
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new TripApi(config);
-
-  const body = {
-    // SubmitReviewRequestDto (optional)
-    submitReviewRequestDto: ...,
-  } satisfies ApiTripSubmitReviewPostRequest;
-
-  try {
-    const data = await api.apiTripSubmitReviewPost(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **submitReviewRequestDto** | [SubmitReviewRequestDto](SubmitReviewRequestDto.md) |  | [Optional] |
-
-### Return type
-
-`void` (Empty response body)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: `application/json`, `text/json`, `application/*+json`
-- **Accept**: Not defined
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | OK |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
-
-
 ## apiTripTripGet
 
 > TripResponseDto apiTripTripGet(tripId)
@@ -569,75 +498,6 @@ example().catch(console.error);
 ### Return type
 
 [**TripResponseDto**](TripResponseDto.md)
-
-### Authorization
-
-[bearer](../README.md#bearer)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: `text/plain`, `application/json`, `text/json`
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-| **200** | OK |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
-
-
-## apiTripTripReviewGet
-
-> TripReviewResponseDto apiTripTripReviewGet(token)
-
-
-
-### Example
-
-```ts
-import {
-  Configuration,
-  TripApi,
-} from '';
-import type { ApiTripTripReviewGetRequest } from '';
-
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const config = new Configuration({ 
-    // Configure HTTP bearer authorization: bearer
-    accessToken: "YOUR BEARER TOKEN",
-  });
-  const api = new TripApi(config);
-
-  const body = {
-    // string
-    token: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-  } satisfies ApiTripTripReviewGetRequest;
-
-  try {
-    const data = await api.apiTripTripReviewGet(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
-```
-
-### Parameters
-
-
-| Name | Type | Description  | Notes |
-|------------- | ------------- | ------------- | -------------|
-| **token** | `string` |  | [Defaults to `undefined`] |
-
-### Return type
-
-[**TripReviewResponseDto**](TripReviewResponseDto.md)
 
 ### Authorization
 

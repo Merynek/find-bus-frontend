@@ -144,6 +144,12 @@ export interface TripItemResponseDto {
      * @memberof TripItemResponseDto
      */
     created: Date;
+    /**
+     * 
+     * @type {number}
+     * @memberof TripItemResponseDto
+     */
+    rating?: number | null;
 }
 
 
@@ -191,6 +197,7 @@ export function TripItemResponseDtoFromJSONTyped(json: any, ignoreDiscriminator:
         'isMine': json['isMine'],
         'hasOffers': json['hasOffers'],
         'created': (new Date(json['created'])),
+        'rating': json['rating'] == null ? undefined : json['rating'],
     };
 }
 
@@ -221,6 +228,7 @@ export function TripItemResponseDtoToJSONTyped(value?: TripItemResponseDto | nul
         'isMine': value['isMine'],
         'hasOffers': value['hasOffers'],
         'created': value['created'].toISOString(),
+        'rating': value['rating'],
     };
 }
 

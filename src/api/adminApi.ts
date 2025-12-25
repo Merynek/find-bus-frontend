@@ -5,7 +5,7 @@ import {
     AppBusinessConfigResponseDto,
     type EmailConfigResponseDto,
     EmailType,
-    Languages, ModerationStatus, type TripReviewDataResponseDto,
+    Languages,
     UpdateAppBusinessConfigRequestDto
 } from "./openapi";
 
@@ -18,16 +18,6 @@ export interface ISetEmailConfigRequest extends IApiRequest {
 export interface ISetUSerConfigRequest extends IApiRequest {
     userId: number;
     tripOfferCommissionPercentage: number;
-}
-
-export interface IGetTripReviewsRequest extends IApiRequest {
-    offset: number;
-    limit: number;
-}
-
-export interface IUpdateTripReviewRequest extends IApiRequest {
-    reviewId: number;
-    moderation: ModerationStatus;
 }
 
 export interface IPostChangeAppBusinessConfigRequest extends IApiRequest {
@@ -47,22 +37,6 @@ export class AdminApi {
 
     public async getEmailConfig(): Promise<EmailConfigResponseDto> {
         return await handleApiCall(this._api.apiAdminEmailConfigGet());
-    }
-
-    public async getTripReviews(req: IGetTripReviewsRequest): Promise<TripReviewDataResponseDto[]> {
-        return await handleApiCall(this._api.apiAdminAllReviewsGet({
-            limit: req.limit,
-            offset: req.offset
-        }));
-    }
-
-    public async updateTripReview(req: IUpdateTripReviewRequest): Promise<void> {
-        return await handleApiCall(this._api.apiAdminUpdateReviewPost({
-            updateTripReviewRequestDto: {
-                reviewId: req.reviewId,
-                moderation: req.moderation
-            }
-        }));
     }
 
     public async setEmailConfig(req: ISetEmailConfigRequest): Promise<void> {
