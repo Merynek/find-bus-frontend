@@ -15,7 +15,7 @@ import {ReviewConverter} from "@/src/converters/review/review-converter";
 import {useApp} from "@/src/context/AppContext";
 import {getApiErrorMessage} from "@/src/utils/handleApiErrors";
 import {ReviewService} from "@/src/services/ReviewService";
-import {ROUTES, URL_PARAMS} from "@/src/enums/router.enum";
+import {ROUTES} from "@/src/enums/router.enum";
 import {useRouter} from "@/src/i18n/navigation";
 
 interface IReviewPageProps {
