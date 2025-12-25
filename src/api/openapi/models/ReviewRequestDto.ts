@@ -38,7 +38,7 @@ export interface ReviewRequestDto {
      * @type {string}
      * @memberof ReviewRequestDto
      */
-    comment: string;
+    comment?: string | null;
     /**
      * 
      * @type {Array<DetailReviewRequestDto>}
@@ -52,7 +52,6 @@ export interface ReviewRequestDto {
  */
 export function instanceOfReviewRequestDto(value: object): value is ReviewRequestDto {
     if (!('overallRating' in value) || value['overallRating'] === undefined) return false;
-    if (!('comment' in value) || value['comment'] === undefined) return false;
     if (!('details' in value) || value['details'] === undefined) return false;
     return true;
 }
@@ -68,7 +67,7 @@ export function ReviewRequestDtoFromJSONTyped(json: any, ignoreDiscriminator: bo
     return {
         
         'overallRating': json['overallRating'],
-        'comment': json['comment'],
+        'comment': json['comment'] == null ? undefined : json['comment'],
         'details': ((json['details'] as Array<any>).map(DetailReviewRequestDtoFromJSON)),
     };
 }

@@ -3253,7 +3253,6 @@
       },
       "DetailReviewRequestDto": {
         "required": [
-          "comment",
           "criterion",
           "rating"
         ],
@@ -3263,8 +3262,8 @@
             "$ref": "#/components/schemas/ReviewCriterionType"
           },
           "comment": {
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "rating": {
             "maximum": 5,
@@ -4100,7 +4099,6 @@
       },
       "ReviewRequestDto": {
         "required": [
-          "comment",
           "details",
           "overallRating"
         ],
@@ -4113,8 +4111,8 @@
             "format": "int32"
           },
           "comment": {
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "details": {
             "type": "array",

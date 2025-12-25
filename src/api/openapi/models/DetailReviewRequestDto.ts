@@ -38,7 +38,7 @@ export interface DetailReviewRequestDto {
      * @type {string}
      * @memberof DetailReviewRequestDto
      */
-    comment: string;
+    comment?: string | null;
     /**
      * 
      * @type {number}
@@ -54,7 +54,6 @@ export interface DetailReviewRequestDto {
  */
 export function instanceOfDetailReviewRequestDto(value: object): value is DetailReviewRequestDto {
     if (!('criterion' in value) || value['criterion'] === undefined) return false;
-    if (!('comment' in value) || value['comment'] === undefined) return false;
     if (!('rating' in value) || value['rating'] === undefined) return false;
     return true;
 }
@@ -70,7 +69,7 @@ export function DetailReviewRequestDtoFromJSONTyped(json: any, ignoreDiscriminat
     return {
         
         'criterion': ReviewCriterionTypeFromJSON(json['criterion']),
-        'comment': json['comment'],
+        'comment': json['comment'] == null ? undefined : json['comment'],
         'rating': json['rating'],
     };
 }
