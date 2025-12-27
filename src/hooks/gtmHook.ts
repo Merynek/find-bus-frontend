@@ -8,6 +8,9 @@ export interface IGaTrackData {
     ecommerce?: IEcommerceTrackData;
     user?: ILoggedUserData;
     _clear?: boolean;
+    trip_id?: number;
+    trip_distance_km?: number;
+    source?: string;
 }
 
 export interface IEcommerceTrackData {

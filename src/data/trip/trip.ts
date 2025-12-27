@@ -6,6 +6,7 @@ import {Stop} from "./stop";
 import {getTripMarkers} from "../../utils/map-markers";
 import {Place} from "../place";
 import {GeoPoint} from "../geoPoint";
+import sum from "lodash/sum";
 
 interface ITrip {
     id: number;
@@ -102,6 +103,11 @@ export class Trip {
     @computed
     get pauses(): string {
         return this.routes.map(r => r.previousPauseInMilliSeconds).toString();
+    }
+
+    @computed
+    get totalDistance(): number {
+        return sum(this.directions.map(r => r.distance));
     }
 
     @action

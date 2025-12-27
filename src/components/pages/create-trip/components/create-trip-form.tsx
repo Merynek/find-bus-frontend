@@ -15,6 +15,8 @@ import {CreateTripRecommendations} from "@/src/components/pages/create-trip/comp
 import {GeoPoint} from "@/src/data/geoPoint";
 import {DirectionsMap} from "@/src/components/components/directions-map/directions-map";
 import {TextBox, TextBoxType} from "@/src/components/components/inputs/text-box/text-box";
+import {useGtm} from "@/src/hooks/gtmHook";
+import {GENERAL_GA_EVENTS} from "@/src/enums/ga.enums";
 
 interface ICreateTripFormProps {
     store: CreateTripPageStore;
@@ -25,6 +27,7 @@ export const CreateTripForm = observer((props: ICreateTripFormProps) => {
     const {store, config} = props;
     const {t} = useTranslate("page.trip");
     const locale = useCurrentLocale();
+    const {sendEvent} = useGtm();
 
     return <>
         <TextBox
@@ -34,6 +37,11 @@ export const CreateTripForm = observer((props: ICreateTripFormProps) => {
             value={store.trip.name}
             onChange={(val) => {
                 store.trip.name = val;
+                if (val.length === 1) {
+                    sendEvent(GENERAL_GA_EVENTS.TRIP_FORM_STARTED, {
+                        source: "create-trip"
+                    })
+                }
             }}
         />
         <NumberBox

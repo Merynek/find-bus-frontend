@@ -9,7 +9,7 @@ import {LayoutFlexColumn} from "@/src/components/components/layout/layout-flex-c
 import {FlexGap} from "@/src/enums/layout.enum";
 import {useInit, useMount, useUnmount} from "@/src/hooks/lifecycleHooks";
 import {useApp} from "@/src/context/AppContext";
-import { useRouter } from "@/src/i18n/navigation";
+import {useRouter} from "@/src/i18n/navigation";
 import {AppBusinessConfigResponseDto, TripResponseDto} from "@/src/api/openapi";
 import {AppBusinessConfigConverter} from "@/src/converters/admin/app-business-config-converter";
 import {TripConverter} from "@/src/converters/trip/trip-converter";
@@ -18,6 +18,8 @@ import {SignModal} from "@/src/components/compositions/sign/sign-modal/sign-moda
 import {useLoggedUser} from "@/src/hooks/authenticationHook";
 import {CreateTripForm} from "@/src/components/pages/create-trip/components/create-trip-form";
 import {getApiErrorMessage} from "@/src/utils/handleApiErrors";
+import {useGtm} from "@/src/hooks/gtmHook";
+import {GENERAL_GA_EVENTS} from "@/src/enums/ga.enums";
 
 interface ICreateTripPageProps {
     cfg: AppBusinessConfigResponseDto;
@@ -31,6 +33,7 @@ const CreateTripPage = (props: ICreateTripPageProps) => {
     const _store = useInit(() => new CreateTripPageStore(config, props.trip ? TripConverter.toInstance(props.trip) : Trip.create({})));
     const {t} = useTranslate("page.trip");
     const {user} = useLoggedUser();
+    const {sendEvent} = useGtm();
     const [signDialogOpen, setSignDialogOpen] = useState(false);
 
     useMount(() => {
@@ -103,6 +106,10 @@ const CreateTripPage = (props: ICreateTripPageProps) => {
                         try {
                             await _store.saveTrip();
                             await _store.publishTrip();
+                            sendEvent(GENERAL_GA_EVENTS.TRIP_CREATED, {
+                                trip_id: _store.trip.id,
+                                trip_distance_km: _store.trip.totalDistance
+                            })
                         } catch (e) {
                             alert(getApiErrorMessage(e));
                         }
@@ -127,6 +134,10 @@ const CreateTripPage = (props: ICreateTripPageProps) => {
                 try {
                     showLoader();
                     await saveTrip();
+                    sendEvent(GENERAL_GA_EVENTS.TRIP_SAVE, {
+                        trip_id: _store.trip.id,
+                        trip_distance_km: _store.trip.totalDistance
+                    })
                     hideLoader();
                 }
                 catch (e) {
